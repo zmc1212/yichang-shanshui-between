@@ -87,14 +87,16 @@ export default function App(){
         onCameraChange:({labels,heading})=>{
           const placed=[];
           const hostWidth=canvasHost.current?.clientWidth||1;
+          const maxLift=hostWidth<700?38:170;
           const measured=(labels||[]).map(label=>({label,el:labelRefs.current[label.id]})).filter(v=>v.el).map(v=>({...v,width:v.el.offsetWidth,height:v.el.offsetHeight,nameHeight:v.el.firstElementChild?.offsetHeight||26,active:v.el.classList.contains('active')})).sort((a,b)=>Number(b.active)-Number(a.active)||a.label.y-b.label.y);
           for(const {label,el,width,height,nameHeight,active} of measured){
             let visible=label.visible,lift=0;
             const center=Math.max(width/2+8,Math.min(hostWidth-width/2-8,label.x));
             let bounds={left:center-width/2-5,right:center+width/2+5,top:label.y-height,bottom:label.y-height+nameHeight+5};
             if(visible){
-              while(placed.some(p=>bounds.left<p.right&&bounds.right>p.left&&bounds.top<p.bottom&&bounds.bottom>p.top)&&lift<230){lift+=nameHeight+8;bounds.top-=nameHeight+8;bounds.bottom-=nameHeight+8;}
-              visible=active||bounds.top>64;
+              const overlaps=()=>placed.some(p=>bounds.left<p.right&&bounds.right>p.left&&bounds.top<p.bottom&&bounds.bottom>p.top);
+              while(overlaps()&&lift+nameHeight+8<=maxLift){lift+=nameHeight+8;bounds.top-=nameHeight+8;bounds.bottom-=nameHeight+8;}
+              visible=active||(bounds.top>64&&!overlaps());
               if(visible)placed.push(bounds);
             }
             el.style.transform=`translate(${label.x}px, ${label.y}px) translate(-50%, -100%)`;

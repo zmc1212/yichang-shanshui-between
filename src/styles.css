@@ -11,3 +11,7 @@
 .label-name{position:relative;transform:translate(var(--label-shift-x,0px),calc(-1 * var(--label-lift,0px)))}
 .label-name::after{content:"";position:absolute;left:50%;top:100%;width:1px;height:var(--label-lift,0px);background:#6f8569;opacity:.5;pointer-events:none}
 .theme-night .label-name::after{background:#adbc8f}
+
+.scene-bottom-caption{background:rgba(var(--paper-rgb),.88);padding:9px 12px;border-radius:4px;backdrop-filter:blur(5px)}
+.scene-attribution{background:rgba(var(--paper-rgb),.9);padding:4px 6px;border-radius:3px;width:max-content;max-width:calc(100% - 30px)}
+@media(max-width:700px){.scene-bottom-caption{padding:8px 10px}.scene-attribution{gap:7px;flex-wrap:wrap;right:auto}}
