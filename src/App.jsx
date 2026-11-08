@@ -52,6 +52,7 @@ export default function App(){
   const [detailTab,setDetailTab]=useState('story');
   const [toast,setToast]=useState('');
   const [reducedMotion,setReducedMotion]=useState(false);
+  const [compact,setCompact]=useState(()=>window.matchMedia('(max-width: 700px)').matches);
   const selected = data?.landmarks.find(l=>l.id===selectedId);
   const landmarks = data?.landmarks || [];
   const filtered = landmarks.filter(l=>`${l.name} ${l.category} ${l.subtitle||''}`.toLowerCase().includes(query.toLowerCase().trim()));
@@ -61,7 +62,10 @@ export default function App(){
     const controller = new AbortController();
     fetch('/data/city.json',{signal:controller.signal}).then(r=>{if(!r.ok)throw new Error('城市数据暂未加载成功');return r.json();}).then(setData).catch(e=>{if(e.name!=='AbortError')setError(e.message);});
     setReducedMotion(window.matchMedia('(prefers-reduced-motion: reduce)').matches);
-    return()=>controller.abort();
+    const media=window.matchMedia('(max-width: 700px)');
+    const updateCompact=()=>setCompact(media.matches);
+    media.addEventListener('change',updateCompact);
+    return()=>{controller.abort();media.removeEventListener('change',updateCompact);};
   },[]);
 
   const chooseLandmark = useCallback((id)=>{
@@ -81,7 +85,23 @@ export default function App(){
       const engine=createCityScene({container:canvasHost.current,data,onSelect:chooseLandmark,
         onReady:()=>{if(alive)setReady(true);},onError:e=>{if(alive)setError(typeof e==='string'?e:'三维场景暂时无法启动，请刷新重试。');},
         onCameraChange:({labels,heading})=>{
-          for(const label of labels||[]){const el=labelRefs.current[label.id];if(el){el.style.transform=`translate(${label.x}px, ${label.y}px) translate(-50%, -100%)`;el.style.opacity=label.visible?'1':'0';el.style.visibility=label.visible?'visible':'hidden';}}
+          const placed=[];
+          const hostWidth=canvasHost.current?.clientWidth||1;
+          const measured=(labels||[]).map(label=>({label,el:labelRefs.current[label.id]})).filter(v=>v.el).map(v=>({...v,width:v.el.offsetWidth,height:v.el.offsetHeight,nameHeight:v.el.firstElementChild?.offsetHeight||26,active:v.el.classList.contains('active')})).sort((a,b)=>Number(b.active)-Number(a.active)||a.label.y-b.label.y);
+          for(const {label,el,width,height,nameHeight,active} of measured){
+            let visible=label.visible,lift=0;
+            const center=Math.max(width/2+8,Math.min(hostWidth-width/2-8,label.x));
+            let bounds={left:center-width/2-5,right:center+width/2+5,top:label.y-height,bottom:label.y-height+nameHeight+5};
+            if(visible){
+              while(placed.some(p=>bounds.left<p.right&&bounds.right>p.left&&bounds.top<p.bottom&&bounds.bottom>p.top)&&lift<230){lift+=nameHeight+8;bounds.top-=nameHeight+8;bounds.bottom-=nameHeight+8;}
+              visible=active||bounds.top>64;
+              if(visible)placed.push(bounds);
+            }
+            el.style.transform=`translate(${label.x}px, ${label.y}px) translate(-50%, -100%)`;
+            el.style.setProperty('--label-lift',`${lift}px`);
+            el.style.setProperty('--label-shift-x',`${center-label.x}px`);
+            el.style.opacity=visible?'1':'0';el.style.visibility=visible?'visible':'hidden';
+          }
           if(compassRef.current)compassRef.current.style.transform=`rotate(${-heading||0}deg)`;
         }
       });
@@ -90,7 +110,7 @@ export default function App(){
     return()=>{alive=false;clearTimeout(captureTimer.current);scene.current?.dispose();scene.current=null;};
   },[data,chooseLandmark]);
 
-  useEffect(()=>{scene.current?.setTheme(theme);},[theme,ready]);
+  useEffect(()=>{scene.current?.setTheme(theme);if(selectedId&&scene.current){clearTimeout(captureTimer.current);captureTimer.current=setTimeout(()=>{try{setDetailImage(scene.current?.getImage?.()||'');}catch{}},1200);}},[theme,ready]);
   useEffect(()=>{scene.current?.setView(view);},[view]);
   useEffect(()=>{if(!toast)return;const t=setTimeout(()=>setToast(''),2600);return()=>clearTimeout(t);},[toast]);
   useEffect(()=>{
@@ -110,11 +130,11 @@ export default function App(){
     <header className="app-header">
       <button className="brand" onClick={reset} aria-label="宜昌江山之间，回到全景"><MapTrifold size={30} weight="duotone"/><span><strong>宜昌 · 江山之间</strong><small>YICHANG · A CITY IN MINIATURE</small></span></button>
       <div className="header-breadcrumb"><span>城市导览</span><span className="slash">/</span><strong>三维沙盘</strong></div>
-      <div className="header-right"><span className="header-poem">沿江山水，慢慢看宜昌。</span><button className="text-button guide-button" onClick={()=>setModal('guide')}><CursorClick size={17}/><span>操作指引</span></button><button className="icon-button mobile-menu" onClick={()=>setMobileNav(!mobileNav)} aria-label="打开景点目录"><List size={23}/></button></div>
+      <div className="header-right"><span className="header-poem">沿江山水，慢慢看宜昌。</span><button className="text-button guide-button" aria-label="操作指引" onClick={()=>setModal('guide')}><CursorClick size={17}/><span>操作指引</span></button><button className="icon-button mobile-menu" onClick={()=>setMobileNav(!mobileNav)} aria-label={mobileNav?'关闭景点目录':'打开景点目录'} aria-expanded={mobileNav}><List size={23}/></button></div>
     </header>
     <div className="app-body">
       {mobileNav&&<button className="sidebar-backdrop" aria-label="关闭景点目录" onClick={()=>setMobileNav(false)}/>}
-      <aside className={`sidebar ${mobileNav?'is-open':''}`} aria-label="宜昌景点目录">
+      <aside className={`sidebar ${mobileNav?'is-open':''}`} aria-label="宜昌景点目录" inert={compact&&!mobileNav} aria-hidden={compact&&!mobileNav?true:undefined}>
         <div className="sidebar-intro"><p className="eyebrow">城市漫游</p><h1>一城山水，自在宜昌。</h1><p className="intro-copy">从一座楼阁，走进一座城。</p></div>
         <form className="search" onSubmit={e=>{e.preventDefault();if(filtered[0])chooseLandmark(filtered[0].id);}}><MagnifyingGlass size={17}/><input aria-label="搜索宜昌地标" placeholder="寻找一处风景" value={query} onChange={e=>setQuery(e.target.value)}/>{query&&<button type="button" aria-label="清空搜索" onClick={()=>setQuery('')}><X size={14}/></button>}</form>
         <div className="directory-heading"><span>探索地标</span><span>{String(landmarks.length).padStart(2,'0')} 处</span></div>
@@ -132,7 +152,7 @@ export default function App(){
         </div>
         {(!ready||error)&&<div className="scene-loading" role="status">{error?<><WarningCircle size={32}/><h2>这座城还在路上</h2><p>{error}</p><button onClick={()=>window.location.reload()}>重新打开沙盘</button></>:<><MapTrifold size={44} weight="duotone"/><span className="eyebrow">YICHANG · 江山之间</span><h2>让山水，慢慢展开。</h2><p>{data?'正在安放楼阁、街巷与树木':'正在读取宜昌城市轮廓'}</p><CircleNotch className="spinner" size={22}/></>}</div>}
         <div className="scene-toolbar" aria-label="沙盘显示设置"><div className="view-segment"><button className={view==='perspective'?'active':''} onClick={()=>setView('perspective')} aria-pressed={view==='perspective'}><Buildings size={16}/><span>城市沙盘</span></button><button className={view==='top'?'active':''} onClick={()=>setView('top')} aria-pressed={view==='top'}><MapTrifold size={16}/><span>俯瞰地图</span></button></div><span className="toolbar-divider"/><button className="toolbar-button reset-button" onClick={reset} title="回到全景"><ArrowCounterClockwise size={16}/><span>回到全景</span></button><span className="toolbar-divider day-divider"/><div className="day-segment"><button className={theme==='day'?'active':''} onClick={()=>setTheme('day')} aria-pressed={theme==='day'} title="日景"><Sun size={17}/><span>日景</span></button><button className={theme==='night'?'active':''} onClick={()=>setTheme('night')} aria-pressed={theme==='night'} title="夜景"><MoonStars size={16}/><span>夜景</span></button></div></div>
-        <div className="map-tools-top"><button className={`layer-toggle ${layersOpen?'active':''}`} onClick={()=>setLayersOpen(!layersOpen)} aria-expanded={layersOpen}><Stack size={17}/><span>图层</span></button>{layersOpen&&<section className="layer-panel" aria-label="图层设置"><header><strong>看见城市的层次</strong><button className="icon-button" onClick={()=>setLayersOpen(false)} aria-label="关闭图层设置"><X size={15}/></button></header>{[{id:'buildings',label:'城市建筑',Icon:Buildings},{id:'trees',label:'山林与树木',Icon:Tree},{id:'labels',label:'地标名称',Icon:MapPin}].map(({id,label,Icon})=><label key={id}><Icon size={17}/><span>{label}</span><input type="checkbox" checked={layers[id]} onChange={()=>toggleLayer(id)}/></label>)}</section>}</div>
+        <div className="map-tools-top"><button className={`layer-toggle ${layersOpen?'active':''}`} onClick={()=>setLayersOpen(!layersOpen)} aria-expanded={layersOpen} aria-label="图层"><Stack size={17}/><span>图层</span></button>{layersOpen&&<section className="layer-panel" aria-label="图层设置"><header><strong>看见城市的层次</strong><button className="icon-button" onClick={()=>setLayersOpen(false)} aria-label="关闭图层设置"><X size={15}/></button></header>{[{id:'buildings',label:'城市建筑',Icon:Buildings},{id:'trees',label:'山林与树木',Icon:Tree},{id:'labels',label:'地标名称',Icon:MapPin}].map(({id,label,Icon})=><label key={id}><Icon size={17}/><span>{label}</span><input type="checkbox" checked={layers[id]} onChange={()=>toggleLayer(id)}/></label>)}</section>}</div>
         <div className="compass"><span>N</span><div ref={compassRef}><NavigationArrow size={22} weight="fill"/></div></div>
         {selected&&<section className="detail-panel" aria-label={`${selected.name}介绍`}><div className="detail-top"><span>{selected.category} / 城市手记</span><button className="icon-button" onClick={()=>setSelectedId(null)} aria-label="关闭地标介绍"><X size={18}/></button></div><div className="detail-title"><span>{String(landmarks.indexOf(selected)+1).padStart(2,'0')}</span><h2>{selected.name}</h2></div><p className="detail-subtitle">{selected.subtitle||'在山水之间，与宜昌相遇。'}</p><div className="detail-tabs" role="tablist"><button role="tab" aria-selected={detailTab==='story'} className={detailTab==='story'?'active':''} onClick={()=>setDetailTab('story')}>地标手记</button><button role="tab" aria-selected={detailTab==='view'} className={detailTab==='view'?'active':''} onClick={()=>setDetailTab('view')}>观察视角</button></div>{detailTab==='story'?<div className="detail-story"><div className="scene-postcard">{detailImage?<img src={detailImage} alt={`${selected.name}的三维沙盘视角`}/>:<div className="postcard-loading"><CircleNotch className="spinner" size={20}/><span>正在靠近这处风景</span></div>}<span>沙盘取景 · {selected.name}</span></div><p className="landmark-description">{selected.description}</p><div className="detail-location"><MapPin size={14}/><span>{selected.location||'湖北 · 宜昌'}</span></div><button className="detail-focus" onClick={()=>chooseLandmark(selected.id)}>靠近看看 <ArrowUpRight size={17}/></button></div>:<div className="detail-view"><p>换一个角度，发现城市的另一面。</p><button onClick={()=>{scene.current?.focus(selected.id);setView('perspective');}}><Buildings size={20}/><span><strong>地标近景</strong><small>看见轮廓与层次</small></span><ArrowUpRight size={16}/></button><button onClick={()=>setView('top')}><MapTrifold size={20}/><span><strong>俯瞰此处</strong><small>读懂街巷与江岸</small></span><ArrowUpRight size={16}/></button><button onClick={reset}><Compass size={20}/><span><strong>回到城市</strong><small>让整座宜昌重新展开</small></span><ArrowUpRight size={16}/></button></div>}<footer>建筑与景观为风格化表达</footer></section>}
         <div className="scene-bottom-caption"><span className="eyebrow">YICHANG / 长江之畔</span><p>{selected?selected.name:'把一座城，放在眼前。'}</p></div>

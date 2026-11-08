@@ -8,11 +8,11 @@ import * as LandmarkFactory from './landmarks.js';
    tree planting, and landmark architecture are illustrative. */
 
 const DAY = {
-  sky: '#f1efe6', floor: '#f1efe6', land: '#b7cd90', landHigh: '#9dbb7e',
-  water: '#71c1d5', shore: '#afdce1', soil: '#ad9674', soilLow: '#8e8067',
-  rim: '#d6c8aa', road: '#f0ebd9', roadMajor: '#fff8e7', roadEdge: '#b2b69a',
+  sky: '#f1efe6', floor: '#f1efe6', land: '#91ba68', landHigh: '#7ca357',
+  water: '#43addd', shore: '#9cdce6', soil: '#af9166', soilLow: '#8b7557',
+  rim: '#d6c3a0', road: '#f0ebd9', roadMajor: '#fff8e7', roadEdge: '#a1ad88',
   trees: ['#719b5d', '#8caa6d', '#92b77a', '#658f64', '#aac58b'], trunk: '#87765a',
-  buildings: ['#eeeedd', '#e6e8d7', '#e1e5d7', '#f5f0e2', '#dce1d1', '#eee6d4'],
+  buildings: ['#fbfcf5', '#f4f7ef', '#edf3ec', '#fffdf5', '#e8eee7', '#f8f3e7'],
 };
 const NIGHT = {
   sky: '#1c3038', floor: '#1c3038', land: '#45645a', landHigh: '#36564a',
@@ -21,6 +21,8 @@ const NIGHT = {
   trees: ['#30584a', '#456d54', '#507960', '#36554e', '#5e8064'], trunk: '#696357',
   buildings: ['#a8b9b2', '#a2b5af', '#95aba4', '#bfcbc0', '#8ea79e', '#bcc3ae'],
 };
+const DAY_LIGHT = { hemisphere: 1.15, sun: 2.35, fill: 0.22, exposure: 1.02 };
+const BUILDING_HEIGHT_EXAGGERATION = 3.8;
 
 function randomGenerator(seed = 928371) {
   return () => {
@@ -141,7 +143,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.13;
+  renderer.toneMappingExposure = DAY_LIGHT.exposure;
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   // All model geometry is static. Orbiting should not rerender the shadow map.
@@ -168,8 +170,8 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
   controls.target.set(0, 0, 0);
   controls.update();
   scene.background = new THREE.Color(DAY.sky);
-  const hemi = new THREE.HemisphereLight('#f9fbff', '#8a9b76', 2.2); scene.add(hemi);
-  const sun = new THREE.DirectionalLight('#fff4dc', 2.7);
+  const hemi = new THREE.HemisphereLight('#f9fbff', '#8a9b76', DAY_LIGHT.hemisphere); scene.add(hemi);
+  const sun = new THREE.DirectionalLight('#fff4dc', DAY_LIGHT.sun);
   sun.position.set(-extent * 0.55, extent * 1.3, extent * 0.65);
   sun.castShadow = true;
   sun.shadow.mapSize.set(2048, 2048);
@@ -179,7 +181,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
   sun.shadow.normalBias = 0.08; sun.shadow.bias = -0.0001;
   sun.shadow.radius = 3;
   scene.add(sun);
-  const fill = new THREE.DirectionalLight('#dceeff', 0.35);
+  const fill = new THREE.DirectionalLight('#dceeff', DAY_LIGHT.fill);
   fill.position.set(extent, extent * 0.5, -extent); scene.add(fill);
 
   const waterPolygons = normalizePolygons(data.water);
@@ -252,7 +254,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     if (inWater(x, z)) return 0;
     return rawHeight(x, z);
   }
-  const baseThickness = 4.2;
+  const baseThickness = 9.4;
   const soilMaterial = makeMaterial(DAY.soil, NIGHT.soil);
   const rimMaterial = makeMaterial(DAY.rim, NIGHT.rim);
   const lowSoilMaterial = makeMaterial(DAY.soilLow, NIGHT.soilLow);
@@ -262,14 +264,21 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     mesh.name = name; mesh.position.y = y; mesh.castShadow = true; mesh.receiveShadow = true; parent.add(mesh); return mesh;
   }
   box(layers.base, 'warm earth section', width, baseThickness, depth, -baseThickness / 2 - 0.1, soilMaterial);
-  box(layers.base, 'lower earth stratum', width + 0.04, 0.85, depth + 0.04, -baseThickness + 0.26, lowSoilMaterial);
-  box(layers.base, 'fine cut edge', width + 0.16, 0.22, depth + 0.16, -0.13, rimMaterial);
+  box(layers.base, 'lower earth stratum', width + 0.04, 1.5, depth + 0.04, -baseThickness + 0.65, lowSoilMaterial);
+  box(layers.base, 'fine cut edge', width + 0.16, 0.32, depth + 0.16, -0.17, rimMaterial);
   // A thin horizontal seam emphasizes the physical, finite model base.
-  const seamMaterial = makeMaterial('#bba683', '#617061');
-  box(layers.base, 'earth seam', width + 0.04, 0.13, depth + 0.04, -2.67, seamMaterial);
-  const floorMaterial = makeMaterial(DAY.floor, NIGHT.floor);
+  const seamMaterial = makeMaterial('#c9aa79', '#617061');
+  box(layers.base, 'earth seam', width + 0.04, 0.18, depth + 0.04, -baseThickness * 0.61, seamMaterial);
+  // The tabletop remains cream while directional lighting shapes the model.
+  // A separate shadow catcher preserves the contact shadow without grading
+  // the entire background darker when the daylight intensity is reduced.
+  const floorMaterial = new THREE.MeshBasicMaterial({ color: DAY.floor, toneMapped: false });
+  materialThemes.push({ material: floorMaterial, day: DAY.floor, night: NIGHT.floor });
   const floor = new THREE.Mesh(new THREE.PlaneGeometry(extent * 8, extent * 8), floorMaterial);
-  floor.rotation.x = -Math.PI / 2; floor.position.y = -baseThickness - 0.13; floor.receiveShadow = true; scene.add(floor);
+  floor.rotation.x = -Math.PI / 2; floor.position.y = -baseThickness - 0.13; scene.add(floor);
+  const floorShadowMaterial = new THREE.ShadowMaterial({ color: '#55614c', opacity: 0.23, depthWrite: false });
+  const floorShadow = new THREE.Mesh(floor.geometry, floorShadowMaterial);
+  floorShadow.rotation.copy(floor.rotation); floorShadow.position.y = floor.position.y + 0.01; floorShadow.receiveShadow = true; scene.add(floorShadow);
 
   const subdivisions = terrainValid ? Math.min(180, Math.max(100, terrain.cols - 1)) : 120;
   const groundGeo = new THREE.PlaneGeometry(width, depth, subdivisions, subdivisions);
@@ -290,7 +299,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
   groundGeo.setAttribute('color', new THREE.BufferAttribute(groundColors, 3)); groundGeo.computeVertexNormals();
   const ground = new THREE.Mesh(groundGeo, landMaterial); ground.receiveShadow = true; ground.name = 'green land relief'; layers.terrain.add(ground);
 
-  const waterMaterial = makeMaterial(DAY.water, NIGHT.water, { roughness: 0.5, metalness: 0.12 });
+  const waterMaterial = makeMaterial(DAY.water, NIGHT.water, { roughness: 0.62, metalness: 0.03 });
   const shorelineMaterial = new THREE.LineBasicMaterial({ color: DAY.shore, transparent: true, opacity: 0.6 });
   materialThemes.push({ material: shorelineMaterial, day: DAY.shore, night: NIGHT.shore });
   const waterGeometries = [], shorelinePositions = [];
@@ -314,7 +323,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
   if (ripplePositions.length) layers.water.add(new THREE.LineSegments(makeLineGeometry(ripplePositions), rippleMaterial));
 
   const parkGeometries = [[], [], []];
-  const parkMaterials = [makeMaterial('#adc88c', '#416652'), makeMaterial('#b0cc90', '#466c57'), makeMaterial('#a9c387', '#3f624f')];
+  const parkMaterials = [makeMaterial('#83b45f', '#416652'), makeMaterial('#8dbd67', '#466c57'), makeMaterial('#7da958', '#3f624f')];
   parkPolygons.forEach((polygon, i) => {
     // Unnamed forest coverage is clipped from a regional source. It drives
     // tree planting only, so its rectangular source edge cannot become a lawn.
@@ -365,7 +374,9 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
 
   const buildingIndex = makeGridIndex(4);
   const buildingGeometries = DAY.buildings.map(() => []);
-  const buildingMaterials = DAY.buildings.map((color, i) => makeMaterial(color, NIGHT.buildings[i]));
+  // Keep the porcelain-like white roofs bright. Directional light and the
+  // lower ambient fill still shade their walls and cast readable shadows.
+  const buildingMaterials = DAY.buildings.map((color, i) => makeMaterial(color, NIGHT.buildings[i], { toneMapped: false }));
   let buildingCount = 0;
   const roofEdges = [];
   for (let index = 0; index < (data.buildings || []).length; index++) {
@@ -377,7 +388,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     const shape = makeShape([ring]); if (!shape) continue;
     // The restrained vertical exaggeration makes real footprints readable at
     // city scale while retaining each source building's relative height.
-    const height = THREE.MathUtils.clamp((Number(building.height) || 0.24) * 2.2, 0.24, 13.5);
+    const height = THREE.MathUtils.clamp((Number(building.height) || 0.24) * BUILDING_HEIGHT_EXAGGERATION, 0.24, 13.5);
     // Use one elevation for the footprint so the roof stays horizontal.
     const base = surfaceHeight(cx, cz) + Math.max(0, Number(building.base) || 0) + 0.06;
     try {
@@ -644,10 +655,11 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
       const palette = night ? NIGHT : DAY;
       scene.background.set(palette.sky);
       for (const record of materialThemes) record.material.color.set(night ? record.night : record.day);
-      hemi.color.set(night ? '#abc8ec' : '#f9fbff'); hemi.groundColor.set(night ? '#355a4a' : '#8a9b76'); hemi.intensity = night ? 1.25 : 2.2;
-      sun.color.set(night ? '#c6dafe' : '#fff4dc'); sun.intensity = night ? 0.95 : 2.7;
-      fill.intensity = night ? 0.25 : 0.35;
-      renderer.toneMappingExposure = night ? 1.03 : 1.13;
+      hemi.color.set(night ? '#abc8ec' : '#f9fbff'); hemi.groundColor.set(night ? '#355a4a' : '#8a9b76'); hemi.intensity = night ? 1.25 : DAY_LIGHT.hemisphere;
+      sun.color.set(night ? '#c6dafe' : '#fff4dc'); sun.intensity = night ? 0.95 : DAY_LIGHT.sun;
+      fill.intensity = night ? 0.25 : DAY_LIGHT.fill;
+      renderer.toneMappingExposure = night ? 1.03 : DAY_LIGHT.exposure;
+      floorShadowMaterial.color.set(night ? '#101f25' : '#55614c'); floorShadowMaterial.opacity = night ? 0.16 : 0.23;
       rippleMaterial.opacity = night ? 0.22 : 0.18;
       layers.nightlights.visible = night;
       for (const [mesh, specs] of [[crowns, deciduous], [pineCrowns, pines]]) {
@@ -691,7 +703,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
       renderer.render(scene, camera); return renderer.domElement.toDataURL('image/png');
     },
     getStats() {
-      return { buildings: buildingCount, roads: (data.roads || []).length, waterPolygons: waterPolygons.length, parks: parkPolygons.length, trees: treeSpecs.length, landmarks: landmarkMap.size, drawCalls: renderer.info.render.calls, triangles: renderer.info.render.triangles, theme: currentTheme, view: currentView, cameraZoom: camera.zoom, terrain: terrainValid ? 'source-grid' : hills.length ? 'illustrative-hills' : 'flat', heightExaggeration: 2.2, bridgeSpans: landmarks.filter(l => l.kind === 'bridge').map(l => ({ id: l.id, endpoints: l.endpoints, source: l.spanSource || 'landmark-spec' })), renderer: 'Three.js / WebGL', projection: 'orthographic' };
+      return { buildings: buildingCount, roads: (data.roads || []).length, waterPolygons: waterPolygons.length, parks: parkPolygons.length, trees: treeSpecs.length, landmarks: landmarkMap.size, drawCalls: renderer.info.render.calls, triangles: renderer.info.render.triangles, theme: currentTheme, view: currentView, cameraZoom: camera.zoom, terrain: terrainValid ? 'source-grid' : hills.length ? 'illustrative-hills' : 'flat', heightExaggeration: BUILDING_HEIGHT_EXAGGERATION, bridgeSpans: landmarks.filter(l => l.kind === 'bridge').map(l => ({ id: l.id, endpoints: l.endpoints, source: l.spanSource || 'landmark-spec' })), renderer: 'Three.js / WebGL', projection: 'orthographic' };
     },
     dispose() {
       if (disposed) return; disposed = true;

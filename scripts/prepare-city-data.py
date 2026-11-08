@@ -26,6 +26,45 @@ MAX_BUILDINGS = 13800
 MAX_ROADS = 2950
 SOURCE_COMMIT = '38c01bf002511c01294feacd8aa85e54e6342724'
 
+# Visitor copy is intentionally separate from provenance / representation notes.
+# These descriptions match the copy reviewed for the current Site.
+VISITOR_DESCRIPTIONS = {
+    'zhenjiang-pavilion': '飞檐层叠的镇江阁临江而立，身后是宜昌老城，眼前是开阔江面。沿滨江步道走近楼阁，在江风里感受这座城市的悠闲节奏。',
+    'gezhouba-dam': '大坝、船闸与宽阔江面，共同构成宜昌独特的工程风景。沿江远望葛洲坝，感受长江的力量，也看看这座城市与水相伴的日常。',
+    'zhixi-bridge': '弧形主缆跨过大江，桥梁把江岸与西坝岛连在一起。从江边望去，桥塔、江水和远处山色层层展开，呈现宜昌舒展的跨江风景。',
+    'yiling-bridge': '三座桥塔与展开的斜拉索，勾勒出夷陵长江大桥鲜明的轮廓。沿江眺望大桥，把两岸楼群与江南山色一同收入眼底。',
+    'mojishan-park': '从长江南岸走进绿意中的山路，视野随着脚步渐渐打开。登高望向江面与对岸楼群，感受宜昌山水相依的城市格局。',
+    'tianran-pagoda': '古塔的层叠塔檐，与开阔江面相映成景。沿江散步时在塔旁停一停，看看绿树与水光，感受古老地标融入滨江生活的安静时刻。',
+    'xiba-island': '江水环绕的西坝岛，一边是葛洲坝的工程风景，一边是江心岛的日常生活。沿岛岸慢慢走，看看水面、桥梁和两岸城区，换一个角度认识宜昌。',
+}
+
+BRIDGE_STRUCTURE_REFERENCES = [
+    {
+        'name': '中国中铁：宜昌至喜长江大桥通车',
+        'note': '至喜大江桥为主跨838米的悬索桥；整个项目另含三江桥与引桥。',
+        'url': 'https://www.crecg.com/web/xwzx61/zfgsdt39/2025021110083284204/index.html',
+        'verifiedAt': '2026-11-08',
+    },
+    {
+        'name': '湖北公共资源交易平台：桥梁运营方检查与设计项目公告',
+        'note': '至喜大江桥为悬索桥，三江桥为主跨210米的高低塔中央索面斜拉桥；夷陵主桥为三塔单索面斜拉桥。',
+        'url': 'https://www.hbbidcloud.cn/shengbenji/jyxx/004001/004001003/20240716/19fe53bc-3d2a-4920-8662-e325de050014.html',
+        'verifiedAt': '2026-11-08',
+    },
+    {
+        'name': '湖北省文化和旅游厅：宜昌夷陵长江大桥',
+        'note': '夷陵长江大桥主桥采用三塔单索面斜拉桥桥型。',
+        'url': 'https://wlt.hubei.gov.cn/bmdt/ztzl/zshb/201912/t20191226_1799512.shtml',
+        'verifiedAt': '2026-11-08',
+    },
+    {
+        'name': '湖北省住房和城乡建设厅：湖北35座长江大桥 座座身世不凡',
+        'note': '夷陵长江大桥的桥塔为倒Y形，主桥为三塔斜拉桥。',
+        'url': 'https://zjt.hubei.gov.cn/bmdt/ztzl/hbcjda/dayd/201910/t20191028_82017.shtml',
+        'verifiedAt': '2026-11-08',
+    },
+]
+
 
 def local(lon, lat, z=None):
     return ((lon-CENTER[0])*X_METERS*SCALE, (CENTER[1]-lat)*Z_METERS*SCALE)
@@ -167,30 +206,30 @@ def main():
     road_candidates=len(roads)
     roads=[r[3] for r in roads[:MAX_ROADS]]
     pois={p['id']:p for p in json.loads(pois_path.read_text())}
-    descriptions={
+    # Keep fidelity / presentation notes in metadata, not in visitor copy.
+    landmark_profiles={
        'zhenjiang-pavilion':('pavilion','历史文化','江岸名阁 · 老城记忆','临江楼阁与屈原广场构成老城滨江景观。地标造型为微缩展示，公开地图参考定位。'),
        'gezhouba-dam':('dam','水利工程','大国工程 · 长江枢纽','长江干流上的葛洲坝水利枢纽。此处为枢纽区域的地图参考点，微缩坝体为工程意象示意。'),
        'yiling-bridge':('bridge','城市桥梁','一桥两岸 · 江城连线','横跨宜昌中心城区长江河段的斜拉桥。道路走向来自 OpenStreetMap，桥塔与缆索为微缩示意。'),
        'mojishan-park':('park','山水公园','江南山色 · 俯瞰宜昌','长江南岸的山地公园。点位来自公开地图，微缩山体和树木为风格化表现。'),
        'tianran-pagoda':('pagoda','历史文化','江畔古塔 · 伍家岗','矗立江畔的古塔。点位来自公开地图，塔身层级、材质与比例以微缩示意呈现。'),
-       'xiba-island':('park','山水公园','江心绿岛 · 岛岸生活','毗邻葛洲坝的长江江心岛。此参考点表示岛屿区域，并非某座公园或建筑的精确落点。'),
-       'erma-road':('museum','老城街区','商埠记忆 · 街巷漫游','沿江老城的历史文化街区。此点为街区浏览选点，展示建筑为街区意象，并不指代特定博物馆。')
+       'xiba-island':('park','山水公园','江心绿岛 · 岛岸生活','毗邻葛洲坝的长江江心岛。此参考点表示岛屿区域，并非某座公园或建筑的精确落点。')
     }
     landmarks=[]
     landmark_sources=[]
-    # First six form the guided tour; actual river geometry and street grid remain fixed.
+    # Six existing POIs plus the derived Zhixi reference point form the seven stops.
     for pid in ['zhenjiang-pavilion','gezhouba-dam','yiling-bridge','mojishan-park','tianran-pagoda','xiba-island']:
-        p=pois[pid];kind,category,subtitle,desc=descriptions[pid]
+        p=pois[pid];kind,category,subtitle,representation_note=landmark_profiles[pid]
         lon,lat=p['longitude'],p['latitude'];x,z=local(lon,lat)
-        landmarks.append({'id':pid,'name':p['name'],'kind':kind,'x':round(x,3),'z':round(z,3),'category':category,'subtitle':subtitle,'description':desc,'lon':lon,'lat':lat})
-        landmark_sources.append({'id':pid,'name':p['name'],'coordinateNote':p['coordinateNote'],'urls':p['sourceUrls']})
+        landmarks.append({'id':pid,'name':p['name'],'kind':kind,'x':round(x,3),'z':round(z,3),'category':category,'subtitle':subtitle,'description':VISITOR_DESCRIPTIONS[pid],'lon':lon,'lat':lat})
+        landmark_sources.append({'id':pid,'name':p['name'],'coordinateNote':p['coordinateNote'],'representationNote':representation_note,'urls':p['sourceUrls']})
     # Zhixi was not in the old POI list: derive a reference point from its longest
     # named, bridge-tagged OSM road segment, rather than guess a coordinate.
     length,line,osm_id=max(bridge_paths['至喜长江大桥'],key=lambda item:item[0])
     point=line.interpolate(.5,normalized=True);x,z=point.x,point.y
     lon=CENTER[0]+x/(X_METERS*SCALE);lat=CENTER[1]-z/(Z_METERS*SCALE)
-    landmarks.insert(2,{'id':'zhixi-bridge','name':'至喜长江大桥','kind':'bridge','x':round(x,3),'z':round(z,3),'category':'城市桥梁','subtitle':'跨江天际线 · 西坝门户','description':'参考点取已有 OpenStreetMap 同名桥段的线路中点；实际道路几何保留。桥塔、索缆与高度为微缩示意。','lon':round(lon,7),'lat':round(lat,7)})
-    landmark_sources.append({'id':'zhixi-bridge','name':'至喜长江大桥','coordinateNote':'最长同名 bridge=yes OSM 线段按长度取中点，为桥区展示参考而非测量落点。','urls':['https://www.openstreetmap.org/'+osm_id]})
+    landmarks.insert(2,{'id':'zhixi-bridge','name':'至喜长江大桥','kind':'bridge','x':round(x,3),'z':round(z,3),'category':'城市桥梁','subtitle':'跨江天际线 · 西坝门户','description':VISITOR_DESCRIPTIONS['zhixi-bridge'],'lon':round(lon,7),'lat':round(lat,7)})
+    landmark_sources.append({'id':'zhixi-bridge','name':'至喜长江大桥','coordinateNote':'最长同名 bridge=yes OSM 线段按长度取中点，为桥区展示参考而非测量落点。','representationNote':'实际道路几何保留；桥塔、索缆与高度为微缩示意，大江悬索桥与三江斜拉桥按官方结构参考区分。','urls':['https://www.openstreetmap.org/'+osm_id]})
     sources=[
       {'name':'OpenStreetMap 道路与水域','url':'https://www.openstreetmap.org/copyright','license':'ODbL-1.0','asOf':'2026-11-04'},
       {'name':'Overture Maps 建筑轮廓','url':'https://docs.overturemaps.org/guides/buildings/','license':'ODbL-1.0','release':'2026-10-21.0'},
@@ -200,7 +239,7 @@ def main():
       {'name':'ESA WorldCover 2021 林地','url':'https://doi.org/10.5281/zenodo.7254221','license':'CC BY 4.0'}
     ]
     counts={'buildings':len(buildings),'roads':len(roads),'water':len(water),'parks':len(parks),'landmarks':len(landmarks),'buildingCandidates':len(candidates),'roadCandidates':road_candidates,'heightSources':height_counts}
-    data={'meta':{'name':'宜昌 · 长江微缩城','center':CENTER,'width':round(width,3),'depth':round(depth,3),'unitsPerMeter':SCALE,'bounds':BOUNDS,'counts':counts,'sources':sources,'coordinateSystem':'WGS84 → local x east / z south; planar equirectangular centered at city board','sourceSnapshotCommit':SOURCE_COMMIT,'buildingSelection':'保留裁切后面积最大的 13,800 个真实轮廓部件；仅用于微缩远景 LOD，非完整建筑清单。','heightNote':'保留旧数据高度：来源标签、楼层×3m、3D-GloBFP 2020 遥感估算；缺失固定12m。均非新增实测。','parkCoverageNote':'绿地数据仅覆盖旧样板区 [111.24,30.68,111.32,30.73]，不是全城区公园目录。','terrainNote':'本数据版本采用平面微缩底板，不附加DEM网格。山体、桥梁结构与树木由场景风格化表现。','landmarkSources':landmark_sources},'buildings':buildings,'roads':roads,'water':water,'parks':parks,'landmarks':landmarks}
+    data={'meta':{'name':'宜昌 · 长江微缩城','center':CENTER,'width':round(width,3),'depth':round(depth,3),'unitsPerMeter':SCALE,'bounds':BOUNDS,'counts':counts,'sources':sources,'coordinateSystem':'WGS84 → local x east / z south; planar equirectangular centered at city board','sourceSnapshotCommit':SOURCE_COMMIT,'buildingSelection':'保留裁切后面积最大的 13,800 个真实轮廓部件；仅用于微缩远景 LOD，非完整建筑清单。','heightNote':'保留旧数据高度：来源标签、楼层×3m、3D-GloBFP 2020 遥感估算；缺失固定12m。均非新增实测。','parkCoverageNote':'绿地数据仅覆盖旧样板区 [111.24,30.68,111.32,30.73]，不是全城区公园目录。','terrainNote':'本数据版本采用平面微缩底板，不附加DEM网格。山体、桥梁结构与树木由场景风格化表现。','landmarkSources':landmark_sources,'bridgeStructureReferences':BRIDGE_STRUCTURE_REFERENCES},'buildings':buildings,'roads':roads,'water':water,'parks':parks,'landmarks':landmarks}
     output=args.output/'city.json'
     output.write_text(json.dumps(data,ensure_ascii=False,separators=(',',':'))+'\n')
     source_text=f'''宜昌 · 长江微缩城 — 数据来源与加工说明
@@ -254,9 +293,12 @@ https://esa-worldcover.org/en/data-access
 地标参考点来源
 '''
     for p in landmark_sources:
-        source_text+='\n'+p['name']+'\n'+p['coordinateNote']+'\n'+'\n'.join(p['urls'])+'\n'
+        source_text+='\n'+p['name']+'\n'+p['coordinateNote']+'\n'+p['representationNote']+'\n'+'\n'.join(p['urls'])+'\n'
     source_text+='\n复现：python scripts/prepare-city-data.py --source /path/to/original-checkout\n'
     source_text+='\n输入文件 SHA-256\n'+'\n'.join(v['sha256']+'  '+v['file'] for v in inputs)+'\n'
+    source_text+='\n桥梁结构参考（2026-11-08核验）\n'
+    for reference in BRIDGE_STRUCTURE_REFERENCES:
+        source_text+=reference['note']+'\n'+reference['name']+'：'+reference['url']+'\n'
     (args.output/'sources.txt').write_text(source_text)
     print(json.dumps({'file':str(output),'bytes':output.stat().st_size,'meta':{k:data['meta'][k] for k in ['center','width','depth','bounds','counts']},'landmarks':landmarks},ensure_ascii=False,indent=2))
 
