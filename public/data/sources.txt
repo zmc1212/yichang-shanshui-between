@@ -1,0 +1,179 @@
+宜昌 · 长江微缩城 — 数据来源与加工说明
+
+范围：WGS84 [111.225, 30.645, 111.355, 30.755]
+中心：[111.29, 30.7]；底板约 12.44 × 12.25 km。
+局部坐标：东为 x 正方向，南为 z 正方向；中心 (0,0)，每米 0.02 世界单位。
+底板展示比例不表示建筑造型、树木和地标具有测量精度。
+
+数据取自既有 宜昌Online 项目只读导出，源提交 38c01bf002511c01294feacd8aa85e54e6342724。
+源 roads-water-source.json 标注获取时间 2026-11-04；Overture 版本 2026-10-21.0。
+Overture 发布日期不等于影像拍摄或现场调查日期。
+
+署名与许可
+© OpenStreetMap contributors; © Overture Maps Foundation.
+道路、水域、建筑及组合派生数据库按 ODbL-1.0 提供：
+https://opendatacommons.org/licenses/odbl/1-0/
+https://www.openstreetmap.org/copyright
+https://docs.overturemaps.org/attribution/
+
+East Asian building footprints: Qian Shi et al., A First High-quality Vector Data
+of Buildings in East Asian Countries Based on a Comprehensive Large-scale Mapping
+Framework. Zenodo, 22 July 2023. DOI:10.5281/zenodo.8174931, CC BY 4.0.
+https://doi.org/10.5281/zenodo.8174931
+https://creativecommons.org/licenses/by/4.0/
+
+Building height estimates: Yangzi Che et al., 3D-GloBFP v3 (2020), CC BY 4.0.
+https://doi.org/10.5281/zenodo.15459025
+https://doi.org/10.6084/m9.figshare.28906499.v3
+https://doi.org/10.5194/essd-16-5357-2024
+
+© ESA WorldCover project 2021 / Contains modified Copernicus Sentinel data (2021)
+processed by ESA WorldCover consortium. CC BY 4.0.
+https://doi.org/10.5281/zenodo.7254221
+https://esa-worldcover.org/en/data-access
+
+处理方法与展示边界
+- 不生成虚构城市路网或建筑位置；地理轮廓来自已有真实公开来源。
+- 先裁切地理矩形，再转换局部坐标。所有水体、公园、建筑与道路都受底板矩形约束。
+- 建筑：轮廓拓扑简化0.6m，选择裁切后面积最大的13,800个部件，省略小型轮廓以控制远景负载；仅保留外环，庭院在此LOD中不细分。
+- 建筑高度保留来源值与分类，不随机增高。来源标签/楼层/遥感高度都不属于新增实测。
+  本输出高度分类：{"default": 5126, "globfp2020": 8340, "tag": 327, "levels": 7}。缺失值固定12m。
+- 道路：优先主干路、次干路、支路和居住街道，包含部分服务道路与步道；不在地面绘制已标注隧道。宽度沿用来源标签或旧导出的道路级别/车道估算。
+- 水体：只取已有水域多边形；保留岛屿与足够大的内环；简化2.5m，不以随机河道代替长江。
+- 绿地：仅旧样板区公开地块，不是全城区清单；简化5m，并移除水面交叠。树木、山体与地标体量为风格化展示，不可作为真实树木清单或工程数据。
+- 地形：本版使用平面微缩底板，未加载DEM，不声称复原真实高程。
+- 图形坐标按0.001世界单位取整，仅为压缩，不代表测量精度。
+
+输出数量：{"buildings": 13800, "roads": 2950, "water": 47, "parks": 100, "landmarks": 7, "buildingCandidates": 23254, "roadCandidates": 3545, "heightSources": {"default": 5126, "globfp2020": 8340, "tag": 327, "levels": 7}}
+
+地标参考点来源
+
+镇江阁
+WGS84 地图参考点，依据 OSM node 11539194579；模型为展示性落位，非测绘成果。
+https://www.openstreetmap.org/node/11539194579
+https://mapcarta.com/N11539194579
+https://ylj.yichang.gov.cn/content-43970-961458-1.html
+
+葛洲坝水利枢纽
+WGS84 地图参考点，依据 GeoNames 1810172 的公开地图标注；为枢纽区域参考，非测绘成果。
+https://mapcarta.com/15966022
+https://www.geonames.org/1810172
+https://eps.ctg.com.cn/cms/channel/2ywgg1/240639650.htm
+
+夷陵长江大桥
+WGS84 地图参考点，依据 OSM way 1389764546 的桥梁地图标注；为桥区观景参考，非测绘成果。
+https://www.openstreetmap.org/way/1389764546
+https://mapcarta.com/29129010
+https://en.wikipedia.org/wiki/Yiling_Yangtze_River_Bridge
+
+磨基山公园
+WGS84 地图参考点，依据 OSM node 9723874264；为公园位置参考，非测绘成果。
+https://www.openstreetmap.org/node/9723874264
+https://mapcarta.com/N9723874264
+
+天然塔
+WGS84 地图参考点，依据 OSM way 1058306288；为古塔地图位置参考，非测绘成果。
+https://www.openstreetmap.org/way/1058306288
+https://mapcarta.com/W1058306288
+https://mzj.yichang.gov.cn/content-63849-997288-1.html
+
+西坝岛
+WGS84 地图参考点，依据 OSM way 431946927；为岛屿区域中心，不是龙园或其他建筑落点，非测绘成果。
+https://www.openstreetmap.org/way/431946927
+https://mapcarta.com/W431946927
+
+至喜长江大桥
+最长同名 bridge=yes OSM 线段按长度取中点，为桥区展示参考而非测量落点。
+https://www.openstreetmap.org/way/442059543
+
+复现：python scripts/prepare-city-data.py --source /path/to/original-checkout
+
+输入文件 SHA-256
+5c2241d19f315856f4bbf4c580a38285566345a94c12b680626d0d023c7c27dd  dist/data/gis-yichang/roads.geojson
+d2afa9fc48fe87d6b453f3225aeb57a0d827496a426b16edcd8e232ab224d6d0  dist/data/gis-yichang/water.geojson
+0d88a2b1a1b2dfb6eee652ba99c050ae3f5b065d28dd1c1d9d0d3718cb5f745d  dist/data/riverside-yichang/greenspace.geojson
+5e7c414f9595e423286bc7083b28c0cb3f9fd65641a626329cdac4d27e40ca8c  dist/pois.json
+d06d1b9ed072882782e82fb81fdc621245f785d77580f220310cdf43a45ce8e4  dist/data/gis-yichang/buildings/b_01_01.geojson
+b6b3a828f56a95f8a550a79e1db9e68fde26e636ec6fc3e76df37d25a31303d6  dist/data/gis-yichang/buildings/b_01_02.geojson
+27f1cb64712fba284d51e013c55608f1569823915126058148b43c65194b90c7  dist/data/gis-yichang/buildings/b_01_03.geojson
+af0a8debbfed9c16ad17cde825136cf076b514044b63cd671d0daee65031810d  dist/data/gis-yichang/buildings/b_01_04.geojson
+5a9ca66780589edeba6785a112a5eef220d58bb89d87e75b3f8e021b6ce6bed6  dist/data/gis-yichang/buildings/b_01_05.geojson
+469aeb93888bffa6a75a8cc6ea2c355b2c180463f82a04e37aaec30410228da0  dist/data/gis-yichang/buildings/b_01_06.geojson
+eff92035a86732ffa96c5c1e931b0c65b00422df85686da63fc8ee75ef239c67  dist/data/gis-yichang/buildings/b_02_01.geojson
+416a173b81e816fc52dfb5b4a041bdf3bd431867009811fb37ae371c315a9b23  dist/data/gis-yichang/buildings/b_02_02.geojson
+f61c9192250587382249bc4c816adbfbef9e7ddafaf0f1685403a4c9edde8fcc  dist/data/gis-yichang/buildings/b_02_03.geojson
+aeff410711c8796b1d5c29427f428227586d447a4b8da270ac758dfbe06f66b2  dist/data/gis-yichang/buildings/b_02_04.geojson
+38ecc04e3b733eb07a30523727810540d843dc207b2040343d7a5135a2ff6cd3  dist/data/gis-yichang/buildings/b_02_05_0.geojson
+efa4ef5e54d5f0b51fba27ff22dd24a13c9826519181c144da95cb696bdb97a7  dist/data/gis-yichang/buildings/b_02_05_1.geojson
+c2d047fbd1aecf72fb3b4058f337c598ea607917f0e24b33bb31f5ef25f17893  dist/data/gis-yichang/buildings/b_02_05_2.geojson
+db715b509e15a690fabda8a9568ae2514ffabe73c6843f3452db0ff9debcac0e  dist/data/gis-yichang/buildings/b_02_05_3.geojson
+994736752336adb60b4ed0b123ab515c116c405d4930bbcfbf336cadc2bef5dc  dist/data/gis-yichang/buildings/b_02_06.geojson
+9a2c53f5b403c3f4d7228a574550b0f068448f29f436dad02601a1e1d7a7e306  dist/data/gis-yichang/buildings/b_03_01.geojson
+c969ef1c8f5603f89f24d28cb45ad0f76b7dbfba7d95bb5eb10bebec5342d816  dist/data/gis-yichang/buildings/b_03_02.geojson
+6d7f7b9bdf10efb70c10cb49682f7df9e9ba5936e01601a2a2ccd8f70dbd3cd0  dist/data/gis-yichang/buildings/b_03_03.geojson
+e4bbd75e273a63c76da86d77f8294498c15d8db48790e599569c176020262ad3  dist/data/gis-yichang/buildings/b_03_04_0.geojson
+608749d481261187f15be4dc5c91c289d1afeef7dbba6720a31d97a4ede3833b  dist/data/gis-yichang/buildings/b_03_04_1.geojson
+cf15ef94815ed5c0843e203c22e17efcc0f872470ff4ef5cd45186424423f47f  dist/data/gis-yichang/buildings/b_03_04_2.geojson
+1c6d8585cd7135d1aa7d9d3ef4c992d56996545a61f902a96526a87d8c03a962  dist/data/gis-yichang/buildings/b_03_04_3.geojson
+40fb3a1ef62d0ae022afe3e5f9fc3ea7cde5b075937e9e055c993add3d150e8e  dist/data/gis-yichang/buildings/b_03_05.geojson
+02c0d099fb2f00aacd73efb172a40b78aea3a35f1f1c751963149f39a7a75754  dist/data/gis-yichang/buildings/b_03_06.geojson
+b74c0537c16dafdc4714ac011443d9a57e6ea2af22bc1dd88b705057b46b76ac  dist/data/gis-yichang/buildings/b_04_01.geojson
+4e8905f3c46f0027951624dd9dc1ea65ed4e9f94b1420db24f139de5f548b85e  dist/data/gis-yichang/buildings/b_04_02.geojson
+6ff947cf7a17a3fee28007a5d6dc09557e1c57974d289a15d014ca12c5cc0b8c  dist/data/gis-yichang/buildings/b_04_03_0.geojson
+9d987f23fa38e5410c6ed69e9ad676a9065df75cb49a78123fc7652906b9ba2d  dist/data/gis-yichang/buildings/b_04_03_1.geojson
+bf138d8754d26077cc09f0a44f325b858ad9086657b1975b6084246787e42fb1  dist/data/gis-yichang/buildings/b_04_03_2.geojson
+948fb56de4f3cd0a87c4528e31fc8e151da7f9343557cc1ac17d1e9c9eff6920  dist/data/gis-yichang/buildings/b_04_03_3.geojson
+57199fdbef80c1fd95c86446d1e8544b55714fce809ee69692f6865c2843f8f3  dist/data/gis-yichang/buildings/b_04_04_0.geojson
+6878ae5464e5009869eef8b969ea1ec3de5a92816fc70fb2c398c3f19ed5052d  dist/data/gis-yichang/buildings/b_04_04_1.geojson
+665b342eab2f65ced7c5499fa9ee689427fb4ef669abba405d0716c5542c76e8  dist/data/gis-yichang/buildings/b_04_04_2.geojson
+e8d4fbea191e456316ac8ee4ffb4b06954ec6fedd40f8d3c79f3bfcbbbbaa5ba  dist/data/gis-yichang/buildings/b_04_04_3.geojson
+1fee613c013f7cf4e72542f61c24b19d5c007cd80e7ff806b9efacc600f3a892  dist/data/gis-yichang/buildings/b_04_05_0.geojson
+781acd78b4c360203acc8ffd37b6b1c25cb112da974a782119c5d57e8eaa9f9c  dist/data/gis-yichang/buildings/b_04_05_1.geojson
+f23bb51bfd70cc2072fa651440f2e99bd2f74f7f4941998754f378de8fec63af  dist/data/gis-yichang/buildings/b_04_05_2.geojson
+7b13deb8baa00d3fb45fdcccbf3b3664ad2010f5f7ef4d0e77bf706ab79a69b0  dist/data/gis-yichang/buildings/b_04_05_3.geojson
+5afcb9e2728bef8e3eeea337a1c4ab2415ae8c92ef7c6518a8acd77d7f4de364  dist/data/gis-yichang/buildings/b_04_06.geojson
+ab81cb28327b92869f97ab2201bbc909486e1de2ef67560c4f69883f641a6c37  dist/data/gis-yichang/buildings/b_05_01.geojson
+a9e9fbd9d37eb61ca9d67da83c0c84d64dd96a36d3e5a6062444c87ef5dd2e66  dist/data/gis-yichang/buildings/b_05_02.geojson
+d440fe882c2ce30d4c9068446338df2839ab4d49802d83b645254ab4c0f8a6bf  dist/data/gis-yichang/buildings/b_05_03_0.geojson
+09ebf77e43826cd26e3991a683aded26832e497c50746be1bd973794cd7dd7d6  dist/data/gis-yichang/buildings/b_05_03_1.geojson
+b84e65a4cbbf8887a27069989edac8c4b6903a61fc16922db0e2bd26e037432d  dist/data/gis-yichang/buildings/b_05_03_2.geojson
+e4767a5388a3193e23e09068ca69306d0132c190ee13fe3e92e18f58aa0b650c  dist/data/gis-yichang/buildings/b_05_03_3.geojson
+13b0bd449a1dcd4adfcf1ce155a75fa4cc2b48a50cb45c87871251aea33a74db  dist/data/gis-yichang/buildings/b_05_04_0.geojson
+70c89462196789b3cf80e9524f54e4e0ec87691a379d681b0ee84fb1db0942a8  dist/data/gis-yichang/buildings/b_05_04_1.geojson
+1bf8039f4bf22c8f7313ee6c451ac63566169cc1e016f2cd28b7c4d2adc43c3e  dist/data/gis-yichang/buildings/b_05_04_2.geojson
+80958da408146a4c67b63d7220288d4edf7ba16e748356128d1273e70727a9b7  dist/data/gis-yichang/buildings/b_05_04_3.geojson
+431cc375e38c2112cddafbc83e45d57986eb61f8359109bfa139872250886887  dist/data/gis-yichang/buildings/b_05_05_0.geojson
+725729330f3d7ec04b9184f48df68e292ddd7f8e1f1202882a46a455840e0472  dist/data/gis-yichang/buildings/b_05_05_1.geojson
+bc772ac9e6b7967a673dd695b561461a462c7ec41ac652f076267c13c9c198bc  dist/data/gis-yichang/buildings/b_05_05_2.geojson
+25e33147d3269027fbfb95d90a9121d0f591a8a89823626a320610b2fe3dddcd  dist/data/gis-yichang/buildings/b_05_05_3.geojson
+09bc1a1e6ab98025ebaa1e455514beeac96488a3ce50a54f6549a7d07c078af5  dist/data/gis-yichang/buildings/b_05_06.geojson
+69b12b00b4ca3050ea0f8cd554dcdd4866efcef5d8e1cb5170282d336fbb22fd  dist/data/gis-yichang/buildings/b_06_01.geojson
+643591d947aa6a0bd59d065880b53e1299bc6f5a1d0759046102b0616c16fa09  dist/data/gis-yichang/buildings/b_06_02_0.geojson
+239d4a9fe1e75902974415c19ba7fab164303241566f805f3cafb58a39f6da6c  dist/data/gis-yichang/buildings/b_06_02_1.geojson
+f513d0d996d72907d43e338f7ae423da918691aa3f2fb57530d381b10333a599  dist/data/gis-yichang/buildings/b_06_02_2.geojson
+83a7adaf9a2f8353f8f01546bf6ffb8820622cb75649bef7fb837da7cfea5509  dist/data/gis-yichang/buildings/b_06_02_3.geojson
+d4669a1bf6c301d02acef1f6d942ce663bc51a713d920e670a02ef4c10edad74  dist/data/gis-yichang/buildings/b_06_03_0.geojson
+5ea41b14f5854383382dae369326c49e256be215c2ea036d762e20caa991c507  dist/data/gis-yichang/buildings/b_06_03_1.geojson
+27b76d00f2ac70f6fc1101006f78762071d5a98fbc6e13b6aeca3a339ce7a4a0  dist/data/gis-yichang/buildings/b_06_03_2.geojson
+bffa2936f84e64757c5a96110c904a09b07607924a46af4e12cf43f9b7a4d5f1  dist/data/gis-yichang/buildings/b_06_03_3.geojson
+4901eb2a98fe1625dcc3d81cbeeaec0c73811373203a1066f6a07609c85295c0  dist/data/gis-yichang/buildings/b_06_04.geojson
+e84f6bf5386f8458a6b33c7ff79035cab93cca553a3a10b893658d43eaf2d971  dist/data/gis-yichang/buildings/b_06_05.geojson
+6cd009e53f41c57ceee69e6f6c041286b5ead08488a920ea82918ff9ec422015  dist/data/gis-yichang/buildings/b_06_06.geojson
+df60d4876b397ed7fdfa509f3bd844fe1d13c66eaa3eeb9c0a9ded4da1d2e100  dist/data/gis-yichang/buildings/b_07_01_0.geojson
+e087694c71a4ee623ebca0b82260de126119d695dd5aa5149283727c1a5901d2  dist/data/gis-yichang/buildings/b_07_01_1.geojson
+49899bf0a76f8b8b61724ffb80b91fdfaee60a7cbc5ef9cbec3538b70eda5940  dist/data/gis-yichang/buildings/b_07_01_2.geojson
+b7f52625e9b53e190d226f79e32f8700bc6132d805ad7765cb8eacad425e0369  dist/data/gis-yichang/buildings/b_07_01_3.geojson
+9d6583d75359a8123022d6e2996e2dcab849d7230117900a27995924b7fd8864  dist/data/gis-yichang/buildings/b_07_02.geojson
+8ec630b37d032731ea0a447154fa3e8e58dca4b84a004559bbe455bed1a012fc  dist/data/gis-yichang/buildings/b_07_03.geojson
+2d1ec2958f41ab1bff7c486d1333a8592b4721cdf8663b43072afca18d52561d  dist/data/gis-yichang/buildings/b_07_04.geojson
+c5473c553a100839e0c439886843c31e866d1abd34ab264f43df1f9cb3467d43  dist/data/gis-yichang/buildings/b_07_05.geojson
+a023af28885e303f37d457826614d2f60bbac1609fb2d05c6f0687812adf5ea9  dist/data/gis-yichang/buildings/b_07_06_0.geojson
+668de684084d9007a45989a21bcbafc41f60e13707bda6fc03e3c508149342c1  dist/data/gis-yichang/buildings/b_07_06_1.geojson
+57a008a8b8382b095e2b1ccdfb6c3496ccf7ddfda0e58607fcf33a997e8b501f  dist/data/gis-yichang/buildings/b_07_06_2.geojson
+b5aa94ecaf8a8a9fa4987ef1040bffdb2d26127bf24325bd813ff76242660b28  dist/data/gis-yichang/buildings/b_07_06_3.geojson
+
+桥梁结构参考（2026-11-08核验）
+至喜大江桥：悬索桥。中国中铁：https://www.crecg.com/web/xwzx61/zfgsdt39/2025021110083284204/index.html
+至喜大江桥、三江桥与夷陵主桥结构：运营方官方招标：https://www.hbbidcloud.cn/shengbenji/jyxx/004001/004001003/20240716/19fe53bc-3d2a-4920-8662-e325de050014.html
+夷陵三塔单索面斜拉桥：湖北省文化和旅游厅：https://wlt.hubei.gov.cn/bmdt/ztzl/zshb/201912/t20191226_1799512.shtml
+倒Y形桥塔：湖北省住建厅：https://zjt.hubei.gov.cn/bmdt/ztzl/hbcjda/dayd/201910/t20191028_82017.shtml
