@@ -1,0 +1,438 @@
+{
+  "date": "2026-11-09",
+  "scope": "Space and Library recovery only; no original-site code edits, commits or publication",
+  "count_note": "23 historical business-building project records, not 23 separately verified current physical towers",
+  "current_static_glbs": [
+    {
+      "building": "万达SOHO写字楼",
+      "stage": "S01 corrected static; old static is HOLD",
+      "name": "Wanda_SOHO_S01_corrected_static.glb",
+      "library_file_id": "libfile_de5d10c0d1b48191a0351de18743ac01",
+      "file_id": "file_000000005e8481f5b43d9899297edf7b",
+      "size_bytes": 63178320,
+      "created_at": "2026-11-04T17:35:00.534050Z",
+      "local_path": "/workspace/scratch/74379c705fda/buildings-space-20261109/downloads/Wanda_SOHO_S01_corrected_static.glb",
+      "actual_size": 63178320,
+      "actual_sha256": "a2c3c1ed4765f760acb157b85904da33fff6b0ad63229fd4ee41519b421efea6",
+      "local_library_id": "libfile_de5d10c0d1b48191a0351de18743ac01",
+      "matches_recovery_sha256": true
+    },
+    {
+      "building": "福江铭座",
+      "stage": "S01 corrected static; old static is HOLD",
+      "name": "fujiang_mingzuo_s01_static_candidate(1).glb",
+      "library_file_id": "libfile_1a6811d797b88191a076a643d8a5f9f4",
+      "file_id": "file_00000000668081f980a5654b9eb43863",
+      "size_bytes": 164867984,
+      "created_at": "2026-11-04T13:20:00.633821Z",
+      "local_path": "/workspace/scratch/74379c705fda/buildings-space-20261109/downloads/fujiang_mingzuo_s01_static_candidate(1).glb",
+      "actual_size": 164867984,
+      "actual_sha256": "250241c787121703bcda53c7efd0f9c11225ac9b635f750e605faa1906bf00b9",
+      "local_library_id": "libfile_1a6811d797b88191a076a643d8a5f9f4",
+      "matches_recovery_sha256": true
+    },
+    {
+      "building": "宜昌国际广场",
+      "stage": "S01 bounded three-tower group",
+      "name": "yichang_international_s01_static_candidate.glb",
+      "library_file_id": "libfile_0f12c1226c3c8191a9b1f667338f6145",
+      "file_id": "file_00000000883881f5b4ec6abc7f830162",
+      "size_bytes": 92151672,
+      "created_at": "2026-11-04T16:57:16.803844Z",
+      "local_path": "/workspace/scratch/74379c705fda/buildings-space-20261109/downloads/yichang_international_s01_static_candidate.glb",
+      "actual_size": 92151672,
+      "actual_sha256": "4a27c65bc02a1de7f25e596c1961dea11f477dd69a0f78de0bf8a97a002fd090",
+      "local_library_id": "libfile_0f12c1226c3c8191a9b1f667338f6145",
+      "matches_recovery_sha256": true
+    },
+    {
+      "building": "中南冶金大楼",
+      "stage": "S09 baseline: original height, S06 hotel/S08 height/S09 envelope OFF",
+      "name": "S09_baseline_original_height_hotel_OFF_static.glb",
+      "library_file_id": "libfile_db8260c7a0b48191994865c807845c99",
+      "file_id": "file_0000000029d481f5a06841963234f4aa",
+      "size_bytes": 49306132,
+      "created_at": "2026-11-04T04:23:50.393855Z",
+      "local_path": "/workspace/scratch/74379c705fda/buildings-space-20261109/downloads/S09_baseline_original_height_hotel_OFF_static.glb",
+      "actual_size": 49306132,
+      "actual_sha256": "452b1c0cc45b9c23d8b625aaadacb0296d27d910de55905f9d0cd94ec6ec16d9",
+      "local_library_id": "libfile_db8260c7a0b48191994865c807845c99",
+      "matches_recovery_sha256": true
+    },
+    {
+      "building": "金江银座（模型名锦江银座）",
+      "stage": "S03 default 00: S02 OFF, S03 OFF; S04 ART_HOLD excluded",
+      "name": "jinjiang_s03_00_static.glb",
+      "library_file_id": "libfile_3592df8c73d0819192102c8544b387e6",
+      "file_id": "file_000000002b54820d8c11308ce94947aa",
+      "size_bytes": 2834948,
+      "created_at": "2026-11-04T06:24:44.357063Z",
+      "local_path": "/workspace/scratch/74379c705fda/buildings-space-20261109/downloads/jinjiang_s03_00_static.glb",
+      "actual_size": 2834948,
+      "actual_sha256": "a645c8661578378275efa365d221c900d99910e877434ded1d99871bd02562a3",
+      "local_library_id": "libfile_3592df8c73d0819192102c8544b387e6",
+      "matches_recovery_sha256": true
+    }
+  ],
+  "downloaded_source_and_archive_assets": [
+    {
+      "name": "Meilian_Yufeng_S05_central_crown_candidate.blend",
+      "library_file_id": "libfile_caf6e7c4e2f4819194c6393f375a1015",
+      "file_id": "file_0000000071e081f5a3c81de5d14ab67b",
+      "size_bytes": 17103816,
+      "created_at": "2026-11-03T11:41:44.987196Z",
+      "local_path": "/workspace/scratch/74379c705fda/buildings-space-20261109/downloads/Meilian_Yufeng_S05_central_crown_candidate.blend",
+      "actual_size": 17103816,
+      "actual_sha256": "b3a9b325359132832b08fb838109314d7fc82727999889731be378d30d114f34",
+      "local_library_id": "libfile_caf6e7c4e2f4819194c6393f375a1015"
+    },
+    {
+      "name": "Zhongnan_Metallurgy_S09_lower_street_envelope_candidate.blend",
+      "library_file_id": "libfile_6a5e448273288191abb329b92069e41c",
+      "file_id": "file_000000003df8820c81380474e76ede76",
+      "size_bytes": 38986888,
+      "created_at": "2026-11-04T04:11:44.110192Z",
+      "local_path": "/workspace/scratch/74379c705fda/buildings-space-20261109/downloads/Zhongnan_Metallurgy_S09_lower_street_envelope_candidate.blend",
+      "actual_size": 38986888,
+      "actual_sha256": "959e62831340b4024409bfc84f9540df5ca866935c1dc75318f14bca261fb588",
+      "local_library_id": "libfile_6a5e448273288191abb329b92069e41c"
+    },
+    {
+      "name": "jiuzhou_fangyuan_s01_native_complete_20261104.zip",
+      "library_file_id": "libfile_18a2b2e468d0819185e7f45b9769adf0",
+      "file_id": "file_00000000714c822fb1acc5b698cdea02",
+      "size_bytes": 46078731,
+      "created_at": "2026-11-04T17:11:14.587079Z",
+      "local_path": "/workspace/scratch/74379c705fda/buildings-space-20261109/downloads/jiuzhou_fangyuan_s01_native_complete_20261104.zip",
+      "actual_size": 46078731,
+      "actual_sha256": "0f3622392ae431d6e15885ec271f4846b4795196d9a616d68ab2e5e925be065b",
+      "local_library_id": "libfile_18a2b2e468d0819185e7f45b9769adf0"
+    },
+    {
+      "name": "Wanda_SOHO_S01_complete_candidate.zip",
+      "library_file_id": "libfile_5416b10f873081918080b358633a9b9f",
+      "file_id": "file_00000000cd4481f98fdeb960508dc344",
+      "size_bytes": 133006275,
+      "created_at": "2026-11-04T08:49:58.744118Z",
+      "local_path": "/workspace/scratch/74379c705fda/buildings-space-20261109/downloads/Wanda_SOHO_S01_complete_candidate.zip",
+      "actual_size": 133006275,
+      "actual_sha256": "f8d039b382fdf994576cda8ad7f29a82baa2619f294d0a6c904bdc8bdd366e3c",
+      "local_library_id": "libfile_5416b10f873081918080b358633a9b9f"
+    },
+    {
+      "name": "fujiang_mingzuo_s01_static_candidate(1).glb",
+      "library_file_id": "libfile_1a6811d797b88191a076a643d8a5f9f4",
+      "file_id": "file_00000000668081f980a5654b9eb43863",
+      "size_bytes": 164867984,
+      "created_at": "2026-11-04T13:20:00.633821Z",
+      "local_path": "/workspace/scratch/74379c705fda/buildings-space-20261109/downloads/fujiang_mingzuo_s01_static_candidate(1).glb",
+      "actual_size": 164867984,
+      "actual_sha256": "250241c787121703bcda53c7efd0f9c11225ac9b635f750e605faa1906bf00b9",
+      "local_library_id": "libfile_1a6811d797b88191a076a643d8a5f9f4"
+    },
+    {
+      "name": "Meilian_Yufeng_S05_central_crown_review_candidate.zip",
+      "library_file_id": "libfile_b665fdb1328c8191848e3b0ba2043d27",
+      "file_id": "file_00000000bbf481f5a5905bba05405d36",
+      "size_bytes": 45978251,
+      "created_at": "2026-11-03T11:41:44.970603Z",
+      "local_path": "/workspace/scratch/74379c705fda/buildings-space-20261109/downloads/Meilian_Yufeng_S05_central_crown_review_candidate.zip",
+      "actual_size": 45978251,
+      "actual_sha256": "4afe05e6ca1383554ef053ad226d4b1af103430413048d4bb23a56d9c7cb551c",
+      "local_library_id": "libfile_b665fdb1328c8191848e3b0ba2043d27"
+    },
+    {
+      "name": "Jinjiang_Yinzuo_S03_complete_handoff_20261104.zip",
+      "library_file_id": "libfile_b6ea284ad9048191802e6cae67e41155",
+      "file_id": "file_000000000b4c820ca6bbde9fa4bef6fc",
+      "size_bytes": 65762153,
+      "created_at": "2026-11-04T06:24:44.387844Z",
+      "local_path": "/workspace/scratch/74379c705fda/buildings-space-20261109/downloads/Jinjiang_Yinzuo_S03_complete_handoff_20261104.zip",
+      "actual_size": 65762153,
+      "actual_sha256": "a9f1a13b20cbb6761c23e9c18fc74608ff6e5fdcef1973e90536ea4d2abfbaca",
+      "local_library_id": "libfile_b6ea284ad9048191802e6cae67e41155"
+    },
+    {
+      "name": "Wanda_SOHO_S01_corrected_static.glb",
+      "library_file_id": "libfile_de5d10c0d1b48191a0351de18743ac01",
+      "file_id": "file_000000005e8481f5b43d9899297edf7b",
+      "size_bytes": 63178320,
+      "created_at": "2026-11-04T17:35:00.534050Z",
+      "local_path": "/workspace/scratch/74379c705fda/buildings-space-20261109/downloads/Wanda_SOHO_S01_corrected_static.glb",
+      "actual_size": 63178320,
+      "actual_sha256": "a2c3c1ed4765f760acb157b85904da33fff6b0ad63229fd4ee41519b421efea6",
+      "local_library_id": "libfile_de5d10c0d1b48191a0351de18743ac01"
+    },
+    {
+      "name": "fujiang_mingzuo_s01_native_20261104.tar.gz",
+      "library_file_id": "libfile_ec6f7312696c8191b438f605f0934d02",
+      "file_id": "file_00000000e09081f5a32621f5597ab353",
+      "size_bytes": 30053130,
+      "created_at": "2026-11-04T10:58:52.678542Z",
+      "local_path": "/workspace/scratch/74379c705fda/buildings-space-20261109/downloads/fujiang_mingzuo_s01_native_20261104.tar.gz",
+      "actual_size": 30053130,
+      "actual_sha256": "3d3ca2e9adfbce0b2b3ac4986148f2df9ace42e754f632c200270e302786fadf",
+      "local_library_id": "libfile_ec6f7312696c8191b438f605f0934d02"
+    },
+    {
+      "name": "S09_baseline_original_height_hotel_OFF_static.glb",
+      "library_file_id": "libfile_db8260c7a0b48191994865c807845c99",
+      "file_id": "file_0000000029d481f5a06841963234f4aa",
+      "size_bytes": 49306132,
+      "created_at": "2026-11-04T04:23:50.393855Z",
+      "local_path": "/workspace/scratch/74379c705fda/buildings-space-20261109/downloads/S09_baseline_original_height_hotel_OFF_static.glb",
+      "actual_size": 49306132,
+      "actual_sha256": "452b1c0cc45b9c23d8b625aaadacb0296d27d910de55905f9d0cd94ec6ec16d9",
+      "local_library_id": "libfile_db8260c7a0b48191994865c807845c99"
+    },
+    {
+      "name": "jiuzhou_fangyuan_s01.blend",
+      "library_file_id": "libfile_1e32e3bfe5388191bd637fc384747a56",
+      "file_id": "file_00000000e008822f8fc6f05acd3dd630",
+      "size_bytes": 1256074,
+      "created_at": "2026-11-04T17:11:14.970627Z",
+      "local_path": "/workspace/scratch/74379c705fda/buildings-space-20261109/downloads/jiuzhou_fangyuan_s01.blend",
+      "actual_size": 1256074,
+      "actual_sha256": "c38936dcd1b7b861d918ee823685aa47ae0b1af9b6df296bf3771736932f68fe",
+      "local_library_id": "libfile_1e32e3bfe5388191bd637fc384747a56"
+    },
+    {
+      "name": "yichang_international_s01_static_candidate.glb",
+      "library_file_id": "libfile_0f12c1226c3c8191a9b1f667338f6145",
+      "file_id": "file_00000000883881f5b4ec6abc7f830162",
+      "size_bytes": 92151672,
+      "created_at": "2026-11-04T16:57:16.803844Z",
+      "local_path": "/workspace/scratch/74379c705fda/buildings-space-20261109/downloads/yichang_international_s01_static_candidate.glb",
+      "actual_size": 92151672,
+      "actual_sha256": "4a27c65bc02a1de7f25e596c1961dea11f477dd69a0f78de0bf8a97a002fd090",
+      "local_library_id": "libfile_0f12c1226c3c8191a9b1f667338f6145"
+    },
+    {
+      "name": "Yichang_International_S01_native_candidate_20261104.zip",
+      "library_file_id": "libfile_fcf4ca26feb88191b81771d9f8b1abe4",
+      "file_id": "file_0000000084b481f5b1864e0f016590d8",
+      "size_bytes": 58694256,
+      "created_at": "2026-11-04T12:48:27.534768Z",
+      "local_path": "/workspace/scratch/74379c705fda/buildings-space-20261109/downloads/Yichang_International_S01_native_candidate_20261104.zip",
+      "actual_size": 58694256,
+      "actual_sha256": "b243b81c51c26b1b8245c3b5d8aa4bcfa14189dc45b1c896e955e165f0dfde57",
+      "local_library_id": "libfile_fcf4ca26feb88191b81771d9f8b1abe4"
+    },
+    {
+      "name": "jinjiang_s03_00_static.glb",
+      "library_file_id": "libfile_3592df8c73d0819192102c8544b387e6",
+      "file_id": "file_000000002b54820d8c11308ce94947aa",
+      "size_bytes": 2834948,
+      "created_at": "2026-11-04T06:24:44.357063Z",
+      "local_path": "/workspace/scratch/74379c705fda/buildings-space-20261109/downloads/jinjiang_s03_00_static.glb",
+      "actual_size": 2834948,
+      "actual_sha256": "a645c8661578378275efa365d221c900d99910e877434ded1d99871bd02562a3",
+      "local_library_id": "libfile_3592df8c73d0819192102c8544b387e6"
+    },
+    {
+      "name": "S09_static_GLB_verification_handoff_20261104.tar.zst",
+      "library_file_id": "libfile_4f62075f54e48191ae83328ccd52d3e2",
+      "file_id": "file_00000000575881f5a577d7a743dfd0f6",
+      "size_bytes": 26335921,
+      "created_at": "2026-11-04T04:23:50.476601Z",
+      "local_path": "/workspace/scratch/74379c705fda/buildings-space-20261109/downloads/S09_static_GLB_verification_handoff_20261104.tar.zst",
+      "actual_size": 26335921,
+      "actual_sha256": "61861a8b2c5b84f4f365de8eab9366fc9759028056a54697707ded142fe63753",
+      "local_library_id": "libfile_4f62075f54e48191ae83328ccd52d3e2"
+    }
+  ],
+  "render_only_leads": [
+    {
+      "name": "xingfa_hq_s04_s05_fixed_view_comparison.png",
+      "library_file_id": "libfile_fde3_f-f3ce9e7e99e081919e3cd31e0cd464ed_c853d26840d0819196e3746c99b28092",
+      "file_id": "file_0000000081b88212b974635d497bcc0b",
+      "size_bytes": 1561193,
+      "created_at": "2026-11-07T13:31:53.229103Z"
+    },
+    {
+      "name": "xingfa_v2i_v2j_fixed_view_comparison.png",
+      "library_file_id": "libfile_fde3_f-94d40da37fb48191b3bc7c8aad86ef4c_c853d26840d0819196e3746c99b28092",
+      "file_id": "file_00000000d0e481f784748212c2056402",
+      "size_bytes": 922075,
+      "created_at": "2026-11-07T11:01:52.106271Z"
+    },
+    {
+      "name": "lijing_r05_r06_full_building_comparison.png",
+      "library_file_id": "libfile_fde3_f-73db9cb7ccfc81919e6732266ce8d626_c853d26840d0819196e3746c99b28092",
+      "file_id": "file_00000000ad7482128e2fbeb71a023c9e",
+      "size_bytes": 1296556,
+      "created_at": "2026-11-07T08:20:47.238524Z"
+    },
+    {
+      "name": "lijing_r02_r03_comparison.png",
+      "library_file_id": "libfile_fde3_f-c6cb26474ca481918a27df23be4ec13d_c853d26840d0819196e3746c99b28092",
+      "file_id": "file_00000000e2c481f796ed2868877cb999",
+      "size_bytes": 2731455,
+      "created_at": "2026-11-07T07:10:11.386644Z"
+    },
+    {
+      "name": "共和景晨_R13-R14_同机位整楼对照.png",
+      "library_file_id": "libfile_fde3_f-9c0b42f3712c8191b782ff0c6535752a_c853d26840d0819196e3746c99b28092",
+      "file_id": "file_000000008e8c82129381976d20197558",
+      "size_bytes": 2848086,
+      "created_at": "2026-11-07T18:08:10.759077Z"
+    }
+  ],
+  "registry_asset_status": [
+    {
+      "order": 1,
+      "name": "美联御峰写字楼",
+      "scene_id": "1649135",
+      "asset_status": "source_model_recovered_or_prior_integrated"
+    },
+    {
+      "order": 2,
+      "name": "中南冶金大楼",
+      "scene_id": "1649149",
+      "asset_status": "source_model_recovered_or_prior_integrated"
+    },
+    {
+      "order": 3,
+      "name": "金江银座",
+      "scene_id": "1649132",
+      "asset_status": "source_model_recovered_or_prior_integrated"
+    },
+    {
+      "order": 4,
+      "name": "万达SOHO写字楼",
+      "scene_id": "1649138",
+      "asset_status": "source_model_recovered_or_prior_integrated"
+    },
+    {
+      "order": 5,
+      "name": "福江铭座",
+      "scene_id": "1649129",
+      "asset_status": "source_model_recovered_or_prior_integrated"
+    },
+    {
+      "order": 6,
+      "name": "宜昌国际广场",
+      "scene_id": "1649145",
+      "asset_status": "source_model_recovered_or_prior_integrated"
+    },
+    {
+      "order": 7,
+      "name": "首信财富",
+      "scene_id": "1649136",
+      "asset_status": "source_model_recovered_or_prior_integrated"
+    },
+    {
+      "order": 8,
+      "name": "九州方园",
+      "scene_id": "1649133",
+      "asset_status": "source_model_recovered_or_prior_integrated"
+    },
+    {
+      "order": 9,
+      "name": "兴发广场写字楼",
+      "scene_id": "1649141",
+      "asset_status": "no_usable_geometry_recovered_from_current_search"
+    },
+    {
+      "order": 10,
+      "name": "新华广场武银大厦",
+      "scene_id": "1649139",
+      "asset_status": "no_usable_geometry_recovered_from_current_search"
+    },
+    {
+      "order": 11,
+      "name": "长江国际文化广场",
+      "scene_id": "1649144",
+      "asset_status": "no_usable_geometry_recovered_from_current_search"
+    },
+    {
+      "order": 12,
+      "name": "致远广场",
+      "scene_id": "1649148",
+      "asset_status": "no_usable_geometry_recovered_from_current_search"
+    },
+    {
+      "order": 13,
+      "name": "外滩领馆",
+      "scene_id": "1649137",
+      "asset_status": "no_usable_geometry_recovered_from_current_search"
+    },
+    {
+      "order": 14,
+      "name": "长乐大厦",
+      "scene_id": "1649146",
+      "asset_status": "no_usable_geometry_recovered_from_current_search"
+    },
+    {
+      "order": 15,
+      "name": "兴发集团宜昌总部",
+      "scene_id": "1649142",
+      "asset_status": "saved_model_comparison_image_found_geometry_not_yet_recovered"
+    },
+    {
+      "order": 16,
+      "name": "丽景国际综合楼",
+      "scene_id": "1649134",
+      "asset_status": "saved_model_comparison_image_found_geometry_not_yet_recovered"
+    },
+    {
+      "order": 17,
+      "name": "中建·宜昌之星",
+      "scene_id": "1649147",
+      "asset_status": "no_usable_geometry_recovered_from_current_search"
+    },
+    {
+      "order": 18,
+      "name": "福久源大厦",
+      "scene_id": "1649128",
+      "asset_status": "no_usable_geometry_recovered_from_current_search"
+    },
+    {
+      "order": 19,
+      "name": "鑫鼎大厦",
+      "scene_id": "1649140",
+      "asset_status": "no_usable_geometry_recovered_from_current_search"
+    },
+    {
+      "order": 20,
+      "name": "旭光商贸大厦",
+      "scene_id": "1649143",
+      "asset_status": "no_usable_geometry_recovered_from_current_search"
+    },
+    {
+      "order": 21,
+      "name": "光联大厦",
+      "scene_id": "1649131",
+      "asset_status": "no_usable_geometry_recovered_from_current_search"
+    },
+    {
+      "order": 22,
+      "name": "共和景晨创业中心",
+      "scene_id": "1649127",
+      "asset_status": "saved_model_comparison_image_found_geometry_not_yet_recovered"
+    },
+    {
+      "order": 23,
+      "name": "共同大厦",
+      "scene_id": "1649130",
+      "asset_status": "no_usable_geometry_recovered_from_current_search"
+    }
+  ],
+  "search_summary": {
+    "title_glb_results": 14,
+    "title_blend_results": 23,
+    "recursive_non_image_files_since_2026_11_04": 87,
+    "recursive_list_has_more": false,
+    "queries": "Chinese names and English/pinyin variants for all23, .glb/.blend, exact recovery descriptions, recent recursive metadata inventory"
+  },
+  "important_limits": [
+    "No usable source found does not establish that the model does not exist.",
+    "All source models remain bounded normalized candidates; no metre-scale or complete field reconstruction claim.",
+    "Source metadata may call tour CRS unknown; the parent task separately verified GCJ-02 in actual Wasee/AMap code.",
+    "Meilian S05 original-source package recovered; parent recovered same-source existing Site GLB separately.",
+    "Jiuzhou S01 package explicitly excludes GLB; parent is creating a separate web export.",
+    "Original native archives and blend bytes are kept unchanged.",
+    "Old Wanda/Fujiang defective static GLBs were not extracted or substituted.",
+    "Jinjiang S04 and Zhongnan hidden height/hotel/envelope studies were not promoted to displayed defaults."
+  ]
+}

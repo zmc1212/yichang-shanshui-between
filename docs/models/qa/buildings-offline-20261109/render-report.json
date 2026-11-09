@@ -1,0 +1,122 @@
+[
+  {
+    "id": "wanda-soho-s01",
+    "left": "light",
+    "right": "detail",
+    "png": "/workspace/scratch/74379c705fda/buildings-optimize-20261109/geometry-review/wanda-soho-s01-comparison.png",
+    "sha256": "856c57027dce8515ccfe5155428cc1a2a2eca24e73b8d09f0d6f0ca4b0d35b4c",
+    "runtime": "4.5.14 LTS",
+    "samples": 24,
+    "threads": 4,
+    "elapsedSeconds": 7.5616614818573,
+    "sourceBounds": {
+      "min": [
+        -93.5,
+        -0.009999999776482582,
+        -39.13999938964844
+      ],
+      "max": [
+        117.5,
+        100.88999938964844,
+        19.899999618530273
+      ]
+    },
+    "cameraDirection": [
+      0.43264105916023254,
+      -0.7787538766860962,
+      0.4542731046676636
+    ],
+    "orthoScale": 525.1265258789062,
+    "scope": "Offline neutral clay geometry comparison. No textures, browser/WebGL, measured device performance, survey, or real-scene acceptance."
+  },
+  {
+    "id": "fujiang-s01",
+    "left": "light",
+    "right": "detail",
+    "png": "/workspace/scratch/74379c705fda/buildings-optimize-20261109/geometry-review/fujiang-s01-comparison.png",
+    "sha256": "0c9c3cbdafb697480477cbdf92b8b602c57c224f97bbc6320bd4f9bb85d54d13",
+    "runtime": "4.5.14 LTS",
+    "samples": 24,
+    "threads": 4,
+    "elapsedSeconds": 10.956417798995972,
+    "sourceBounds": {
+      "min": [
+        -24.24829864501953,
+        -0.125,
+        -21.674999237060547
+      ],
+      "max": [
+        24.24829864501953,
+        100,
+        12.180000305175781
+      ]
+    },
+    "cameraDirection": [
+      0.43264105916023254,
+      -0.7787538766860962,
+      0.4542731046676636
+    ],
+    "orthoScale": 223.4430694580078,
+    "scope": "Offline neutral clay geometry comparison. No textures, browser/WebGL, measured device performance, survey, or real-scene acceptance."
+  },
+  {
+    "id": "zhongnan-s09",
+    "left": "light",
+    "right": "detail",
+    "png": "/workspace/scratch/74379c705fda/buildings-optimize-20261109/geometry-review/zhongnan-s09-comparison.png",
+    "sha256": "dc55ac7bd39b23fadae41eb5adea535373ac300acd55af06d2a2f09321989b89",
+    "runtime": "4.5.14 LTS",
+    "samples": 24,
+    "threads": 4,
+    "elapsedSeconds": 12.539844751358032,
+    "sourceBounds": {
+      "min": [
+        -29.16375160217285,
+        0,
+        -58.900001525878906
+      ],
+      "max": [
+        49.78280258178711,
+        106.55999755859375,
+        2.8828067779541016
+      ]
+    },
+    "cameraDirection": [
+      0.43264105916023254,
+      -0.7787538766860962,
+      0.4542731046676636
+    ],
+    "orthoScale": 269.8518981933594,
+    "scope": "Offline neutral clay geometry comparison. No textures, browser/WebGL, measured device performance, survey, or real-scene acceptance."
+  },
+  {
+    "id": "yichang-international-s01",
+    "left": "light",
+    "right": "detail",
+    "png": "/workspace/scratch/74379c705fda/buildings-optimize-20261109/geometry-review/yichang-international-s01-comparison.png",
+    "sha256": "64adc782eeadac8bfa5f13e8858cacb46f148f0818f70c722efbd4d9c833c143",
+    "runtime": "4.5.14 LTS",
+    "samples": 24,
+    "threads": 4,
+    "elapsedSeconds": 12.634188652038574,
+    "sourceBounds": {
+      "min": [
+        -43.900001525878906,
+        -0.15000000596046448,
+        -16.060869216918945
+      ],
+      "max": [
+        45.79999923706055,
+        100.06999969482422,
+        29.799999237060547
+      ]
+    },
+    "cameraDirection": [
+      0.43264105916023254,
+      -0.7787538766860962,
+      0.4542731046676636
+    ],
+    "orthoScale": 250.92933654785156,
+    "scope": "Offline neutral clay geometry comparison. No textures, browser/WebGL, measured device performance, survey, or real-scene acceptance."
+  }
+]

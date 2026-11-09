@@ -1,0 +1,502 @@
+{
+  "sourceUrl": "https://df21wknb5.wasee.com/wt/df21wknb5",
+  "sourceDataSha256": "375e298b8f7db44197c672d5b52419da0f3a629a52f074310a948466a44d4cb0",
+  "sourceSceneCount": 23,
+  "markerCount": 23,
+  "uniqueMarkerCount": 23,
+  "countWarning": "23 historic business-building projects, not an independently verified count of 23 single towers or current operational buildings.",
+  "retainedGisBounds": [
+    111.2,
+    30.62,
+    111.41,
+    30.78
+  ],
+  "registrationWarning": "Nearest footprints are candidates only; identity, group extent and orientation require evidence beyond distance.",
+  "rows": [
+    {
+      "order": 1,
+      "sourceSceneId": "1649135",
+      "sourceMarkerId": 52459,
+      "sourceName": "美联御峰写字楼",
+      "aliases": [],
+      "sourceAddress": "沿江大道130号",
+      "sourceCoordinateSystem": "GCJ-02",
+      "sourceMarkerLonLat": [
+        111.298032,
+        30.685664
+      ],
+      "convertedMarkerWgs84": [
+        111.29235941587233,
+        30.6880967795452
+      ],
+      "sourcePeriod": "2022 tour; historic 2021 tax statistics in intro; not a 2026 complete inventory",
+      "sourceCountUnit": "business-building project; can contain multiple physical towers",
+      "registrationStatus": "poi-only-unreviewed"
+    },
+    {
+      "order": 2,
+      "sourceSceneId": "1649149",
+      "sourceMarkerId": 52460,
+      "sourceName": "中南冶金大楼",
+      "aliases": [
+        "中南冶金",
+        "中南冶金大楼"
+      ],
+      "sourceAddress": "胜利一路15号",
+      "sourceCoordinateSystem": "GCJ-02",
+      "sourceMarkerLonLat": [
+        111.305009,
+        30.683651
+      ],
+      "convertedMarkerWgs84": [
+        111.29931950259456,
+        30.686074126559554
+      ],
+      "sourcePeriod": "2022 tour; historic 2021 tax statistics in intro; not a 2026 complete inventory",
+      "sourceCountUnit": "business-building project; can contain multiple physical towers",
+      "registrationStatus": "poi-only-unreviewed"
+    },
+    {
+      "order": 3,
+      "sourceSceneId": "1649132",
+      "sourceMarkerId": 52461,
+      "sourceName": "金江银座",
+      "aliases": [
+        "锦江银座",
+        "金江银座"
+      ],
+      "sourceAddress": "沿江大道129号",
+      "sourceCoordinateSystem": "GCJ-02",
+      "sourceMarkerLonLat": [
+        111.297281,
+        30.686297
+      ],
+      "convertedMarkerWgs84": [
+        111.29161012438406,
+        30.688730554408533
+      ],
+      "sourcePeriod": "2022 tour; historic 2021 tax statistics in intro; not a 2026 complete inventory",
+      "sourceCountUnit": "business-building project; can contain multiple physical towers",
+      "registrationStatus": "poi-only-unreviewed"
+    },
+    {
+      "order": 4,
+      "sourceSceneId": "1649138",
+      "sourceMarkerId": 52462,
+      "sourceName": "万达SOHO写字楼",
+      "aliases": [],
+      "sourceAddress": "沿江大道特168-5、6、7号",
+      "sourceCoordinateSystem": "GCJ-02",
+      "sourceMarkerLonLat": [
+        111.307473,
+        30.680105
+      ],
+      "convertedMarkerWgs84": [
+        111.30177749459325,
+        30.682525778868754
+      ],
+      "sourcePeriod": "2022 tour; historic 2021 tax statistics in intro; not a 2026 complete inventory",
+      "sourceCountUnit": "business-building project; can contain multiple physical towers",
+      "registrationStatus": "poi-only-unreviewed"
+    },
+    {
+      "order": 5,
+      "sourceSceneId": "1649129",
+      "sourceMarkerId": 52463,
+      "sourceName": "福江铭座",
+      "aliases": [],
+      "sourceAddress": "沿江大道特162号",
+      "sourceCoordinateSystem": "GCJ-02",
+      "sourceMarkerLonLat": [
+        111.315059,
+        30.67512
+      ],
+      "convertedMarkerWgs84": [
+        111.30934373826001,
+        30.677530086500706
+      ],
+      "sourcePeriod": "2022 tour; historic 2021 tax statistics in intro; not a 2026 complete inventory",
+      "sourceCountUnit": "business-building project; can contain multiple physical towers",
+      "registrationStatus": "poi-only-unreviewed"
+    },
+    {
+      "order": 6,
+      "sourceSceneId": "1649145",
+      "sourceMarkerId": 52464,
+      "sourceName": "宜昌国际广场",
+      "aliases": [],
+      "sourceAddress": "沿江大道 189 号",
+      "sourceCoordinateSystem": "GCJ-02",
+      "sourceMarkerLonLat": [
+        111.310096,
+        30.678526
+      ],
+      "convertedMarkerWgs84": [
+        111.30439377058784,
+        30.680943128148783
+      ],
+      "sourcePeriod": "2022 tour; historic 2021 tax statistics in intro; not a 2026 complete inventory",
+      "sourceCountUnit": "business-building project; can contain multiple physical towers",
+      "registrationStatus": "poi-only-unreviewed"
+    },
+    {
+      "order": 7,
+      "sourceSceneId": "1649136",
+      "sourceMarkerId": 52465,
+      "sourceName": "首信财富",
+      "aliases": [
+        "首信财富中心",
+        "首信财富"
+      ],
+      "sourceAddress": "沿江大道182号",
+      "sourceCoordinateSystem": "GCJ-02",
+      "sourceMarkerLonLat": [
+        111.322369,
+        30.667704
+      ],
+      "convertedMarkerWgs84": [
+        111.31663410647052,
+        30.670104177599313
+      ],
+      "sourcePeriod": "2022 tour; historic 2021 tax statistics in intro; not a 2026 complete inventory",
+      "sourceCountUnit": "business-building project; can contain multiple physical towers",
+      "registrationStatus": "poi-only-unreviewed"
+    },
+    {
+      "order": 8,
+      "sourceSceneId": "1649133",
+      "sourceMarkerId": 52466,
+      "sourceName": "九州方园",
+      "aliases": [
+        "九州方园大厦",
+        "九州方园"
+      ],
+      "sourceAddress": "沿江大道185号",
+      "sourceCoordinateSystem": "GCJ-02",
+      "sourceMarkerLonLat": [
+        111.323749,
+        30.666553
+      ],
+      "convertedMarkerWgs84": [
+        111.31801031582414,
+        30.66895112773464
+      ],
+      "sourcePeriod": "2022 tour; historic 2021 tax statistics in intro; not a 2026 complete inventory",
+      "sourceCountUnit": "business-building project; can contain multiple physical towers",
+      "registrationStatus": "poi-only-unreviewed"
+    },
+    {
+      "order": 9,
+      "sourceSceneId": "1649141",
+      "sourceMarkerId": 52468,
+      "sourceName": "兴发广场写字楼",
+      "aliases": [],
+      "sourceAddress": "中南路35号",
+      "sourceCoordinateSystem": "GCJ-02",
+      "sourceMarkerLonLat": [
+        111.33099,
+        30.679532
+      ],
+      "convertedMarkerWgs84": [
+        111.32522959614468,
+        30.68191051044286
+      ],
+      "sourcePeriod": "2022 tour; historic 2021 tax statistics in intro; not a 2026 complete inventory",
+      "sourceCountUnit": "business-building project; can contain multiple physical towers",
+      "registrationStatus": "poi-only-unreviewed"
+    },
+    {
+      "order": 10,
+      "sourceSceneId": "1649139",
+      "sourceMarkerId": 52469,
+      "sourceName": "新华广场武银大厦",
+      "aliases": [],
+      "sourceAddress": "城东大道93号",
+      "sourceCoordinateSystem": "GCJ-02",
+      "sourceMarkerLonLat": [
+        111.333683,
+        30.676549
+      ],
+      "convertedMarkerWgs84": [
+        111.32791515836917,
+        30.678923751333667
+      ],
+      "sourcePeriod": "2022 tour; historic 2021 tax statistics in intro; not a 2026 complete inventory",
+      "sourceCountUnit": "business-building project; can contain multiple physical towers",
+      "registrationStatus": "poi-only-unreviewed"
+    },
+    {
+      "order": 11,
+      "sourceSceneId": "1649144",
+      "sourceMarkerId": 52470,
+      "sourceName": "长江国际文化广场",
+      "aliases": [],
+      "sourceAddress": "城东大道112号",
+      "sourceCoordinateSystem": "GCJ-02",
+      "sourceMarkerLonLat": [
+        111.331709,
+        30.676657
+      ],
+      "convertedMarkerWgs84": [
+        111.32594679038543,
+        30.679035466631458
+      ],
+      "sourcePeriod": "2022 tour; historic 2021 tax statistics in intro; not a 2026 complete inventory",
+      "sourceCountUnit": "business-building project; can contain multiple physical towers",
+      "registrationStatus": "poi-only-unreviewed"
+    },
+    {
+      "order": 12,
+      "sourceSceneId": "1649148",
+      "sourceMarkerId": 52471,
+      "sourceName": "致远广场",
+      "aliases": [],
+      "sourceAddress": "沿江大道189号",
+      "sourceCoordinateSystem": "GCJ-02",
+      "sourceMarkerLonLat": [
+        111.330219,
+        30.660624
+      ],
+      "convertedMarkerWgs84": [
+        111.32446243388668,
+        30.663012575245475
+      ],
+      "sourcePeriod": "2022 tour; historic 2021 tax statistics in intro; not a 2026 complete inventory",
+      "sourceCountUnit": "business-building project; can contain multiple physical towers",
+      "registrationStatus": "poi-only-unreviewed"
+    },
+    {
+      "order": 13,
+      "sourceSceneId": "1649137",
+      "sourceMarkerId": 52472,
+      "sourceName": "外滩领馆",
+      "aliases": [],
+      "sourceAddress": "沿江大道188号",
+      "sourceCoordinateSystem": "GCJ-02",
+      "sourceMarkerLonLat": [
+        111.327134,
+        30.663956
+      ],
+      "convertedMarkerWgs84": [
+        111.32138594139299,
+        30.666348934458373
+      ],
+      "sourcePeriod": "2022 tour; historic 2021 tax statistics in intro; not a 2026 complete inventory",
+      "sourceCountUnit": "business-building project; can contain multiple physical towers",
+      "registrationStatus": "poi-only-unreviewed"
+    },
+    {
+      "order": 14,
+      "sourceSceneId": "1649146",
+      "sourceMarkerId": 52473,
+      "sourceName": "长乐大厦",
+      "aliases": [],
+      "sourceAddress": "沿江大道188-8号",
+      "sourceCoordinateSystem": "GCJ-02",
+      "sourceMarkerLonLat": [
+        111.32839,
+        30.662715
+      ],
+      "convertedMarkerWgs84": [
+        111.32263847158941,
+        30.665106113714582
+      ],
+      "sourcePeriod": "2022 tour; historic 2021 tax statistics in intro; not a 2026 complete inventory",
+      "sourceCountUnit": "business-building project; can contain multiple physical towers",
+      "registrationStatus": "poi-only-unreviewed"
+    },
+    {
+      "order": 15,
+      "sourceSceneId": "1649142",
+      "sourceMarkerId": 52474,
+      "sourceName": "兴发集团宜昌总部",
+      "aliases": [],
+      "sourceAddress": "夷陵大道346号",
+      "sourceCoordinateSystem": "GCJ-02",
+      "sourceMarkerLonLat": [
+        111.331432,
+        30.662181
+      ],
+      "convertedMarkerWgs84": [
+        111.32567183443425,
+        30.664566568685956
+      ],
+      "sourcePeriod": "2022 tour; historic 2021 tax statistics in intro; not a 2026 complete inventory",
+      "sourceCountUnit": "business-building project; can contain multiple physical towers",
+      "registrationStatus": "poi-only-unreviewed"
+    },
+    {
+      "order": 16,
+      "sourceSceneId": "1649134",
+      "sourceMarkerId": 52475,
+      "sourceName": "丽景国际综合楼",
+      "aliases": [],
+      "sourceAddress": "伍临路3号",
+      "sourceCoordinateSystem": "GCJ-02",
+      "sourceMarkerLonLat": [
+        111.359092,
+        30.64282
+      ],
+      "convertedMarkerWgs84": [
+        111.35325734611246,
+        30.645163385592564
+      ],
+      "sourcePeriod": "2022 tour; historic 2021 tax statistics in intro; not a 2026 complete inventory",
+      "sourceCountUnit": "business-building project; can contain multiple physical towers",
+      "registrationStatus": "poi-only-unreviewed"
+    },
+    {
+      "order": 17,
+      "sourceSceneId": "1649147",
+      "sourceMarkerId": 52476,
+      "sourceName": "中建·宜昌之星",
+      "aliases": [],
+      "sourceAddress": "沿江大道与白沙路交汇处",
+      "sourceCoordinateSystem": "GCJ-02",
+      "sourceMarkerLonLat": [
+        111.351557,
+        30.638703
+      ],
+      "convertedMarkerWgs84": [
+        111.3457424302751,
+        30.641061172586056
+      ],
+      "sourcePeriod": "2022 tour; historic 2021 tax statistics in intro; not a 2026 complete inventory",
+      "sourceCountUnit": "business-building project; can contain multiple physical towers",
+      "registrationStatus": "poi-only-unreviewed"
+    },
+    {
+      "order": 18,
+      "sourceSceneId": "1649128",
+      "sourceMarkerId": 52477,
+      "sourceName": "福久源大厦",
+      "aliases": [],
+      "sourceAddress": "桔城路6号",
+      "sourceCoordinateSystem": "GCJ-02",
+      "sourceMarkerLonLat": [
+        111.361246,
+        30.647377
+      ],
+      "convertedMarkerWgs84": [
+        111.35540554095843,
+        30.649714876702532
+      ],
+      "sourcePeriod": "2022 tour; historic 2021 tax statistics in intro; not a 2026 complete inventory",
+      "sourceCountUnit": "business-building project; can contain multiple physical towers",
+      "registrationStatus": "poi-only-unreviewed"
+    },
+    {
+      "order": 19,
+      "sourceSceneId": "1649140",
+      "sourceMarkerId": 52478,
+      "sourceName": "鑫鼎大厦",
+      "aliases": [],
+      "sourceAddress": "伍临路33号",
+      "sourceCoordinateSystem": "GCJ-02",
+      "sourceMarkerLonLat": [
+        111.370433,
+        30.627722
+      ],
+      "convertedMarkerWgs84": [
+        111.364572628021,
+        30.630054365218708
+      ],
+      "sourcePeriod": "2022 tour; historic 2021 tax statistics in intro; not a 2026 complete inventory",
+      "sourceCountUnit": "business-building project; can contain multiple physical towers",
+      "registrationStatus": "poi-only-unreviewed"
+    },
+    {
+      "order": 20,
+      "sourceSceneId": "1649143",
+      "sourceMarkerId": 52479,
+      "sourceName": "旭光商贸大厦",
+      "aliases": [],
+      "sourceAddress": "伍家岗区城东大道85号",
+      "sourceCoordinateSystem": "GCJ-02",
+      "sourceMarkerLonLat": [
+        111.327369,
+        30.68079
+      ],
+      "convertedMarkerWgs84": [
+        111.32161881804507,
+        30.683174803986216
+      ],
+      "sourcePeriod": "2022 tour; historic 2021 tax statistics in intro; not a 2026 complete inventory",
+      "sourceCountUnit": "business-building project; can contain multiple physical towers",
+      "registrationStatus": "poi-only-unreviewed"
+    },
+    {
+      "order": 21,
+      "sourceSceneId": "1649131",
+      "sourceMarkerId": 52480,
+      "sourceName": "光联大厦",
+      "aliases": [],
+      "sourceAddress": "城东大137号",
+      "sourceCoordinateSystem": "GCJ-02",
+      "sourceMarkerLonLat": [
+        111.362948,
+        30.658862
+      ],
+      "convertedMarkerWgs84": [
+        111.35710234767856,
+        30.66119209488809
+      ],
+      "sourcePeriod": "2022 tour; historic 2021 tax statistics in intro; not a 2026 complete inventory",
+      "sourceCountUnit": "business-building project; can contain multiple physical towers",
+      "registrationStatus": "poi-only-unreviewed"
+    },
+    {
+      "order": 22,
+      "sourceSceneId": "1649127",
+      "sourceMarkerId": 52481,
+      "sourceName": "共和景晨创业中心",
+      "aliases": [],
+      "sourceAddress": "东站路169号",
+      "sourceCoordinateSystem": "GCJ-02",
+      "sourceMarkerLonLat": [
+        111.379158,
+        30.65967
+      ],
+      "convertedMarkerWgs84": [
+        111.37327683032962,
+        30.661977464990333
+      ],
+      "sourcePeriod": "2022 tour; historic 2021 tax statistics in intro; not a 2026 complete inventory",
+      "sourceCountUnit": "business-building project; can contain multiple physical towers",
+      "registrationStatus": "poi-only-unreviewed"
+    },
+    {
+      "order": 23,
+      "sourceSceneId": "1649130",
+      "sourceMarkerId": 52482,
+      "sourceName": "共同大厦",
+      "aliases": [],
+      "sourceAddress": "桔乡路501号",
+      "sourceCoordinateSystem": "GCJ-02",
+      "sourceMarkerLonLat": [
+        111.386954,
+        30.6714
+      ],
+      "convertedMarkerWgs84": [
+        111.38105820615677,
+        30.673694335949207
+      ],
+      "sourcePeriod": "2022 tour; historic 2021 tax statistics in intro; not a 2026 complete inventory",
+      "sourceCountUnit": "business-building project; can contain multiple physical towers",
+      "registrationStatus": "poi-only-unreviewed"
+    }
+  ],
+  "displayNames": {
+    "1649135": "美联御峰",
+    "1649149": "中南冶金大楼",
+    "1649132": "锦江银座",
+    "1649138": "万达 SOHO",
+    "1649136": "首信财富中心",
+    "1649133": "九州方园大厦"
+  },
+  "recoveryEvidence": {
+    "1649142": "已发现兴发总部 S04/S05 与后续建模对比图，待恢复原生模型或网页文件。",
+    "1649134": "已发现丽景国际 R02/R03、R05/R06 建模对比图，待恢复原生模型或网页文件。",
+    "1649127": "已发现共和景晨 R13/R14 整楼建模对比图，待恢复原生模型或网页文件。"
+  }
+}

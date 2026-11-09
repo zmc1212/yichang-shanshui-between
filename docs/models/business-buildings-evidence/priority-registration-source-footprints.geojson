@@ -1,0 +1,921 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "07a71726-720b-4fd4-a814-fb14bda5bd7e",
+      "properties": {
+        "heightMeters": 120.0,
+        "heightSource": "tag",
+        "areaMeters2": 1339.6,
+        "buildingClass": "commercial",
+        "sourceDataset": "osm",
+        "sourceFile": "buildings/b_05_03_0.geojson",
+        "registrationKeys": [
+          "wanda-soho"
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              111.301489,
+              30.683268
+            ],
+            [
+              111.301247,
+              30.683018
+            ],
+            [
+              111.300952,
+              30.683238
+            ],
+            [
+              111.301196,
+              30.683483
+            ],
+            [
+              111.301489,
+              30.683268
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "82fffa3c-3b89-4b72-a3de-3c6cd02a1c2e",
+      "properties": {
+        "heightMeters": 120.0,
+        "heightSource": "tag",
+        "areaMeters2": 1321.8,
+        "buildingClass": "commercial",
+        "sourceDataset": "osm",
+        "sourceFile": "buildings/b_05_03_0.geojson",
+        "registrationKeys": [
+          "wanda-soho"
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              111.302055,
+              30.68283
+            ],
+            [
+              111.301806,
+              30.682584
+            ],
+            [
+              111.301522,
+              30.682808
+            ],
+            [
+              111.301766,
+              30.683047
+            ],
+            [
+              111.302055,
+              30.68283
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "200bff33-082f-43da-99e0-51f8fe4f2607",
+      "properties": {
+        "heightMeters": 120.0,
+        "heightSource": "tag",
+        "areaMeters2": 1381.5,
+        "buildingClass": "commercial",
+        "sourceDataset": "osm",
+        "sourceFile": "buildings/b_05_03_0.geojson",
+        "registrationKeys": [
+          "wanda-soho"
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              111.302578,
+              30.682421
+            ],
+            [
+              111.302338,
+              30.682167
+            ],
+            [
+              111.302036,
+              30.682399
+            ],
+            [
+              111.302277,
+              30.682642
+            ],
+            [
+              111.302578,
+              30.682421
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "bb15e7cf-9138-4cad-bb0c-a6c219e81197",
+      "properties": {
+        "heightMeters": 12,
+        "heightSource": "default",
+        "areaMeters2": 29457.7,
+        "sourceDataset": "osm",
+        "sourceFile": "buildings/b_05_03_0.geojson",
+        "registrationKeys": [
+          "wanda-soho"
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              111.303624,
+              30.68247
+            ],
+            [
+              111.30373,
+              30.682594
+            ],
+            [
+              111.304041,
+              30.682379
+            ],
+            [
+              111.303237,
+              30.681512
+            ],
+            [
+              111.302763,
+              30.681844
+            ],
+            [
+              111.302423,
+              30.682101
+            ],
+            [
+              111.302036,
+              30.682399
+            ],
+            [
+              111.301364,
+              30.68293
+            ],
+            [
+              111.300704,
+              30.683423
+            ],
+            [
+              111.301259,
+              30.683979
+            ],
+            [
+              111.302776,
+              30.682868
+            ],
+            [
+              111.303624,
+              30.68247
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "a282237a-14a0-4246-bd2b-8386a86a1502",
+      "properties": {
+        "heightMeters": 12,
+        "heightSource": "default",
+        "areaMeters2": 1572.2,
+        "sourceDataset": "osm",
+        "sourceFile": "buildings/b_04_03_1.geojson",
+        "registrationKeys": [
+          "zhongnan-metallurgy"
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              111.299143,
+              30.685875
+            ],
+            [
+              111.299063,
+              30.685786
+            ],
+            [
+              111.298618,
+              30.686111
+            ],
+            [
+              111.298808,
+              30.686331
+            ],
+            [
+              111.29912,
+              30.686113
+            ],
+            [
+              111.299143,
+              30.685875
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "4b2539b2-ca4f-489a-96e3-9df54396e0ae",
+      "properties": {
+        "heightMeters": 12,
+        "heightSource": "default",
+        "areaMeters2": 842.8,
+        "sourceDataset": "osm",
+        "sourceFile": "buildings/b_04_03_1.geojson",
+        "registrationKeys": [
+          "zhongnan-metallurgy"
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              111.298956,
+              30.68587
+            ],
+            [
+              111.298991,
+              30.685915
+            ],
+            [
+              111.29898,
+              30.68601
+            ],
+            [
+              111.298748,
+              30.686178
+            ],
+            [
+              111.298843,
+              30.686291
+            ],
+            [
+              111.299105,
+              30.686109
+            ],
+            [
+              111.299132,
+              30.685868
+            ],
+            [
+              111.299063,
+              30.685791
+            ],
+            [
+              111.298956,
+              30.68587
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "ae815edb-2941-40aa-89d4-1a21d8172eae",
+      "properties": {
+        "heightMeters": 90.0,
+        "heightSource": "tag",
+        "areaMeters2": 1485.8,
+        "sourceDataset": "osm",
+        "sourceFile": "buildings/b_05_02.geojson",
+        "registrationKeys": [
+          "jiuzhou-fangyuan"
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              111.318265,
+              30.668827
+            ],
+            [
+              111.317762,
+              30.669207
+            ],
+            [
+              111.317922,
+              30.669363
+            ],
+            [
+              111.318425,
+              30.668983
+            ],
+            [
+              111.318265,
+              30.668827
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "ff7985c2-8e75-4589-8a23-816772be6a0d",
+      "properties": {
+        "heightMeters": 12,
+        "heightSource": "default",
+        "areaMeters2": 839.4,
+        "sourceDataset": "osm",
+        "sourceFile": "buildings/b_04_03_1.geojson",
+        "registrationKeys": [
+          "jinjiang-yinzuo"
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              111.291888,
+              30.688801
+            ],
+            [
+              111.291796,
+              30.688676
+            ],
+            [
+              111.291346,
+              30.688917
+            ],
+            [
+              111.291438,
+              30.689043
+            ],
+            [
+              111.291888,
+              30.688801
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "31be43a4-9179-4d08-8a8c-3d840b3d31da",
+      "properties": {
+        "heightMeters": 12,
+        "heightSource": "default",
+        "areaMeters2": 1716.1,
+        "sourceDataset": "osm",
+        "sourceFile": "buildings/b_04_03_1.geojson",
+        "registrationKeys": [
+          "jinjiang-yinzuo"
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              111.291649,
+              30.688474
+            ],
+            [
+              111.291356,
+              30.688631
+            ],
+            [
+              111.291503,
+              30.688832
+            ],
+            [
+              111.291346,
+              30.688917
+            ],
+            [
+              111.291438,
+              30.689043
+            ],
+            [
+              111.291888,
+              30.688801
+            ],
+            [
+              111.291649,
+              30.688474
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "5490a156-bcdc-4091-8769-12566bbe415a",
+      "properties": {
+        "heightMeters": 170.0,
+        "heightSource": "tag",
+        "areaMeters2": 1171.3,
+        "sourceDataset": "osm",
+        "sourceFile": "buildings/b_05_02.geojson",
+        "registrationKeys": [
+          "fujiang-mingzuo"
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              111.309138,
+              30.677601
+            ],
+            [
+              111.309265,
+              30.677545
+            ],
+            [
+              111.309394,
+              30.677516
+            ],
+            [
+              111.309527,
+              30.677495
+            ],
+            [
+              111.309699,
+              30.677508
+            ],
+            [
+              111.309718,
+              30.677387
+            ],
+            [
+              111.309686,
+              30.677375
+            ],
+            [
+              111.309514,
+              30.677356
+            ],
+            [
+              111.309328,
+              30.67737
+            ],
+            [
+              111.309128,
+              30.677434
+            ],
+            [
+              111.309022,
+              30.677498
+            ],
+            [
+              111.308951,
+              30.677552
+            ],
+            [
+              111.309037,
+              30.677665
+            ],
+            [
+              111.309138,
+              30.677601
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "6e6462fd-0796-4d9f-b232-02eddcd5cce4",
+      "properties": {
+        "heightMeters": 12,
+        "heightSource": "default",
+        "areaMeters2": 3151.0,
+        "sourceDataset": "osm",
+        "sourceFile": "buildings/b_05_02.geojson",
+        "registrationKeys": [
+          "fujiang-mingzuo"
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              111.309687,
+              30.677652
+            ],
+            [
+              111.309818,
+              30.677601
+            ],
+            [
+              111.309847,
+              30.67756
+            ],
+            [
+              111.309838,
+              30.677492
+            ],
+            [
+              111.309794,
+              30.677416
+            ],
+            [
+              111.309686,
+              30.677375
+            ],
+            [
+              111.309514,
+              30.677356
+            ],
+            [
+              111.309328,
+              30.67737
+            ],
+            [
+              111.309128,
+              30.677434
+            ],
+            [
+              111.309022,
+              30.677498
+            ],
+            [
+              111.308882,
+              30.677604
+            ],
+            [
+              111.309089,
+              30.677859
+            ],
+            [
+              111.309424,
+              30.677738
+            ],
+            [
+              111.309687,
+              30.677652
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "d6d52628-7bcb-4a1a-89be-f0a610dd73c1",
+      "properties": {
+        "heightMeters": 12,
+        "heightSource": "default",
+        "areaMeters2": 9768.7,
+        "buildingClass": "retail",
+        "sourceDataset": "osm",
+        "sourceFile": "buildings/b_05_03_0.geojson",
+        "registrationKeys": [
+          "yichang-international"
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              111.304392,
+              30.681267
+            ],
+            [
+              111.304605,
+              30.68112
+            ],
+            [
+              111.304587,
+              30.6811
+            ],
+            [
+              111.305015,
+              30.680806
+            ],
+            [
+              111.304989,
+              30.680777
+            ],
+            [
+              111.305275,
+              30.680583
+            ],
+            [
+              111.305039,
+              30.680301
+            ],
+            [
+              111.305026,
+              30.6803
+            ],
+            [
+              111.304963,
+              30.680336
+            ],
+            [
+              111.304932,
+              30.680337
+            ],
+            [
+              111.304873,
+              30.680321
+            ],
+            [
+              111.304823,
+              30.680283
+            ],
+            [
+              111.304808,
+              30.680279
+            ],
+            [
+              111.30479,
+              30.680284
+            ],
+            [
+              111.304007,
+              30.680813
+            ],
+            [
+              111.304008,
+              30.680837
+            ],
+            [
+              111.304071,
+              30.680896
+            ],
+            [
+              111.30409,
+              30.680946
+            ],
+            [
+              111.304079,
+              30.680993
+            ],
+            [
+              111.304053,
+              30.68103
+            ],
+            [
+              111.303646,
+              30.681318
+            ],
+            [
+              111.303647,
+              30.681336
+            ],
+            [
+              111.303823,
+              30.681525
+            ],
+            [
+              111.303781,
+              30.681557
+            ],
+            [
+              111.303921,
+              30.681716
+            ],
+            [
+              111.304464,
+              30.681348
+            ],
+            [
+              111.304392,
+              30.681267
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "81af0591-a194-46a2-ac7a-edcbbb974357",
+      "properties": {
+        "heightMeters": 230.0,
+        "heightSource": "tag",
+        "areaMeters2": 1366.7,
+        "name": "宜昌IFC",
+        "buildingClass": "commercial",
+        "sourceDataset": "osm",
+        "sourceFile": "buildings/b_05_03_0.geojson",
+        "registrationKeys": [
+          "yichang-international"
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              111.304128,
+              30.681326
+            ],
+            [
+              111.304145,
+              30.681307
+            ],
+            [
+              111.304143,
+              30.681284
+            ],
+            [
+              111.303973,
+              30.681109
+            ],
+            [
+              111.303936,
+              30.681089
+            ],
+            [
+              111.303912,
+              30.681091
+            ],
+            [
+              111.30364,
+              30.681285
+            ],
+            [
+              111.303629,
+              30.681302
+            ],
+            [
+              111.303627,
+              30.681321
+            ],
+            [
+              111.303638,
+              30.681345
+            ],
+            [
+              111.303801,
+              30.681522
+            ],
+            [
+              111.303823,
+              30.68153
+            ],
+            [
+              111.303846,
+              30.681524
+            ],
+            [
+              111.304128,
+              30.681326
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "afa5302e-bdfe-425a-890a-5d60693f32e4",
+      "properties": {
+        "heightMeters": 170.0,
+        "heightSource": "tag",
+        "areaMeters2": 571.0,
+        "buildingClass": "residential",
+        "sourceDataset": "osm",
+        "sourceFile": "buildings/b_05_03_0.geojson",
+        "registrationKeys": [
+          "yichang-international"
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              111.304701,
+              30.680795
+            ],
+            [
+              111.304463,
+              30.680962
+            ],
+            [
+              111.304591,
+              30.681097
+            ],
+            [
+              111.304829,
+              30.68093
+            ],
+            [
+              111.304701,
+              30.680795
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "8dd77dbf-8907-4a23-941e-13f3664c1576",
+      "properties": {
+        "heightMeters": 170.0,
+        "heightSource": "tag",
+        "areaMeters2": 575.6,
+        "buildingClass": "residential",
+        "sourceDataset": "osm",
+        "sourceFile": "buildings/b_05_03_0.geojson",
+        "registrationKeys": [
+          "yichang-international"
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              111.305098,
+              30.680473
+            ],
+            [
+              111.30486,
+              30.680638
+            ],
+            [
+              111.304988,
+              30.680775
+            ],
+            [
+              111.305227,
+              30.680611
+            ],
+            [
+              111.305098,
+              30.680473
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "d8498ab6-a277-40e8-84db-ca8b2660ed9c",
+      "properties": {
+        "heightMeters": 12,
+        "heightSource": "default",
+        "areaMeters2": 2192.2,
+        "sourceDataset": "osm",
+        "sourceFile": "buildings/b_04_03_1.geojson",
+        "registrationKeys": [
+          "meilian-yufeng"
+        ]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              111.292521,
+              30.687932
+            ],
+            [
+              111.291976,
+              30.688261
+            ],
+            [
+              111.292182,
+              30.688513
+            ],
+            [
+              111.292727,
+              30.688184
+            ],
+            [
+              111.292521,
+              30.687932
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

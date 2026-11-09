@@ -1,0 +1,1359 @@
+{
+  "date": "2026-11-09",
+  "pass": true,
+  "scope": "Independent decoded binary geometry / texture / provenance audit. Not browser/WebGL or real-scene acceptance.",
+  "models": [
+    {
+      "id": "wanda-soho-s01",
+      "sourceSha256": "a2c3c1ed4765f760acb157b85904da33fff6b0ad63229fd4ee41519b421efea6",
+      "sourceUnchanged": true,
+      "sourceBounds": {
+        "min": [
+          -93.5,
+          -0.009999999776482582,
+          -39.13999938964844
+        ],
+        "max": [
+          117.5,
+          100.88999938964844,
+          19.899999618530273
+        ]
+      },
+      "removedPresentationNodes": [
+        "Presentation_base_non_geographic"
+      ],
+      "checks": {
+        "light": {
+          "pass": true,
+          "readback": true,
+          "embeddedOnly": true,
+          "finiteAttributes": true,
+          "validIndices": true,
+          "triangles": 97574,
+          "vertices": 284549,
+          "primitives": 31,
+          "indexed": 31,
+          "textureLimit": 512,
+          "maxEnvelopeDelta": 0.0156134884179977
+        },
+        "detail": {
+          "pass": true,
+          "readback": true,
+          "embeddedOnly": true,
+          "finiteAttributes": true,
+          "validIndices": true,
+          "conservedDetailTriangles": true,
+          "triangles": 510864,
+          "vertices": 1021644,
+          "primitives": 31,
+          "indexed": 31,
+          "textureLimit": 1024,
+          "maxEnvelopeDelta": 0.0008031229736147338
+        }
+      },
+      "sourceFilename": "Wanda_SOHO_S01_corrected_static.glb",
+      "sourceBytes": 63178320,
+      "nativeChanged": false,
+      "materialPolicy": "Original base colors retained; light drops baked normal maps and regenerates geometric face normals, detail retains source normals and normal maps. Textures are bounded to 512 px light / 1024 px detail WebP. Transmission, volume, and clearcoat removed; opaque material alpha and reduced metalness/increased roughness suit the miniature scene. Source files unchanged.",
+      "geometryPolicy": "Material-aware weld/join. Light simplifies within a bounded error; detail keeps source triangles after explicitly named presentation-node removal. One common source envelope drives both LOD transforms.",
+      "lightSimplification": {
+        "ratio": 0.13,
+        "error": 0.0008,
+        "lockBorder": false
+      },
+      "validationScope": "Binary readback and envelope checks; no claim of surveyed geometry, real-scene acceptance, browser/WebGL visual QA, or device performance measurement.",
+      "tiers": {
+        "light": {
+          "triangles": 97574,
+          "vertices": 284549,
+          "primitives": 31,
+          "indexedPrimitives": 31,
+          "materials": 31,
+          "images": [],
+          "estimatedTextureBytesRGBA8WithMipmaps": 0,
+          "bounds": {
+            "min": [
+              -93.5,
+              -0.011293240326509135,
+              -39.14077503626539
+            ],
+            "max": [
+              117.5,
+              100.87438590123044,
+              19.900387585070344
+            ]
+          },
+          "bytes": 1972784,
+          "sha256": "eab60310735cb2a687d0051565ef7065b2a29983fe80f32a3e642daeca1c977e",
+          "maxEnvelopeDelta": 0.0156134884179977,
+          "extensionsRequired": [
+            "EXT_meshopt_compression",
+            "EXT_texture_webp",
+            "KHR_mesh_quantization"
+          ],
+          "extensionsUsed": [
+            "EXT_meshopt_compression",
+            "EXT_texture_webp",
+            "KHR_materials_ior",
+            "KHR_materials_transmission",
+            "KHR_mesh_quantization"
+          ]
+        },
+        "detail": {
+          "triangles": 510864,
+          "vertices": 1021644,
+          "primitives": 31,
+          "indexedPrimitives": 31,
+          "materials": 31,
+          "images": [
+            {
+              "name": "micro_normal_00",
+              "size": [
+                1024,
+                1024
+              ],
+              "bytes": 33508
+            },
+            {
+              "name": "micro_normal_01",
+              "size": [
+                1024,
+                1024
+              ],
+              "bytes": 10720
+            },
+            {
+              "name": "micro_normal_02",
+              "size": [
+                1024,
+                1024
+              ],
+              "bytes": 78258
+            },
+            {
+              "name": "micro_normal_03",
+              "size": [
+                1024,
+                1024
+              ],
+              "bytes": 82866
+            },
+            {
+              "name": "micro_normal_04",
+              "size": [
+                1024,
+                1024
+              ],
+              "bytes": 83522
+            },
+            {
+              "name": "micro_normal_05",
+              "size": [
+                1024,
+                1024
+              ],
+              "bytes": 79988
+            },
+            {
+              "name": "micro_normal_06",
+              "size": [
+                1024,
+                1024
+              ],
+              "bytes": 83030
+            },
+            {
+              "name": "micro_normal_07",
+              "size": [
+                1024,
+                1024
+              ],
+              "bytes": 83462
+            },
+            {
+              "name": "micro_normal_08",
+              "size": [
+                1024,
+                1024
+              ],
+              "bytes": 93132
+            },
+            {
+              "name": "micro_normal_09",
+              "size": [
+                1024,
+                1024
+              ],
+              "bytes": 45544
+            }
+          ],
+          "estimatedTextureBytesRGBA8WithMipmaps": 55924053,
+          "bounds": {
+            "min": [
+              -93.5,
+              -0.009196876802867848,
+              -39.14077503626539
+            ],
+            "max": [
+              117.5,
+              100.88919627598804,
+              19.900387585070344
+            ]
+          },
+          "bytes": 6736248,
+          "sha256": "726955bb50af546eae330168cef5cc1d757b04360f2b648bb348765cee9b3eea",
+          "maxEnvelopeDelta": 0.0008031229736147338,
+          "extensionsRequired": [
+            "EXT_meshopt_compression",
+            "EXT_texture_webp",
+            "KHR_mesh_quantization"
+          ],
+          "extensionsUsed": [
+            "EXT_meshopt_compression",
+            "EXT_texture_webp",
+            "KHR_materials_ior",
+            "KHR_materials_transmission",
+            "KHR_mesh_quantization"
+          ]
+        }
+      },
+      "sourceTriangles": 510864,
+      "candidateProvenance": {
+        "name": "万达SOHO写字楼",
+        "stage": "S01 corrected static candidate",
+        "boundary": "使用修正版，旧 HOLD 静态件未参与。三塔、连续商业裙房和台阶保留。",
+        "removalEvidence": "原节点 Presentation_base_non_geographic 明确非地理展示底座，仅网页派生删除108三角。",
+        "webSourceLibraryFileId": "libfile_de5d10c0d1b48191a0351de18743ac01"
+      }
+    },
+    {
+      "id": "fujiang-s01",
+      "sourceSha256": "250241c787121703bcda53c7efd0f9c11225ac9b635f750e605faa1906bf00b9",
+      "sourceUnchanged": true,
+      "sourceBounds": {
+        "min": [
+          -24.24829864501953,
+          -0.125,
+          -21.674999237060547
+        ],
+        "max": [
+          24.24829864501953,
+          100,
+          12.180000305175781
+        ]
+      },
+      "removedPresentationNodes": [],
+      "checks": {
+        "light": {
+          "pass": true,
+          "readback": true,
+          "embeddedOnly": true,
+          "finiteAttributes": true,
+          "validIndices": true,
+          "triangles": 94130,
+          "vertices": 265444,
+          "primitives": 18,
+          "indexed": 18,
+          "textureLimit": 512,
+          "maxEnvelopeDelta": 0.01194177669415808
+        },
+        "detail": {
+          "pass": true,
+          "readback": true,
+          "embeddedOnly": true,
+          "finiteAttributes": true,
+          "validIndices": true,
+          "conservedDetailTriangles": true,
+          "triangles": 435656,
+          "vertices": 863010,
+          "primitives": 18,
+          "indexed": 18,
+          "textureLimit": 1024,
+          "maxEnvelopeDelta": 0.0004376700071766493
+        }
+      },
+      "sourceFilename": "fujiang_mingzuo_s01_static_candidate(1).glb",
+      "sourceBytes": 164867984,
+      "nativeChanged": false,
+      "materialPolicy": "Original base colors retained; light drops baked normal maps and regenerates geometric face normals, detail retains source normals and normal maps. Textures are bounded to 512 px light / 1024 px detail WebP. Transmission, volume, and clearcoat removed; opaque material alpha and reduced metalness/increased roughness suit the miniature scene. Source files unchanged.",
+      "geometryPolicy": "Material-aware weld/join. Light simplifies within a bounded error; detail keeps source triangles after explicitly named presentation-node removal. One common source envelope drives both LOD transforms.",
+      "lightSimplification": {
+        "ratio": 0.13,
+        "error": 0.0008,
+        "lockBorder": false
+      },
+      "validationScope": "Binary readback and envelope checks; no claim of surveyed geometry, real-scene acceptance, browser/WebGL visual QA, or device performance measurement.",
+      "tiers": {
+        "light": {
+          "triangles": 94130,
+          "vertices": 265444,
+          "primitives": 18,
+          "indexedPrimitives": 18,
+          "materials": 18,
+          "images": [
+            {
+              "name": "base_color_00",
+              "size": [
+                512,
+                512
+              ],
+              "bytes": 2352
+            },
+            {
+              "name": "base_color_01",
+              "size": [
+                512,
+                512
+              ],
+              "bytes": 7140
+            },
+            {
+              "name": "base_color_02",
+              "size": [
+                512,
+                512
+              ],
+              "bytes": 31182
+            },
+            {
+              "name": "base_color_03",
+              "size": [
+                512,
+                512
+              ],
+              "bytes": 19822
+            },
+            {
+              "name": "base_color_04",
+              "size": [
+                512,
+                512
+              ],
+              "bytes": 12020
+            }
+          ],
+          "estimatedTextureBytesRGBA8WithMipmaps": 6990507,
+          "bounds": {
+            "min": [
+              -24.238040924072266,
+              -0.12535091722277425,
+              -21.66305746036639
+            ],
+            "max": [
+              24.238040924072266,
+              100,
+              12.180437975182958
+            ]
+          },
+          "bytes": 2334232,
+          "sha256": "efdeb253b9fe459a4a9e6e6aa822f77577f6b1cc366b09a823b31e4e78c4b10b",
+          "maxEnvelopeDelta": 0.01194177669415808,
+          "extensionsRequired": [
+            "EXT_meshopt_compression",
+            "EXT_texture_webp",
+            "KHR_mesh_quantization"
+          ],
+          "extensionsUsed": [
+            "EXT_meshopt_compression",
+            "EXT_texture_webp",
+            "KHR_materials_clearcoat",
+            "KHR_materials_ior",
+            "KHR_materials_transmission",
+            "KHR_mesh_quantization"
+          ]
+        },
+        "detail": {
+          "triangles": 435656,
+          "vertices": 863010,
+          "primitives": 18,
+          "indexedPrimitives": 18,
+          "materials": 18,
+          "images": [
+            {
+              "name": "base_color_00",
+              "size": [
+                1024,
+                1024
+              ],
+              "bytes": 5712
+            },
+            {
+              "name": "micro_normal_00",
+              "size": [
+                1024,
+                1024
+              ],
+              "bytes": 3246
+            },
+            {
+              "name": "base_color_01",
+              "size": [
+                1024,
+                1024
+              ],
+              "bytes": 23280
+            },
+            {
+              "name": "micro_normal_01",
+              "size": [
+                1024,
+                1024
+              ],
+              "bytes": 119492
+            },
+            {
+              "name": "base_color_02",
+              "size": [
+                1024,
+                1024
+              ],
+              "bytes": 119614
+            },
+            {
+              "name": "micro_normal_02",
+              "size": [
+                1024,
+                1024
+              ],
+              "bytes": 26160
+            },
+            {
+              "name": "base_color_03",
+              "size": [
+                1024,
+                1024
+              ],
+              "bytes": 55586
+            },
+            {
+              "name": "micro_normal_03",
+              "size": [
+                1024,
+                1024
+              ],
+              "bytes": 21484
+            },
+            {
+              "name": "base_color_04",
+              "size": [
+                1024,
+                1024
+              ],
+              "bytes": 39722
+            },
+            {
+              "name": "micro_normal_04",
+              "size": [
+                1024,
+                1024
+              ],
+              "bytes": 27784
+            }
+          ],
+          "estimatedTextureBytesRGBA8WithMipmaps": 55924053,
+          "bounds": {
+            "min": [
+              -24.24829864501953,
+              -0.12474793381085103,
+              -21.675019074080062
+            ],
+            "max": [
+              24.24829864501953,
+              100,
+              12.180437975182958
+            ]
+          },
+          "bytes": 6794540,
+          "sha256": "d2ec0d62e0d0b73a95fb3b1b71ed91b4b2d5250bc49595bf96897dac9ca49b8e",
+          "maxEnvelopeDelta": 0.0004376700071766493,
+          "extensionsRequired": [
+            "EXT_meshopt_compression",
+            "EXT_texture_webp",
+            "KHR_mesh_quantization"
+          ],
+          "extensionsUsed": [
+            "EXT_meshopt_compression",
+            "EXT_texture_webp",
+            "KHR_materials_clearcoat",
+            "KHR_materials_ior",
+            "KHR_materials_transmission",
+            "KHR_mesh_quantization"
+          ]
+        }
+      },
+      "sourceTriangles": 435656,
+      "candidateProvenance": {
+        "name": "福江铭座",
+        "stage": "S01 corrected static candidate",
+        "boundary": "使用修正版；曲面、36层模块、冠部深度仍为阶段候选，HOLD背面闭合及NOT_INTERIOR遮挡面保留。",
+        "webSourceLibraryFileId": "libfile_1a6811d797b88191a076a643d8a5f9f4"
+      }
+    },
+    {
+      "id": "yichang-international-s01",
+      "sourceSha256": "4a27c65bc02a1de7f25e596c1961dea11f477dd69a0f78de0bf8a97a002fd090",
+      "sourceUnchanged": true,
+      "sourceBounds": {
+        "min": [
+          -43.900001525878906,
+          -0.15000000596046448,
+          -16.060869216918945
+        ],
+        "max": [
+          45.79999923706055,
+          100.06999969482422,
+          29.799999237060547
+        ]
+      },
+      "removedPresentationNodes": [
+        "SITE local paving",
+        "SITE paving joints"
+      ],
+      "checks": {
+        "light": {
+          "pass": true,
+          "readback": true,
+          "embeddedOnly": true,
+          "finiteAttributes": true,
+          "validIndices": true,
+          "triangles": 132122,
+          "vertices": 381749,
+          "primitives": 18,
+          "indexed": 18,
+          "textureLimit": 512,
+          "maxEnvelopeDelta": 0.05818537097099963
+        },
+        "detail": {
+          "pass": true,
+          "readback": true,
+          "embeddedOnly": true,
+          "finiteAttributes": true,
+          "validIndices": true,
+          "conservedDetailTriangles": true,
+          "triangles": 738676,
+          "vertices": 1460392,
+          "primitives": 18,
+          "indexed": 18,
+          "textureLimit": 1024,
+          "maxEnvelopeDelta": 0.0006887152316714662
+        }
+      },
+      "sourceFilename": "yichang_international_s01_static_candidate.glb",
+      "sourceBytes": 92151672,
+      "nativeChanged": false,
+      "materialPolicy": "Original base colors retained; light drops baked normal maps and regenerates geometric face normals, detail retains source normals and normal maps. Textures are bounded to 512 px light / 1024 px detail WebP. Transmission, volume, and clearcoat removed; opaque material alpha and reduced metalness/increased roughness suit the miniature scene. Source files unchanged.",
+      "geometryPolicy": "Material-aware weld/join. Light simplifies within a bounded error; detail keeps source triangles after explicitly named presentation-node removal. One common source envelope drives both LOD transforms.",
+      "lightSimplification": {
+        "ratio": 0.13,
+        "error": 0.0015,
+        "lockBorder": false
+      },
+      "validationScope": "Binary readback and envelope checks; no claim of surveyed geometry, real-scene acceptance, browser/WebGL visual QA, or device performance measurement.",
+      "tiers": {
+        "light": {
+          "triangles": 132122,
+          "vertices": 381749,
+          "primitives": 18,
+          "indexedPrimitives": 18,
+          "materials": 18,
+          "images": [
+            {
+              "name": "base_color_04",
+              "size": [
+                512,
+                512
+              ],
+              "bytes": 52274
+            }
+          ],
+          "estimatedTextureBytesRGBA8WithMipmaps": 1398101,
+          "bounds": {
+            "min": [
+              -43.900001525878906,
+              -0.15000000596046448,
+              -16.061047311923062
+            ],
+            "max": [
+              45.741825103759766,
+              100.06999969482422,
+              29.741813866089547
+            ]
+          },
+          "bytes": 2761776,
+          "sha256": "6531a8d0d9007c6b5a03e586dcbe61f89548cb12b4d1826db5b7f0cc0fb7564d",
+          "maxEnvelopeDelta": 0.05818537097099963,
+          "extensionsRequired": [
+            "EXT_meshopt_compression",
+            "EXT_texture_webp",
+            "KHR_mesh_quantization"
+          ],
+          "extensionsUsed": [
+            "EXT_meshopt_compression",
+            "EXT_texture_webp",
+            "KHR_materials_ior",
+            "KHR_materials_transmission",
+            "KHR_mesh_quantization"
+          ]
+        },
+        "detail": {
+          "triangles": 738676,
+          "vertices": 1460392,
+          "primitives": 18,
+          "indexedPrimitives": 18,
+          "materials": 18,
+          "images": [
+            {
+              "name": "micro_normal_00",
+              "size": [
+                1024,
+                1024
+              ],
+              "bytes": 24334
+            },
+            {
+              "name": "micro_normal_01",
+              "size": [
+                1024,
+                1024
+              ],
+              "bytes": 51068
+            },
+            {
+              "name": "micro_normal_02",
+              "size": [
+                1024,
+                1024
+              ],
+              "bytes": 61270
+            },
+            {
+              "name": "micro_normal_03",
+              "size": [
+                1024,
+                1024
+              ],
+              "bytes": 12068
+            },
+            {
+              "name": "base_color_04",
+              "size": [
+                1024,
+                1024
+              ],
+              "bytes": 199480
+            },
+            {
+              "name": "micro_normal_04",
+              "size": [
+                1024,
+                1024
+              ],
+              "bytes": 47828
+            }
+          ],
+          "estimatedTextureBytesRGBA8WithMipmaps": 33554432,
+          "bounds": {
+            "min": [
+              -43.900001525878906,
+              -0.15054223656692045,
+              -16.060180501687274
+            ],
+            "max": [
+              45.79999923706055,
+              100.06999969482422,
+              29.80038156096331
+            ]
+          },
+          "bytes": 9063840,
+          "sha256": "b9ddf888b54514f22acf1c6e54812ea2cac07026e0468f99bc313a8ca73db8f0",
+          "maxEnvelopeDelta": 0.0006887152316714662,
+          "extensionsRequired": [
+            "EXT_meshopt_compression",
+            "EXT_texture_webp",
+            "KHR_mesh_quantization"
+          ],
+          "extensionsUsed": [
+            "EXT_meshopt_compression",
+            "EXT_texture_webp",
+            "KHR_materials_ior",
+            "KHR_materials_transmission",
+            "KHR_mesh_quantization"
+          ]
+        }
+      },
+      "sourceTriangles": 738676,
+      "candidateProvenance": {
+        "name": "宜昌国际广场",
+        "stage": "S01 static candidate",
+        "boundary": "完整三塔组团、裙房、开放内街及桥梯保留。四类有现场形态依据的前场context保留；不得据此声称精确地块。",
+        "removalEvidence": "原生 build_yichang.py 345–348 注明 Local site presentation；仅删除 SITE local paving / SITE paving joints，共848三角。geo代理复核余4类context无道路/背景楼相交后保留。",
+        "webSourceLibraryFileId": "libfile_0f12c1226c3c8191a9b1f667338f6145"
+      }
+    },
+    {
+      "id": "zhongnan-s09",
+      "sourceSha256": "452b1c0cc45b9c23d8b625aaadacb0296d27d910de55905f9d0cd94ec6ec16d9",
+      "sourceUnchanged": true,
+      "sourceBounds": {
+        "min": [
+          -29.16375160217285,
+          0,
+          -58.900001525878906
+        ],
+        "max": [
+          49.78280258178711,
+          106.55999755859375,
+          2.8828067779541016
+        ]
+      },
+      "removedPresentationNodes": [],
+      "checks": {
+        "light": {
+          "pass": true,
+          "readback": true,
+          "embeddedOnly": true,
+          "finiteAttributes": true,
+          "validIndices": true,
+          "triangles": 141262,
+          "vertices": 397437,
+          "primitives": 31,
+          "indexed": 31,
+          "textureLimit": 512,
+          "maxEnvelopeDelta": 0.0004705042042587593
+        },
+        "detail": {
+          "pass": true,
+          "readback": true,
+          "embeddedOnly": true,
+          "finiteAttributes": true,
+          "validIndices": true,
+          "conservedDetailTriangles": true,
+          "triangles": 696156,
+          "vertices": 1454818,
+          "primitives": 31,
+          "indexed": 31,
+          "textureLimit": 1024,
+          "maxEnvelopeDelta": 0.0004705042042587593
+        }
+      },
+      "sourceFilename": "S09_baseline_original_height_hotel_OFF_static.glb",
+      "sourceBytes": 49306132,
+      "nativeChanged": false,
+      "materialPolicy": "Original base colors retained; light drops baked normal maps and regenerates geometric face normals, detail retains source normals and normal maps. Textures are bounded to 512 px light / 1024 px detail WebP. Transmission, volume, and clearcoat removed; opaque material alpha and reduced metalness/increased roughness suit the miniature scene. Source files unchanged.",
+      "geometryPolicy": "Material-aware weld/join. Light simplifies within a bounded error; detail keeps source triangles after explicitly named presentation-node removal. One common source envelope drives both LOD transforms.",
+      "lightSimplification": {
+        "ratio": 0.13,
+        "error": 0.0015,
+        "lockBorder": false
+      },
+      "validationScope": "Binary readback and envelope checks; no claim of surveyed geometry, real-scene acceptance, browser/WebGL visual QA, or device performance measurement.",
+      "tiers": {
+        "light": {
+          "triangles": 141262,
+          "vertices": 397437,
+          "primitives": 31,
+          "indexedPrimitives": 31,
+          "materials": 31,
+          "images": [
+            {
+              "name": "stone_color_0",
+              "size": [
+                512,
+                512
+              ],
+              "bytes": 44800
+            },
+            {
+              "name": "stone_color_1",
+              "size": [
+                512,
+                512
+              ],
+              "bytes": 43862
+            },
+            {
+              "name": "stone_color_2",
+              "size": [
+                512,
+                512
+              ],
+              "bytes": 44976
+            },
+            {
+              "name": "stone_color_3",
+              "size": [
+                512,
+                512
+              ],
+              "bytes": 44358
+            },
+            {
+              "name": "stone_color_4",
+              "size": [
+                512,
+                512
+              ],
+              "bytes": 43716
+            }
+          ],
+          "estimatedTextureBytesRGBA8WithMipmaps": 6990507,
+          "bounds": {
+            "min": [
+              -29.16368909335738,
+              0,
+              -58.900472030083165
+            ],
+            "max": [
+              49.78280544281006,
+              106.55978065029355,
+              2.8828067779541016
+            ]
+          },
+          "bytes": 3438312,
+          "sha256": "57a940813352ad91b759fa602ed989004a47f556a9cb2f161046db6b03eb39cc",
+          "maxEnvelopeDelta": 0.0004705042042587593,
+          "extensionsRequired": [
+            "EXT_meshopt_compression",
+            "EXT_texture_webp",
+            "KHR_mesh_quantization"
+          ],
+          "extensionsUsed": [
+            "EXT_meshopt_compression",
+            "EXT_texture_webp",
+            "KHR_materials_clearcoat",
+            "KHR_materials_ior",
+            "KHR_materials_transmission",
+            "KHR_mesh_quantization"
+          ]
+        },
+        "detail": {
+          "triangles": 696156,
+          "vertices": 1454818,
+          "primitives": 31,
+          "indexedPrimitives": 31,
+          "materials": 31,
+          "images": [
+            {
+              "name": "stone_color_0",
+              "size": [
+                1024,
+                1024
+              ],
+              "bytes": 110182
+            },
+            {
+              "name": "stone_color_1",
+              "size": [
+                1024,
+                1024
+              ],
+              "bytes": 109392
+            },
+            {
+              "name": "stone_color_2",
+              "size": [
+                1024,
+                1024
+              ],
+              "bytes": 113134
+            },
+            {
+              "name": "stone_color_3",
+              "size": [
+                1024,
+                1024
+              ],
+              "bytes": 110926
+            },
+            {
+              "name": "stone_color_4",
+              "size": [
+                1024,
+                1024
+              ],
+              "bytes": 110372
+            }
+          ],
+          "estimatedTextureBytesRGBA8WithMipmaps": 27962027,
+          "bounds": {
+            "min": [
+              -29.16368909335738,
+              0,
+              -58.900472030083165
+            ],
+            "max": [
+              49.78280544281006,
+              106.56004067711802,
+              2.8828067779541016
+            ]
+          },
+          "bytes": 10336204,
+          "sha256": "3c346ca93c0a3ce3eee4ccae495315737c49601083e124ccb529058eef8072c2",
+          "maxEnvelopeDelta": 0.0004705042042587593,
+          "extensionsRequired": [
+            "EXT_meshopt_compression",
+            "EXT_texture_webp",
+            "KHR_mesh_quantization"
+          ],
+          "extensionsUsed": [
+            "EXT_meshopt_compression",
+            "EXT_texture_webp",
+            "KHR_materials_clearcoat",
+            "KHR_materials_ior",
+            "KHR_materials_transmission",
+            "KHR_mesh_quantization"
+          ]
+        }
+      },
+      "sourceTriangles": 696156,
+      "candidateProvenance": {
+        "name": "中南冶金大楼",
+        "stage": "S09 baseline original height; hotel / height / envelope studies OFF",
+        "boundary": "选默认基线，保留S07形体，S06酒店、S08高度研究、S09包络研究均OFF；编号更新不代表新高度已验收。",
+        "webSourceLibraryFileId": "libfile_db8260c7a0b48191994865c807845c99"
+      }
+    },
+    {
+      "id": "jinjiang-s03",
+      "sourceSha256": "a645c8661578378275efa365d221c900d99910e877434ded1d99871bd02562a3",
+      "sourceUnchanged": true,
+      "sourceBounds": {
+        "min": [
+          -15.100000381469727,
+          0,
+          -9.475000381469727
+        ],
+        "max": [
+          15.774999618530273,
+          72.11499786376953,
+          21.549999237060547
+        ]
+      },
+      "removedPresentationNodes": [],
+      "checks": {
+        "light": {
+          "pass": true,
+          "readback": true,
+          "embeddedOnly": true,
+          "finiteAttributes": true,
+          "validIndices": true,
+          "triangles": 32126,
+          "vertices": 68181,
+          "primitives": 11,
+          "indexed": 11,
+          "textureLimit": 512,
+          "maxEnvelopeDelta": 0.0003874440439766147
+        },
+        "detail": {
+          "pass": true,
+          "readback": true,
+          "embeddedOnly": true,
+          "finiteAttributes": true,
+          "validIndices": true,
+          "conservedDetailTriangles": true,
+          "triangles": 50305,
+          "vertices": 91484,
+          "primitives": 11,
+          "indexed": 11,
+          "textureLimit": 1024,
+          "maxEnvelopeDelta": 0.0003874440439766147
+        }
+      },
+      "sourceFilename": "jinjiang_s03_00_static.glb",
+      "sourceBytes": 2834948,
+      "nativeChanged": false,
+      "materialPolicy": "Original base colors retained; light drops baked normal maps and regenerates geometric face normals, detail retains source normals and normal maps. Textures are bounded to 512 px light / 1024 px detail WebP. Transmission, volume, and clearcoat removed; opaque material alpha and reduced metalness/increased roughness suit the miniature scene. Source files unchanged.",
+      "geometryPolicy": "Material-aware weld/join. Light simplifies within a bounded error; detail keeps source triangles after explicitly named presentation-node removal. One common source envelope drives both LOD transforms.",
+      "lightSimplification": {
+        "ratio": 0.13,
+        "error": 0.0008,
+        "lockBorder": false
+      },
+      "validationScope": "Binary readback and envelope checks; no claim of surveyed geometry, real-scene acceptance, browser/WebGL visual QA, or device performance measurement.",
+      "tiers": {
+        "light": {
+          "triangles": 32126,
+          "vertices": 68181,
+          "primitives": 11,
+          "indexedPrimitives": 11,
+          "materials": 11,
+          "images": [],
+          "estimatedTextureBytesRGBA8WithMipmaps": 0,
+          "bounds": {
+            "min": [
+              -15.09999938157075,
+              0,
+              -9.475387825513703
+            ],
+            "max": [
+              15.774998618631297,
+              72.11499786376953,
+              21.54989671748173
+            ]
+          },
+          "bytes": 408256,
+          "sha256": "019218c3a04dafcda9c8523316335aa849a28e039481f2c3492e1353c039da00",
+          "maxEnvelopeDelta": 0.0003874440439766147,
+          "extensionsRequired": [
+            "EXT_meshopt_compression",
+            "KHR_mesh_quantization"
+          ],
+          "extensionsUsed": [
+            "EXT_meshopt_compression",
+            "KHR_materials_ior",
+            "KHR_materials_transmission",
+            "KHR_mesh_quantization"
+          ]
+        },
+        "detail": {
+          "triangles": 50305,
+          "vertices": 91484,
+          "primitives": 11,
+          "indexedPrimitives": 11,
+          "materials": 11,
+          "images": [],
+          "estimatedTextureBytesRGBA8WithMipmaps": 0,
+          "bounds": {
+            "min": [
+              -15.09999938157075,
+              0,
+              -9.475387825513703
+            ],
+            "max": [
+              15.774998618631297,
+              72.11499786376953,
+              21.54989671748173
+            ]
+          },
+          "bytes": 535404,
+          "sha256": "79f840e0a48f6be97cced551bf55a3e07ad77295f226828d3a34038a77c485e3",
+          "maxEnvelopeDelta": 0.0003874440439766147,
+          "extensionsRequired": [
+            "EXT_meshopt_compression",
+            "KHR_mesh_quantization"
+          ],
+          "extensionsUsed": [
+            "EXT_meshopt_compression",
+            "KHR_materials_ior",
+            "KHR_materials_transmission",
+            "KHR_mesh_quantization"
+          ]
+        }
+      },
+      "sourceTriangles": 50305,
+      "candidateProvenance": {
+        "name": "锦江银座（23名录作金江银座）",
+        "stage": "S03 default 00; S02/S03 research OFF",
+        "boundary": "S03完整包的默认00导出，未使用暂停验收的S04 ART_HOLD。",
+        "webSourceLibraryFileId": "libfile_3592df8c73d0819192102c8544b387e6"
+      }
+    },
+    {
+      "id": "meilian-s05",
+      "sourceSha256": "4884e9fa19216530d3c5f13db6ed07ad508c663f13318bc4f8ae6cc5d046af0a",
+      "sourceUnchanged": true,
+      "sourceBounds": {
+        "min": [
+          -36.964999198913574,
+          -0.20000076293945312,
+          -49.489999771118164
+        ],
+        "max": [
+          31.300003051757812,
+          100.08999633789062,
+          7.850000381469727
+        ]
+      },
+      "removedPresentationNodes": [],
+      "checks": {
+        "light": {
+          "pass": true,
+          "readback": true,
+          "embeddedOnly": true,
+          "finiteAttributes": true,
+          "validIndices": true,
+          "triangles": 71382,
+          "vertices": 199410,
+          "primitives": 27,
+          "indexed": 27,
+          "textureLimit": 512,
+          "maxEnvelopeDelta": 0.010965563036045012
+        },
+        "detail": {
+          "pass": true,
+          "readback": true,
+          "embeddedOnly": true,
+          "finiteAttributes": true,
+          "validIndices": true,
+          "conservedDetailTriangles": true,
+          "triangles": 529328,
+          "vertices": 997857,
+          "primitives": 27,
+          "indexed": 27,
+          "textureLimit": 1024,
+          "maxEnvelopeDelta": 0.00043895671200999686
+        }
+      },
+      "sourceFilename": "meilian-s05-source.glb",
+      "sourceBytes": 37675976,
+      "nativeChanged": false,
+      "materialPolicy": "Original base colors retained; light drops baked normal maps and regenerates geometric face normals, detail retains source normals and normal maps. Textures are bounded to 512 px light / 1024 px detail WebP. Transmission, volume, and clearcoat removed; opaque material alpha and reduced metalness/increased roughness suit the miniature scene. Source files unchanged.",
+      "geometryPolicy": "Material-aware weld/join. Light simplifies within a bounded error; detail keeps source triangles after explicitly named presentation-node removal. One common source envelope drives both LOD transforms.",
+      "lightSimplification": {
+        "ratio": 0.13,
+        "error": 0.0008,
+        "lockBorder": false
+      },
+      "validationScope": "Binary readback and envelope checks; no claim of surveyed geometry, real-scene acceptance, browser/WebGL visual QA, or device performance measurement.",
+      "tiers": {
+        "light": {
+          "triangles": 71382,
+          "vertices": 199410,
+          "primitives": 27,
+          "indexedPrimitives": 27,
+          "materials": 27,
+          "images": [],
+          "estimatedTextureBytesRGBA8WithMipmaps": 0,
+          "bounds": {
+            "min": [
+              -36.95403363587753,
+              -0.20000076293945312,
+              -49.48286718365678
+            ],
+            "max": [
+              31.29960372331039,
+              100.08999633789062,
+              7.850188198061076
+            ]
+          },
+          "bytes": 1397792,
+          "sha256": "8ded608af1a893069c2c6dc119bfafbd50e4a3a477c2434558ab0ebf38c514af",
+          "maxEnvelopeDelta": 0.010965563036045012,
+          "extensionsRequired": [
+            "EXT_meshopt_compression",
+            "KHR_mesh_quantization"
+          ],
+          "extensionsUsed": [
+            "EXT_meshopt_compression",
+            "KHR_materials_clearcoat",
+            "KHR_materials_ior",
+            "KHR_materials_transmission",
+            "KHR_mesh_quantization"
+          ]
+        },
+        "detail": {
+          "triangles": 529328,
+          "vertices": 997857,
+          "primitives": 27,
+          "indexedPrimitives": 27,
+          "materials": 27,
+          "images": [],
+          "estimatedTextureBytesRGBA8WithMipmaps": 0,
+          "bounds": {
+            "min": [
+              -36.965438155625584,
+              -0.20000076293945312,
+              -49.48958808691002
+            ],
+            "max": [
+              31.300442008469822,
+              100.08999633789062,
+              7.849588697261577
+            ]
+          },
+          "bytes": 8163304,
+          "sha256": "68101a0bd037113042b5c2d8b04411592ccfebd26a288ef5822c130cbb0e6685",
+          "maxEnvelopeDelta": 0.00043895671200999686,
+          "extensionsRequired": [
+            "EXT_meshopt_compression",
+            "KHR_mesh_quantization"
+          ],
+          "extensionsUsed": [
+            "EXT_meshopt_compression",
+            "KHR_materials_clearcoat",
+            "KHR_materials_ior",
+            "KHR_materials_transmission",
+            "KHR_mesh_quantization"
+          ]
+        }
+      },
+      "sourceTriangles": 529328,
+      "candidateProvenance": {
+        "name": "美联御峰",
+        "stage": "S05 central crown transition candidate",
+        "boundary": "来自已核对原生SHA的原湖北站网页GLB；只代表S05冠部候选，未将S06只读研究当正式版本。",
+        "nativeLibraryFileId": "libfile_caf6e7c4e2f4819194c6393f375a1015",
+        "nativeSha256": "b3a9b325359132832b08fb838109314d7fc82727999889731be378d30d114f34"
+      }
+    },
+    {
+      "id": "jiuzhou-s01",
+      "sourceSha256": "4be00d59d2ca4ef186cf35c98eb9f17f8cc1c228748a38440291c20c3e42afdc",
+      "sourceUnchanged": true,
+      "sourceBounds": {
+        "min": [
+          -28.700000762939453,
+          -0.03999999910593033,
+          -9.032500267028809
+        ],
+        "max": [
+          25.017499923706055,
+          100.03250122070312,
+          25.049999237060547
+        ]
+      },
+      "removedPresentationNodes": [],
+      "checks": {
+        "light": {
+          "pass": true,
+          "readback": true,
+          "embeddedOnly": true,
+          "finiteAttributes": true,
+          "validIndices": true,
+          "triangles": 46170,
+          "vertices": 123238,
+          "primitives": 16,
+          "indexed": 16,
+          "textureLimit": 512,
+          "maxEnvelopeDelta": 0.0003523720222489146
+        },
+        "detail": {
+          "pass": true,
+          "readback": true,
+          "embeddedOnly": true,
+          "finiteAttributes": true,
+          "validIndices": true,
+          "conservedDetailTriangles": true,
+          "triangles": 117744,
+          "vertices": 229927,
+          "primitives": 16,
+          "indexed": 16,
+          "textureLimit": 1024,
+          "maxEnvelopeDelta": 0.0003523720222489146
+        }
+      },
+      "sourceFilename": "jiuzhou-s01-source.glb",
+      "sourceBytes": 6415320,
+      "nativeChanged": false,
+      "materialPolicy": "Original base colors retained; light drops baked normal maps and regenerates geometric face normals, detail retains source normals and normal maps. Textures are bounded to 512 px light / 1024 px detail WebP. Transmission, volume, and clearcoat removed; opaque material alpha and reduced metalness/increased roughness suit the miniature scene. Source files unchanged.",
+      "geometryPolicy": "Material-aware weld/join. Light simplifies within a bounded error; detail keeps source triangles after explicitly named presentation-node removal. One common source envelope drives both LOD transforms.",
+      "lightSimplification": {
+        "ratio": 0.13,
+        "error": 0.0008,
+        "lockBorder": false
+      },
+      "validationScope": "Binary readback and envelope checks; no claim of surveyed geometry, real-scene acceptance, browser/WebGL visual QA, or device performance measurement.",
+      "tiers": {
+        "light": {
+          "triangles": 46170,
+          "vertices": 123238,
+          "primitives": 16,
+          "indexedPrimitives": 16,
+          "materials": 16,
+          "images": [],
+          "estimatedTextureBytesRGBA8WithMipmaps": 0,
+          "bounds": {
+            "min": [
+              -28.700000762939453,
+              -0.03999999910593033,
+              -9.032363302645752
+            ],
+            "max": [
+              25.01721751407368,
+              100.03250122070312,
+              25.050351609082796
+            ]
+          },
+          "bytes": 852736,
+          "sha256": "0dd82c8874a398dc47df782e87f30c97d921e845973dd6fe3133eaa4b4a2b4be",
+          "maxEnvelopeDelta": 0.0003523720222489146,
+          "extensionsRequired": [
+            "EXT_meshopt_compression",
+            "KHR_mesh_quantization"
+          ],
+          "extensionsUsed": [
+            "EXT_meshopt_compression",
+            "KHR_materials_clearcoat",
+            "KHR_materials_ior",
+            "KHR_materials_transmission",
+            "KHR_mesh_quantization"
+          ]
+        },
+        "detail": {
+          "triangles": 117744,
+          "vertices": 229927,
+          "primitives": 16,
+          "indexedPrimitives": 16,
+          "materials": 16,
+          "images": [],
+          "estimatedTextureBytesRGBA8WithMipmaps": 0,
+          "bounds": {
+            "min": [
+              -28.700000762939453,
+              -0.03999999910593033,
+              -9.032363302645752
+            ],
+            "max": [
+              25.01721751407368,
+              100.03250122070312,
+              25.050351609082796
+            ]
+          },
+          "bytes": 1337716,
+          "sha256": "01f832d29b8a80ec67005fabdbea4f04cd81d88ad71896581afd2abccaea2d88",
+          "maxEnvelopeDelta": 0.0003523720222489146,
+          "extensionsRequired": [
+            "EXT_meshopt_compression",
+            "KHR_mesh_quantization"
+          ],
+          "extensionsUsed": [
+            "EXT_meshopt_compression",
+            "KHR_materials_clearcoat",
+            "KHR_materials_ior",
+            "KHR_materials_transmission",
+            "KHR_mesh_quantization"
+          ]
+        }
+      },
+      "sourceTriangles": 117744,
+      "candidateProvenance": {
+        "name": "九州方园",
+        "stage": "S01 native-derived candidate",
+        "boundary": "原生c389源未改；4.5.14 LTS只读导出，不宣称4.3.2精确运行复现。高度100/深度18为候选单位；程序材质到PBR有近似。",
+        "nativeLibraryFileId": "libfile_1e32e3bfe5388191bd637fc384747a56",
+        "nativeSha256": "c38936dcd1b7b861d918ee823685aa47ae0b1af9b6df296bf3771736932f68fe",
+        "upstreamExcludedDisplayNodes": [
+          "DISPLAY_ONLY_forecourt_paving",
+          "DISPLAY_ONLY_paving_course_bands",
+          "DISPLAY_ONLY_low_planting"
+        ],
+        "upstreamExportReport": "/workspace/scratch/74379c705fda/buildings-space-20261109/downloads/jiuzhou-s01-source.report.json"
+      }
+    }
+  ],
+  "totals": {
+    "light": {
+      "bytes": 13165888,
+      "triangles": 614766,
+      "primitives": 152,
+      "estimatedTextureBytesRGBA8WithMipmaps": 15379115
+    },
+    "detail": {
+      "bytes": 42967256,
+      "triangles": 3078729,
+      "primitives": 152,
+      "estimatedTextureBytesRGBA8WithMipmaps": 173364565
+    }
+  },
+  "renderReview": {
+    "reviewedIds": [
+      "wanda-soho-s01",
+      "fujiang-s01",
+      "zhongnan-s09",
+      "yichang-international-s01"
+    ],
+    "report": "geometry-review/render-report.json",
+    "method": "同相机/同材质/同照明、中性粘土的离线Cycles CPU对照，左light右detail；所检观察角的轮廓、塔楼数量、曲面、冠部、幕墙分格、裙房与屋顶设施保持。",
+    "limit": "light细分格阴影更硬，福江/中南最明显；近景应及时切detail。未测试实景配准、站点WebGL、设备帧率或真实材质反射。"
+  }
+}

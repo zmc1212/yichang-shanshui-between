@@ -14,17 +14,23 @@ import argparse, collections, hashlib, json, math
 from pathlib import Path
 from landmark_alignment import apply_landmark_alignments, alignment_source_text
 from shapely.geometry import shape, box, Polygon, MultiPolygon, LineString, MultiLineString
+from shapely.geometry.polygon import orient
 from shapely.ops import transform, unary_union
 from shapely import make_valid
 
-BOUNDS = [111.225, 30.645, 111.355, 30.755]
+LEGACY_BOUNDS = [111.225, 30.645, 111.355, 30.755]
+LEGACY_CENTER = [111.29, 30.7]
+BOUNDS = [111.225, 30.625, 111.39, 30.755]
 CENTER = [round((BOUNDS[0]+BOUNDS[2])/2,7), round((BOUNDS[1]+BOUNDS[3])/2,7)]
 SCALE = .02
 RADIUS = 6378137.0
 X_METERS = math.pi/180*RADIUS*math.cos(math.radians(CENTER[1]))
+LEGACY_X_METERS = math.pi/180*RADIUS*math.cos(math.radians(LEGACY_CENTER[1]))
 Z_METERS = math.pi/180*RADIUS
-MAX_BUILDINGS = 13800
-MAX_ROADS = 2950
+LEGACY_BUILDINGS = 13800
+ADDITIONAL_BUILDINGS = 2200
+LEGACY_ROADS = 2950
+ADDITIONAL_ROADS = 650
 SOURCE_COMMIT = '38c01bf002511c01294feacd8aa85e54e6342724'
 
 # Visitor copy is intentionally separate from provenance / representation notes.
@@ -71,6 +77,28 @@ def local(lon, lat, z=None):
     return ((lon-CENTER[0])*X_METERS*SCALE, (CENTER[1]-lat)*Z_METERS*SCALE)
 
 
+def legacy_local(lon, lat, z=None):
+    return ((lon-LEGACY_CENTER[0])*LEGACY_X_METERS*SCALE, (LEGACY_CENTER[1]-lat)*Z_METERS*SCALE)
+
+
+def move_legacy_point(point):
+    # Preserve the exact previous selection and simplified shape, changing only
+    # its origin/projection. No enlarged-bounds area ranking can evict old blocks.
+    lon = LEGACY_CENTER[0] + point[0]/(LEGACY_X_METERS*SCALE)
+    lat = LEGACY_CENTER[1] - point[1]/(Z_METERS*SCALE)
+    return [round(v,3) for v in local(lon,lat)]
+
+
+def source_feature_id(feature, source_file):
+    value = feature.get('id') or feature.get('properties',{}).get('osmId')
+    if value:
+        return str(value)
+    # Some imported datasets omit IDs. A source-geometry hash is still stable
+    # across display budgets, feature order, recentering and clipping.
+    payload = json.dumps(feature['geometry'],sort_keys=True,separators=(',',':'))
+    return 'geometry-sha256:' + hashlib.sha256((source_file+'\n'+payload).encode()).hexdigest()
+
+
 def polygon_parts(g):
     if g.is_empty: return []
     if g.geom_type == 'Polygon': return [g]
@@ -108,17 +136,47 @@ def read_features(path):
     return json.loads(path.read_text())['features']
 
 
+def registered_footprint_sources():
+    # Only the source UUIDs replaced by registered authored models receive this
+    # precision refinement. Candidate-only Meilian remains ordinary background.
+    root = Path(__file__).resolve().parents[1]
+    registrations = json.loads((root/'src/data/business-registrations.json').read_text())
+    expected = {}
+    for registration in registrations.values():
+        ids = set(registration.get('replaceSourceFeatureIds', []))
+        records = {record['sourceFeatureId']: record for record in registration.get('sourceFootprintRecords', [])}
+        if ids != set(records):
+            raise ValueError('Registered replacement UUIDs and source-footprint records disagree')
+        for feature_id in ids:
+            if feature_id in expected:
+                raise ValueError(f'Duplicate registered source UUID: {feature_id}')
+            expected[feature_id] = records[feature_id]['geometry']
+    shouxin = json.loads((root/'docs/models/shouxin-location-evidence/shouxin-candidate-source-feature.geojson').read_text())
+    expected[shouxin['id']] = shouxin['geometry']
+    if len(expected) != 16:
+        raise ValueError('This reviewed precision whitelist must contain exactly 16 registered source UUIDs')
+    return expected
+
+
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--source', type=Path, required=True)
     parser.add_argument('--output', type=Path, default=Path(__file__).resolve().parents[1]/'public/data')
     args=parser.parse_args()
+    registered_sources = registered_footprint_sources()
+    direct_source_rings = {}
+    direct_source_files = {}
     src=args.source/'dist'
     args.output.mkdir(parents=True,exist_ok=True)
     clip=box(*BOUNDS)
+    legacy_clip=box(*LEGACY_BOUNDS)
+    expansion_clip=clip.difference(legacy_clip)
     width=(BOUNDS[2]-BOUNDS[0])*X_METERS*SCALE
     depth=(BOUNDS[3]-BOUNDS[1])*Z_METERS*SCALE
     local_clip=box(-width/2,-depth/2,width/2,depth/2)
+    legacy_width=(LEGACY_BOUNDS[2]-LEGACY_BOUNDS[0])*LEGACY_X_METERS*SCALE
+    legacy_depth=(LEGACY_BOUNDS[3]-LEGACY_BOUNDS[1])*Z_METERS*SCALE
+    legacy_local_clip=box(-legacy_width/2,-legacy_depth/2,legacy_width/2,legacy_depth/2)
     inputs=[]
     def record(path):
         inputs.append({'file':str(path.relative_to(args.source)), 'sha256':hashlib.sha256(path.read_bytes()).hexdigest()})
@@ -157,30 +215,66 @@ def main():
             obj={'rings':rings}
             if f['properties'].get('name'):obj['name']=f['properties']['name']
             parks.append(obj)
-    candidates=[]
+    legacy_candidates=[]
+    expansion_candidates=[]
     for path in sorted((src/'data/gis-yichang/buildings').glob('*.geojson')):
         features=read_features(path)
         has_used=False
+        source_file=str(path.relative_to(args.source))
         for f in features:
             g=safe_shape(f)
             if not g.intersects(clip):continue
             has_used=True
             p=f['properties']
-            g=transform(local,g.intersection(clip)).simplify(.012,preserve_topology=True).intersection(local_clip)
-            for part in polygon_parts(g):
-                if part.area < .016: continue # 40 m² (pixel-scale LOD omission).
-                ring=ring_points(part.exterior)
-                if len(ring)<3:continue
-                height=p.get('heightMeters',12)
-                if not isinstance(height,(int,float)) or not math.isfinite(height) or height<=0:height=12
-                candidates.append((part.area,str(f.get('id','')),ring,height,p.get('heightSource','default')))
+            feature_id=source_feature_id(f,source_file)
+            if feature_id in registered_sources:
+                if feature_id in direct_source_rings:
+                    raise ValueError(f'A registered UUID occurs in more than one source feature: {feature_id}')
+                if f['geometry'] != registered_sources[feature_id]:
+                    raise ValueError(f'Registered evidence differs from the original WGS84 geometry: {feature_id}')
+                original = shape(f['geometry'])
+                if original.geom_type != 'Polygon' or not original.is_valid or not legacy_clip.covers(original):
+                    raise ValueError(f'Registered source must be one valid, uncut old-city polygon: {feature_id}')
+                # Do not simplify or round in the legacy frame. Project the
+                # original WGS84 exterior once, retain CCW orientation, then
+                # perform the one final 0.001-world-unit quantization.
+                exact = orient(transform(local, original), sign=1.0)
+                direct_source_rings[feature_id] = ring_points(exact.exterior)
+                direct_source_files[feature_id] = source_file
+            height=p.get('heightMeters',12)
+            if not isinstance(height,(int,float)) or not math.isfinite(height) or height<=0:height=12
+            for pool,region,project,project_clip in [
+                (legacy_candidates,legacy_clip,legacy_local,legacy_local_clip),
+                (expansion_candidates,expansion_clip,local,local_clip),
+            ]:
+                if not g.intersects(region):continue
+                projected=transform(project,g.intersection(region)).simplify(.012,preserve_topology=True).intersection(project_clip)
+                for part in polygon_parts(projected):
+                    if part.area < .016: continue # 40 m² (pixel-scale LOD omission).
+                    ring=ring_points(part.exterior)
+                    if len(ring)<3:continue
+                    pool.append((part.area,str(f.get('id','')),ring,height,p.get('heightSource','default'),feature_id))
         if has_used:record(path)
-    # Actual footprints, ranked by area for a deterministic LOD. No new building is made.
-    candidates.sort(key=lambda b:(-b[0],b[1],b[2][0]))
-    chosen=candidates[:MAX_BUILDINGS]
-    buildings=[{'ring':r,'height':round(h*SCALE,3),'base':0} for _,_,r,h,_ in chosen]
+    # Retain the previous 13,800 real footprint parts in their previous order.
+    # Rank ONLY the added geographic region for its separate 2,200-part budget.
+    # Features crossing the old border are clipped into disjoint parts, not
+    # duplicated whole on both sides of the selection boundary.
+    for pool in [legacy_candidates,expansion_candidates]:
+        pool.sort(key=lambda b:(-b[0],b[1],b[2][0]))
+    legacy_chosen=legacy_candidates[:LEGACY_BUILDINGS]
+    expansion_chosen=expansion_candidates[:ADDITIONAL_BUILDINGS]
+    registered_selected = [row[5] for row in legacy_chosen if row[5] in registered_sources]
+    if len(registered_selected) != 16 or set(registered_selected) != set(registered_sources):
+        raise ValueError('Every registered source UUID must occur once in the retained old-city selection')
+    if set(direct_source_rings) != set(registered_sources) or any(row[5] in registered_sources for row in expansion_chosen):
+        raise ValueError('Registered precision sources must be complete and confined to the retained selection')
+    chosen=legacy_chosen+expansion_chosen
+    legacy_geometry=[{'ring':r,'height':round(h*SCALE,3),'base':0} for _,_,r,h,_,_ in legacy_chosen]
+    buildings=[{'ring':direct_source_rings[fid] if fid in direct_source_rings else [move_legacy_point(p) for p in r],'height':round(h*SCALE,3),'base':0,'sourceFeatureId':fid} for _,_,r,h,_,fid in legacy_chosen]
+    buildings += [{'ring':r,'height':round(h*SCALE,3),'base':0,'sourceFeatureId':fid} for _,_,r,h,_,fid in expansion_chosen]
     height_counts=dict(collections.Counter(v[4] for v in chosen))
-    roads=[]
+    legacy_roads=[]
+    expansion_roads=[]
     bridge_paths={}
     road_classes={'motorway':0,'trunk':1,'primary':2,'secondary':3,'tertiary':4,'residential':5,'unclassified':6,'living_street':7,'service':8,'pedestrian':9,'footway':10,'cycleway':10}
     for f in read_features(roads_path):
@@ -190,22 +284,32 @@ def main():
         if p.get('tunnel') in ['yes','building_passage']:continue
         g=safe_shape(f)
         if not g.intersects(clip):continue
-        g=transform(local,g.intersection(clip)).simplify(.065,preserve_topology=True).intersection(local_clip)
-        for part in line_parts(g):
-            if part.length<.16:continue
-            if base_kind in ['service','footway','cycleway'] and part.length<1.4:continue
-            points=[[round(x,3),round(z,3)] for x,z in part.coords]
-            if len(points)<2:continue
-            # Widths retain the old export's OSM or class/lane-based estimates.
-            wm=p.get('widthMeters', {'motorway':16,'trunk':14,'primary':12,'secondary':10,'tertiary':8,'residential':6}.get(base_kind,4))
-            obj={'points':points,'width':round(float(wm)*SCALE,3),'kind':'bridge' if p.get('bridge')=='yes' else base_kind}
-            if p.get('name'):obj['name']=p['name']
-            roads.append((road_classes[base_kind],-part.length,p.get('osmId',''),obj))
-            if p.get('bridge')=='yes' and p.get('name') in ['至喜长江大桥','夷陵长江大桥']:
-                bridge_paths.setdefault(p['name'],[]).append((part.length,part,p.get('osmId','')))
-    roads.sort(key=lambda r:(r[0],r[1],r[2]))
-    road_candidates=len(roads)
-    roads=[r[3] for r in roads[:MAX_ROADS]]
+        for pool,region,project,project_clip in [
+            (legacy_roads,legacy_clip,legacy_local,legacy_local_clip),
+            (expansion_roads,expansion_clip,local,local_clip),
+        ]:
+            if not g.intersects(region):continue
+            projected=transform(project,g.intersection(region)).simplify(.065,preserve_topology=True).intersection(project_clip)
+            for part in line_parts(projected):
+                if part.length<.16:continue
+                if base_kind in ['service','footway','cycleway'] and part.length<1.4:continue
+                points=[[round(x,3),round(z,3)] for x,z in part.coords]
+                if len(points)<2:continue
+                # Widths retain the old export's OSM or class/lane-based estimates.
+                wm=p.get('widthMeters', {'motorway':16,'trunk':14,'primary':12,'secondary':10,'tertiary':8,'residential':6}.get(base_kind,4))
+                obj={'points':points,'width':round(float(wm)*SCALE,3),'kind':'bridge' if p.get('bridge')=='yes' else base_kind}
+                if p.get('name'):obj['name']=p['name']
+                pool.append((road_classes[base_kind],-part.length,p.get('osmId',''),obj))
+                if p.get('bridge')=='yes' and p.get('name') in ['至喜长江大桥','夷陵长江大桥']:
+                    if pool is legacy_roads:
+                        part=transform(lambda x,z:local(LEGACY_CENTER[0]+x/(LEGACY_X_METERS*SCALE),LEGACY_CENTER[1]-z/(Z_METERS*SCALE)),part)
+                    bridge_paths.setdefault(p['name'],[]).append((part.length,part,p.get('osmId','')))
+    for pool in [legacy_roads,expansion_roads]:
+        pool.sort(key=lambda r:(r[0],r[1],r[2]))
+    road_candidates=len(legacy_roads)+len(expansion_roads)
+    legacy_road_geometry=[r[3] for r in legacy_roads[:LEGACY_ROADS]]
+    roads=[{**r,'points':[move_legacy_point(p) for p in r['points']]} for r in legacy_road_geometry]
+    roads += [r[3] for r in expansion_roads[:ADDITIONAL_ROADS]]
     pois={p['id']:p for p in json.loads(pois_path.read_text())}
     # Keep fidelity / presentation notes in metadata, not in visitor copy.
     landmark_profiles={
@@ -232,6 +336,12 @@ def main():
     landmarks.insert(2,{'id':'zhixi-bridge','name':'至喜长江大桥','kind':'bridge','x':round(x,3),'z':round(z,3),'category':'城市桥梁','subtitle':'跨江天际线 · 西坝门户','description':VISITOR_DESCRIPTIONS['zhixi-bridge'],'lon':round(lon,7),'lat':round(lat,7)})
     landmark_sources.append({'id':'zhixi-bridge','name':'至喜长江大桥','coordinateNote':'最长同名 bridge=yes OSM 线段按长度取中点，为桥区展示参考而非测量落点。','representationNote':'实际道路几何保留；桥塔、索缆与高度为微缩示意，大江悬索桥与三江斜拉桥按官方结构参考区分。','urls':['https://www.openstreetmap.org/'+osm_id]})
     alignment_manifest = apply_landmark_alignments(landmarks, local)
+    # The reviewed Zhixi guide point is a stable geographic reference. Changing
+    # the board latitude must not re-parameterize that named road midpoint by a
+    # few centimetres; its actual model span still resolves from mapped roads.
+    zhixi_reference=next(p for p in landmarks if p['id']=='zhixi-bridge')
+    zhixi_reference['lon'],zhixi_reference['lat']=zhixi_reference['alignment']['sourcePointLonLat']
+    zhixi_reference['x'],zhixi_reference['z']=[round(v,3) for v in local(zhixi_reference['lon'],zhixi_reference['lat'])]
     sources=[
       {'name':'OpenStreetMap 道路与水域','url':'https://www.openstreetmap.org/copyright','license':'ODbL-1.0','asOf':'2026-11-04'},
       {'name':'Overture Maps 建筑轮廓','url':'https://docs.overturemaps.org/guides/buildings/','license':'ODbL-1.0','release':'2026-10-21.0'},
@@ -240,8 +350,24 @@ def main():
       {'name':'OpenStreetMap / Overture Maps 公园地块','url':'https://docs.overturemaps.org/attribution/','license':'ODbL-1.0'},
       {'name':'ESA WorldCover 2021 林地','url':'https://doi.org/10.5281/zenodo.7254221','license':'CC BY 4.0'}
     ]
-    counts={'buildings':len(buildings),'roads':len(roads),'water':len(water),'parks':len(parks),'landmarks':len(landmarks),'buildingCandidates':len(candidates),'roadCandidates':road_candidates,'heightSources':height_counts}
-    data={'meta':{'name':'宜昌 · 长江微缩城','center':CENTER,'width':round(width,3),'depth':round(depth,3),'unitsPerMeter':SCALE,'bounds':BOUNDS,'counts':counts,'sources':sources,'coordinateSystem':'WGS84 → local x east / z south; planar equirectangular centered at city board','sourceSnapshotCommit':SOURCE_COMMIT,'buildingSelection':'保留裁切后面积最大的 13,800 个真实轮廓部件；仅用于微缩远景 LOD，非完整建筑清单。','heightNote':'保留旧数据高度：来源标签、楼层×3m、3D-GloBFP 2020 遥感估算；缺失固定12m。均非新增实测。','parkCoverageNote':'绿地数据仅覆盖旧样板区 [111.24,30.68,111.32,30.73]，不是全城区公园目录。','terrainNote':'本数据版本采用平面微缩底板，不附加DEM网格。山体、桥梁结构与树木由场景风格化表现。','landmarkSources':landmark_sources,'bridgeStructureReferences':BRIDGE_STRUCTURE_REFERENCES},'buildings':buildings,'roads':roads,'water':water,'parks':parks,'landmarks':landmarks}
+    counts={'buildings':len(buildings),'roads':len(roads),'water':len(water),'parks':len(parks),'landmarks':len(landmarks),'buildingCandidates':len(legacy_candidates)+len(expansion_candidates),'roadCandidates':road_candidates,'heightSources':height_counts}
+    coverage_expansion={
+        'legacyBounds':LEGACY_BOUNDS,'legacyCenter':LEGACY_CENTER,
+        'retainedBuildings':len(legacy_chosen),'addedBuildings':len(expansion_chosen),
+        'retainedRoads':len(legacy_road_geometry),'addedRoads':min(len(expansion_roads),ADDITIONAL_ROADS),
+        'buildingBudget':LEGACY_BUILDINGS+ADDITIONAL_BUILDINGS,'roadBudget':LEGACY_ROADS+ADDITIONAL_ROADS,
+        'legacyBuildingGeometrySha256':hashlib.sha256(json.dumps(legacy_geometry,ensure_ascii=False,separators=(',',':')).encode()).hexdigest(),
+        'legacyRoadGeometrySha256':hashlib.sha256(json.dumps(legacy_road_geometry,ensure_ascii=False,separators=(',',':')).encode()).hexdigest(),
+        'selectionPolicy':'固定保留旧范围按旧投影及旧排序选出的13,800个建筑部件和2,950段道路；仅在新增地域按原面积/道路级别规则追加最多2,200个建筑部件和650段道路。跨旧边界要素按不相交地域拆分，均保留来源身份。',
+        'sourceFeatureIdNote':'建筑保留源feature.id，缺失时用来源文件与未裁切几何SHA256；同一源要素的不同裁切部件可共用sourceFeatureId，不能将数组索引当身份。',
+        'registeredFootprintProjection':{
+            'count':len(direct_source_rings),
+            'sourceFeatureIds':sorted(direct_source_rings),
+            'sourceFiles':direct_source_files,
+            'policy':'仅16个已注册模型将替换的来源轮廓，按原始WGS84外环一次投影、CCW排序、一次round3；不简化、不经过旧世界坐标取整。原选择顺序、高度与底高不变，其余13,784个旧轮廓完整保留原简化几何。',
+        },
+    }
+    data={'meta':{'name':'宜昌 · 长江微缩城','center':CENTER,'width':round(width,3),'depth':round(depth,3),'unitsPerMeter':SCALE,'bounds':BOUNDS,'counts':counts,'sources':sources,'coordinateSystem':'WGS84 → local x east / z south; planar equirectangular centered at city board','sourceSnapshotCommit':SOURCE_COMMIT,'buildingSelection':'保留旧范围的13,800个真实轮廓部件，新增地域另选最多2,200个；不以扩范围后的统一面积排名挤掉旧街区。仅用于微缩远景LOD，非完整建筑清单。','coverageExpansion':coverage_expansion,'heightNote':'保留旧数据高度：来源标签、楼层×3m、3D-GloBFP 2020 遥感估算；缺失固定12m。均非新增实测。','parkCoverageNote':'绿地数据仅覆盖旧样板区 [111.24,30.68,111.32,30.73]，不是全城区公园目录。','terrainNote':'本数据版本采用平面微缩底板，不附加DEM网格。山体、桥梁结构与树木由场景风格化表现。','landmarkSources':landmark_sources,'bridgeStructureReferences':BRIDGE_STRUCTURE_REFERENCES},'buildings':buildings,'roads':roads,'water':water,'parks':parks,'landmarks':landmarks}
     output=args.output/'city.json'
     data['meta']['landmarkAlignment'] = {key: value for key, value in alignment_manifest.items() if key != 'landmarks'}
     output.write_text(json.dumps(data,ensure_ascii=False,separators=(',',':'))+'\n')
@@ -282,16 +408,19 @@ https://esa-worldcover.org/en/data-access
 处理方法与展示边界
 - 不生成虚构城市路网或建筑位置；地理轮廓来自已有真实公开来源。
 - 先裁切地理矩形，再转换局部坐标。所有水体、公园、建筑与道路都受底板矩形约束。
-- 建筑：轮廓拓扑简化0.6m，选择裁切后面积最大的{len(buildings):,}个部件，省略小型轮廓以控制远景负载；仅保留外环，庭院在此LOD中不细分。
+- 建筑：保留旧范围{LEGACY_BOUNDS}按旧投影与旧面积排序选出的{len(legacy_chosen):,}个部件，顺序、高度与底高不变。其中{len(registered_sources)}个已注册模型将替换的匹配轮廓按原始WGS84外环一次投影、CCW排序、一次round3，不简化、不经过旧世界坐标取整；其余{len(legacy_chosen)-len(registered_sources):,}个保留原0.6m简化几何并重投影到新中心。新增地域单独按面积追加{len(expansion_chosen):,}个部件，预算{ADDITIONAL_BUILDINGS:,}，不会挤掉旧街区。仅保留外环，庭院在此LOD中不细分。
+- 建筑身份：每个部件保留sourceFeatureId，跨旧范围边界按不相交地域分成部件，同一源要素可出现多次。源ID缺失时使用来源文件与完整原几何的SHA256；不使用数组序号代替建筑身份。
 - 建筑高度保留来源值与分类，不随机增高。来源标签/楼层/遥感高度都不属于新增实测。
   本输出高度分类：{json.dumps(height_counts,ensure_ascii=False)}。缺失值固定12m。
-- 道路：优先主干路、次干路、支路和居住街道，包含部分服务道路与步道；不在地面绘制已标注隧道。宽度沿用来源标签或旧导出的道路级别/车道估算。
+- 道路：完整保留旧选择{len(legacy_road_geometry):,}段，新增地域按原道路级别与长度规则追加{min(len(expansion_roads),ADDITIONAL_ROADS):,}段，预算{ADDITIONAL_ROADS:,}。优先主干路、次干路、支路和居住街道，包含部分服务道路与步道；不在地面绘制已标注隧道。宽度沿用来源标签或旧导出的道路级别/车道估算。
 - 水体：只取已有水域多边形；保留岛屿与足够大的内环；简化2.5m，不以随机河道代替长江。
 - 绿地：仅旧样板区公开地块，不是全城区清单；简化5m，并移除水面交叠。树木、山体与地标体量为风格化展示，不可作为真实树木清单或工程数据。
 - 地形：本版使用平面微缩底板，未加载DEM，不声称复原真实高程。
 - 图形坐标按0.001世界单位取整，仅为压缩，不代表测量精度。
 
 输出数量：{json.dumps(counts,ensure_ascii=False)}
+
+旧选择保留审计：{json.dumps(coverage_expansion,ensure_ascii=False)}
 
 地标参考点来源
 '''
@@ -303,6 +432,14 @@ https://esa-worldcover.org/en/data-access
     for reference in BRIDGE_STRUCTURE_REFERENCES:
         source_text+=reference['note']+'\n'+reference['name']+'：'+reference['url']+'\n'
     source_text+=alignment_source_text(alignment_manifest)
+    source_text+='''
+商务楼宇目录与模型恢复（2026-11-09）
+原伍家岗楼宇导图23个项目（含多塔组团，非2026全区统计）：https://df21wknb5.wasee.com/wt/df21wknb5
+目录：/data/business-buildings-directory.json
+配准证据与待核项：/data/business-buildings-registration.json
+本轮恢复8项模型：7项在城市中候选落位，美联1项独立候选预览；其余15项模型待恢复。所有阶段候选均不等于实景验收。
+各模型原件未修改；网页派生说明：/models/<model-id>/README.txt。万达/福江仅用修正版；中南研究方案关闭，锦江未用S04。
+'''
     (args.output/'sources.txt').write_text(source_text)
     print(json.dumps({'file':str(output),'bytes':output.stat().st_size,'meta':{k:data['meta'][k] for k in ['center','width','depth','bounds','counts']},'landmarks':landmarks},ensure_ascii=False,indent=2))
 

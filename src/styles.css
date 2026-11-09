@@ -54,3 +54,100 @@
 @media(min-width:1600px){.authored-note{left:34px;top:94px}}
 @media(max-width:960px){.authored-note{left:20px;top:70px;max-width:calc(100% - 315px)}.authored-note p>span{display:block}.model-load-state{left:calc((100% - 300px)/2);max-width:180px;padding:18px}}
 @media(max-width:700px){.authored-note{left:17px;right:16px;top:66px;max-width:none}.authored-note .eyebrow{font-size:7px;letter-spacing:1.1px}.authored-note p{font-size:10px;margin-top:4px;gap:4px 9px}.authored-note p>span{display:inline;font-size:8px}.model-load-state{left:50%;top:30%;max-width:255px;padding:19px 23px}.model-quality{margin-top:10px;padding-top:7px;font-size:8px}.model-quality button{font-size:8px}.authored-open .detail-panel>footer{margin-top:2px;padding-top:6px}.authored-tag{font-size:8px}}
+
+/* The business directory distinguishes restored models from guide reference points. */
+.sidebar .search{margin-bottom:15px}
+.business-summary{flex-shrink:0;padding:12px 13px 10px;background:var(--soft);border:1px solid var(--line);border-radius:4px}
+.business-summary>div{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.business-summary>div>span{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text);letter-spacing:.5px}
+.business-summary strong{font-family:Georgia,serif;font-size:23px;line-height:1.1;font-weight:400;color:var(--green)}
+.business-summary strong small{font-family:inherit;font-size:10px;color:var(--muted)}
+.business-summary p{display:flex;align-items:center;flex-wrap:wrap;gap:5px 12px;margin:9px 0 5px;font-size:9px;line-height:1.5;color:var(--muted)}
+.business-summary p b{font-weight:600;font-size:11px;color:var(--text);margin-right:2px}
+.business-summary>small{font-size:8px;color:var(--muted);line-height:1.5}
+.directory-filters{display:flex;gap:3px;margin:12px 0 17px;padding:3px;background:var(--soft);border-radius:4px;flex-shrink:0}
+.directory-filters button{flex:1;min-width:0;padding:6px 3px;min-height:29px;border-radius:3px;font-size:10px;line-height:1.4;white-space:nowrap;color:var(--muted)}
+.directory-filters button:hover{color:var(--green);background:var(--paper)}
+.directory-filters button.active{background:var(--green);color:var(--paper);box-shadow:0 1px 4px #26492b13}
+.business-row{gap:8px;min-height:57px}
+.business-row .landmark-row-content{gap:4px;min-width:0}
+.business-row .landmark-row-content strong{line-height:1.6;overflow-wrap:anywhere}
+.business-row .business-status{font-size:8px;letter-spacing:0;color:#8b806b}
+.business-row .status-available{color:#6b8860}
+.business-row .authored-tag{font-size:7px;padding:3px 4px}
+.guide-point-label .label-name{border-style:dashed}
+.label-name>small{display:block;margin-top:4px;font-size:8px;font-weight:400;letter-spacing:.3px;opacity:.76}
+.business-poi-note{font-size:10px;line-height:1.85;color:var(--muted);margin-top:12px;padding:8px 10px;border-left:2px solid #c3b58e;background:var(--soft)}
+.poi-quality{line-height:1.7;gap:6px}
+.poi-quality>svg{flex-shrink:0;color:#9a8967}
+.poi-quality button{white-space:nowrap;flex-shrink:0}
+.business-open .detail-panel>footer{margin-top:8px}
+.about-data strong{overflow-wrap:anywhere}
+.theme-night .business-row .business-status{color:#b3aa8b}
+.theme-night .business-row .status-available{color:#afbf91}
+.theme-night .business-poi-note{border-left-color:#8b7d56}
+.theme-night .poi-quality>svg{color:#c7b478}
+@media(max-width:700px){
+  .sidebar .search{margin-top:20px;margin-bottom:12px}
+  .business-summary{padding:10px 12px 8px}
+  .business-summary strong{font-size:21px}
+  .business-summary p{margin-top:7px}
+  .directory-filters{margin:10px 0 14px}
+  .business-poi-note{grid-column:2;font-size:9px;line-height:1.8;margin-top:7px;padding:6px 8px}
+  .business-open .detail-panel>footer{margin-top:2px;padding-top:6px}
+}
+@media(max-height:690px){
+  .sidebar{padding-top:20px}
+  .sidebar .search{margin-top:16px}
+  .sidebar-bottom{padding-top:12px;padding-bottom:13px}
+  .sidebar-bottom .edition{margin-top:13px}
+}
+
+/* Candidate models open above the still-mounted city, in their own viewer. */
+.candidate-preview-button{display:flex;align-items:center;gap:9px;width:100%;padding:11px 12px;margin-top:13px;text-align:left;background:var(--soft);border:1px solid var(--line);border-radius:4px;color:var(--green)}
+.candidate-preview-button:hover{background:var(--paper);border-color:#a4b49a}
+.candidate-preview-button>span{flex:1;font-size:11px;line-height:1.5}
+.candidate-preview-button small{display:block;font-size:8px;font-weight:400;color:var(--muted);margin-top:3px}
+.modal.model-preview-modal{width:760px;max-width:100%;padding:25px 28px 23px}
+.model-preview-modal h2{font-size:22px}
+.candidate-preview{margin-top:20px}
+.candidate-preview-heading{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:5px 15px;margin-bottom:10px;font-size:10px;line-height:1.6;color:var(--muted)}
+.candidate-preview-heading>span:first-child{color:var(--green)}
+.candidate-preview-stage{position:relative;height:clamp(280px,46dvh,440px);border:1px solid var(--line);border-radius:5px;overflow:hidden;background:#f1efe6}
+.candidate-preview-canvas{position:absolute;inset:0}
+.candidate-preview-canvas canvas{display:block;width:100%;height:100%;outline:none;touch-action:none}
+.candidate-preview-message{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;padding:28px;background:rgba(var(--paper-rgb),.9);text-align:center;color:var(--muted)}
+.candidate-preview-message strong{font-size:13px;font-weight:500;color:var(--text)}
+.candidate-preview-message p{font-size:11px;line-height:1.8;max-width:320px}
+.candidate-preview-message button{font-size:11px;padding:9px 15px;border-radius:3px;background:var(--green);color:var(--paper)}
+.candidate-preview-hint{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:6px;font-size:9px;white-space:nowrap;color:var(--muted);background:rgba(var(--paper-rgb),.87);border:1px solid var(--line);padding:7px 11px;border-radius:20px;pointer-events:none}
+.candidate-preview-controls{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-top:12px}
+.candidate-quality-controls,.candidate-angle-controls{display:flex;align-items:center;gap:4px}
+.candidate-quality-controls{padding:3px;background:var(--soft);border-radius:4px}
+.candidate-preview-controls button{display:flex;align-items:center;justify-content:center;gap:5px;font-size:10px;line-height:1.5;padding:7px 10px;border-radius:3px;color:var(--muted)}
+.candidate-preview-controls button:hover:not(:disabled){background:var(--soft);color:var(--green)}
+.candidate-quality-controls button.active{background:var(--green);color:var(--paper)}
+.candidate-quality-controls button.active:hover:not(:disabled){background:var(--green);color:var(--paper)}
+.candidate-preview-quality{display:flex;align-items:center;gap:7px;margin-top:11px;min-height:19px;font-size:9px;line-height:1.7;color:var(--muted)}
+.candidate-preview-quality button{margin-left:auto;font-size:9px;white-space:nowrap;text-decoration:underline;text-underline-offset:3px;color:var(--text)}
+.candidate-preview-note{font-size:10px;line-height:1.9;color:var(--muted);margin-top:10px}
+.candidate-preview-provenance{border-top:1px solid var(--line);margin-top:14px;padding-top:12px}
+.candidate-preview-provenance>p{font-size:10px;line-height:1.9;color:var(--muted)}
+.candidate-preview-provenance .source-link{margin-top:8px}
+.model-preview-modal .primary-button{margin-top:16px}
+.theme-night .candidate-preview-stage{background:#223632}
+.theme-night .candidate-preview-button:hover{border-color:#78876b}
+@media(max-width:700px){
+  .detail-story>.candidate-preview-button{grid-column:2;margin-top:8px;padding:8px 9px;gap:7px}
+  .detail-story>.candidate-preview-button>span{font-size:10px}
+  .detail-story>.candidate-preview-button small{font-size:7px}
+  .modal.model-preview-modal{padding:20px 17px 18px}
+  .model-preview-modal h2{font-size:19px;line-height:1.6}
+  .candidate-preview{margin-top:15px}
+  .candidate-preview-heading{font-size:9px}
+  .candidate-preview-stage{height:clamp(240px,39dvh,360px)}
+  .candidate-preview-controls{gap:6px}
+  .candidate-preview-controls button{font-size:9px;padding:7px 8px}
+  .candidate-preview-hint{font-size:8px;padding:6px 9px}
+  .candidate-preview-note,.candidate-preview-provenance>p{font-size:9px}
+}

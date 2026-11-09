@@ -1,0 +1,436 @@
+{
+  "ok": true,
+  "completeIntegrationCheck": true,
+  "deferredChecks": [],
+  "passed": [
+    "23 source-bound unique projects; 8 restored models, 7 city residents, 1 registration pending, 15 recovery pending; GCJ-02 conversion and expanded-board coverage",
+    "Independent current projection, exact source UUID/ring binding, evidence scales/yaws, original-origin compensation and candidate caveats",
+    "Exactly the 16 registered original backgrounds are replaced; Wanda retains the original uncovered mall geometry and height; pending Meilian clears nothing",
+    "All 16 actual light/detail GLBs parse with Meshopt; independent original-vertex and original-origin transforms agree after controller recentering; uniform proportions and picking IDs survive"
+  ],
+  "counts": {
+    "projects": 23,
+    "availableModels": 8,
+    "mapModels": 7,
+    "registrationPending": 1,
+    "recoveryPending": 15,
+    "replacedSourceBuildings": 16,
+    "retainedBackgroundPolygons": 1
+  },
+  "boardCenter": [
+    111.3075,
+    30.69
+  ],
+  "boardBounds": [
+    111.225,
+    30.625,
+    111.39,
+    30.755
+  ],
+  "retainedMallAreaRatio": 0.6063176223761025,
+  "tiers": [
+    {
+      "id": "meilian-s05",
+      "sceneId": "1649135",
+      "tier": "light",
+      "bytes": 1397792,
+      "vertexSamples": 81,
+      "maxTransformError": 1.793620188084545e-15,
+      "scale": [
+        0.07976867316046403,
+        0.07976867316046403,
+        0.07976867316046403
+      ],
+      "sourceBounds": {
+        "min": [
+          -36.95403363587753,
+          -0.20000076293945312,
+          -49.48286718365678
+        ],
+        "max": [
+          31.29960372331039,
+          100.08999633789062,
+          7.850188198061076
+        ]
+      }
+    },
+    {
+      "id": "meilian-s05",
+      "sceneId": "1649135",
+      "tier": "detail",
+      "bytes": 8163304,
+      "vertexSamples": 81,
+      "maxTransformError": 1.790301863289498e-15,
+      "scale": [
+        0.07976867316046403,
+        0.07976867316046403,
+        0.07976867316046403
+      ],
+      "sourceBounds": {
+        "min": [
+          -36.965438155625584,
+          -0.20000076293945312,
+          -49.48958808691002
+        ],
+        "max": [
+          31.300442008469822,
+          100.08999633789062,
+          7.849588697261577
+        ]
+      }
+    },
+    {
+      "id": "zhongnan-s09",
+      "sceneId": "1649149",
+      "tier": "light",
+      "bytes": 3438312,
+      "vertexSamples": 93,
+      "maxTransformError": 3.973605926116015e-15,
+      "scale": [
+        0.017159654223788404,
+        0.017159654223788404,
+        0.017159654223788404
+      ],
+      "sourceBounds": {
+        "min": [
+          -29.16368909335738,
+          0,
+          -58.900472030083165
+        ],
+        "max": [
+          49.78280544281006,
+          106.55978065029355,
+          2.8828067779541016
+        ]
+      }
+    },
+    {
+      "id": "zhongnan-s09",
+      "sceneId": "1649149",
+      "tier": "detail",
+      "bytes": 10336204,
+      "vertexSamples": 93,
+      "maxTransformError": 3.978256139440565e-15,
+      "scale": [
+        0.017159654223788404,
+        0.017159654223788404,
+        0.017159654223788404
+      ],
+      "sourceBounds": {
+        "min": [
+          -29.16368909335738,
+          0,
+          -58.900472030083165
+        ],
+        "max": [
+          49.78280544281006,
+          106.56004067711802,
+          2.8828067779541016
+        ]
+      }
+    },
+    {
+      "id": "jinjiang-s03",
+      "sceneId": "1649132",
+      "tier": "light",
+      "bytes": 408256,
+      "vertexSamples": 33,
+      "maxTransformError": 3.583050238174915e-15,
+      "scale": [
+        0.03400883933025023,
+        0.03400883933025023,
+        0.03400883933025023
+      ],
+      "sourceBounds": {
+        "min": [
+          -15.09999938157075,
+          0,
+          -9.475387825513703
+        ],
+        "max": [
+          15.774998618631297,
+          72.11499786376953,
+          21.54989671748173
+        ]
+      }
+    },
+    {
+      "id": "jinjiang-s03",
+      "sceneId": "1649132",
+      "tier": "detail",
+      "bytes": 535404,
+      "vertexSamples": 33,
+      "maxTransformError": 3.583050238174915e-15,
+      "scale": [
+        0.03400883933025023,
+        0.03400883933025023,
+        0.03400883933025023
+      ],
+      "sourceBounds": {
+        "min": [
+          -15.09999938157075,
+          0,
+          -9.475387825513703
+        ],
+        "max": [
+          15.774998618631297,
+          72.11499786376953,
+          21.54989671748173
+        ]
+      }
+    },
+    {
+      "id": "wanda-soho-s01",
+      "sceneId": "1649138",
+      "tier": "light",
+      "bytes": 1972784,
+      "vertexSamples": 93,
+      "maxTransformError": 7.95651227888113e-15,
+      "scale": [
+        0.021248587852458718,
+        0.021248587852458718,
+        0.021248587852458718
+      ],
+      "sourceBounds": {
+        "min": [
+          -93.5,
+          -0.011293240326509135,
+          -39.14077503626539
+        ],
+        "max": [
+          117.5,
+          100.87438590123044,
+          19.900387585070344
+        ]
+      }
+    },
+    {
+      "id": "wanda-soho-s01",
+      "sceneId": "1649138",
+      "tier": "detail",
+      "bytes": 6736248,
+      "vertexSamples": 93,
+      "maxTransformError": 7.944303236004526e-15,
+      "scale": [
+        0.021248587852458718,
+        0.021248587852458718,
+        0.021248587852458718
+      ],
+      "sourceBounds": {
+        "min": [
+          -93.5,
+          -0.009196876802867848,
+          -39.14077503626539
+        ],
+        "max": [
+          117.5,
+          100.88919627598804,
+          19.900387585070344
+        ]
+      }
+    },
+    {
+      "id": "fujiang-s01",
+      "sceneId": "1649129",
+      "tier": "light",
+      "bytes": 2334232,
+      "vertexSamples": 54,
+      "maxTransformError": 7.119291619286993e-15,
+      "scale": [
+        0.03562047816633967,
+        0.03562047816633967,
+        0.03562047816633967
+      ],
+      "sourceBounds": {
+        "min": [
+          -24.238040924072266,
+          -0.12535091722277425,
+          -21.66305746036639
+        ],
+        "max": [
+          24.238040924072266,
+          100,
+          12.180437975182958
+        ]
+      }
+    },
+    {
+      "id": "fujiang-s01",
+      "sceneId": "1649129",
+      "tier": "detail",
+      "bytes": 6794540,
+      "vertexSamples": 54,
+      "maxTransformError": 7.122753468078643e-15,
+      "scale": [
+        0.03562047816633967,
+        0.03562047816633967,
+        0.03562047816633967
+      ],
+      "sourceBounds": {
+        "min": [
+          -24.24829864501953,
+          -0.12474793381085103,
+          -21.675019074080062
+        ],
+        "max": [
+          24.24829864501953,
+          100,
+          12.180437975182958
+        ]
+      }
+    },
+    {
+      "id": "yichang-international-s01",
+      "sceneId": "1649145",
+      "tier": "light",
+      "bytes": 2761776,
+      "vertexSamples": 54,
+      "maxTransformError": 3.6637359812630166e-15,
+      "scale": [
+        0.02812231047038549,
+        0.02812231047038549,
+        0.02812231047038549
+      ],
+      "sourceBounds": {
+        "min": [
+          -43.900001525878906,
+          -0.15000000596046448,
+          -16.061047311923062
+        ],
+        "max": [
+          45.741825103759766,
+          100.06999969482422,
+          29.741813866089547
+        ]
+      }
+    },
+    {
+      "id": "yichang-international-s01",
+      "sceneId": "1649145",
+      "tier": "detail",
+      "bytes": 9063840,
+      "vertexSamples": 54,
+      "maxTransformError": 3.6637359812630166e-15,
+      "scale": [
+        0.02812231047038549,
+        0.02812231047038549,
+        0.02812231047038549
+      ],
+      "sourceBounds": {
+        "min": [
+          -43.900001525878906,
+          -0.15054223656692045,
+          -16.060180501687274
+        ],
+        "max": [
+          45.79999923706055,
+          100.06999969482422,
+          29.80038156096331
+        ]
+      }
+    },
+    {
+      "id": "shouxin-wealth-s01",
+      "sceneId": "1649136",
+      "tier": "light",
+      "bytes": 987872,
+      "vertexSamples": 54,
+      "maxTransformError": 7.105427357601002e-15,
+      "scale": [
+        0.01656863529125461,
+        0.01656863529125461,
+        0.01656863529125461
+      ],
+      "sourceBounds": {
+        "min": [
+          -20.43000030517578,
+          0,
+          -14.0649995803833
+        ],
+        "max": [
+          20.43000030517578,
+          97.94000244140625,
+          14.065000534057617
+        ]
+      }
+    },
+    {
+      "id": "shouxin-wealth-s01",
+      "sceneId": "1649136",
+      "tier": "detail",
+      "bytes": 1498684,
+      "vertexSamples": 57,
+      "maxTransformError": 7.105427357601002e-15,
+      "scale": [
+        0.01656863529125461,
+        0.01656863529125461,
+        0.01656863529125461
+      ],
+      "sourceBounds": {
+        "min": [
+          -20.43000030517578,
+          0,
+          -14.0649995803833
+        ],
+        "max": [
+          20.43000030517578,
+          97.94000244140625,
+          14.065000534057617
+        ]
+      }
+    },
+    {
+      "id": "jiuzhou-s01",
+      "sceneId": "1649133",
+      "tier": "light",
+      "bytes": 852736,
+      "vertexSamples": 48,
+      "maxTransformError": 1.0048745063748037e-14,
+      "scale": [
+        0.025661525449156408,
+        0.025661525449156408,
+        0.025661525449156408
+      ],
+      "sourceBounds": {
+        "min": [
+          -28.700000762939453,
+          -0.03999999910593033,
+          -9.032363302645752
+        ],
+        "max": [
+          25.01721751407368,
+          100.03250122070312,
+          25.050351609082796
+        ]
+      }
+    },
+    {
+      "id": "jiuzhou-s01",
+      "sceneId": "1649133",
+      "tier": "detail",
+      "bytes": 1337716,
+      "vertexSamples": 48,
+      "maxTransformError": 1.0048745063748037e-14,
+      "scale": [
+        0.025661525449156408,
+        0.025661525449156408,
+        0.025661525449156408
+      ],
+      "sourceBounds": {
+        "min": [
+          -28.700000762939453,
+          -0.03999999910593033,
+          -9.032363302645752
+        ],
+        "max": [
+          25.01721751407368,
+          100.03250122070312,
+          25.050351609082796
+        ]
+      }
+    }
+  ],
+  "webglVerified": false,
+  "surveyVerified": false,
+  "devicePerformanceVerified": false
+}

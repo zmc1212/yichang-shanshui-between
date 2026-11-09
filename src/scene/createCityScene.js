@@ -5,7 +5,9 @@ import * as LandmarkFactory from './landmarks.js';
 import { planWaterfront, createWaterfront } from './waterfront.js';
 import { resolveLandmarkSpec } from './landmarkPlacement.js';
 import { AUTHORED_MODELS, createAuthoredStage } from './authoredModels.js';
-import { resolveAuthoredPlacement, authoredWorldBounds, planAuthoredGround } from './authoredPlacement.js';
+import { BUSINESS_BUILDINGS } from './buildingCatalog.js';
+import { resolveAuthoredPlacement, authoredWorldBounds, planAuthoredGround, projectWgs84 } from './authoredPlacement.js';
+import { createLightLoadScheduler } from './modelLoadScheduler.js';
 
 /* Coordinates in city.json are in a local metric frame: x east, z south.
    The miniature uses the actual polygon and line data; only its materials,
@@ -359,14 +361,16 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
   const buildingMaterials = DAY.buildings.map((color, i) => makeMaterial(color, NIGHT.buildings[i], { toneMapped: false }));
   let buildingCount = 0;
   const roofEdges = [];
-  for (let index = 0; index < (data.buildings || []).length; index++) {
-    const building = data.buildings[index];
-    if (waterfrontPlan.omittedBuildingIndices.has(index) || authoredGround.omittedBuildingIndices.has(index)) continue;
+  const originalBuildingCount = (data.buildings || []).length;
+  const backgroundBuildings = [...(data.buildings || []), ...authoredGround.retainedBuildings];
+  for (let index = 0; index < backgroundBuildings.length; index++) {
+    const building = backgroundBuildings[index];
+    if (index < originalBuildingCount && (waterfrontPlan.omittedBuildingIndices.has(index) || authoredGround.omittedBuildingIndices.has(index))) continue;
     const ring = cleanRing(building.ring); if (ring.length < 3) continue;
     const bounds = polygonBounds(ring);
     const cx = (bounds.minX + bounds.maxX) / 2, cz = (bounds.minZ + bounds.maxZ) / 2;
     if (inWater(cx, cz)) continue;
-    const shape = makeShape([ring]); if (!shape) continue;
+    const shape = makeShape(building.rings ? building.rings.map(cleanRing) : [ring]); if (!shape) continue;
     // The restrained vertical exaggeration makes real footprints readable at
     // city scale while retaining each source building's relative height.
     const height = THREE.MathUtils.clamp((Number(building.height) || 0.24) * authoredGround.heightFactor(cx, cz), 0.24, 13.5);
@@ -521,10 +525,13 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
   const cameraDistance = extent * 1.6;
   const getOffset = view => view === 'top' ? new THREE.Vector3(0, cameraDistance, 0.01) : defaultDirection.clone().multiplyScalar(cameraDistance);
   const cityContextBounds = new THREE.Box3().setFromObject(city);
+  const lightScheduler = createLightLoadScheduler({ concurrency: 2 });
   const authoredEntries = new Map();
   for (const spec of authoredModels) {
     const controller = createAuthoredStage({
       catalog: [spec], showPlinth: false,
+      scheduleLight: lightScheduler.schedule,
+      prioritizeLight: lightScheduler.prioritize,
       onChange: () => { if (!disposed) { labelsDirty = true; renderer.shadowMap.needsUpdate = true; } },
       onStatus: state => { if (!disposed) onModelStatus?.(state); },
     });
@@ -539,10 +546,30 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     authoredEntries.set(spec.id, { spec, controller });
     cityContextBounds.union(bounds);
   }
+  // These are real source-guide points, not substitute building meshes.
+  // Keep their map position searchable while native assets are being restored.
+  const pendingBusiness = BUSINESS_BUILDINGS.filter(spec => spec.kind === 'business-poi');
+  for (const record of pendingBusiness) {
+    const [x,z]=projectWgs84([record.lon,record.lat],data.meta);
+    const spec={...record,x,z};
+    const base=surfaceHeight(x,z);
+    const group=new THREE.Group();group.position.set(x,base,z);layers.landmarks.add(group);
+    const bounds=new THREE.Box3(new THREE.Vector3(x-4,base,z-4),new THREE.Vector3(x+4,base+5,z+4));
+    landmarkMap.set(spec.id,{spec,group,base,bounds,size:bounds.getSize(new THREE.Vector3()),
+      center:bounds.getCenter(new THREE.Vector3()),anchor:new THREE.Vector3(x,base+.5,z)});
+  }
+  // Two resident light requests at a time leave bandwidth for city interaction.
+  const residentQueue=[...authoredEntries.values()];
+  async function loadResidentQueue() {
+    while(!disposed && residentQueue.length) {
+      const {spec,controller}=residentQueue.shift();
+      await controller.select(spec.id,{detail:selectedId===spec.id&&currentFocusOptions.close});
+    }
+  }
   const selectedAuthored = () => authoredEntries.get(selectedId);
   const residentStats = () => [...authoredEntries.values()].map(({spec, controller}) => ({
     id: spec.id, lonLat: [spec.lon, spec.lat], position: controller.group.position.toArray(), yaw: spec.yaw,
-    uniformScale: spec.uniformScale, displayHeight: spec.displayHeight, sourceFeatureId: spec.registration.sourceFeatureId,
+    uniformScale: spec.uniformScale, displayHeight: spec.displayHeight, sourceFeatureId: spec.registration.sourceFeatureId, sourceFeatureIds: spec.registration.replaceSourceFeatureIds || [],
     ...controller.getStats(),
   }));
   function setAuthoredSelection(value) {
@@ -618,7 +645,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
   }
   function showSelection(item) {
     selectedRing.geometry.dispose();
-    const scale = item.spec.modelScale || 1;
+    const scale = item.spec.kind === 'business-poi' ? .32 : item.spec.modelScale || 1;
     if (item.spec.kind === 'authored') {
       const positions = [], ring = item.spec.sourceFootprint.map(([x,z]) => [x-item.spec.x,z-item.spec.z]);
       for (let i=0;i<ring.length;i++) {
@@ -749,18 +776,25 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     if (!authoredStarted && frameNumber >= 2) {
       authoredStarted = true;
       // The city is interactive before its resident lightweight assets load.
-      for (const {spec, controller} of authoredEntries.values()) if (!controller.getStats().activeId) controller.select(spec.id);
+      void loadResidentQueue(); void loadResidentQueue();
     }
     if (authoredStarted && !tween) {
-      for (const {spec, controller} of authoredEntries.values()) {
-        const item = landmarkMap.get(spec.id), state = controller.getStats();
-        const pixels = item.size.y / (baseHalfHeight * 2) * camera.zoom * heightPx;
-        const screen = item.center.clone().project(camera);
-        const onScreen = layers.landmarks.visible && Math.abs(screen.x) < 1.2 && Math.abs(screen.y) < 1.2 && Math.abs(screen.z) <= 1;
-        const threshold = window.innerWidth <= 700 ? 300 : 430;
-        const wanted = onScreen && ((selectedId === spec.id && managedFocus && currentFocusOptions.close) || pixels > threshold * (state.detailRequested ? 0.78 : 1));
-        if (wanted) controller.setDetailWanted(true);
-        else controller.releaseDetail();
+      // One detailed building at a time, even where several towers fill the
+      // screen. All other projects keep their resident city model.
+      let detailId=null,largest=0;
+      for (const {spec,controller} of authoredEntries.values()) {
+        const item=landmarkMap.get(spec.id),state=controller.getStats();
+        const pixels=item.size.y/(baseHalfHeight*2)*camera.zoom*heightPx;
+        const screen=item.center.clone().project(camera);
+        const onScreen=layers.landmarks.visible&&Math.abs(screen.x)<1.2&&Math.abs(screen.y)<1.2&&Math.abs(screen.z)<=1;
+        const threshold=window.innerWidth<=700?300:430;
+        const explicit=selectedId===spec.id&&managedFocus&&currentFocusOptions.close;
+        const wanted=onScreen&&(explicit||pixels>threshold*(state.detailRequested ? .78 : 1));
+        const score=explicit?Number.MAX_VALUE:pixels;
+        if(wanted&&score>largest){detailId=spec.id;largest=score;}
+      }
+      for(const {spec,controller} of authoredEntries.values()) {
+        if(spec.id===detailId)controller.setDetailWanted(true);else controller.releaseDetail();
       }
     }
     motionRunning = Boolean(motionEnabled && selectedId && waterfrontPlan.getSite(selectedId)?.routes.length && camera.zoom > 2 && currentView === 'perspective' && layers.boats.visible && !tween);
@@ -775,6 +809,9 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
       renderer.render(scene, camera);
       renderer.domElement.dataset.modelQuality = selectedAuthored()?.controller.getStats().quality || (residentStats().some(record=>record.quality) ? 'light' : 'loading');
       renderer.domElement.dataset.residentModels = String(residentStats().filter(record=>record.quality).length);
+      renderer.domElement.dataset.detailModels = String(residentStats().filter(record=>record.quality==='detail').length);
+      renderer.domElement.dataset.businessProjects = String(BUSINESS_BUILDINGS.length);
+      renderer.domElement.dataset.authoredModels = String(authoredModels.length);
       renderer.domElement.dataset.modelAnchor = selectedAuthored() ? JSON.stringify(selectedAuthored().controller.group.position.toArray()) : '';
       renderer.domElement.dataset.cityVisible = String(city.visible);
       renderer.domElement.dataset.focusAngle = selectedId ? currentFocusOptions.angle : 'overview';
@@ -812,7 +849,8 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
       selectedId = id; userMoved = true; managedFocus = true; currentView = 'perspective';
       currentFocusOptions = { angle: ['river', 'front', 'context'].includes(options.angle) ? options.angle : 'detail', close: options.angle !== 'context' && Boolean(options.close) };
       setAuthoredSelection(item.spec.kind === 'authored');
-      selectedAuthored()?.controller.select(id, { detail: currentFocusOptions.close });
+      for(const {spec,controller} of authoredEntries.values()) if(spec.id!==id)controller.releaseDetail();
+      selectedAuthored()?.controller.select(id, { detail: currentFocusOptions.close, priority: true });
       const frame = calculateFocusState(item);
       transition(frame.target, frame.position, frame.zoom);
       showSelection(item); labelsDirty = true;
@@ -894,7 +932,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
       renderer.render(scene, camera); return renderer.domElement.toDataURL('image/png');
     },
     getStats() {
-      const alignments = [...landmarkMap.values()].filter(item => item.spec.kind !== 'authored').map(item => {
+      const alignments = [...landmarkMap.values()].filter(item => !item.spec.business).map(item => {
         const spec = item.spec, group = item.group, record = spec.alignment || {};
         const delta = Math.hypot(group.position.x - spec.x, group.position.z - spec.z);
         return {
@@ -910,7 +948,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
           endpoints: spec.endpoints, mainSpanEndpoints: spec.mainSpanEndpoints,
         };
       });
-      return { alignments, authoredSelection, authoredModels: selectedAuthored()?.controller.getStats() || {}, authoredResidents: residentStats(), authoredReplacedBuildings: [...authoredGround.omittedBuildingIndices], ...waterfront.stats, motionEnabled, motionRunning, motionReduced: reducedMotion, motionFpsLimit: 30, focusAngle: currentFocusOptions.angle, focusClose: currentFocusOptions.close, landmarkOffsets: waterfrontPlan.sites.map(s => ({ id: s.id, source: s.original, model: s.center, distance: s.shift })), buildings: buildingCount, roads: (data.roads || []).length, waterPolygons: waterPolygons.length, parks: parkPolygons.length, trees: treeSpecs.length, landmarks: landmarks.length + authoredModels.length, drawCalls: renderer.info.render.calls, triangles: renderer.info.render.triangles, theme: currentTheme, view: currentView, cameraZoom: camera.zoom, terrain: terrainValid ? 'source-grid' : hills.length ? 'illustrative-hills' : 'flat', heightExaggeration: BUILDING_HEIGHT_EXAGGERATION, bridgeSpans: landmarks.filter(l => l.kind === 'bridge').map(l => ({ id: l.id, endpoints: l.endpoints, mainSpanEndpoints: l.mainSpanEndpoints, source: l.spanSource || 'landmark-spec' })), renderer: 'Three.js / WebGL', projection: 'orthographic' };
+      return { alignments, authoredSelection, authoredModels: selectedAuthored()?.controller.getStats() || {}, authoredResidents: residentStats(), authoredReplacedBuildings: [...authoredGround.omittedBuildingIndices], authoredRetainedBackground: authoredGround.retainedBuildings.map(building => building.retainedFromSourceFeatureId), ...waterfront.stats, motionEnabled, motionRunning, motionReduced: reducedMotion, motionFpsLimit: 30, focusAngle: currentFocusOptions.angle, focusClose: currentFocusOptions.close, landmarkOffsets: waterfrontPlan.sites.map(s => ({ id: s.id, source: s.original, model: s.center, distance: s.shift })), buildings: buildingCount, roads: (data.roads || []).length, waterPolygons: waterPolygons.length, parks: parkPolygons.length, trees: treeSpecs.length, landmarks: landmarks.length + BUSINESS_BUILDINGS.length, businessProjects: BUSINESS_BUILDINGS.length, pendingModels: pendingBusiness.length, drawCalls: renderer.info.render.calls, triangles: renderer.info.render.triangles, theme: currentTheme, view: currentView, cameraZoom: camera.zoom, terrain: terrainValid ? 'source-grid' : hills.length ? 'illustrative-hills' : 'flat', heightExaggeration: BUILDING_HEIGHT_EXAGGERATION, bridgeSpans: landmarks.filter(l => l.kind === 'bridge').map(l => ({ id: l.id, endpoints: l.endpoints, mainSpanEndpoints: l.mainSpanEndpoints, source: l.spanSource || 'landmark-spec' })), renderer: 'Three.js / WebGL', projection: 'orthographic' };
     },
     retryModel() { selectedAuthored()?.controller.retry(); },
     refitSelection() {
@@ -925,6 +963,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
       controls.removeEventListener('change', onChange); controls.removeEventListener('start', onStart); controls.dispose();
       renderer.domElement.removeEventListener('pointerdown', handlePointerDown); renderer.domElement.removeEventListener('pointerup', handlePointerUp); renderer.domElement.removeEventListener('webglcontextlost', handleContextLost);
       for (const {controller} of authoredEntries.values()) controller.dispose();
+      lightScheduler.dispose();
       authoredEntries.clear();
       const geometries = new Set(), materials = new Set(), textures = new Set();
       scene.traverse(object => {

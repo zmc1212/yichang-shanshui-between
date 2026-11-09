@@ -31,29 +31,60 @@ export function projectWgs84([lon, lat], meta) {
     (centerLat - lat) * metresPerDegree * meta.unitsPerMeter];
 }
 
+function unproject([x,z],meta) {
+  const metresPerDegree=Math.PI/180*6378137;
+  return [meta.center[0]+x/(metresPerDegree*Math.cos(meta.center[1]*Math.PI/180)*meta.unitsPerMeter),
+    meta.center[1]-z/(metresPerDegree*meta.unitsPerMeter)];
+}
+
+function convexHull(points) {
+  const sorted=[...points].sort((a,b)=>a[0]-b[0]||a[1]-b[1]);
+  const cross=(o,a,b)=>(a[0]-o[0])*(b[1]-o[1])-(a[1]-o[1])*(b[0]-o[0]);
+  const lower=[],upper=[];
+  for(const p of sorted){while(lower.length>=2&&cross(lower.at(-2),lower.at(-1),p)<=0)lower.pop();lower.push(p);}
+  for(const p of [...sorted].reverse()){while(upper.length>=2&&cross(upper.at(-2),upper.at(-1),p)<=0)upper.pop();upper.push(p);}
+  return lower.slice(0,-1).concat(upper.slice(0,-1));
+}
+
 export function resolveAuthoredPlacement(spec, meta) {
   const registration = spec.registration;
   if (spec.placement !== 'city' || registration?.coordinateSystem !== 'WGS84') return null;
-  const [x, z] = projectWgs84(registration.anchorLonLat, meta);
-  const yaw = THREE.MathUtils.degToRad(180 - registration.frontBearingDeg);
+  let [x, z] = projectWgs84(registration.modelOriginLonLat || registration.anchorLonLat, meta);
+  const yaw = Number.isFinite(registration.yawRadians) ? registration.yawRadians : THREE.MathUtils.degToRad(180 - registration.frontBearingDeg);
   const c = Math.cos(yaw), s = Math.sin(yaw);
-  const sourceFootprint = registration.footprintLonLat.map(point => projectWgs84(point, meta));
+  const sourceFootprints=(registration.footprintsLonLat||[registration.footprintLonLat]).filter(Boolean).map(ring=>ring.map(point=>projectWgs84(point,meta)));
+  const sourceFootprint = sourceFootprints.length===1?sourceFootprints[0]:convexHull(sourceFootprints.flat());
+  const sourceMin=new THREE.Vector3(...spec.sourceBounds.min),sourceMax=new THREE.Vector3(...spec.sourceBounds.max);
+  const sourceSize = sourceMax.clone().sub(sourceMin);
+  const sourceCenter=sourceMax.clone().add(sourceMin).multiplyScalar(.5);
+  let uniformScale;
+  let worldModelOrigin;
+  if(Number.isFinite(registration.scaleMetersPerSourceUnit)&&registration.modelOriginLonLat) {
+    // Group/tower fits refer to the authored origin, not the centre of an AABB
+    // containing a canopy, stairs or an asymmetric podium. Compensate once for
+    // the shared LOD frame's X/Z recentering, preserving the fitted source origin.
+    uniformScale=registration.scaleMetersPerSourceUnit*meta.unitsPerMeter;
+    worldModelOrigin=[x,z];
+    x+=(sourceCenter.x*c+sourceCenter.z*s)*uniformScale;
+    z+=(-sourceCenter.x*s+sourceCenter.z*c)*uniformScale;
+  } else {
   const local = sourceFootprint.map(([px, pz]) => [(px - x) * c - (pz - z) * s, (px - x) * s + (pz - z) * c]);
   // Insets include the source footprint rounding tolerance. Fit both axes with
   // ONE scale; the whole building keeps its authored aspect ratio.
   const inset = registration.footprintInsetMeters * meta.unitsPerMeter;
   const halfWidth = Math.min(...local.map(p => Math.abs(p[0]))) - inset;
   const halfDepth = Math.min(...local.map(p => Math.abs(p[1]))) - inset;
-  const sourceSize = new THREE.Vector3(...spec.sourceBounds.max).sub(new THREE.Vector3(...spec.sourceBounds.min));
-  const uniformScale = Math.min(halfWidth * 2 / sourceSize.x, halfDepth * 2 / sourceSize.z);
+  uniformScale = Math.min(halfWidth * 2 / sourceSize.x, halfDepth * 2 / sourceSize.z);
+  }
   if (!(uniformScale > 0) || !Number.isFinite(uniformScale)) throw new Error(`${spec.name}缺少有效的地图轮廓比例`);
   const displayHeight = sourceSize.y * uniformScale;
   const size = sourceSize.multiplyScalar(uniformScale);
   const footprint = [[-size.x/2,-size.z/2],[size.x/2,-size.z/2],[size.x/2,size.z/2],[-size.x/2,size.z/2]]
     .map(([px,pz]) => [x + px * c + pz * s, z - px * s + pz * c]);
-  return { ...spec, x, z, lon: registration.anchorLonLat[0], lat: registration.anchorLonLat[1], yaw,
+  const anchorLonLat=unproject([x,z],meta);
+  return { ...spec, x, z, lon: anchorLonLat[0], lat: anchorLonLat[1], yaw, worldModelOrigin,
     uniformScale, displayHeight, scalePolicy: 'uniform-mapped-footprint-fit-not-survey',
-    footprint, sourceFootprint, localSize: size, unitsPerMeter: meta.unitsPerMeter };
+    footprint, sourceFootprint, sourceFootprints, localSize: size, unitsPerMeter: meta.unitsPerMeter };
 }
 
 export function authoredWorldBounds(spec, base) {
@@ -86,14 +117,30 @@ export function footprintsOverlap(a, b) {
 export function planAuthoredGround(models, data, farHeightFactor) {
   const omittedBuildingIndices = new Set();
   for (let i=0;i<(data.buildings||[]).length;i++) {
-    if (models.some(model=>footprintsOverlap(model.footprint,data.buildings[i].ring))) omittedBuildingIndices.add(i);
+    const building=data.buildings[i];
+    if (models.some(model=>{
+      const ids=model.registration.replaceSourceFeatureIds||[model.registration.sourceFeatureId].filter(Boolean);
+      return ids.length&&building.sourceFeatureId ? ids.includes(building.sourceFeatureId) : footprintsOverlap(model.footprint,building.ring);
+    })) omittedBuildingIndices.add(i);
   }
+  // A project can include a shared map building larger than its recovered
+  // model. Keep the uncovered source polygon instead of erasing the full mall.
+  const retainedBuildings = models.flatMap(model =>
+    (model.registration.retainedBackgroundFeatures || []).flatMap(feature => {
+      if (feature.geometry?.type !== 'Polygon') return [];
+      const original = (data.buildings || []).find(building => building.sourceFeatureId === feature.sourceFeatureId);
+      if (!original) throw new Error(`Missing retained GIS source ${feature.sourceFeatureId}`);
+      const rings = feature.geometry.coordinates.map(ring => ring.map(point => projectWgs84(point, data.meta)));
+      return [{ ...original, sourceFeatureId: feature.derivedSourceFeatureId,
+        retainedFromSourceFeatureId: feature.sourceFeatureId, ring: rings[0], rings,
+        height: feature.properties.heightMeters * data.meta.unitsPerMeter }];
+    }));
   return {
-    omittedBuildingIndices,
+    omittedBuildingIndices, retainedBuildings,
     heightFactor(x,z) {
       let factor=farHeightFactor;
       for (const model of models) {
-        const policy=model.registration.contextHeight;
+        const policy=model.registration.contextHeight||{innerMeters:120,outerMeters:300,nearFactor:1};
         const distance=Math.hypot(x-model.x,z-model.z)/model.unitsPerMeter;
         const t=THREE.MathUtils.clamp((distance-policy.innerMeters)/(policy.outerMeters-policy.innerMeters),0,1);
         factor=Math.min(factor,policy.nearFactor+(farHeightFactor-policy.nearFactor)*t*t*(3-2*t));

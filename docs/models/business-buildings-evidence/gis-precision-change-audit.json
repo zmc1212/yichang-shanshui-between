@@ -1,0 +1,107 @@
+{
+  "changedBuildings": [
+    {
+      "index": 5,
+      "sourceFeatureId": "bb15e7cf-9138-4cad-bb0c-a6c219e81197",
+      "verticesBefore": 10,
+      "verticesAfter": 11
+    },
+    {
+      "index": 57,
+      "sourceFeatureId": "d6d52628-7bcb-4a1a-89be-f0a610dd73c1",
+      "verticesBefore": 25,
+      "verticesAfter": 26
+    },
+    {
+      "index": 321,
+      "sourceFeatureId": "6e6462fd-0796-4d9f-b232-02eddcd5cce4",
+      "verticesBefore": 11,
+      "verticesAfter": 13
+    },
+    {
+      "index": 780,
+      "sourceFeatureId": "31be43a4-9179-4d08-8a8c-3d840b3d31da",
+      "verticesBefore": 6,
+      "verticesAfter": 6
+    },
+    {
+      "index": 884,
+      "sourceFeatureId": "a282237a-14a0-4246-bd2b-8386a86a1502",
+      "verticesBefore": 5,
+      "verticesAfter": 5
+    },
+    {
+      "index": 959,
+      "sourceFeatureId": "ae815edb-2941-40aa-89d4-1a21d8172eae",
+      "verticesBefore": 4,
+      "verticesAfter": 4
+    },
+    {
+      "index": 1052,
+      "sourceFeatureId": "200bff33-082f-43da-99e0-51f8fe4f2607",
+      "verticesBefore": 4,
+      "verticesAfter": 4
+    },
+    {
+      "index": 1069,
+      "sourceFeatureId": "81af0591-a194-46a2-ac7a-edcbbb974357",
+      "verticesBefore": 11,
+      "verticesAfter": 13
+    },
+    {
+      "index": 1090,
+      "sourceFeatureId": "07a71726-720b-4fd4-a814-fb14bda5bd7e",
+      "verticesBefore": 4,
+      "verticesAfter": 4
+    },
+    {
+      "index": 1116,
+      "sourceFeatureId": "82fffa3c-3b89-4b72-a3de-3c6cd02a1c2e",
+      "verticesBefore": 4,
+      "verticesAfter": 4
+    },
+    {
+      "index": 1345,
+      "sourceFeatureId": "5490a156-bcdc-4091-8769-12566bbe415a",
+      "verticesBefore": 11,
+      "verticesAfter": 13
+    },
+    {
+      "index": 1744,
+      "sourceFeatureId": "809fc574-f994-4778-9992-3c3435682f32",
+      "verticesBefore": 4,
+      "verticesAfter": 4
+    },
+    {
+      "index": 2359,
+      "sourceFeatureId": "4b2539b2-ca4f-489a-96e3-9df54396e0ae",
+      "verticesBefore": 8,
+      "verticesAfter": 8
+    },
+    {
+      "index": 2385,
+      "sourceFeatureId": "ff7985c2-8e75-4589-8a23-816772be6a0d",
+      "verticesBefore": 4,
+      "verticesAfter": 4
+    },
+    {
+      "index": 4620,
+      "sourceFeatureId": "8dd77dbf-8907-4a23-941e-13f3664c1576",
+      "verticesBefore": 4,
+      "verticesAfter": 4
+    },
+    {
+      "index": 4677,
+      "sourceFeatureId": "afa5302e-bdfe-425a-890a-5d60693f32e4",
+      "verticesBefore": 4,
+      "verticesAfter": 4
+    }
+  ],
+  "unchangedBuildings": 15984,
+  "otherLayersUnchanged": true,
+  "businessSourcesTailUnchanged": true,
+  "hashes": {
+    "public/data/city.json": "62c0d07d47b54715163a3811dd19ed1d26a8bb8183dbe7a95891926cafd96da1",
+    "public/data/sources.txt": "20a6f96091db623382695292a270803921eedf2a723714bda2c5daf21dc7b8fe"
+  }
+}

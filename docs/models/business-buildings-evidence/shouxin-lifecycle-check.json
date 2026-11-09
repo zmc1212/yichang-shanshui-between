@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "webglVerified": false,
+  "physicalPhoneVerified": false,
+  "checks": [
+    "Real GLBs preserve aspect ratios, common anchor and configured uniform display height",
+    "City mode omits the plinth and offset, respects uniform scale policy and cancels early detail intent",
+    "Releasing detail keeps city light live, isolates late parses and permits a fresh near-view load",
+    "Light first, detail on demand, no late-quality override, reuse and release",
+    "Rapid near/back before light completion honors the latest intent",
+    "Detail failure preserves light; explicit retry restores complete detail",
+    "Initial model failure remains recoverable with an explicit retry",
+    "Changing ID aborts and disposes a stale parse without resurrecting the old selection",
+    "Leave and re-enter the same ID rejects the old request generation",
+    "Dispose releases loaded assets and late parse results without callbacks or new requests",
+    "Parse timeout enters recoverable error instead of permanent loading"
+  ]
+}

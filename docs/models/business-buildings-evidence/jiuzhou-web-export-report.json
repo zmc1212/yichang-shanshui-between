@@ -1,0 +1,1586 @@
+{
+  "passed": true,
+  "source": "/workspace/scratch/74379c705fda/buildings-space-20261109/extracted/jiuzhou_fangyuan_s01_native_complete_20261104/jiuzhou_fangyuan_s01_20261104/model/jiuzhou_fangyuan_s01.blend",
+  "nativeSha256Before": "c38936dcd1b7b861d918ee823685aa47ae0b1af9b6df296bf3771736932f68fe",
+  "nativeSha256After": "c38936dcd1b7b861d918ee823685aa47ae0b1af9b6df296bf3771736932f68fe",
+  "sourceUnchanged": true,
+  "originalAuthoringRuntime": "Blender 4.3.2",
+  "exportRuntime": "4.5.14 LTS",
+  "originalRuntimeReconstructionCertified": false,
+  "output": "/workspace/scratch/74379c705fda/buildings-space-20261109/downloads/jiuzhou-s01-source.glb",
+  "outputBytes": 6415320,
+  "outputSha256": "4be00d59d2ca4ef186cf35c98eb9f17f8cc1c228748a38440291c20c3e42afdc",
+  "axisConversion": {
+    "nativeUp": "+Z",
+    "nativeFront": "-Y",
+    "gltfUp": "+Y",
+    "gltfFront": "+Z",
+    "mapping": "[x,y,z] -> [x,z,-y]",
+    "source": "parameters depth/2 YT=-D/2, facade at YT; saved overall-front camera at (0,-180,63)"
+  },
+  "unitDisclaimer": "Height100 and depth18 are normalized candidate units, not measured metres.",
+  "excluded": [
+    {
+      "name": "DISPLAY_ONLY_forecourt_paving",
+      "reason": "DISPLAY_ONLY",
+      "visibleInSavedFile": true
+    },
+    {
+      "name": "DISPLAY_ONLY_paving_course_bands",
+      "reason": "DISPLAY_ONLY",
+      "visibleInSavedFile": true
+    },
+    {
+      "name": "DISPLAY_ONLY_low_planting",
+      "reason": "DISPLAY_ONLY",
+      "visibleInSavedFile": true
+    }
+  ],
+  "keptObjects": 25,
+  "nativeVerticesRetained": 76474,
+  "gltfVerticesWithSeams": 232257,
+  "triangles": 117744,
+  "sourceBoundsGltfYUp": {
+    "min": [
+      -28.700000762939453,
+      -0.03999999910593033,
+      -9.032500267028809
+    ],
+    "max": [
+      25.017499923706055,
+      100.03250122070312,
+      25.049999237060547
+    ]
+  },
+  "highriseAbove15UnitsBoundsGltfYUp": {
+    "min": [
+      -25.5,
+      15.09793472290039,
+      -9.032500267028809
+    ],
+    "max": [
+      25.017499923706055,
+      100.03250122070312,
+      9.51883316040039
+    ]
+  },
+  "anchorNote": "Native tower local origin (0,0,0) retained. Forecourt covers enlarge the full AABB asymmetrically; do not mistake the full envelope for the surveyed tower footprint.",
+  "nativeObjects": [
+    {
+      "name": "Front_13_main_ribs_stone_panels",
+      "vertices": 4880,
+      "triangles": 7320,
+      "nativeBounds": {
+        "min": [
+          -24.075000762939453,
+          -9.510000228881836,
+          0.35899999737739563
+        ],
+        "max": [
+          24.075000762939453,
+          -8.600000381469727,
+          90.12000274658203
+        ]
+      },
+      "gltfBounds": {
+        "min": [
+          -24.075000762939453,
+          0.35899999737739563,
+          8.600000381469727
+        ],
+        "max": [
+          24.075000762939453,
+          90.12000274658203,
+          9.510000228881836
+        ]
+      },
+      "evidenceStatus": "OBSERVED_SHAPE_PATTERN_DETAIL",
+      "collections": [
+        "01_FRONT_OBSERVED_PATTERN"
+      ],
+      "rawEvaluatedCoordinatesEqualInExportRuntime": true,
+      "sourceWorldPositionFloat64Sha256": "e1aa8c66d023d2f01820371ba4defaf8662d505897a2edc1b9c27e62a8364196"
+    },
+    {
+      "name": "Front_rib_recessed_carriers",
+      "vertices": 136,
+      "triangles": 204,
+      "nativeBounds": {
+        "min": [
+          -25.270000457763672,
+          -9.270000457763672,
+          0.0
+        ],
+        "max": [
+          23.934999465942383,
+          8.510000228881836,
+          90.0
+        ]
+      },
+      "gltfBounds": {
+        "min": [
+          -25.270000457763672,
+          0.0,
+          -8.510000228881836
+        ],
+        "max": [
+          23.934999465942383,
+          90.0,
+          9.270000457763672
+        ]
+      },
+      "evidenceStatus": "PATTERN_INFERRED",
+      "collections": [
+        "01_FRONT_OBSERVED_PATTERN"
+      ],
+      "rawEvaluatedCoordinatesEqualInExportRuntime": true,
+      "sourceWorldPositionFloat64Sha256": "ff080eaf784276407cf1c0b738fe84b4c5fd7d0ccb224f1a5def49d6a45ac35d"
+    },
+    {
+      "name": "Front_minor_grid_closed_profiles",
+      "vertices": 23364,
+      "triangles": 35116,
+      "nativeBounds": {
+        "min": [
+          -25.017499923706055,
+          -9.270000457763672,
+          0.26750001311302185
+        ],
+        "max": [
+          25.017499923706055,
+          -8.6899995803833,
+          90.03250122070312
+        ]
+      },
+      "gltfBounds": {
+        "min": [
+          -25.017499923706055,
+          0.26750001311302185,
+          8.6899995803833
+        ],
+        "max": [
+          25.017499923706055,
+          90.03250122070312,
+          9.270000457763672
+        ]
+      },
+      "evidenceStatus": "PATTERN_INFERRED",
+      "collections": [
+        "01_FRONT_OBSERVED_PATTERN"
+      ],
+      "rawEvaluatedCoordinatesEqualInExportRuntime": true,
+      "sourceWorldPositionFloat64Sha256": "8df3df6e5a7a7542157c10c89ad2ff76f70e0ffca053a6aa6b3cd5f2933b02ae"
+    },
+    {
+      "name": "Front_individual_glass_panes",
+      "vertices": 20944,
+      "triangles": 31416,
+      "nativeBounds": {
+        "min": [
+          -24.97450065612793,
+          -9.167499542236328,
+          8.010499954223633
+        ],
+        "max": [
+          24.97450065612793,
+          -9.112500190734863,
+          89.989501953125
+        ]
+      },
+      "gltfBounds": {
+        "min": [
+          -24.97450065612793,
+          8.010499954223633,
+          9.112500190734863
+        ],
+        "max": [
+          24.97450065612793,
+          89.989501953125,
+          9.167499542236328
+        ]
+      },
+      "evidenceStatus": "OBSERVED_SHAPE_PATTERN_DETAIL",
+      "collections": [
+        "01_FRONT_OBSERVED_PATTERN"
+      ],
+      "rawEvaluatedCoordinatesEqualInExportRuntime": true,
+      "sourceWorldPositionFloat64Sha256": "83d045b20d86ec99342c8847d034bc80be0810aaf6ce3b9d867c3ebe758c9cfc"
+    },
+    {
+      "name": "Front_verified_open_sash_glass",
+      "vertices": 72,
+      "triangles": 108,
+      "nativeBounds": {
+        "min": [
+          -22.29949951171875,
+          -9.509653091430664,
+          74.49374389648438
+        ],
+        "max": [
+          16.65741729736328,
+          -9.112500190734863,
+          98.32283020019531
+        ]
+      },
+      "gltfBounds": {
+        "min": [
+          -22.29949951171875,
+          74.49374389648438,
+          9.112500190734863
+        ],
+        "max": [
+          16.65741729736328,
+          98.32283020019531,
+          9.509653091430664
+        ]
+      },
+      "evidenceStatus": "OBSERVED_PARTIAL",
+      "collections": [
+        "01_FRONT_OBSERVED_PATTERN"
+      ],
+      "rawEvaluatedCoordinatesEqualInExportRuntime": true,
+      "sourceWorldPositionFloat64Sha256": "9af78607a13eb6f0ff1ae74ea1d33e39001f35a780030ae84bc3e49c492573ce"
+    },
+    {
+      "name": "Front_verified_open_sash_frames",
+      "vertices": 216,
+      "triangles": 324,
+      "nativeBounds": {
+        "min": [
+          -22.32699966430664,
+          -9.51883316040039,
+          74.45624542236328
+        ],
+        "max": [
+          16.684917449951172,
+          -9.103320121765137,
+          98.33062744140625
+        ]
+      },
+      "gltfBounds": {
+        "min": [
+          -22.32699966430664,
+          74.45624542236328,
+          9.103320121765137
+        ],
+        "max": [
+          16.684917449951172,
+          98.33062744140625,
+          9.51883316040039
+        ]
+      },
+      "evidenceStatus": "OBSERVED_PARTIAL_PATTERN_DETAIL",
+      "collections": [
+        "01_FRONT_OBSERVED_PATTERN"
+      ],
+      "rawEvaluatedCoordinatesEqualInExportRuntime": true,
+      "sourceWorldPositionFloat64Sha256": "c9390277e5f0084e63ca4421344e2579e5d40cb9693aace5cab5de82353c77e7"
+    },
+    {
+      "name": "Crown_continuous_thick_glass",
+      "vertices": 2408,
+      "triangles": 3612,
+      "nativeBounds": {
+        "min": [
+          -24.97450065612793,
+          -9.167499542236328,
+          90.010498046875
+        ],
+        "max": [
+          24.97450065612793,
+          -9.112500190734863,
+          99.989501953125
+        ]
+      },
+      "gltfBounds": {
+        "min": [
+          -24.97450065612793,
+          90.010498046875,
+          9.112500190734863
+        ],
+        "max": [
+          24.97450065612793,
+          99.989501953125,
+          9.167499542236328
+        ]
+      },
+      "evidenceStatus": "OBSERVED_SHAPE_PATTERN_DETAIL",
+      "collections": [
+        "02_CROWN_OBSERVED_PATTERN"
+      ],
+      "rawEvaluatedCoordinatesEqualInExportRuntime": true,
+      "sourceWorldPositionFloat64Sha256": "678387f4a26a64c8d20153abe1791fa772b79a1757d93e69d1fa3f4be4f12c7c"
+    },
+    {
+      "name": "Crown_minor_grid_and_top_trim",
+      "vertices": 2876,
+      "triangles": 4320,
+      "nativeBounds": {
+        "min": [
+          -25.017499923706055,
+          -9.270000457763672,
+          90.03250122070312
+        ],
+        "max": [
+          25.017499923706055,
+          -8.6899995803833,
+          100.03250122070312
+        ]
+      },
+      "gltfBounds": {
+        "min": [
+          -25.017499923706055,
+          90.03250122070312,
+          8.6899995803833
+        ],
+        "max": [
+          25.017499923706055,
+          100.03250122070312,
+          9.270000457763672
+        ]
+      },
+      "evidenceStatus": "PATTERN_INFERRED",
+      "collections": [
+        "02_CROWN_OBSERVED_PATTERN"
+      ],
+      "rawEvaluatedCoordinatesEqualInExportRuntime": true,
+      "sourceWorldPositionFloat64Sha256": "e91be3fff1fbbbbe4c18b17b708a930b0a53c499c61c6ce20fcad4d50a36b6cf"
+    },
+    {
+      "name": "Observed_side_three_glass_strips_and_corner",
+      "vertices": 3984,
+      "triangles": 5976,
+      "nativeBounds": {
+        "min": [
+          -25.167499542236328,
+          -8.989500045776367,
+          8.010499954223633
+        ],
+        "max": [
+          -25.112499237060547,
+          8.989500045776367,
+          99.989501953125
+        ]
+      },
+      "gltfBounds": {
+        "min": [
+          -25.167499542236328,
+          8.010499954223633,
+          -8.989500045776367
+        ],
+        "max": [
+          -25.112499237060547,
+          99.989501953125,
+          8.989500045776367
+        ]
+      },
+      "evidenceStatus": "OBSERVED_PARTIAL_PATTERN_DETAIL",
+      "collections": [
+        "03_SIDE_OBSERVED_PARTIAL"
+      ],
+      "rawEvaluatedCoordinatesEqualInExportRuntime": true,
+      "sourceWorldPositionFloat64Sha256": "d163b6cb0da350383e21b8573bf217a10fbeca81110aecee05bc07de5d098fdb"
+    },
+    {
+      "name": "Observed_side_glazing_profiles",
+      "vertices": 4352,
+      "triangles": 6604,
+      "nativeBounds": {
+        "min": [
+          -25.270000457763672,
+          -9.032500267028809,
+          7.96750020980835
+        ],
+        "max": [
+          -24.690000534057617,
+          9.032500267028809,
+          100.03250122070312
+        ]
+      },
+      "gltfBounds": {
+        "min": [
+          -25.270000457763672,
+          7.96750020980835,
+          -9.032500267028809
+        ],
+        "max": [
+          -24.690000534057617,
+          100.03250122070312,
+          9.032500267028809
+        ]
+      },
+      "evidenceStatus": "PATTERN_INFERRED",
+      "collections": [
+        "03_SIDE_OBSERVED_PARTIAL"
+      ],
+      "rawEvaluatedCoordinatesEqualInExportRuntime": true,
+      "sourceWorldPositionFloat64Sha256": "6a28c2c4e8813bf0b312f7f081cf84fb35cbc3c0ee6b157dc1f35a502d46bc85"
+    },
+    {
+      "name": "Observed_side_four_dark_wall_bands",
+      "vertices": 1472,
+      "triangles": 2208,
+      "nativeBounds": {
+        "min": [
+          -25.5,
+          -7.71999979019165,
+          0.35899999737739563
+        ],
+        "max": [
+          -25.0,
+          8.619999885559082,
+          90.12000274658203
+        ]
+      },
+      "gltfBounds": {
+        "min": [
+          -25.5,
+          0.35899999737739563,
+          -8.619999885559082
+        ],
+        "max": [
+          -25.0,
+          90.12000274658203,
+          7.71999979019165
+        ]
+      },
+      "evidenceStatus": "OBSERVED_PARTIAL_PATTERN_DETAIL",
+      "collections": [
+        "03_SIDE_OBSERVED_PARTIAL"
+      ],
+      "rawEvaluatedCoordinatesEqualInExportRuntime": true,
+      "sourceWorldPositionFloat64Sha256": "a118435af350c736d33ceaf5d401edbd02899c623a1db123e3238f966ae5ea8f"
+    },
+    {
+      "name": "Commercial_ground_and_mezzanine_glazing",
+      "vertices": 1224,
+      "triangles": 1836,
+      "nativeBounds": {
+        "min": [
+          -25.167499542236328,
+          -9.167499542236328,
+          0.31049999594688416
+        ],
+        "max": [
+          22.29450035095215,
+          7.735000133514404,
+          7.349999904632568
+        ]
+      },
+      "gltfBounds": {
+        "min": [
+          -25.167499542236328,
+          0.31049999594688416,
+          -7.735000133514404
+        ],
+        "max": [
+          22.29450035095215,
+          7.349999904632568,
+          9.167499542236328
+        ]
+      },
+      "evidenceStatus": "OBSERVED_PARTIAL_PATTERN_DETAIL",
+      "collections": [
+        "04_COMMERCIAL_ENTRY"
+      ],
+      "rawEvaluatedCoordinatesEqualInExportRuntime": true,
+      "sourceWorldPositionFloat64Sha256": "a7d8a1a08a40c2450442ec4fd14a5354fb2625e5a9fe68859b75ee541cc5f657"
+    },
+    {
+      "name": "Commercial_stone_and_window_profiles",
+      "vertices": 408,
+      "triangles": 612,
+      "nativeBounds": {
+        "min": [
+          -28.700000762939453,
+          -25.049999237060547,
+          -0.03999999910593033
+        ],
+        "max": [
+          25.0,
+          7.800000190734863,
+          7.71999979019165
+        ]
+      },
+      "gltfBounds": {
+        "min": [
+          -28.700000762939453,
+          -0.03999999910593033,
+          -7.800000190734863
+        ],
+        "max": [
+          25.0,
+          7.71999979019165,
+          25.049999237060547
+        ]
+      },
+      "evidenceStatus": "OBSERVED_PARTIAL_PATTERN_DETAIL",
+      "collections": [
+        "04_COMMERCIAL_ENTRY"
+      ],
+      "rawEvaluatedCoordinatesEqualInExportRuntime": true,
+      "sourceWorldPositionFloat64Sha256": "2374e26f04db7d4fb5704555d7e5c1501b8aca8e209c2365e73ea00e9a5c1ee9"
+    },
+    {
+      "name": "Entry_canopy_steel_frame_and_finite_anchors",
+      "vertices": 560,
+      "triangles": 840,
+      "nativeBounds": {
+        "min": [
+          -19.979999542236328,
+          -16.3799991607666,
+          4.809999942779541
+        ],
+        "max": [
+          -1.2200000286102295,
+          -8.270000457763672,
+          11.925000190734863
+        ]
+      },
+      "gltfBounds": {
+        "min": [
+          -19.979999542236328,
+          4.809999942779541,
+          8.270000457763672
+        ],
+        "max": [
+          -1.2200000286102295,
+          11.925000190734863,
+          16.3799991607666
+        ]
+      },
+      "evidenceStatus": "OBSERVED_PARTIAL_PATTERN_DETAIL",
+      "collections": [
+        "04_COMMERCIAL_ENTRY"
+      ],
+      "rawEvaluatedCoordinatesEqualInExportRuntime": true,
+      "sourceWorldPositionFloat64Sha256": "825576a008956525f475a5322378b6fc3c6ce35fb9f60112f48cffd613b418c1"
+    },
+    {
+      "name": "Entry_canopy_individual_thick_glass",
+      "vertices": 384,
+      "triangles": 576,
+      "nativeBounds": {
+        "min": [
+          -19.780000686645508,
+          -16.18000030517578,
+          5.097499847412109
+        ],
+        "max": [
+          -1.4199999570846558,
+          -9.020000457763672,
+          5.152500152587891
+        ]
+      },
+      "gltfBounds": {
+        "min": [
+          -19.780000686645508,
+          5.097499847412109,
+          9.020000457763672
+        ],
+        "max": [
+          -1.4199999570846558,
+          5.152500152587891,
+          16.18000030517578
+        ]
+      },
+      "evidenceStatus": "OBSERVED_PARTIAL_PATTERN_DETAIL",
+      "collections": [
+        "04_COMMERCIAL_ENTRY"
+      ],
+      "rawEvaluatedCoordinatesEqualInExportRuntime": true,
+      "sourceWorldPositionFloat64Sha256": "eea990bf7e4141b7d2e36fae5774247cf47494c2e5b4457d1831ccb9e22290c8"
+    },
+    {
+      "name": "Entry_three_paired_tension_rods",
+      "vertices": 144,
+      "triangles": 264,
+      "nativeBounds": {
+        "min": [
+          -18.302865982055664,
+          -16.087799072265625,
+          5.172946453094482
+        ],
+        "max": [
+          -2.8971333503723145,
+          -9.68220043182373,
+          11.737053871154785
+        ]
+      },
+      "gltfBounds": {
+        "min": [
+          -18.302865982055664,
+          5.172946453094482,
+          9.68220043182373
+        ],
+        "max": [
+          -2.8971333503723145,
+          11.737053871154785,
+          16.087799072265625
+        ]
+      },
+      "evidenceStatus": "OBSERVED_PARTIAL_PATTERN_DETAIL",
+      "collections": [
+        "04_COMMERCIAL_ENTRY"
+      ],
+      "rawEvaluatedCoordinatesEqualInExportRuntime": true,
+      "sourceWorldPositionFloat64Sha256": "eac5e0e7abd10978200c56feec38dc11c18acebfbf91751347cb69acac0aeb3b"
+    },
+    {
+      "name": "Entry_curved_glass_vestibule_shell",
+      "vertices": 128,
+      "triangles": 192,
+      "nativeBounds": {
+        "min": [
+          -14.67999267578125,
+          -10.753594398498535,
+          0.15000000596046448
+        ],
+        "max": [
+          -11.32000732421875,
+          -9.104860305786133,
+          3.799999952316284
+        ]
+      },
+      "gltfBounds": {
+        "min": [
+          -14.67999267578125,
+          0.15000000596046448,
+          9.104860305786133
+        ],
+        "max": [
+          -11.32000732421875,
+          3.799999952316284,
+          10.753594398498535
+        ]
+      },
+      "evidenceStatus": "OBSERVED_PARTIAL_PATTERN_DETAIL",
+      "collections": [
+        "04_COMMERCIAL_ENTRY"
+      ],
+      "rawEvaluatedCoordinatesEqualInExportRuntime": true,
+      "sourceWorldPositionFloat64Sha256": "e1bcf6d9477ccba886c1a283cce48250fc45a4fb5df3131177107214ee83414b"
+    },
+    {
+      "name": "Entry_curved_vestibule_closed_frames",
+      "vertices": 592,
+      "triangles": 964,
+      "nativeBounds": {
+        "min": [
+          -14.729999542236328,
+          -10.829999923706055,
+          0.09000000357627869
+        ],
+        "max": [
+          -11.270000457763672,
+          -9.0600004196167,
+          3.859999895095825
+        ]
+      },
+      "gltfBounds": {
+        "min": [
+          -14.729999542236328,
+          0.09000000357627869,
+          9.0600004196167
+        ],
+        "max": [
+          -11.270000457763672,
+          3.859999895095825,
+          10.829999923706055
+        ]
+      },
+      "evidenceStatus": "PATTERN_INFERRED",
+      "collections": [
+        "04_COMMERCIAL_ENTRY"
+      ],
+      "rawEvaluatedCoordinatesEqualInExportRuntime": true,
+      "sourceWorldPositionFloat64Sha256": "a27963a18f4427b90b298ef275a614cce1fe69df240be29b5f414e3fa321c8bc"
+    },
+    {
+      "name": "Source_period_commercial_sign_strip",
+      "vertices": 32,
+      "triangles": 48,
+      "nativeBounds": {
+        "min": [
+          -6.650000095367432,
+          -9.670000076293945,
+          4.090000152587891
+        ],
+        "max": [
+          23.549999237060547,
+          -8.600000381469727,
+          5.070000171661377
+        ]
+      },
+      "gltfBounds": {
+        "min": [
+          -6.650000095367432,
+          4.090000152587891,
+          8.600000381469727
+        ],
+        "max": [
+          23.549999237060547,
+          5.070000171661377,
+          9.670000076293945
+        ]
+      },
+      "evidenceStatus": "OBSERVED_PARTIAL_SOURCE_PERIOD",
+      "collections": [
+        "04_COMMERCIAL_ENTRY"
+      ],
+      "rawEvaluatedCoordinatesEqualInExportRuntime": true,
+      "sourceWorldPositionFloat64Sha256": "afef01b6be6ee9e5dab6115d2806611ac64d3633b94afa00cb814a83308a241a"
+    },
+    {
+      "name": "Source_period_sign_red_blocks_and_name",
+      "vertices": 1234,
+      "triangles": 2428,
+      "nativeBounds": {
+        "min": [
+          -13.668100357055664,
+          -16.450000762939453,
+          4.090000152587891
+        ],
+        "max": [
+          24.5,
+          -9.489999771118164,
+          6.601349830627441
+        ]
+      },
+      "gltfBounds": {
+        "min": [
+          -13.668100357055664,
+          4.090000152587891,
+          9.489999771118164
+        ],
+        "max": [
+          24.5,
+          6.601349830627441,
+          16.450000762939453
+        ]
+      },
+      "evidenceStatus": "OBSERVED_PARTIAL_SOURCE_PERIOD",
+      "collections": [
+        "04_COMMERCIAL_ENTRY"
+      ],
+      "rawEvaluatedCoordinatesEqualInExportRuntime": true,
+      "sourceWorldPositionFloat64Sha256": "2e6a1a4e2584e98844f667002727efe8fa5486215c9198bfc1b547a3089cd33d"
+    },
+    {
+      "name": "Source_period_bank_lettering_original_outlines",
+      "vertices": 4472,
+      "triangles": 8888,
+      "nativeBounds": {
+        "min": [
+          -0.7116400003433228,
+          -9.699999809265137,
+          4.2199602127075195
+        ],
+        "max": [
+          17.35460090637207,
+          -9.640000343322754,
+          4.872759819030762
+        ]
+      },
+      "gltfBounds": {
+        "min": [
+          -0.7116400003433228,
+          4.2199602127075195,
+          9.640000343322754
+        ],
+        "max": [
+          17.35460090637207,
+          4.872759819030762,
+          9.699999809265137
+        ]
+      },
+      "evidenceStatus": "OBSERVED_PARTIAL_SOURCE_PERIOD",
+      "collections": [
+        "04_COMMERCIAL_ENTRY"
+      ],
+      "rawEvaluatedCoordinatesEqualInExportRuntime": true,
+      "sourceWorldPositionFloat64Sha256": "c1caee47d6f4249faddfeaefeaa492a462afe4ac5c37f286a52f873f33ba4072"
+    },
+    {
+      "name": "Forecourt_two_glass_cover_shells",
+      "vertices": 592,
+      "triangles": 888,
+      "nativeBounds": {
+        "min": [
+          -28.673749923706055,
+          -24.950000762939453,
+          0.23000000417232513
+        ],
+        "max": [
+          8.625,
+          -8.926250457763672,
+          1.875
+        ]
+      },
+      "gltfBounds": {
+        "min": [
+          -28.673749923706055,
+          0.23000000417232513,
+          8.926250457763672
+        ],
+        "max": [
+          8.625,
+          1.875,
+          24.950000762939453
+        ]
+      },
+      "evidenceStatus": "OBSERVED_PARTIAL_PATTERN_DETAIL",
+      "collections": [
+        "05_FORECOURT_PARTIAL"
+      ],
+      "rawEvaluatedCoordinatesEqualInExportRuntime": true,
+      "sourceWorldPositionFloat64Sha256": "efd5bf5e8bc923a53353c8a1a0c05a0b742c9cce08103b200e852d332abe72c3"
+    },
+    {
+      "name": "Forecourt_glass_cover_frames",
+      "vertices": 1928,
+      "triangles": 2892,
+      "nativeBounds": {
+        "min": [
+          -28.700000762939453,
+          -24.97249984741211,
+          0.20000000298023224
+        ],
+        "max": [
+          8.642499923706055,
+          -8.899999618530273,
+          1.8975000381469727
+        ]
+      },
+      "gltfBounds": {
+        "min": [
+          -28.700000762939453,
+          0.20000000298023224,
+          8.899999618530273
+        ],
+        "max": [
+          8.642499923706055,
+          1.8975000381469727,
+          24.97249984741211
+        ]
+      },
+      "evidenceStatus": "PATTERN_INFERRED",
+      "collections": [
+        "05_FORECOURT_PARTIAL"
+      ],
+      "rawEvaluatedCoordinatesEqualInExportRuntime": true,
+      "sourceWorldPositionFloat64Sha256": "76b9b2939a76ab95963a995176443539a26e2e950c988d6012da28970b895305"
+    },
+    {
+      "name": "CLOSURE_HOLD_back_opposite_side_and_roof",
+      "vertices": 32,
+      "triangles": 48,
+      "nativeBounds": {
+        "min": [
+          -25.0,
+          -9.0,
+          -0.03999999910593033
+        ],
+        "max": [
+          25.0,
+          9.0,
+          99.7699966430664
+        ]
+      },
+      "gltfBounds": {
+        "min": [
+          -25.0,
+          -0.03999999910593033,
+          -9.0
+        ],
+        "max": [
+          25.0,
+          99.7699966430664,
+          9.0
+        ]
+      },
+      "evidenceStatus": "CLOSURE_HOLD",
+      "collections": [
+        "06_CLOSURE_HOLD"
+      ],
+      "rawEvaluatedCoordinatesEqualInExportRuntime": true,
+      "sourceWorldPositionFloat64Sha256": "b23a07cf329d8f5fc33a801392a51585691ffcc4f81947ada1c0abf7923e3655"
+    },
+    {
+      "name": "NOT_INTERIOR_front_and_side_support_substrate",
+      "vertices": 40,
+      "triangles": 60,
+      "nativeBounds": {
+        "min": [
+          -24.989999771118164,
+          -9.0,
+          0.0
+        ],
+        "max": [
+          24.989999771118164,
+          8.989999771118164,
+          99.55000305175781
+        ]
+      },
+      "gltfBounds": {
+        "min": [
+          -24.989999771118164,
+          0.0,
+          -8.989999771118164
+        ],
+        "max": [
+          24.989999771118164,
+          99.55000305175781,
+          9.0
+        ]
+      },
+      "evidenceStatus": "NOT_INTERIOR",
+      "collections": [
+        "07_NOT_INTERIOR"
+      ],
+      "rawEvaluatedCoordinatesEqualInExportRuntime": true,
+      "sourceWorldPositionFloat64Sha256": "16f2a7454306587f6537108fc172fbc50b54871f11cdde3cff390da93f6ecb55"
+    }
+  ],
+  "independentGlbReadback": [
+    {
+      "name": "Front_13_main_ribs_stone_panels",
+      "nativeVertexCount": 4880,
+      "gltfVertexCountWithSeams": 14640,
+      "uniquePositionCount": 4880,
+      "triangles": 7320,
+      "vertexSupportEqual": true,
+      "maxBoundsDeviation": 0.0
+    },
+    {
+      "name": "Front_rib_recessed_carriers",
+      "nativeVertexCount": 136,
+      "gltfVertexCountWithSeams": 408,
+      "uniquePositionCount": 136,
+      "triangles": 204,
+      "vertexSupportEqual": true,
+      "maxBoundsDeviation": 0.0
+    },
+    {
+      "name": "Front_minor_grid_closed_profiles",
+      "nativeVertexCount": 23364,
+      "gltfVertexCountWithSeams": 70092,
+      "uniquePositionCount": 23364,
+      "triangles": 35116,
+      "vertexSupportEqual": true,
+      "maxBoundsDeviation": 0.0
+    },
+    {
+      "name": "Front_individual_glass_panes",
+      "nativeVertexCount": 20944,
+      "gltfVertexCountWithSeams": 62832,
+      "uniquePositionCount": 20944,
+      "triangles": 31416,
+      "vertexSupportEqual": true,
+      "maxBoundsDeviation": 0.0
+    },
+    {
+      "name": "Front_verified_open_sash_glass",
+      "nativeVertexCount": 72,
+      "gltfVertexCountWithSeams": 216,
+      "uniquePositionCount": 72,
+      "triangles": 108,
+      "vertexSupportEqual": true,
+      "maxBoundsDeviation": 0.0
+    },
+    {
+      "name": "Front_verified_open_sash_frames",
+      "nativeVertexCount": 216,
+      "gltfVertexCountWithSeams": 648,
+      "uniquePositionCount": 216,
+      "triangles": 324,
+      "vertexSupportEqual": true,
+      "maxBoundsDeviation": 0.0
+    },
+    {
+      "name": "Crown_continuous_thick_glass",
+      "nativeVertexCount": 2408,
+      "gltfVertexCountWithSeams": 7224,
+      "uniquePositionCount": 2408,
+      "triangles": 3612,
+      "vertexSupportEqual": true,
+      "maxBoundsDeviation": 0.0
+    },
+    {
+      "name": "Crown_minor_grid_and_top_trim",
+      "nativeVertexCount": 2876,
+      "gltfVertexCountWithSeams": 8628,
+      "uniquePositionCount": 2876,
+      "triangles": 4320,
+      "vertexSupportEqual": true,
+      "maxBoundsDeviation": 0.0
+    },
+    {
+      "name": "Observed_side_three_glass_strips_and_corner",
+      "nativeVertexCount": 3984,
+      "gltfVertexCountWithSeams": 11952,
+      "uniquePositionCount": 3984,
+      "triangles": 5976,
+      "vertexSupportEqual": true,
+      "maxBoundsDeviation": 0.0
+    },
+    {
+      "name": "Observed_side_glazing_profiles",
+      "nativeVertexCount": 4352,
+      "gltfVertexCountWithSeams": 13056,
+      "uniquePositionCount": 4346,
+      "triangles": 6604,
+      "vertexSupportEqual": true,
+      "maxBoundsDeviation": 0.0
+    },
+    {
+      "name": "Observed_side_four_dark_wall_bands",
+      "nativeVertexCount": 1472,
+      "gltfVertexCountWithSeams": 4416,
+      "uniquePositionCount": 1472,
+      "triangles": 2208,
+      "vertexSupportEqual": true,
+      "maxBoundsDeviation": 0.0
+    },
+    {
+      "name": "Commercial_ground_and_mezzanine_glazing",
+      "nativeVertexCount": 1224,
+      "gltfVertexCountWithSeams": 3672,
+      "uniquePositionCount": 1224,
+      "triangles": 1836,
+      "vertexSupportEqual": true,
+      "maxBoundsDeviation": 0.0
+    },
+    {
+      "name": "Commercial_stone_and_window_profiles",
+      "nativeVertexCount": 408,
+      "gltfVertexCountWithSeams": 1224,
+      "uniquePositionCount": 288,
+      "triangles": 612,
+      "vertexSupportEqual": true,
+      "maxBoundsDeviation": 0.0
+    },
+    {
+      "name": "Entry_canopy_steel_frame_and_finite_anchors",
+      "nativeVertexCount": 560,
+      "gltfVertexCountWithSeams": 1680,
+      "uniquePositionCount": 556,
+      "triangles": 840,
+      "vertexSupportEqual": true,
+      "maxBoundsDeviation": 0.0
+    },
+    {
+      "name": "Entry_canopy_individual_thick_glass",
+      "nativeVertexCount": 384,
+      "gltfVertexCountWithSeams": 1152,
+      "uniquePositionCount": 384,
+      "triangles": 576,
+      "vertexSupportEqual": true,
+      "maxBoundsDeviation": 0.0
+    },
+    {
+      "name": "Entry_three_paired_tension_rods",
+      "nativeVertexCount": 144,
+      "gltfVertexCountWithSeams": 432,
+      "uniquePositionCount": 144,
+      "triangles": 264,
+      "vertexSupportEqual": true,
+      "maxBoundsDeviation": 0.0
+    },
+    {
+      "name": "Entry_curved_glass_vestibule_shell",
+      "nativeVertexCount": 128,
+      "gltfVertexCountWithSeams": 384,
+      "uniquePositionCount": 128,
+      "triangles": 192,
+      "vertexSupportEqual": true,
+      "maxBoundsDeviation": 0.0
+    },
+    {
+      "name": "Entry_curved_vestibule_closed_frames",
+      "nativeVertexCount": 592,
+      "gltfVertexCountWithSeams": 1776,
+      "uniquePositionCount": 456,
+      "triangles": 964,
+      "vertexSupportEqual": true,
+      "maxBoundsDeviation": 0.0
+    },
+    {
+      "name": "Source_period_commercial_sign_strip",
+      "nativeVertexCount": 32,
+      "gltfVertexCountWithSeams": 96,
+      "uniquePositionCount": 32,
+      "triangles": 48,
+      "vertexSupportEqual": true,
+      "maxBoundsDeviation": 0.0
+    },
+    {
+      "name": "Source_period_sign_red_blocks_and_name",
+      "nativeVertexCount": 1234,
+      "gltfVertexCountWithSeams": 4222,
+      "uniquePositionCount": 1234,
+      "triangles": 2428,
+      "vertexSupportEqual": true,
+      "maxBoundsDeviation": 0.0
+    },
+    {
+      "name": "Source_period_bank_lettering_original_outlines",
+      "nativeVertexCount": 4472,
+      "gltfVertexCountWithSeams": 15731,
+      "uniquePositionCount": 4472,
+      "triangles": 8888,
+      "vertexSupportEqual": true,
+      "maxBoundsDeviation": 0.0
+    },
+    {
+      "name": "Forecourt_two_glass_cover_shells",
+      "nativeVertexCount": 592,
+      "gltfVertexCountWithSeams": 1776,
+      "uniquePositionCount": 592,
+      "triangles": 888,
+      "vertexSupportEqual": true,
+      "maxBoundsDeviation": 0.0
+    },
+    {
+      "name": "Forecourt_glass_cover_frames",
+      "nativeVertexCount": 1928,
+      "gltfVertexCountWithSeams": 5784,
+      "uniquePositionCount": 912,
+      "triangles": 2892,
+      "vertexSupportEqual": true,
+      "maxBoundsDeviation": 0.0
+    },
+    {
+      "name": "CLOSURE_HOLD_back_opposite_side_and_roof",
+      "nativeVertexCount": 32,
+      "gltfVertexCountWithSeams": 96,
+      "uniquePositionCount": 24,
+      "triangles": 48,
+      "vertexSupportEqual": true,
+      "maxBoundsDeviation": 0.0
+    },
+    {
+      "name": "NOT_INTERIOR_front_and_side_support_substrate",
+      "nativeVertexCount": 40,
+      "gltfVertexCountWithSeams": 120,
+      "uniquePositionCount": 40,
+      "triangles": 60,
+      "vertexSupportEqual": true,
+      "maxBoundsDeviation": 0.0
+    }
+  ],
+  "materials": [
+    {
+      "name": "Blue_grey_glass_tone_00",
+      "baseColorLinear": [
+        0.0892999991774559,
+        0.20679999887943268,
+        0.2678999900817871,
+        1.0
+      ],
+      "metallic": 0.3199999928474426,
+      "roughness": 0.18000000715255737,
+      "transmission": 0.12999999523162842,
+      "ior": 1.4800000190734863,
+      "clearcoat": 0.25,
+      "clearcoatRoughness": 0.11999999731779099,
+      "originalNodeTypes": [
+        "ShaderNodeBsdfPrincipled",
+        "ShaderNodeOutputMaterial"
+      ],
+      "approximation": null,
+      "gltfIor": 1.4800000190734863
+    },
+    {
+      "name": "Blue_grey_glass_tone_01",
+      "baseColorLinear": [
+        0.09120000153779984,
+        0.21119999885559082,
+        0.2736000120639801,
+        1.0
+      ],
+      "metallic": 0.3199999928474426,
+      "roughness": 0.18000000715255737,
+      "transmission": 0.12999999523162842,
+      "ior": 1.4800000190734863,
+      "clearcoat": 0.25,
+      "clearcoatRoughness": 0.11999999731779099,
+      "originalNodeTypes": [
+        "ShaderNodeBsdfPrincipled",
+        "ShaderNodeOutputMaterial"
+      ],
+      "approximation": null,
+      "gltfIor": 1.4800000190734863
+    },
+    {
+      "name": "Blue_grey_glass_tone_02",
+      "baseColorLinear": [
+        0.09309999644756317,
+        0.21559999883174896,
+        0.2793000042438507,
+        1.0
+      ],
+      "metallic": 0.3199999928474426,
+      "roughness": 0.18000000715255737,
+      "transmission": 0.12999999523162842,
+      "ior": 1.4800000190734863,
+      "clearcoat": 0.25,
+      "clearcoatRoughness": 0.11999999731779099,
+      "originalNodeTypes": [
+        "ShaderNodeBsdfPrincipled",
+        "ShaderNodeOutputMaterial"
+      ],
+      "approximation": null,
+      "gltfIor": 1.4800000190734863
+    },
+    {
+      "name": "Blue_grey_glass_tone_03",
+      "baseColorLinear": [
+        0.0949999988079071,
+        0.2199999988079071,
+        0.2849999964237213,
+        1.0
+      ],
+      "metallic": 0.3199999928474426,
+      "roughness": 0.18000000715255737,
+      "transmission": 0.12999999523162842,
+      "ior": 1.4800000190734863,
+      "clearcoat": 0.25,
+      "clearcoatRoughness": 0.11999999731779099,
+      "originalNodeTypes": [
+        "ShaderNodeBsdfPrincipled",
+        "ShaderNodeOutputMaterial"
+      ],
+      "approximation": null,
+      "gltfIor": 1.4800000190734863
+    },
+    {
+      "name": "Blue_grey_glass_tone_04",
+      "baseColorLinear": [
+        0.09690000116825104,
+        0.22439999878406525,
+        0.2906999886035919,
+        1.0
+      ],
+      "metallic": 0.3199999928474426,
+      "roughness": 0.18000000715255737,
+      "transmission": 0.12999999523162842,
+      "ior": 1.4800000190734863,
+      "clearcoat": 0.25,
+      "clearcoatRoughness": 0.11999999731779099,
+      "originalNodeTypes": [
+        "ShaderNodeBsdfPrincipled",
+        "ShaderNodeOutputMaterial"
+      ],
+      "approximation": null,
+      "gltfIor": 1.4800000190734863
+    },
+    {
+      "name": "Blue_grey_glass_tone_05",
+      "baseColorLinear": [
+        0.09880000352859497,
+        0.2287999987602234,
+        0.2964000105857849,
+        1.0
+      ],
+      "metallic": 0.3199999928474426,
+      "roughness": 0.18000000715255737,
+      "transmission": 0.12999999523162842,
+      "ior": 1.4800000190734863,
+      "clearcoat": 0.25,
+      "clearcoatRoughness": 0.11999999731779099,
+      "originalNodeTypes": [
+        "ShaderNodeBsdfPrincipled",
+        "ShaderNodeOutputMaterial"
+      ],
+      "approximation": null,
+      "gltfIor": 1.4800000190734863
+    },
+    {
+      "name": "Blue_grey_glass_tone_06",
+      "baseColorLinear": [
+        0.1006999984383583,
+        0.23319999873638153,
+        0.3021000027656555,
+        1.0
+      ],
+      "metallic": 0.3199999928474426,
+      "roughness": 0.18000000715255737,
+      "transmission": 0.12999999523162842,
+      "ior": 1.4800000190734863,
+      "clearcoat": 0.25,
+      "clearcoatRoughness": 0.11999999731779099,
+      "originalNodeTypes": [
+        "ShaderNodeBsdfPrincipled",
+        "ShaderNodeOutputMaterial"
+      ],
+      "approximation": null,
+      "gltfIor": 1.4800000190734863
+    },
+    {
+      "name": "CLOSURE_HOLD_neutral_taupe",
+      "baseColorLinear": [
+        0.3700000047683716,
+        0.3400000035762787,
+        0.30000001192092896,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.8299999833106995,
+      "transmission": 0.0,
+      "ior": 1.4800000190734863,
+      "clearcoat": 0.0,
+      "clearcoatRoughness": 0.029999999329447746,
+      "originalNodeTypes": [
+        "ShaderNodeBsdfPrincipled",
+        "ShaderNodeOutputMaterial",
+        "ShaderNodeTexNoise",
+        "ShaderNodeTexCoord",
+        "ShaderNodeValToRGB"
+      ],
+      "approximation": {
+        "method": "constant-source-linear-PBR-not-baked",
+        "preserved": "Authored base color, metallic, roughness and transmission; all geometry and normals unchanged.",
+        "omitted": "Object-space Noise/ColorRamp micro-variation and procedural micro-bump. The source base color is the symmetric ramp midpoint. Opaque surfaces use the exporter core glTF response (default IOR1.5 instead of native1.48).",
+        "reason": "Small-scale procedural grain is not directly portable in glTF. This explicit web approximation avoids an unlabelled white-material fallback.",
+        "notClaimed": "Cycles-identical shading, photographic color calibration or field-verified material appearance."
+      },
+      "sourceColorRamp": [
+        {
+          "position": 0.2199999988079071,
+          "color": [
+            0.35705000162124634,
+            0.3280999958515167,
+            0.28949999809265137,
+            1.0
+          ]
+        },
+        {
+          "position": 0.7799999713897705,
+          "color": [
+            0.3829500079154968,
+            0.35190001130104065,
+            0.31049999594688416,
+            1.0
+          ]
+        }
+      ],
+      "gltfIor": 1.5,
+      "opaqueIorNote": "Official exporter omits KHR_materials_ior for these opaque surfaces. glTF uses its default1.5 response; native is1.48. This is not Cycles-identical shading."
+    },
+    {
+      "name": "Dark_gasket_original_PBR",
+      "baseColorLinear": [
+        0.014000000432133675,
+        0.024000000208616257,
+        0.028999999165534973,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.699999988079071,
+      "transmission": 0.0,
+      "ior": 1.4800000190734863,
+      "clearcoat": 0.0,
+      "clearcoatRoughness": 0.029999999329447746,
+      "originalNodeTypes": [
+        "ShaderNodeBsdfPrincipled",
+        "ShaderNodeOutputMaterial"
+      ],
+      "approximation": null,
+      "gltfIor": 1.5,
+      "opaqueIorNote": "Official exporter omits KHR_materials_ior for these opaque surfaces. glTF uses its default1.5 response; native is1.48. This is not Cycles-identical shading."
+    },
+    {
+      "name": "Dark_grey_stone_original_PBR",
+      "baseColorLinear": [
+        0.05700000002980232,
+        0.0729999989271164,
+        0.07699999958276749,
+        1.0
+      ],
+      "metallic": 0.07999999821186066,
+      "roughness": 0.36000001430511475,
+      "transmission": 0.0,
+      "ior": 1.4800000190734863,
+      "clearcoat": 0.0,
+      "clearcoatRoughness": 0.029999999329447746,
+      "originalNodeTypes": [
+        "ShaderNodeBsdfPrincipled",
+        "ShaderNodeOutputMaterial",
+        "ShaderNodeTexNoise",
+        "ShaderNodeTexCoord",
+        "ShaderNodeValToRGB",
+        "ShaderNodeBump"
+      ],
+      "approximation": {
+        "method": "constant-source-linear-PBR-not-baked",
+        "preserved": "Authored base color, metallic, roughness and transmission; all geometry and normals unchanged.",
+        "omitted": "Object-space Noise/ColorRamp micro-variation and procedural micro-bump. The source base color is the symmetric ramp midpoint. Opaque surfaces use the exporter core glTF response (default IOR1.5 instead of native1.48).",
+        "reason": "Small-scale procedural grain is not directly portable in glTF. This explicit web approximation avoids an unlabelled white-material fallback.",
+        "notClaimed": "Cycles-identical shading, photographic color calibration or field-verified material appearance."
+      },
+      "sourceColorRamp": [
+        {
+          "position": 0.2199999988079071,
+          "color": [
+            0.04788000136613846,
+            0.061319999396800995,
+            0.06468000262975693,
+            1.0
+          ]
+        },
+        {
+          "position": 0.7799999713897705,
+          "color": [
+            0.06611999869346619,
+            0.0846799984574318,
+            0.08931999653577805,
+            1.0
+          ]
+        }
+      ],
+      "gltfIor": 1.5,
+      "opaqueIorNote": "Official exporter omits KHR_materials_ior for these opaque surfaces. glTF uses its default1.5 response; native is1.48. This is not Cycles-identical shading."
+    },
+    {
+      "name": "Deep_grey_aluminium_original_PBR",
+      "baseColorLinear": [
+        0.09000000357627869,
+        0.12999999523162842,
+        0.15000000596046448,
+        1.0
+      ],
+      "metallic": 0.6700000166893005,
+      "roughness": 0.25999999046325684,
+      "transmission": 0.0,
+      "ior": 1.4800000190734863,
+      "clearcoat": 0.0,
+      "clearcoatRoughness": 0.029999999329447746,
+      "originalNodeTypes": [
+        "ShaderNodeBsdfPrincipled",
+        "ShaderNodeOutputMaterial"
+      ],
+      "approximation": null,
+      "gltfIor": 1.5,
+      "opaqueIorNote": "Official exporter omits KHR_materials_ior for these opaque surfaces. glTF uses its default1.5 response; native is1.48. This is not Cycles-identical shading."
+    },
+    {
+      "name": "Entry_glass_original_PBR",
+      "baseColorLinear": [
+        0.15000000596046448,
+        0.27000001072883606,
+        0.2800000011920929,
+        1.0
+      ],
+      "metallic": 0.11999999731779099,
+      "roughness": 0.15000000596046448,
+      "transmission": 0.6200000047683716,
+      "ior": 1.4800000190734863,
+      "clearcoat": 0.25,
+      "clearcoatRoughness": 0.11999999731779099,
+      "originalNodeTypes": [
+        "ShaderNodeBsdfPrincipled",
+        "ShaderNodeOutputMaterial"
+      ],
+      "approximation": null,
+      "gltfIor": 1.4800000190734863
+    },
+    {
+      "name": "NOT_INTERIOR_optical_liner",
+      "baseColorLinear": [
+        0.017999999225139618,
+        0.027000000700354576,
+        0.032999999821186066,
+        1.0
+      ],
+      "metallic": 0.0,
+      "roughness": 0.9100000262260437,
+      "transmission": 0.0,
+      "ior": 1.4800000190734863,
+      "clearcoat": 0.0,
+      "clearcoatRoughness": 0.029999999329447746,
+      "originalNodeTypes": [
+        "ShaderNodeBsdfPrincipled",
+        "ShaderNodeOutputMaterial"
+      ],
+      "approximation": null,
+      "gltfIor": 1.5,
+      "opaqueIorNote": "Official exporter omits KHR_materials_ior for these opaque surfaces. glTF uses its default1.5 response; native is1.48. This is not Cycles-identical shading."
+    },
+    {
+      "name": "Pale_canopy_steel_original_PBR",
+      "baseColorLinear": [
+        0.5699999928474426,
+        0.6399999856948853,
+        0.6600000262260437,
+        1.0
+      ],
+      "metallic": 0.6499999761581421,
+      "roughness": 0.23999999463558197,
+      "transmission": 0.0,
+      "ior": 1.4800000190734863,
+      "clearcoat": 0.0,
+      "clearcoatRoughness": 0.029999999329447746,
+      "originalNodeTypes": [
+        "ShaderNodeBsdfPrincipled",
+        "ShaderNodeOutputMaterial"
+      ],
+      "approximation": null,
+      "gltfIor": 1.5,
+      "opaqueIorNote": "Official exporter omits KHR_materials_ior for these opaque surfaces. glTF uses its default1.5 response; native is1.48. This is not Cycles-identical shading."
+    },
+    {
+      "name": "Source_period_sign_red_original",
+      "baseColorLinear": [
+        0.5199999809265137,
+        0.02500000037252903,
+        0.03700000047683716,
+        1.0
+      ],
+      "metallic": 0.11999999731779099,
+      "roughness": 0.3199999928474426,
+      "transmission": 0.0,
+      "ior": 1.4800000190734863,
+      "clearcoat": 0.0,
+      "clearcoatRoughness": 0.029999999329447746,
+      "originalNodeTypes": [
+        "ShaderNodeBsdfPrincipled",
+        "ShaderNodeOutputMaterial"
+      ],
+      "approximation": null,
+      "gltfIor": 1.5,
+      "opaqueIorNote": "Official exporter omits KHR_materials_ior for these opaque surfaces. glTF uses its default1.5 response; native is1.48. This is not Cycles-identical shading."
+    },
+    {
+      "name": "Source_period_sign_white_original",
+      "baseColorLinear": [
+        0.7400000095367432,
+        0.7699999809265137,
+        0.7699999809265137,
+        1.0
+      ],
+      "metallic": 0.10000000149011612,
+      "roughness": 0.3400000035762787,
+      "transmission": 0.0,
+      "ior": 1.4800000190734863,
+      "clearcoat": 0.0,
+      "clearcoatRoughness": 0.029999999329447746,
+      "originalNodeTypes": [
+        "ShaderNodeBsdfPrincipled",
+        "ShaderNodeOutputMaterial"
+      ],
+      "approximation": null,
+      "gltfIor": 1.5,
+      "opaqueIorNote": "Official exporter omits KHR_materials_ior for these opaque surfaces. glTF uses its default1.5 response; native is1.48. This is not Cycles-identical shading."
+    }
+  ],
+  "gltfExtensionsUsed": [
+    "KHR_materials_clearcoat",
+    "KHR_materials_transmission",
+    "KHR_materials_ior"
+  ],
+  "nativeSavedDefaultVisibilityHonored": true,
+  "preservedUnknown": "CLOSURE_HOLD unseen rear/opposite narrow side/roof and NOT_INTERIOR optical liner remain labelled candidates.",
+  "webglVerified": false,
+  "surveyVerified": false
+}

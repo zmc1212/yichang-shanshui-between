@@ -1,0 +1,526 @@
+{
+  "schemaVersion": 1,
+  "asOf": "2026-11-09",
+  "coordinateSystem": "WGS84 / EPSG:4326",
+  "sourceTourUrl": "https://df21wknb5.wasee.com/wt/df21wknb5",
+  "sourceDataSha256": "375e298b8f7db44197c672d5b52419da0f3a629a52f074310a948466a44d4cb0",
+  "scope": "Read-only geography research; no Site code changed, no commit or publish, no WebGL test performed by this agent.",
+  "transformationContract": {
+    "input": "Original unchanged GLTF local X,Y,Z, right-handed Y-up",
+    "horizontal": "Project originalGlbTransform.localOriginWgs84 in the CURRENT city meta. Rotate original local X/Z by Three.js rotationY, apply one scalar uniformMetersPerModelUnit * meta.unitsPerMeter to all axes.",
+    "originWarning": "localOriginWgs84 maps original GLTF (0,0,0), not AABB center. If runtime geometry is recentered, convert its canonical origin accordingly.",
+    "height": "Model height and GIS height tags are not surveyed absolute heights. Display height is produced by the same one scalar, never independently stretched.",
+    "sourceIDs": "replaceSourceFeatureIds are retained GIS feature UUIDs, not OSM way IDs. Never reuse old city array indices or old world coordinates."
+  },
+  "collisionScope": "Planar projected vertex-hull footprint of every retained model node versus ALL 49378 source buildings and OSM road width display buffers excluding footways/paths/cycleways/steps/pedestrian ways. This is a conservative geometry analysis, not a surveyed curb or parcel boundary and not a WebGL visual test.",
+  "confirmedCount": {
+    "historicProjects": 23,
+    "distinctSceneIds": 23,
+    "physicalSingleTowers": null,
+    "basis": "Original business-building tour lists 23 projects; several projects contain multiple physical towers. 2021 tax data / 2022 media do not prove a 2026 complete inventory.",
+    "excludedFromThisCount": [
+      "镇江阁",
+      "武汉黄鹤楼"
+    ]
+  },
+  "requestedExpandedBounds": [
+    111.225,
+    30.625,
+    111.39,
+    30.755
+  ],
+  "retainedGisBounds": [
+    111.2,
+    30.62,
+    111.41,
+    30.78
+  ],
+  "recommendations": [
+    {
+      "key": "wanda-soho",
+      "sourceSceneId": "1649138",
+      "sourceName": "万达SOHO写字楼",
+      "aliases": [],
+      "sourceAddress": "沿江大道特168-5、6、7号",
+      "sourceMarkerGcj02": [
+        111.307473,
+        30.680105
+      ],
+      "convertedMarkerWgs84": [
+        111.30177749459325,
+        30.682525778868754
+      ],
+      "mapRegistrationStatus": "source-footprints-three-tower-candidate",
+      "originalGlbTransform": {
+        "uniformMetersPerModelUnit": 1.0624293926229358,
+        "threeRotationYDegrees": -42.123174881111204,
+        "localPositiveXBearingDegrees": 132.1231748811112,
+        "localPositiveZBearingDegrees": 222.1231748811112,
+        "localOriginWgs84": [
+          111.30171992818497,
+          30.682775235409252
+        ],
+        "controlResidualMeters": [
+          0.8772588086860824,
+          1.7545176173720822,
+          0.877258808686058
+        ],
+        "rmsControlResidualMeters": 1.2406313049550775,
+        "maxControlResidualMeters": 1.7545176173720822,
+        "fittedControlsWgs84": [
+          [
+            111.30122879292549,
+            30.68324727892683
+          ],
+          [
+            111.30177203069753,
+            30.682824787032153
+          ],
+          [
+            111.30231526846957,
+            30.682402295137475
+          ]
+        ],
+        "sourceFeatureIds": [
+          "07a71726-720b-4fd4-a814-fb14bda5bd7e",
+          "82fffa3c-3b89-4b72-a3de-3c6cd02a1c2e",
+          "200bff33-082f-43da-99e0-51f8fe4f2607"
+        ],
+        "localControlsXZ": [
+          [
+            -66,
+            -7
+          ],
+          [
+            0,
+            -7
+          ],
+          [
+            66,
+            -7
+          ]
+        ],
+        "sourceControlWgs84": [
+          [
+            111.30122092620455,
+            30.683251319899696
+          ],
+          [
+            111.3017877641394,
+            30.682816705086427
+          ],
+          [
+            111.30230740174864,
+            30.68240633611034
+          ]
+        ]
+      },
+      "replaceSourceFeatureIds": [
+        "07a71726-720b-4fd4-a814-fb14bda5bd7e",
+        "82fffa3c-3b89-4b72-a3de-3c6cd02a1c2e",
+        "200bff33-082f-43da-99e0-51f8fe4f2607",
+        "bb15e7cf-9138-4cad-bb0c-a6c219e81197"
+      ],
+      "identityEvidence": [
+        "原导图scene1649138与地址沿江大道特168-5/6/7号一致。",
+        "独立命名OSM沿江万达广场控制地块支持坐标基准；地图三塔轮廓与源照片三塔次序一致。",
+        "NW/MID/SE三塔中心同比例相似拟合，RMS约1.24m；这是对源地图轮廓的计算残差，不是现场测量精度。"
+      ],
+      "orientationEvidence": [
+        "原生parameters.json明确X+为NW→SE、Y+内陆、Z+向上；标准glTF转换后+Z临江。",
+        "以三塔GIS中心排布定水平轴和正反向，未用邻居酒店。"
+      ],
+      "limitations": [
+        "共享商场源轮廓大于现有模型可见前段；不得把可见模型宣称为整个商业体完整重建。",
+        "只排除Presentation_base_non_geographic；保留Forecourt_continuous_steps。",
+        "不将三塔A/B/C编号强行锁定为NW/MID/SE。"
+      ],
+      "collisionAnalysis": {
+        "buildingOverlaps": [],
+        "roadWidthBufferOverlaps": [],
+        "roadWidthWarning": "Widths are source display attributes, not surveyed curb boundaries."
+      },
+      "fieldSurveyVerified": false
+    },
+    {
+      "key": "zhongnan-metallurgy",
+      "sourceSceneId": "1649149",
+      "sourceName": "中南冶金大楼",
+      "aliases": [
+        "中南冶金",
+        "中南冶金大楼"
+      ],
+      "sourceAddress": "胜利一路15号",
+      "sourceMarkerGcj02": [
+        111.305009,
+        30.683651
+      ],
+      "convertedMarkerWgs84": [
+        111.29931950259456,
+        30.686074126559554
+      ],
+      "mapRegistrationStatus": "source-footprint-street-corner-candidate",
+      "originalGlbTransform": {
+        "uniformMetersPerModelUnit": 0.8579827111894202,
+        "threeRotationYDegrees": 96.64880716585155,
+        "localOriginWgs84": [
+          111.29913385281101,
+          30.686007336520234
+        ],
+        "localPositiveXBearingDegrees": 353.35119283414843,
+        "localPositiveZBearingDegrees": 83.35119283414845,
+        "silhouetteIoU": 0.9396979898426272,
+        "shiftFromUnconstrainedFitMeters": 0.47025467006759053
+      },
+      "replaceSourceFeatureIds": [
+        "a282237a-14a0-4246-bd2b-8386a86a1502",
+        "4b2539b2-ca4f-489a-96e3-9df54396e0ae"
+      ],
+      "identityEvidence": [
+        "原导图及中南冶金地质研究所官网地址胜利一路15号一致。",
+        "源地图a282五边形为主楼轮廓，4b253为重叠内层轮廓；与东侧红十字医院弧形轮廓明显不同。",
+        "塔顶五边形在街角朝东约束下与源轮廓IoU约0.940；保守无碰撞调整较未约束位置0.47m。"
+      ],
+      "orientationEvidence": [
+        "源全景向下图显示建筑位于路口西侧，街角主面朝东；不可统一转向江面。",
+        "glTF +Z是32单位宽街角立面；保守候选+Z朝83.35°。"
+      ],
+      "limitations": [
+        "使用S09基准原高度、hotel OFF；不是隐藏高度研究方案。",
+        "源轮廓高度12m是默认值，不用于宣称真实楼高。",
+        "看不见的后立面及后部轮廓为源模型中保留的推定封闭面。"
+      ],
+      "collisionAnalysis": {
+        "buildingOverlaps": [],
+        "roadWidthBufferOverlaps": []
+      },
+      "fieldSurveyVerified": false
+    },
+    {
+      "key": "jiuzhou-fangyuan",
+      "sourceSceneId": "1649133",
+      "sourceName": "九州方园",
+      "aliases": [
+        "九州方园大厦",
+        "九州方园"
+      ],
+      "sourceAddress": "沿江大道185号",
+      "sourceMarkerGcj02": [
+        111.323749,
+        30.666553
+      ],
+      "convertedMarkerWgs84": [
+        111.31801031582414,
+        30.66895112773464
+      ],
+      "mapRegistrationStatus": "source-tower-footprint-candidate",
+      "originalGlbTransform": {
+        "uniformMetersPerModelUnit": 1.2830762724578204,
+        "threeRotationYDegrees": -41.302576768288304,
+        "localOriginWgs84": [
+          111.3180935,
+          30.669095
+        ],
+        "localControlXZ": [
+          0,
+          0
+        ],
+        "sourceControlWgs84": [
+          111.3180935,
+          30.669095
+        ],
+        "localPositiveXBearingDegrees": 131.3025767682883,
+        "localPositiveZBearingDegrees": 221.3025767682883,
+        "sourceCoreDimensionsMeters": [
+          64.13263048777507,
+          23.154214946229498
+        ],
+        "modelCoreDimensions": [
+          50,
+          18
+        ],
+        "fittedCoreDimensionsMeters": [
+          64.15381362289102,
+          23.09537290424077
+        ]
+      },
+      "replaceSourceFeatureIds": [
+        "ae815edb-2941-40aa-89d4-1a21d8172eae"
+      ],
+      "identityEvidence": [
+        "原导图scene1649133、沿江大道185号、长条高层外形一致。",
+        "50×18归一塔芯与源64.13×23.15m轮廓长宽比一致；拟合后64.15×23.10m。"
+      ],
+      "orientationEvidence": [
+        "原生说明及照片支持+Z临江，NW侧窄窗/石材条面朝首信方向。",
+        "源轮廓长轴131.30°，排除180°翻转后+Z朝221.30°。"
+      ],
+      "limitations": [
+        "100单位总高不是100m；等比后的128.35m仅显示高度。",
+        "前场罩棚/入口不能当塔芯深度；本次以50×18塔芯拟合，再独立检查整个前场不压路/邻楼。"
+      ],
+      "collisionAnalysis": {
+        "buildingOverlaps": [],
+        "roadWidthBufferOverlaps": []
+      },
+      "fieldSurveyVerified": false
+    },
+    {
+      "key": "jinjiang-yinzuo",
+      "sourceSceneId": "1649132",
+      "sourceName": "金江银座",
+      "aliases": [
+        "锦江银座",
+        "金江银座"
+      ],
+      "sourceAddress": "沿江大道129号",
+      "sourceMarkerGcj02": [
+        111.297281,
+        30.686297
+      ],
+      "convertedMarkerWgs84": [
+        111.29161012438406,
+        30.688730554408533
+      ],
+      "mapRegistrationStatus": "source-tower-and-podium-candidate",
+      "originalGlbTransform": {
+        "uniformMetersPerModelUnit": 1.7004419665125114,
+        "threeRotationYDegrees": -32.02311420859468,
+        "localOriginWgs84": [
+          111.29157252910032,
+          30.688798507854592
+        ],
+        "localControlXZ": [
+          0,
+          -4.7
+        ],
+        "sourceControlWgs84": [
+          111.29161679452217,
+          30.688859377310138
+        ],
+        "localPositiveXBearingDegrees": 122.02311420859468,
+        "localPositiveZBearingDegrees": 212.02311420859468,
+        "sourceCoreDimensionsMeters": [
+          50.832367870299066,
+          16.561466586524894
+        ],
+        "modelCoreDimensions": [
+          30,
+          9.4
+        ],
+        "fittedCoreDimensionsMeters": [
+          51.013258995375345,
+          15.984154485217609
+        ]
+      },
+      "replaceSourceFeatureIds": [
+        "ff7985c2-8e75-4589-8a23-816772be6a0d",
+        "31be43a4-9179-4d08-8a8c-3d840b3d31da"
+      ],
+      "identityEvidence": [
+        "原导图、2022伍家岗官方介绍及2026政府公产信息使用金江银座/沿江大道129号。",
+        "模型文件旧称锦江银座与之为同一项目别名，不重复计入23。",
+        "塔楼细长轮廓ff798与前裙房31be相叠，源照片也显示塔后部+前平台。"
+      ],
+      "orientationEvidence": [
+        "模型塔芯XZ中心[0,-4.7]；源长轴122.02°，+Z主面/前平台朝212.02°。"
+      ],
+      "limitations": [
+        "使用S03默认00，不是S04研究版。",
+        "源地图两轮廓均为默认12m高度，不能从它们推实高。",
+        "模型原底部/景观造型保留；等比例后显示高度不是实测楼高。"
+      ],
+      "collisionAnalysis": {
+        "buildingOverlaps": [],
+        "roadWidthBufferOverlaps": []
+      },
+      "fieldSurveyVerified": false
+    },
+    {
+      "key": "fujiang-mingzuo",
+      "sourceSceneId": "1649129",
+      "sourceName": "福江铭座",
+      "aliases": [],
+      "sourceAddress": "沿江大道特162号",
+      "sourceMarkerGcj02": [
+        111.315059,
+        30.67512
+      ],
+      "convertedMarkerWgs84": [
+        111.30934373826001,
+        30.677530086500706
+      ],
+      "mapRegistrationStatus": "front-arc-candidate-back-depth-unverified",
+      "originalGlbTransform": {
+        "uniformMetersPerModelUnit": 1.7810239083169832,
+        "threeRotationYDegrees": -14.043532387733766,
+        "localPositiveXBearingDegrees": 104.04353238773376,
+        "localPositiveZBearingDegrees": 194.04353238773376,
+        "localOriginWgs84": [
+          111.3093345,
+          30.6774695
+        ],
+        "controlResidualMeters": [
+          5.684341886080802e-14,
+          0.0
+        ],
+        "rmsControlResidualMeters": 4.0194366942304644e-14,
+        "maxControlResidualMeters": 5.684341886080802e-14,
+        "fittedControlsWgs84": [
+          [
+            111.308951,
+            30.677552
+          ],
+          [
+            111.309718,
+            30.677387
+          ]
+        ]
+      },
+      "replaceSourceFeatureIds": [
+        "5490a156-bcdc-4091-8769-12566bbe415a",
+        "6e6462fd-0796-4d9f-b232-02eddcd5cce4"
+      ],
+      "identityEvidence": [
+        "原导图scene1649129、沿江大道特162号、弧形玻璃面外形一致。",
+        "源弧形轮廓外弧两端为111.308951/30.677552与111.309718/30.677387；源模型前弧弦端点为[-21.25,0]、[21.25,0]。"
+      ],
+      "orientationEvidence": [
+        "原生前弧+Z，按弦端点定向后+Z朝194.04°，不能把长矩形方向或统一SW朝向套到弧形楼。"
+      ],
+      "limitations": [
+        "两个端点能拟合弦端点但不能独立验证曲率、后部深度、顶部尺寸。",
+        "原生后侧深度是CLOSURE_HOLD；全模型在源裙房建筑轮廓外约1413㎡，虽与邻楼和机动车道无相交，仍应显示“弧形立面候选定位·后侧深度待核”。",
+        "不能把2点零计算残差作为地理精度或现场验收证明。"
+      ],
+      "collisionAnalysis": {
+        "buildingOverlaps": [],
+        "roadWidthBufferOverlaps": []
+      },
+      "fieldSurveyVerified": false
+    },
+    {
+      "key": "yichang-international",
+      "sourceSceneId": "1649145",
+      "sourceName": "宜昌国际广场",
+      "aliases": [],
+      "sourceAddress": "沿江大道 189 号",
+      "sourceMarkerGcj02": [
+        111.310096,
+        30.678526
+      ],
+      "convertedMarkerWgs84": [
+        111.30439377058784,
+        30.680943128148783
+      ],
+      "mapRegistrationStatus": "compound-candidate-relative-layout-unverified",
+      "originalGlbTransform": {
+        "uniformMetersPerModelUnit": 1.4061155235192744,
+        "threeRotationYDegrees": -38.15140707190069,
+        "localOriginWgs84": [
+          111.30446322466914,
+          30.680874210469348
+        ],
+        "localPositiveXBearingDegrees": 128.15140707190068,
+        "localPositiveZBearingDegrees": 218.15140707190068,
+        "architectureAreaOutsideSourcePodiumMeters2": 3.043294004582551e-05,
+        "fittedTowerCentroidsWgs84": [
+          [
+            111.3041674567608,
+            30.681194500105825
+          ],
+          [
+            111.30448837029296,
+            30.680993754542197
+          ],
+          [
+            111.30484063478734,
+            30.680755765731973
+          ]
+        ],
+        "towerCenterResidualMeters": [
+          30.07446126745393,
+          16.000112018915612,
+          24.320900394963363
+        ]
+      },
+      "replaceSourceFeatureIds": [
+        "d6d52628-7bcb-4a1a-89be-f0a610dd73c1",
+        "81af0591-a194-46a2-ac7a-edcbbb974357",
+        "afa5302e-bdfe-425a-890a-5d60693f32e4",
+        "8dd77dbf-8907-4a23-941e-13f3664c1576"
+      ],
+      "identityEvidence": [
+        "原导图scene1649145及模型原生资料明确为NW办公塔+两座住宅塔+共享裙房。",
+        "源轮廓有宜昌IFC命名办公塔、两住宅塔及共享retail裙房。"
+      ],
+      "orientationEvidence": [
+        "模型office在局部X负侧，源office位于NW；+Z临江。",
+        "保守候选水平轴128.15°，+Z朝218.15°，整组同比例保持。"
+      ],
+      "limitations": [
+        "模型办公→中住宅→SE住宅中心距27.02/30.5，源地图83.47/52.26m，相对布局矛盾；办公/住宅宽度比也不一致。",
+        "三中心整体最小二乘scale2.3300产生RMS9.87m且压港沙路与沿江大道，拒用。",
+        "当前scale1.4061的保守完整组团不压源邻楼或机动车道，但塔中心误差30.07/16.00/24.32m，应标“组团候选定位·相对布局待核”。",
+        "OFFICE/RESIDENTIAL MID/RIGHT可语义分离，但共享院落、塔基与桥廊不能无缝随三塔分别搬动；未自行重做裙房。",
+        "只去SITE local paving/SITE paving joints。4种有照片形态依据的前场铺装/花池/通用绿化保留，已另查全部源背景楼和道路均无相交。"
+      ],
+      "collisionAnalysis": {
+        "buildingOverlaps": [],
+        "roadWidthBufferOverlaps": [],
+        "roadWidthWarning": "Widths are source display attributes, not surveyed curb boundaries."
+      },
+      "fieldSurveyVerified": false
+    },
+    {
+      "key": "meilian-yufeng",
+      "sourceSceneId": "1649135",
+      "sourceName": "美联御峰写字楼",
+      "aliases": [],
+      "sourceAddress": "沿江大道130号",
+      "sourceMarkerGcj02": [
+        111.298032,
+        30.685664
+      ],
+      "convertedMarkerWgs84": [
+        111.29235941587233,
+        30.6880967795452
+      ],
+      "mapRegistrationStatus": "visible-group-footprint-and-heading-unverified",
+      "originalGlbTransform": {
+        "uniformMetersPerModelUnit": 0.8887911709014987,
+        "threeRotationYDegrees": -59.00000220176715,
+        "localOriginWgs84": [
+          111.29221711816436,
+          30.68814912193371
+        ],
+        "localPositiveXBearingDegrees": 149.00000220176716,
+        "localPositiveZBearingDegrees": 239.00000220176716,
+        "silhouetteIoU": 0.6851468152990944,
+        "shiftFromUnconstrainedFitMeters": 3.1100826812223823
+      },
+      "replaceSourceFeatureIds": [
+        "d8498ab6-a277-40e8-84db-ca8b2660ed9c"
+      ],
+      "identityEvidence": [
+        "原导图scene1649135、沿江大道130号、官方图片金色阶梯冠部身份一致。",
+        "前方d849轮廓与已知POI邻近；后方678b轮廓与小型614e要素不应因模型重叠被自动当作本项目删除。"
+      ],
+      "orientationEvidence": [
+        "模型S05是照片可见组团且后部深度推定，多个体块的错位使模型AABB/单个+Z不能直接代替整栋真实朝向。",
+        "列出的安全变换仅为研究候选，不作为已核实地图落位。"
+      ],
+      "limitations": [
+        "S05原生说明明确NOT COMPLETE BUILDING / NOT … SINGLE OFFICE PROPERTY。",
+        "核心轮廓无约束拟合IoU0.766但完整模型会压service道路及未证实的小轮廓；安全候选IoU降至0.685，朝向接近优化边界。",
+        "建议独立查看或明确“可见组团候选·占地朝向待核”；不得宣称可靠楼体配准，也不得删周边楼以掩盖冲突。"
+      ],
+      "collisionAnalysis": {
+        "buildingOverlaps": [],
+        "roadWidthBufferOverlaps": []
+      },
+      "fieldSurveyVerified": false,
+      "mayAutoApplyToMap": false
+    }
+  ]
+}

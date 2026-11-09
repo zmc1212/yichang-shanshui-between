@@ -1,32 +1,12 @@
 import * as THREE from 'three';
-import { SHOUXIN_REGISTRATION } from './authoredPlacement.js';
+import { AUTHORED_MODELS } from './buildingCatalog.js';
+export { AUTHORED_MODELS } from './buildingCatalog.js';
 
-// Registration records keep source CRS, footprint identity and uncertainty.
-// Scene placement recalculates the uniform scale from its own map metadata.
-export const AUTHORED_MODELS = [{
-  id: 'shouxin-wealth-s01',
-  name: '首信财富中心',
-  category: '城市建筑',
-  subtitle: '一格幕墙，一座城市的细节。',
-  kind: 'authored',
-  placement: 'city',
-  stage: 'S01 外观候选',
-  description: '沿江大道旁，米白竖肋与青蓝幕墙勾勒出首信财富中心的轮廓。模型已与地图中的建筑位置和轮廓匹配，主立面朝向江边。靠近看看裙房、窗格与顶部冠架，再沿着江岸继续探索。',
-  location: '宜昌 · 伍家岗区沿江大道 182 号',
-  caveat: '位置与朝向依据原导图及地图轮廓配准，未作现场测绘。模型保持原形比，绝对尺寸、精确方位、背面与屋顶仍待复核；字牌保留参考时期外观。',
-  sourceBounds: { min: [-20.43000030517578, 0, -14.0649995803833], max: [20.43000030517578, 97.94000244140625, 14.065000534057617] },
-  displayHeight: 1.6228058571002701,
-  registration: SHOUXIN_REGISTRATION,
-  front: '+Z',
-  assets: {
-    light: '/models/shouxin-s01/light.glb?v=s01-20261109-1',
-    detail: '/models/shouxin-s01/detail.glb?v=s01-20261109-1',
-  },
-}];
+const closedImageBitmaps = new WeakSet();
 
 function disposeObject(object) {
   if (!object) return;
-  const geometries = new Set(), materials = new Set(), textures = new Set();
+  const geometries = new Set(), materials = new Set(), textures = new Set(), images = new Set();
   object.traverse(child => {
     if (child.geometry) geometries.add(child.geometry);
     for (const material of Array.isArray(child.material) ? child.material : child.material ? [child.material] : []) {
@@ -36,7 +16,19 @@ function disposeObject(object) {
   });
   geometries.forEach(value => value.dispose());
   materials.forEach(value => value.dispose());
-  textures.forEach(value => value.dispose());
+  textures.forEach(value => {
+    const image = value.source?.data || value.image;
+    for (const candidate of Array.isArray(image) ? image : [image]) {
+      if (candidate && typeof candidate.close === 'function') images.add(candidate);
+    }
+    value.dispose();
+  });
+  // GLTFLoader uses ImageBitmap when available. Texture.dispose() releases
+  // the WebGL texture but does not close its separately owned decoded bitmap.
+  images.forEach(image => {
+    if (closedImageBitmaps.has(image)) return;
+    closedImageBitmaps.add(image); image.close();
+  });
   object.removeFromParent();
 }
 
@@ -46,14 +38,20 @@ export function prepareAuthoredModel(object, spec) {
   const sourceBox = new THREE.Box3().setFromObject(object);
   const size = sourceBox.getSize(new THREE.Vector3());
   if (sourceBox.isEmpty() || !Number.isFinite(size.y) || size.y <= 0) throw new Error('模型缺少有效包围盒');
-  const center = sourceBox.getCenter(new THREE.Vector3());
+  // Both LODs use the same frozen source frame. A simplified crown or a
+  // quantized vertex must not move the whole building during a quality switch.
+  const referenceBox = spec.sourceBounds
+    ? new THREE.Box3(new THREE.Vector3(...spec.sourceBounds.min), new THREE.Vector3(...spec.sourceBounds.max))
+    : sourceBox;
+  const referenceSize = referenceBox.getSize(new THREE.Vector3());
+  const center = referenceBox.getCenter(new THREE.Vector3());
   const wrapper = new THREE.Group();
   wrapper.name = `${spec.id}:uniform-display-scale`;
-  object.position.sub(new THREE.Vector3(center.x, sourceBox.min.y, center.z));
+  object.position.sub(new THREE.Vector3(center.x, referenceBox.min.y, center.z));
   wrapper.add(object);
   // One scalar for all axes. The city background's vertical exaggeration must
   // never be applied to the architectural asset's Y axis.
-  wrapper.scale.setScalar(spec.displayHeight / size.y);
+  wrapper.scale.setScalar(spec.uniformScale || spec.displayHeight / referenceSize.y);
   wrapper.userData.sourceBounds = { min: sourceBox.min.toArray(), max: sourceBox.max.toArray() };
   wrapper.userData.scalePolicy = spec.scalePolicy || 'uniform-exhibit-not-metres';
   object.traverse(child => {
@@ -62,12 +60,15 @@ export function prepareAuthoredModel(object, spec) {
     child.castShadow = true;
     child.receiveShadow = true;
     for (const material of Array.isArray(child.material) ? child.material : [child.material]) {
-      // The source deliberately omits NORMAL. Preserve the authored hard edges.
-      material.flatShading = true;
+      // New assets retain their authored normals, including Fujiang's curved
+      // facade. Shouxin's established export intentionally uses hard edges.
+      material.flatShading = Boolean(spec.flatShading) || !child.geometry.getAttribute('normal');
       material.transparent = false;
       material.opacity = 1;
       material.userData.authoredDayColor = material.color.clone();
-      material.userData.authoredGlass = /^Glass_bluegreen/.test(material.name);
+      material.userData.authoredGlass = /glass|glaz|玻璃/i.test(material.name);
+      if ('transmission' in material) material.transmission = 0;
+      if ('clearcoat' in material) material.clearcoat = Math.min(material.clearcoat, 0.12);
       material.roughness = Math.max(material.roughness, material.userData.authoredGlass ? 0.48 : 0.6);
       material.needsUpdate = true;
     }
@@ -90,7 +91,7 @@ function themeModel(object, night) {
   });
 }
 
-export function createAuthoredStage({ catalog = AUTHORED_MODELS, onChange, onStatus, loadAsset, showPlinth = true } = {}) {
+export function createAuthoredStage({ catalog = AUTHORED_MODELS, onChange, onStatus, loadAsset, scheduleLight, prioritizeLight, showPlinth = true } = {}) {
   const group = new THREE.Group();
   group.name = showPlinth ? 'Independent architectural exhibition — not a map location' : 'Authored city architecture';
   group.visible = false;
@@ -143,22 +144,35 @@ export function createAuthoredStage({ catalog = AUTHORED_MODELS, onChange, onSta
     if (!response.ok) throw new Error(`模型资源请求失败 (${response.status})`);
     const bytes = await response.arrayBuffer();
     if (signal.aborted) throw new DOMException('Aborted', 'AbortError');
-    const { GLTFLoader } = await import('three/addons/loaders/GLTFLoader.js');
-    return (await new GLTFLoader().parseAsync(bytes, '/')).scene;
+    const [{ GLTFLoader }, { MeshoptDecoder }] = await Promise.all([
+      import('three/addons/loaders/GLTFLoader.js'),
+      import('three/addons/libs/meshopt_decoder.module.js'),
+    ]);
+    const loader = new GLTFLoader().setMeshoptDecoder(MeshoptDecoder);
+    return (await loader.parseAsync(bytes, '/')).scene;
   }
-  function ensure(quality, retry = false) {
+  function ensure(quality, retry = false, priority = false) {
     if (disposed || !activeId) return Promise.resolve();
     const id = activeId, spec = findSpec(id), key = keyFor(id, quality);
     const previous = records.get(key);
+    if (quality === 'light' && priority) prioritizeLight?.(id);
     if (previous && (!retry || previous.state !== 'error')) return previous.promise || Promise.resolve();
     const controller = new AbortController();
     const record = { id, quality, state: 'loading', controller, object: null };
     records.set(key, record); notify();
-    const timeout = setTimeout(() => controller.abort(), 20000);
     record.promise = (async () => {
       let raw;
       try {
-        raw = await (loadAsset || defaultLoad)(spec.assets[quality], controller.signal);
+        const run = async () => {
+          if (controller.signal.aborted) throw new DOMException('Aborted', 'AbortError');
+          // Queued time must not consume the network/parse timeout.
+          const timeout = setTimeout(() => controller.abort(), 20000);
+          try { return await (loadAsset || defaultLoad)(spec.assets[quality], controller.signal); }
+          finally { clearTimeout(timeout); }
+        };
+        raw = await (quality === 'light' && scheduleLight
+          ? scheduleLight(run, { key: id, signal: controller.signal, priority })
+          : run());
         if (disposed || records.get(key) !== record || activeId !== id) {
           disposeObject(raw); return;
         }
@@ -170,7 +184,7 @@ export function createAuthoredStage({ catalog = AUTHORED_MODELS, onChange, onSta
         if (raw && !record.object) disposeObject(raw);
         if (disposed || records.get(key) !== record || activeId !== id) return;
         record.state = 'error'; syncVisible();
-      } finally { clearTimeout(timeout); }
+      }
     })();
     return record.promise;
   }
@@ -180,15 +194,16 @@ export function createAuthoredStage({ catalog = AUTHORED_MODELS, onChange, onSta
   }
   return {
     group,
-    select(id, { detail = false } = {}) {
+    select(id, { detail = false, priority = false } = {}) {
       if (disposed || !findSpec(id)) return;
       if (activeId !== id) { release(); activeId = id; }
       group.visible = true; wantedDetail = Boolean(detail);
-      ensure('light').then(() => {
+      const pending = ensure('light', false, priority).then(() => {
         if (!disposed && activeId === id && wantedDetail && recordFor(id, 'light')?.state === 'ready') ensure('detail');
       });
       if (wantedDetail && recordFor(id, 'light')?.state === 'ready') ensure('detail');
       syncVisible();
+      return pending;
     },
     setDetailWanted(value) {
       if (!activeId || disposed || wantedDetail === Boolean(value)) return;
@@ -210,7 +225,7 @@ export function createAuthoredStage({ catalog = AUTHORED_MODELS, onChange, onSta
     retry() {
       if (!activeId) return;
       const id = activeId;
-      ensure('light', true).then(() => {
+      ensure('light', true, true).then(() => {
         if (!disposed && activeId === id && wantedDetail && recordFor(id, 'light')?.state === 'ready') ensure('detail', true);
       });
     },

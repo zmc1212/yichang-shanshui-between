@@ -1,0 +1,96 @@
+{
+  "ok": true,
+  "passed": [
+    "Source feature identity, CRS, retained marker, centroid, and independent city projection",
+    "Mapped footprint match, one uniform fit, river-facing +Z orientation, and all bounding-box corners inside the inset",
+    "Independent collision check: one replaced footprint, positive neighbor, modeled road-edge, and water clearances",
+    "Both actual GLBs: every transformed vertex fits, axes share one scale, source proportions and picking ID survive, and both LOD world bounds agree",
+    "120 m / 300 m height-policy boundaries, continuity, monotonicity, radial consistency, local tree reservation, and empty-plan compatibility"
+  ],
+  "sourceFeatureId": "809fc574-f994-4778-9992-3c3435682f32",
+  "matchedCityBuildingIndex": 1744,
+  "anchorWgs84": [
+    111.3168215,
+    30.669877
+  ],
+  "anchorWorldXZ": [
+    17.84661482668662,
+    44.801642264664586
+  ],
+  "frontBearingDeg": 221.5001184,
+  "yawRadians": -0.724313706047481,
+  "uniformScale": 0.01656863529125461,
+  "fittedDimensionsMetersNotSurveyed": [
+    33.849722405667784,
+    81.1366090438123,
+    23.3037856319561
+  ],
+  "minEnvelopeInsetMeters": 0.25020023562894605,
+  "replacedBuildingIndices": [
+    1744
+  ],
+  "nearestRemainingBuilding": {
+    "index": 615,
+    "gapMeters": 31.75642299754491
+  },
+  "minimumRoadEdgeGapMeters": 21.906848597458215,
+  "nearestYanjiangRoadEdgeGapMeters": 25.579949829309257,
+  "minimumWaterGapMeters": 98.58352250015047,
+  "heightNeighborhoodCounts": {
+    "inner": 6,
+    "transition": 37,
+    "outside": 15957
+  },
+  "nearTreeScaleRelativeToCity": 0.2631578947368421,
+  "tiers": [
+    {
+      "tier": "light",
+      "meshes": 18,
+      "vertices": 43231,
+      "scale": [
+        0.01656863529125461,
+        0.01656863529125461,
+        0.01656863529125461
+      ],
+      "bounds": {
+        "min": [
+          17.46994230741952,
+          0.065,
+          44.40423902687625
+        ],
+        "max": [
+          18.25328715980077,
+          1.687732180876246,
+          45.165555474309734
+        ]
+      },
+      "minVertexClearanceMeters": 0.25021855211808924
+    },
+    {
+      "tier": "detail",
+      "meshes": 19,
+      "vertices": 63839,
+      "scale": [
+        0.01656863529125461,
+        0.01656863529125461,
+        0.01656863529125461
+      ],
+      "bounds": {
+        "min": [
+          17.46994230741952,
+          0.065,
+          44.40423902687625
+        ],
+        "max": [
+          18.25328715980077,
+          1.687732180876246,
+          45.165555474309734
+        ]
+      },
+      "minVertexClearanceMeters": 0.25021855211808924
+    }
+  ],
+  "webglVerified": false,
+  "surveyVerified": false,
+  "devicePerformanceVerified": false
+}

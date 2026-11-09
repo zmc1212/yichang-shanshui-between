@@ -1,0 +1,1175 @@
+{
+  "checkedAt": "2026-11-09",
+  "repository": "zmc1212/china-landmarks-hubei",
+  "branch": "main",
+  "head": "c4fdafec5925e39a2dbcce6bf033334b17e12abd",
+  "commitDate": "2026-11-04T02:13:16Z",
+  "commitMessage": "archive: Zhongnan Metallurgy S05 bounded aerial-visible roof service assembly candidate, not functional or engineering validation",
+  "tree": "6d7f1468d2fa0d68ef1bbe9dae0176076fdd9fd9",
+  "treeEntries": 2578,
+  "truncated": false,
+  "models": [
+    "wuhan-yellow-crane-tower",
+    "yichang-meilian-yufeng",
+    "yichang-zhenjiang-pavilion",
+    "yichang-zhongnan-metallurgy"
+  ],
+  "webExports": [],
+  "latestYichangFiles": [
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study",
+      "type": "tree",
+      "sha": "c9a4ca32a56a2089b7e8de20a4fb81cc110df90f"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/ARCHIVE_MANIFEST.json",
+      "type": "blob",
+      "size": 10194,
+      "sha": "5a9ad21fef5eaaa60e4326e83f092b9033e1b617"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/README.md",
+      "type": "blob",
+      "size": 2172,
+      "sha": "689b487cd3994953c41c5cea20040abdf3948dc2"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/reference",
+      "type": "tree",
+      "sha": "4d7cf7de73827abf180d06df82575b842888b034"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/reference/sources.json",
+      "type": "blob",
+      "size": 2083,
+      "sha": "9e3a8e262ddbfa01c2fd62ef6cc09ec11a94b380"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/renders",
+      "type": "tree",
+      "sha": "7ae91f94d99f619dea1b453b71932c3ba7f0390b"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/renders/A_day_matched_candidate.png",
+      "type": "blob",
+      "size": 2319358,
+      "sha": "76e6d0fb42919e91889a8ba137d91962e0a30370"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/renders/B_night_matched_candidate.png",
+      "type": "blob",
+      "size": 3992616,
+      "sha": "9df27330174e86577ef47588cf6b8c09cf65f1f6"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/renders/M_crown_front_transition.png",
+      "type": "blob",
+      "size": 2761380,
+      "sha": "c7cab9d4a1604f2747dff78d65fcb77708cb3528"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/renders/N_crown_oblique_junction.png",
+      "type": "blob",
+      "size": 3384252,
+      "sha": "68ee22ad92920cc62ee59c6c9b46b3e72707c99d"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/renders/O_crown_right_step_detail.png",
+      "type": "blob",
+      "size": 3576245,
+      "sha": "678f2e2f251a15e6f1a170dcd6e2682cd6529602"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/renders/P_crown_low_view.png",
+      "type": "blob",
+      "size": 3196212,
+      "sha": "9c2d94d1bbc9a59b8b38f522aa5597981b113425"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/renders/S05_before_after_crown.png",
+      "type": "blob",
+      "size": 1567281,
+      "sha": "3bbdf07dcb25b5b8c137d4e1096ffc24cd9a7568"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/renders/S05_evidence_scope_hold.png",
+      "type": "blob",
+      "size": 2790885,
+      "sha": "30a0495ec11422edfcf0495665b9ff5983117716"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/renders/S05_review_contact_sheet.png",
+      "type": "blob",
+      "size": 3445923,
+      "sha": "a52ea203acd07c3c8fc98a5b98aa7a71fad1e313"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/reports",
+      "type": "tree",
+      "sha": "c347feacdcc49446863fbaebf1638bd25ac83ae8"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/reports/S05_all_meshes_fingerprint.json",
+      "type": "blob",
+      "size": 658671,
+      "sha": "2e29e4b4586eb588c20c7f5a36812683e756d6d7"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/reports/baseline",
+      "type": "tree",
+      "sha": "da0ceeddc601279912c234015ab4bea673bcde09"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/reports/baseline/S04_B_night_matched_candidate.png",
+      "type": "blob",
+      "size": 3995021,
+      "sha": "58d9a7e78610c8cca7f241869f62424ee3e3d57a"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/reports/baseline/S04_J_central_standard_face.png",
+      "type": "blob",
+      "size": 2966028,
+      "sha": "2ca0c2f5bb4df4df82dfc244e367a57b9bc4a4b4"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/reports/baseline/S04_N_crown_oblique.png",
+      "type": "blob",
+      "size": 3301364,
+      "sha": "4715842755090fa09bdd669d21a7e400f270dd5e"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/reports/baseline/S04_actual_crown_envelopes.json",
+      "type": "blob",
+      "size": 1493,
+      "sha": "44632cb3bd8c86666eac344dd1b5b3c8d92186f7"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/reports/baseline/S04_all_meshes_fingerprint.json",
+      "type": "blob",
+      "size": 641315,
+      "sha": "029f5dcbe5ee0d88f289ee36108302d2f7972c7b"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/reports/baseline/S04_archive_identity.json",
+      "type": "blob",
+      "size": 245,
+      "sha": "40ded1ee3ce6e5b0d5d5c6b09e6cb61551d29ff7"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/reports/baseline/S04_build_manifest.json",
+      "type": "blob",
+      "size": 81514,
+      "sha": "b76ebc70e6b9afebaecdcab0f3f65921928b6c54"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/reports/build_manifest.json",
+      "type": "blob",
+      "size": 90879,
+      "sha": "68198382136b13d19e481d7797673f2014765116"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/reports/camera_fit.json",
+      "type": "blob",
+      "size": 10677,
+      "sha": "35b35589e219e4cf7b342494b3c1979dbe857ba7"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/reports/diagnostics",
+      "type": "tree",
+      "sha": "96a3d3b96c5fd97610280102879c579811718501"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/reports/diagnostics/short_return_hidden_control.png",
+      "type": "blob",
+      "size": 101860,
+      "sha": "38beb1440ed3b4ff350b38e8798a4276e58574d1"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/reports/diagnostics/short_return_visible_shadow.png",
+      "type": "blob",
+      "size": 103622,
+      "sha": "f6418055e372810e4d3ad2da6ac2d1c94e35826d"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/reports/evidence_scope.md",
+      "type": "blob",
+      "size": 2720,
+      "sha": "adf4588ed305281c851106b7a436e8abc17e9ffb"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/reports/geometry_audit.json",
+      "type": "blob",
+      "size": 211067,
+      "sha": "7603863aeb801073953dfc7849b993e244da97a8"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/reports/iteration_R0",
+      "type": "tree",
+      "sha": "331156268ca96ad4606ae6eace943c9379f69a17"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/reports/iteration_R0/N_crown_oblique_junction.png",
+      "type": "blob",
+      "size": 3391334,
+      "sha": "88e505ebefbf57311867b9d54d2b0b8dbfa452e0"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/reports/iteration_R0/build_manifest.json",
+      "type": "blob",
+      "size": 85261,
+      "sha": "e9c4d97fdf340cc26fe27ecc1e37530bba0a2fc9"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/reports/iteration_R1",
+      "type": "tree",
+      "sha": "b37af6309a67c2ae0cddcbaf528e074a7270c7c2"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/reports/iteration_R1/N_crown_oblique_junction.png",
+      "type": "blob",
+      "size": 3386045,
+      "sha": "d37c55dff1b684253c2502f281dd7f70a286dce9"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/reports/iteration_R1/build_manifest.json",
+      "type": "blob",
+      "size": 89050,
+      "sha": "037f2cc3cb983eb8a7129b39acab2d21d340b106"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/reports/milestone_review.json",
+      "type": "blob",
+      "size": 917,
+      "sha": "6fb3d1023fafc84e158f3459c3ddc2f0b128d792"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/reports/package_manifest.json",
+      "type": "blob",
+      "size": 9153,
+      "sha": "a4e5e45f60b75b97bfe07ac57744202a6dd39565"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/reports/postmortem.md",
+      "type": "blob",
+      "size": 949,
+      "sha": "663530c0b2a6c8cbdef14edec572760b156bd356"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/reports/preservation_comparison.json",
+      "type": "blob",
+      "size": 2724,
+      "sha": "5657db973deaa947c75b8f958922ff13c344ef05"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/reports/project_contract.md",
+      "type": "blob",
+      "size": 761,
+      "sha": "e2a8a6ce02cd56d805686bf6d4ef906a70a16a10"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/reports/rebuild_reproducibility.json",
+      "type": "blob",
+      "size": 433,
+      "sha": "54cbb4aa3737be5afc1fa32feba367f0d803f72a"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/reports/render_audit.json",
+      "type": "blob",
+      "size": 2130,
+      "sha": "62fe54e8778b87f1639ddc507f9f5c22578e1715"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/reports/stage_review.md",
+      "type": "blob",
+      "size": 2081,
+      "sha": "38d71eb62349c3a019b6a1938c35619fa65d7d5d"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/reports/visual_review.md",
+      "type": "blob",
+      "size": 2850,
+      "sha": "008fc7998ecb40a58f506796a8ae7a2c3d65d918"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/scripts",
+      "type": "tree",
+      "sha": "7d079f913b670a99ebf465589967573652c1e4c6"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/scripts/audit_crown.py",
+      "type": "blob",
+      "size": 10516,
+      "sha": "45db96532199befd5a679736b3eb1e5671b4e3c2"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/scripts/author_s03_baseline.py",
+      "type": "blob",
+      "size": 16191,
+      "sha": "9ccf1989d02cba2cd663ae8913d3acada625313a"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/scripts/author_s04_baseline.py",
+      "type": "blob",
+      "size": 7872,
+      "sha": "a580b8cbc5fbe648934948f0e79239bfbad3289b"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/scripts/base_mass.py",
+      "type": "blob",
+      "size": 10342,
+      "sha": "e2c94b7a8d73b09d1bbfc706861271d9a3bba2d6"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/scripts/build_crown_transition.py",
+      "type": "blob",
+      "size": 12082,
+      "sha": "f1831bdac0d578dabbb0d1f1a54feab86a253b90"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/scripts/capture_prior_caps.py",
+      "type": "blob",
+      "size": 1105,
+      "sha": "0c249d9b43a0f2b8f5431814b45c1323908472b4"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/scripts/compare_preservation.py",
+      "type": "blob",
+      "size": 1298,
+      "sha": "84a8255936de3bb7bb0823ab4760ac3d048cb3e0"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/scripts/compose_review.py",
+      "type": "blob",
+      "size": 3785,
+      "sha": "89bbac3ee2fed0c6c102c6a467044089c3d36a22"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/scripts/isolate_short_return_shadow.py",
+      "type": "blob",
+      "size": 587,
+      "sha": "73d5c85b526254ba65dbbdd84492cafc06c79614"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/scripts/package_stage.py",
+      "type": "blob",
+      "size": 1627,
+      "sha": "842c0e5c8756748d436b715de2702c478afaa26f"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/scripts/rebuild.sh",
+      "type": "blob",
+      "size": 604,
+      "sha": "4e094a87011fb39a6b0b6f33a4c9505478487b3b"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/scripts/render_s04_comparison.py",
+      "type": "blob",
+      "size": 872,
+      "sha": "ded3c78189d1c2edfe299df9bd7124ad89e73ad6"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/scripts/render_saved.py",
+      "type": "blob",
+      "size": 624,
+      "sha": "f928cc9897a157a7eaeefd83486e50a697d7bbf4"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/scripts/scene_fingerprint.py",
+      "type": "blob",
+      "size": 2081,
+      "sha": "d35c84435d816467fc3a4f97066b047eeea668a7"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/scripts/verify_rebuild.py",
+      "type": "blob",
+      "size": 2167,
+      "sha": "f3542462080d15e2711cdc6ee55da2fccc535da8"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/source",
+      "type": "tree",
+      "sha": "6099c51d3e3452697bb8d8b1f7ba77000c2473dc"
+    },
+    {
+      "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/source/Meilian_Yufeng_S05_central_crown_candidate.blend.gz",
+      "type": "blob",
+      "size": 1107921,
+      "sha": "3bd449b1db442e7e73c372c38d2179fe35175cfa"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate",
+      "type": "tree",
+      "sha": "e1a546be519c1c4889a8c96c07d2f4fff300b473"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/ARCHIVE_MAP.json",
+      "type": "blob",
+      "size": 6959,
+      "sha": "b674cf5db44f22d20202cb309c9d552ab7debb2f"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/MANIFEST.json",
+      "type": "blob",
+      "size": 10680,
+      "sha": "1bc1e72c7a43a870b89316709a5c17caccc0264e"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/README.md",
+      "type": "blob",
+      "size": 1238,
+      "sha": "cc2688671ef1577350a038c253282be0c897314c"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/REPRODUCE.md",
+      "type": "blob",
+      "size": 805,
+      "sha": "8472978c1ed48b1926a2a1734296b794a1fc2d6a"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/SOURCE_PROVENANCE.md",
+      "type": "blob",
+      "size": 1191,
+      "sha": "e2264ef9063df3cabb335c722432cc1ab624289e"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/Zhenjiang_S29_front_rail_candidate.blend.gz.part000",
+      "type": "blob",
+      "size": 8388608,
+      "sha": "6f36dada745c8e318e853e4d8f500b5160c9e6cd"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/Zhenjiang_S29_front_rail_candidate.blend.gz.part001",
+      "type": "blob",
+      "size": 8388608,
+      "sha": "4f465b76a539197a95a60696d5fd903d444f3839"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/Zhenjiang_S29_front_rail_candidate.blend.gz.part002",
+      "type": "blob",
+      "size": 42904,
+      "sha": "865647e2db701831cf4fc1cfe72917a9d33d915d"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/input",
+      "type": "tree",
+      "sha": "0d18d1f8bf877fedcf9076f9d13170529a5d1ae9"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/input/ALL_FRONT_POST_WIDTH_028_SUPPORT.json",
+      "type": "blob",
+      "size": 39387,
+      "sha": "02e0df7803010ee9f2486f0527e48431c0645e28"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/input/FRONT_STAIR_JOIN_AUDIT.json",
+      "type": "blob",
+      "size": 60040,
+      "sha": "38d6b447f520b34af852fe61fd2466f9abfb1488"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/input/FRONT_STAIR_JOIN_AUDIT.md",
+      "type": "blob",
+      "size": 4951,
+      "sha": "0f9659ff6bd797dc2fd10880eb1e2d8459e53209"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/input/S29_FRONT_PHOTO_MAPPING.md",
+      "type": "blob",
+      "size": 6621,
+      "sha": "e2f0765b8b5f0d42b559b0864f73ee2adb550955"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/input/S29_STRICT_WHITELIST_PROPOSAL.json",
+      "type": "blob",
+      "size": 25877,
+      "sha": "a53cf93ed6dde39b6eb614901f7c417d2590f1d7"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/input/S29_STRICT_WHITELIST_PROPOSAL.md",
+      "type": "blob",
+      "size": 6772,
+      "sha": "a1528d9f71664d5c474ebb89b9b36f7d0631af27"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/input/TERMINAL_WIDTH_SUPPORT.json",
+      "type": "blob",
+      "size": 20875,
+      "sha": "4aa7bf0997a0d8cd5a3ae5b35b30ab1d4d54afbc"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/input/Zhenjiang_S28_side_access_candidate.blend.gz.part000",
+      "type": "blob",
+      "size": 8388608,
+      "sha": "2ed44dad26c8d02fca246e141dcc2d2302bc4611"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/input/Zhenjiang_S28_side_access_candidate.blend.gz.part001",
+      "type": "blob",
+      "size": 8388608,
+      "sha": "efa1ff3256aeab677458d3b3e8a6ad533875e1f9"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/input/Zhenjiang_S28_side_access_candidate.blend.gz.part002",
+      "type": "blob",
+      "size": 31039,
+      "sha": "2599020c64955acd29892b201a22bfd27fc4d09c"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/qa",
+      "type": "tree",
+      "sha": "3d4035f4426b8cacd02db6d951c84b51766bd536"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/qa/BUILD_REPORT.json",
+      "type": "blob",
+      "size": 2404437,
+      "sha": "bce6485e015aad899b929b518d652ed5be54ae46"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/qa/build_R1.log",
+      "type": "blob",
+      "size": 251,
+      "sha": "1c2f7e0d7574b520177cf4d2286c50e0b3a1aa94"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/qa/independent_technical",
+      "type": "tree",
+      "sha": "c995293da9ac443665b6db8bc8452fde427bda46"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/qa/independent_technical/INDEPENDENT_GEOMETRY_AUDIT.json",
+      "type": "blob",
+      "size": 180495,
+      "sha": "6f96e234b80d8fdbb9bc549b2049ce29d6d16811"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/qa/independent_technical/INDEPENDENT_REBUILD_COMPARISON.json",
+      "type": "blob",
+      "size": 3476,
+      "sha": "797093b8cf421375d0ae385d3e8bfa2c983b4a6c"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/qa/independent_technical/INDEPENDENT_TECHNICAL_REPORT.md",
+      "type": "blob",
+      "size": 5416,
+      "sha": "1a0b668e7a54d6315708552a6eee99c48263ffac"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/qa/independent_technical/S28_BASELINE_PASSAGE_SAMPLES.json",
+      "type": "blob",
+      "size": 32291,
+      "sha": "dece939b8af63dfb16c3120cf756d9d57012e042"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/qa/independent_technical/UPPER_RAIL_TREAD_CLEARANCE.json",
+      "type": "blob",
+      "size": 56168,
+      "sha": "79d0157bfa0a103e66eaee43ebaa9881e6eda844"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/qa/independent_technical/audit_geometry.log",
+      "type": "blob",
+      "size": 12168,
+      "sha": "0717355f88af4776fb041ac3d6bf00b40b7125b4"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/qa/independent_technical/audit_geometry.py",
+      "type": "blob",
+      "size": 15807,
+      "sha": "b926d78d62493e58744f6fa77b8a9cb5bd2cdff6"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/qa/independent_technical/check_upper_rail_tread_clearance.log",
+      "type": "blob",
+      "size": 402,
+      "sha": "6cf0ee564b12e5a33b0533d041965837dfd8b489"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/qa/independent_technical/check_upper_rail_tread_clearance.py",
+      "type": "blob",
+      "size": 2394,
+      "sha": "1edf86e6ddff52527bddf578fcdc6ce946040f2d"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/qa/independent_technical/compare_rebuild.log",
+      "type": "blob",
+      "size": 686,
+      "sha": "ebac0db53b16770bbacc0e205c6f0ab4b3a26968"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/qa/independent_technical/compare_rebuild.py",
+      "type": "blob",
+      "size": 3601,
+      "sha": "68b8f1ee1483fd3f4694ed04769664e989c42ff0"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/qa/independent_technical/independent_rebuild.log",
+      "type": "blob",
+      "size": 196,
+      "sha": "a0c1a5f715cc25b0a1577cf56db08813a2731484"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/qa/independent_visual",
+      "type": "tree",
+      "sha": "4b322b67d59d35193b41c0ad6faccb8de3679604"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/qa/independent_visual/VISUAL_EVIDENCE_R1.json",
+      "type": "blob",
+      "size": 10288,
+      "sha": "cad084dbffd2a5813d635eec9bb924d37d29f2bf"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/qa/independent_visual/VISUAL_REVIEW_R1.md",
+      "type": "blob",
+      "size": 3897,
+      "sha": "6ff375ffe08fd2a5eb3b646c2217a3690b5bab70"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/qa/render_R1_clay.json",
+      "type": "blob",
+      "size": 1353,
+      "sha": "00de62b68fb74c959ecea7d69f105e594072b4ef"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/qa/render_R1_clay.log",
+      "type": "blob",
+      "size": 4910082,
+      "sha": "7a6b72cd43f5cd3a20f03ccdcb5bf582e9161b3e"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/qa/render_R1_color.json",
+      "type": "blob",
+      "size": 3039,
+      "sha": "b9443b1cafab73d3d1878ac08e17f75c623ade73"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/qa/render_R1_color.log.part000",
+      "type": "blob",
+      "size": 8388608,
+      "sha": "a95e9406975bb6ec46b3a5f96fda3efe078cdb5e"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/qa/render_R1_color.log.part001",
+      "type": "blob",
+      "size": 4387077,
+      "sha": "14dea557ea576d5d66a7efa4f0bed06d1c1f1568"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/qa/render_S28_clay.json",
+      "type": "blob",
+      "size": 1360,
+      "sha": "4c19a3c1098811e90492469115104ff009835907"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/qa/render_S28_clay.log",
+      "type": "blob",
+      "size": 4757777,
+      "sha": "e0c9551f2e9e116f6d542718a2e688d0557c754f"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/qa/render_S28_color.json",
+      "type": "blob",
+      "size": 3046,
+      "sha": "93b53a251c52dd755378e45db512ef69bb7330fa"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/qa/render_S28_color.log.part000",
+      "type": "blob",
+      "size": 8388608,
+      "sha": "de06689fbaee771ab875cf83de3fe0d684827038"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/qa/render_S28_color.log.part001",
+      "type": "blob",
+      "size": 4554673,
+      "sha": "c3945dc9885a72c42f40c1f114cafa6e0ac38c21"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/renders",
+      "type": "tree",
+      "sha": "333a782940ee4de8e859951dfdc0d5a770d64b7a"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/renders/R1_clay",
+      "type": "tree",
+      "sha": "53c4f94c09994af74d7582600984ec423200c325"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/renders/R1_clay/front_rail_full.png",
+      "type": "blob",
+      "size": 1618008,
+      "sha": "b43073d66ce96a3ad2b8bc8aa1aa633b1340ecf9"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/renders/R1_clay/front_rail_right.png",
+      "type": "blob",
+      "size": 1577472,
+      "sha": "922c9e175a65bca7520b6f2411486401e76797d2"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/renders/R1_clay/front_right_join.png",
+      "type": "blob",
+      "size": 1008512,
+      "sha": "a34b65ea2aa8b4ab909d7093bd280851d9394045"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/renders/R1_color",
+      "type": "tree",
+      "sha": "f6e9264adb19e2ecae8090e29e45bfd6293245fe"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/renders/R1_color/front_aerial.png",
+      "type": "blob",
+      "size": 2679501,
+      "sha": "d32c15705a39d0febb233af036e4634dec126e22"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/renders/R1_color/front_approach_eye.png",
+      "type": "blob",
+      "size": 1627943,
+      "sha": "f3499ae4d79ed2c9bf640bfd53fa1cdc81fdd176"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/renders/R1_color/front_left_join.png",
+      "type": "blob",
+      "size": 1178081,
+      "sha": "82673af9feb17d4d5224791ee50b674557f9d9d0"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/renders/R1_color/front_rail_full.png",
+      "type": "blob",
+      "size": 1945366,
+      "sha": "0e3ad7be3ac200e49b8b22a09b6314987461f4c2"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/renders/R1_color/front_rail_left.png",
+      "type": "blob",
+      "size": 1843238,
+      "sha": "e97e08a0a3a363cacec1058d7893c453983acd2c"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/renders/R1_color/front_rail_right.png",
+      "type": "blob",
+      "size": 1901662,
+      "sha": "017cfb576636d5a5fdf6d6c56da0a8ef8de52a21"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/renders/R1_color/front_right_join.png",
+      "type": "blob",
+      "size": 1221122,
+      "sha": "d3ee5430818c793f16faf66f9c48326049421e3d"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/renders/R1_color/front_whole.png",
+      "type": "blob",
+      "size": 2968964,
+      "sha": "cfbfcfe99f5fbaa6d8d5c9f93365853931a4c2e8"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/renders/S28_clay",
+      "type": "tree",
+      "sha": "a1f258629db7fe369f8cf3ec9fe0ef5b6101c707"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/renders/S28_clay/front_rail_full.png",
+      "type": "blob",
+      "size": 1617361,
+      "sha": "062ab1756926331b3b8e24879f544c98c52d47e0"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/renders/S28_clay/front_rail_right.png",
+      "type": "blob",
+      "size": 1576418,
+      "sha": "fd225f16dcf80813cb91de66e293f498dd0a30d0"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/renders/S28_clay/front_right_join.png",
+      "type": "blob",
+      "size": 1005253,
+      "sha": "841305c83c1f522d85b1785a2de5aa38818e1622"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/renders/S28_color",
+      "type": "tree",
+      "sha": "7031be3f535a9faaa9c2eeb83cab3cce3d61cfb7"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/renders/S28_color/front_aerial.png",
+      "type": "blob",
+      "size": 2679369,
+      "sha": "9a036da19557d169238cf8123e2b733fe37ab7a6"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/renders/S28_color/front_approach_eye.png",
+      "type": "blob",
+      "size": 1627708,
+      "sha": "f566c0551d9a8f7a65300d3162551c20559449e1"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/renders/S28_color/front_left_join.png",
+      "type": "blob",
+      "size": 1177666,
+      "sha": "a47f01d4c5a2f89d3464b84201a1124037d936c0"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/renders/S28_color/front_rail_full.png",
+      "type": "blob",
+      "size": 1945866,
+      "sha": "f6555d87da4628a5d4a56c0c8ac8fa10b5a92989"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/renders/S28_color/front_rail_left.png",
+      "type": "blob",
+      "size": 1843307,
+      "sha": "c1e7bb5f4a01b8379db2c94f7d72f2589b2f86a4"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/renders/S28_color/front_rail_right.png",
+      "type": "blob",
+      "size": 1901907,
+      "sha": "f5a75e2d97fc0ca22a00b02d6067d0c1f1eeec17"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/renders/S28_color/front_right_join.png",
+      "type": "blob",
+      "size": 1220504,
+      "sha": "85e664a3153f5396142fc5e10b2d32c3654dbf75"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/renders/S28_color/front_whole.png",
+      "type": "blob",
+      "size": 2969421,
+      "sha": "51b832a7ad0eaf3bb8a89d8fa914c2b132e817cc"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/source",
+      "type": "tree",
+      "sha": "041b19b4045f848b96be10569d9002fa6cde915a"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/source/build_candidate.py",
+      "type": "blob",
+      "size": 7325,
+      "sha": "dc5cf03d2308055de287ad190e2cea1f575d54af"
+    },
+    {
+      "path": "landmarks/yichang-zhenjiang-pavilion/stages/S29_R1_front_rail_candidate/source/render_views.py",
+      "type": "blob",
+      "size": 2394,
+      "sha": "8ee39c00ef222bc5e8728a212157694a6a9743fc"
+    },
+    {
+      "path": "landmarks/yichang-zhongnan-metallurgy/stages/S05_visible_roof_service_candidate",
+      "type": "tree",
+      "sha": "ab5bb06b994b28eda4885f9f40a1a2dd09900a75"
+    },
+    {
+      "path": "landmarks/yichang-zhongnan-metallurgy/stages/S05_visible_roof_service_candidate/ARCHIVE_MANIFEST.json",
+      "type": "blob",
+      "size": 8534,
+      "sha": "794976bce19928f732827e362c14218ba2fb556d"
+    },
+    {
+      "path": "landmarks/yichang-zhongnan-metallurgy/stages/S05_visible_roof_service_candidate/README.md",
+      "type": "blob",
+      "size": 3587,
+      "sha": "fafb43fe012e633fbb0cd29f70eb6a457aa55300"
+    },
+    {
+      "path": "landmarks/yichang-zhongnan-metallurgy/stages/S05_visible_roof_service_candidate/comparisons",
+      "type": "tree",
+      "sha": "83f8522366bcc383d6e707e9662fb57dc5705287"
+    },
+    {
+      "path": "landmarks/yichang-zhongnan-metallurgy/stages/S05_visible_roof_service_candidate/comparisons/S04_01_Aerial_evidence_oblique.png",
+      "type": "blob",
+      "size": 2942462,
+      "sha": "6928a2fd2bc89b8eac31ceb0559ec5b46e260c9f"
+    },
+    {
+      "path": "landmarks/yichang-zhongnan-metallurgy/stages/S05_visible_roof_service_candidate/comparisons/S04_06_Crown_glass_and_roof.png",
+      "type": "blob",
+      "size": 2670803,
+      "sha": "1479ca02b05b069828893fc72ddd69d6ec12b11a"
+    },
+    {
+      "path": "landmarks/yichang-zhongnan-metallurgy/stages/S05_visible_roof_service_candidate/comparisons/S04_07_Rear_unknown_disclosure.png",
+      "type": "blob",
+      "size": 2287860,
+      "sha": "a6d8a7f1c093e0fac9eee5e721eaf72ecafb10fb"
+    },
+    {
+      "path": "landmarks/yichang-zhongnan-metallurgy/stages/S05_visible_roof_service_candidate/comparisons/S04_19_Roof_assembly_overview.png",
+      "type": "blob",
+      "size": 2390402,
+      "sha": "9a575aea7d0637ee2852e95dc3e8517c26e2d720"
+    },
+    {
+      "path": "landmarks/yichang-zhongnan-metallurgy/stages/S05_visible_roof_service_candidate/comparisons/S04_20_Left_service_assembly.png",
+      "type": "blob",
+      "size": 2174117,
+      "sha": "458c68a487d603d34b7645e7bc286858c078b95e"
+    },
+    {
+      "path": "landmarks/yichang-zhongnan-metallurgy/stages/S05_visible_roof_service_candidate/comparisons/S04_21_Right_service_assembly.png",
+      "type": "blob",
+      "size": 2165562,
+      "sha": "027ae91a19ec68b03e6e0070b8c6b67e183da799"
+    },
+    {
+      "path": "landmarks/yichang-zhongnan-metallurgy/stages/S05_visible_roof_service_candidate/comparisons/S04_22_Roof_framework_oblique.png",
+      "type": "blob",
+      "size": 2246896,
+      "sha": "d81ed585af193829402b271da66f0e44c33e17ea"
+    },
+    {
+      "path": "landmarks/yichang-zhongnan-metallurgy/stages/S05_visible_roof_service_candidate/reference",
+      "type": "tree",
+      "sha": "4e61849d5c3accbcf850fb2e5f6fba8571eebeeb"
+    },
+    {
+      "path": "landmarks/yichang-zhongnan-metallurgy/stages/S05_visible_roof_service_candidate/reference/sources.json",
+      "type": "blob",
+      "size": 11121,
+      "sha": "34d91ba8b1b5c253bfaf9e513d1d28f854eff015"
+    },
+    {
+      "path": "landmarks/yichang-zhongnan-metallurgy/stages/S05_visible_roof_service_candidate/renders",
+      "type": "tree",
+      "sha": "82d080ec61d365a88760ed2d9dcd869c899094dc"
+    },
+    {
+      "path": "landmarks/yichang-zhongnan-metallurgy/stages/S05_visible_roof_service_candidate/renders/01_Aerial_evidence_oblique.png",
+      "type": "blob",
+      "size": 2950537,
+      "sha": "a7f5453b4789efa68c6cde6ccfdefbad5d81a3a8"
+    },
+    {
+      "path": "landmarks/yichang-zhongnan-metallurgy/stages/S05_visible_roof_service_candidate/renders/06_Crown_glass_and_roof.png",
+      "type": "blob",
+      "size": 2695586,
+      "sha": "96fb45a36aa53c91f1974d86ba257a56a6cf077e"
+    },
+    {
+      "path": "landmarks/yichang-zhongnan-metallurgy/stages/S05_visible_roof_service_candidate/renders/07_Rear_unknown_disclosure.png",
+      "type": "blob",
+      "size": 2291238,
+      "sha": "3a7a28f8af3a80e03298116bc77c91f39b21e7e4"
+    },
+    {
+      "path": "landmarks/yichang-zhongnan-metallurgy/stages/S05_visible_roof_service_candidate/renders/19_Roof_assembly_overview.png",
+      "type": "blob",
+      "size": 2445907,
+      "sha": "2f23fb339f8cf036618d9de8943b0547c03fdd67"
+    },
+    {
+      "path": "landmarks/yichang-zhongnan-metallurgy/stages/S05_visible_roof_service_candidate/renders/20_Left_service_assembly.png",
+      "type": "blob",
+      "size": 2278123,
+      "sha": "db8a014bb35f3f40f668dc216928fd819b613c7e"
+    },
+    {
+      "path": "landmarks/yichang-zhongnan-metallurgy/stages/S05_visible_roof_service_candidate/renders/21_Right_service_assembly.png",
+      "type": "blob",
+      "size": 2217645,
+      "sha": "aa6b5a4849f775cc75c8ee5d425e6b59669c0aa6"
+    },
+    {
+      "path": "landmarks/yichang-zhongnan-metallurgy/stages/S05_visible_roof_service_candidate/renders/22_Roof_framework_oblique.png",
+      "type": "blob",
+      "size": 2404935,
+      "sha": "d824b7d9c7263c89cf831542fa739444ae1e290d"
+    },
+    {
+      "path": "landmarks/yichang-zhongnan-metallurgy/stages/S05_visible_roof_service_candidate/renders/S05_fixed_camera_comparison.png",
+      "type": "blob",
+      "size": 1103328,
+      "sha": "0e1b53247a7533f625bd58efbe93864cf139577c"
+    },
+    {
+      "path": "landmarks/yichang-zhongnan-metallurgy/stages/S05_visible_roof_service_candidate/renders/S05_seven_view_review.png",
+      "type": "blob",
+      "size": 1357500,
+      "sha": "dfdd39f3ebb079cbacb82c603eddeec6eb52793a"
+    },
+    {
+      "path": "landmarks/yichang-zhongnan-metallurgy/stages/S05_visible_roof_service_candidate/reports",
+      "type": "tree",
+      "sha": "2eb626bd5ba5d14538ab66282c4769c23c619d75"
+    },
+    {
+      "path": "landmarks/yichang-zhongnan-metallurgy/stages/S05_visible_roof_service_candidate/reports/base_verification.json",
+      "type": "blob",
+      "size": 9881,
+      "sha": "b9bf11e65736e55dc5af2029dea123fac310f05e"
+    },
+    {
+      "path": "landmarks/yichang-zhongnan-metallurgy/stages/S05_visible_roof_service_candidate/reports/build_manifest.json",
+      "type": "blob",
+      "size": 1194362,
+      "sha": "eca89d0dbaea455265064ddc203f95a993d58686"
+    },
+    {
+      "path": "landmarks/yichang-zhongnan-metallurgy/stages/S05_visible_roof_service_candidate/reports/camera_framing_audit.json",
+      "type": "blob",
+      "size": 925,
+      "sha": "b9f8d3af88e989deb55783ca56b21e67f6ea31d4"
+    },
+    {
+      "path": "landmarks/yichang-zhongnan-metallurgy/stages/S05_visible_roof_service_candidate/reports/final_render_identity.json",
+      "type": "blob",
+      "size": 3535,
+      "sha": "0bcf61972a43f12147e893eb621d3fe6307e637d"
+    },
+    {
+      "path": "landmarks/yichang-zhongnan-metallurgy/stages/S05_visible_roof_service_candidate/reports/frozen_base_and_openings_audit.json",
+      "type": "blob",
+      "size": 319,
+      "sha": "afdfce1989ba24bc3d8bff6a8897110ef3925774"
+    },
+    {
+      "path": "landmarks/yichang-zhongnan-metallurgy/stages/S05_visible_roof_service_candidate/reports/independent_visual_review.md",
+      "type": "blob",
+      "size": 4969,
+      "sha": "2c2de8758d941caf1458cb80dda918eb0c91bc8a"
+    },
+    {
+      "path": "landmarks/yichang-zhongnan-metallurgy/stages/S05_visible_roof_service_candidate/reports/independent_visual_review_files.json",
+      "type": "blob",
+      "size": 4481,
+      "sha": "085a77e7f2990a27bdeb5f38eebbfff649939ee2"
+    },
+    {
+      "path": "landmarks/yichang-zhongnan-metallurgy/stages/S05_visible_roof_service_candidate/reports/package_manifest.json",
+      "type": "blob",
+      "size": 7693,
+      "sha": "a1bbd3d33e4ef13a1747ca8ccbcf9cd58714a88b"
+    },
+    {
+      "path": "landmarks/yichang-zhongnan-metallurgy/stages/S05_visible_roof_service_candidate/reports/rebuild_reproducibility.json",
+      "type": "blob",
+      "size": 413,
+      "sha": "c47a90ad79120c07b01a5100e82ddceb15c7c7c4"
+    },
+    {
+      "path": "landmarks/yichang-zhongnan-metallurgy/stages/S05_visible_roof_service_candidate/reports/reference_inspection_record.json",
+      "type": "blob",
+      "size": 278,
+      "sha": "13da1b00e408df815eaa21430f801f5df88e236a"
+    },
+    {
+      "path": "landmarks/yichang-zhongnan-metallurgy/stages/S05_visible_roof_service_candidate/reports/render_audit.json",
+      "type": "blob",
+      "size": 2059,
+      "sha": "020e222797cd85d02409ba0e733c450e664963e5"
+    },
+    {
+      "path": "landmarks/yichang-zhongnan-metallurgy/stages/S05_visible_roof_service_candidate/reports/revision_notes.md",
+      "type": "blob",
+      "size": 1350,
+      "sha": "e9bfa4cce616037bb3385f1c57593a0f3c161a90"
+    },
+    {
+      "path": "landmarks/yichang-zhongnan-metallurgy/stages/S05_visible_roof_service_candidate/reports/roof_support_audit.json",
+      "type": "blob",
+      "size": 12432,
+      "sha": "00727af9ffb662f0fcaabcb4345d52ab734c3cb6"
+    },
+    {
+      "path": "landmarks/yichang-zhongnan-metallurgy/stages/S05_visible_roof_service_candidate/reports/scene_fingerprint.json",
+      "type": "blob",
+      "size": 46552,
+      "sha": "5dbaccec11b9c71cb45dfdbc05dd67c7d0e07e92"
+    },
+    {
+      "path": "landmarks/yichang-zhongnan-metallurgy/stages/S05_visible_roof_service_candidate/reports/stage_review.json",
+      "type": "blob",
+      "size": 1872,
+      "sha": "d23fcdce0ba0ba517811e07dc095a7a87b250b53"
+    },
+    {
+      "path": "landmarks/yichang-zhongnan-metallurgy/stages/S05_visible_roof_service_candidate/reports/technical_scope_audit.json",
+      "type": "blob",
+      "size": 21101,
+      "sha": "21450e2fac9818dca3f2a1c65db80a95b43c026f"
+    },
+    {
+      "path": "landmarks/yichang-zhongnan-metallurgy/stages/S05_visible_roof_service_candidate/scripts",
+      "type": "tree",
+      "sha": "b37939c0f6fdee63b3c11a4cc1263dd2f686d9e0"
+    },
+    {
+      "path": "landmarks/yichang-zhongnan-metallurgy/stages/S05_visible_roof_service_candidate/scripts/audit_cameras.py",
+      "type": "blob",
+      "size": 1558,
+      "sha": "f26616f8bf96843c9114974648ca11f3e4ec7bac"
+    },
+    {
+      "path": "landmarks/yichang-zhongnan-metallurgy/stages/S05_visible_roof_service_candidate/scripts/audit_roof_support.py",
+      "type": "blob",
+      "size": 4101,
+      "sha": "b263ff071cc86f2e1bde5573ed5f8c7adfbbec8b"
+    },
+    {
+      "path": "landmarks/yichang-zhongnan-metallurgy/stages/S05_visible_roof_service_candidate/scripts/audit_s05.py",
+      "type": "blob",
+      "size": 7018,
+      "sha": "af4422cc5672c0648e9cc9368369edf74d6613d5"
+    },
+    {
+      "path": "landmarks/yichang-zhongnan-metallurgy/stages/S05_visible_roof_service_candidate/scripts/build_model.py",
+      "type": "blob",
+      "size": 54468,
+      "sha": "810fe75b0c11a248a0f9fada393379fb7838353c"
+    },
+    {
+      "path": "landmarks/yichang-zhongnan-metallurgy/stages/S05_visible_roof_service_candidate/scripts/compose_review.py",
+      "type": "blob",
+      "size": 2991,
+      "sha": "f50c179882d95ba5fd1c27e183b6ea1da32a32b4"
+    },
+    {
+      "path": "landmarks/yichang-zhongnan-metallurgy/stages/S05_visible_roof_service_candidate/scripts/package_stage.py",
+      "type": "blob",
+      "size": 3993,
+      "sha": "cd6c018b2a4f0ea01c5b5b82e3fafa5007a2e496"
+    },
+    {
+      "path": "landmarks/yichang-zhongnan-metallurgy/stages/S05_visible_roof_service_candidate/scripts/render_baseline.py",
+      "type": "blob",
+      "size": 1443,
+      "sha": "4e8e0ac341e61d75fbb8b188b0bbee36e52deafc"
+    },
+    {
+      "path": "landmarks/yichang-zhongnan-metallurgy/stages/S05_visible_roof_service_candidate/scripts/render_saved.py",
+      "type": "blob",
+      "size": 1062,
+      "sha": "f45676f5d7c2b31e420592a4a32a8bb70b6f01b1"
+    },
+    {
+      "path": "landmarks/yichang-zhongnan-metallurgy/stages/S05_visible_roof_service_candidate/scripts/verify_rebuild.py",
+      "type": "blob",
+      "size": 1593,
+      "sha": "bc4e92cb8f411478597f480e4fbd0507e9417d7e"
+    },
+    {
+      "path": "landmarks/yichang-zhongnan-metallurgy/stages/S05_visible_roof_service_candidate/source",
+      "type": "tree",
+      "sha": "c7baa3858fd38c4e7772bba33a543f1e42ae05ff"
+    },
+    {
+      "path": "landmarks/yichang-zhongnan-metallurgy/stages/S05_visible_roof_service_candidate/source/Zhongnan_Metallurgy_S05_evidence_candidate.blend.gz",
+      "type": "blob",
+      "size": 3692427,
+      "sha": "b3e2c7fd1c920f5cc6709e6910a07bb4af3cca58"
+    }
+  ],
+  "binaryDownloadAttempt": {
+    "path": "landmarks/yichang-meilian-yufeng/stages/S05_central_crown_transition_study/source/Meilian_Yufeng_S05_central_crown_candidate.blend.gz",
+    "tool": "github_fetch_file encoding=base64",
+    "responseEncoding": "base64",
+    "returnedContentBytes": 0,
+    "result": "metadata resolved but binary bytes absent; use Space backup"
+  }
+}

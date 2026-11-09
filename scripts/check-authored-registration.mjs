@@ -130,8 +130,21 @@ const matchedIndex = matches[0];
 near(city.buildings[matchedIndex].height / units, feature.properties.heightMeters, 1e-8, 'Matched source height');
 const expectedFit = evidence.fitting.find(fit => fit.clearance_m === registration.footprintInsetMeters);
 assert(expectedFit, 'The geometric inset must have a retained fitting result');
-near(spec.uniformScale, expectedFit.uniform_world_scale, 1e-10, 'Uniform scale must match independent fitting evidence');
-near(spec.displayHeight, expectedFit.model_dimensions_world[1], 1e-8, 'Fitted height must preserve the aspect ratio');
+// The historical fit used the earlier board projection centre. Reproject the
+// unchanged evidence geometry into the current board before deriving the same
+// conservative axis clearances; never relax the assertion to absorb that change.
+const sourceYaw = (180 - registration.frontBearingDeg) * Math.PI / 180;
+const sourceCos = Math.cos(sourceYaw), sourceSin = Math.sin(sourceYaw);
+const sourceLocal = sourceRing.map(([px, pz]) => [(px - center[0]) * sourceCos - (pz - center[1]) * sourceSin,
+  (px - center[0]) * sourceSin + (pz - center[1]) * sourceCos]);
+const sourceHalfClearances = [0, 1].map(axis => Math.min(
+  ...sourceLocal.filter(point => point[axis] > 0).map(point => point[axis]),
+  ...sourceLocal.filter(point => point[axis] < 0).map(point => -point[axis]),
+) - registration.footprintInsetMeters * units);
+const authoredSourceSize = rawSpec.sourceBounds.max.map((value, axis) => value - rawSpec.sourceBounds.min[axis]);
+const expectedCurrentScale = Math.min(sourceHalfClearances[0] * 2 / authoredSourceSize[0], sourceHalfClearances[1] * 2 / authoredSourceSize[2]);
+near(spec.uniformScale, expectedCurrentScale, 1e-10, 'Uniform scale must match independent current-projection fitting evidence');
+near(spec.displayHeight, authoredSourceSize[1] * expectedCurrentScale, 1e-8, 'Fitted height must preserve the aspect ratio in the current projection');
 assert.equal(spec.scalePolicy, 'uniform-mapped-footprint-fit-not-survey');
 const forward = new Vector3(0, 0, 1).applyAxisAngle(new Vector3(0, 1, 0), spec.yaw);
 const bearing = (Math.atan2(forward.x, -forward.z) * 180 / Math.PI + 360) % 360;

@@ -7,7 +7,8 @@ import { AUTHORED_MODELS, createAuthoredStage, prepareAuthoredModel } from '../s
 // Exercise real GLB parsing and observable exhibition behavior without a GPU.
 // Requests are deliberately deferred so navigation/failure/disposal can happen
 // during loading. These checks do not assert visual or device performance QA.
-const spec = AUTHORED_MODELS[0], loader = new GLTFLoader();
+const spec = AUTHORED_MODELS.find(item => item.id === 'shouxin-wealth-s01'), loader = new GLTFLoader();
+assert(spec, 'The established Shouxin lifecycle fixture must remain in the authored catalog');
 const files = Object.fromEntries(['light', 'detail'].map(tier => [tier, fs.readFileSync(`public/models/shouxin-s01/${tier}.glb`)]));
 const passed = [];
 const settle = () => new Promise(resolve => setImmediate(resolve));

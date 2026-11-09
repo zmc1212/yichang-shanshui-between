@@ -48,7 +48,14 @@ for (const spec of specs) {
 
 const dam = specs.find(s => s.id === 'gezhouba-dam');
 assert.equal(dam.spanSource, 'mapped-western-main-channel-dam-crest');
-close(models.get(dam.id).userData.span.length, 12.29769, 'dam mapped segment length', 0.001);
+const alignmentManifest = JSON.parse(fs.readFileSync(new URL('./landmark-alignments.json', import.meta.url), 'utf8'));
+const damGeographic = alignmentManifest.landmarks.find(item => item.id === dam.id).endpointsLonLat;
+const metresPerDegree = Math.PI / 180 * 6378137;
+const projectedDamLength = Math.hypot(
+  (damGeographic[1][0] - damGeographic[0][0]) * metresPerDegree * Math.cos(data.meta.center[1] * Math.PI / 180),
+  (damGeographic[1][1] - damGeographic[0][1]) * metresPerDegree
+) * data.meta.unitsPerMeter;
+close(models.get(dam.id).userData.span.length, projectedDamLength, 'dam mapped segment length');
 const conflicting = createLandmark({ ...dam, axisHeadingDeg: 0, modelScale: 2 });
 close(conflicting.rotation.y, models.get(dam.id).rotation.y, 'endpoints must override a conflicting heading');
 close(conflicting.scale.x, 1, 'endpoints must override an accidental display scale');

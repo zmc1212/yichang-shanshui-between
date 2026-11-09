@@ -1,0 +1,227 @@
+{
+  "id": "fujiang-s01",
+  "sourceFilename": "fujiang_mingzuo_s01_static_candidate(1).glb",
+  "sourceSha256": "250241c787121703bcda53c7efd0f9c11225ac9b635f750e605faa1906bf00b9",
+  "sourceBytes": 164867984,
+  "nativeChanged": false,
+  "removedPresentationNodes": [],
+  "materialPolicy": "Original base colors retained; light drops baked normal maps and regenerates geometric face normals, detail retains source normals and normal maps. Textures are bounded to 512 px light / 1024 px detail WebP. Transmission, volume, and clearcoat removed; opaque material alpha and reduced metalness/increased roughness suit the miniature scene. Source files unchanged.",
+  "geometryPolicy": "Material-aware weld/join. Light simplifies within a bounded error; detail keeps source triangles after explicitly named presentation-node removal. One common source envelope drives both LOD transforms.",
+  "lightSimplification": {
+    "ratio": 0.13,
+    "error": 0.0008,
+    "lockBorder": false
+  },
+  "validationScope": "Binary readback and envelope checks; no claim of surveyed geometry, real-scene acceptance, browser/WebGL visual QA, or device performance measurement.",
+  "tiers": {
+    "light": {
+      "triangles": 94130,
+      "vertices": 265444,
+      "primitives": 18,
+      "indexedPrimitives": 18,
+      "materials": 18,
+      "images": [
+        {
+          "name": "base_color_00",
+          "size": [
+            512,
+            512
+          ],
+          "bytes": 2352
+        },
+        {
+          "name": "base_color_01",
+          "size": [
+            512,
+            512
+          ],
+          "bytes": 7140
+        },
+        {
+          "name": "base_color_02",
+          "size": [
+            512,
+            512
+          ],
+          "bytes": 31182
+        },
+        {
+          "name": "base_color_03",
+          "size": [
+            512,
+            512
+          ],
+          "bytes": 19822
+        },
+        {
+          "name": "base_color_04",
+          "size": [
+            512,
+            512
+          ],
+          "bytes": 12020
+        }
+      ],
+      "estimatedTextureBytesRGBA8WithMipmaps": 6990507,
+      "bounds": {
+        "min": [
+          -24.238040924072266,
+          -0.12535091722277425,
+          -21.66305746036639
+        ],
+        "max": [
+          24.238040924072266,
+          100,
+          12.180437975182958
+        ]
+      },
+      "bytes": 2334232,
+      "sha256": "efdeb253b9fe459a4a9e6e6aa822f77577f6b1cc366b09a823b31e4e78c4b10b",
+      "maxEnvelopeDelta": 0.01194177669415808,
+      "extensionsRequired": [
+        "EXT_meshopt_compression",
+        "EXT_texture_webp",
+        "KHR_mesh_quantization"
+      ],
+      "extensionsUsed": [
+        "EXT_meshopt_compression",
+        "EXT_texture_webp",
+        "KHR_materials_clearcoat",
+        "KHR_materials_ior",
+        "KHR_materials_transmission",
+        "KHR_mesh_quantization"
+      ]
+    },
+    "detail": {
+      "triangles": 435656,
+      "vertices": 863010,
+      "primitives": 18,
+      "indexedPrimitives": 18,
+      "materials": 18,
+      "images": [
+        {
+          "name": "base_color_00",
+          "size": [
+            1024,
+            1024
+          ],
+          "bytes": 5712
+        },
+        {
+          "name": "micro_normal_00",
+          "size": [
+            1024,
+            1024
+          ],
+          "bytes": 3246
+        },
+        {
+          "name": "base_color_01",
+          "size": [
+            1024,
+            1024
+          ],
+          "bytes": 23280
+        },
+        {
+          "name": "micro_normal_01",
+          "size": [
+            1024,
+            1024
+          ],
+          "bytes": 119492
+        },
+        {
+          "name": "base_color_02",
+          "size": [
+            1024,
+            1024
+          ],
+          "bytes": 119614
+        },
+        {
+          "name": "micro_normal_02",
+          "size": [
+            1024,
+            1024
+          ],
+          "bytes": 26160
+        },
+        {
+          "name": "base_color_03",
+          "size": [
+            1024,
+            1024
+          ],
+          "bytes": 55586
+        },
+        {
+          "name": "micro_normal_03",
+          "size": [
+            1024,
+            1024
+          ],
+          "bytes": 21484
+        },
+        {
+          "name": "base_color_04",
+          "size": [
+            1024,
+            1024
+          ],
+          "bytes": 39722
+        },
+        {
+          "name": "micro_normal_04",
+          "size": [
+            1024,
+            1024
+          ],
+          "bytes": 27784
+        }
+      ],
+      "estimatedTextureBytesRGBA8WithMipmaps": 55924053,
+      "bounds": {
+        "min": [
+          -24.24829864501953,
+          -0.12474793381085103,
+          -21.675019074080062
+        ],
+        "max": [
+          24.24829864501953,
+          100,
+          12.180437975182958
+        ]
+      },
+      "bytes": 6794540,
+      "sha256": "d2ec0d62e0d0b73a95fb3b1b71ed91b4b2d5250bc49595bf96897dac9ca49b8e",
+      "maxEnvelopeDelta": 0.0004376700071766493,
+      "extensionsRequired": [
+        "EXT_meshopt_compression",
+        "EXT_texture_webp",
+        "KHR_mesh_quantization"
+      ],
+      "extensionsUsed": [
+        "EXT_meshopt_compression",
+        "EXT_texture_webp",
+        "KHR_materials_clearcoat",
+        "KHR_materials_ior",
+        "KHR_materials_transmission",
+        "KHR_mesh_quantization"
+      ]
+    }
+  },
+  "sourceBounds": {
+    "min": [
+      -24.24829864501953,
+      -0.125,
+      -21.674999237060547
+    ],
+    "max": [
+      24.24829864501953,
+      100,
+      12.180000305175781
+    ]
+  },
+  "sourceTriangles": 435656
+}

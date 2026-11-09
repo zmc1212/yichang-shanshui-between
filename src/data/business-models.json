@@ -1,0 +1,303 @@
+{
+  "1649135": {
+    "id": "meilian-s05",
+    "stage": "S05 可见组团候选",
+    "front": "+Z",
+    "subtitle": "层层退台，在江边叠出金色的轮廓。",
+    "description": "保留美联御峰照片中可见的建筑组团、幕墙分格和阶梯冠部。这个模型仍是阶段候选，可以单独旋转查看。",
+    "caveat": "S05表现照片可见组团，不能等同一栋已完整测绘的办公楼。后部深度、占地和朝向尚未可靠配准；暂不放入沙盘楼体，地图仅保留原导图参考点。",
+    "sourceBounds": {
+      "min": [
+        -36.964999198913574,
+        -0.20000076293945312,
+        -49.489999771118164
+      ],
+      "max": [
+        31.300003051757812,
+        100.08999633789062,
+        7.850000381469727
+      ]
+    },
+    "displayHeight": 8,
+    "flatShading": false,
+    "assets": {
+      "light": "/models/meilian-s05/light.glb?v=8ded608af1a8",
+      "detail": "/models/meilian-s05/detail.glb?v=68101a0bd037"
+    },
+    "modelNotesUrl": "/models/meilian-s05/README.txt",
+    "registrationUrl": "/data/business-buildings-registration.json",
+    "sourceModelSha256": "4884e9fa19216530d3c5f13db6ed07ad508c663f13318bc4f8ae6cc5d046af0a",
+    "webBudget": {
+      "light": {
+        "bytes": 1397792,
+        "triangles": 71382,
+        "primitives": 27,
+        "estimatedTextureBytesRGBA8WithMipmaps": 0
+      },
+      "detail": {
+        "bytes": 8163304,
+        "triangles": 529328,
+        "primitives": 27,
+        "estimatedTextureBytesRGBA8WithMipmaps": 0
+      }
+    }
+  },
+  "1649149": {
+    "id": "zhongnan-s09",
+    "stage": "S09 原高度基准 · 研究关闭",
+    "front": "+Z",
+    "subtitle": "街角立面，连起沿江街区的另一面。",
+    "description": "保留中南冶金大楼的街角折面、米色竖向构件、幕墙分格和顶部轮廓。采用恢复包默认基准高度，附加研究方案保持关闭。",
+    "caveat": "按街角源轮廓等比候选落位，主面朝东侧街口，未套用统一面江方向。绝对尺寸、后部推定封闭面仍待核；高度研究、酒店和外包络研究均未启用。",
+    "sourceBounds": {
+      "min": [
+        -29.16375160217285,
+        0,
+        -58.900001525878906
+      ],
+      "max": [
+        49.78280258178711,
+        106.55999755859375,
+        2.8828067779541016
+      ]
+    },
+    "displayHeight": 8,
+    "flatShading": false,
+    "assets": {
+      "light": "/models/zhongnan-s09/light.glb?v=57a940813352",
+      "detail": "/models/zhongnan-s09/detail.glb?v=3c346ca93c0a"
+    },
+    "modelNotesUrl": "/models/zhongnan-s09/README.txt",
+    "registrationUrl": "/data/business-buildings-registration.json",
+    "sourceModelSha256": "452b1c0cc45b9c23d8b625aaadacb0296d27d910de55905f9d0cd94ec6ec16d9",
+    "webBudget": {
+      "light": {
+        "bytes": 3438312,
+        "triangles": 141262,
+        "primitives": 31,
+        "estimatedTextureBytesRGBA8WithMipmaps": 6990507
+      },
+      "detail": {
+        "bytes": 10336204,
+        "triangles": 696156,
+        "primitives": 31,
+        "estimatedTextureBytesRGBA8WithMipmaps": 27962027
+      }
+    }
+  },
+  "1649132": {
+    "id": "jinjiang-s03",
+    "stage": "S03 默认 00 候选",
+    "front": "+Z",
+    "subtitle": "修长塔身与前场，留住江岸的层次。",
+    "description": "保留锦江银座 S03 的塔身分格、前平台和屋顶特色。原商务楼宇导图称“金江银座”，这里将两种名称作为同一项目检索。",
+    "caveat": "按源地图塔楼与裙房轮廓等比例候选落位，尺寸和实景细节尚待复核。使用 S03 默认 00；S04 是暂停验收的研究版，未接入。",
+    "sourceBounds": {
+      "min": [
+        -15.100000381469727,
+        0,
+        -9.475000381469727
+      ],
+      "max": [
+        15.774999618530273,
+        72.11499786376953,
+        21.549999237060547
+      ]
+    },
+    "displayHeight": 8,
+    "flatShading": false,
+    "assets": {
+      "light": "/models/jinjiang-s03/light.glb?v=019218c3a04d",
+      "detail": "/models/jinjiang-s03/detail.glb?v=79f840e0a48f"
+    },
+    "modelNotesUrl": "/models/jinjiang-s03/README.txt",
+    "registrationUrl": "/data/business-buildings-registration.json",
+    "sourceModelSha256": "a645c8661578378275efa365d221c900d99910e877434ded1d99871bd02562a3",
+    "webBudget": {
+      "light": {
+        "bytes": 408256,
+        "triangles": 32126,
+        "primitives": 11,
+        "estimatedTextureBytesRGBA8WithMipmaps": 0
+      },
+      "detail": {
+        "bytes": 535404,
+        "triangles": 50305,
+        "primitives": 11,
+        "estimatedTextureBytesRGBA8WithMipmaps": 0
+      }
+    }
+  },
+  "1649138": {
+    "id": "wanda-soho-s01",
+    "stage": "S01 修正版候选",
+    "front": "+Z",
+    "subtitle": "三座临江塔楼，串起万达的天际线。",
+    "description": "使用万达 SOHO 修正版，保留三塔布局、竖向幕墙、顶部构件和连续前场台阶。以原地图的三座塔楼中心校准组团方向。",
+    "caveat": "这是三塔与可见前段的阶段模型，不代表整个商场完整重建。按地图轮廓候选配准，绝对尺寸仍待核；未覆盖的后部商场继续保留原底图建筑。",
+    "sourceBounds": {
+      "min": [
+        -93.5,
+        -0.009999999776482582,
+        -39.13999938964844
+      ],
+      "max": [
+        117.5,
+        100.88999938964844,
+        19.899999618530273
+      ]
+    },
+    "displayHeight": 8,
+    "flatShading": false,
+    "assets": {
+      "light": "/models/wanda-soho-s01/light.glb?v=eab60310735c",
+      "detail": "/models/wanda-soho-s01/detail.glb?v=726955bb50af"
+    },
+    "modelNotesUrl": "/models/wanda-soho-s01/README.txt",
+    "registrationUrl": "/data/business-buildings-registration.json",
+    "sourceModelSha256": "a2c3c1ed4765f760acb157b85904da33fff6b0ad63229fd4ee41519b421efea6",
+    "webBudget": {
+      "light": {
+        "bytes": 1972784,
+        "triangles": 97574,
+        "primitives": 31,
+        "estimatedTextureBytesRGBA8WithMipmaps": 0
+      },
+      "detail": {
+        "bytes": 6736248,
+        "triangles": 510864,
+        "primitives": 31,
+        "estimatedTextureBytesRGBA8WithMipmaps": 55924053
+      }
+    }
+  },
+  "1649129": {
+    "id": "fujiang-s01",
+    "stage": "S01 修正版候选",
+    "front": "+Z",
+    "subtitle": "弧形玻璃幕墙，映出江岸的转折。",
+    "description": "使用福江铭座修正版，保留弧形立面、幕墙分格、屋顶冠部与入口构件。通过源地图弧面端点校准前立面朝向。",
+    "caveat": "弧形立面为候选定位，后侧深度、曲率和顶部尺寸仍待核。后部含原模型推定封闭面，现有全楼外轮廓不能视为精确占地。",
+    "sourceBounds": {
+      "min": [
+        -24.24829864501953,
+        -0.125,
+        -21.674999237060547
+      ],
+      "max": [
+        24.24829864501953,
+        100,
+        12.180000305175781
+      ]
+    },
+    "displayHeight": 8,
+    "flatShading": false,
+    "assets": {
+      "light": "/models/fujiang-s01/light.glb?v=efdeb253b9fe",
+      "detail": "/models/fujiang-s01/detail.glb?v=d2ec0d62e0d0"
+    },
+    "modelNotesUrl": "/models/fujiang-s01/README.txt",
+    "registrationUrl": "/data/business-buildings-registration.json",
+    "sourceModelSha256": "250241c787121703bcda53c7efd0f9c11225ac9b635f750e605faa1906bf00b9",
+    "webBudget": {
+      "light": {
+        "bytes": 2334232,
+        "triangles": 94130,
+        "primitives": 18,
+        "estimatedTextureBytesRGBA8WithMipmaps": 6990507
+      },
+      "detail": {
+        "bytes": 6794540,
+        "triangles": 435656,
+        "primitives": 18,
+        "estimatedTextureBytesRGBA8WithMipmaps": 55924053
+      }
+    }
+  },
+  "1649145": {
+    "id": "yichang-international-s01",
+    "stage": "S01 静态组团候选",
+    "front": "+Z",
+    "subtitle": "办公与住宅，围合一段开放的商业街。",
+    "description": "保留宜昌国际广场办公塔、两座住宅塔、共享裙房与开放内街。整组保持原比例，落在对应项目地块内作为组团候选展示。",
+    "caveat": "组团相对布局待核：模型塔间距与源地图存在差异，三塔中心仍有约 16–30 米的地图拟合偏差。当前只确认项目地块与大致朝向，不代表各塔精确配准；未拆改共享裙房。",
+    "sourceBounds": {
+      "min": [
+        -43.900001525878906,
+        -0.15000000596046448,
+        -16.060869216918945
+      ],
+      "max": [
+        45.79999923706055,
+        100.06999969482422,
+        29.799999237060547
+      ]
+    },
+    "displayHeight": 8,
+    "flatShading": false,
+    "assets": {
+      "light": "/models/yichang-international-s01/light.glb?v=6531a8d0d900",
+      "detail": "/models/yichang-international-s01/detail.glb?v=b9ddf888b545"
+    },
+    "modelNotesUrl": "/models/yichang-international-s01/README.txt",
+    "registrationUrl": "/data/business-buildings-registration.json",
+    "sourceModelSha256": "4a27c65bc02a1de7f25e596c1961dea11f477dd69a0f78de0bf8a97a002fd090",
+    "webBudget": {
+      "light": {
+        "bytes": 2761776,
+        "triangles": 132122,
+        "primitives": 18,
+        "estimatedTextureBytesRGBA8WithMipmaps": 1398101
+      },
+      "detail": {
+        "bytes": 9063840,
+        "triangles": 738676,
+        "primitives": 18,
+        "estimatedTextureBytesRGBA8WithMipmaps": 33554432
+      }
+    }
+  },
+  "1649133": {
+    "id": "jiuzhou-s01",
+    "stage": "S01 外观候选",
+    "front": "+Z",
+    "subtitle": "深色玻璃与金色字牌，立在江岸一线。",
+    "description": "保留九州方园大厦的长条塔身、开窗分格、金色字牌、冠部和真实入口罩棚。以塔身轮廓统一缩放，前场罩棚单独检查占地。",
+    "caveat": "使用 S01 原生模型另行导出的网页文件，源文件保持不变。按地图塔身轮廓候选落位；模型归一化高度不是实测米数，后立面和部分材料细节仍待核。",
+    "sourceBounds": {
+      "min": [
+        -28.700000762939453,
+        -0.03999999910593033,
+        -9.032500267028809
+      ],
+      "max": [
+        25.017499923706055,
+        100.03250122070312,
+        25.049999237060547
+      ]
+    },
+    "displayHeight": 8,
+    "flatShading": false,
+    "assets": {
+      "light": "/models/jiuzhou-s01/light.glb?v=0dd82c8874a3",
+      "detail": "/models/jiuzhou-s01/detail.glb?v=01f832d29b8a"
+    },
+    "modelNotesUrl": "/models/jiuzhou-s01/README.txt",
+    "registrationUrl": "/data/business-buildings-registration.json",
+    "sourceModelSha256": "4be00d59d2ca4ef186cf35c98eb9f17f8cc1c228748a38440291c20c3e42afdc",
+    "webBudget": {
+      "light": {
+        "bytes": 852736,
+        "triangles": 46170,
+        "primitives": 16,
+        "estimatedTextureBytesRGBA8WithMipmaps": 0
+      },
+      "detail": {
+        "bytes": 1337716,
+        "triangles": 117744,
+        "primitives": 16,
+        "estimatedTextureBytesRGBA8WithMipmaps": 0
+      }
+    }
+  }
+}
