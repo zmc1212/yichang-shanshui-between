@@ -602,6 +602,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     authoredSelection = next;
     controls.maxPolarAngle = next ? Math.PI / 2.05 : Math.PI / 2.32;
     controls.minZoom = next ? 0.1 : 0.65;
+    controls.maxZoom = focusZoomLimit();
     if (!next) for (const {controller} of authoredEntries.values()) controller.releaseDetail();
     renderer.shadowMap.needsUpdate = true; requestRender();
     renderer.domElement.setAttribute('aria-label', '可旋转、缩放和探索的宜昌三维城市沙盘');
@@ -613,21 +614,24 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     const panel = container.parentElement?.querySelector('.detail-panel')?.getBoundingClientRect();
     const mobile = window.innerWidth <= 700;
     const left = mobile ? 18 : 24;
-    let top = !panelOptional && authored ? (mobile ? 146 : 136) : mobile ? 68 : 84;
-    if (panelOptional) {
-      // Group framing can start with no selected place. Reserve the actual UI
-      // only; an absent detail card must not consume half of the mobile map.
-      for (const selector of ['.scene-toolbar', '.authored-note']) {
-        const overlay = container.parentElement?.querySelector(selector)?.getBoundingClientRect();
-        if (overlay?.height) top = Math.max(top, overlay.bottom - containerRect.top + 12);
+    let top = mobile ? 68 : 84, noteMeasured = false;
+    // On desktop the small provenance card sits to the left of a tall model;
+    // it must not reserve a full-width band unless the fitted subject hits it.
+    // On a phone it spans the view, so reserve its measured height immediately.
+    for (const selector of ['.scene-toolbar', ...(panelOptional || (authored && mobile) ? ['.authored-note'] : [])]) {
+      const overlay = container.parentElement?.querySelector(selector)?.getBoundingClientRect();
+      if (overlay?.height) {
+        top = Math.max(top, (overlay.bottom ?? overlay.top + overlay.height) - containerRect.top + 12);
+        if (selector === '.authored-note') noteMeasured = true;
       }
     }
+    if (!panelOptional && authored && mobile && !noteMeasured) top = Math.max(top, 146);
     const reservePanel = !panelOptional || Boolean(panel?.width && panel?.height);
     const panelWidth = panel?.width || (window.innerWidth >= 1600 ? 318 : window.innerWidth <= 1200 ? 270 : 298);
-    const rightEdge = mobile ? widthPx - 18 : reservePanel ? Math.max(left + 150, widthPx - panelWidth - 48) : widthPx - 24;
+    const rightEdge = mobile ? widthPx - 18 : reservePanel ? Math.max(left + 150, panel?.width ? panel.left - containerRect.left - 20 : widthPx - panelWidth - 48) : widthPx - 24;
     const bottom = panelOptional
       ? Math.min(heightPx - 50, mobile && reservePanel ? panel.top - containerRect.top - 14 : Infinity)
-      : mobile && reservePanel ? Math.max(top + 105, panel ? panel.top - containerRect.top - 14 : heightPx * 0.47 - 60) : Math.max(top + 150, heightPx - 50);
+      : mobile && reservePanel ? Math.min(heightPx - 50, panel ? panel.top - containerRect.top - 14 : heightPx * 0.47 - 60) : heightPx - 50;
     return { left, top, rightEdge, bottom };
   }
   function calculateFocusState(item, options = currentFocusOptions, view = currentView) {
@@ -657,31 +661,60 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     const right = new THREE.Vector3(direction.z, 0, -direction.x).normalize();
     const up = new THREE.Vector3().crossVectors(direction, right).normalize();
     const aspect = widthPx / heightPx;
-    const { left, top, rightEdge, bottom } = focusViewport(authored);
-    const fractionX = Math.min(1, (rightEdge - left) / widthPx);
-    const fractionY = Math.min(1, (bottom - top) / heightPx);
-    let projectedWidth = 0, projectedHeight = 0;
-    for (const x of [frameBounds.min.x, frameBounds.max.x]) for (const z of [frameBounds.min.z, frameBounds.max.z]) for (const y of [frameBounds.min.y, Math.max(frameBounds.max.y, item.anchor.y)]) {
-      const delta = new THREE.Vector3(x, y, z).sub(frameCenter);
-      projectedWidth = Math.max(projectedWidth, Math.abs(delta.dot(right)) * 2);
-      projectedHeight = Math.max(projectedHeight, Math.abs(delta.dot(up)) * 2);
+    const viewport = focusViewport(authored);
+    // A very short window can be entirely covered by the two cards. Retain the
+    // current camera until a card resize frees space; never frame behind it.
+    if (viewport.rightEdge - viewport.left < 48 || viewport.bottom - viewport.top < 48) {
+      return { target: controls.target.clone(), position: camera.position.clone(), zoom: camera.zoom };
     }
-    const maxSize = Math.max(item.size.x, item.size.z, item.size.y);
-    const wide = item.spec.kind === 'bridge' || item.spec.kind === 'dam';
-    const pagoda = item.spec.id === 'tianran-pagoda';
-    const minimumHeight = authored ? 2.5 : pagoda ? 7.2 : site ? 10 : 37;
-    const defaultHeight = Math.max(minimumHeight, Math.min(extent * 0.43, maxSize * (authored ? 2.4 : wide ? 1.75 : pagoda ? 4 : 5.2)));
-    const safetyHeight = Math.max(projectedHeight / fractionY, projectedWidth / (aspect * fractionX)) * 1.12;
-    // Reserve the close-view margin before selecting either framing. The
-    // narrower mobile viewport must not force both states onto the same cap.
-    const framedDefaultHeight = Math.max(defaultHeight, safetyHeight * 1.4);
-    const visibleHeight = context ? safetyHeight * 1.04 : framedDefaultHeight / (options.close ? 1.4 : 1);
-    const zoom = THREE.MathUtils.clamp(baseHalfHeight * 2 / visibleHeight, context ? 0.1 : 1.5, focusZoomLimit());
-    const actualHeight = baseHalfHeight * 2 / zoom;
-    const ndcX = ((left + rightEdge) / 2 / widthPx) * 2 - 1;
-    const ndcY = 1 - ((top + bottom) / 2 / heightPx) * 2;
-    const target = frameCenter.clone().sub(right.multiplyScalar(ndcX * actualHeight * aspect / 2)).sub(up.multiplyScalar(ndcY * actualHeight / 2));
-    return { target, position: target.clone().add(direction.multiplyScalar(cameraDistance)), zoom };
+    const points = [item.anchor];
+    if (authored && !context) {
+      // The registered footprint is the rotated LOCAL source box. Reprojecting
+      // a world AABB would add empty corners around oblique towers a second time.
+      for (const [x, z] of item.spec.footprint) for (const y of [item.base, item.base + item.spec.localSize.y]) points.push(new THREE.Vector3(x, y, z));
+    } else {
+      for (const x of [frameBounds.min.x, frameBounds.max.x]) for (const z of [frameBounds.min.z, frameBounds.max.z]) for (const y of [frameBounds.min.y, frameBounds.max.y]) points.push(new THREE.Vector3(x, y, z));
+    }
+    let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+    for (const point of points) {
+      const delta = point.clone().sub(frameCenter), x = delta.dot(right), y = delta.dot(up);
+      minX = Math.min(minX, x); maxX = Math.max(maxX, x); minY = Math.min(minY, y); maxY = Math.max(maxY, y);
+    }
+    const guideOnly = item.spec.kind === 'business-poi';
+    const fit = safe => {
+      const left = safe.left + 8, rightEdge = safe.rightEdge - 8;
+      const top = safe.top + (context ? 8 : 30), bottom = safe.bottom - 10;
+      const fractionX = Math.max(0.01, Math.min(1, (rightEdge - left) / widthPx));
+      const fractionY = Math.max(0.01, Math.min(1, (bottom - top) / heightPx));
+      const fitHeight = Math.max((maxY - minY) / fractionY, (maxX - minX) / (aspect * fractionX));
+      // Whole-building and detail views each target the available screen area.
+      // Neither inherits a city-sized floor or a multiple of the longest axis.
+      let visibleHeight = fitHeight / (context ? 0.94 : options.close ? 0.94 : 0.72);
+      if (guideOnly) {
+        // An unrecovered building remains a neighborhood reference, never a
+        // close-up of the placeholder bounds used for its guide point.
+        const neighborhood = Math.max(37, Math.min(extent * 0.43, Math.max(item.size.x, item.size.y, item.size.z) * 5.2));
+        visibleHeight = Math.max(neighborhood, fitHeight * 1.12 * 1.4) / (options.close ? 1.4 : 1);
+      }
+      const zoom = THREE.MathUtils.clamp(baseHalfHeight * 2 / visibleHeight, context ? 0.1 : 1.5, focusZoomLimit());
+      const actualHeight = baseHalfHeight * 2 / zoom;
+      const ndcX = (left + rightEdge) / widthPx - 1, ndcY = 1 - (top + bottom) / heightPx;
+      const target = frameCenter.clone().addScaledVector(right, (minX + maxX) / 2 - ndcX * actualHeight * aspect / 2)
+        .addScaledVector(up, (minY + maxY) / 2 - ndcY * actualHeight / 2);
+      const pixelScale = heightPx / actualHeight, halfW = (maxX - minX) * pixelScale / 2, halfH = (maxY - minY) * pixelScale / 2;
+      return { target, position: target.clone().addScaledVector(direction, cameraDistance), zoom,
+        subjectRect: { left: (left + rightEdge) / 2 - halfW, right: (left + rightEdge) / 2 + halfW,
+          top: (top + bottom) / 2 - halfH - 30, bottom: (top + bottom) / 2 + halfH } };
+    };
+    let frame = fit(viewport);
+    const note = authored && window.innerWidth > 700 ? container.parentElement?.querySelector('.authored-note')?.getBoundingClientRect() : null;
+    if (note?.height) {
+      const origin = container.getBoundingClientRect(), box = frame.subjectRect;
+      if (box.left < note.left - origin.left + note.width + 12 && box.right > note.left - origin.left - 12 && box.top < note.top - origin.top + note.height + 12 && box.bottom > note.top - origin.top - 12) {
+        frame = fit({ ...viewport, top: Math.max(viewport.top, note.top - origin.top + note.height + 12) });
+      }
+    }
+    return frame;
   }
   function calculateClusterState(items) {
     const direction = camera.position.clone().sub(controls.target).normalize();
@@ -769,9 +802,13 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     return { position: position.add(shift), target: target.add(shift), zoom: 1, halfHeight };
   }
   function focusZoomLimit() {
-    // A fixed minimum visible world height keeps zoom useful on portrait
-    // screens without changing the full-board overview or its camera angle.
-    return Math.max(16, baseHalfHeight * 2 / 1.8);
+    // Allow a few floors or roof details to fill the view after a manual zoom.
+    // A city-wide 1.8-unit floor made small registered buildings hit the limit
+    // before their facade could be inspected. Model scale remains untouched.
+    const item = landmarkMap.get(selectedId), size = item?.spec.localSize || item?.size;
+    const minimumHeight = size && item.spec.kind !== 'business-poi'
+      ? THREE.MathUtils.clamp(Math.min(...size.toArray().filter(value => value > 0)) * 0.25, 0.12, 1.8) : 1.8;
+    return Math.max(16, baseHalfHeight * 2 / minimumHeight);
   }
   function setFrustum() {
     controls.maxZoom = focusZoomLimit();

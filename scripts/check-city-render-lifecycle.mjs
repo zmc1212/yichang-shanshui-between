@@ -232,6 +232,138 @@ try {
   panelRect=null; windowProbe.innerWidth=1280; rect={top:70,left:280,width:940,height:730};
   observers[0].callback([]); settle(); wake(()=>engine.reset(),'reset after cluster checks');
 
+  // Independently project the authored source box through the real camera.
+  // Its eight corners retain the model's local orientation; using the scene's
+  // world AABB here would reproduce the original double-padding regression.
+  // The pending network requests do not need to resolve to check camera fit.
+  const authoredCorners=new Map(AUTHORED_MODELS.map(spec=>{
+    const resident=engine.getStats().authoredResidents.find(value=>value.id===spec.id);
+    const [min,max]=[spec.sourceBounds.min,spec.sourceBounds.max];
+    const middleX=(min[0]+max[0])/2, middleZ=(min[2]+max[2])/2;
+    const c=Math.cos(resident.yaw),s=Math.sin(resident.yaw),scale=resident.uniformScale;
+    const points=[];
+    for(const x of [min[0],max[0]]) for(const y of [min[1],max[1]]) for(const z of [min[2],max[2]]) {
+      const px=(x-middleX)*scale,pz=(z-middleZ)*scale;
+      points.push(new Vector3(resident.position[0]+px*c+pz*s,resident.position[1]+(y-min[1])*scale,resident.position[2]-px*s+pz*c));
+    }
+    return [spec.id,points];
+  }));
+  const stableModelTransforms=()=>JSON.stringify(landmarkLayer.children.filter(object=>object!==selectedRing).map(object=>({uuid:object.uuid,position:object.position.toArray(),quaternion:object.quaternion.toArray(),scale:object.scale.toArray()})));
+  const beforeBuildingFocus=stableModelTransforms();
+  const projectPoints=points=>points.map(point=>{
+    const p=point.clone().project(renderer.camera);
+    return {x:(p.x+1)*rect.width/2,y:(1-p.y)*rect.height/2,depth:p.z};
+  });
+  const screenBounds=points=>{
+    const p=projectPoints(points),xs=p.map(point=>point.x),ys=p.map(point=>point.y);
+    return {left:Math.min(...xs),right:Math.max(...xs),top:Math.min(...ys),bottom:Math.max(...ys)};
+  };
+  const availableBuildingRect=()=>({
+    left:windowProbe.innerWidth<=700?18:24,
+    right:windowProbe.innerWidth<=700?rect.width-18:panelRect.left-rect.left-18,
+    // Include a modest label band below the measured note. This is a test of
+    // visible subject size, not an assertion of the implementation's margins.
+    top:noteRect?noteRect.bottom-rect.top+28:84,
+    bottom:windowProbe.innerWidth<=700?panelRect.top-rect.top-14:rect.height-50,
+  });
+  const assertBuildingFits=(id,label,{minOccupancy=0}={})=>{
+    const points=authoredCorners.get(id)||allPoints.get(id).slice(1);
+    const available=availableBuildingRect(),box=screenBounds(points);
+    const clearTop=noteRect?noteRect.bottom-rect.top+10:68;
+    for(const point of projectPoints([...points,worldAnchors.get(id)])) {
+      assert.ok(point.x>available.left-2&&point.x<available.right+2,`${label}: ${id} must clear the horizontal UI edges`);
+      assert.ok(point.y>clearTop&&point.y<available.bottom+2,`${label}: ${id} must clear the toolbar/note and detail card`);
+      assert.ok(point.depth>=-1&&point.depth<=1,`${label}: ${id} must stay inside the camera clipping planes`);
+    }
+    const width=box.right-box.left,height=box.bottom-box.top;
+    const occupancy=Math.max(width/(available.right-available.left),height/(available.bottom-available.top));
+    assert.ok(occupancy>minOccupancy,`${label}: ${id} is too small (${occupancy.toFixed(3)} of the unobstructed frame)`);
+    assert.equal(renderer.scene,cityScene);assert.equal(renderer.domElement,cityCanvas);
+    assert.equal(cityScene.getObjectByName('Yichang miniature').visible,true,'building inspection retains the city');
+    for(const layer of ['terrain','buildings','roads']) assert.equal(cityScene.getObjectByName(layer).visible,true,`${label}: ${layer} remains visible`);
+    return {width,height,occupancy,zoom:renderer.camera.zoom};
+  };
+  const focusViewports=[
+    {name:'desktop',rect:{width:1616,height:849,top:70,left:304},innerWidth:1920,panel:{left:1572,top:163,width:318,height:606},note:{left:338,top:164,bottom:204,width:850,height:40},minimumDefault:.58,minimumClose:.75},
+    {name:'phone collapsed card',rect:{width:390,height:784,top:60,left:0},innerWidth:390,panel:{left:12,top:665,width:366,height:129},note:{left:17,top:126,bottom:170,width:357,height:44},minimumDefault:.53,minimumClose:.70},
+    {name:'phone expanded card',rect:{width:390,height:784,top:60,left:0},innerWidth:390,panel:{left:12,top:430,width:366,height:364},note:{left:17,top:126,bottom:170,width:357,height:44},minimumDefault:.47,minimumClose:.63},
+  ];
+  const useFocusViewport=viewport=>{
+    rect={...viewport.rect};windowProbe.innerWidth=viewport.innerWidth;panelRect={...viewport.panel};noteRect={...viewport.note};
+    observers[0].callback([]);settle();
+  };
+  const buildingFraming=[];
+  for(const viewport of focusViewports) {
+    useFocusViewport(viewport);
+    for(const spec of AUTHORED_MODELS) {
+      wake(()=>engine.focus(spec.id,{close:false}),`${viewport.name} ${spec.name} default`);
+      const overview=assertBuildingFits(spec.id,`${viewport.name} default`,{minOccupancy:viewport.minimumDefault});
+      wake(()=>engine.focus(spec.id,{close:true}),`${viewport.name} ${spec.name} close`);
+      const detail=assertBuildingFits(spec.id,`${viewport.name} close`,{minOccupancy:viewport.minimumClose});
+      assert.ok(detail.height>overview.height*1.16,`${viewport.name}: ${spec.name} close view must visibly enlarge the same building`);
+      assert.ok(detail.zoom>overview.zoom*1.16,`${viewport.name}: ${spec.name} must have two distinct camera presets`);
+      buildingFraming.push({viewport:viewport.name,id:spec.id,defaultHeight:Math.round(overview.height),closeHeight:Math.round(detail.height)});
+    }
+  }
+  // A short phone with its introduction expanded can leave no real framing
+  // area between the provenance note and the sheet. Preserve the camera
+  // instead of manufacturing a viewport behind that sheet; a later card-only
+  // resize must still be able to fit the newly selected building.
+  rect={width:390,height:470,top:60,left:0};windowProbe.innerWidth=390;
+  panelRect={left:12,top:235,width:366,height:249};
+  noteRect={left:17,top:126,bottom:184,width:357,height:58};
+  observers[0].callback([]);settle();
+  const coveredPose={position:renderer.camera.position.clone(),quaternion:renderer.camera.quaternion.clone(),zoom:renderer.camera.zoom};
+  wake(()=>engine.focus('shouxin-wealth-s01',{close:true}),'single building in covered short phone');
+  assert.ok(renderer.camera.position.distanceTo(coveredPose.position)<1e-10,'covered viewport must retain camera position');
+  assert.ok(1-Math.abs(renderer.camera.quaternion.dot(coveredPose.quaternion))<1e-10,'covered viewport must retain viewing direction');
+  assert.ok(Math.abs(renderer.camera.zoom-coveredPose.zoom)<1e-10,'covered viewport must retain zoom');
+  panelRect={left:12,top:355,width:366,height:129};
+  wake(()=>engine.refitSelection(),'card-only collapse frees single-building framing');
+  assertBuildingFits('shouxin-wealth-s01','recovered short-phone close view',{minOccupancy:.65});
+  assert.ok(renderer.camera.position.distanceTo(coveredPose.position)>1e-4,'newly selected building refits once the card frees actual space');
+  checks.push('covered short-phone single-building focus retains its pose, then a card-only refit recovers when real space becomes available');
+
+  // The smallest tower's roof must not be held at the former 1.8-unit world
+  // height floor. Inspect a wide multi-tower project too, so tighter framing
+  // cannot clip another tower or its shared podium.
+  useFocusViewport(focusViewports[0]);
+  for(const id of ['shouxin-wealth-s01','wanda-soho-s01']) {
+    wake(()=>engine.focus(id,{angle:'front',close:true}),`${id} front`);
+    assertBuildingFits(id,'front elevation',{minOccupancy:.72});
+    wake(()=>engine.setView('top'),`${id} roof`);
+    assertBuildingFits(id,'roof and full footprint',{minOccupancy:.70});
+    if(id==='shouxin-wealth-s01') assert.ok((renderer.camera.top-renderer.camera.bottom)/renderer.camera.zoom<1.8,'small roof view must clear the former fixed world-height cap');
+  }
+  wake(()=>engine.focus('shouxin-wealth-s01',{close:true}),'manual facade zoom baseline');
+  const nearZoom=renderer.camera.zoom;
+  for(let i=0;i<8;i++) wake(()=>engine.zoom(1),`manual facade zoom ${i}`);
+  assert.ok(renderer.camera.zoom>nearZoom*2,'manual inspection must go meaningfully closer than the full-building preset');
+  assert.ok(Number.isFinite(renderer.camera.zoom),'manual close zoom remains finite');
+
+  // Small ordinary landmarks previously inherited large neighborhood-sized
+  // minimum frames. Their full geometry must now fill a useful part of the
+  // viewport without borrowing a guide-only POI's synthetic envelope.
+  engine.setMotion(false);settle();
+  noteRect=null;
+  for(const id of ['zhenjiang-pavilion','tianran-pagoda']) {
+    wake(()=>engine.focus(id,{close:false}),`${id} default landmark`);
+    const overview=assertBuildingFits(id,'compact landmark default',{minOccupancy:.54});
+    wake(()=>engine.focus(id,{close:true}),`${id} close landmark`);
+    const detail=assertBuildingFits(id,'compact landmark close',{minOccupancy:.70});
+    assert.ok(detail.height>overview.height*1.16,`${id}: landmark close view remains distinct`);
+  }
+  wake(()=>engine.focus('business-1649141',{close:false}),'guide-only neighborhood');
+  assert.equal(engine.getStats().authoredSelection,false);
+  assert.ok((renderer.camera.top-renderer.camera.bottom)/renderer.camera.zoom>=25,'guide-only POI keeps neighborhood context, not a pretend tower close-up');
+  wake(()=>engine.focus('shouxin-wealth-s01',{angle:'context',close:false}),'explicit city context');
+  assert.ok((renderer.camera.top-renderer.camera.bottom)/renderer.camera.zoom>100,'explicit city context retains the city-wide frame');
+  assert.equal(stableModelTransforms(),beforeBuildingFocus,'camera presets and zoom must not stretch, rotate, move, or replace models');
+  assert.deepEqual(selections,[],'programmatic camera checks must not introduce a new POI selection callback');
+  checks.push('all seven authored buildings fit and visibly enlarge in desktop/open-phone/collapsed-phone views; front/roof/manual zoom remain useful, compact landmarks improve, guide/context frames and model transforms remain intact');
+  panelRect=null;noteRect=null;windowProbe.innerWidth=1280;rect={top:70,left:280,width:940,height:730};
+  observers[0].callback([]);settle();wake(()=>engine.reset(),'reset after building framing checks');
+
   engine.setAutoRotate(true); tick(); tick();
   const cameraBefore=renderer.camera.position.clone(),heldScene=renderer.scene,heldCanvas=renderer.domElement;
   engine.setSuspended(true);
@@ -267,7 +399,7 @@ try {
   engine.dispose(); assert.equal(callbacks.size,0); assert.equal(heldCanvas.dataset.renderState,'disposed');
   await flush(); assert.equal(callbacks.size,0);
   checks.push('disposing cancels frames and late model promises cannot revive the city');
-  console.log(JSON.stringify({passed:true,checks,renderFrames:frames(),webglVerified:false},null,2));
+  console.log(JSON.stringify({passed:true,checks,buildingFraming,renderFrames:frames(),webglVerified:false},null,2));
 } finally {
   engine?.dispose(); await flush();
   for(const [key,descriptor] of saved) { if(descriptor)Object.defineProperty(globalThis,key,descriptor);else delete globalThis[key]; }

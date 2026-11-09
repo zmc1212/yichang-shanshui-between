@@ -186,6 +186,10 @@ export default function App(){
     const nextView=options.view==='top'?'top':'perspective';
     const nextAngle=options.angle||'detail';
     const nextClose=Boolean(options.close);
+    const nextGuideOnly=BUSINESS_BUILDINGS.some(place=>place.id===id&&place.kind!=='authored');
+    // Keep the camera callback stable across breakpoints; rebuilding the city
+    // on a phone rotation would discard loaded models and the user's view.
+    setDetailCollapsed(window.matchMedia('(max-width: 700px)').matches&&!nextGuideOnly);
     selectedRef.current=id;
     setSelectedId(id);setView(nextView);setDetailTab(nextView==='top'||nextAngle==='front'||nextAngle==='river'?'view':'story');setDetailImage('');setMobileNav(false);setAutoRotate(false);
     setCloseView(nextClose);setCameraAngle(nextAngle);
@@ -283,6 +287,7 @@ export default function App(){
   const reset=()=>{closeDetails();scene.current?.reset();setView('perspective');setAutoRotate(false);scene.current?.setAutoRotate(false);};
   const frameSelected=({angle=cameraAngle,close=closeView}={})=>{
     if(!selectedId)return;
+    if(compact&&close&&!guideOnly)setDetailCollapsed(true);
     setView('perspective');setCameraAngle(angle);setCloseView(close);setAutoRotate(false);
     scene.current?.setAutoRotate(false);scene.current?.focus(selectedId,{angle,close});capturePostcard();
   };
@@ -324,7 +329,7 @@ export default function App(){
     }
   };
   const toggleDetailFocus=()=>frameSelected({
-    angle:authored?(closeView&&view==='perspective'?'context':'detail'):guideOnly?'context':cameraAngle,
+    angle:authored?'detail':guideOnly?'context':cameraAngle,
     close:!(closeView&&view==='perspective'),
   });
   const startSearchComposition=()=>{
@@ -423,7 +428,7 @@ export default function App(){
             <div className="detail-title"><span>{directoryNavigation.position?String(directoryNavigation.position).padStart(2,'0'):'—'}</span><h2>{selected.name}</h2><button className="icon-button location-link-button" aria-label="复制定位链接" title="复制楼宇、预设视角与日夜状态" disabled={!ready} onClick={copyLocation}><LinkSimple size={17}/></button></div>
             {directoryNavigation.outside&&<p className="directory-outside-note" role="status"><span>当前地点不在结果中</span>{directoryNavigation.total===1?<button onClick={()=>chooseLandmark(filtered[0].id)}>查看唯一结果</button>:directoryNavigation.total===0?<button onClick={()=>{setQuery('');setDirectoryFilter('all');}}>查看全部</button>:<span>用前后按钮进入结果</span>}</p>}
             <p className="detail-subtitle" hidden={compact&&detailCollapsed}>{selected.subtitle||'在山水之间，与宜昌相遇。'}</p>
-            {compact&&<div className="detail-mobile-actions"><button className="detail-collapse-toggle" aria-expanded={!detailCollapsed} aria-controls="detail-content" onClick={()=>setDetailCollapsed(value=>!value)}>{detailCollapsed?<CaretUp size={14}/>:<CaretDown size={14}/>}<span>{detailCollapsed?'展开介绍':'收起介绍'}</span></button><button className="detail-quick-focus" aria-pressed={closeView&&view==='perspective'} onClick={toggleDetailFocus}><span>{closeView&&view==='perspective'?(authored?'连同沙盘看':guideOnly?'拉远看街区':'回到地标全景'):guideOnly?'看看周边街区':'靠近看看'}</span><ArrowUpRight size={14}/></button></div>}
+            {compact&&<div className="detail-mobile-actions"><button className="detail-collapse-toggle" aria-expanded={!detailCollapsed} aria-controls="detail-content" onClick={()=>setDetailCollapsed(value=>!value)}>{detailCollapsed?<CaretUp size={14}/>:<CaretDown size={14}/>}<span>{detailCollapsed?'展开介绍':'收起介绍'}</span></button><button className="detail-quick-focus" aria-pressed={closeView&&view==='perspective'} onClick={toggleDetailFocus}><span>{closeView&&view==='perspective'?(authored?'回到建筑全貌':guideOnly?'拉远看街区':'回到地标全景'):guideOnly?'看看周边街区':'靠近看看'}</span><ArrowUpRight size={14}/></button></div>}
             <div className="detail-tabs" hidden={compact&&detailCollapsed} role="tablist" aria-label="地标内容"><button id="story-tab" role="tab" aria-controls="landmark-panel" aria-selected={detailTab==='story'} className={detailTab==='story'?'active':''} onClick={()=>setDetailTab('story')}>{business?'楼宇手记':'地标手记'}</button><button id="view-tab" role="tab" aria-controls="landmark-panel" aria-selected={detailTab==='view'} className={detailTab==='view'?'active':''} onClick={()=>setDetailTab('view')}>观察视角</button></div>
           </div>
           <div ref={detailContentRef} id="detail-content" className="detail-content" hidden={compact&&detailCollapsed}>
@@ -432,7 +437,7 @@ export default function App(){
             <p className="landmark-description">{selected.description}</p><div className="detail-location"><MapPin size={14}/><span>{selected.location||'湖北 · 宜昌'}</span></div>
             {guideOnly&&<p className="business-poi-note">原导览点不等于精确楼体中心。这里先看周边街区，{selected.modelStatus==='registration-pending'?'模型将在位置与朝向核准后接入。':'模型源件仍待恢复与核对。'}</p>}
             {canPreviewCandidate&&<button className="candidate-preview-button" onClick={()=>setModal('candidate')}><Buildings size={16}/><span>查看候选模型<small>独立查看 · 地图配准待核准</small></span><ArrowUpRight size={16}/></button>}
-            <button className="detail-focus" aria-pressed={closeView&&view==='perspective'} onClick={toggleDetailFocus}>{closeView&&view==='perspective'?(authored?'连同沙盘看':guideOnly?'拉远看街区':'回到地标全景'):guideOnly?'看看周边街区':'靠近看看'} {closeView&&view==='perspective'?<ArrowCounterClockwise size={17}/>:<ArrowUpRight size={17}/>}</button>
+            <button className="detail-focus" aria-pressed={closeView&&view==='perspective'} onClick={toggleDetailFocus}>{closeView&&view==='perspective'?(authored?'回到建筑全貌':guideOnly?'拉远看街区':'回到地标全景'):guideOnly?'看看周边街区':'靠近看看'} {closeView&&view==='perspective'?<ArrowCounterClockwise size={17}/>:<ArrowUpRight size={17}/>}</button>
           </div>:<div id="landmark-panel" role="tabpanel" aria-labelledby="view-tab" className="detail-view">
             <p>换一个角度，发现城市的另一面。</p>
             {canPreviewCandidate&&<button onClick={()=>setModal('candidate')}><Buildings size={20}/><span><strong>查看候选模型</strong><small>单独旋转查看，城市沙盘保持原位</small></span><ArrowUpRight size={16}/></button>}
