@@ -60,6 +60,7 @@
 .model-quality button{margin-left:auto;text-decoration:underline;text-underline-offset:3px;font-size:9px;color:var(--text);padding:4px 0 4px 8px}
 .authored-open .detail-content>footer{margin-top:8px}
 .authored-open .interaction-hint{bottom:25px}
+.building-view .interaction-hint{display:none}
 .theme-night .authored-tag{border-color:#4c6150;color:#a0b094}
 .theme-night .authored-note p>span{color:#9fb39e}
 .theme-night .quality-dot.is-ready{background:#c7b478}

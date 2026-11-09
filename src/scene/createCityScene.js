@@ -611,16 +611,16 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     renderer.domElement.dataset.sceneMode = 'city';
     renderer.domElement.dataset.authoredSelection = String(next);
   }
-  function focusViewport(authored, panelOptional = false) {
+  function focusViewport(authored, panelOptional = false, wholeBuilding = false) {
     const containerRect = container.getBoundingClientRect();
     const panel = container.parentElement?.querySelector('.detail-panel')?.getBoundingClientRect();
     const mobile = window.innerWidth <= 700;
     const left = mobile ? 18 : 24;
-    let top = mobile ? 68 : 84, noteMeasured = false;
+    let top = mobile ? 68 : wholeBuilding ? 14 : 84, noteMeasured = false;
     // On desktop the small provenance card sits to the left of a tall model;
     // it must not reserve a full-width band unless the fitted subject hits it.
     // On a phone it spans the view, so reserve its measured height immediately.
-    for (const selector of ['.scene-toolbar', ...(panelOptional || (authored && mobile) ? ['.authored-note'] : [])]) {
+    for (const selector of [...(wholeBuilding && !mobile ? [] : ['.scene-toolbar']), ...(panelOptional || (authored && mobile) ? ['.authored-note'] : [])]) {
       const overlay = container.parentElement?.querySelector(selector)?.getBoundingClientRect();
       if (overlay?.height) {
         top = Math.max(top, (overlay.bottom ?? overlay.top + overlay.height) - containerRect.top + 12);
@@ -633,15 +633,16 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     const rightEdge = mobile ? widthPx - 18 : reservePanel ? Math.max(left + 150, panel?.width ? panel.left - containerRect.left - 20 : widthPx - panelWidth - 48) : widthPx - 24;
     const bottom = panelOptional
       ? Math.min(heightPx - 50, mobile && reservePanel ? panel.top - containerRect.top - 14 : Infinity)
-      : mobile && reservePanel ? Math.min(heightPx - 50, panel ? panel.top - containerRect.top - 14 : heightPx * 0.47 - 60) : heightPx - 50;
+      : mobile && reservePanel ? Math.min(heightPx - 50, panel ? panel.top - containerRect.top - 14 : heightPx * 0.47 - 60) : heightPx - (wholeBuilding ? 18 : 50);
     return { left, top, rightEdge, bottom };
   }
   function calculateFocusState(item, options = currentFocusOptions, view = currentView) {
     const site = waterfrontPlan.getSite(item.spec.id);
     const authored = item.spec.kind === 'authored';
     const context = authored && options.angle === 'context';
-    const inspection = authored && options.close && !context && view !== 'top'
-      ? resolveBuildingInspection(item.spec, item.base, ['entrance', 'crown'].includes(options.angle) ? options.angle : 'facade') : null;
+    const inspection = authored && options.close && ['facade', 'entrance', 'crown'].includes(options.angle) && view !== 'top'
+      ? resolveBuildingInspection(item.spec, item.base, options.angle) : null;
+    const wholeBuilding = authored && !context && !inspection && view !== 'top';
     const frameBounds = item.bounds.clone();
     if (context) frameBounds.union(cityContextBounds);
     const frameCenter = inspection?.center.clone() || frameBounds.getCenter(new THREE.Vector3());
@@ -666,13 +667,15 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     const right = new THREE.Vector3(direction.z, 0, -direction.x).normalize();
     const up = new THREE.Vector3().crossVectors(direction, right).normalize();
     const aspect = widthPx / heightPx;
-    const viewport = focusViewport(authored);
+    const viewport = focusViewport(authored, false, wholeBuilding);
     // A very short window can be entirely covered by the two cards. Retain the
     // current camera until a card resize frees space; never frame behind it.
     if (viewport.rightEdge - viewport.left < 48 || viewport.bottom - viewport.top < 48) {
       return { target: controls.target.clone(), position: camera.position.clone(), zoom: camera.zoom };
     }
-    const points = inspection ? [] : [item.anchor];
+    // Frame the actual building, not the label floating above its roof. The
+    // selected label gets a roof-level display anchor in publishLabels().
+    const points = inspection || wholeBuilding ? [] : [item.anchor];
     if (inspection) {
       // A detail preset frames a real facade/entrance/crown patch, not the
       // whole building. Including the roof label or full bounds would pull the
@@ -693,14 +696,14 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     }
     const guideOnly = item.spec.kind === 'business-poi';
     const fit = safe => {
-      const left = safe.left + 8, rightEdge = safe.rightEdge - 8;
-      const top = safe.top + (context || inspection ? 8 : 30), bottom = safe.bottom - 10;
+      const left = safe.left + (wholeBuilding ? 0 : 8), rightEdge = safe.rightEdge - (wholeBuilding ? 0 : 8);
+      const top = safe.top + (wholeBuilding ? 0 : context || inspection ? 8 : 30), bottom = safe.bottom - (wholeBuilding ? 0 : 10);
       const fractionX = Math.max(0.01, Math.min(1, (rightEdge - left) / widthPx));
       const fractionY = Math.max(0.01, Math.min(1, (bottom - top) / heightPx));
       const fitHeight = Math.max((maxY - minY) / fractionY, (maxX - minX) / (aspect * fractionX));
-      // Inspection targets a source-derived local patch. Whole-building views
-      // still fit the complete model independently of this much closer preset.
-      let visibleHeight = fitHeight / (context ? 0.94 : options.close ? 0.94 : 0.72);
+      // Default building viewing fills the available height (or width for a
+      // broad group), with a 2% margin per side. Cropping is an explicit preset.
+      let visibleHeight = fitHeight / (wholeBuilding ? 0.96 : context ? 0.94 : options.close ? 0.94 : 0.72);
       if (guideOnly) {
         // An unrecovered building remains a neighborhood reference, never a
         // close-up of the placeholder bounds used for its guide point.
@@ -715,9 +718,37 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
       const pixelScale = heightPx / actualHeight, halfW = (maxX - minX) * pixelScale / 2, halfH = (maxY - minY) * pixelScale / 2;
       return { target, position: target.clone().addScaledVector(direction, cameraDistance), zoom,
         subjectRect: { left: (left + rightEdge) / 2 - halfW, right: (left + rightEdge) / 2 + halfW,
-          top: (top + bottom) / 2 - halfH - (inspection ? 0 : 30), bottom: (top + bottom) / 2 + halfH } };
+          top: (top + bottom) / 2 - halfH - (inspection || wholeBuilding ? 0 : 30), bottom: (top + bottom) / 2 + halfH } };
     };
     let frame = fit(viewport);
+    if (wholeBuilding && window.innerWidth > 700) {
+      // A tall tower can stand beside the left controls and use almost the
+      // full canvas height. A broad group may fit larger below those controls.
+      // Compare clear rectangles instead of reserving a full-width top band.
+      const origin = container.getBoundingClientRect();
+      const obstacles = ['.scene-toolbar', '.authored-note', '.scene-bottom-caption', '.scene-attribution', '.map-controls', '.map-tools-top', '.layer-panel']
+        .map(selector => container.parentElement?.querySelector(selector)?.getBoundingClientRect())
+        .filter(box => box?.width > 0 && box?.height > 0)
+        .map(box => ({ left: box.left - origin.left - 12, right: box.left - origin.left + box.width + 12,
+          top: box.top - origin.top - 12, bottom: box.top - origin.top + box.height + 12 }));
+      const overlaps = (area, obstacle) => area.left < obstacle.right && area.rightEdge > obstacle.left
+        && area.top < obstacle.bottom && area.bottom > obstacle.top;
+      let areas = [viewport];
+      for (const obstacle of obstacles) {
+        const divided = areas.flatMap(area => !overlaps(area, obstacle) ? [area] : [
+          { ...area, rightEdge: Math.min(area.rightEdge, obstacle.left) },
+          { ...area, left: Math.max(area.left, obstacle.right) },
+          { ...area, bottom: Math.min(area.bottom, obstacle.top) },
+          { ...area, top: Math.max(area.top, obstacle.bottom) },
+        ]).filter(area => area.rightEdge - area.left >= 48 && area.bottom - area.top >= 48);
+        const unique = [...new Map(divided.map(area => [[area.left, area.top, area.rightEdge, area.bottom].join(':'), area])).values()];
+        areas = unique.filter((area, index) => !unique.some((other, otherIndex) => otherIndex !== index
+          && other.left <= area.left && other.rightEdge >= area.rightEdge && other.top <= area.top && other.bottom >= area.bottom));
+      }
+      const clear = candidate => !obstacles.some(obstacle => overlaps({ ...candidate.subjectRect, rightEdge: candidate.subjectRect.right }, obstacle));
+      const candidates = [...(clear(frame) ? [frame] : []), ...areas.map(fit).filter(clear)];
+      if (candidates.length) return candidates.reduce((best, candidate) => candidate.zoom > best.zoom + 1e-6 ? candidate : best);
+    }
     const note = authored && window.innerWidth > 700 ? container.parentElement?.querySelector('.authored-note')?.getBoundingClientRect() : null;
     if (note?.height) {
       const origin = container.getBoundingClientRect(), box = frame.subjectRect;
@@ -891,7 +922,11 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     camera.updateMatrixWorld();
     const labels = [];
     for (const [id, item] of landmarkMap) {
-      const p = item.anchor.clone().project(camera);
+      const displayAnchor = item.anchor.clone();
+      if (id === selectedId && item.spec.kind === 'authored' && currentView === 'perspective'
+        && currentFocusOptions.angle !== 'context'
+        && !(currentFocusOptions.close && ['facade', 'entrance', 'crown'].includes(currentFocusOptions.angle))) displayAnchor.y = item.bounds.max.y;
+      const p = displayAnchor.project(camera);
       const inCurrentScene = layers.landmarks.visible && (item.spec.kind !== 'authored' || Boolean(authoredEntries.get(id)?.controller.getStats().quality));
       labels.push({ id, x: (p.x * 0.5 + 0.5) * widthPx, y: (-p.y * 0.5 + 0.5) * heightPx, visible: inCurrentScene && p.z >= -1 && p.z <= 1 && Math.abs(p.x) < 1.04 && Math.abs(p.y) < 1.04, depth: p.z });
     }
@@ -994,7 +1029,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     focus(id, options = {}) {
       const item = landmarkMap.get(id); if (!item) return;
       selectedId = id; userMoved = true; managedFocus = true; currentView = 'perspective';
-      currentFocusOptions = { angle: ['river', 'front', 'entrance', 'crown', 'context'].includes(options.angle) ? options.angle : 'detail', close: options.angle !== 'context' && Boolean(options.close) };
+      currentFocusOptions = { angle: ['river', 'front', 'facade', 'entrance', 'crown', 'context'].includes(options.angle) ? options.angle : 'detail', close: options.angle !== 'context' && Boolean(options.close) };
       controls.screenSpacePanning = item.spec.kind === 'authored' && currentFocusOptions.close;
       setAuthoredSelection(item.spec.kind === 'authored');
       for(const {spec,controller} of authoredEntries.values()) if(spec.id!==id)controller.releaseDetail();
