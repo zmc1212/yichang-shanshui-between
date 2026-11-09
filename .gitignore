@@ -3,3 +3,5 @@ dist/
 .DS_Store
 *.log
 .sites-local/
+__pycache__/
+*.pyc

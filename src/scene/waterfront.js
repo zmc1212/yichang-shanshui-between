@@ -120,23 +120,21 @@ export function planWaterfront({ data, landmarks, modelBounds, inWater, heightAt
     }
     if (!nearest || nearest.distance > 14) continue;
     const footprint = modelBounds.get(spec.id) || { minX: -2.5, maxX: 2.5, minZ: -2.5, maxZ: 2.5 };
-    const fitsLand = center => {
-      for (let x = footprint.minX - 0.18; x <= footprint.maxX + 0.18 + 0.001; x += 0.28) {
-        for (let z = footprint.minZ - 0.18; z <= footprint.maxZ + 0.18 + 0.001; z += 0.28) {
-          if (!insideBoard(center[0] + x, center[1] + z, 0.2) || inWater(center[0] + x, center[1] + z)) return false;
-        }
-      }
-      return true;
-    };
-    let center = [spec.x, spec.z], found = fitsLand(center);
-    for (let move = 0.25; !found && move <= 6; move += 0.25) {
-      for (const along of [0, 0.4, -0.4, 0.8, -0.8]) {
-        const candidate = offset(offset([spec.x, spec.z], nearest.normal, move), nearest.tangent, along);
-        if (fitsLand(candidate)) { center = candidate; found = true; break; }
-      }
+    // Anchors are geographic inputs, never a search variable. Scale/yaw are
+    // resolved by the model factory before the complete bbox reaches here.
+    const center = [spec.x, spec.z], clearance = 0.04;
+    const minX = footprint.minX - clearance, maxX = footprint.maxX + clearance;
+    const minZ = footprint.minZ - clearance, maxZ = footprint.maxZ + clearance;
+    const countX = Math.max(1, Math.ceil((maxX - minX) / 0.12));
+    const countZ = Math.max(1, Math.ceil((maxZ - minZ) / 0.12));
+    let found = true;
+    for (let i = 0; i <= countX; i++) for (let j = 0; j <= countZ; j++) {
+      const x = center[0] + lerp(minX, maxX, i / countX), z = center[1] + lerp(minZ, maxZ, j / countZ);
+      if (!insideBoard(x, z, 0.04) || inWater(x, z)) found = false;
     }
-    const footprintWorld = { minX: center[0] + footprint.minX - 0.25, maxX: center[0] + footprint.maxX + 0.25, minZ: center[1] + footprint.minZ - 0.25, maxZ: center[1] + footprint.maxZ + 0.25 };
-    sites.push({ id: spec.id, original: [spec.x, spec.z], center, footprint: footprintWorld, footprintFitsLand: found, shift: distance(center, [spec.x, spec.z]), shore: nearest, paving: [], rails: [], benches: [], lamps: [], routes: [] });
+    const padding = clamp(Math.max(maxX - minX, maxZ - minZ) * 0.04, 0.04, 0.12);
+    const footprintWorld = { minX: center[0] + footprint.minX - padding, maxX: center[0] + footprint.maxX + padding, minZ: center[1] + footprint.minZ - padding, maxZ: center[1] + footprint.maxZ + padding };
+    sites.push({ id: spec.id, original: [spec.x, spec.z], center, footprint: footprintWorld, footprintFitsLand: found, fitClearance: clearance, anchorPolicy: 'fixed-source-poi', shift: 0, shore: nearest, paving: [], rails: [], benches: [], lamps: [], routes: [] });
   }
   const omittedBuildingIndices = new Set();
   const buildings = [];

@@ -3,6 +3,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 import * as LandmarkFactory from './landmarks.js';
 import { planWaterfront, createWaterfront } from './waterfront.js';
+import { resolveLandmarkSpec } from './landmarkPlacement.js';
 
 /* Coordinates in city.json are in a local metric frame: x east, z south.
    The miniature uses the actual polygon and line data; only its materials,
@@ -193,47 +194,9 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
   parkPolygons.forEach(p => parkIndex.add(p, p.bounds));
   const inWater = (x, z) => waterIndex.get(x, z).some(p => containsPolygon(x, z, p));
   const inPark = (x, z) => parkIndex.get(x, z).some(p => containsPolygon(x, z, p));
-  // Named bridge roads can include both channels, an island, and long approaches.
-  // Find the longest uninterrupted water crossing, then extend slightly onto
-  // the two banks. This keeps the Zhixi main bridge separate from Sanjiang.
-  function bridgeLandmarkSpec(spec) {
-    if (spec.kind !== 'bridge') return spec;
-    if (Array.isArray(spec.endpoints) && spec.endpoints.length === 2) {
-      const [a, b] = spec.endpoints;
-      if (a?.length === 2 && b?.length === 2) return { ...spec, x: (a[0] + b[0]) / 2, z: (a[1] + b[1]) / 2 };
-    }
-    let best = null;
-    for (const road of data.roads || []) {
-      if (road.name !== spec.name || !Array.isArray(road.points)) continue;
-      let run = null;
-      const finish = () => {
-        if (run && run.length > 4 && (!best || run.length > best.length)) best = run;
-        run = null;
-      };
-      for (let i = 1; i < road.points.length; i++) {
-        const a = road.points[i - 1], b = road.points[i];
-        const length = Math.hypot(b[0] - a[0], b[1] - a[1]);
-        const steps = Math.max(1, Math.ceil(length / 0.15));
-        for (let j = 0; j < steps; j++) {
-          const t = j / steps, p = [THREE.MathUtils.lerp(a[0], b[0], t), THREE.MathUtils.lerp(a[1], b[1], t)];
-          if (inWater(p[0], p[1])) {
-            if (!run) run = { first: p, last: p, length: 0 };
-            run.last = p; run.length += length / steps;
-          } else finish();
-        }
-      }
-      finish();
-    }
-    if (!best) return spec;
-    const dx = best.last[0] - best.first[0], dz = best.last[1] - best.first[1];
-    const len = Math.hypot(dx, dz) || 1, approach = 1.25;
-    const a = [best.first[0] - dx / len * approach, best.first[1] - dz / len * approach];
-    const b = [best.last[0] + dx / len * approach, best.last[1] + dz / len * approach];
-    return { ...spec, x: (a[0] + b[0]) / 2, z: (a[1] + b[1]) / 2, endpoints: [a, b], modelScale: 1, spanSource: 'named-road-water-crossing' };
-  }
-  let landmarks = (data.landmarks || []).map(bridgeLandmarkSpec);
+  const landmarks = (data.landmarks || []).map(spec => resolveLandmarkSpec(spec, { roads: data.roads, inWater }));
   // Reuse these groups after measuring them; their textures are disposed with
-  // the scene. The shore fitting never edits the original POI coordinates.
+  // the scene. Their measured bounds already include factory yaw and scaling.
   const preparedLandmarks = new Map(), modelBounds = new Map();
   for (const spec of landmarks) {
     const group = LandmarkFactory.createLandmark?.(spec) || new THREE.Group();
@@ -266,10 +229,6 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     return rawHeight(x, z);
   }
   const waterfrontPlan = planWaterfront({ data, landmarks, modelBounds, inWater, heightAt: surfaceHeight });
-  landmarks = landmarks.map(spec => {
-    const site = waterfrontPlan.getSite(spec.id);
-    return site ? { ...spec, x: site.center[0], z: site.center[1], sourceX: spec.x, sourceZ: spec.z } : spec;
-  });
   const baseThickness = 9.4;
   const soilMaterial = makeMaterial(DAY.soil, NIGHT.soil);
   const rimMaterial = makeMaterial(DAY.rim, NIGHT.rim);
@@ -484,10 +443,10 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
   for (const spec of landmarks) {
     const group = preparedLandmarks.get(spec.id);
     group.name = spec.name || spec.id;
-    const scale = Number(spec.modelScale) || 1;
+    const scale = Number(group.userData.modelScaleApplied) || group.scale.x || 1;
     const base = Number.isFinite(spec.elevation) ? spec.elevation : surfaceHeight(spec.x, spec.z);
-    group.position.set(spec.x, base + 0.13, spec.z);
-    group.scale.setScalar(scale);
+    const lift = waterfrontPlan.getSite(spec.id) ? 0.095 : 0.13;
+    group.position.set(spec.x, base + lift, spec.z);
     group.userData.landmarkId = spec.id;
     group.traverse(object => {
       if (object.isMesh) {
@@ -504,7 +463,8 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     const bounds = new THREE.Box3().setFromObject(group);
     const size = bounds.isEmpty() ? new THREE.Vector3(5, 8, 5) : bounds.getSize(new THREE.Vector3());
     const center = bounds.isEmpty() ? group.position.clone() : bounds.getCenter(new THREE.Vector3());
-    const anchor = new THREE.Vector3(spec.x, Math.max(base + 3, bounds.isEmpty() ? base + 8 : bounds.max.y) + 1, spec.z);
+    const labelClearance = waterfrontPlan.getSite(spec.id) ? Math.max(0.15, size.y * 0.12) : 1;
+    const anchor = new THREE.Vector3(spec.x, (bounds.isEmpty() ? base + 8 : bounds.max.y) + labelClearance, spec.z);
     landmarkMap.set(spec.id, { spec, group, base, size, center, anchor, bounds });
   }
 
@@ -582,14 +542,15 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     const fractionX = Math.min(1, (rightEdge - left) / widthPx);
     const fractionY = Math.min(1, (bottom - top) / heightPx);
     let projectedWidth = 0, projectedHeight = 0;
-    for (const x of [item.bounds.min.x, item.bounds.max.x]) for (const z of [item.bounds.min.z, item.bounds.max.z]) for (const y of [item.bounds.min.y, item.bounds.max.y + 0.8]) {
+    for (const x of [item.bounds.min.x, item.bounds.max.x]) for (const z of [item.bounds.min.z, item.bounds.max.z]) for (const y of [item.bounds.min.y, Math.max(item.bounds.max.y, item.anchor.y)]) {
       const delta = new THREE.Vector3(x, y, z).sub(item.center);
       projectedWidth = Math.max(projectedWidth, Math.abs(delta.dot(right)) * 2);
       projectedHeight = Math.max(projectedHeight, Math.abs(delta.dot(up)) * 2);
     }
     const maxSize = Math.max(item.size.x, item.size.z, item.size.y);
     const wide = item.spec.kind === 'bridge' || item.spec.kind === 'dam';
-    const defaultHeight = Math.max(37, Math.min(extent * 0.43, maxSize * (wide ? 1.75 : 5.2)));
+    const minimumHeight = site ? 10 : 37;
+    const defaultHeight = Math.max(minimumHeight, Math.min(extent * 0.43, maxSize * (wide ? 1.75 : 5.2)));
     const safetyHeight = Math.max(projectedHeight / fractionY, projectedWidth / (aspect * fractionX)) * 1.12;
     // Reserve the close-view margin before selecting either framing. The
     // narrower mobile viewport must not force both states onto the same cap.
@@ -615,7 +576,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
       }
       selectedRing.geometry = makeLineGeometry(positions);
     } else selectedRing.geometry = new THREE.RingGeometry(3.6 * scale, 3.72 * scale, 64);
-    selectedRing.position.set(item.spec.x, item.base + 0.21, item.spec.z); selectedRing.scale.setScalar(1);
+    selectedRing.position.set(item.spec.x, item.base + (waterfrontPlan.getSite(item.spec.id) ? 0.115 : 0.21), item.spec.z); selectedRing.scale.setScalar(1);
     selectedRing.visible = item.spec.kind !== 'bridge' && item.spec.kind !== 'dam';
   }
   function calculateDefaultState(view = currentView) {
@@ -640,7 +601,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
   function focusZoomLimit() {
     // A fixed minimum visible world height keeps zoom useful on portrait
     // screens without changing the full-board overview or its camera angle.
-    return Math.max(16, baseHalfHeight * 2 / 18);
+    return Math.max(16, baseHalfHeight * 2 / 6);
   }
   function setFrustum() {
     controls.maxZoom = focusZoomLimit();
@@ -839,7 +800,23 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
       renderer.render(scene, camera); return renderer.domElement.toDataURL('image/png');
     },
     getStats() {
-      return { ...waterfront.stats, motionEnabled, motionRunning, motionReduced: reducedMotion, motionFpsLimit: 30, focusAngle: currentFocusOptions.angle, focusClose: currentFocusOptions.close, landmarkOffsets: waterfrontPlan.sites.map(s => ({ id: s.id, source: s.original, model: s.center, distance: s.shift })), buildings: buildingCount, roads: (data.roads || []).length, waterPolygons: waterPolygons.length, parks: parkPolygons.length, trees: treeSpecs.length, landmarks: landmarkMap.size, drawCalls: renderer.info.render.calls, triangles: renderer.info.render.triangles, theme: currentTheme, view: currentView, cameraZoom: camera.zoom, terrain: terrainValid ? 'source-grid' : hills.length ? 'illustrative-hills' : 'flat', heightExaggeration: BUILDING_HEIGHT_EXAGGERATION, bridgeSpans: landmarks.filter(l => l.kind === 'bridge').map(l => ({ id: l.id, endpoints: l.endpoints, source: l.spanSource || 'landmark-spec' })), renderer: 'Three.js / WebGL', projection: 'orthographic' };
+      const alignments = [...landmarkMap.values()].map(item => {
+        const spec = item.spec, group = item.group, record = spec.alignment || {};
+        const delta = Math.hypot(group.position.x - spec.x, group.position.z - spec.z);
+        return {
+          id: spec.id, source: spec.spanSource || record.method || 'source-poi',
+          anchorPolicy: record.anchorPolicy || (spec.endpoints ? 'ordered-span-midpoint' : 'fixed-source-poi'),
+          sourcePointLonLat: record.sourcePointLonLat || [spec.lon, spec.lat],
+          sourceFeatureIds: record.sourceFeatureIds || [], sourceFiles: record.sourceFiles || [],
+          resolvedAnchor: [spec.x, spec.z], modelAnchor: [group.position.x, group.position.z],
+          anchorOffset: delta, anchorOffsetMeters: delta / (data.meta.unitsPerMeter || 0.02),
+          axisHeadingDeg: group.userData.axisHeadingDeg,
+          frontHeadingDeg: group.userData.frontAxis ? ((180 - THREE.MathUtils.radToDeg(group.rotation.y)) % 360 + 360) % 360 : null,
+          yawRadians: group.rotation.y, scale: group.scale.toArray(),
+          endpoints: spec.endpoints, mainSpanEndpoints: spec.mainSpanEndpoints,
+        };
+      });
+      return { alignments, ...waterfront.stats, motionEnabled, motionRunning, motionReduced: reducedMotion, motionFpsLimit: 30, focusAngle: currentFocusOptions.angle, focusClose: currentFocusOptions.close, landmarkOffsets: waterfrontPlan.sites.map(s => ({ id: s.id, source: s.original, model: s.center, distance: s.shift })), buildings: buildingCount, roads: (data.roads || []).length, waterPolygons: waterPolygons.length, parks: parkPolygons.length, trees: treeSpecs.length, landmarks: landmarkMap.size, drawCalls: renderer.info.render.calls, triangles: renderer.info.render.triangles, theme: currentTheme, view: currentView, cameraZoom: camera.zoom, terrain: terrainValid ? 'source-grid' : hills.length ? 'illustrative-hills' : 'flat', heightExaggeration: BUILDING_HEIGHT_EXAGGERATION, bridgeSpans: landmarks.filter(l => l.kind === 'bridge').map(l => ({ id: l.id, endpoints: l.endpoints, mainSpanEndpoints: l.mainSpanEndpoints, source: l.spanSource || 'landmark-spec' })), renderer: 'Three.js / WebGL', projection: 'orthographic' };
     },
     dispose() {
       if (disposed) return; disposed = true;

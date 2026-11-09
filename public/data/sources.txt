@@ -177,3 +177,21 @@ b5aa94ecaf8a8a9fa4987ef1040bffdb2d26127bf24325bd813ff76242660b28  dist/data/gis-
 至喜大江桥、三江桥与夷陵主桥结构：运营方官方招标：https://www.hbbidcloud.cn/shengbenji/jyxx/004001/004001003/20240716/19fe53bc-3d2a-4920-8662-e325de050014.html
 夷陵三塔单索面斜拉桥：湖北省文化和旅游厅：https://wlt.hubei.gov.cn/bmdt/ztzl/zshb/201912/t20191226_1799512.shtml
 倒Y形桥塔：湖北省住建厅：https://zjt.hubei.gov.cn/bmdt/ztzl/hbcjda/dayd/201910/t20191028_82017.shtml
+
+地标方位校准（2026-11-09）
+WGS84 → x east / z south. axisHeadingDeg is the bearing of model local +X, clockwise from geographic north. Local +Z is the historic-building entrance and the dam's downstream spillway side. Ordered span endpoints override axisHeadingDeg.
+方位角由保留的 GIS 轮廓、坝顶线或岸线计算，结合公开资料确定正背面；属于微缩场景配准，不是现场实测方位。地标高度、横向厚度、构件和展示比例仍为风格化表现。
+zhenjiang-pavilion：沿源片区中明确名为镇江阁的建筑轮廓边确定轴向，以三峡集团文献对现址重建阁“面对东山，背靠长江”的说明确定正背面。保留原 POI，不再向陆侧平移；0.51 为展示缩放，用于使旋转后的完整包围盒留在源陆地。
+gezhouba-dam：使用坝顶道路 way/1465238639 西侧大江主体坝段的两个已有节点，按两端中点落位；跨度约614.9米，轴方位约109.46°。上游水库与下游长江边界的平行坝岸作交叉核对。模型表示该主体坝段，不把全长坝区道路、三江段、船闸和引航导堤合成一条桥坝模型。原区域参考点保留为来源元数据。
+zhixi-bridge：沿同名道路最长连续水上段并向两岸各延长1.25世界单位，得到大江主跨的两处近岸塔位；再按250:838:215比例外扩两侧边跨形成整座大江桥。主跨约841米，不再误当成整桥长度。端点固定西→东以避免道路存储顺序翻转不对称结构；现有西250/东215配置维持不变，岸侧分配未取得测量图确认。三江桥与岛上连接段不合并为一条直线。
+yiling-bridge：沿同名道路最长连续水上段确定主桥端点、中心与方向；实际水上道路与模型弦线的最大偏差约2.6米，在微缩桥面的覆盖内。
+tianran-pagoda：宜昌市民政局地名资料明确底层塔门面向大江；以本地源岸线水侧法向给出展示方位，非实测入口角度。塔门、牌匾和台阶统一为模型局部+Z正面。原 POI 不平移；0.19 为避免放大底座伸入水面的展示缩放。
+mojishan-park：保持已有公园参考点。当前圆形公园和亭子是示意模型，没有可核实的唯一建筑正面；不把装饰步道的默认方向当作真实园区入口方位。
+xiba-island：保持岛屿区域参考点，实际岛形由源水域岸线确定。圆形绿地与亭子为区域导览符号，不承担岛上某座实物建筑朝向的还原。
+三峡集团《三峡》2022年第10期，印刷页111：现址重建镇江阁朝向：https://www.ctgne.com/sxjt/fileDir/resource/cms/article/1278180/1418219/2023032716492726407.pdf
+宜昌园林部门：镇江阁：https://ylj.yichang.gov.cn/content-43970-961458-1.html
+宜昌市民政局：宜昌地名·天然塔（底层塔门面向大江）：https://mzj.yichang.gov.cn/content-63849-997288-1.html
+OpenStreetMap 坝顶道路 way/1465238639；几何使用项目保留快照：https://www.openstreetmap.org/way/1465238639
+湖北公共资源交易平台：桥梁运营方2024年公告，至喜大江桥838米主跨及250/215米边跨：https://www.hbbidcloud.cn/shengbenji/jyxx/004001/004001003/20240716/19fe53bc-3d2a-4920-8662-e325de050014.html
+新华社2016年7月18日建设方采访：至喜大江桥一跨过江、水中不设桥墩：https://www.xinhuanet.com/politics/2016-07/18/c_129156216.htm
+配置：scripts/landmark-alignments.json；SHA-256 75934b5d8936d92edf5161cef5c7f5fafde40aa1547ce8a73779d1951d9798fe

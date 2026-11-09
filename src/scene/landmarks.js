@@ -80,6 +80,18 @@ class ModelBuilder {
   plaque(text, x, y, z, width, height, angle = 0) {
     this.plaques.push({ text, x, y, z, width, height, angle });
   }
+  rotatePartsY(angle) {
+    // Internal modelling adjustment only; geographic yaw is applied once to
+    // the finished group. Keep inscription planes aligned with their frames.
+    for (const geometries of this.batches.values()) for (const geometry of geometries) geometry.rotateY(angle);
+    const c = Math.cos(angle), s = Math.sin(angle);
+    for (const plaque of this.plaques) {
+      const x = plaque.x, z = plaque.z;
+      plaque.x = x * c + z * s;
+      plaque.z = z * c - x * s;
+      plaque.angle += angle;
+    }
+  }
   finish(group) {
     for (const [role, geometries] of this.batches) {
       const merged = mergeGeometries(geometries, false);
@@ -422,12 +434,13 @@ function pagoda(b) {
       const corner = k / 8 * Math.PI * 2;
       b.cyl('red', Math.cos(corner) * radius, y + wallH / 2, Math.sin(corner) * radius, .042, wallH, 6);
       const a = corner + Math.PI / 8, rr = radius * Math.cos(Math.PI / 8) + .015;
-      archWindow(b, Math.cos(a) * rr, y + .17, Math.sin(a) * rr, .26 - level * .008, .48, Math.PI / 2 - a, 'redDark');
+      const entrance = level === 0 && k === 1;
+      archWindow(b, Math.cos(a) * rr, y + (entrance ? .035 : .17), Math.sin(a) * rr, entrance ? .42 : .26 - level * .008, entrance ? .57 : .48, Math.PI / 2 - a, 'redDark');
       // Selective, inset panes leave a dark reveal and avoid an all-lit facade.
       if ((k + level) % 3 !== 0) {
         const paneR = rr + .035;
-        archWindow(b, Math.cos(a) * paneR, y + .20, Math.sin(a) * paneR, .18 - level * .005, .35, Math.PI / 2 - a, 'windowLight');
-        b.rod('gold', [Math.cos(a) * (paneR + .028), y + .22, Math.sin(a) * (paneR + .028)], [Math.cos(a) * (paneR + .028), y + .47, Math.sin(a) * (paneR + .028)], .008, 4);
+        archWindow(b, Math.cos(a) * paneR, y + (entrance ? .08 : .20), Math.sin(a) * paneR, entrance ? .24 : .18 - level * .005, entrance ? .43 : .35, Math.PI / 2 - a, 'windowLight');
+        b.rod('gold', [Math.cos(a) * (paneR + .028), y + (entrance ? .10 : .22), Math.sin(a) * (paneR + .028)], [Math.cos(a) * (paneR + .028), y + .47, Math.sin(a) * (paneR + .028)], .008, 4);
       }
       if (level < 5) {
         const nr = radius + .18, next = corner + Math.PI / 4;
@@ -440,27 +453,58 @@ function pagoda(b) {
   b.cyl('gold', 0, topY + .22, 0, .07, .5, 8);
   for (let i = 0; i < 4; i++) b.add(new THREE.SphereGeometry(.15 - i * .027, 8, 6), 'gold', 0, topY + .13 + i * .18, 0);
   b.add(new THREE.ConeGeometry(.09, .40, 8), 'gold', 0, topY + .87, 0);
-  stoneSteps(b, 2.18, .90, .50, 4, 0, true);
-  const plaqueAngle = Math.PI * 3 / 8, plaqueRadius = 1.32 * Math.cos(Math.PI / 8) + .050;
+  // Mount the small inscription on the outside of the entrance eave bracket,
+  // so that the bracket does not hide its face after the entrance is aligned.
+  const plaqueAngle = Math.PI * 3 / 8, plaqueRadius = 1.32 * Math.cos(Math.PI / 8) + .190;
   const plaqueRotation = Math.PI / 2 - plaqueAngle;
   b.box('gold', Math.cos(plaqueAngle) * plaqueRadius, 1.205, Math.sin(plaqueAngle) * plaqueRadius, .66, .23, .045, [0, plaqueRotation, 0]);
   b.box('teal', Math.cos(plaqueAngle) * (plaqueRadius + .030), 1.205, Math.sin(plaqueAngle) * (plaqueRadius + .030), .61, .185, .016, [0, plaqueRotation, 0]);
   b.plaque('天然塔', Math.cos(plaqueAngle) * (plaqueRadius + .041), 1.205, Math.sin(plaqueAngle) * (plaqueRadius + .041), .59, .181, plaqueRotation);
+  // The existing inscribed octagonal face points 22.5 degrees away from +Z.
+  // Rotate only the tower, roofs, plinth and inscription into the model frame,
+  // then add the +Z approach. External geographic heading needs no correction.
+  b.rotatePartsY(-Math.PI / 8);
+  b.box('stone', 0, .515, 1.29, .48, .030, .14);
+  b.box('ivory', 0, .47, 1.55, .90, .06, .34);
+  stoneSteps(b, 2.18, .90, .50, 4, 0, true);
 }
 
 function endpointPoint(p) {
-  if (Array.isArray(p)) return [Number(p[0]), Number(p.length > 2 ? p[2] : p[1])];
-  return p && Number.isFinite(Number(p.x)) && Number.isFinite(Number(p.z)) ? [Number(p.x), Number(p.z)] : null;
+  const x = Array.isArray(p) ? p[0] : p?.x;
+  const z = Array.isArray(p) ? p[p.length === 3 ? 2 : 1] : p?.z;
+  return Number.isFinite(x) && Number.isFinite(z) ? [x, z] : null;
 }
-function bridgeSpan(spec) {
+function normalizeHeading(degrees) {
+  return ((degrees % 360) + 360) % 360;
+}
+function landmarkOrientation(spec) {
   const ends = spec.endpoints;
   const a = endpointPoint(Array.isArray(ends) ? ends[0] : ends?.from ?? ends?.start);
   const c = endpointPoint(Array.isArray(ends) ? ends[1] : ends?.to ?? ends?.end);
-  if (a && c && a.every(Number.isFinite) && c.every(Number.isFinite)) {
+  if (a && c) {
     const dx = c[0] - a[0], dz = c[1] - a[1], length = Math.hypot(dx, dz);
-    if (length > 1) return { length, rotation: -Math.atan2(dz, dx), source: 'endpoints' };
+    if (length > .000001) return {
+      source: 'endpoints', yaw: -Math.atan2(dz, dx),
+      axisHeadingDeg: normalizeHeading(THREE.MathUtils.radToDeg(Math.atan2(dx, -dz))),
+      length, endpoints: [a, c],
+    };
   }
-  return { length: Number.isFinite(spec.length) && spec.length > 1 ? spec.length : 25, rotation: 0, source: 'length' };
+  if (Number.isFinite(spec.axisHeadingDeg)) {
+    const heading = normalizeHeading(spec.axisHeadingDeg);
+    const yaw = Math.PI / 2 - THREE.MathUtils.degToRad(heading);
+    return { source: 'axisHeadingDeg', yaw: Math.atan2(Math.sin(yaw), Math.cos(yaw)), axisHeadingDeg: heading };
+  }
+  return { source: 'default', yaw: 0, axisHeadingDeg: 90 };
+}
+function bridgeSpan(spec, orientation, defaultLength = 25) {
+  const hasLength = Number.isFinite(spec.length) && spec.length > 0;
+  return {
+    length: orientation.length ?? (hasLength ? spec.length : defaultLength),
+    rotation: orientation.yaw,
+    source: orientation.endpoints ? 'endpoints' : hasLength ? 'length' : 'default',
+    orientationSource: orientation.source,
+    ...(orientation.endpoints ? { endpoints: orientation.endpoints, endpointOrder: '-X to +X' } : {}),
+  };
 }
 
 function bridgeDeck(b, L, w, deckY, centralCablePlane = false) {
@@ -558,7 +602,7 @@ function suspensionBridge(b, L, w, deckY) {
       b.box('cream', endX, deckY + .20, z, .62, .40, .43);
     }
   }
-  return { type: 'suspension', towerCount: 2, cablePlanes: 2, spanRatios: [250, 838, 215], section: 'Dajiang main bridge' };
+  return { type: 'suspension', towerCount: 2, towerBaseCenters: towerXs.map(x => [x, 0, 0]), cablePlanes: 2, spanRatios: [250, 838, 215], section: 'Dajiang main bridge' };
 }
 
 function threeTowerCableBridge(b, L, w, deckY) {
@@ -594,7 +638,7 @@ function threeTowerCableBridge(b, L, w, deckY) {
       }
     }
   });
-  return { type: 'three-tower-cable-stayed', towerCount: 3, cablePlanes: 1, spanRatios: [120, 348, 348, 120], pylon: 'inverted-Y' };
+  return { type: 'three-tower-cable-stayed', towerCount: 3, towerBaseCenters: towerXs.map(x => [x, 0, 0]), cablePlanes: 1, spanRatios: [120, 348, 348, 120], pylon: 'inverted-Y' };
 }
 
 function genericCableBridge(b, L, w, deckY) {
@@ -622,8 +666,8 @@ function genericCableBridge(b, L, w, deckY) {
   return { type: 'cable-stayed', towerCount: 2, cablePlanes: 2 };
 }
 
-function bridge(b, spec, group) {
-  const span = bridgeSpan(spec), L = span.length;
+function bridge(b, spec, group, orientation) {
+  const span = bridgeSpan(spec, orientation), L = span.length;
   const w = clamp(L * .055, 1.45, 2.65), deckY = clamp(L * .055, 1.65, 3.8);
   const type = spec.bridgeType || (/zhixi|至喜/.test(`${spec.id || ''} ${spec.name || ''}`) ? 'suspension'
     : /yiling|夷陵/.test(`${spec.id || ''} ${spec.name || ''}`) ? 'three-tower-cable-stayed' : 'cable-stayed');
@@ -631,12 +675,11 @@ function bridge(b, spec, group) {
   group.userData.bridgeStructure = type === 'suspension' ? suspensionBridge(b, L, w, deckY)
     : type === 'three-tower-cable-stayed' ? threeTowerCableBridge(b, L, w, deckY)
       : genericCableBridge(b, L, w, deckY);
-  group.rotation.y = span.rotation;
   group.userData.span = { ...span, axis: 'local-x', units: 'world' };
 }
 
-function dam(b, spec, group) {
-  const span = spec.endpoints || spec.length ? bridgeSpan(spec) : { length: 17, rotation: 0, source: 'default' };
+function dam(b, spec, group, orientation) {
+  const span = bridgeSpan(spec, orientation, 17);
   const L = span.length, gates = Math.round(clamp(L / 1.35, 9, 30)), gap = L / gates;
   const h = clamp(L * .14, 2.5, 4.7);
   b.box('stone', 0, .16, 0, L + .4, .32, 3.45);
@@ -672,7 +715,6 @@ function dam(b, spec, group) {
     b.box('gold', x, h + 1.25, 0, .20, .14, 1.77);
     b.box('red', x, h + 1.40, 0, .42, .20, .46);
   }
-  group.rotation.y = span.rotation;
   group.userData.span = { ...span, axis: 'local-x', units: 'world' };
 }
 
@@ -745,11 +787,20 @@ function museum(b) {
  * spec.length is in world units. For a bridge/dam spec.endpoints can be
  * [[x,z],[x,z]] or [{x,z},{x,z}]. The mesh is centred and oriented to those
  * endpoints, but is never translated to their centre: the caller owns placement.
- * modelScale applies uniformly after modelling; omit it for georeferenced spans.
+ * Ordered endpoints map from local -X to +X and take priority over headings.
+ * axisHeadingDeg is the local +X bearing: north 0 degrees, clockwise positive.
+ * With x east / z south this gives yaw = PI/2 - heading (wrapped modulo 2PI).
+ * Entry/front/spillway
+ * axes are separate model semantics; none adds another geographic rotation.
+ * modelScale applies to point landmarks and unregistered display models. A
+ * bridge/dam with valid world-space endpoints keeps scale=1 so its span fits.
  */
 export function createLandmark(spec = {}) {
   const group = new THREE.Group();
   const kind = spec.kind || 'pavilion';
+  const isSpan = kind === 'bridge' || kind === 'dam';
+  const orientation = landmarkOrientation(spec);
+  const hasEntrance = !isSpan;
   group.name = spec.name || spec.id || kind;
   const pick = { type: 'landmark', id: spec.id || kind, name: group.name, kind,
     category: spec.category, subtitle: spec.subtitle, description: spec.description };
@@ -764,19 +815,42 @@ export function createLandmark(spec = {}) {
     landmark: { ...spec },
     representation: 'stylized-miniature',
     approximate: true,
+    modelAxis: '+X',
+    spanAxis: isSpan ? '+X' : null,
+    frontAxis: kind === 'bridge' ? null : '+Z',
+    entranceAxis: hasEntrance ? '+Z' : null,
+    spillwaySide: kind === 'dam' ? '+Z' : null,
+    frontMeaning: kind === 'dam' ? 'model-spillway-side' : kind === 'bridge' ? null : 'model-entrance',
+    axisHeadingDeg: orientation.axisHeadingDeg,
+    finalYaw: orientation.yaw,
+    orientation: {
+      source: orientation.source,
+      axisHeadingDeg: orientation.axisHeadingDeg,
+      yawRadians: orientation.yaw,
+      headingConvention: 'local +X bearing; north 0 degrees; clockwise',
+      appliedBy: 'landmark-factory',
+      ...(orientation.endpoints ? { endpoints: orientation.endpoints, endpointOrder: '-X to +X' } : {}),
+    },
   };
   const b = new ModelBuilder();
   if (kind === 'pagoda') pagoda(b);
-  else if (kind === 'bridge') bridge(b, spec, group);
-  else if (kind === 'dam') dam(b, spec, group);
+  else if (kind === 'bridge') bridge(b, spec, group, orientation);
+  else if (kind === 'dam') dam(b, spec, group, orientation);
   else if (kind === 'park') park(b);
   else if (kind === 'museum') museum(b);
   else pavilion(b);
   b.finish(group);
   updateLandmarkTheme(group, false);
   group.userData.lighting = 'emissive-detail-only';
-  const scale = Number.isFinite(spec.modelScale) && spec.modelScale > 0 ? spec.modelScale : 1;
+  // This is the only geographic yaw application. A pagoda's internal octagon
+  // correction has already established its +Z entrance in the model geometry.
+  group.rotation.y = orientation.yaw;
+  const requestedScale = Number.isFinite(spec.modelScale) && spec.modelScale > 0 ? spec.modelScale : 1;
+  const scale = isSpan && orientation.endpoints ? 1 : requestedScale;
   group.scale.setScalar(scale);
+  group.userData.modelScaleApplied = scale;
+  group.userData.georeferencedSpan = Boolean(isSpan && orientation.endpoints);
+  if (kind === 'pagoda') group.userData.internalOctagonYaw = -Math.PI / 8;
   group.updateMatrixWorld(true);
   const bounds = new THREE.Box3().setFromObject(group);
   group.userData.labelHeight = bounds.max.y + .55 * scale;

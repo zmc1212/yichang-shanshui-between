@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "reviewedAt": "2026-11-09",
+  "sourceSnapshotCommit": "38c01bf002511c01294feacd8aa85e54e6342724",
+  "coordinateConvention": "WGS84 → x east / z south. axisHeadingDeg is the bearing of model local +X, clockwise from geographic north. Local +Z is the historic-building entrance and the dam's downstream spillway side. Ordered span endpoints override axisHeadingDeg.",
+  "accuracyNote": "方位角由保留的 GIS 轮廓、坝顶线或岸线计算，结合公开资料确定正背面；属于微缩场景配准，不是现场实测方位。地标高度、横向厚度、构件和展示比例仍为风格化表现。",
+  "landmarks": [
+    {
+      "id": "zhenjiang-pavilion",
+      "axisHeadingDeg": 356.672,
+      "frontHeadingDeg": 86.672,
+      "modelScale": 0.51,
+      "method": "named-building-footprint-and-documented-front",
+      "anchorPolicy": "fixed-source-poi",
+      "sourcePointLonLat": [111.2708465, 30.7034514],
+      "sourceFeatureIds": ["8f5e19d9-fc79-449c-885e-0136899ebf23", "node/11539194579"],
+      "sourceFiles": ["dist/data/landmark-scenes/zhenjiang/gis/buildings.geojson", "dist/pois.json"],
+      "frontRelation": "landward / East Mountain; river behind",
+      "note": "沿源片区中明确名为镇江阁的建筑轮廓边确定轴向，以三峡集团文献对现址重建阁“面对东山，背靠长江”的说明确定正背面。保留原 POI，不再向陆侧平移；0.51 为展示缩放，用于使旋转后的完整包围盒留在源陆地。"
+    },
+    {
+      "id": "gezhouba-dam",
+      "endpointsLonLat": [[111.266107, 30.740883], [111.272164, 30.739043]],
+      "modelScale": 1,
+      "method": "mapped-western-main-channel-dam-crest",
+      "anchorPolicy": "ordered-span-midpoint",
+      "sourcePointLonLat": [111.27234, 30.73883],
+      "sourceFeatureIds": ["way/1465238639", "relation/2308784", "relation/3151691"],
+      "sourceFiles": ["dist/data/gis-yichang/roads.geojson", "dist/data/gis-yichang/water.geojson"],
+      "spanRelation": "west-to-east across the western main-channel dam segment",
+      "downstreamRelation": "local +Z points south-southwest, away from the upstream reservoir",
+      "note": "使用坝顶道路 way/1465238639 西侧大江主体坝段的两个已有节点，按两端中点落位；跨度约614.9米，轴方位约109.46°。上游水库与下游长江边界的平行坝岸作交叉核对。模型表示该主体坝段，不把全长坝区道路、三江段、船闸和引航导堤合成一条桥坝模型。原区域参考点保留为来源元数据。"
+    },
+    {
+      "id": "zhixi-bridge",
+      "method": "named-road-main-span-with-approaches",
+      "anchorPolicy": "ordered-span-midpoint",
+      "sourcePointLonLat": [111.2653116, 30.7157271],
+      "note": "沿同名道路最长连续水上段并向两岸各延长1.25世界单位，得到大江主跨的两处近岸塔位；再按250:838:215比例外扩两侧边跨形成整座大江桥。主跨约841米，不再误当成整桥长度。端点固定西→东以避免道路存储顺序翻转不对称结构；现有西250/东215配置维持不变，岸侧分配未取得测量图确认。三江桥与岛上连接段不合并为一条直线。"
+    },
+    {
+      "id": "yiling-bridge",
+      "method": "named-road-water-crossing",
+      "anchorPolicy": "ordered-span-midpoint",
+      "sourcePointLonLat": [111.29084, 30.68558],
+      "note": "沿同名道路最长连续水上段确定主桥端点、中心与方向；实际水上道路与模型弦线的最大偏差约2.6米，在微缩桥面的覆盖内。"
+    },
+    {
+      "id": "tianran-pagoda",
+      "axisHeadingDeg": 136.179,
+      "frontHeadingDeg": 226.179,
+      "modelScale": 0.19,
+      "method": "source-shoreline-and-documented-river-facing-door",
+      "anchorPolicy": "fixed-source-poi",
+      "sourcePointLonLat": [111.32162, 30.6647],
+      "sourceFeatureIds": ["way/1058306288"],
+      "sourceFiles": ["dist/data/gis-yichang/water.geojson", "dist/pois.json"],
+      "frontRelation": "riverward",
+      "note": "宜昌市民政局地名资料明确底层塔门面向大江；以本地源岸线水侧法向给出展示方位，非实测入口角度。塔门、牌匾和台阶统一为模型局部+Z正面。原 POI 不平移；0.19 为避免放大底座伸入水面的展示缩放。"
+    },
+    {
+      "id": "mojishan-park",
+      "method": "source-poi-with-illustrative-park-model",
+      "anchorPolicy": "fixed-source-poi",
+      "sourcePointLonLat": [111.2833374, 30.6820522],
+      "note": "保持已有公园参考点。当前圆形公园和亭子是示意模型，没有可核实的唯一建筑正面；不把装饰步道的默认方向当作真实园区入口方位。"
+    },
+    {
+      "id": "xiba-island",
+      "method": "source-region-poi-with-illustrative-park-model",
+      "anchorPolicy": "fixed-source-poi",
+      "sourcePointLonLat": [111.2747, 30.7289],
+      "note": "保持岛屿区域参考点，实际岛形由源水域岸线确定。圆形绿地与亭子为区域导览符号，不承担岛上某座实物建筑朝向的还原。"
+    }
+  ],
+  "references": [
+    {
+      "name": "三峡集团《三峡》2022年第10期，印刷页111：现址重建镇江阁朝向",
+      "url": "https://www.ctgne.com/sxjt/fileDir/resource/cms/article/1278180/1418219/2023032716492726407.pdf"
+    },
+    {
+      "name": "宜昌园林部门：镇江阁",
+      "url": "https://ylj.yichang.gov.cn/content-43970-961458-1.html"
+    },
+    {
+      "name": "宜昌市民政局：宜昌地名·天然塔（底层塔门面向大江）",
+      "url": "https://mzj.yichang.gov.cn/content-63849-997288-1.html"
+    },
+    {
+      "name": "OpenStreetMap 坝顶道路 way/1465238639；几何使用项目保留快照",
+      "url": "https://www.openstreetmap.org/way/1465238639"
+    },
+    {
+      "name": "湖北公共资源交易平台：桥梁运营方2024年公告，至喜大江桥838米主跨及250/215米边跨",
+      "url": "https://www.hbbidcloud.cn/shengbenji/jyxx/004001/004001003/20240716/19fe53bc-3d2a-4920-8662-e325de050014.html"
+    },
+    {
+      "name": "新华社2016年7月18日建设方采访：至喜大江桥一跨过江、水中不设桥墩",
+      "url": "https://www.xinhuanet.com/politics/2016-07/18/c_129156216.htm"
+    }
+  ]
+}
