@@ -43,3 +43,9 @@ V34 最后检查发现首信顶部的画面仍处于局部观察，但整楼中�
 现将可见性判断改为整个建筑包围体与镜头视锥相交，手动缩放后保留可见且足够大的选中建筑的细节优先级。仍最多只允许一栋建筑请求细节。
 
 回归先证明旧实现失败（中南冶金桌面入口），再验证修复通过，覆盖 7 个模型 × 3 个局部部位 × 3 种视口布局及连续手动放大。新运行包发布后的实际 GLB 加载结果与替换截图继续在此记录。
+
+### V35 实际加载复核
+
+源码 `d22f3b0326fc94f8c01871129f55dc932eaf4114` 发布后，原网址普通刷新已实际返回 `index-BcCihUF7.js`。首信桌面顶部、桌面入口、390×844 手机顶部与手机入口，静止后均确认 `modelQuality=detail`、`detailModels=1`、`residentModels=7`、`cityVisible=true`、`sceneMode=city`、`renderState=idle`。手机入口点击加号进一步放大后仍保持细节版，当前浏览器 warning/error 记录为空。
+
+已用这次同时记录模型质量的浏览器原图替换 `crown-desktop.png`、`entrance-desktop.png` 和 `entrance-mobile.png`，并新增 `crown-mobile.png`。入口和顶部截图的质量状态至此获得单独确认。检查完成后恢复桌面视口，保留首信顶部作为可查看的结果。
