@@ -1,6 +1,56 @@
 # 宜昌 · 江山之间 — Design QA
 
-## Result
+## Detail iteration — 2026-11-09 (Asia/Shanghai)
+
+**Published; inspected desktop and mobile visual states passed.** The new work retains the bright miniature style and updates the same owner-private Site. Latest functional source: `1ca21d6fef83f0a067609f616c7c7239cdc4e88c` (V7). Documentation-only follow-up commits do not change the build.
+
+### Delivered
+
+- Local paved courts and river walks, shoreline railings, four benches and five lamp posts around 镇江阁 and 天然塔. Three small decorative boats use two checked water routes. These props and routes are illustrative, not surveyed assets or live traffic.
+- Visible night-time eave lights, warm windows and lanterns; small bridge rail lights. Tiny procedural plaque textures avoid external image dependencies.
+- Separate default and close camera framing, with 1.4× close magnification and projected space reserved for the desktop card / mobile sheet. The two waterfront landmarks also offer a lower view from the river.
+- Previous/next landmark buttons, a PNG export control, motion pause, selection clearing, and synchronized orbit state after manual camera interaction. Reduced-motion preferences set the initial motion state; an explicit checkbox choice can opt in.
+- Resting full-city views remain static; boat animation is limited to selected waterfront views and approximately 30 updates per second. Hidden pages pause animation. No device-performance claim is made.
+
+### Actual browser checks
+
+The deployed Site rendered in connected Chrome at 1440 × 900 and the restored default desktop viewport (1920 × 919). The observed states included 镇江阁 default/close, day/night, the river-facing view, landmark navigation wrapping from 镇江阁 to 西坝岛 and back, and the correct 天然塔 detail content. The PNG button displayed the expected save status without an application exception.
+
+A real focus-scroll defect was found during inspection: offscreen projected labels expanded the fixed stage's scrollable area, and clicking the near-view control moved the canvas and toolbar upward. `overflow: clip` on the stage and label layer fixed it. The repeated browser check reported stage `scrollTop = 0`, `scrollHeight = clientHeight = 830`, and a visible toolbar at y = 92.
+
+The first night-light implementation was geometrically occluded by roofs/walls. Its visible placement was corrected and rechecked in actual rendering. The final 镇江阁 screenshots show thin warm eave lines and lit windows while retaining roof, railing and column detail. A separate visual review passed both screenshots with no visible overexposure or clipped UI.
+
+The motion checkbox was switched off. Three water-region captures retained the same boat positions; residual channel differences were at most 6/255 and mean absolute differences about 0.00171/255. The checkbox was switched back on. This checks pause behavior, not a timing or frame-rate benchmark.
+
+### Targeted geometry and build checks
+
+- Production builds passed. Current assets: `index-vZUI6gNK.js` and `index-C6591R1O.css`; `git diff --check` passed.
+- 50,699 paving samples and 5,202 model-footprint samples stayed on source land. 155,520 boat/wake vertex samples and 11,520 route-clearance samples stayed in water. Sampled route clearance from the nearest bridge road segment was at least 11.513 world units.
+- Source POI coordinates are preserved. Display-only landward shifts are 1.55 units for 镇江阁 and 2.5 for 天然塔; 18 overlapping generic building footprints are omitted from rendering at these enlarged landmark sites.
+- Four desktop/mobile container sizes and all seven landmark bounds were checked against the camera's available viewport. All 448 tested bounds/upper-margin points fit, with separate default and 1.4× close framing. The later 天然塔 direction-only adjustment retains this fitting calculation.
+
+### Recovery and remaining limits
+
+A near view of 天然塔 revealed foreground buildings blocking part of the tower. V7 changes only its default/detail direction to a higher view from the water, retaining the real neighboring building geometry. After the browser connection recovered, the final V7 screenshot showed the complete tower, steps, riverwalk and surrounding city without the previous foreground obstruction.
+
+A 390 × 844 responsive state was inspected after recovery. The tower and the full bottom detail card are visible in the final image. A DOM layout check reported document `scrollWidth = clientWidth = 390` and stage `scrollTop = 0`. The mobile drawer was also observed opening. A separate final visual review passed both the 天然塔 desktop and mobile screenshots with no model/card occlusion or horizontal clipping. This is responsive browser verification, not a physical-phone performance benchmark.
+
+The temporary viewport override was reset at handoff and the final browser application error/warning log was empty. The earlier screenshot/connection timeouts were recovered; they are not outstanding Site errors.
+
+The download-event waiter timed out and reset the browser session. A subsequent direct click of the PNG button produced “正在保存这张宜昌风景”; completion in the browser's Downloads folder is not asserted.
+
+### Evidence for this iteration
+
+- `docs/qa/details-day.png` — actual 1440 × 900 镇江阁 close view, with riverwalk, facilities and boats.
+- `docs/qa/details-night.png` — the same view with visible eave and window lighting.
+- `docs/qa/details-pagoda.png` — V7 天然塔 from the water, after resolving foreground occlusion.
+- `docs/qa/details-mobile.png` — V7 390 × 844 天然塔 close view and full mobile detail sheet.
+
+The 镇江阁 images were captured from functional revision `fc7dc927b1b0943927be5bae461211da26c2e0c4`. V7 changes only 天然塔's camera direction, so that illustrated scene and interface are unchanged. The 天然塔 and mobile images were captured from final functional revision `1ca21d6fef83f0a067609f616c7c7239cdc4e88c`.
+
+---
+
+## V4 baseline result
 
 **Passed.** No remaining P0, P1, or P2 visual or interaction blocker was observed in the checked states. Reviewed on 2026-11-08 against the user-selected Douyin city-sandbox reference. This is an adaptation to Yichang geography, not a pixel-identical copy of the Nanjing screen.
 
