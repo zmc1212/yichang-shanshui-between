@@ -1,0 +1,276 @@
+{
+  "width": 1616,
+  "height": 793,
+  "points": [
+    {
+      "id": "observed-0",
+      "name": "查看镇江阁",
+      "x": 712.936,
+      "y": 278.724,
+      "width": 52,
+      "height": 45,
+      "visible": true
+    },
+    {
+      "id": "observed-1",
+      "name": "查看葛洲坝水利枢纽",
+      "x": 825.111,
+      "y": 163.434,
+      "width": 94,
+      "height": 45,
+      "visible": true
+    },
+    {
+      "id": "observed-2",
+      "name": "查看至喜长江大桥",
+      "x": 721.332,
+      "y": 219.42,
+      "width": 83,
+      "height": 45,
+      "visible": true
+    },
+    {
+      "id": "observed-3",
+      "name": "查看夷陵长江大桥",
+      "x": 720.753,
+      "y": 365.503,
+      "width": 83,
+      "height": 45,
+      "visible": true
+    },
+    {
+      "id": "observed-4",
+      "name": "查看磨基山公园",
+      "x": 690.686,
+      "y": 357.331,
+      "width": 73,
+      "height": 45,
+      "visible": true
+    },
+    {
+      "id": "observed-5",
+      "name": "查看天然塔",
+      "x": 779.243,
+      "y": 495.998,
+      "width": 52,
+      "height": 45,
+      "visible": true
+    },
+    {
+      "id": "observed-6",
+      "name": "查看西坝岛",
+      "x": 810.227,
+      "y": 208.245,
+      "width": 52,
+      "height": 45,
+      "visible": true
+    },
+    {
+      "id": "observed-7",
+      "name": "查看美联御峰的导览参考点",
+      "x": 744.489,
+      "y": 371.351,
+      "width": 62,
+      "height": 45,
+      "visible": true
+    },
+    {
+      "id": "observed-8",
+      "name": "查看中南冶金大楼",
+      "x": 762.539,
+      "y": 388.138,
+      "width": 83,
+      "height": 45,
+      "visible": true
+    },
+    {
+      "id": "observed-9",
+      "name": "查看锦江银座",
+      "x": 743.331,
+      "y": 363.842,
+      "width": 62,
+      "height": 45,
+      "visible": true
+    },
+    {
+      "id": "observed-10",
+      "name": "查看万达 SOHO",
+      "x": 763.253,
+      "y": 403.323,
+      "width": 74,
+      "height": 45,
+      "visible": true
+    },
+    {
+      "id": "observed-11",
+      "name": "查看福江铭座",
+      "x": 774.545,
+      "y": 430.625,
+      "width": 62,
+      "height": 45,
+      "visible": true
+    },
+    {
+      "id": "observed-12",
+      "name": "查看宜昌国际广场",
+      "x": 766.405,
+      "y": 412.8,
+      "width": 83,
+      "height": 45,
+      "visible": true
+    },
+    {
+      "id": "observed-13",
+      "name": "查看首信财富中心",
+      "x": 777.898,
+      "y": 471.766,
+      "width": 83,
+      "height": 45,
+      "visible": true
+    },
+    {
+      "id": "observed-14",
+      "name": "查看九州方园大厦",
+      "x": 779.655,
+      "y": 474.722,
+      "width": 83,
+      "height": 45,
+      "visible": true
+    },
+    {
+      "id": "observed-15",
+      "name": "查看兴发广场写字楼的导览参考点",
+      "x": 848.84,
+      "y": 453.948,
+      "width": 94,
+      "height": 45,
+      "visible": true
+    },
+    {
+      "id": "observed-16",
+      "name": "查看新华广场武银大厦的导览参考点",
+      "x": 849.301,
+      "y": 468.085,
+      "width": 104,
+      "height": 45,
+      "visible": true
+    },
+    {
+      "id": "observed-17",
+      "name": "查看长江国际文化广场的导览参考点",
+      "x": 842.212,
+      "y": 463.983,
+      "width": 104,
+      "height": 45,
+      "visible": true
+    },
+    {
+      "id": "observed-18",
+      "name": "查看致远广场的导览参考点",
+      "x": 784.521,
+      "y": 509.427,
+      "width": 62,
+      "height": 45,
+      "visible": true
+    },
+    {
+      "id": "observed-19",
+      "name": "查看外滩领馆的导览参考点",
+      "x": 783.715,
+      "y": 493.489,
+      "width": 62,
+      "height": 45,
+      "visible": true
+    },
+    {
+      "id": "observed-20",
+      "name": "查看长乐大厦的导览参考点",
+      "x": 784.419,
+      "y": 499.63,
+      "width": 62,
+      "height": 45,
+      "visible": true
+    },
+    {
+      "id": "observed-21",
+      "name": "查看兴发集团宜昌总部的导览参考点",
+      "x": 794.15,
+      "y": 507.057,
+      "width": 104,
+      "height": 45,
+      "visible": true
+    },
+    {
+      "id": "observed-22",
+      "name": "查看丽景国际综合楼的导览参考点",
+      "x": 835.54,
+      "y": 618.285,
+      "width": 94,
+      "height": 45,
+      "visible": true
+    },
+    {
+      "id": "observed-23",
+      "name": "查看中建·宜昌之星的导览参考点",
+      "x": 793.755,
+      "y": 616.274,
+      "width": 94,
+      "height": 45,
+      "visible": true
+    },
+    {
+      "id": "observed-24",
+      "name": "查看福久源大厦的导览参考点",
+      "x": 858.465,
+      "y": 608.679,
+      "width": 73,
+      "height": 45,
+      "visible": true
+    },
+    {
+      "id": "observed-25",
+      "name": "查看鑫鼎大厦的导览参考点",
+      "x": 829.282,
+      "y": 685.456,
+      "width": 62,
+      "height": 45,
+      "visible": true
+    },
+    {
+      "id": "observed-26",
+      "name": "查看旭光商贸大厦的导览参考点",
+      "x": 839.277,
+      "y": 443.233,
+      "width": 83,
+      "height": 45,
+      "visible": true
+    },
+    {
+      "id": "observed-27",
+      "name": "查看光联大厦的导览参考点",
+      "x": 902.187,
+      "y": 577.34,
+      "width": 62,
+      "height": 45,
+      "visible": true
+    },
+    {
+      "id": "observed-28",
+      "name": "查看共和景晨创业中心的导览参考点",
+      "x": 965.98,
+      "y": 605.909,
+      "width": 104,
+      "height": 45,
+      "visible": true
+    },
+    {
+      "id": "observed-29",
+      "name": "查看共同大厦的导览参考点",
+      "x": 1033.52,
+      "y": 585.485,
+      "width": 62,
+      "height": 45,
+      "visible": true
+    }
+  ]
+}

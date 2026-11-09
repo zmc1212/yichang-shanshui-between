@@ -608,6 +608,28 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     renderer.domElement.dataset.sceneMode = 'city';
     renderer.domElement.dataset.authoredSelection = String(next);
   }
+  function focusViewport(authored, panelOptional = false) {
+    const containerRect = container.getBoundingClientRect();
+    const panel = container.parentElement?.querySelector('.detail-panel')?.getBoundingClientRect();
+    const mobile = window.innerWidth <= 700;
+    const left = mobile ? 18 : 24;
+    let top = !panelOptional && authored ? (mobile ? 146 : 136) : mobile ? 68 : 84;
+    if (panelOptional) {
+      // Group framing can start with no selected place. Reserve the actual UI
+      // only; an absent detail card must not consume half of the mobile map.
+      for (const selector of ['.scene-toolbar', '.authored-note']) {
+        const overlay = container.parentElement?.querySelector(selector)?.getBoundingClientRect();
+        if (overlay?.height) top = Math.max(top, overlay.bottom - containerRect.top + 12);
+      }
+    }
+    const reservePanel = !panelOptional || Boolean(panel?.width && panel?.height);
+    const panelWidth = panel?.width || (window.innerWidth >= 1600 ? 318 : window.innerWidth <= 1200 ? 270 : 298);
+    const rightEdge = mobile ? widthPx - 18 : reservePanel ? Math.max(left + 150, widthPx - panelWidth - 48) : widthPx - 24;
+    const bottom = panelOptional
+      ? Math.min(heightPx - 50, mobile && reservePanel ? panel.top - containerRect.top - 14 : Infinity)
+      : mobile && reservePanel ? Math.max(top + 105, panel ? panel.top - containerRect.top - 14 : heightPx * 0.47 - 60) : Math.max(top + 150, heightPx - 50);
+    return { left, top, rightEdge, bottom };
+  }
   function calculateFocusState(item, options = currentFocusOptions, view = currentView) {
     const site = waterfrontPlan.getSite(item.spec.id);
     const authored = item.spec.kind === 'authored';
@@ -635,16 +657,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     const right = new THREE.Vector3(direction.z, 0, -direction.x).normalize();
     const up = new THREE.Vector3().crossVectors(direction, right).normalize();
     const aspect = widthPx / heightPx;
-    const containerRect = container.getBoundingClientRect();
-    const panel = container.parentElement?.querySelector('.detail-panel')?.getBoundingClientRect();
-    const mobile = window.innerWidth <= 700;
-    const left = mobile ? 18 : 24;
-    const top = authored ? (mobile ? 146 : 136) : mobile ? 68 : 84;
-    const panelWidth = panel?.width || (window.innerWidth >= 1600 ? 318 : window.innerWidth <= 1200 ? 270 : 298);
-    const rightEdge = mobile ? widthPx - 18 : Math.max(left + 150, widthPx - panelWidth - 48);
-    const bottom = mobile
-      ? Math.max(top + 105, panel ? panel.top - containerRect.top - 14 : heightPx * 0.47 - 60)
-      : Math.max(top + 150, heightPx - 50);
+    const { left, top, rightEdge, bottom } = focusViewport(authored);
     const fractionX = Math.min(1, (rightEdge - left) / widthPx);
     const fractionY = Math.min(1, (bottom - top) / heightPx);
     let projectedWidth = 0, projectedHeight = 0;
@@ -669,6 +682,49 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     const ndcY = 1 - ((top + bottom) / 2 / heightPx) * 2;
     const target = frameCenter.clone().sub(right.multiplyScalar(ndcX * actualHeight * aspect / 2)).sub(up.multiplyScalar(ndcY * actualHeight / 2));
     return { target, position: target.clone().add(direction.multiplyScalar(cameraDistance)), zoom };
+  }
+  function calculateClusterState(items) {
+    const direction = camera.position.clone().sub(controls.target).normalize();
+    const right = new THREE.Vector3(direction.z, 0, -direction.x).normalize();
+    const up = new THREE.Vector3().crossVectors(direction, right).normalize();
+    const center = new THREE.Box3().setFromPoints(items.map(item => item.anchor)).getCenter(new THREE.Vector3());
+    let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+    const anchors = items.map(item => {
+      const delta = item.anchor.clone().sub(center), x = delta.dot(right), y = delta.dot(up);
+      minX = Math.min(minX, x); maxX = Math.max(maxX, x);
+      minY = Math.min(minY, y); maxY = Math.max(maxY, y);
+      return { item, x, y };
+    });
+    // Nearby labels are the subject of group zoom. Use model bounds only as
+    // bounded padding, so a long bridge/dam cannot pull a close POI group back
+    // to the city overview. Selecting that landmark still frames it in full.
+    const padding = THREE.MathUtils.clamp(Math.max(maxX - minX, maxY - minY) * 0.2, 1.5, 4);
+    for (const { item, x: anchorX, y: anchorY } of anchors) {
+      if (item.bounds.isEmpty()) continue;
+      for (const x of [item.bounds.min.x, item.bounds.max.x]) for (const y of [item.bounds.min.y, item.bounds.max.y]) for (const z of [item.bounds.min.z, item.bounds.max.z]) {
+        const delta = new THREE.Vector3(x, y, z).sub(item.anchor);
+        const projectedX = anchorX + THREE.MathUtils.clamp(delta.dot(right), -padding, padding);
+        const projectedY = anchorY + THREE.MathUtils.clamp(delta.dot(up), -padding, padding);
+        minX = Math.min(minX, projectedX); maxX = Math.max(maxX, projectedX);
+        minY = Math.min(minY, projectedY); maxY = Math.max(maxY, projectedY);
+      }
+    }
+    const { left, top, rightEdge, bottom } = focusViewport(Boolean(landmarkMap.get(selectedId)?.spec.business), true);
+    if (rightEdge - left < 24 || bottom - top < 24) return null;
+    const aspect = widthPx / heightPx;
+    const fractionX = Math.min(1, (rightEdge - left) / widthPx);
+    const fractionY = Math.min(1, (bottom - top) / heightPx);
+    // An absolute world-height floor keeps coincident points at neighborhood
+    // scale. Repeated group actions fit the same bounds instead of multiplying
+    // zoom. Full engineering bounds remain the single-landmark focus's job.
+    const visibleHeight = Math.max(12, Math.max((maxY - minY) / fractionY, (maxX - minX) / (aspect * fractionX)) * 1.18);
+    const zoom = THREE.MathUtils.clamp(baseHalfHeight * 2 / visibleHeight, 0.1, focusZoomLimit());
+    const actualHeight = baseHalfHeight * 2 / zoom;
+    const ndcX = (left + rightEdge) / widthPx - 1;
+    const ndcY = 1 - (top + bottom) / heightPx;
+    const target = center.addScaledVector(right, (minX + maxX) / 2 - ndcX * actualHeight * aspect / 2)
+      .addScaledVector(up, (minY + maxY) / 2 - ndcY * actualHeight / 2);
+    return { target, position: target.clone().addScaledVector(direction, cameraDistance), zoom };
   }
   function showSelection(item) {
     selectedRing.geometry.dispose();
@@ -790,7 +846,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     }
     const direction = camera.position.clone().sub(controls.target);
     const heading = Math.atan2(direction.x, direction.z) * 180 / Math.PI;
-    onCameraChange({ labels, heading });
+    onCameraChange({ labels, heading, width: widthPx, height: heightPx, zoom: camera.zoom });
   }
   function animate(time) {
     if (disposed) return false;
@@ -891,6 +947,25 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
       const frame = calculateFocusState(item);
       transition(frame.target, frame.position, frame.zoom);
       showSelection(item); requestRender();
+    },
+    focusCluster(ids) {
+      if (disposed || !Array.isArray(ids)) return false;
+      const items = [...new Set(ids)].map(id => landmarkMap.get(id)).filter(Boolean);
+      if (!items.length) return false;
+      const frame = calculateClusterState(items);
+      if (!frame) return false;
+      controls.autoRotate = false; managedFocus = false; userMoved = true;
+      // Drain residual orbit damping without moving the visible camera. The
+      // cluster transition must retain the direction the user was looking at.
+      const position = camera.position.clone(), target = controls.target.clone(), zoom = camera.zoom;
+      const damping = controls.enableDamping;
+      controls.enableDamping = false; controls.update();
+      camera.position.copy(position); controls.target.copy(target); camera.zoom = zoom;
+      camera.updateProjectionMatrix(); controls.update(); controls.enableDamping = damping;
+      controls.minZoom = Math.min(controls.minZoom, frame.zoom);
+      transition(frame.target, frame.position, frame.zoom, 900);
+      onInteraction?.({ type: 'cluster' });
+      return true;
     },
     clearSelection() {
       if (authoredSelection) { this.reset(); return; }

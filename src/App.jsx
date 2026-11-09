@@ -4,6 +4,7 @@ import { createCityScene } from './scene/createCityScene.js';
 import { AUTHORED_MODELS } from './scene/authoredModels.js';
 import { BUSINESS_BUILDINGS, BUSINESS_REGISTRY_INFO } from './scene/buildingCatalog.js';
 import ModelPreview from './components/ModelPreview.jsx';
+import PoiLabels from './components/PoiLabels.jsx';
 import { buildDirectoryResults, getDirectoryNavigation, moveDirectoryActiveId, isComposingKeyEvent } from './lib/directoryNavigation.js';
 import { createSceneLocationUrl } from './lib/sceneLocation.js';
 import { useSceneLocation } from './hooks/useSceneLocation.js';
@@ -65,7 +66,8 @@ function Modal({ title, children, onClose, className = '', fallbackFocusRef }) {
 export default function App(){
   const canvasHost = useRef(null);
   const scene = useRef(null);
-  const labelRefs = useRef({});
+  const poiLabelsRef = useRef(null);
+  const poiZoomFrame = useRef(0);
   const compassRef = useRef(null);
   const captureTimer = useRef(null);
   const selectedRef = useRef(null);
@@ -128,7 +130,7 @@ export default function App(){
   const activeResult = filtered.find(item=>item.id===activeResultId);
 
   useEffect(()=>{setActiveResultId(null);},[query,directoryFilter]);
-  useEffect(()=>()=>clearTimeout(compositionEndTimerRef.current),[]);
+  useEffect(()=>()=>{clearTimeout(compositionEndTimerRef.current);cancelAnimationFrame(poiZoomFrame.current);},[]);
   useEffect(()=>{
     setActiveResultId(id=>filtered.some(item=>item.id===id)?id:null);
   },[filtered]);
@@ -177,6 +179,8 @@ export default function App(){
   },[]);
 
   const chooseLandmark = useCallback((id,options={})=>{
+    cancelAnimationFrame(poiZoomFrame.current);
+    poiLabelsRef.current?.dismiss();
     const nextView=options.view==='top'?'top':'perspective';
     const nextAngle=options.angle||'detail';
     const nextClose=Boolean(options.close);
@@ -190,6 +194,8 @@ export default function App(){
   },[capturePostcard]);
 
   const closeDetails=useCallback(()=>{
+    cancelAnimationFrame(poiZoomFrame.current);
+    poiLabelsRef.current?.dismiss();
     clearTimeout(captureTimer.current);
     if(AUTHORED_MODELS.some(model=>model.id===selectedRef.current)){setView('perspective');setAutoRotate(false);}
     selectedRef.current=null;
@@ -207,28 +213,10 @@ export default function App(){
           setModelStates(previous=>({...previous,[state.id]:state}));
           if(state.state==='ready'&&selectedRef.current===state.id)capturePostcard(1250);
         },
-        onInteraction:()=>{if(alive)setAutoRotate(false);},
+        onInteraction:()=>{if(alive){setAutoRotate(false);poiLabelsRef.current?.dismiss();}},
         onReady:()=>{if(alive)setReady(true);},onError:e=>{if(alive)setError(typeof e==='string'?e:'三维场景暂时无法启动，请刷新重试。');},
-        onCameraChange:({labels,heading})=>{
-          const placed=[];
-          const hostWidth=canvasHost.current?.clientWidth||1;
-          const maxLift=hostWidth<700?38:170;
-          const measured=(labels||[]).map(label=>({label,el:labelRefs.current[label.id]})).filter(v=>v.el).map(v=>({...v,width:v.el.offsetWidth,height:v.el.offsetHeight,nameHeight:v.el.firstElementChild?.offsetHeight||26,active:v.el.classList.contains('active')})).sort((a,b)=>Number(b.active)-Number(a.active)||a.label.y-b.label.y);
-          for(const {label,el,width,height,nameHeight,active} of measured){
-            let visible=label.visible,lift=0;
-            const center=Math.max(width/2+8,Math.min(hostWidth-width/2-8,label.x));
-            let bounds={left:center-width/2-5,right:center+width/2+5,top:label.y-height,bottom:label.y-height+nameHeight+5};
-            if(visible){
-              const overlaps=()=>placed.some(p=>bounds.left<p.right&&bounds.right>p.left&&bounds.top<p.bottom&&bounds.bottom>p.top);
-              while(overlaps()&&lift+nameHeight+8<=maxLift){lift+=nameHeight+8;bounds.top-=nameHeight+8;bounds.bottom-=nameHeight+8;}
-              visible=active||(bounds.top>64&&!overlaps());
-              if(visible)placed.push(bounds);
-            }
-            el.style.transform=`translate(${label.x}px, ${label.y}px) translate(-50%, -100%)`;
-            el.style.setProperty('--label-lift',`${lift}px`);
-            el.style.setProperty('--label-shift-x',`${center-label.x}px`);
-            el.style.opacity=visible?'1':'0';el.style.visibility=visible?'visible':'hidden';
-          }
+        onCameraChange:({labels,heading,width,height,zoom})=>{
+          poiLabelsRef.current?.project({labels,width,height,zoom});
           if(compassRef.current)compassRef.current.style.transform=`rotate(${-heading||0}deg)`;
         }
       });
@@ -243,6 +231,7 @@ export default function App(){
   useEffect(()=>{scene.current?.setMotion(motionEnabled);},[motionEnabled,ready]);
   useEffect(()=>{
     const paused=Boolean(modal||mobileNavOpen);
+    if(paused)poiLabelsRef.current?.dismiss();
     scene.current?.setSuspended(paused);
     clearTimeout(captureTimer.current);
     if(!paused&&ready&&selectedRef.current)capturePostcard(1500);
@@ -277,10 +266,12 @@ export default function App(){
       const typing=isTextEntryTarget(e.target);
       if(e.key==='/'&&!typing){
         e.preventDefault();
+        poiLabelsRef.current?.dismiss();
         if(compact&&!mobileNav)setMobileNav(true);
         else searchInputRef.current?.focus({preventScroll:true});
       }else if(e.key==='Escape'&&!typing){
-        if(mobileNavOpen){e.preventDefault();setMobileNav(false);}
+        if(poiLabelsRef.current?.dismiss({restoreFocus:true})){e.preventDefault();}
+        else if(mobileNavOpen){e.preventDefault();setMobileNav(false);}
         else if(layersOpen){e.preventDefault();setLayersOpen(false);}
         else closeDetails();
       }
@@ -346,6 +337,19 @@ export default function App(){
     compositionEndTimerRef.current=setTimeout(()=>{suppressSearchSubmitRef.current=false;},0);
   };
   const toggleRotate=()=>{scene.current?.setAutoRotate(!autoRotate);setAutoRotate(!autoRotate);};
+  const openPoiGroup=useCallback(()=>{
+    setAutoRotate(false);scene.current?.setAutoRotate(false);setLayersOpen(false);
+  },[]);
+  const zoomPoiGroup=useCallback(ids=>{
+    poiLabelsRef.current?.dismiss();setAutoRotate(false);
+    if(compact&&selectedRef.current)setDetailCollapsed(true);
+    cancelAnimationFrame(poiZoomFrame.current);
+    // Fit against the panel's committed size after the mobile sheet collapses.
+    poiZoomFrame.current=requestAnimationFrame(()=>{
+      if(scene.current?.focusCluster(ids)===false){setToast('当前画面空间不足，关闭介绍后可放大');return;}
+      capturePostcard();
+    });
+  },[capturePostcard,compact]);
   const toggleLayer=(name)=>{const next=!layers[name];setLayers({...layers,[name]:next});if(name!=='labels')scene.current?.setLayer(name,next);};
   const closeModal=useCallback(()=>setModal(null),[]);
   const saveView=()=>{
@@ -404,9 +408,7 @@ export default function App(){
       </aside>
       <main className={`main-scene ${selected?'detail-open':''} ${authored?'authored-open':''} ${business?'business-open':''}`} inert={mobileNavOpen} aria-hidden={mobileNavOpen?true:undefined} aria-label={authored?'宜昌城市沙盘与自建建筑':business?'宜昌城市沙盘与楼宇导览点':'宜昌城市三维微缩沙盘'}>
         <div className="canvas-host" ref={canvasHost}/>
-        <div className={`map-labels ${layers.labels&&ready?'':'hidden'}`} inert={!layers.labels||!ready} aria-hidden={!layers.labels||!ready?true:undefined} aria-label="地图地标标注">
-          {landmarks.map(l=><button key={l.id} ref={el=>{labelRefs.current[l.id]=el;}} className={`map-label ${selectedId===l.id?'active':''} ${l.kind==='business-poi'?'guide-point-label':''}`} onClick={()=>chooseLandmark(l.id)} aria-label={`查看${l.name}${l.kind==='business-poi'?'的导览参考点':''}`}><span className="label-name">{l.name}{selectedId===l.id&&l.kind==='business-poi'&&<small>导览参考点</small>}</span><span className="label-pin"><MapPin size={13} weight={l.kind==='business-poi'?'regular':'fill'}/></span></button>)}
-        </div>
+        <PoiLabels ref={poiLabelsRef} places={landmarks} selectedId={selectedId} visible={layers.labels&&ready} compact={compact} onSelect={chooseLandmark} onZoomGroup={zoomPoiGroup} onOpenGroup={openPoiGroup} layoutKey={`${selectedId||''}:${detailTab}:${detailCollapsed}:${layersOpen}:${ready}`}/>
         {(!ready||error)&&<div className="scene-loading" role="status">{error?<><WarningCircle size={32}/><h2>这座城还在路上</h2><p>{error}</p><button onClick={()=>window.location.reload()}>重新打开沙盘</button></>:<><MapTrifold size={44} weight="duotone"/><span className="eyebrow">YICHANG · 江山之间</span><h2>让山水，慢慢展开。</h2><p>{data?'正在安放楼阁、街巷与树木':'正在读取宜昌城市轮廓'}</p><CircleNotch className="spinner" size={22}/></>}</div>}
         <div className="scene-toolbar" aria-label="沙盘显示设置"><div className="view-segment"><button className={view==='perspective'?'active':''} onClick={()=>changeView('perspective')} aria-pressed={view==='perspective'}><Buildings size={16}/><span>{authored&&cameraAngle!=='context'?'建筑视角':'城市沙盘'}</span></button><button className={view==='top'?'active':''} onClick={()=>changeView('top')} aria-pressed={view==='top'}><MapTrifold size={16}/><span>{authored&&cameraAngle!=='context'?'俯瞰建筑':'俯瞰地图'}</span></button></div><span className="toolbar-divider"/><button className="toolbar-button reset-button" onClick={reset} title="回到全景"><ArrowCounterClockwise size={16}/><span>回到全景</span></button><span className="toolbar-divider day-divider"/><div className="day-segment"><button className={theme==='day'?'active':''} onClick={()=>setTheme('day')} aria-pressed={theme==='day'} title="日景"><Sun size={17}/><span>日景</span></button><button className={theme==='night'?'active':''} onClick={()=>setTheme('night')} aria-pressed={theme==='night'} title="夜景"><MoonStars size={16}/><span>夜景</span></button></div></div>
         {business&&<div className="authored-note"><span className="eyebrow">{authored?`自建建筑 · ${selected.stage||'阶段待核准'}`:businessStatus(selected)}</span><p><span>{registrationLabel}</span>{authored&&<button onClick={()=>frameSelected({angle:cameraAngle==='context'?'detail':'context',close:cameraAngle==='context'})}>{cameraAngle==='context'?'靠近建筑':'连同沙盘看'} <ArrowUpRight size={12}/></button>}</p></div>}
@@ -451,7 +453,7 @@ export default function App(){
         {toast&&<div className="toast" role="status"><Check size={17}/>{toast}</div>}
       </main>
     </div>
-    {modal==='guide'&&<Modal fallbackFocusRef={mobileMenuRef} title="用自己的节奏，认识宜昌。" onClose={closeModal}><div className="guide-steps"><div><Mouse size={26}/><span><strong>转一转，看见山水</strong><p>按住鼠标左键拖动，旋转沙盘；右键拖动可平移。</p></span></div><div><Plus size={26}/><span><strong>近一点，看见细节</strong><p>滚动鼠标滚轮，或使用右下角的加减按钮缩放。</p></span></div><div><CursorClick size={26}/><span><strong>点一处，听一座城</strong><p>点击地标名称或左侧目录，镜头会带你靠近风景。</p></span></div><div><Sun size={26}/><span><strong>从日景，走到夜色</strong><p>切换顶部日夜按钮，也可以开启自动环绕慢慢欣赏。</p></span></div></div><p className="touch-note">触屏：单指旋转，双指缩放与平移。手机介绍可收起，留出更多画面。点击顶部相机可保存画面，楼名旁的链接按钮可复制定位；图层里可暂停江面动态。</p><button className="primary-button" onClick={closeModal}>开始探索 <ArrowUpRight size={17}/></button></Modal>}
+    {modal==='guide'&&<Modal fallbackFocusRef={mobileMenuRef} title="用自己的节奏，认识宜昌。" onClose={closeModal}><div className="guide-steps"><div><Mouse size={26}/><span><strong>转一转，看见山水</strong><p>按住鼠标左键拖动，旋转沙盘；右键拖动可平移。</p></span></div><div><Plus size={26}/><span><strong>近一点，看见细节</strong><p>滚动鼠标滚轮，或使用右下角的加减按钮缩放。</p></span></div><div><CursorClick size={26}/><span><strong>点一处，听一座城</strong><p>点击地标名称或左侧目录，镜头会带你靠近风景。相近地点会合并为数量气泡，点开即可选择其中一处，也可放大这一组。</p></span></div><div><Sun size={26}/><span><strong>从日景，走到夜色</strong><p>切换顶部日夜按钮，也可以开启自动环绕慢慢欣赏。</p></span></div></div><p className="touch-note">触屏：单指旋转，双指缩放与平移。手机介绍可收起，留出更多画面。点击顶部相机可保存画面，楼名旁的链接按钮可复制定位；图层里可暂停江面动态。</p><button className="primary-button" onClick={closeModal}>开始探索 <ArrowUpRight size={17}/></button></Modal>}
     {modal==='about'&&<Modal fallbackFocusRef={mobileMenuRef} title="关于这座沙盘" onClose={closeModal}><div className="about-content"><p className="about-lead">把宜昌的山水、街巷与楼阁，装进一座可以探索的微缩城市。</p><p>沙盘以公开道路、水系和建筑轮廓为基础，采用统一的色彩与简化造型呈现中心城区。地标、树木、江面船只与部分建筑高度经过展示性处理，适合城市导览与空间探索。</p><div className="about-data"><span>地图与轮廓</span><strong>OpenStreetMap · Overture Maps</strong><span>展示范围</span><strong>{data?.meta?.name||'宜昌中心城区'}</strong><span>商务楼宇</span><strong>{BUSINESS_BUILDINGS.length} 项</strong><span>恢复进度</span><strong>已恢复 {availableCount+registrationCount} 项 · {recoveryCount} 项待恢复</strong><span>模型展示</span><strong>{availableCount} 项沙盘模型 · {previewCount} 项独立预览</strong>{registrationCount>previewCount&&<><span>待配准源件</span><strong>{registrationCount-previewCount} 项尚待网页转换</strong></>}<span>作品</span><strong>宜昌Online · 江山之间</strong></div><p className="data-note">{BUSINESS_REGISTRY_INFO.note} 没有可用网页模型的项目先显示导览参考点，参考点不等于精确楼体中心。独立预览的候选仍待地图配准，阶段候选也不等于通过实景验收。</p><p className="data-note">地标位置为公开资料参考，模型并非测绘或工程成果。</p><a className="source-link" href="/data/sources.txt" target="_blank" rel="noreferrer">查看完整数据来源与说明 <ArrowUpRight size={15}/></a>{BUSINESS_REGISTRY_INFO.sourceUrl&&<a className="source-link" href={BUSINESS_REGISTRY_INFO.sourceUrl} target="_blank" rel="noreferrer">查看原商务楼宇导图 <ArrowUpRight size={15}/></a>}</div><button className="primary-button" onClick={closeModal}>回到山水之间 <ArrowLeft size={17}/></button></Modal>}
     {modal==='model'&&business&&<Modal fallbackFocusRef={mobileMenuRef} title={`${selected.name} · ${authored?'模型':'资料'}说明`} onClose={closeModal}><div className="about-content">
       <p className="about-lead">{authored?selected.subtitle||'近一点，看见建筑的细节。':businessStatus(selected)}</p>
