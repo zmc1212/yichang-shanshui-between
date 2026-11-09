@@ -4,6 +4,7 @@ import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 import * as LandmarkFactory from './landmarks.js';
 import { planWaterfront, createWaterfront } from './waterfront.js';
 import { resolveLandmarkSpec } from './landmarkPlacement.js';
+import { AUTHORED_MODELS, createAuthoredStage } from './authoredModels.js';
 
 /* Coordinates in city.json are in a local metric frame: x east, z south.
    The miniature uses the actual polygon and line data; only its materials,
@@ -118,7 +119,7 @@ function makeLineGeometry(positions) {
 }
 function ease(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
 
-export function createCityScene({ container, data, onSelect, onCameraChange, onReady, onError, onInteraction }) {
+export function createCityScene({ container, data, onSelect, onCameraChange, onReady, onError, onInteraction, onModelStatus }) {
   let disposed = false;
   let renderer;
   try {
@@ -154,6 +155,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
   renderer.domElement.style.cssText = 'width:100%;height:100%;display:block;touch-action:none;outline:none;';
   renderer.domElement.setAttribute('aria-label', '可旋转、缩放和探索的宜昌三维城市沙盘');
   renderer.domElement.setAttribute('role', 'img');
+  renderer.domElement.dataset.sceneMode = 'city';
   container.appendChild(renderer.domElement);
   const camera = new THREE.OrthographicCamera(-extent, extent, extent, -extent, 0.1, extent * 16);
   camera.position.set(extent * 0.62, extent * 0.98, extent * 0.84);
@@ -508,14 +510,47 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
   let motionRunning = false;
   let currentFocusOptions = { angle: 'detail', close: false };
   let managedFocus = false;
+  let exhibitionMode = false;
   let hiddenAt = document.hidden ? performance.now() : 0;
   const defaultDirection = new THREE.Vector3(0.62, 0.98, 0.84).normalize();
   const cameraDistance = extent * 1.6;
   const getOffset = view => view === 'top' ? new THREE.Vector3(0, cameraDistance, 0.01) : defaultDirection.clone().multiplyScalar(cameraDistance);
+  const authoredStage = createAuthoredStage({
+    onChange: () => { if (!disposed) { labelsDirty = true; renderer.shadowMap.needsUpdate = true; } },
+    onStatus: state => { if (!disposed) onModelStatus?.(state); },
+  });
+  scene.add(authoredStage.group);
+  for (const spec of AUTHORED_MODELS) {
+    const sourceMin = new THREE.Vector3(...spec.sourceBounds.min), sourceMax = new THREE.Vector3(...spec.sourceBounds.max);
+    const size = sourceMax.sub(sourceMin).multiplyScalar(spec.displayHeight / (spec.sourceBounds.max[1] - spec.sourceBounds.min[1]));
+    const center = new THREE.Vector3(0, size.y / 2 + 0.055, 0);
+    const bounds = new THREE.Box3().setFromCenterAndSize(center, size);
+    // Bounds inform framing only; there is no stand-in box geometry or map POI.
+    landmarkMap.set(spec.id, { spec, group: authoredStage.group, base: 0.055, size, center, bounds,
+      anchor: new THREE.Vector3(0, bounds.max.y + 0.6, 0) });
+  }
+  function setExhibitionMode(value) {
+    const next = Boolean(value);
+    if (exhibitionMode === next) return;
+    exhibitionMode = next;
+    city.visible = !next;
+    if (!next) authoredStage.hide();
+    floor.position.y = next ? -0.52 : -baseThickness - 0.13;
+    floorShadow.position.y = floor.position.y + 0.01;
+    const shadowExtent = next ? 22 : extent * 0.78;
+    Object.assign(sun.shadow.camera, { left: -shadowExtent, right: shadowExtent, top: shadowExtent, bottom: -shadowExtent });
+    sun.shadow.camera.updateProjectionMatrix();
+    sun.shadow.normalBias = next ? 0.025 : 0.08;
+    renderer.shadowMap.needsUpdate = true; labelsDirty = true;
+    renderer.domElement.setAttribute('aria-label', next ? '独立建筑模型展台，不代表精确地图位置' : '可旋转、缩放和探索的宜昌三维城市沙盘');
+    renderer.domElement.dataset.sceneMode = next ? 'exhibit' : 'city';
+  }
   function calculateFocusState(item, options = currentFocusOptions, view = currentView) {
     const site = waterfrontPlan.getSite(item.spec.id);
     let direction = defaultDirection.clone();
-    if (options.angle === 'river' && site) {
+    if (item.spec.placement === 'exhibit') {
+      direction = options.angle === 'front' ? new THREE.Vector3(0, 0.15, 1).normalize() : new THREE.Vector3(0.72, 0.7, 1.3).normalize();
+    } else if (options.angle === 'river' && site) {
       // Look from the source water side, at a gentler elevation than overview.
       const n = site.shore.normal, t = site.shore.tangent;
       direction.set(-n[0] + t[0] * 0.12, 0.62, -n[1] + t[1] * 0.12).normalize();
@@ -533,7 +568,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     const panel = container.parentElement?.querySelector('.detail-panel')?.getBoundingClientRect();
     const mobile = window.innerWidth <= 700;
     const left = mobile ? 18 : 24;
-    const top = mobile ? 68 : 84;
+    const top = item.spec.placement === 'exhibit' ? (mobile ? 112 : 136) : mobile ? 68 : 84;
     const panelWidth = panel?.width || (window.innerWidth >= 1600 ? 318 : window.innerWidth <= 1200 ? 270 : 298);
     const rightEdge = mobile ? widthPx - 18 : Math.max(left + 150, widthPx - panelWidth - 48);
     const bottom = mobile
@@ -550,8 +585,9 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     const maxSize = Math.max(item.size.x, item.size.z, item.size.y);
     const wide = item.spec.kind === 'bridge' || item.spec.kind === 'dam';
     const pagoda = item.spec.id === 'tianran-pagoda';
-    const minimumHeight = pagoda ? 7.2 : site ? 10 : 37;
-    const defaultHeight = Math.max(minimumHeight, Math.min(extent * 0.43, maxSize * (wide ? 1.75 : pagoda ? 4 : 5.2)));
+    const exhibit = item.spec.placement === 'exhibit';
+    const minimumHeight = exhibit ? 18 : pagoda ? 7.2 : site ? 10 : 37;
+    const defaultHeight = Math.max(minimumHeight, Math.min(extent * 0.43, maxSize * (exhibit ? 1.9 : wide ? 1.75 : pagoda ? 4 : 5.2)));
     const safetyHeight = Math.max(projectedHeight / fractionY, projectedWidth / (aspect * fractionX)) * 1.12;
     // Reserve the close-view margin before selecting either framing. The
     // narrower mobile viewport must not force both states onto the same cap.
@@ -565,6 +601,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     return { target, position: target.clone().add(direction.multiplyScalar(cameraDistance)), zoom };
   }
   function showSelection(item) {
+    if (item.spec.placement === 'exhibit') { selectedRing.visible = false; return; }
     selectedRing.geometry.dispose();
     const scale = item.spec.modelScale || 1;
     if (waterfrontPlan.getSite(item.spec.id)) {
@@ -586,7 +623,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     const virtualCamera = camera.clone(); virtualCamera.position.copy(position); virtualCamera.up.set(0, 1, 0); virtualCamera.lookAt(target); virtualCamera.updateMatrixWorld();
     const matrix = virtualCamera.matrixWorldInverse;
     let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
-    const highest = Math.max(4, ...[...landmarkMap.values()].map(item => item.anchor.y));
+    const highest = Math.max(4, ...[...landmarkMap.values()].filter(item => item.spec.placement !== 'exhibit').map(item => item.anchor.y));
     // The full footprint and the tallest central details remain inside the view.
     for (const x of [-width / 2, width / 2]) for (const z of [-depth / 2, depth / 2]) for (const y of [-baseThickness, Math.min(highest, 12)]) {
       const p = new THREE.Vector3(x, y, z).applyMatrix4(matrix);
@@ -647,7 +684,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     const rect = renderer.domElement.getBoundingClientRect();
     pointer.set((event.clientX - rect.left) / rect.width * 2 - 1, -(event.clientY - rect.top) / rect.height * 2 + 1);
     raycaster.setFromCamera(pointer, camera);
-    const hit = raycaster.intersectObjects(layers.landmarks.visible ? pickObjects : [], false)[0];
+    const hit = raycaster.intersectObjects(exhibitionMode ? authoredStage.getActiveMeshes() : layers.landmarks.visible ? pickObjects : [], false)[0];
     if (hit?.object.userData.landmarkId) onSelect?.(hit.object.userData.landmarkId);
     lastPointer = null;
   }
@@ -663,7 +700,8 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     const labels = [];
     for (const [id, item] of landmarkMap) {
       const p = item.anchor.clone().project(camera);
-      labels.push({ id, x: (p.x * 0.5 + 0.5) * widthPx, y: (-p.y * 0.5 + 0.5) * heightPx, visible: layers.landmarks.visible && p.z >= -1 && p.z <= 1 && Math.abs(p.x) < 1.04 && Math.abs(p.y) < 1.04, depth: p.z });
+      const inCurrentScene = exhibitionMode ? item.spec.placement === 'exhibit' && id === selectedId && Boolean(authoredStage.getStats().quality) : item.spec.placement !== 'exhibit';
+      labels.push({ id, x: (p.x * 0.5 + 0.5) * widthPx, y: (-p.y * 0.5 + 0.5) * heightPx, visible: inCurrentScene && layers.landmarks.visible && p.z >= -1 && p.z <= 1 && Math.abs(p.x) < 1.04 && Math.abs(p.y) < 1.04, depth: p.z });
     }
     const direction = camera.position.clone().sub(controls.target);
     const heading = Math.atan2(direction.x, direction.z) * 180 / Math.PI;
@@ -684,6 +722,14 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
       if (t === 1) tween = null;
     }
     controls.update(delta);
+    if (exhibitionMode && !tween) {
+      const item = landmarkMap.get(selectedId);
+      const pixels = item.size.y / (baseHalfHeight * 2) * camera.zoom * heightPx;
+      const highDetail = authoredStage.getStats().detailRequested;
+      const threshold = window.innerWidth <= 700 ? 350 : 560;
+      // Hysteresis prevents wheel gestures from repeatedly swapping resources.
+      authoredStage.setDetailWanted((managedFocus && currentFocusOptions.close) || pixels > threshold * (highDetail ? 0.78 : 1));
+    }
     motionRunning = Boolean(motionEnabled && selectedId && waterfrontPlan.getSite(selectedId)?.routes.length && camera.zoom > 2 && currentView === 'perspective' && layers.boats.visible && !tween);
     let boatsMoved = false;
     if (motionRunning && time - lastMotionFrame >= 1000 / 30) {
@@ -694,6 +740,9 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     const renderNow = labelsDirty || animating || controls.autoRotate || boatsMoved || frameNumber < 3;
     if (renderNow) {
       renderer.render(scene, camera);
+      renderer.domElement.dataset.modelQuality = exhibitionMode ? authoredStage.getStats().quality || 'loading' : 'none';
+      renderer.domElement.dataset.drawCalls = String(renderer.info.render.calls);
+      renderer.domElement.dataset.triangles = String(renderer.info.render.triangles);
       if (labelsDirty && (time - lastLabels > 30 || animating || frameNumber < 3)) { publishLabels(); lastLabels = time; labelsDirty = false; }
       frameNumber++;
       if (!readyCalled && frameNumber >= 2) { readyCalled = true; onReady?.(); }
@@ -722,16 +771,20 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     focus(id, options = {}) {
       const item = landmarkMap.get(id); if (!item) return;
       selectedId = id; userMoved = true; managedFocus = true; currentView = 'perspective';
-      currentFocusOptions = { angle: options.angle === 'river' ? 'river' : 'detail', close: Boolean(options.close) };
+      currentFocusOptions = { angle: ['river', 'front'].includes(options.angle) ? options.angle : 'detail', close: Boolean(options.close) };
+      setExhibitionMode(item.spec.placement === 'exhibit');
+      if (exhibitionMode) authoredStage.select(id, { detail: currentFocusOptions.close });
       const frame = calculateFocusState(item);
       transition(frame.target, frame.position, frame.zoom);
       showSelection(item); labelsDirty = true;
     },
     clearSelection() {
+      if (exhibitionMode) { this.reset(); return; }
       selectedId = null; managedFocus = false; selectedRing.visible = false; motionRunning = false;
       currentFocusOptions = { angle: 'detail', close: false }; labelsDirty = true;
     },
     reset() {
+      setExhibitionMode(false);
       selectedId = null; userMoved = false; managedFocus = false; currentView = 'perspective'; selectedRing.visible = false; motionRunning = false;
       currentFocusOptions = { angle: 'detail', close: false };
       defaultState = calculateDefaultState('perspective'); baseHalfHeight = defaultState.halfHeight; setFrustum();
@@ -761,6 +814,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
       }
       for (const item of landmarkMap.values()) LandmarkFactory.updateLandmarkTheme?.(item.group, night);
       waterfront.setTheme(night);
+      authoredStage.setTheme(night);
       labelsDirty = true;
     },
     setView(view) {
@@ -801,7 +855,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
       renderer.render(scene, camera); return renderer.domElement.toDataURL('image/png');
     },
     getStats() {
-      const alignments = [...landmarkMap.values()].map(item => {
+      const alignments = [...landmarkMap.values()].filter(item => item.spec.placement !== 'exhibit').map(item => {
         const spec = item.spec, group = item.group, record = spec.alignment || {};
         const delta = Math.hypot(group.position.x - spec.x, group.position.z - spec.z);
         return {
@@ -817,14 +871,16 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
           endpoints: spec.endpoints, mainSpanEndpoints: spec.mainSpanEndpoints,
         };
       });
-      return { alignments, ...waterfront.stats, motionEnabled, motionRunning, motionReduced: reducedMotion, motionFpsLimit: 30, focusAngle: currentFocusOptions.angle, focusClose: currentFocusOptions.close, landmarkOffsets: waterfrontPlan.sites.map(s => ({ id: s.id, source: s.original, model: s.center, distance: s.shift })), buildings: buildingCount, roads: (data.roads || []).length, waterPolygons: waterPolygons.length, parks: parkPolygons.length, trees: treeSpecs.length, landmarks: landmarkMap.size, drawCalls: renderer.info.render.calls, triangles: renderer.info.render.triangles, theme: currentTheme, view: currentView, cameraZoom: camera.zoom, terrain: terrainValid ? 'source-grid' : hills.length ? 'illustrative-hills' : 'flat', heightExaggeration: BUILDING_HEIGHT_EXAGGERATION, bridgeSpans: landmarks.filter(l => l.kind === 'bridge').map(l => ({ id: l.id, endpoints: l.endpoints, mainSpanEndpoints: l.mainSpanEndpoints, source: l.spanSource || 'landmark-spec' })), renderer: 'Three.js / WebGL', projection: 'orthographic' };
+      return { alignments, exhibitionMode, authoredModels: authoredStage.getStats(), ...waterfront.stats, motionEnabled, motionRunning, motionReduced: reducedMotion, motionFpsLimit: 30, focusAngle: currentFocusOptions.angle, focusClose: currentFocusOptions.close, landmarkOffsets: waterfrontPlan.sites.map(s => ({ id: s.id, source: s.original, model: s.center, distance: s.shift })), buildings: buildingCount, roads: (data.roads || []).length, waterPolygons: waterPolygons.length, parks: parkPolygons.length, trees: treeSpecs.length, landmarks: landmarks.length, drawCalls: renderer.info.render.calls, triangles: renderer.info.render.triangles, theme: currentTheme, view: currentView, cameraZoom: camera.zoom, terrain: terrainValid ? 'source-grid' : hills.length ? 'illustrative-hills' : 'flat', heightExaggeration: BUILDING_HEIGHT_EXAGGERATION, bridgeSpans: landmarks.filter(l => l.kind === 'bridge').map(l => ({ id: l.id, endpoints: l.endpoints, mainSpanEndpoints: l.mainSpanEndpoints, source: l.spanSource || 'landmark-spec' })), renderer: 'Three.js / WebGL', projection: 'orthographic' };
     },
+    retryModel() { authoredStage.retry(); },
     dispose() {
       if (disposed) return; disposed = true;
       cancelAnimationFrame(animationId); resizeObserver.disconnect();
       document.removeEventListener('visibilitychange', handleVisibility); motionMedia?.removeEventListener?.('change', handleMotionPreference);
       controls.removeEventListener('change', onChange); controls.removeEventListener('start', onStart); controls.dispose();
       renderer.domElement.removeEventListener('pointerdown', handlePointerDown); renderer.domElement.removeEventListener('pointerup', handlePointerUp); renderer.domElement.removeEventListener('webglcontextlost', handleContextLost);
+      authoredStage.dispose();
       const geometries = new Set(), materials = new Set(), textures = new Set();
       scene.traverse(object => {
         if (object.geometry) geometries.add(object.geometry);

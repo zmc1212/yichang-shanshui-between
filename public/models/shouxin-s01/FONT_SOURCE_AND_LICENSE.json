@@ -1,0 +1,41 @@
+{
+  "family": "Noto Sans CJK SC",
+  "style": "Bold",
+  "postscript_name": "NotoSansCJKsc-Bold",
+  "actual_embedded_font_names": {
+    "0": [
+      "© 2014-2021 Adobe (http://www.adobe.com/)."
+    ],
+    "1": [
+      "Noto Sans CJK SC"
+    ],
+    "2": [
+      "Bold"
+    ],
+    "5": [
+      "Version 2.004;hotconv 1.0.118;makeotfexe 2.5.65603"
+    ],
+    "6": [
+      "NotoSansCJKsc-Bold"
+    ],
+    "13": [
+      "This Font Software is licensed under the SIL Open Font License, Version 1.1. This Font Software is distributed on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the SIL Open Font License for the specific language, permissions and limitations governing your use of this Font Software."
+    ],
+    "14": [
+      "http://scripts.sil.org/OFL"
+    ]
+  },
+  "existing_local_collection": "/usr/share/fonts/opentype/noto/NotoSansCJK-Bold.ttc",
+  "collection_sha256": "faa5f3656a78b2e2d450d27fe8382c778bc2b6bb5ea29c986664a6a435056ceb",
+  "once_extracted_face": "/tmp/shouxin_font_generation/NotoSansCJKSC-Bold.otf",
+  "extracted_face_sha256": "e3e3e872c3bb336b1f77a63091c3116dc68e64467368526d19107354697e91e4",
+  "existing_local_license_record": "/usr/share/doc/fonts-noto-cjk/copyright",
+  "local_license_sha256": "849f4ea9c214fa4ac3593b770c699f387534b11ce671264c1b10d85bdcb5997b",
+  "upstream_verified_license_url": "https://github.com/notofonts/noto-cjk/blob/main/Sans/LICENSE",
+  "upstream_verified_release_notes_url": "https://github.com/notofonts/noto-cjk/blob/main/Sans/NEWS.md",
+  "license": "SIL Open Font License 1.1",
+  "verification_date": "2026-11-04",
+  "font_binary_in_delivery": false,
+  "runtime_font_dependency": false,
+  "use": "16 locally converted/remeshed Chinese sign glyphs embedded as model geometry; approximate visible 2022 lettering, not original brand typography or official endorsement"
+}

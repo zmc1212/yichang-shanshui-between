@@ -1,0 +1,7 @@
+首信财富 S01 网页衍生资产
+
+原生 Blender 与原始网页交接包均未修改。detail.glb 保留全部原三角与材质，只按材质合并静态网格。light.glb 仅省略石材细缝叠线和裙房次级细分格；主面幕墙分格、石材竖肋、玻璃、顶部冠架及全部字牌保留。
+
+两档包围盒与锚点一致，不以竖向拉伸匹配城市普通楼高度。GLB 无 NORMAL 属性，加载时须使用 flatShading；不要计算全楼平滑法线。无贴图、无外部解码器。绝对尺寸、真北朝向和地图配准均待核准，先独立展台展示。背面及屋顶 CLOSURE_HOLD 为候选封口，不是实景确认部分。
+
+来源与字形许可见同目录 README.txt、FONT_SOURCE_AND_LICENSE.json、FONT_LICENSE_SIL-1.1.txt。详细数值与哈希见站点源码 docs/models/shouxin-asset-report.json。

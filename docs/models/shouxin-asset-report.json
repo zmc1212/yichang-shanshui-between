@@ -1,0 +1,125 @@
+{
+  "modelId": "shouxin-wealth",
+  "stage": "S01",
+  "source": {
+    "file": "shouxin_s01_web.glb",
+    "bytes": 1431156,
+    "sha256": "ab55eb23cd85d5dfd7fe69cfa6d628fe299aa69221bfa134fb478a3fe9f5df63",
+    "nativeSha256": "b30f44bac8c91641803dcee3062267a3a681f74a0bf5a3c5be7a17fa6b71139d",
+    "originalMeshes": 45,
+    "originalRenderPrimitives": 100,
+    "triangles": 117844,
+    "bounds": {
+      "min": [
+        -20.43000030517578,
+        0,
+        -14.0649995803833
+      ],
+      "max": [
+        20.43000030517578,
+        97.94000244140625,
+        14.065000534057617
+      ],
+      "size": [
+        40.86000061035156,
+        97.94000244140625,
+        28.130000114440918
+      ]
+    }
+  },
+  "policy": {
+    "preserveOriginalBlender": true,
+    "preserveOriginalWebSource": true,
+    "absoluteDimensionsKnown": false,
+    "trueNorthKnown": false,
+    "locationVerified": false,
+    "unverifiedClosure": [
+      "inland back",
+      "roof"
+    ],
+    "opticalBackingIsInterior": false,
+    "signagePeriod": "2022 reference; does not establish current occupants",
+    "transform": "Baked existing node transforms, no added rotation or stretch. Runtime must use one uniform scale for all axes.",
+    "detail": "All original triangles retained; exact float32 position deduplication and static material merge only.",
+    "light": "Omit only fine shadow-joint overlays and podium secondary mullions; retain main curtain wall grid, primary stone ribs, glass panes, crown, openings and all signage."
+  },
+  "tiers": {
+    "light": {
+      "file": "light.glb",
+      "bytes": 987872,
+      "sha256": "1028fc22f1183409992724a2e341ee2d556124dab7e7885e3daa264f50ef6064",
+      "triangles": 74072,
+      "vertices": 43231,
+      "drawCalls": 18,
+      "bounds": {
+        "min": [
+          -20.43000030517578,
+          0,
+          -14.0649995803833
+        ],
+        "max": [
+          20.43000030517578,
+          97.94000244140625,
+          14.065000534057617
+        ],
+        "size": [
+          40.86000061035156,
+          97.94000244140625,
+          28.130000114440918
+        ]
+      },
+      "flatShadingRequired": true,
+      "externalDependencies": [],
+      "omittedSourceParts": [
+        {
+          "node": "Front_outer_stone_panel_seam_lines",
+          "material": "Stone_shadow_joint_candidate",
+          "triangles": 2776
+        },
+        {
+          "node": "Pit_window_frames_and_joint_lines",
+          "material": "Stone_shadow_joint_candidate",
+          "triangles": 11396
+        },
+        {
+          "node": "Opposite_window_frames_and_joint_lines",
+          "material": "Stone_shadow_joint_candidate",
+          "triangles": 11396
+        },
+        {
+          "node": "Podium_fine_mullions",
+          "material": "Mullion_dark_teal_candidate",
+          "triangles": 18204
+        }
+      ]
+    },
+    "detail": {
+      "file": "detail.glb",
+      "bytes": 1498684,
+      "sha256": "d038cc3053db606d991763ef733d24299278d3466ab7fb25a3c1f86fd1f18674",
+      "triangles": 117844,
+      "vertices": 63839,
+      "drawCalls": 19,
+      "bounds": {
+        "min": [
+          -20.43000030517578,
+          0,
+          -14.0649995803833
+        ],
+        "max": [
+          20.43000030517578,
+          97.94000244140625,
+          14.065000534057617
+        ],
+        "size": [
+          40.86000061035156,
+          97.94000244140625,
+          28.130000114440918
+        ]
+      },
+      "flatShadingRequired": true,
+      "externalDependencies": [],
+      "omittedSourceParts": []
+    }
+  }
+}

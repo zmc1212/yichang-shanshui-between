@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { MapTrifold, MagnifyingGlass, Sun, MoonStars, ArrowCounterClockwise, Stack, X, CaretLeft, CaretRight, Plus, Minus, Play, Pause, Buildings, Tree, MapPin, CursorClick, List, Compass, ArrowUpRight, CircleNotch, WarningCircle, ArrowLeft, Check, NavigationArrow, Mouse, Camera, Waves } from '@phosphor-icons/react';
 import { createCityScene } from './scene/createCityScene.js';
+import { AUTHORED_MODELS } from './scene/authoredModels.js';
 
 function Modal({ title, children, onClose, className = '' }) {
   const panel = useRef(null);
@@ -31,6 +32,7 @@ export default function App(){
   const labelRefs = useRef({});
   const compassRef = useRef(null);
   const captureTimer = useRef(null);
+  const selectedRef = useRef(null);
   const [data,setData]=useState(null);
   const [ready,setReady]=useState(false);
   const [error,setError]=useState('');
@@ -48,10 +50,13 @@ export default function App(){
   const [closeView,setCloseView]=useState(false);
   const [cameraAngle,setCameraAngle]=useState('detail');
   const [toast,setToast]=useState('');
+  const [modelStates,setModelStates]=useState({});
   const [motionEnabled,setMotionEnabled]=useState(()=>!window.matchMedia('(prefers-reduced-motion: reduce)').matches);
   const [compact,setCompact]=useState(()=>window.matchMedia('(max-width: 700px)').matches);
-  const selected = data?.landmarks.find(l=>l.id===selectedId);
-  const landmarks = data?.landmarks || [];
+  const landmarks = data ? [...data.landmarks, ...AUTHORED_MODELS] : [];
+  const selected = landmarks.find(l=>l.id===selectedId);
+  const exhibit = selected?.placement === 'exhibit';
+  const modelState = exhibit ? modelStates[selectedId] : null;
   const filtered = landmarks.filter(l=>`${l.name} ${l.category} ${l.subtitle||''}`.toLowerCase().includes(query.toLowerCase().trim()));
   const categories = [...new Set(filtered.map(l=>l.category || '城市地标'))];
 
@@ -70,11 +75,16 @@ export default function App(){
   const capturePostcard=useCallback((delay=1500)=>{
     clearTimeout(captureTimer.current);
     captureTimer.current=setTimeout(()=>{
-      try{setDetailImage(scene.current?.getImage?.()||'');}catch{}
+      try{
+        const stats=scene.current?.getStats();
+        if(stats?.exhibitionMode&&!stats.authoredModels.quality)return;
+        setDetailImage(scene.current?.getImage?.()||'');
+      }catch{}
     },delay);
   },[]);
 
   const chooseLandmark = useCallback((id)=>{
+    selectedRef.current=id;
     setSelectedId(id);setView('perspective');setDetailTab('story');setDetailImage('');setMobileNav(false);setAutoRotate(false);
     setCloseView(false);setCameraAngle('detail');
     scene.current?.setAutoRotate(false);
@@ -84,6 +94,8 @@ export default function App(){
 
   const closeDetails=useCallback(()=>{
     clearTimeout(captureTimer.current);
+    if(AUTHORED_MODELS.some(model=>model.id===selectedRef.current)){setView('perspective');setAutoRotate(false);}
+    selectedRef.current=null;
     setSelectedId(null);setDetailImage('');setCloseView(false);setCameraAngle('detail');
     scene.current?.clearSelection();
   },[]);
@@ -93,6 +105,11 @@ export default function App(){
     let alive=true;
     try{
       const engine=createCityScene({container:canvasHost.current,data,onSelect:chooseLandmark,
+        onModelStatus:state=>{
+          if(!alive)return;
+          setModelStates(previous=>({...previous,[state.id]:state}));
+          if(state.state==='ready'&&selectedRef.current===state.id)capturePostcard(1250);
+        },
         onInteraction:()=>{if(alive)setAutoRotate(false);},
         onReady:()=>{if(alive)setReady(true);},onError:e=>{if(alive)setError(typeof e==='string'?e:'三维场景暂时无法启动，请刷新重试。');},
         onCameraChange:({labels,heading})=>{
@@ -157,7 +174,7 @@ export default function App(){
   return <div className={`app theme-${theme}`}>
     <header className="app-header">
       <button className="brand" onClick={reset} aria-label="宜昌江山之间，回到全景"><MapTrifold size={30} weight="duotone"/><span><strong>宜昌 · 江山之间</strong><small>YICHANG · A CITY IN MINIATURE</small></span></button>
-      <div className="header-breadcrumb"><span>城市导览</span><span className="slash">/</span><strong>三维沙盘</strong></div>
+      <div className="header-breadcrumb"><span>城市导览</span><span className="slash">/</span><strong>{exhibit?'建筑展台':'三维沙盘'}</strong></div>
       <div className="header-right"><span className="header-poem">沿江山水，慢慢看宜昌。</span><button className="text-button save-view-button" aria-label="保存当前画面" title="保存当前画面" disabled={!ready||Boolean(error)} onClick={saveView}><Camera size={18}/><span>保存画面</span></button><button className="text-button guide-button" aria-label="操作指引" onClick={()=>setModal('guide')}><CursorClick size={17}/><span>操作指引</span></button><button className="icon-button mobile-menu" onClick={()=>setMobileNav(!mobileNav)} aria-label={mobileNav?'关闭景点目录':'打开景点目录'} aria-expanded={mobileNav}><List size={23}/></button></div>
     </header>
     <div className="app-body">
@@ -165,25 +182,27 @@ export default function App(){
       <aside className={`sidebar ${mobileNav?'is-open':''}`} aria-label="宜昌景点目录" inert={compact&&!mobileNav} aria-hidden={compact&&!mobileNav?true:undefined}>
         <div className="sidebar-intro"><p className="eyebrow">城市漫游</p><h1>一城山水，自在宜昌。</h1><p className="intro-copy">从一座楼阁，走进一座城。</p></div>
         <form className="search" onSubmit={e=>{e.preventDefault();if(filtered[0])chooseLandmark(filtered[0].id);}}><MagnifyingGlass size={17}/><input aria-label="搜索宜昌地标" placeholder="寻找一处风景" value={query} onChange={e=>setQuery(e.target.value)}/>{query&&<button type="button" aria-label="清空搜索" onClick={()=>setQuery('')}><X size={14}/></button>}</form>
-        <div className="directory-heading"><span>探索地标</span><span>{String(landmarks.length).padStart(2,'0')} 处</span></div>
+        <div className="directory-heading"><span>探索地标与建筑</span><span>{String(landmarks.length).padStart(2,'0')} 项</span></div>
         <nav className="landmark-list" aria-label="选择地标">
           {!data&&<p className="list-loading">正在展开城市目录…</p>}
           {data&&!filtered.length&&<div className="search-empty"><MagnifyingGlass size={24}/><strong>还没找到这处风景</strong><p>试试“镇江阁”或“长江”</p><button onClick={()=>setQuery('')}>查看全部地标</button></div>}
-          {categories.map(category=><section className="landmark-group" key={category}><h2>{category}<span>{filtered.filter(l=>(l.category||'城市地标')===category).length}</span></h2>{filtered.filter(l=>(l.category||'城市地标')===category).map(l=><button key={l.id} className={`landmark-row ${selectedId===l.id?'selected':''}`} onClick={()=>chooseLandmark(l.id)} aria-pressed={selectedId===l.id}><span className="landmark-index">{String(landmarks.indexOf(l)+1).padStart(2,'0')}</span><span className="landmark-row-content"><strong>{l.name}</strong>{selectedId===l.id&&<small>{l.subtitle||'沿着江岸，发现宜昌'}</small>}</span><CaretRight size={12}/></button>)}</section>)}
+          {categories.map(category=><section className="landmark-group" key={category}><h2>{category}<span>{filtered.filter(l=>(l.category||'城市地标')===category).length}</span></h2>{filtered.filter(l=>(l.category||'城市地标')===category).map(l=><button key={l.id} className={`landmark-row ${selectedId===l.id?'selected':''}`} onClick={()=>chooseLandmark(l.id)} aria-pressed={selectedId===l.id}><span className="landmark-index">{String(landmarks.indexOf(l)+1).padStart(2,'0')}</span><span className="landmark-row-content"><strong>{l.name}</strong>{selectedId===l.id&&<small>{l.placement==='exhibit'?'独立展示 · 配准待核准':l.subtitle||'沿着江岸，发现宜昌'}</small>}</span>{l.placement==='exhibit'&&<span className="exhibit-tag">展台</span>}<CaretRight size={12}/></button>)}</section>)}
         </nav>
         <div className="sidebar-bottom"><div className="sidebar-note"><MapPin size={14}/><span>宜昌中心城区 · 风格化沙盘</span></div><button onClick={()=>setModal('about')} className="about-link">关于这座沙盘 <ArrowUpRight size={13}/></button><div className="edition"><span>YICHANG ONLINE</span><span>VOL. 01</span></div></div>
       </aside>
-      <main className={`main-scene ${selected?'detail-open':''}`} aria-label="宜昌城市三维微缩沙盘">
+      <main className={`main-scene ${selected?'detail-open':''} ${exhibit?'exhibition-open':''}`} aria-label={exhibit?'宜昌建筑独立展台':'宜昌城市三维微缩沙盘'}>
         <div className="canvas-host" ref={canvasHost}/>
         <div className={`map-labels ${layers.labels&&ready?'':'hidden'}`} aria-label="地图地标标注">
           {landmarks.map(l=><button key={l.id} ref={el=>{labelRefs.current[l.id]=el;}} className={`map-label ${selectedId===l.id?'active':''}`} onClick={()=>chooseLandmark(l.id)} aria-label={`查看${l.name}`}><span className="label-name">{l.name}</span><span className="label-pin"><MapPin size={13} weight="fill"/></span></button>)}
         </div>
         {(!ready||error)&&<div className="scene-loading" role="status">{error?<><WarningCircle size={32}/><h2>这座城还在路上</h2><p>{error}</p><button onClick={()=>window.location.reload()}>重新打开沙盘</button></>:<><MapTrifold size={44} weight="duotone"/><span className="eyebrow">YICHANG · 江山之间</span><h2>让山水，慢慢展开。</h2><p>{data?'正在安放楼阁、街巷与树木':'正在读取宜昌城市轮廓'}</p><CircleNotch className="spinner" size={22}/></>}</div>}
-        <div className="scene-toolbar" aria-label="沙盘显示设置"><div className="view-segment"><button className={view==='perspective'?'active':''} onClick={()=>changeView('perspective')} aria-pressed={view==='perspective'}><Buildings size={16}/><span>城市沙盘</span></button><button className={view==='top'?'active':''} onClick={()=>changeView('top')} aria-pressed={view==='top'}><MapTrifold size={16}/><span>俯瞰地图</span></button></div><span className="toolbar-divider"/><button className="toolbar-button reset-button" onClick={reset} title="回到全景"><ArrowCounterClockwise size={16}/><span>回到全景</span></button><span className="toolbar-divider day-divider"/><div className="day-segment"><button className={theme==='day'?'active':''} onClick={()=>setTheme('day')} aria-pressed={theme==='day'} title="日景"><Sun size={17}/><span>日景</span></button><button className={theme==='night'?'active':''} onClick={()=>setTheme('night')} aria-pressed={theme==='night'} title="夜景"><MoonStars size={16}/><span>夜景</span></button></div></div>
-        <div className="map-tools-top"><button className={`layer-toggle ${layersOpen?'active':''}`} onClick={()=>setLayersOpen(!layersOpen)} aria-expanded={layersOpen} aria-label="图层"><Stack size={17}/><span>图层</span></button>{layersOpen&&<section className="layer-panel" aria-label="图层设置"><header><strong>看见城市的层次</strong><button className="icon-button" onClick={()=>setLayersOpen(false)} aria-label="关闭图层设置"><X size={15}/></button></header>{[{id:'buildings',label:'城市建筑',Icon:Buildings},{id:'trees',label:'山林与树木',Icon:Tree},{id:'labels',label:'地标名称',Icon:MapPin}].map(({id,label,Icon})=><label key={id}><Icon size={17}/><span>{label}</span><input type="checkbox" checked={layers[id]} onChange={()=>toggleLayer(id)}/></label>)}<label className="motion-setting"><Waves size={17}/><span>江面动态</span><input type="checkbox" checked={motionEnabled} onChange={e=>setMotionEnabled(e.target.checked)}/></label><p className="layer-note">靠近江岸，看看船只缓缓经过。</p></section>}</div>
-        <div className="compass"><span>N</span><div ref={compassRef}><NavigationArrow size={22} weight="fill"/></div></div>
+        <div className="scene-toolbar" aria-label="沙盘显示设置"><div className="view-segment"><button className={view==='perspective'?'active':''} onClick={()=>changeView('perspective')} aria-pressed={view==='perspective'}><Buildings size={16}/><span>{exhibit?'建筑展台':'城市沙盘'}</span></button><button className={view==='top'?'active':''} onClick={()=>changeView('top')} aria-pressed={view==='top'}><MapTrifold size={16}/><span>{exhibit?'俯瞰模型':'俯瞰地图'}</span></button></div><span className="toolbar-divider"/><button className="toolbar-button reset-button" onClick={reset} title="回到全景"><ArrowCounterClockwise size={16}/><span>回到全景</span></button><span className="toolbar-divider day-divider"/><div className="day-segment"><button className={theme==='day'?'active':''} onClick={()=>setTheme('day')} aria-pressed={theme==='day'} title="日景"><Sun size={17}/><span>日景</span></button><button className={theme==='night'?'active':''} onClick={()=>setTheme('night')} aria-pressed={theme==='night'} title="夜景"><MoonStars size={16}/><span>夜景</span></button></div></div>
+        {exhibit&&<div className="exhibition-note"><span className="eyebrow">ARCHITECTURE / {selected.stage}</span><p>独立展台 <span>位置 · 尺寸 · 朝向待核准</span></p></div>}
+        {exhibit&&ready&&(!modelState||modelState.state==='loading'||modelState.state==='error')&&<div className="model-load-state" role="status">{modelState?.state==='error'?<><WarningCircle size={24}/><strong>模型暂未载入</strong><p>可以重试，或先回到城市继续探索。</p><button onClick={()=>scene.current?.retryModel()}>重新载入</button></>:<><CircleNotch className="spinner" size={24}/><strong>正在展开建筑细节</strong><p>首次打开需要载入模型。</p></>}</div>}
+        <div className="map-tools-top"><button className={`layer-toggle ${layersOpen?'active':''}`} onClick={()=>setLayersOpen(!layersOpen)} aria-expanded={layersOpen} aria-label="图层"><Stack size={17}/><span>图层</span></button>{layersOpen&&<section className="layer-panel" aria-label="图层设置"><header><strong>{exhibit?'建筑展台':'看见城市的层次'}</strong><button className="icon-button" onClick={()=>setLayersOpen(false)} aria-label="关闭图层设置"><X size={15}/></button></header>{(exhibit?[{id:'labels',label:'建筑名称',Icon:MapPin}]:[{id:'buildings',label:'城市建筑',Icon:Buildings},{id:'trees',label:'山林与树木',Icon:Tree},{id:'labels',label:'地标名称',Icon:MapPin}]).map(({id,label,Icon})=><label key={id}><Icon size={17}/><span>{label}</span><input type="checkbox" checked={layers[id]} onChange={()=>toggleLayer(id)}/></label>)}{!exhibit&&<><label className="motion-setting"><Waves size={17}/><span>江面动态</span><input type="checkbox" checked={motionEnabled} onChange={e=>setMotionEnabled(e.target.checked)}/></label><p className="layer-note">靠近江岸，看看船只缓缓经过。</p></>}{exhibit&&<p className="layer-note">回到城市后，继续使用原有图层设置。</p>}</section>}</div>
+        <div className="compass" hidden={exhibit}><span>N</span><div ref={compassRef}><NavigationArrow size={22} weight="fill"/></div></div>
         {selected&&<section className="detail-panel" aria-label={`${selected.name}介绍`}>
-          <div className="detail-top"><span>{selected.category} / 城市手记</span><div className="detail-navigation"><button className="icon-button" onClick={()=>stepLandmark(-1)} aria-label="上一处地标" title="上一处地标"><CaretLeft size={15}/></button><button className="icon-button" onClick={()=>stepLandmark(1)} aria-label="下一处地标" title="下一处地标"><CaretRight size={15}/></button><span className="detail-navigation-divider"/><button className="icon-button" onClick={closeDetails} aria-label="关闭地标介绍"><X size={18}/></button></div></div>
+          <div className="detail-top"><span>{selected.category} / {exhibit?'S01 外观候选':'城市手记'}</span><div className="detail-navigation"><button className="icon-button" onClick={()=>stepLandmark(-1)} aria-label="上一处地标" title="上一处地标"><CaretLeft size={15}/></button><button className="icon-button" onClick={()=>stepLandmark(1)} aria-label="下一处地标" title="下一处地标"><CaretRight size={15}/></button><span className="detail-navigation-divider"/><button className="icon-button" onClick={closeDetails} aria-label="关闭地标介绍"><X size={18}/></button></div></div>
           <div className="detail-title"><span>{String(landmarks.indexOf(selected)+1).padStart(2,'0')}</span><h2>{selected.name}</h2></div>
           <p className="detail-subtitle">{selected.subtitle||'在山水之间，与宜昌相遇。'}</p>
           <div className="detail-tabs" role="tablist" aria-label="地标内容"><button id="story-tab" role="tab" aria-controls="landmark-panel" aria-selected={detailTab==='story'} className={detailTab==='story'?'active':''} onClick={()=>setDetailTab('story')}>地标手记</button><button id="view-tab" role="tab" aria-controls="landmark-panel" aria-selected={detailTab==='view'} className={detailTab==='view'?'active':''} onClick={()=>setDetailTab('view')}>观察视角</button></div>
@@ -193,21 +212,24 @@ export default function App(){
             <button className="detail-focus" aria-pressed={closeView&&view==='perspective'} onClick={()=>frameSelected({close:!(closeView&&view==='perspective')})}>{closeView&&view==='perspective'?'回到地标全景':'靠近看看'} {closeView&&view==='perspective'?<ArrowCounterClockwise size={17}/>:<ArrowUpRight size={17}/>}</button>
           </div>:<div id="landmark-panel" role="tabpanel" aria-labelledby="view-tab" className="detail-view">
             <p>换一个角度，发现城市的另一面。</p>
-            <button className={cameraAngle==='detail'&&closeView&&view==='perspective'?'active':''} onClick={()=>frameSelected({angle:'detail',close:true})}><Buildings size={20}/><span><strong>地标近景</strong><small>看见建筑与层次</small></span><ArrowUpRight size={16}/></button>
+            <button className={cameraAngle==='detail'&&closeView&&view==='perspective'?'active':''} onClick={()=>frameSelected({angle:'detail',close:true})}><Buildings size={20}/><span><strong>{exhibit?'建筑近景':'地标近景'}</strong><small>{exhibit?'靠近幕墙，展开完整细节':'看见建筑与层次'}</small></span><ArrowUpRight size={16}/></button>
+            {exhibit&&<button className={cameraAngle==='front'&&view==='perspective'?'active':''} onClick={()=>frameSelected({angle:'front',close:true})}><Buildings size={20}/><span><strong>正立面</strong><small>观察竖肋、窗格与入口</small></span><ArrowUpRight size={16}/></button>}
             {['zhenjiang-pavilion','tianran-pagoda'].includes(selectedId)&&<button className={cameraAngle==='river'&&view==='perspective'?'active':''} onClick={()=>frameSelected({angle:'river',close:false})}><Waves size={20}/><span><strong>江岸视角</strong><small>从江面，望向一城风景</small></span><ArrowUpRight size={16}/></button>}
-            <button className={view==='top'?'active':''} onClick={()=>changeView('top')}><MapTrifold size={20}/><span><strong>俯瞰此处</strong><small>读懂街巷与江岸</small></span><ArrowUpRight size={16}/></button>
+            <button className={view==='top'?'active':''} onClick={()=>changeView('top')}><MapTrifold size={20}/><span><strong>{exhibit?'顶部与轮廓':'俯瞰此处'}</strong><small>{exhibit?'屋顶为候选，尚待核准':'读懂街巷与江岸'}</small></span><ArrowUpRight size={16}/></button>
             <button onClick={reset}><Compass size={20}/><span><strong>回到城市</strong><small>让整座宜昌重新展开</small></span><ArrowUpRight size={16}/></button>
           </div>}
-          <footer>建筑与景观为风格化表达</footer>
+          {exhibit&&<div className="model-quality" role="status"><span className={`quality-dot ${modelState?.quality?'is-ready':''}`}/><span>{modelState?.detailState==='loading'?'正在载入近景细节':modelState?.detailState==='error'?'近景细节暂未载入':modelState?.quality==='detail'?'完整细节已就绪':modelState?.quality==='light'?'轻量模型已就绪':'模型载入中'}</span>{modelState?.detailState==='error'?<button onClick={()=>scene.current?.retryModel()}>重试</button>:<button onClick={()=>setModal('model')}>模型说明</button>}</div>}
+          <footer>{exhibit?'等比微缩 · 背面与屋顶仍待核准':'建筑与景观为风格化表达'}</footer>
         </section>}
-        <div className="scene-bottom-caption"><span className="eyebrow">YICHANG / 长江之畔</span><p>{selected?selected.name:'把一座城，放在眼前。'}</p></div>
+        <div className="scene-bottom-caption"><span className="eyebrow">{exhibit?'YICHANG / 建筑细读':'YICHANG / 长江之畔'}</span><p>{selected?selected.name:'把一座城，放在眼前。'}</p></div>
         <div className="interaction-hint"><Mouse size={14}/><span>拖动旋转</span><span className="hint-dot">·</span><span>滚轮缩放</span><span className="hint-dot">·</span><span>点击地标探索</span></div>
         <div className="map-controls"><button className={autoRotate?'active':''} onClick={toggleRotate} aria-pressed={autoRotate} title={autoRotate?'暂停环绕':'自动环绕'} aria-label={autoRotate?'暂停环绕':'自动环绕'}>{autoRotate?<Pause size={16}/>:<Play size={16}/>}</button><div className="zoom-controls"><button aria-label="放大沙盘" onClick={()=>scene.current?.zoom(1)}><Plus size={19}/></button><button aria-label="缩小沙盘" onClick={()=>scene.current?.zoom(-1)}><Minus size={19}/></button></div></div>
-        <div className="scene-attribution"><button onClick={()=>setModal('about')}>地图数据与来源</button><span>© OpenStreetMap contributors</span></div>
+        <div className="scene-attribution"><button onClick={()=>setModal(exhibit?'model':'about')}>{exhibit?'模型来源与说明':'地图数据与来源'}</button><span>{exhibit?'宜昌Online · 自建建筑候选':'© OpenStreetMap contributors'}</span></div>
         {toast&&<div className="toast" role="status"><Check size={17}/>{toast}</div>}
       </main>
     </div>
     {modal==='guide'&&<Modal title="用自己的节奏，认识宜昌。" onClose={closeModal}><div className="guide-steps"><div><Mouse size={26}/><span><strong>转一转，看见山水</strong><p>按住鼠标左键拖动，旋转沙盘；右键拖动可平移。</p></span></div><div><Plus size={26}/><span><strong>近一点，看见细节</strong><p>滚动鼠标滚轮，或使用右下角的加减按钮缩放。</p></span></div><div><CursorClick size={26}/><span><strong>点一处，听一座城</strong><p>点击地标名称或左侧目录，镜头会带你靠近风景。</p></span></div><div><Sun size={26}/><span><strong>从日景，走到夜色</strong><p>切换顶部日夜按钮，也可以开启自动环绕慢慢欣赏。</p></span></div></div><p className="touch-note">触屏：单指旋转，双指缩放与平移。点击顶部相机可保存画面；图层里可暂停江面动态。</p><button className="primary-button" onClick={closeModal}>开始探索 <ArrowUpRight size={17}/></button></Modal>}
     {modal==='about'&&<Modal title="关于这座沙盘" onClose={closeModal}><div className="about-content"><p className="about-lead">把宜昌的山水、街巷与楼阁，装进一座可以探索的微缩城市。</p><p>沙盘以公开道路、水系和建筑轮廓为基础，采用统一的色彩与简化造型呈现中心城区。地标、树木、江面船只与部分建筑高度经过展示性处理，适合城市导览与空间探索。</p><div className="about-data"><span>地图与轮廓</span><strong>OpenStreetMap · Overture Maps</strong><span>展示范围</span><strong>{data?.meta?.name||'宜昌中心城区'}</strong><span>作品</span><strong>宜昌Online · 江山之间</strong></div><p className="data-note">地标位置为公开资料参考，模型并非测绘或工程成果。</p><a className="source-link" href="/data/sources.txt" target="_blank" rel="noreferrer">查看完整数据来源与说明 <ArrowUpRight size={15}/></a></div><button className="primary-button" onClick={closeModal}>回到山水之间 <ArrowLeft size={17}/></button></Modal>}
+    {modal==='model'&&<Modal title="首信财富中心 · 模型说明" onClose={closeModal}><div className="about-content"><p className="about-lead">从一格幕墙，读懂一座建筑。</p><p>此展台使用自建首信财富中心 S01 模型的网页副本，保留楼体比例、主立面竖肋、幕墙分格、顶部冠架及参考时期字牌。三轴统一缩放，近看按需载入完整细节。</p><div className="about-data"><span>当前阶段</span><strong>S01 外观候选</strong><span>展示方式</span><strong>独立展台 · 尚未地图配准</strong><span>尺寸与朝向</span><strong>绝对尺寸、真北朝向待核准</strong><span>未完成部分</span><strong>完整背面与屋顶</strong></div><p className="data-note">字牌保留参考时期外观，不证明当前营业或商户。夜景灯光为展示性处理。模型不属于实测或工程成果。</p><a className="source-link" href="/models/shouxin-s01/README.txt" target="_blank" rel="noreferrer">查看原始交接说明 <ArrowUpRight size={15}/></a></div><button className="primary-button" onClick={closeModal}>继续看建筑 <ArrowLeft size={17}/></button></Modal>}
   </div>;
 }
