@@ -1,6 +1,57 @@
 # 宜昌 · 江山之间 — Design QA
 
+## Landmark registration — 2026-11-09 (Asia/Shanghai)
+
+**Passed and published to the same owner-private Site.** Latest functional revision: `d42428258a8ea64457748caa65108a09b6102bba` (V10). The preceding registration revision was `611f1726adac13323191bc1645546ccf81bb1356` (V9). Later screenshot/documentation commits do not change these application assets.
+
+### User-reported defects and corrections
+
+- 葛洲坝 previously used a regional POI, a default east–west axis and a fixed 17-unit length. Its model visibly crossed the mapped dam line. It now uses the west main-channel segment of retained crest road `way/1465238639`, from WGS84 `[111.266107,30.740883]` to `[111.272164,30.739043]`; the anchor is the segment midpoint, the length comes from those endpoints and local `+Z` faces downstream. Adjacent reservoir/river polygon edges corroborate the axis. The model represents this segment, not every structure in the multi-channel complex.
+- 镇江阁 previously had no geographic heading. Its entrance remained world-south, and the enlarged footprint was shifted inland. Its local `+X` is now registered to the named building footprint at bearing 356.672°, putting the `+Z` front at 86.672°. The documented front/back relation of the current rebuilt pavilion is landward toward East Mountain, with the river behind it.
+- 天然塔 now has a river-facing `+Z` entrance at the locally inferred 226.179° bearing. The internal octagon was rotated so the door, inscription and steps share a real flat face. This internal modelling adjustment does not add a second geographic yaw.
+- Both historic buildings retain their original POI coordinates with zero display translation. Display scales are 0.51 and 0.19 respectively, allowing their complete rotated bounds to fit on source land. The former 1.55/2.5-unit inland shifts are superseded. Labels, selection rings, collision clearing and cameras follow the same anchor and transformed model bounds.
+- 至喜's old near-bank water crossing length was wrongly treated as the whole 250:838:215 bridge, moving both towers into water. It is now the main span; the two side spans extend onto the banks. Source road points are normalized west-to-east before sampling, preventing point-order reversal from flipping the asymmetric structure. This remains an inferred placement; the west/east allocation of the unequal side-span values preserves the previous convention and is not asserted as a surveyed result.
+- 夷陵's axis was checked against its named water-crossing road; the approximately 2.6 m maximum road-to-chord difference is inside the stylized deck width. The park/island models remain illustrative regional markers without invented surveyed entrance directions.
+
+Pose inputs, source IDs and references are retained in `scripts/landmark-alignments.json`, applied by `scripts/landmark_alignment.py`, and included in `city.json` / `sources.txt`. Angle conventions and implementation notes are in the README. Primary direction references are the [Three Gorges Group magazine, 2022 no.10, printed page 111](https://www.ctgne.com/sxjt/fileDir/resource/cms/article/1278180/1418219/2023032716492726407.pdf) and [Yichang Civil Affairs' Tianran Pagoda entry](https://mzj.yichang.gov.cn/content-63849-997288-1.html). Bearings derived from retained map geometry are display registration, not field measurements.
+
+### Focused verification
+
+`node scripts/check-landmark-alignment.mjs` passed after both functional revisions. It exercises the actual placement resolver, model factory and waterfront planner without WebGL, checking:
+
+- Actual dam/bridge model endpoints coincide with the resolved map endpoints; valid endpoints override conflicting heading and display scale.
+- The two historic-building anchors have zero drift, and their transformed `+Z` fronts have the opposite documented land/river relationships.
+- 5,799 samples over the complete rotated footprints, including 3 m extra clearance, remain outside mapped water.
+- The two actual Zhixi tower centres coincide with `mainSpanEndpoints` and are on source land. Reversing source road point order preserves exactly the same endpoints.
+
+Current Zhixi main-span tower points are `[-60.576279988,-35.247478189]` and `[-43.770481376,-34.571555901]`. The inferred main span is approximately 840.97 m and the whole deck approximately 1,307.62 m; these include the map/sampling and bank allowance and are not substituted for the published 838/1303 m dimensions. The script checks tower centres, not a surveyed foundation outline.
+
+The roads, water, parks and building arrays were hash-compared before/after data registration and are unchanged. Applying the calibration manifest a second time leaves the landmark records unchanged. Python files compile, scene modules parse, production builds and `git diff --check` pass. The entire Shapely clipping pipeline was not rerun in this environment; only landmark configuration and metadata changed, through the same standard-library registration helper used by that pipeline.
+
+### Actual browser inspection and final adjustment
+
+The deployed Site was inspected in connected Chrome at its normal 1920 × 919 viewport. 葛洲坝 was examined from both the settled top and oblique views; its model and the mapped line now connect along a common axis. 镇江阁's landward steps, river-facing rear and complete base are visible. 至喜's towers stand at the two banks with its side spans following the mapped road.
+
+The first new 天然塔 close view exposed a concrete scale regression: unchanged lamps, benches and railings looked oversized beside the correctly placed smaller tower. V10 scales local furniture around its existing anchors (0.51 at 镇江阁, 0.28 at 天然塔), reduces rail height/cross-section without moving shoreline endpoints, and updates night-light positions. The tower's close framing was tightened to approximately 5.17 world units of visible height on this desktop layout. The final screenshot shows the whole tower, entrance steps and proportionate surrounding furniture. An independent visual review confirmed the regression is resolved.
+
+A 390 × 844 responsive check showed the whole tower and steps above the complete bottom detail sheet. DOM measurements reported document width 390, stage scrollTop 0, and stage scrollHeight = clientHeight = 784. The application error/warning log was empty. The temporary viewport was reset to 1920 pixels, and the final browser tab was left at the corrected 葛洲坝 close view. No device-performance or new export/download claim is made.
+
+Current waterfront planning retains three decorative boats and two checked routes. Only three generic building footprints overlap the newly registered historic models, compared with eighteen in the previous enlarged/shifted display. Furnishings and boats remain illustrative assets.
+
+### Evidence
+
+- `docs/qa/alignment-dam-oblique.png` and `alignment-dam-top.png`: V9 actual rendered dam-axis continuity; the dam geometry and framing are unchanged in V10.
+- `docs/qa/alignment-zhixi.png`: V9 corrected bridge main-span and bank tower placement; unchanged in V10.
+- `docs/qa/alignment-pavilion.png`: final V10 landward entrance and fixed-anchor pavilion, with proportional furniture.
+- `docs/qa/alignment-pagoda.png`: final V10 tower and river-facing entry.
+- `docs/qa/alignment-mobile.png`: final V10 390 × 844 tower detail.
+- `docs/qa/alignment-pagoda-initial.png`: retained V9 evidence of the furniture-scale issue, superseded by the final image.
+
+---
+
 ## Detail iteration — 2026-11-09 (Asia/Shanghai)
+
+This historical section records the preceding detail iteration. Its display-only inland offsets and enlarged waterfront props have been replaced by the registration work above.
 
 **Published; inspected desktop and mobile visual states passed.** The new work retains the bright miniature style and updates the same owner-private Site. Latest functional source: `1ca21d6fef83f0a067609f616c7c7239cdc4e88c` (V7). Documentation-only follow-up commits do not change the build.
 
