@@ -592,7 +592,9 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     const frameCenter = frameBounds.getCenter(new THREE.Vector3());
     let direction = defaultDirection.clone();
     if (authored && !context) {
-      direction = options.angle === 'front' ? new THREE.Vector3(0, 0.15, 1).normalize() : new THREE.Vector3(0.72, 0.7, 1.3).normalize();
+      // Presentation-only viewing direction; the registered model yaw and map
+      // position stay fixed. Explicit front and city-context views retain theirs.
+      direction = options.angle === 'front' ? new THREE.Vector3(0, 0.15, 1).normalize() : new THREE.Vector3(...(item.spec.defaultViewDirection || [0.72, 0.7, 1.3])).normalize();
       direction.applyAxisAngle(new THREE.Vector3(0, 1, 0), item.spec.yaw);
     } else if (options.angle === 'river' && site) {
       // Look from the source water side, at a gentler elevation than overview.

@@ -1,0 +1,98 @@
+{
+  "passed": true,
+  "modelId": "jinjiang-s03",
+  "registeredYawUnchanged": -0.5589087796821554,
+  "defaultViewDirection": [
+    1.65,
+    0.95,
+    0.85
+  ],
+  "before": {
+    "direction": [
+      -0.04803068654439084,
+      0.42613271387093826,
+      0.9033847260824501
+    ],
+    "bearingDeg": 183.04340651066587,
+    "horizontalGapWorldUnits": -1.673244795957114
+  },
+  "after": {
+    "direction": [
+      0.4547598944975575,
+      0.45562108082561,
+      0.7652469333907022
+    ],
+    "bearingDeg": 149.27844258353775,
+    "horizontalGapWorldUnits": 0.9487377159344881
+  },
+  "frameCases": [
+    {
+      "viewport": "desktop1440",
+      "close": false,
+      "zoom": 48.19069463668731,
+      "minimumEdgeMarginPx": 116.64285714286484
+    },
+    {
+      "viewport": "desktop1440",
+      "close": true,
+      "zoom": 67.46697249136223,
+      "minimumEdgeMarginPx": 34.50000000000301
+    },
+    {
+      "viewport": "desktop1024",
+      "close": false,
+      "zoom": 45.558555929111215,
+      "minimumEdgeMarginPx": 92.73469387755247
+    },
+    {
+      "viewport": "desktop1024",
+      "close": true,
+      "zoom": 63.78197830075569,
+      "minimumEdgeMarginPx": 27.428571428574003
+    },
+    {
+      "viewport": "narrow760",
+      "close": false,
+      "zoom": 27.66884461771577,
+      "minimumEdgeMarginPx": 34.05102040816053
+    },
+    {
+      "viewport": "narrow760",
+      "close": true,
+      "zoom": 38.73638246480208,
+      "minimumEdgeMarginPx": 10.071428571424953
+    },
+    {
+      "viewport": "mobile390",
+      "close": false,
+      "zoom": 14.180527281207683,
+      "minimumEdgeMarginPx": 32.420918367348236
+    },
+    {
+      "viewport": "mobile390",
+      "close": true,
+      "zoom": 19.852738193690755,
+      "minimumEdgeMarginPx": 9.589285714285722
+    },
+    {
+      "viewport": "mobile360",
+      "close": false,
+      "zoom": 11.873803323206431,
+      "minimumEdgeMarginPx": 23.5459183673471
+    },
+    {
+      "viewport": "mobile360",
+      "close": true,
+      "zoom": 16.623324652489003,
+      "minimumEdgeMarginPx": 6.964285714285779
+    }
+  ],
+  "minimumEdgeMarginPx": 6.964285714285779,
+  "unchangedViews": [
+    "front",
+    "context",
+    "top",
+    "other-model default"
+  ],
+  "webglVerified": false
+}

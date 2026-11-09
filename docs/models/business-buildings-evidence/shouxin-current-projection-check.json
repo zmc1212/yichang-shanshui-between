@@ -5,7 +5,7 @@
     "Mapped footprint match, one uniform fit, river-facing +Z orientation, and all bounding-box corners inside the inset",
     "Independent collision check: one replaced footprint, positive neighbor, modeled road-edge, and water clearances",
     "Both actual GLBs: every transformed vertex fits, axes share one scale, source proportions and picking ID survive, and both LOD world bounds agree",
-    "120 m / 300 m height-policy boundaries, continuity, monotonicity, radial consistency, local tree reservation, and empty-plan compatibility"
+    "400 m / 900 m height-policy boundaries, continuity, monotonicity, radial consistency, local tree reservation, and empty-plan compatibility"
   ],
   "sourceFeatureId": "809fc574-f994-4778-9992-3c3435682f32",
   "matchedCityBuildingIndex": 1744,
@@ -37,9 +37,9 @@
   "nearestYanjiangRoadEdgeGapMeters": 25.579949829309257,
   "minimumWaterGapMeters": 98.58352250015047,
   "heightNeighborhoodCounts": {
-    "inner": 6,
-    "transition": 37,
-    "outside": 15957
+    "inner": 71,
+    "transition": 257,
+    "outside": 15672
   },
   "nearTreeScaleRelativeToCity": 0.2631578947368421,
   "tiers": [

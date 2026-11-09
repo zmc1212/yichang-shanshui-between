@@ -102,6 +102,8 @@ for (const row of BUSINESS_BUILDINGS) {
 passed.push('23 source-bound unique projects; 8 restored models, 7 city residents, 1 registration pending, 15 recovery pending; GCJ-02 conversion and expanded-board coverage');
 
 const resolved = AUTHORED_MODELS.map(raw => resolveAuthoredPlacement(raw,city.meta));
+for(const spec of resolved)assert.deepEqual(spec.registration.contextHeight,{innerMeters:400,outerMeters:900,nearFactor:1},
+  `${spec.name} must use the same 400/900 metre background-height policy`);
 const resolvedByScene = new Map(resolved.map(spec => [spec.sourceSceneId,spec]));
 for (const record of evidence.records.filter(record => record.mayPlaceModelOnMap)) {
   const raw = byScene.get(record.sceneId), spec = resolvedByScene.get(record.sceneId), reg = raw.registration;

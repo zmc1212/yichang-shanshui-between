@@ -105,6 +105,7 @@
       ]
     },
     "displayHeight": 8,
+    "defaultViewDirection": [1.65, 0.95, 0.85],
     "flatShading": false,
     "assets": {
       "light": "/models/jinjiang-s03/light.glb?v=019218c3a04d",
@@ -191,6 +192,8 @@
       ]
     },
     "displayHeight": 8,
+    "glassDisplayLuminance": 0.16,
+    "glassDisplayGainMax": 1.6,
     "flatShading": false,
     "assets": {
       "light": "/models/fujiang-s01/light.glb?v=efdeb253b9fe",
@@ -234,6 +237,8 @@
       ]
     },
     "displayHeight": 8,
+    "glassDisplayLuminance": 0.16,
+    "glassDisplayGainMax": 1.6,
     "flatShading": false,
     "assets": {
       "light": "/models/yichang-international-s01/light.glb?v=6531a8d0d900",

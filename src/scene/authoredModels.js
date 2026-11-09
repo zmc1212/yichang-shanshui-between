@@ -54,6 +54,7 @@ export function prepareAuthoredModel(object, spec) {
   wrapper.scale.setScalar(spec.uniformScale || spec.displayHeight / referenceSize.y);
   wrapper.userData.sourceBounds = { min: sourceBox.min.toArray(), max: sourceBox.max.toArray() };
   wrapper.userData.scalePolicy = spec.scalePolicy || 'uniform-exhibit-not-metres';
+  const preparedMaterials = new Set();
   object.traverse(child => {
     if (!child.isMesh) return;
     child.userData.landmarkId = spec.id;
@@ -65,8 +66,20 @@ export function prepareAuthoredModel(object, spec) {
       material.flatShading = Boolean(spec.flatShading) || !child.geometry.getAttribute('normal');
       material.transparent = false;
       material.opacity = 1;
-      material.userData.authoredDayColor = material.color.clone();
       material.userData.authoredGlass = /glass|glaz|玻璃/i.test(material.name);
+      if (!preparedMaterials.has(material)) {
+        preparedMaterials.add(material);
+        const sourceColor = material.color.clone(), dayColor = sourceColor.clone();
+        const luminance = sourceColor.r * .2126 + sourceColor.g * .7152 + sourceColor.b * .0722;
+        // With transmission disabled, the two very dark source glazings need
+        // a bounded daytime lift. Keep RGB ratios, frames, maps and night color.
+        if (spec.glassDisplayLuminance && material.userData.authoredGlass && !material.map && luminance > 0 && luminance < .14) {
+          dayColor.multiplyScalar(Math.min(spec.glassDisplayGainMax || 1.6, spec.glassDisplayLuminance / luminance));
+        }
+        material.userData.authoredSourceColor = sourceColor;
+        material.userData.authoredDayColor = dayColor;
+        material.color.copy(dayColor);
+      }
       if ('transmission' in material) material.transmission = 0;
       if ('clearcoat' in material) material.clearcoat = Math.min(material.clearcoat, 0.12);
       material.roughness = Math.max(material.roughness, material.userData.authoredGlass ? 0.48 : 0.6);
@@ -82,7 +95,7 @@ function themeModel(object, night) {
     for (const material of Array.isArray(child.material) ? child.material : child.material ? [child.material] : []) {
       if (visited.has(material) || !material.userData.authoredDayColor) continue;
       visited.add(material);
-      material.color.copy(material.userData.authoredDayColor).multiplyScalar(night ? 0.84 : 1);
+      material.color.copy(night ? material.userData.authoredSourceColor : material.userData.authoredDayColor).multiplyScalar(night ? 0.84 : 1);
       if (material.emissive) {
         material.emissive.set(night && material.userData.authoredGlass ? '#7ca8ac' : '#000000');
         material.emissiveIntensity = night && material.userData.authoredGlass ? 0.12 : 0;

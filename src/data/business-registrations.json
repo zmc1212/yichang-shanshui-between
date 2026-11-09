@@ -140,8 +140,8 @@
     ],
     "sourceSnapshotCommit": "38c01bf002511c01294feacd8aa85e54e6342724",
     "contextHeight": {
-      "innerMeters": 120,
-      "outerMeters": 300,
+      "innerMeters": 400,
+      "outerMeters": 900,
       "nearFactor": 1
     },
     "uncertainty": "共享商场源轮廓大于现有模型可见前段；不得把可见模型宣称为整个商业体完整重建。；只排除Presentation_base_non_geographic；保留Forecourt_continuous_steps。；不将三塔A/B/C编号强行锁定为NW/MID/SE。",
@@ -965,8 +965,8 @@
     ],
     "sourceSnapshotCommit": "38c01bf002511c01294feacd8aa85e54e6342724",
     "contextHeight": {
-      "innerMeters": 120,
-      "outerMeters": 300,
+      "innerMeters": 400,
+      "outerMeters": 900,
       "nearFactor": 1
     },
     "uncertainty": "使用S09基准原高度、hotel OFF；不是隐藏高度研究方案。；源轮廓高度12m是默认值，不用于宣称真实楼高。；看不见的后立面及后部轮廓为源模型中保留的推定封闭面。",
@@ -1179,8 +1179,8 @@
     ],
     "sourceSnapshotCommit": "38c01bf002511c01294feacd8aa85e54e6342724",
     "contextHeight": {
-      "innerMeters": 120,
-      "outerMeters": 300,
+      "innerMeters": 400,
+      "outerMeters": 900,
       "nearFactor": 1
     },
     "uncertainty": "100单位总高不是100m；等比后的128.35m仅显示高度。；前场罩棚/入口不能当塔芯深度；本次以50×18塔芯拟合，再独立检查整个前场不压路/邻楼。",
@@ -1323,8 +1323,8 @@
     ],
     "sourceSnapshotCommit": "38c01bf002511c01294feacd8aa85e54e6342724",
     "contextHeight": {
-      "innerMeters": 120,
-      "outerMeters": 300,
+      "innerMeters": 400,
+      "outerMeters": 900,
       "nearFactor": 1
     },
     "uncertainty": "使用S03默认00，不是S04研究版。；源地图两轮廓均为默认12m高度，不能从它们推实高。；模型原底部/景观造型保留；等比例后显示高度不是实测楼高。",
@@ -1608,8 +1608,8 @@
     ],
     "sourceSnapshotCommit": "38c01bf002511c01294feacd8aa85e54e6342724",
     "contextHeight": {
-      "innerMeters": 120,
-      "outerMeters": 300,
+      "innerMeters": 400,
+      "outerMeters": 900,
       "nearFactor": 1
     },
     "uncertainty": "两个端点能拟合弦端点但不能独立验证曲率、后部深度、顶部尺寸。；原生后侧深度是CLOSURE_HOLD；全模型在源裙房建筑轮廓外约1413㎡，虽与邻楼和机动车道无相交，仍应显示“弧形立面候选定位·后侧深度待核”。；不能把2点零计算残差作为地理精度或现场验收证明。",
@@ -2119,8 +2119,8 @@
     ],
     "sourceSnapshotCommit": "38c01bf002511c01294feacd8aa85e54e6342724",
     "contextHeight": {
-      "innerMeters": 120,
-      "outerMeters": 300,
+      "innerMeters": 400,
+      "outerMeters": 900,
       "nearFactor": 1
     },
     "uncertainty": "模型办公→中住宅→SE住宅中心距27.02/30.5，源地图83.47/52.26m，相对布局矛盾；办公/住宅宽度比也不一致。；三中心整体最小二乘scale2.3300产生RMS9.87m且压港沙路与沿江大道，拒用。；当前scale1.4061的保守完整组团不压源邻楼或机动车道，但塔中心误差30.07/16.00/24.32m，应标“组团候选定位·相对布局待核”。；OFFICE/RESIDENTIAL MID/RIGHT可语义分离，但共享院落、塔基与桥廊不能无缝随三塔分别搬动；未自行重做裙房。；只去SITE local paving/SITE paving joints。4种有照片形态依据的前场铺装/花池/通用绿化保留，已另查全部源背景楼和道路均无相交。",

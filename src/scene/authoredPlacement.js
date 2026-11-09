@@ -20,7 +20,7 @@ export const SHOUXIN_REGISTRATION = {
   sourceHeightMeters: 96,
   sourceHeightMethod: 'map-tag-not-survey',
   scaleMethod: 'one-scalar-inscribed-in-mapped-footprint',
-  contextHeight: { innerMeters: 120, outerMeters: 300, nearFactor: 1 },
+  contextHeight: { innerMeters: 400, outerMeters: 900, nearFactor: 1 },
   uncertainty: '楼体身份由原导图、门牌与底图匹配；轮廓细节、绝对尺寸与精确真北方位仍待实测复核。',
 };
 
@@ -140,7 +140,7 @@ export function planAuthoredGround(models, data, farHeightFactor) {
     heightFactor(x,z) {
       let factor=farHeightFactor;
       for (const model of models) {
-        const policy=model.registration.contextHeight||{innerMeters:120,outerMeters:300,nearFactor:1};
+        const policy=model.registration.contextHeight||{innerMeters:400,outerMeters:900,nearFactor:1};
         const distance=Math.hypot(x-model.x,z-model.z)/model.unitsPerMeter;
         const t=THREE.MathUtils.clamp((distance-policy.innerMeters)/(policy.outerMeters-policy.innerMeters),0,1);
         factor=Math.min(factor,policy.nearFactor+(farHeightFactor-policy.nearFactor)*t*t*(3-2*t));

@@ -233,20 +233,20 @@ for (const end of ['min', 'max']) tiers[0].bounds[end].forEach((value, i) => nea
 passed.push('Both actual GLBs: every transformed vertex fits, axes share one scale, source proportions and picking ID survive, and both LOD world bounds agree');
 
 const policy = registration.contextHeight, farFactor = 3.8;
-assert.equal(policy.innerMeters, 120); assert.equal(policy.outerMeters, 300); assert.equal(policy.nearFactor, 1);
+assert.equal(policy.innerMeters, 400); assert.equal(policy.outerMeters, 900); assert.equal(policy.nearFactor, 1);
 const factorAt = distance => plan.heightFactor(spec.x + distance * units, spec.z);
-for (const distance of [0, 20, 119.999, 120]) near(factorAt(distance), 1, 1e-10, 'Inner-neighborhood factor');
-for (const distance of [300, 301, 1000]) near(factorAt(distance), farFactor, 1e-10, 'Outside-neighborhood factor');
+for (const distance of [0, 20, 399.999, 400]) near(factorAt(distance), 1, 1e-10, 'Inner-neighborhood factor');
+for (const distance of [900, 901, 1500]) near(factorAt(distance), farFactor, 1e-10, 'Outside-neighborhood factor');
 let previous = 1;
-for (let meters = 0; meters <= 350; meters += 0.5) {
+for (let meters = 0; meters <= 1000; meters += 0.5) {
   const factor = factorAt(meters);
   assert(factor >= previous - 1e-10 && factor >= 1 - 1e-10 && factor <= farFactor + 1e-10, 'Height transition must be monotone and bounded');
   for (const angle of [Math.PI / 2, Math.PI, Math.PI * 1.5]) near(plan.heightFactor(spec.x + Math.cos(angle) * meters * units, spec.z + Math.sin(angle) * meters * units), factor, 1e-10, 'The same spatial neighborhood applies in all directions');
   previous = factor;
 }
-assert(Math.abs(factorAt(120.01) - factorAt(119.99)) < 1e-6, 'Inner boundary must be continuous');
-assert(Math.abs(factorAt(300.01) - factorAt(299.99)) < 1e-6, 'Outer boundary must be continuous');
-near(factorAt(210), 2.4, 1e-10, 'Middle of the smooth height transition');
+assert(Math.abs(factorAt(400.01) - factorAt(399.99)) < 1e-6, 'Inner boundary must be continuous');
+assert(Math.abs(factorAt(900.01) - factorAt(899.99)) < 1e-6, 'Outer boundary must be continuous');
+near(factorAt(650), 2.4, 1e-10, 'Middle of the smooth height transition');
 assert(spec.footprint.every(([x, z]) => plan.reserveTree(x, z)), 'Every model corner must be reserved against tree planting');
 assert(plan.reserveTree(spec.x, spec.z));
 assert(!plan.reserveTree(spec.x + 350 * units, spec.z), 'Tree exclusion must stay local');
@@ -261,7 +261,7 @@ for (const building of city.buildings) {
   const meters = Math.hypot(x - spec.x, z - spec.z) / units;
   neighborhood[meters <= policy.innerMeters ? 'inner' : meters < policy.outerMeters ? 'transition' : 'outside']++;
 }
-passed.push('120 m / 300 m height-policy boundaries, continuity, monotonicity, radial consistency, local tree reservation, and empty-plan compatibility');
+passed.push('400 m / 900 m height-policy boundaries, continuity, monotonicity, radial consistency, local tree reservation, and empty-plan compatibility');
 
 console.log(JSON.stringify({
   ok: true, passed,
