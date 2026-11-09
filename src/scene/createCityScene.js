@@ -8,6 +8,7 @@ import { AUTHORED_MODELS, createAuthoredStage } from './authoredModels.js';
 import { BUSINESS_BUILDINGS } from './buildingCatalog.js';
 import { resolveAuthoredPlacement, authoredWorldBounds, planAuthoredGround, projectWgs84 } from './authoredPlacement.js';
 import { createLightLoadScheduler } from './modelLoadScheduler.js';
+import { createRenderScheduler } from './renderScheduler.js';
 
 /* Coordinates in city.json are in a local metric frame: x east, z south.
    The miniature uses the actual polygon and line data; only its materials,
@@ -500,11 +501,14 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
   let currentView = 'perspective';
   let selectedId = null;
   let tween = null;
-  let animationId = 0;
   let lastTime = 0;
   let lastLabels = 0;
   let frameNumber = 0;
+  let renderedFrames = 0;
   let labelsDirty = true;
+  let lodDirty = true;
+  let resizePending = false;
+  let viewSuspended = false;
   let widthPx = 1, heightPx = 1;
   let baseHalfHeight = extent * 0.53;
   let defaultState;
@@ -520,7 +524,28 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
   let managedFocus = false;
   let authoredSelection = false;
   let authoredStarted = false;
-  let hiddenAt = document.hidden ? performance.now() : 0;
+  renderer.domElement.dataset.renderFrames = '0';
+  const renderScheduler = createRenderScheduler({
+    onFrame: animate,
+    onPause: () => { motionRunning = false; },
+    onResume: ({ pausedAt, resumedAt }) => {
+      // Also handle a focus requested while an overlay already has us paused.
+      // It should start on resume, rather than consume hidden wall-clock time.
+      if (tween) tween.started += resumedAt - Math.max(pausedAt, tween.started);
+      lastTime = 0; lastMotionFrame = 0; labelsDirty = true; lodDirty = true;
+    },
+    onState: state => { renderer.domElement.dataset.renderState = state; },
+  });
+  if (document.hidden) renderScheduler.setPaused('hidden', true);
+  function requestRender() {
+    labelsDirty = true; lodDirty = true;
+    if (renderScheduler.getState() === 'idle') lastTime = 0;
+    renderScheduler.invalidate();
+  }
+  function renderScene() {
+    renderer.render(scene, camera);
+    renderer.domElement.dataset.renderFrames = String(++renderedFrames);
+  }
   const defaultDirection = new THREE.Vector3(0.62, 0.98, 0.84).normalize();
   const cameraDistance = extent * 1.6;
   const getOffset = view => view === 'top' ? new THREE.Vector3(0, cameraDistance, 0.01) : defaultDirection.clone().multiplyScalar(cameraDistance);
@@ -532,7 +557,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
       catalog: [spec], showPlinth: false,
       scheduleLight: lightScheduler.schedule,
       prioritizeLight: lightScheduler.prioritize,
-      onChange: () => { if (!disposed) { labelsDirty = true; renderer.shadowMap.needsUpdate = true; } },
+      onChange: () => { if (!disposed) { renderer.shadowMap.needsUpdate = true; requestRender(); } },
       onStatus: state => { if (!disposed) onModelStatus?.(state); },
     });
     const base = surfaceHeight(spec.x, spec.z) + 0.065;
@@ -578,7 +603,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     controls.maxPolarAngle = next ? Math.PI / 2.05 : Math.PI / 2.32;
     controls.minZoom = next ? 0.1 : 0.65;
     if (!next) for (const {controller} of authoredEntries.values()) controller.releaseDetail();
-    renderer.shadowMap.needsUpdate = true; labelsDirty = true;
+    renderer.shadowMap.needsUpdate = true; requestRender();
     renderer.domElement.setAttribute('aria-label', '可旋转、缩放和探索的宜昌三维城市沙盘');
     renderer.domElement.dataset.sceneMode = 'city';
     renderer.domElement.dataset.authoredSelection = String(next);
@@ -699,7 +724,13 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     camera.top = baseHalfHeight; camera.bottom = -baseHalfHeight;
     camera.updateProjectionMatrix(); labelsDirty = true;
   }
-  function resize() {
+  function resize(force = false) {
+    if (renderScheduler.isPaused() && force !== true) {
+      // setSize clears the drawing buffer. Keep the retained city image while
+      // an overlay/tab suspends it, then apply the latest dimensions on resume.
+      resizePending = true; requestRender(); return;
+    }
+    resizePending = false;
     const rect = container.getBoundingClientRect();
     const previousHalfHeight = baseHalfHeight;
     widthPx = Math.max(1, rect.width); heightPx = Math.max(1, rect.height);
@@ -711,7 +742,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     } else if (!userMoved && !selectedId) {
       camera.position.copy(defaultState.position); controls.target.copy(defaultState.target); camera.zoom = 1;
     } else if (previousHalfHeight) camera.zoom *= baseHalfHeight / previousHalfHeight;
-    setFrustum(); controls.update(); labelsDirty = true;
+    setFrustum(); controls.update(); requestRender();
   }
   function transition(target, position, zoom, duration = 1150) {
     tween = {
@@ -719,12 +750,13 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
       startPosition: camera.position.clone(), startTarget: controls.target.clone(), startZoom: camera.zoom,
       position: position.clone(), target: target.clone(), zoom,
     };
-    controls.autoRotate = false; labelsDirty = true;
+    controls.autoRotate = false; requestRender();
   }
-  const onChange = () => { labelsDirty = true; };
+  const onChange = () => { requestRender(); };
   const onStart = () => {
     tween = null; userMoved = true; managedFocus = false; controls.autoRotate = false;
     onInteraction?.({ type: 'orbit' });
+    requestRender();
   };
   controls.addEventListener('change', onChange); controls.addEventListener('start', onStart);
   const raycaster = new THREE.Raycaster();
@@ -741,7 +773,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     if (hit?.object.userData.landmarkId) onSelect?.(hit.object.userData.landmarkId);
     lastPointer = null;
   }
-  function handleContextLost(event) { event.preventDefault(); onError?.('三维画面连接暂时中断，请刷新页面重新载入。'); }
+  function handleContextLost(event) { event.preventDefault(); renderScheduler.setPaused('context-lost', true); onError?.('三维画面连接暂时中断，请刷新页面重新载入。'); }
   renderer.domElement.addEventListener('pointerdown', handlePointerDown);
   renderer.domElement.addEventListener('pointerup', handlePointerUp);
   renderer.domElement.addEventListener('webglcontextlost', handleContextLost);
@@ -761,8 +793,9 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     onCameraChange({ labels, heading });
   }
   function animate(time) {
-    if (disposed || document.hidden) { animationId = 0; return; }
-    animationId = requestAnimationFrame(animate);
+    if (disposed) return false;
+    if (document.hidden) { renderScheduler.setPaused('hidden', true); return false; }
+    if (resizePending) resize(true);
     const delta = Math.min(0.05, (time - (lastTime || time)) / 1000); lastTime = time;
     let animating = false;
     if (tween) {
@@ -771,16 +804,20 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
       camera.position.lerpVectors(tween.startPosition, tween.position, k);
       controls.target.lerpVectors(tween.startTarget, tween.target, k);
       camera.zoom = THREE.MathUtils.lerp(tween.startZoom, tween.zoom, k); camera.updateProjectionMatrix();
-      labelsDirty = true; animating = true;
+      labelsDirty = true; lodDirty = true; animating = true;
       if (t === 1) tween = null;
     }
-    controls.update(delta);
+    const controlsMoving = controls.update(delta);
     if (!authoredStarted && frameNumber >= 2) {
       authoredStarted = true;
       // The city is interactive before its resident lightweight assets load.
       void loadResidentQueue(); void loadResidentQueue();
     }
-    if (authoredStarted && !tween) {
+    if (authoredStarted && !tween && lodDirty) {
+      // Camera/model changes invalidate this decision. Boat-only frames and a
+      // resting city must not poll seven controllers or churn their LOD state.
+      lodDirty = false;
+      camera.updateMatrixWorld();
       // One detailed building at a time, even where several towers fill the
       // screen. All other projects keep their resident city model.
       let detailId=null,largest=0;
@@ -808,7 +845,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     // Boat motion redraws at most 30 fps; resting overview remains static.
     const renderNow = labelsDirty || animating || controls.autoRotate || boatsMoved || frameNumber < 3;
     if (renderNow) {
-      renderer.render(scene, camera);
+      renderScene();
       renderer.domElement.dataset.modelQuality = selectedAuthored()?.controller.getStats().quality || (residentStats().some(record=>record.quality) ? 'light' : 'loading');
       renderer.domElement.dataset.residentModels = String(residentStats().filter(record=>record.quality).length);
       renderer.domElement.dataset.detailModels = String(residentStats().filter(record=>record.quality==='detail').length);
@@ -825,25 +862,23 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
       frameNumber++;
       if (!readyCalled && frameNumber >= 2) { readyCalled = true; onReady?.(); }
     }
+    // Preserve the first three frames: the third starts both resident workers.
+    // Afterwards the scene sleeps until a change, including an async load,
+    // invalidates it. Damping/auto-rotation/boats keep their own frames alive.
+    return Boolean(tween || controlsMoving || controls.autoRotate || motionRunning || labelsDirty || frameNumber < 3 || !authoredStarted);
   }
   function handleVisibility() {
-    if (document.hidden) {
-      hiddenAt = performance.now(); motionRunning = false;
-      cancelAnimationFrame(animationId); animationId = 0;
-    } else {
-      if (tween && hiddenAt) tween.started += performance.now() - hiddenAt;
-      hiddenAt = 0; lastTime = 0; lastMotionFrame = 0; labelsDirty = true;
-      if (!animationId) animationId = requestAnimationFrame(animate);
-    }
+    renderScheduler.setPaused('hidden', document.hidden);
   }
   function handleMotionPreference(event) {
     reducedMotion = event.matches;
     if (reducedMotion) { motionEnabled = false; motionRunning = false; }
     lastMotionFrame = 0;
+    requestRender();
   }
   document.addEventListener('visibilitychange', handleVisibility);
   motionMedia?.addEventListener?.('change', handleMotionPreference);
-  if (!document.hidden) animationId = requestAnimationFrame(animate);
+  requestRender();
 
   return {
     focus(id, options = {}) {
@@ -855,12 +890,12 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
       selectedAuthored()?.controller.select(id, { detail: currentFocusOptions.close, priority: true });
       const frame = calculateFocusState(item);
       transition(frame.target, frame.position, frame.zoom);
-      showSelection(item); labelsDirty = true;
+      showSelection(item); requestRender();
     },
     clearSelection() {
       if (authoredSelection) { this.reset(); return; }
       selectedId = null; managedFocus = false; selectedRing.visible = false; motionRunning = false;
-      currentFocusOptions = { angle: 'detail', close: false }; labelsDirty = true;
+      currentFocusOptions = { angle: 'detail', close: false }; requestRender();
     },
     reset() {
       setAuthoredSelection(false);
@@ -873,7 +908,15 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
       // Reduced motion sets the default; an explicit checkbox choice may opt in.
       motionEnabled = Boolean(enabled); lastMotionFrame = 0;
       if (!motionEnabled) motionRunning = false;
+      requestRender();
       return motionEnabled;
+    },
+    setSuspended(value) {
+      // The overlay owner pauses only scheduling, never the city scene or its
+      // model residents. Motion settings and camera intent survive the pause.
+      viewSuspended = Boolean(value);
+      renderScheduler.setPaused('overlay', viewSuspended);
+      return viewSuspended;
     },
     setTheme(theme) {
       const night = theme === 'night'; currentTheme = night ? 'night' : 'day';
@@ -894,7 +937,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
       for (const item of landmarkMap.values()) if (item.spec.kind !== 'authored') LandmarkFactory.updateLandmarkTheme?.(item.group, night);
       waterfront.setTheme(night);
       for (const {controller} of authoredEntries.values()) controller.setTheme(night);
-      labelsDirty = true;
+      requestRender();
     },
     setView(view) {
       const next = view === 'top' ? 'top' : 'perspective'; if (next === currentView) return;
@@ -910,28 +953,31 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
         const oldHalfHeight = baseHalfHeight; baseHalfHeight = defaultState.halfHeight; camera.zoom *= baseHalfHeight / oldHalfHeight; setFrustum();
         transition(defaultState.target, defaultState.position, 1, 950);
       }
-      labelsDirty = true;
+      requestRender();
     },
     setAutoRotate(enabled) {
       // UI also calls false after reset; that must not cancel its transition.
       if (enabled) { tween = null; userMoved = true; managedFocus = false; }
-      controls.autoRotate = Boolean(enabled); labelsDirty = true;
+      controls.autoRotate = Boolean(enabled); requestRender();
     },
     setLayer(name, enabled) {
       const key = name === 'greenery' ? 'trees' : name;
       if (layers[key]) layers[key].visible = Boolean(enabled);
       if (key === 'trees') layers.parks.visible = true;
       renderer.shadowMap.needsUpdate = true;
-      labelsDirty = true;
+      requestRender();
     },
     zoom(delta) {
       tween = null; userMoved = true; managedFocus = false; controls.autoRotate = false; onInteraction?.({ type: 'zoom' });
       camera.zoom = THREE.MathUtils.clamp(camera.zoom * Math.pow(1.27, Number(delta) || 0), controls.minZoom, controls.maxZoom);
-      camera.updateProjectionMatrix(); labelsDirty = true;
+      camera.updateProjectionMatrix(); requestRender();
     },
     getImage() {
       if (disposed) return '';
-      renderer.render(scene, camera); return renderer.domElement.toDataURL('image/png');
+      if (resizePending && !renderScheduler.isPaused()) resize(true);
+      // Saving a postcard is an explicit one-shot render, even when an overlay
+      // has suspended the automatic scheduler. It does not resume animation.
+      renderScene(); return renderer.domElement.toDataURL('image/png');
     },
     getStats() {
       const alignments = [...landmarkMap.values()].filter(item => !item.spec.business).map(item => {
@@ -950,9 +996,9 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
           endpoints: spec.endpoints, mainSpanEndpoints: spec.mainSpanEndpoints,
         };
       });
-      return { alignments, authoredSelection, authoredModels: selectedAuthored()?.controller.getStats() || {}, authoredResidents: residentStats(), authoredReplacedBuildings: [...authoredGround.omittedBuildingIndices], authoredRetainedBackground: authoredGround.retainedBuildings.map(building => building.retainedFromSourceFeatureId), ...waterfront.stats, motionEnabled, motionRunning, motionReduced: reducedMotion, motionFpsLimit: 30, focusAngle: currentFocusOptions.angle, focusClose: currentFocusOptions.close, landmarkOffsets: waterfrontPlan.sites.map(s => ({ id: s.id, source: s.original, model: s.center, distance: s.shift })), buildings: buildingCount, roads: (data.roads || []).length, waterPolygons: waterPolygons.length, parks: parkPolygons.length, trees: treeSpecs.length, landmarks: landmarks.length + BUSINESS_BUILDINGS.length, businessProjects: BUSINESS_BUILDINGS.length, pendingModels: pendingBusiness.length, drawCalls: renderer.info.render.calls, triangles: renderer.info.render.triangles, theme: currentTheme, view: currentView, cameraZoom: camera.zoom, terrain: terrainValid ? 'source-grid' : hills.length ? 'illustrative-hills' : 'flat', heightExaggeration: BUILDING_HEIGHT_EXAGGERATION, bridgeSpans: landmarks.filter(l => l.kind === 'bridge').map(l => ({ id: l.id, endpoints: l.endpoints, mainSpanEndpoints: l.mainSpanEndpoints, source: l.spanSource || 'landmark-spec' })), renderer: 'Three.js / WebGL', projection: 'orthographic' };
+      return { alignments, authoredSelection, authoredModels: selectedAuthored()?.controller.getStats() || {}, authoredResidents: residentStats(), authoredReplacedBuildings: [...authoredGround.omittedBuildingIndices], authoredRetainedBackground: authoredGround.retainedBuildings.map(building => building.retainedFromSourceFeatureId), ...waterfront.stats, motionEnabled, motionRunning, motionReduced: reducedMotion, motionFpsLimit: 30, renderState: renderScheduler.getState(), renderFrames: renderedFrames, suspended: viewSuspended, hidden: Boolean(document.hidden), focusAngle: currentFocusOptions.angle, focusClose: currentFocusOptions.close, landmarkOffsets: waterfrontPlan.sites.map(s => ({ id: s.id, source: s.original, model: s.center, distance: s.shift })), buildings: buildingCount, roads: (data.roads || []).length, waterPolygons: waterPolygons.length, parks: parkPolygons.length, trees: treeSpecs.length, landmarks: landmarks.length + BUSINESS_BUILDINGS.length, businessProjects: BUSINESS_BUILDINGS.length, pendingModels: pendingBusiness.length, drawCalls: renderer.info.render.calls, triangles: renderer.info.render.triangles, theme: currentTheme, view: currentView, cameraZoom: camera.zoom, terrain: terrainValid ? 'source-grid' : hills.length ? 'illustrative-hills' : 'flat', heightExaggeration: BUILDING_HEIGHT_EXAGGERATION, bridgeSpans: landmarks.filter(l => l.kind === 'bridge').map(l => ({ id: l.id, endpoints: l.endpoints, mainSpanEndpoints: l.mainSpanEndpoints, source: l.spanSource || 'landmark-spec' })), renderer: 'Three.js / WebGL', projection: 'orthographic' };
     },
-    retryModel() { selectedAuthored()?.controller.retry(); },
+    retryModel() { selectedAuthored()?.controller.retry(); requestRender(); },
     refitSelection() {
       if (!selectedId || !managedFocus) return;
       const frame = calculateFocusState(landmarkMap.get(selectedId));
@@ -960,7 +1006,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     },
     dispose() {
       if (disposed) return; disposed = true;
-      cancelAnimationFrame(animationId); resizeObserver.disconnect();
+      renderScheduler.dispose(); resizeObserver.disconnect();
       document.removeEventListener('visibilitychange', handleVisibility); motionMedia?.removeEventListener?.('change', handleMotionPreference);
       controls.removeEventListener('change', onChange); controls.removeEventListener('start', onStart); controls.dispose();
       renderer.domElement.removeEventListener('pointerdown', handlePointerDown); renderer.domElement.removeEventListener('pointerup', handlePointerUp); renderer.domElement.removeEventListener('webglcontextlost', handleContextLost);
