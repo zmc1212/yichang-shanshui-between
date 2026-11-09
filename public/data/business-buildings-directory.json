@@ -1,5 +1,11 @@
 {
   "sourceUrl": "https://df21wknb5.wasee.com/wt/df21wknb5",
+  "sourceSnapshot": {
+    "kind": "historic-tour-registry",
+    "description": "本文件保留原伍家岗商务楼宇导图的23个项目／场景标记，含多塔组团，不是23座独立楼栋或2026年全区楼宇总数。rows中的坐标与登记状态为来源提取快照。",
+    "registrationStatusMeaning": "rows中的poi-only-unreviewed表示提取原导图时仅登记参考点，不代表当前网站模型恢复或候选配准状态。当前记录请查看currentRegistrationUrl。",
+    "currentRegistrationUrl": "/data/business-buildings-registration.json"
+  },
   "sourceDataSha256": "375e298b8f7db44197c672d5b52419da0f3a629a52f074310a948466a44d4cb0",
   "sourceSceneCount": 23,
   "markerCount": 23,
