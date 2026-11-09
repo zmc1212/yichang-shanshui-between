@@ -519,37 +519,45 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     onChange: () => { if (!disposed) { labelsDirty = true; renderer.shadowMap.needsUpdate = true; } },
     onStatus: state => { if (!disposed) onModelStatus?.(state); },
   });
+  // The unregistered model sits on the table beside the city board. These are
+  // exhibit coordinates, never geographic coordinates or a proposed map POI.
+  const exhibitPosition = new THREE.Vector3(width / 2 + 14, floor.position.y + 0.49, depth / 2 - 38);
+  authoredStage.group.position.copy(exhibitPosition);
   scene.add(authoredStage.group);
+  const cityContextBounds = new THREE.Box3().setFromObject(city);
+  const exhibitPlinthBounds = new THREE.Box3().setFromObject(authoredStage.group);
   for (const spec of AUTHORED_MODELS) {
     const sourceMin = new THREE.Vector3(...spec.sourceBounds.min), sourceMax = new THREE.Vector3(...spec.sourceBounds.max);
     const size = sourceMax.sub(sourceMin).multiplyScalar(spec.displayHeight / (spec.sourceBounds.max[1] - spec.sourceBounds.min[1]));
-    const center = new THREE.Vector3(0, size.y / 2 + 0.055, 0);
+    const center = new THREE.Vector3(0, size.y / 2 + 0.055, 0).add(exhibitPosition);
     const bounds = new THREE.Box3().setFromCenterAndSize(center, size);
     // Bounds inform framing only; there is no stand-in box geometry or map POI.
-    landmarkMap.set(spec.id, { spec, group: authoredStage.group, base: 0.055, size, center, bounds,
-      anchor: new THREE.Vector3(0, bounds.max.y + 0.6, 0) });
+    landmarkMap.set(spec.id, { spec, group: authoredStage.group, base: exhibitPosition.y + 0.055, size, center, bounds,
+      anchor: new THREE.Vector3(exhibitPosition.x, bounds.max.y + 0.6, exhibitPosition.z) });
   }
   function setExhibitionMode(value) {
     const next = Boolean(value);
     if (exhibitionMode === next) return;
     exhibitionMode = next;
-    city.visible = !next;
+    // Selecting an exhibit never hides the city or changes its floor, layers,
+    // light direction or shadow coverage.
     controls.maxPolarAngle = next ? Math.PI / 2.05 : Math.PI / 2.32;
+    controls.minZoom = next ? 0.1 : 0.65;
     if (!next) authoredStage.hide();
-    floor.position.y = next ? -0.52 : -baseThickness - 0.13;
-    floorShadow.position.y = floor.position.y + 0.01;
-    const shadowExtent = next ? 22 : extent * 0.78;
-    Object.assign(sun.shadow.camera, { left: -shadowExtent, right: shadowExtent, top: shadowExtent, bottom: -shadowExtent });
-    sun.shadow.camera.updateProjectionMatrix();
-    sun.shadow.normalBias = next ? 0.025 : 0.08;
     renderer.shadowMap.needsUpdate = true; labelsDirty = true;
-    renderer.domElement.setAttribute('aria-label', next ? '独立建筑模型展台，不代表精确地图位置' : '可旋转、缩放和探索的宜昌三维城市沙盘');
+    renderer.domElement.setAttribute('aria-label', next ? '宜昌城市沙盘与板外建筑展台，展台不代表精确地图位置' : '可旋转、缩放和探索的宜昌三维城市沙盘');
     renderer.domElement.dataset.sceneMode = next ? 'exhibit' : 'city';
   }
   function calculateFocusState(item, options = currentFocusOptions, view = currentView) {
     const site = waterfrontPlan.getSite(item.spec.id);
+    const exhibit = item.spec.placement === 'exhibit';
+    const context = exhibit && options.angle === 'context';
+    const frameBounds = item.bounds.clone();
+    if (exhibit) frameBounds.union(exhibitPlinthBounds);
+    if (context) frameBounds.union(cityContextBounds);
+    const frameCenter = frameBounds.getCenter(new THREE.Vector3());
     let direction = defaultDirection.clone();
-    if (item.spec.placement === 'exhibit') {
+    if (exhibit && !context) {
       direction = options.angle === 'front' ? new THREE.Vector3(0, 0.15, 1).normalize() : new THREE.Vector3(0.72, 0.7, 1.3).normalize();
     } else if (options.angle === 'river' && site) {
       // Look from the source water side, at a gentler elevation than overview.
@@ -578,27 +586,26 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     const fractionX = Math.min(1, (rightEdge - left) / widthPx);
     const fractionY = Math.min(1, (bottom - top) / heightPx);
     let projectedWidth = 0, projectedHeight = 0;
-    for (const x of [item.bounds.min.x, item.bounds.max.x]) for (const z of [item.bounds.min.z, item.bounds.max.z]) for (const y of [item.bounds.min.y, Math.max(item.bounds.max.y, item.anchor.y)]) {
-      const delta = new THREE.Vector3(x, y, z).sub(item.center);
+    for (const x of [frameBounds.min.x, frameBounds.max.x]) for (const z of [frameBounds.min.z, frameBounds.max.z]) for (const y of [frameBounds.min.y, Math.max(frameBounds.max.y, item.anchor.y)]) {
+      const delta = new THREE.Vector3(x, y, z).sub(frameCenter);
       projectedWidth = Math.max(projectedWidth, Math.abs(delta.dot(right)) * 2);
       projectedHeight = Math.max(projectedHeight, Math.abs(delta.dot(up)) * 2);
     }
     const maxSize = Math.max(item.size.x, item.size.z, item.size.y);
     const wide = item.spec.kind === 'bridge' || item.spec.kind === 'dam';
     const pagoda = item.spec.id === 'tianran-pagoda';
-    const exhibit = item.spec.placement === 'exhibit';
     const minimumHeight = exhibit ? 18 : pagoda ? 7.2 : site ? 10 : 37;
     const defaultHeight = Math.max(minimumHeight, Math.min(extent * 0.43, maxSize * (exhibit ? 1.9 : wide ? 1.75 : pagoda ? 4 : 5.2)));
     const safetyHeight = Math.max(projectedHeight / fractionY, projectedWidth / (aspect * fractionX)) * 1.12;
     // Reserve the close-view margin before selecting either framing. The
     // narrower mobile viewport must not force both states onto the same cap.
     const framedDefaultHeight = Math.max(defaultHeight, safetyHeight * 1.4);
-    const visibleHeight = framedDefaultHeight / (options.close ? 1.4 : 1);
-    const zoom = THREE.MathUtils.clamp(baseHalfHeight * 2 / visibleHeight, 1.5, focusZoomLimit());
+    const visibleHeight = context ? safetyHeight * 1.04 : framedDefaultHeight / (options.close ? 1.4 : 1);
+    const zoom = THREE.MathUtils.clamp(baseHalfHeight * 2 / visibleHeight, context ? 0.1 : 1.5, focusZoomLimit());
     const actualHeight = baseHalfHeight * 2 / zoom;
     const ndcX = ((left + rightEdge) / 2 / widthPx) * 2 - 1;
     const ndcY = 1 - ((top + bottom) / 2 / heightPx) * 2;
-    const target = item.center.clone().sub(right.multiplyScalar(ndcX * actualHeight * aspect / 2)).sub(up.multiplyScalar(ndcY * actualHeight / 2));
+    const target = frameCenter.clone().sub(right.multiplyScalar(ndcX * actualHeight * aspect / 2)).sub(up.multiplyScalar(ndcY * actualHeight / 2));
     return { target, position: target.clone().add(direction.multiplyScalar(cameraDistance)), zoom };
   }
   function showSelection(item) {
@@ -685,7 +692,9 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     const rect = renderer.domElement.getBoundingClientRect();
     pointer.set((event.clientX - rect.left) / rect.width * 2 - 1, -(event.clientY - rect.top) / rect.height * 2 + 1);
     raycaster.setFromCamera(pointer, camera);
-    const hit = raycaster.intersectObjects(exhibitionMode ? authoredStage.getActiveMeshes() : layers.landmarks.visible ? pickObjects : [], false)[0];
+    const targets = layers.landmarks.visible ? [...pickObjects] : [];
+    if (exhibitionMode) targets.push(...authoredStage.getActiveMeshes());
+    const hit = raycaster.intersectObjects(targets, false)[0];
     if (hit?.object.userData.landmarkId) onSelect?.(hit.object.userData.landmarkId);
     lastPointer = null;
   }
@@ -701,8 +710,10 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     const labels = [];
     for (const [id, item] of landmarkMap) {
       const p = item.anchor.clone().project(camera);
-      const inCurrentScene = exhibitionMode ? item.spec.placement === 'exhibit' && id === selectedId && Boolean(authoredStage.getStats().quality) : item.spec.placement !== 'exhibit';
-      labels.push({ id, x: (p.x * 0.5 + 0.5) * widthPx, y: (-p.y * 0.5 + 0.5) * heightPx, visible: inCurrentScene && layers.landmarks.visible && p.z >= -1 && p.z <= 1 && Math.abs(p.x) < 1.04 && Math.abs(p.y) < 1.04, depth: p.z });
+      const inCurrentScene = item.spec.placement === 'exhibit'
+        ? exhibitionMode && id === selectedId && Boolean(authoredStage.getStats().quality)
+        : layers.landmarks.visible;
+      labels.push({ id, x: (p.x * 0.5 + 0.5) * widthPx, y: (-p.y * 0.5 + 0.5) * heightPx, visible: inCurrentScene && p.z >= -1 && p.z <= 1 && Math.abs(p.x) < 1.04 && Math.abs(p.y) < 1.04, depth: p.z });
     }
     const direction = camera.position.clone().sub(controls.target);
     const heading = Math.atan2(direction.x, direction.z) * 180 / Math.PI;
@@ -742,6 +753,8 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     if (renderNow) {
       renderer.render(scene, camera);
       renderer.domElement.dataset.modelQuality = exhibitionMode ? authoredStage.getStats().quality || 'loading' : 'none';
+      renderer.domElement.dataset.cityVisible = String(city.visible);
+      renderer.domElement.dataset.focusAngle = selectedId ? currentFocusOptions.angle : 'overview';
       renderer.domElement.dataset.drawCalls = String(renderer.info.render.calls);
       renderer.domElement.dataset.triangles = String(renderer.info.render.triangles);
       renderer.domElement.dataset.geometries = String(renderer.info.memory.geometries);
@@ -774,7 +787,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     focus(id, options = {}) {
       const item = landmarkMap.get(id); if (!item) return;
       selectedId = id; userMoved = true; managedFocus = true; currentView = 'perspective';
-      currentFocusOptions = { angle: ['river', 'front'].includes(options.angle) ? options.angle : 'detail', close: Boolean(options.close) };
+      currentFocusOptions = { angle: ['river', 'front', 'context'].includes(options.angle) ? options.angle : 'detail', close: options.angle !== 'context' && Boolean(options.close) };
       setExhibitionMode(item.spec.placement === 'exhibit');
       if (exhibitionMode) authoredStage.select(id, { detail: currentFocusOptions.close });
       const frame = calculateFocusState(item);
