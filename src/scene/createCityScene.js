@@ -534,6 +534,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     if (exhibitionMode === next) return;
     exhibitionMode = next;
     city.visible = !next;
+    controls.maxPolarAngle = next ? Math.PI / 2.05 : Math.PI / 2.32;
     if (!next) authoredStage.hide();
     floor.position.y = next ? -0.52 : -baseThickness - 0.13;
     floorShadow.position.y = floor.position.y + 0.01;
@@ -568,7 +569,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     const panel = container.parentElement?.querySelector('.detail-panel')?.getBoundingClientRect();
     const mobile = window.innerWidth <= 700;
     const left = mobile ? 18 : 24;
-    const top = item.spec.placement === 'exhibit' ? (mobile ? 112 : 136) : mobile ? 68 : 84;
+    const top = item.spec.placement === 'exhibit' ? (mobile ? 146 : 136) : mobile ? 68 : 84;
     const panelWidth = panel?.width || (window.innerWidth >= 1600 ? 318 : window.innerWidth <= 1200 ? 270 : 298);
     const rightEdge = mobile ? widthPx - 18 : Math.max(left + 150, widthPx - panelWidth - 48);
     const bottom = mobile
@@ -743,6 +744,8 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
       renderer.domElement.dataset.modelQuality = exhibitionMode ? authoredStage.getStats().quality || 'loading' : 'none';
       renderer.domElement.dataset.drawCalls = String(renderer.info.render.calls);
       renderer.domElement.dataset.triangles = String(renderer.info.render.triangles);
+      renderer.domElement.dataset.geometries = String(renderer.info.memory.geometries);
+      renderer.domElement.dataset.textures = String(renderer.info.memory.textures);
       if (labelsDirty && (time - lastLabels > 30 || animating || frameNumber < 3)) { publishLabels(); lastLabels = time; labelsDirty = false; }
       frameNumber++;
       if (!readyCalled && frameNumber >= 2) { readyCalled = true; onReady?.(); }
@@ -874,6 +877,11 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
       return { alignments, exhibitionMode, authoredModels: authoredStage.getStats(), ...waterfront.stats, motionEnabled, motionRunning, motionReduced: reducedMotion, motionFpsLimit: 30, focusAngle: currentFocusOptions.angle, focusClose: currentFocusOptions.close, landmarkOffsets: waterfrontPlan.sites.map(s => ({ id: s.id, source: s.original, model: s.center, distance: s.shift })), buildings: buildingCount, roads: (data.roads || []).length, waterPolygons: waterPolygons.length, parks: parkPolygons.length, trees: treeSpecs.length, landmarks: landmarks.length, drawCalls: renderer.info.render.calls, triangles: renderer.info.render.triangles, theme: currentTheme, view: currentView, cameraZoom: camera.zoom, terrain: terrainValid ? 'source-grid' : hills.length ? 'illustrative-hills' : 'flat', heightExaggeration: BUILDING_HEIGHT_EXAGGERATION, bridgeSpans: landmarks.filter(l => l.kind === 'bridge').map(l => ({ id: l.id, endpoints: l.endpoints, mainSpanEndpoints: l.mainSpanEndpoints, source: l.spanSource || 'landmark-spec' })), renderer: 'Three.js / WebGL', projection: 'orthographic' };
     },
     retryModel() { authoredStage.retry(); },
+    refitSelection() {
+      if (!selectedId || !managedFocus) return;
+      const frame = calculateFocusState(landmarkMap.get(selectedId));
+      transition(frame.target, frame.position, frame.zoom, 550);
+    },
     dispose() {
       if (disposed) return; disposed = true;
       cancelAnimationFrame(animationId); resizeObserver.disconnect();

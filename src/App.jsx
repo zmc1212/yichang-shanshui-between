@@ -143,6 +143,13 @@ export default function App(){
   useEffect(()=>{scene.current?.setTheme(theme);if(selectedId&&scene.current)capturePostcard(1400);},[theme,ready,selectedId,capturePostcard]);
   useEffect(()=>{scene.current?.setView(view);},[view]);
   useEffect(()=>{scene.current?.setMotion(motionEnabled);},[motionEnabled,ready]);
+  useEffect(()=>{
+    if(!AUTHORED_MODELS.some(model=>model.id===selectedId))return;
+    // Fit after the detail sheet is actually laid out, including its mobile
+    // height and the different story/view tabs.
+    const frame=requestAnimationFrame(()=>scene.current?.refitSelection());
+    return()=>cancelAnimationFrame(frame);
+  },[selectedId,detailTab,compact]);
   useEffect(()=>{if(!toast)return;const t=setTimeout(()=>setToast(''),2600);return()=>clearTimeout(t);},[toast]);
   useEffect(()=>{
     const key=e=>{if(e.key==='Escape'&&!modal){if(layersOpen)setLayersOpen(false);else if(mobileNav)setMobileNav(false);else closeDetails();}};

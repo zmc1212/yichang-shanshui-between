@@ -46,6 +46,7 @@
 .model-quality button{margin-left:auto;text-decoration:underline;text-underline-offset:3px;font-size:9px;color:var(--text);padding:4px 0 4px 8px}
 .exhibition-open .detail-panel>footer{margin-top:8px}
 .exhibition-open .compass{display:none}
+.exhibition-open .interaction-hint{bottom:25px}
 .theme-night .exhibit-tag{border-color:#4c6150;color:#a0b094}
 .theme-night .exhibition-note p>span{color:#9fb39e}
 .theme-night .quality-dot.is-ready{background:#c7b478}
