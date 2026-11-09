@@ -1,0 +1,302 @@
+{
+  "source_snapshot_commit": "38c01bf002511c01294feacd8aa85e54e6342724",
+  "source_file": "/workspace/scratch/74379c705fda/hubei-source-readonly/.sites-checkout/dist/data/gis-yichang/buildings/b_05_02.geojson",
+  "source_file_sha256": "a9e9fbd9d37eb61ca9d67da83c0c84d64dd96a36d3e5a6062444c87ef5dd2e66",
+  "height_semantics": "heightMeters=96, heightSource=tag, sourceDataset=osm. Not a survey; source does not preserve original height tag/OSM way ID or building:part/podium semantics.",
+  "footprint_semantics": "Single four-corner rectangle. No tower/podium role is encoded. Separate low adjacent buildings exist but cannot be inferred as podium without evidence.",
+  "target_centroid_wgs84": [
+    111.3168215,
+    30.669877
+  ],
+  "target_centroid_local_xz": [
+    51.34617680524363,
+    67.06554042331489
+  ],
+  "long_axis_heading_deg": 131.5001184061801,
+  "river_facing_front_candidate_deg": 221.5001184061801,
+  "river_nearest_bearing_deg": 226.8380911216842,
+  "fitting": [
+    {
+      "clearance_m": 0,
+      "uniform_world_scale": 0.016924879905474508,
+      "model_dimensions_m": [
+        34.57753016339076,
+        82.88113896313405,
+        23.804843683894834
+      ],
+      "model_dimensions_world": [
+        0.6915506032678153,
+        1.657622779262681,
+        0.4760968736778967
+      ],
+      "footprint_local_xz": [
+        [
+          51.24494292360838,
+          66.65813482847047
+        ],
+        [
+          51.76288275716095,
+          67.11637119291528
+        ],
+        [
+          51.44741068687888,
+          67.4729460181593
+        ],
+        [
+          50.92947085332631,
+          67.01470965371449
+        ],
+        [
+          51.24494292360838,
+          66.65813482847047
+        ]
+      ],
+      "footprint_wgs84": [
+        [
+          111.31676861885626,
+          30.67005998933634
+        ],
+        [
+          111.31703917304569,
+          30.669854168971384
+        ],
+        [
+          111.31687438114373,
+          30.669694010663658
+        ],
+        [
+          111.3166038269543,
+          30.669899831028616
+        ],
+        [
+          111.31676861885626,
+          30.67005998933634
+        ]
+      ],
+      "covers_after_inset": true,
+      "inferred_height_not_surveyed": true
+    },
+    {
+      "clearance_m": 0.1,
+      "uniform_world_scale": 0.01678268296328775,
+      "model_dimensions_m": [
+        34.28702180616371,
+        82.18480051988746,
+        23.6048436838955
+      ],
+      "model_dimensions_world": [
+        0.6857404361232742,
+        1.6436960103977492,
+        0.47209687367791
+      ],
+      "footprint_local_xz": [
+        [
+          51.245793455399124,
+          66.66155770828647
+        ],
+        [
+          51.75938173898625,
+          67.115944130505
+        ],
+        [
+          51.446560155088136,
+          67.4695231383433
+        ],
+        [
+          50.93297187150101,
+          67.01513671612477
+        ],
+        [
+          51.245793455399124,
+          66.66155770828647
+        ]
+      ],
+      "footprint_wgs84": [
+        [
+          111.31676906314519,
+          30.670058451923715
+        ],
+        [
+          111.31703734423262,
+          30.669854360789728
+        ],
+        [
+          111.3168739368548,
+          30.669695548076284
+        ],
+        [
+          111.31660565576738,
+          30.66989963921027
+        ],
+        [
+          111.31676906314519,
+          30.670058451923715
+        ]
+      ],
+      "covers_after_inset": true,
+      "inferred_height_not_surveyed": true
+    },
+    {
+      "clearance_m": 0.25,
+      "uniform_world_scale": 0.016569387550006778,
+      "model_dimensions_m": [
+        33.85125927032143,
+        81.14029285501351,
+        23.304843683895328
+      ],
+      "model_dimensions_world": [
+        0.6770251854064285,
+        1.6228058571002701,
+        0.4660968736779066
+      ],
+      "footprint_local_xz": [
+        [
+          51.24706925308526,
+          66.66669202801047
+        ],
+        [
+          51.754130211724174,
+          67.11530353688958
+        ],
+        [
+          51.445284357402,
+          67.4643888186193
+        ],
+        [
+          50.938223398763085,
+          67.01577730974019
+        ],
+        [
+          51.24706925308526,
+          66.66669202801047
+        ]
+      ],
+      "footprint_wgs84": [
+        [
+          111.3167697295786,
+          30.670056145804775
+        ],
+        [
+          111.31703460101302,
+          30.669854648517244
+        ],
+        [
+          111.3168732704214,
+          30.669697854195224
+        ],
+        [
+          111.31660839898697,
+          30.669899351482755
+        ],
+        [
+          111.3167697295786,
+          30.670056145804775
+        ]
+      ],
+      "covers_after_inset": true,
+      "inferred_height_not_surveyed": true
+    },
+    {
+      "clearance_m": 0.5,
+      "uniform_world_scale": 0.016213895194538957,
+      "model_dimensions_m": [
+        33.1249883772519,
+        79.39944674689252,
+        22.804843683895694
+      ],
+      "model_dimensions_world": [
+        0.662499767545038,
+        1.5879889349378504,
+        0.4560968736779139
+      ],
+      "footprint_local_xz": [
+        [
+          51.24919558256214,
+          66.6752492275505
+        ],
+        [
+          51.74537766628741,
+          67.11423588086387
+        ],
+        [
+          51.44315802792512,
+          67.45583161907928
+        ],
+        [
+          50.94697594419985,
+          67.0168449657659
+        ],
+        [
+          51.24919558256214,
+          66.6752492275505
+        ]
+      ],
+      "footprint_wgs84": [
+        [
+          111.31677084030095,
+          30.670052302273206
+        ],
+        [
+          111.31703002898035,
+          30.66985512806311
+        ],
+        [
+          111.31687215969905,
+          30.669701697726794
+        ],
+        [
+          111.31661297101964,
+          30.66989887193689
+        ],
+        [
+          111.31677084030095,
+          30.670052302273206
+        ]
+      ],
+      "covers_after_inset": true,
+      "inferred_height_not_surveyed": true
+    }
+  ],
+  "city_target": {
+    "index": 1744,
+    "distance_to_target_center_m": 0.0,
+    "gap_to_target_footprint_m": 0.0,
+    "height_m": 96.0,
+    "render_height_now_m": 364.79999999999995,
+    "ring": [
+      [
+        51.5,
+        67.52
+      ],
+      [
+        51.816,
+        67.164
+      ],
+      [
+        51.192,
+        66.611
+      ],
+      [
+        50.876,
+        66.968
+      ]
+    ],
+    "height": 1.92,
+    "base": 0
+  },
+  "height_transition_proposal": {
+    "enabled_in_site": false,
+    "static_in_world": true,
+    "inner_radius_m": 120,
+    "outer_radius_m": 300,
+    "inner_background_height_multiplier": 1,
+    "outside_background_height_multiplier": 3.8,
+    "transition": "t=clamp((distance-120)/180,0,1); multiplier=1+2.8*t*t*(3-2*t)",
+    "notes": [
+      "Only background building heights change; geographic XY, source footprint rings and authored model proportions remain fixed.",
+      "Do not tie the blend to selection or camera so the city cannot visibly rise/fall on clicks.",
+      "Source heights include tags, remote estimates and defaults, so the resulting elevations are still not surveyed.",
+      "Keep the rest of city at the existing 3.8 multiplier to preserve established miniature readability."
+    ]
+  }
+}

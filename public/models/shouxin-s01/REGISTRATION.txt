@@ -1,0 +1,31 @@
+首信财富中心 S01 · 地图落位说明（2026-11-09）
+
+地址：宜昌市伍家岗区沿江大道 182 号。
+当前楼体锚点：WGS84 经度 111.3168215，纬度 30.669877。
+含义：与底图匹配的建筑轮廓中心，不是实测控制点。
+
+原资料的经纬度 111.322369, 30.667704 使用 GCJ-02。
+依据：伍家岗区商务楼宇导图的实际页面数据与 open_map.min.js，原始 longitude/latitude 直接用于 AMap.Marker；高德官方说明其地图采用 GCJ-02。
+近似反算后的导览点：WGS84 111.3166341, 30.6701042。
+导览点不等于楼体中心；本次结合门牌与已保留的建筑轮廓匹配。
+
+目标源 feature：809fc574-f994-4778-9992-3c3435682f32（不是 OSM way 编号）。
+源文件：dist/data/gis-yichang/buildings/b_05_02.geojson。
+源快照：38c01bf002511c01294feacd8aa85e54e6342724，已核对原湖北站最新 V63。
+轮廓约 41.69 × 23.80 米；模型保持三轴等比，按0.25米内边距匹配。
+模型显示高约81.14米是按占地和原形比推导的显示值，不是实测高度。
+原地图高度标签为96米，不作为单独拉伸Y轴的依据。
+临江主立面(+Z)朝向约221.50度，由轮廓长轴与临江照片推得，不是实测方位。
+
+城市中的轻量模型始终保留；近景按需加载细节，离开近景释放细节资源。
+只替换对应背景轮廓；附近120米内普通楼使用来源高度，120–300米平滑回到远景展示倍率。
+本模型仍为S01外观候选。绝对尺寸、精细轮廓、精确方向、背面和屋顶仍待进一步核准。
+字牌保留参考时期外观，不证明当前营业或屋顶字牌现状。
+
+参考来源：
+https://df21wknb5.wasee.com/wt/df21wknb5
+https://resourceqiniu.wasee.com/wasee/home/vrpano/js/open_map.min.js?260601
+https://lbs.amap.com/api/javascript-api/guide/abc/basetype
+https://www.yichang.gov.cn/show-64228-1077261-1.html
+https://m.thepaper.cn/newsDetail_forward_17347043
+https://www.hxb.com.cn/hxb/jrhx/lxfs/fzjg/2026051315480858918/index.shtml

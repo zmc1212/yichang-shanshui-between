@@ -1,0 +1,144 @@
+{
+  "sourceUrl": "https://df21wknb5.wasee.com/wt/df21wknb5",
+  "coordinateSystem": "GCJ-02; verified direct AMap.Marker use in the tour code",
+  "markers": [
+    {
+      "id": 52459,
+      "obj_id": 1649135,
+      "latitude": 30.685664,
+      "longitude": 111.298032
+    },
+    {
+      "id": 52460,
+      "obj_id": 1649149,
+      "latitude": 30.683651,
+      "longitude": 111.305009
+    },
+    {
+      "id": 52461,
+      "obj_id": 1649132,
+      "latitude": 30.686297,
+      "longitude": 111.297281
+    },
+    {
+      "id": 52462,
+      "obj_id": 1649138,
+      "latitude": 30.680105,
+      "longitude": 111.307473
+    },
+    {
+      "id": 52463,
+      "obj_id": 1649129,
+      "latitude": 30.67512,
+      "longitude": 111.315059
+    },
+    {
+      "id": 52464,
+      "obj_id": 1649145,
+      "latitude": 30.678526,
+      "longitude": 111.310096
+    },
+    {
+      "id": 52465,
+      "obj_id": 1649136,
+      "latitude": 30.667704,
+      "longitude": 111.322369
+    },
+    {
+      "id": 52466,
+      "obj_id": 1649133,
+      "latitude": 30.666553,
+      "longitude": 111.323749
+    },
+    {
+      "id": 52468,
+      "obj_id": 1649141,
+      "latitude": 30.679532,
+      "longitude": 111.33099
+    },
+    {
+      "id": 52469,
+      "obj_id": 1649139,
+      "latitude": 30.676549,
+      "longitude": 111.333683
+    },
+    {
+      "id": 52470,
+      "obj_id": 1649144,
+      "latitude": 30.676657,
+      "longitude": 111.331709
+    },
+    {
+      "id": 52471,
+      "obj_id": 1649148,
+      "latitude": 30.660624,
+      "longitude": 111.330219
+    },
+    {
+      "id": 52472,
+      "obj_id": 1649137,
+      "latitude": 30.663956,
+      "longitude": 111.327134
+    },
+    {
+      "id": 52473,
+      "obj_id": 1649146,
+      "latitude": 30.662715,
+      "longitude": 111.32839
+    },
+    {
+      "id": 52474,
+      "obj_id": 1649142,
+      "latitude": 30.662181,
+      "longitude": 111.331432
+    },
+    {
+      "id": 52475,
+      "obj_id": 1649134,
+      "latitude": 30.64282,
+      "longitude": 111.359092
+    },
+    {
+      "id": 52476,
+      "obj_id": 1649147,
+      "latitude": 30.638703,
+      "longitude": 111.351557
+    },
+    {
+      "id": 52477,
+      "obj_id": 1649128,
+      "latitude": 30.647377,
+      "longitude": 111.361246
+    },
+    {
+      "id": 52478,
+      "obj_id": 1649140,
+      "latitude": 30.627722,
+      "longitude": 111.370433
+    },
+    {
+      "id": 52479,
+      "obj_id": 1649143,
+      "latitude": 30.68079,
+      "longitude": 111.327369
+    },
+    {
+      "id": 52480,
+      "obj_id": 1649131,
+      "latitude": 30.658862,
+      "longitude": 111.362948
+    },
+    {
+      "id": 52481,
+      "obj_id": 1649127,
+      "latitude": 30.65967,
+      "longitude": 111.379158
+    },
+    {
+      "id": 52482,
+      "obj_id": 1649130,
+      "latitude": 30.6714,
+      "longitude": 111.386954
+    }
+  ]
+}

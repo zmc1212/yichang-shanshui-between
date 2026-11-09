@@ -37,11 +37,11 @@ function watchDisposal(object) {
     assertLive() { for (const count of resources.values()) assert.equal(count, 0, 'Visible/cached resources must remain live'); },
   };
 }
-function harness(catalog = AUTHORED_MODELS) {
+function harness(catalog = AUTHORED_MODELS, options = {}) {
   const requests = [], statuses = [];
   let changes = 0;
   const stage = createAuthoredStage({
-    catalog, onStatus: status => statuses.push(status), onChange: () => { changes++; },
+    ...options, catalog, onStatus: status => statuses.push(status), onChange: () => { changes++; },
     loadAsset(url, signal) {
       const request = { url, signal, tier: url.includes('/detail.glb') ? 'detail' : 'light', completed: false };
       requests.push(request);
@@ -80,7 +80,56 @@ function harness(catalog = AUTHORED_MODELS) {
   }
   bounds[0].min.toArray().forEach((value, i) => approx(value, bounds[1].min.toArray()[i], 'LOD min'));
   bounds[0].max.toArray().forEach((value, i) => approx(value, bounds[1].max.toArray()[i], 'LOD max'));
-  passed.push('Real GLBs preserve aspect ratios, common anchor and 16-unit uniform display height');
+  passed.push('Real GLBs preserve aspect ratios, common anchor and configured uniform display height');
+}
+
+{
+  const citySpec = { ...spec, displayHeight: 2, scalePolicy: 'uniform-footprint-fit' };
+  const h = harness([citySpec], { showPlinth: false });
+  let initialMeshes = 0;
+  h.stage.group.traverse(child => { if (child.isMesh) initialMeshes++; });
+  assert.equal(initialMeshes, 0, 'City mode must not allocate an exhibition plinth');
+  h.stage.select(citySpec.id, { detail: true });
+  h.stage.releaseDetail();
+  const light = await h.complete(0);
+  assert.equal(h.requests.length, 1, 'Releasing near-view intent before light arrives must not start detail');
+  const bounds = geometryBounds(h.stage.group);
+  approx(bounds.min.y, 0, 'City model floor anchor has no exhibition offset');
+  approx(bounds.max.y, citySpec.displayHeight, 'City model uses the configured uniform scale');
+  let totalMeshes = 0, prepared;
+  h.stage.group.traverse(child => { if (child.isMesh) totalMeshes++; if (child.userData.scalePolicy) prepared = child; });
+  assert.equal(totalMeshes, 18, 'City group contains only the real light GLB meshes');
+  assert.equal(prepared.userData.scalePolicy, citySpec.scalePolicy);
+  h.stage.setTheme(true); h.stage.setTheme(false);
+  assert(h.stage.group.visible); assert.equal(h.stage.getStats().activeId, citySpec.id);
+  light.assertLive(); h.stage.dispose(); light.assertDisposed();
+  passed.push('City mode omits the plinth and offset, respects uniform scale policy and cancels early detail intent');
+}
+
+{
+  const h = harness(AUTHORED_MODELS, { showPlinth: false });
+  h.stage.select(spec.id, { detail: true });
+  const light = await h.complete(0);
+  h.stage.releaseDetail();
+  assert(h.requests[1].signal.aborted);
+  assert(h.stage.group.visible); assert.equal(h.stage.getStats().activeId, spec.id);
+  assert.equal(h.stage.getStats().quality, 'light'); assert.equal(h.stage.getStats().loaded.length, 1);
+  h.stage.setDetailWanted(true);
+  assert.equal(h.requests.length, 3, 'A new near view can load a fresh detail generation without reloading light');
+  const currentDetail = await h.complete(2), changes = h.changeCount, statuses = h.statuses.length;
+  const staleDetail = await h.complete(1);
+  staleDetail.assertDisposed(); currentDetail.assertLive(); light.assertLive();
+  assert.equal(h.changeCount, changes); assert.equal(h.statuses.length, statuses);
+  assert.equal(h.stage.getStats().quality, 'detail', 'A stale cancelled parse cannot replace the latest detail');
+  h.stage.releaseDetail();
+  currentDetail.assertDisposed(); light.assertLive();
+  assert(h.stage.group.visible); assert.equal(h.stage.getStats().activeId, spec.id);
+  assert.equal(h.stage.getStats().quality, 'light'); assert.equal(h.stage.getActiveMeshes().length, 18);
+  assert.equal(h.stage.getStats().loaded.length, 1); assert.equal(h.latest.detailState, 'idle');
+  const afterRelease = h.changeCount;
+  h.stage.releaseDetail(); assert.equal(h.changeCount, afterRelease, 'Repeated release is a no-op');
+  h.stage.dispose(); light.assertDisposed(); currentDetail.assertDisposed(); staleDetail.assertDisposed();
+  passed.push('Releasing detail keeps city light live, isolates late parses and permits a fresh near-view load');
 }
 
 {

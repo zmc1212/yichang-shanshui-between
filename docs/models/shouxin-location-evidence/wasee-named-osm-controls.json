@@ -1,0 +1,245 @@
+{
+  "warning": "Parcel names independently retained in 2026-10-10 OSM snapshot; point correspondence confirms compatibility, not survey precision.",
+  "results": [
+    {
+      "marker": "新华广场武银大厦",
+      "markerId": 1649139,
+      "raw": [
+        111.333683,
+        30.676549
+      ],
+      "parcel": "新华广场",
+      "osmId": "way/968362416",
+      "landuse": "retail",
+      "comparisons": {
+        "raw": {
+          "wgs84": [
+            111.333683,
+            30.676549
+          ],
+          "inside_named_parcel": false,
+          "distance_to_parcel_m": 675.3219629346319,
+          "distance_to_centroid_m": 758.5904023822203
+        },
+        "gcj02_to_wgs84": {
+          "wgs84": [
+            111.32791515836917,
+            30.678923751333667
+          ],
+          "inside_named_parcel": false,
+          "distance_to_parcel_m": 63.70460914563952,
+          "distance_to_centroid_m": 176.08263407694912
+        },
+        "bd09_to_wgs84": {
+          "wgs84": [
+            111.3214308320558,
+            30.672990712553215
+          ],
+          "inside_named_parcel": false,
+          "distance_to_parcel_m": 855.8164144371663,
+          "distance_to_centroid_m": 981.7062555023878
+        }
+      }
+    },
+    {
+      "marker": "兴发广场写字楼",
+      "markerId": 1649141,
+      "raw": [
+        111.33099,
+        30.679532
+      ],
+      "parcel": "兴发广场",
+      "osmId": "way/968362417",
+      "landuse": "retail",
+      "comparisons": {
+        "raw": {
+          "wgs84": [
+            111.33099,
+            30.679532
+          ],
+          "inside_named_parcel": false,
+          "distance_to_parcel_m": 478.4275654337948,
+          "distance_to_centroid_m": 613.0014541664145
+        },
+        "gcj02_to_wgs84": {
+          "wgs84": [
+            111.32522959614468,
+            30.68191051044286
+          ],
+          "inside_named_parcel": false,
+          "distance_to_parcel_m": 91.91187414830331,
+          "distance_to_centroid_m": 139.3578062871629
+        },
+        "bd09_to_wgs84": {
+          "wgs84": [
+            111.3187350139976,
+            30.67602402687644
+          ],
+          "inside_named_parcel": false,
+          "distance_to_parcel_m": 717.8528575361639,
+          "distance_to_centroid_m": 777.7962561406925
+        }
+      }
+    },
+    {
+      "marker": "兴发广场写字楼",
+      "markerId": 1649141,
+      "raw": [
+        111.33099,
+        30.679532
+      ],
+      "parcel": "兴发广场",
+      "osmId": "way/968362423",
+      "landuse": "residential",
+      "comparisons": {
+        "raw": {
+          "wgs84": [
+            111.33099,
+            30.679532
+          ],
+          "inside_named_parcel": false,
+          "distance_to_parcel_m": 494.6160308240877,
+          "distance_to_centroid_m": 728.5456673558142
+        },
+        "gcj02_to_wgs84": {
+          "wgs84": [
+            111.32522959614468,
+            30.68191051044286
+          ],
+          "inside_named_parcel": true,
+          "distance_to_parcel_m": 0.0,
+          "distance_to_centroid_m": 170.99193388528846
+        },
+        "bd09_to_wgs84": {
+          "wgs84": [
+            111.3187350139976,
+            30.67602402687644
+          ],
+          "inside_named_parcel": false,
+          "distance_to_parcel_m": 722.6533039405972,
+          "distance_to_centroid_m": 1010.2582830819879
+        }
+      }
+    },
+    {
+      "marker": "新华广场武银大厦",
+      "markerId": 1649139,
+      "raw": [
+        111.333683,
+        30.676549
+      ],
+      "parcel": "新华广场",
+      "osmId": "way/968362427",
+      "landuse": "commercial",
+      "comparisons": {
+        "raw": {
+          "wgs84": [
+            111.333683,
+            30.676549
+          ],
+          "inside_named_parcel": false,
+          "distance_to_parcel_m": 467.95918141016097,
+          "distance_to_centroid_m": 608.1713719690687
+        },
+        "gcj02_to_wgs84": {
+          "wgs84": [
+            111.32791515836917,
+            30.678923751333667
+          ],
+          "inside_named_parcel": true,
+          "distance_to_parcel_m": 0.0,
+          "distance_to_centroid_m": 72.19280343182753
+        },
+        "bd09_to_wgs84": {
+          "wgs84": [
+            111.3214308320558,
+            30.672990712553215
+          ],
+          "inside_named_parcel": false,
+          "distance_to_parcel_m": 878.5935601723023,
+          "distance_to_centroid_m": 977.2700678461661
+        }
+      }
+    },
+    {
+      "marker": "万达SOHO写字楼",
+      "markerId": 1649138,
+      "raw": [
+        111.307473,
+        30.680105
+      ],
+      "parcel": "沿江万达广场",
+      "osmId": "way/968362452",
+      "landuse": "retail",
+      "comparisons": {
+        "raw": {
+          "wgs84": [
+            111.307473,
+            30.680105
+          ],
+          "inside_named_parcel": false,
+          "distance_to_parcel_m": 408.47716177911997,
+          "distance_to_centroid_m": 577.5838452275136
+        },
+        "gcj02_to_wgs84": {
+          "wgs84": [
+            111.30177749459325,
+            30.682525778868754
+          ],
+          "inside_named_parcel": true,
+          "distance_to_parcel_m": 0.0,
+          "distance_to_centroid_m": 63.07485019309079
+        },
+        "bd09_to_wgs84": {
+          "wgs84": [
+            111.29521559572414,
+            30.676875812521438
+          ],
+          "inside_named_parcel": false,
+          "distance_to_parcel_m": 865.3756462778621,
+          "distance_to_centroid_m": 950.442683973548
+        }
+      }
+    },
+    {
+      "marker": "中南冶金大楼",
+      "markerId": 1649149,
+      "raw": [
+        111.305009,
+        30.683651
+      ],
+      "parcel": "中南冶金地质研究所",
+      "osmId": "way/995460040",
+      "landuse": "commercial",
+      "comparisons": {
+        "raw": {
+          "wgs84": [
+            111.305009,
+            30.683651
+          ],
+          "inside_named_parcel": false,
+          "distance_to_parcel_m": 591.4079188621099,
+          "distance_to_centroid_m": 634.989389613053
+        },
+        "gcj02_to_wgs84": {
+          "wgs84": [
+            111.29931950259456,
+            30.686074126559554
+          ],
+          "inside_named_parcel": true,
+          "distance_to_parcel_m": 0.0,
+          "distance_to_centroid_m": 33.36007722927447
+        },
+        "bd09_to_wgs84": {
+          "wgs84": [
+            111.29275976241256,
+            30.68042388705647
+          ],
+          "inside_named_parcel": false,
+          "distance_to_parcel_m": 834.1719747381824,
+          "distance_to_centroid_m": 861.7289892045811
+        }
+      }
+    }
+  ]
+}

@@ -1,20 +1,22 @@
 import * as THREE from 'three';
+import { SHOUXIN_REGISTRATION } from './authoredPlacement.js';
 
-// No guessed POI, metres or compass bearing is encoded here. The model's +Z
-// front is a modelling convention; the exhibition has its own local frame.
+// Registration records keep source CRS, footprint identity and uncertainty.
+// Scene placement recalculates the uniform scale from its own map metadata.
 export const AUTHORED_MODELS = [{
   id: 'shouxin-wealth-s01',
   name: '首信财富中心',
-  category: '建筑展台',
+  category: '城市建筑',
   subtitle: '一格幕墙，一座城市的细节。',
   kind: 'authored',
-  placement: 'exhibit',
+  placement: 'city',
   stage: 'S01 外观候选',
-    description: '沿着米白竖肋看向楼顶，青蓝幕墙与冠部框架构成这座大楼的鲜明轮廓。模型暂置于城市沙盘旁的独立展台，可旋转观察立面、裙房与顶部细节，也可连同城市一起看。',
-    location: '宜昌 · 沙盘旁独立展台，地图位置待核准',
-  caveat: '绝对尺寸、真北朝向、背面与屋顶仍待核准。字牌保留参考时期外观，不代表当前经营状态。',
+  description: '沿江大道旁，米白竖肋与青蓝幕墙勾勒出首信财富中心的轮廓。模型已与地图中的建筑位置和轮廓匹配，主立面朝向江边。靠近看看裙房、窗格与顶部冠架，再沿着江岸继续探索。',
+  location: '宜昌 · 伍家岗区沿江大道 182 号',
+  caveat: '位置与朝向依据原导图及地图轮廓配准，未作现场测绘。模型保持原形比，绝对尺寸、精确方位、背面与屋顶仍待复核；字牌保留参考时期外观。',
   sourceBounds: { min: [-20.43000030517578, 0, -14.0649995803833], max: [20.43000030517578, 97.94000244140625, 14.065000534057617] },
-  displayHeight: 16,
+  displayHeight: 1.6228058571002701,
+  registration: SHOUXIN_REGISTRATION,
   front: '+Z',
   assets: {
     light: '/models/shouxin-s01/light.glb?v=s01-20261109-1',
@@ -53,7 +55,7 @@ export function prepareAuthoredModel(object, spec) {
   // never be applied to the architectural asset's Y axis.
   wrapper.scale.setScalar(spec.displayHeight / size.y);
   wrapper.userData.sourceBounds = { min: sourceBox.min.toArray(), max: sourceBox.max.toArray() };
-  wrapper.userData.scalePolicy = 'uniform-exhibit-not-metres';
+  wrapper.userData.scalePolicy = spec.scalePolicy || 'uniform-exhibit-not-metres';
   object.traverse(child => {
     if (!child.isMesh) return;
     child.userData.landmarkId = spec.id;
@@ -88,26 +90,28 @@ function themeModel(object, night) {
   });
 }
 
-export function createAuthoredStage({ catalog = AUTHORED_MODELS, onChange, onStatus, loadAsset } = {}) {
+export function createAuthoredStage({ catalog = AUTHORED_MODELS, onChange, onStatus, loadAsset, showPlinth = true } = {}) {
   const group = new THREE.Group();
-  group.name = 'Independent architectural exhibition — not a map location';
+  group.name = showPlinth ? 'Independent architectural exhibition — not a map location' : 'Authored city architecture';
   group.visible = false;
   const content = new THREE.Group(); group.add(content);
-  const baseMaterials = [
+  const baseMaterials = showPlinth ? [
     new THREE.MeshStandardMaterial({ color: '#e6ddc5', roughness: 0.9 }),
     new THREE.MeshStandardMaterial({ color: '#fbf6e7', roughness: 0.87 }),
     new THREE.MeshStandardMaterial({ color: '#b4bd9e', roughness: 0.9 }),
-  ];
-  const plinth = new THREE.Group(); group.add(plinth);
-  for (const [w, h, d, y, material] of [
-    [10.6, 0.48, 7.8, -0.25, baseMaterials[0]],
-    [10.4, 0.065, 7.6, 0.0225, baseMaterials[1]],
-    [10.64, 0.06, 7.84, -0.42, baseMaterials[2]],
-  ]) {
-    const mesh = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), material);
-    mesh.position.y = y; mesh.castShadow = true; mesh.receiveShadow = true; plinth.add(mesh);
+  ] : [];
+  if (showPlinth) {
+    const plinth = new THREE.Group(); group.add(plinth);
+    for (const [w, h, d, y, material] of [
+      [10.6, 0.48, 7.8, -0.25, baseMaterials[0]],
+      [10.4, 0.065, 7.6, 0.0225, baseMaterials[1]],
+      [10.64, 0.06, 7.84, -0.42, baseMaterials[2]],
+    ]) {
+      const mesh = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), material);
+      mesh.position.y = y; mesh.castShadow = true; mesh.receiveShadow = true; plinth.add(mesh);
+    }
   }
-  content.position.y = 0.055;
+  content.position.y = showPlinth ? 0.055 : 0;
   const records = new Map();
   let activeId = null, wantedDetail = false, disposed = false, night = false;
   let activeQuality = null;
@@ -192,6 +196,17 @@ export function createAuthoredStage({ catalog = AUTHORED_MODELS, onChange, onSta
       if (wantedDetail && recordFor(activeId, 'light')?.state === 'ready') ensure('detail');
       syncVisible();
     },
+    releaseDetail() {
+      if (!activeId || disposed) return;
+      const key = keyFor(activeId, 'detail'), detail = records.get(key);
+      if (!wantedDetail && !detail) return;
+      wantedDetail = false;
+      // Invalidate the request generation before aborting: a completed fetch
+      // may still have a parser running, even after the light model resumes.
+      records.delete(key);
+      if (detail) { detail.controller.abort(); disposeObject(detail.object); }
+      syncVisible();
+    },
     retry() {
       if (!activeId) return;
       const id = activeId;
@@ -202,8 +217,8 @@ export function createAuthoredStage({ catalog = AUTHORED_MODELS, onChange, onSta
     hide() { activeId = null; wantedDetail = false; group.visible = false; release(); onChange?.(); },
     setTheme(value) {
       night = Boolean(value);
-      ['#e6ddc5', '#fbf6e7', '#b4bd9e'].forEach((color, index) => {
-        baseMaterials[index].color.set(night ? ['#5d6e69', '#a8b7ac', '#708574'][index] : color);
+      baseMaterials.forEach((material, index) => {
+        material.color.set((night ? ['#5d6e69', '#a8b7ac', '#708574'] : ['#e6ddc5', '#fbf6e7', '#b4bd9e'])[index]);
       });
       for (const record of records.values()) if (record.object) themeModel(record.object, night);
       onChange?.();
