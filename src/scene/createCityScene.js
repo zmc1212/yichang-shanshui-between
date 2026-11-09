@@ -9,6 +9,7 @@ import { BUSINESS_BUILDINGS } from './buildingCatalog.js';
 import { resolveAuthoredPlacement, authoredWorldBounds, planAuthoredGround, projectWgs84 } from './authoredPlacement.js';
 import { createLightLoadScheduler } from './modelLoadScheduler.js';
 import { createRenderScheduler } from './renderScheduler.js';
+import { resolveBuildingInspection } from './buildingInspection.js';
 
 /* Coordinates in city.json are in a local metric frame: x east, z south.
    The miniature uses the actual polygon and line data; only its materials,
@@ -638,9 +639,11 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     const site = waterfrontPlan.getSite(item.spec.id);
     const authored = item.spec.kind === 'authored';
     const context = authored && options.angle === 'context';
+    const inspection = authored && options.close && !context && view !== 'top'
+      ? resolveBuildingInspection(item.spec, item.base, ['entrance', 'crown'].includes(options.angle) ? options.angle : 'facade') : null;
     const frameBounds = item.bounds.clone();
     if (context) frameBounds.union(cityContextBounds);
-    const frameCenter = frameBounds.getCenter(new THREE.Vector3());
+    const frameCenter = inspection?.center.clone() || frameBounds.getCenter(new THREE.Vector3());
     let direction = defaultDirection.clone();
     if (authored && !context) {
       // Presentation-only viewing direction; the registered model yaw and map
@@ -657,6 +660,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
       const n = site.shore.normal, t = site.shore.tangent;
       direction.set(-n[0] + t[0] * 0.35, 1.15, -n[1] + t[1] * 0.35).normalize();
     }
+    if (inspection) direction.copy(inspection.direction);
     if (view === 'top') direction.set(0, 1, 0.0001).normalize();
     const right = new THREE.Vector3(direction.z, 0, -direction.x).normalize();
     const up = new THREE.Vector3().crossVectors(direction, right).normalize();
@@ -667,8 +671,14 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     if (viewport.rightEdge - viewport.left < 48 || viewport.bottom - viewport.top < 48) {
       return { target: controls.target.clone(), position: camera.position.clone(), zoom: camera.zoom };
     }
-    const points = [item.anchor];
-    if (authored && !context) {
+    const points = inspection ? [] : [item.anchor];
+    if (inspection) {
+      // A detail preset frames a real facade/entrance/crown patch, not the
+      // whole building. Including the roof label or full bounds would pull the
+      // camera away again. Full geometry is intentionally allowed to crop.
+      for (const x of [-0.5, 0.5]) for (const y of [-0.5, 0.5]) points.push(frameCenter.clone()
+        .addScaledVector(right, x * inspection.span).addScaledVector(up, y * inspection.span));
+    } else if (authored && !context) {
       // The registered footprint is the rotated LOCAL source box. Reprojecting
       // a world AABB would add empty corners around oblique towers a second time.
       for (const [x, z] of item.spec.footprint) for (const y of [item.base, item.base + item.spec.localSize.y]) points.push(new THREE.Vector3(x, y, z));
@@ -683,12 +693,12 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     const guideOnly = item.spec.kind === 'business-poi';
     const fit = safe => {
       const left = safe.left + 8, rightEdge = safe.rightEdge - 8;
-      const top = safe.top + (context ? 8 : 30), bottom = safe.bottom - 10;
+      const top = safe.top + (context || inspection ? 8 : 30), bottom = safe.bottom - 10;
       const fractionX = Math.max(0.01, Math.min(1, (rightEdge - left) / widthPx));
       const fractionY = Math.max(0.01, Math.min(1, (bottom - top) / heightPx));
       const fitHeight = Math.max((maxY - minY) / fractionY, (maxX - minX) / (aspect * fractionX));
-      // Whole-building and detail views each target the available screen area.
-      // Neither inherits a city-sized floor or a multiple of the longest axis.
+      // Inspection targets a source-derived local patch. Whole-building views
+      // still fit the complete model independently of this much closer preset.
       let visibleHeight = fitHeight / (context ? 0.94 : options.close ? 0.94 : 0.72);
       if (guideOnly) {
         // An unrecovered building remains a neighborhood reference, never a
@@ -704,7 +714,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
       const pixelScale = heightPx / actualHeight, halfW = (maxX - minX) * pixelScale / 2, halfH = (maxY - minY) * pixelScale / 2;
       return { target, position: target.clone().addScaledVector(direction, cameraDistance), zoom,
         subjectRect: { left: (left + rightEdge) / 2 - halfW, right: (left + rightEdge) / 2 + halfW,
-          top: (top + bottom) / 2 - halfH - 30, bottom: (top + bottom) / 2 + halfH } };
+          top: (top + bottom) / 2 - halfH - (inspection ? 0 : 30), bottom: (top + bottom) / 2 + halfH } };
     };
     let frame = fit(viewport);
     const note = authored && window.innerWidth > 700 ? container.parentElement?.querySelector('.authored-note')?.getBoundingClientRect() : null;
@@ -863,7 +873,10 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     const targets = layers.landmarks.visible ? [...pickObjects] : [];
     if (layers.landmarks.visible) for (const {controller} of authoredEntries.values()) targets.push(...controller.getActiveMeshes());
     const hit = raycaster.intersectObjects(targets, false)[0];
-    if (hit?.object.userData.landmarkId) onSelect?.(hit.object.userData.landmarkId);
+    const hitId = hit?.object.userData.landmarkId;
+    // A tap on the facade being inspected must not reopen its whole-building
+    // preset and undo the zoom. Other buildings remain selectable normally.
+    if (hitId && !(hitId === selectedId && authoredSelection && currentFocusOptions.close)) onSelect?.(hitId);
     lastPointer = null;
   }
   function handleContextLost(event) { event.preventDefault(); renderScheduler.setPaused('context-lost', true); onError?.('三维画面连接暂时中断，请刷新页面重新载入。'); }
@@ -977,7 +990,8 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     focus(id, options = {}) {
       const item = landmarkMap.get(id); if (!item) return;
       selectedId = id; userMoved = true; managedFocus = true; currentView = 'perspective';
-      currentFocusOptions = { angle: ['river', 'front', 'context'].includes(options.angle) ? options.angle : 'detail', close: options.angle !== 'context' && Boolean(options.close) };
+      currentFocusOptions = { angle: ['river', 'front', 'entrance', 'crown', 'context'].includes(options.angle) ? options.angle : 'detail', close: options.angle !== 'context' && Boolean(options.close) };
+      controls.screenSpacePanning = item.spec.kind === 'authored' && currentFocusOptions.close;
       setAuthoredSelection(item.spec.kind === 'authored');
       for(const {spec,controller} of authoredEntries.values()) if(spec.id!==id)controller.releaseDetail();
       selectedAuthored()?.controller.select(id, { detail: currentFocusOptions.close, priority: true });
@@ -992,6 +1006,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
       const frame = calculateClusterState(items);
       if (!frame) return false;
       controls.autoRotate = false; managedFocus = false; userMoved = true;
+      controls.screenSpacePanning = false;
       // Drain residual orbit damping without moving the visible camera. The
       // cluster transition must retain the direction the user was looking at.
       const position = camera.position.clone(), target = controls.target.clone(), zoom = camera.zoom;
@@ -1005,11 +1020,13 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
       return true;
     },
     clearSelection() {
+      controls.screenSpacePanning = false;
       if (authoredSelection) { this.reset(); return; }
       selectedId = null; managedFocus = false; selectedRing.visible = false; motionRunning = false;
       currentFocusOptions = { angle: 'detail', close: false }; requestRender();
     },
     reset() {
+      controls.screenSpacePanning = false;
       setAuthoredSelection(false);
       selectedId = null; userMoved = false; managedFocus = false; currentView = 'perspective'; selectedRing.visible = false; motionRunning = false;
       currentFocusOptions = { angle: 'detail', close: false };
@@ -1054,6 +1071,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     setView(view) {
       const next = view === 'top' ? 'top' : 'perspective'; if (next === currentView) return;
       currentView = next; controls.autoRotate = false; onInteraction?.({ type: 'view' });
+      controls.screenSpacePanning = authoredSelection && currentFocusOptions.close && next === 'perspective';
       if (selectedId) {
         managedFocus = true;
         const frame = calculateFocusState(landmarkMap.get(selectedId));

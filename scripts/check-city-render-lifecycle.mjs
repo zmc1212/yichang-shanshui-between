@@ -248,6 +248,35 @@ try {
     }
     return [spec.id,points];
   }));
+  // Native facade samples were checked against each recovered GLB. Transform
+  // them independently of the camera's inspection helper so the oracle cannot
+  // reproduce an incorrect centering, source origin or yaw calculation.
+  const facadeSamples={
+    'shouxin-wealth-s01':[0,53.87,11.72],
+    'wanda-soho-s01':[0,55,8],
+    'yichang-international-s01':[-31.5,55,-.4],
+    'zhongnan-s09':[10.31,58.61,-.008],
+    'jinjiang-s03':[.337,39.66,-.28],
+    'fujiang-s01':[0,54.94,8.31],
+    'jiuzhou-s01':[-1.84,55,9.16],
+  };
+  const detailPartSamples={
+    'shouxin-wealth-s01':{entrance:[0,6.86,9.23],crown:[0,94,11.72]},
+    'zhongnan-s09':{entrance:[10.31,7.46,1.20],crown:[10,99.3,-10]},
+    'jinjiang-s03':{entrance:[.34,5.05,16.58],crown:[.34,67.79,-.51]},
+    'wanda-soho-s01':{entrance:[0,7.05,10.16],crown:[0,98.7,0]},
+    'fujiang-s01':{entrance:[0,6.88,10.42],crown:[0,93.99,8.31]},
+    'yichang-international-s01':{entrance:[-36.5,3.4,2.6],crown:[-31.5,94.06,-.43]},
+    'jiuzhou-s01':{entrance:[-10.03,3,16.62],crown:[-1.84,94.03,9.16]},
+  };
+  const sourcePointToWorld=(id,[x,y,z])=>{
+    const spec=AUTHORED_MODELS.find(value=>value.id===id);
+    const resident=engine.getStats().authoredResidents.find(value=>value.id===id);
+    const [min,max]=[spec.sourceBounds.min,spec.sourceBounds.max];
+    const px=(x-(min[0]+max[0])/2)*resident.uniformScale,pz=(z-(min[2]+max[2])/2)*resident.uniformScale;
+    const c=Math.cos(resident.yaw),s=Math.sin(resident.yaw);
+    return new Vector3(resident.position[0]+px*c+pz*s,resident.position[1]+(y-min[1])*resident.uniformScale,resident.position[2]-px*s+pz*c);
+  };
   const stableModelTransforms=()=>JSON.stringify(landmarkLayer.children.filter(object=>object!==selectedRing).map(object=>({uuid:object.uuid,position:object.position.toArray(),quaternion:object.quaternion.toArray(),scale:object.scale.toArray()})));
   const beforeBuildingFocus=stableModelTransforms();
   const projectPoints=points=>points.map(point=>{
@@ -266,14 +295,21 @@ try {
     top:noteRect?noteRect.bottom-rect.top+28:84,
     bottom:windowProbe.innerWidth<=700?panelRect.top-rect.top-14:rect.height-50,
   });
+  const assertPointClearsUi=(point,available,label)=>{
+    assert.ok(point.x>available.left-2&&point.x<available.right+2,`${label}: clears the horizontal UI edges`);
+    assert.ok(point.y>68&&point.y<available.bottom+2,`${label}: clears the toolbar and detail card`);
+    if(noteRect) {
+      const inNote=point.x>noteRect.left-rect.left-10&&point.x<noteRect.left-rect.left+noteRect.width+10
+        &&point.y>noteRect.top-rect.top-10&&point.y<noteRect.bottom-rect.top+10;
+      assert.equal(inNote,false,`${label}: clears the measured provenance/inspection controls`);
+    }
+    assert.ok(point.depth>=-1&&point.depth<=1,`${label}: stays inside the camera clipping planes`);
+  };
   const assertBuildingFits=(id,label,{minOccupancy=0}={})=>{
     const points=authoredCorners.get(id)||allPoints.get(id).slice(1);
     const available=availableBuildingRect(),box=screenBounds(points);
-    const clearTop=noteRect?noteRect.bottom-rect.top+10:68;
     for(const point of projectPoints([...points,worldAnchors.get(id)])) {
-      assert.ok(point.x>available.left-2&&point.x<available.right+2,`${label}: ${id} must clear the horizontal UI edges`);
-      assert.ok(point.y>clearTop&&point.y<available.bottom+2,`${label}: ${id} must clear the toolbar/note and detail card`);
-      assert.ok(point.depth>=-1&&point.depth<=1,`${label}: ${id} must stay inside the camera clipping planes`);
+      assertPointClearsUi(point,available,`${label}: ${id}`);
     }
     const width=box.right-box.left,height=box.bottom-box.top;
     const occupancy=Math.max(width/(available.right-available.left),height/(available.bottom-available.top));
@@ -283,10 +319,27 @@ try {
     for(const layer of ['terrain','buildings','roads']) assert.equal(cityScene.getObjectByName(layer).visible,true,`${label}: ${layer} remains visible`);
     return {width,height,occupancy,zoom:renderer.camera.zoom};
   };
+  const assertInspectionFits=(id,label,{nativePoint=facadeSamples[id],checkPatch=true}={})=>{
+    assert.ok(nativePoint,`${id}: the inspection oracle needs a verified source sample`);
+    const available=availableBuildingRect(),spec=AUTHORED_MODELS.find(value=>value.id===id);
+    const height=spec.sourceBounds.max[1]-spec.sourceBounds.min[1];
+    const nativePoints=[nativePoint];
+    if(checkPatch) for(const sign of [-1,1]) nativePoints.push([nativePoint[0],nativePoint[1]+height*.07*sign,nativePoint[2]]);
+    for(const point of projectPoints(nativePoints.map(value=>sourcePointToWorld(id,value)))) {
+      assertPointClearsUi(point,available,`${label}: ${id} detail sample`);
+    }
+    const body=screenBounds(authoredCorners.get(id));
+    assert.ok(body.left<available.left||body.right>available.right||body.top<available.top||body.bottom>available.bottom,
+      `${label}: ${id} must show a local detail rather than refitting the entire building`);
+    assert.equal(renderer.scene,cityScene);assert.equal(renderer.domElement,cityCanvas);
+    assert.equal(cityScene.getObjectByName('Yichang miniature').visible,true);
+    for(const layer of ['terrain','buildings','roads']) assert.equal(cityScene.getObjectByName(layer).visible,true,`${label}: ${layer} remains visible`);
+    return {height:body.bottom-body.top,zoom:renderer.camera.zoom};
+  };
   const focusViewports=[
-    {name:'desktop',rect:{width:1616,height:849,top:70,left:304},innerWidth:1920,panel:{left:1572,top:163,width:318,height:606},note:{left:338,top:164,bottom:204,width:850,height:40},minimumDefault:.58,minimumClose:.75},
-    {name:'phone collapsed card',rect:{width:390,height:784,top:60,left:0},innerWidth:390,panel:{left:12,top:665,width:366,height:129},note:{left:17,top:126,bottom:170,width:357,height:44},minimumDefault:.53,minimumClose:.70},
-    {name:'phone expanded card',rect:{width:390,height:784,top:60,left:0},innerWidth:390,panel:{left:12,top:430,width:366,height:364},note:{left:17,top:126,bottom:170,width:357,height:44},minimumDefault:.47,minimumClose:.63},
+    {name:'desktop',rect:{width:1616,height:849,top:70,left:304},innerWidth:1920,panel:{left:1572,top:163,width:318,height:606},note:{left:338,top:164,bottom:238,width:261,height:74},inspectionNote:{left:338,top:164,bottom:306,width:304,height:142},minimumDefault:.58},
+    {name:'phone collapsed card',rect:{width:390,height:784,top:60,left:0},innerWidth:390,panel:{left:12,top:665,width:366,height:129},note:{left:17,top:126,bottom:198,width:357,height:72},inspectionNote:{left:17,top:126,bottom:273,width:357,height:147},minimumDefault:.53},
+    {name:'phone expanded card',rect:{width:390,height:784,top:60,left:0},innerWidth:390,panel:{left:12,top:430,width:366,height:364},note:{left:17,top:126,bottom:198,width:357,height:72},inspectionNote:{left:17,top:126,bottom:273,width:357,height:147},minimumDefault:.47},
   ];
   const useFocusViewport=viewport=>{
     rect={...viewport.rect};windowProbe.innerWidth=viewport.innerWidth;panelRect={...viewport.panel};noteRect={...viewport.note};
@@ -298,11 +351,25 @@ try {
     for(const spec of AUTHORED_MODELS) {
       wake(()=>engine.focus(spec.id,{close:false}),`${viewport.name} ${spec.name} default`);
       const overview=assertBuildingFits(spec.id,`${viewport.name} default`,{minOccupancy:viewport.minimumDefault});
+      const overviewPose={position:renderer.camera.position.clone(),quaternion:renderer.camera.quaternion.clone(),zoom:renderer.camera.zoom};
+      noteRect={...viewport.inspectionNote};
       wake(()=>engine.focus(spec.id,{close:true}),`${viewport.name} ${spec.name} close`);
-      const detail=assertBuildingFits(spec.id,`${viewport.name} close`,{minOccupancy:viewport.minimumClose});
-      assert.ok(detail.height>overview.height*1.16,`${viewport.name}: ${spec.name} close view must visibly enlarge the same building`);
-      assert.ok(detail.zoom>overview.zoom*1.16,`${viewport.name}: ${spec.name} must have two distinct camera presets`);
-      buildingFraming.push({viewport:viewport.name,id:spec.id,defaultHeight:Math.round(overview.height),closeHeight:Math.round(detail.height)});
+      const detail=assertInspectionFits(spec.id,`${viewport.name} facade`);
+      assert.ok(detail.zoom>overview.zoom*3,`${viewport.name}: ${spec.name} inspection must be substantially closer despite reserving the larger inspection controls`);
+      buildingFraming.push({viewport:viewport.name,id:spec.id,defaultHeight:Math.round(overview.height),detailProjectedBodyHeight:Math.round(detail.height),detailZoomGain:Number((detail.zoom/overview.zoom).toFixed(2))});
+      const facadePosition=renderer.camera.position.clone();
+      for(const angle of ['entrance','crown']) {
+        wake(()=>engine.focus(spec.id,{angle,close:true}),`${viewport.name} ${spec.name} ${angle}`);
+        assertInspectionFits(spec.id,`${viewport.name} ${angle}`,{nativePoint:detailPartSamples[spec.id][angle],checkPatch:false});
+        assert.equal(engine.getStats().focusAngle,angle,'the requested inspection subject remains selected');
+        assert.ok(renderer.camera.position.distanceTo(facadePosition)>1e-5,'entrance and crown must not reuse the facade camera target');
+      }
+      noteRect={...viewport.note};
+      wake(()=>engine.focus(spec.id,{close:false}),`${viewport.name} ${spec.name} return to whole building`);
+      assertBuildingFits(spec.id,`${viewport.name} restored whole building`,{minOccupancy:viewport.minimumDefault});
+      assert.ok(renderer.camera.position.distanceTo(overviewPose.position)<1e-9);
+      assert.ok(1-Math.abs(renderer.camera.quaternion.dot(overviewPose.quaternion))<1e-10);
+      assert.ok(Math.abs(renderer.camera.zoom-overviewPose.zoom)<1e-9,'return-to-whole must restore its framing, not the city overview');
     }
   }
   // A short phone with its introduction expanded can leave no real framing
@@ -320,7 +387,7 @@ try {
   assert.ok(Math.abs(renderer.camera.zoom-coveredPose.zoom)<1e-10,'covered viewport must retain zoom');
   panelRect={left:12,top:355,width:366,height:129};
   wake(()=>engine.refitSelection(),'card-only collapse frees single-building framing');
-  assertBuildingFits('shouxin-wealth-s01','recovered short-phone close view',{minOccupancy:.65});
+  assertInspectionFits('shouxin-wealth-s01','recovered short-phone facade');
   assert.ok(renderer.camera.position.distanceTo(coveredPose.position)>1e-4,'newly selected building refits once the card frees actual space');
   checks.push('covered short-phone single-building focus retains its pose, then a card-only refit recovers when real space becomes available');
 
@@ -329,16 +396,22 @@ try {
   // cannot clip another tower or its shared podium.
   useFocusViewport(focusViewports[0]);
   for(const id of ['shouxin-wealth-s01','wanda-soho-s01']) {
-    wake(()=>engine.focus(id,{angle:'front',close:true}),`${id} front`);
-    assertBuildingFits(id,'front elevation',{minOccupancy:.72});
+    noteRect={...focusViewports[0].note};
+    wake(()=>engine.focus(id,{angle:'front',close:false}),`${id} full front`);
+    assertBuildingFits(id,'whole front elevation',{minOccupancy:.58});
+    noteRect={...focusViewports[0].inspectionNote};
+    wake(()=>engine.focus(id,{angle:'front',close:true}),`${id} front facade detail`);
+    assertInspectionFits(id,'front facade detail');
+    noteRect={...focusViewports[0].note};
     wake(()=>engine.setView('top'),`${id} roof`);
     assertBuildingFits(id,'roof and full footprint',{minOccupancy:.70});
     if(id==='shouxin-wealth-s01') assert.ok((renderer.camera.top-renderer.camera.bottom)/renderer.camera.zoom<1.8,'small roof view must clear the former fixed world-height cap');
   }
+  noteRect={...focusViewports[0].inspectionNote};
   wake(()=>engine.focus('shouxin-wealth-s01',{close:true}),'manual facade zoom baseline');
   const nearZoom=renderer.camera.zoom;
   for(let i=0;i<8;i++) wake(()=>engine.zoom(1),`manual facade zoom ${i}`);
-  assert.ok(renderer.camera.zoom>nearZoom*2,'manual inspection must go meaningfully closer than the full-building preset');
+  assert.ok(renderer.camera.zoom>nearZoom*2,'manual zoom must go meaningfully closer than the facade preset');
   assert.ok(Number.isFinite(renderer.camera.zoom),'manual close zoom remains finite');
 
   // Small ordinary landmarks previously inherited large neighborhood-sized
@@ -360,7 +433,7 @@ try {
   assert.ok((renderer.camera.top-renderer.camera.bottom)/renderer.camera.zoom>100,'explicit city context retains the city-wide frame');
   assert.equal(stableModelTransforms(),beforeBuildingFocus,'camera presets and zoom must not stretch, rotate, move, or replace models');
   assert.deepEqual(selections,[],'programmatic camera checks must not introduce a new POI selection callback');
-  checks.push('all seven authored buildings fit and visibly enlarge in desktop/open-phone/collapsed-phone views; front/roof/manual zoom remain useful, compact landmarks improve, guide/context frames and model transforms remain intact');
+  checks.push('all seven authored buildings retain full-building views and separate cropped facade/entrance/crown inspection at useful magnification; source samples stay visible on desktop/open-phone/collapsed-phone views, whole framing restores, front/roof/manual zoom remain useful, guide/context frames and model transforms remain intact');
   panelRect=null;noteRect=null;windowProbe.innerWidth=1280;rect={top:70,left:280,width:940,height:730};
   observers[0].callback([]);settle();wake(()=>engine.reset(),'reset after building framing checks');
 

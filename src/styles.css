@@ -38,6 +38,18 @@
 .authored-note p>span{font-size:10px;color:#7d8a76;letter-spacing:.2px;display:inline-block}
 .authored-note p>button{display:inline-flex;align-items:center;gap:3px;flex-shrink:0;padding:3px 6px;border:1px solid var(--line);border-radius:3px;background:rgba(var(--paper-rgb),.9);font-size:10px;color:var(--text);letter-spacing:0;pointer-events:auto;vertical-align:middle}
 .authored-note p>button:hover{background:var(--paper)}
+.authored-note.is-inspecting{min-width:304px}
+.inspection-controls{margin-top:9px;padding-top:8px;border-top:1px solid var(--line)}
+.inspection-actions,.inspection-presets,.inspection-zoom{display:flex;align-items:center;gap:4px}
+.inspection-actions{justify-content:space-between;gap:12px}
+.inspection-controls button{pointer-events:auto;display:flex;align-items:center;justify-content:center;min-height:32px;padding:5px 9px;border:1px solid var(--line);border-radius:3px;color:var(--text);background:rgba(var(--paper-rgb),.8);font-size:11px;white-space:nowrap}
+.inspection-controls button:hover{background:var(--paper)}
+.inspection-controls button[aria-pressed=true]{background:var(--green);border-color:var(--green);color:var(--paper)}
+.inspection-controls button:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+.inspection-zoom button{width:32px;padding:4px}
+.inspection-help{display:block;margin-top:7px;font-size:9px;color:var(--muted);letter-spacing:.3px}
+@media(max-width:700px){.authored-note.is-inspecting{min-width:0}.inspection-controls{margin-top:7px;padding-top:7px}.inspection-controls button{min-height:36px;padding:5px 10px}.inspection-zoom button{width:36px;padding:4px}.inspection-help{font-size:8px;margin-top:6px}}
+@media(max-width:370px){.inspection-actions{gap:6px}.inspection-presets button{padding:5px 8px}}
 .model-load-state{position:absolute;z-index:8;left:calc((100% - 320px)/2);top:43%;transform:translate(-50%,-50%);display:flex;align-items:center;flex-direction:column;gap:13px;text-align:center;color:#73866d;background:rgba(var(--paper-rgb),.94);padding:24px 29px;border:1px solid var(--line);border-radius:7px;max-width:290px;width:max-content;box-shadow:var(--shadow)}
 .model-load-state strong{font-weight:500;font-size:13px;color:var(--text)}
 .model-load-state p{font-size:10px;line-height:1.8}

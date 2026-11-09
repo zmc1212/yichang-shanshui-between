@@ -112,6 +112,7 @@ export default function App(){
   modalRef.current = modal;
   const selected = landmarks.find(l=>l.id===selectedId);
   const authored = selected?.kind === 'authored';
+  const inspecting = authored && closeView && view === 'perspective' && cameraAngle !== 'context';
   const business = Boolean(selected?.business);
   const guideOnly = business && !authored;
   const canPreviewCandidate = guideOnly && selected.modelStatus === 'registration-pending' && Boolean(selected.assets?.light);
@@ -264,7 +265,7 @@ export default function App(){
     const observer=new ResizeObserver(refit);
     observer.observe(panel);
     return()=>{cancelAnimationFrame(frame);observer.disconnect();};
-  },[selectedId,detailTab,detailCollapsed,compact,ready]);
+  },[selectedId,detailTab,detailCollapsed,compact,ready,inspecting,cameraAngle]);
   useEffect(()=>{if(!toast)return;const t=setTimeout(()=>setToast(''),2600);return()=>clearTimeout(t);},[toast]);
   useEffect(()=>{
     const key=e=>{
@@ -418,7 +419,17 @@ export default function App(){
         <PoiLabels ref={poiLabelsRef} places={landmarks} selectedId={selectedId} visible={layers.labels&&ready} compact={compact} searchIds={poiSearchIds} searchTargetId={poiSearchTarget} onSelect={chooseLandmark} onZoomGroup={zoomPoiGroup} onOpenGroup={openPoiGroup} layoutKey={`${selectedId||''}:${detailTab}:${detailCollapsed}:${layersOpen}:${ready}`}/>
         {(!ready||error)&&<div className="scene-loading" role="status">{error?<><WarningCircle size={32}/><h2>这座城还在路上</h2><p>{error}</p><button onClick={()=>window.location.reload()}>重新打开沙盘</button></>:<><MapTrifold size={44} weight="duotone"/><span className="eyebrow">YICHANG · 江山之间</span><h2>让山水，慢慢展开。</h2><p>{data?'正在安放楼阁、街巷与树木':'正在读取宜昌城市轮廓'}</p><CircleNotch className="spinner" size={22}/></>}</div>}
         <div className="scene-toolbar" aria-label="沙盘显示设置"><div className="view-segment"><button className={view==='perspective'?'active':''} onClick={()=>changeView('perspective')} aria-pressed={view==='perspective'}><Buildings size={16}/><span>{authored&&cameraAngle!=='context'?'建筑视角':'城市沙盘'}</span></button><button className={view==='top'?'active':''} onClick={()=>changeView('top')} aria-pressed={view==='top'}><MapTrifold size={16}/><span>{authored&&cameraAngle!=='context'?'俯瞰建筑':'俯瞰地图'}</span></button></div><span className="toolbar-divider"/><button className="toolbar-button reset-button" onClick={reset} title="回到全景"><ArrowCounterClockwise size={16}/><span>回到全景</span></button><span className="toolbar-divider day-divider"/><div className="day-segment"><button className={theme==='day'?'active':''} onClick={()=>setTheme('day')} aria-pressed={theme==='day'} title="日景"><Sun size={17}/><span>日景</span></button><button className={theme==='night'?'active':''} onClick={()=>setTheme('night')} aria-pressed={theme==='night'} title="夜景"><MoonStars size={16}/><span>夜景</span></button></div></div>
-        {business&&<div className="authored-note"><span className="eyebrow">{authored?`自建建筑 · ${selected.stage||'阶段待核准'}`:businessStatus(selected)}</span><p><span>{registrationLabel}</span>{authored&&<button onClick={()=>frameSelected({angle:cameraAngle==='context'?'detail':'context',close:cameraAngle==='context'})}>{cameraAngle==='context'?'靠近建筑':'连同沙盘看'} <ArrowUpRight size={12}/></button>}</p></div>}
+        {business&&<div className={`authored-note ${inspecting?'is-inspecting':''}`}><span className="eyebrow">{authored?`自建建筑 · ${selected.stage||'阶段待核准'}`:businessStatus(selected)}</span><p><span>{registrationLabel}</span>{authored&&<button onClick={()=>frameSelected({angle:cameraAngle==='context'?'detail':'context',close:cameraAngle==='context'})}>{cameraAngle==='context'?'靠近建筑':'连同沙盘看'} <ArrowUpRight size={12}/></button>}</p>
+          {inspecting&&<div className="inspection-controls">
+            <div className="inspection-actions"><div role="group" aria-label="建筑细节位置" className="inspection-presets">
+              <button aria-label="细看幕墙" aria-pressed={['detail','front'].includes(cameraAngle)} onClick={()=>frameSelected({angle:'detail',close:true})}>幕墙</button>
+              <button aria-label="细看入口" aria-pressed={cameraAngle==='entrance'} onClick={()=>frameSelected({angle:'entrance',close:true})}>入口</button>
+              <button aria-label="细看顶部" aria-pressed={cameraAngle==='crown'} onClick={()=>frameSelected({angle:'crown',close:true})}>顶部</button>
+              <button aria-label="查看建筑全貌" onClick={()=>frameSelected({angle:'detail',close:false})}>全貌</button>
+            </div><div role="group" aria-label="建筑细节缩放" className="inspection-zoom"><button aria-label="缩小建筑细节" onClick={()=>scene.current?.zoom(-1)}><Minus size={15}/></button><button aria-label="放大建筑细节" onClick={()=>scene.current?.zoom(1)}><Plus size={15}/></button></div></div>
+            <small className="inspection-help">局部细看 · {compact?'双指平移与缩放':'右键平移 · 滚轮缩放'}</small>
+          </div>}
+        </div>}
         {authored&&ready&&(!modelState||modelState.state==='loading'||modelState.state==='error')&&<div className="model-load-state" role="status">{modelState?.state==='error'?<><WarningCircle size={24}/><strong>模型暂未载入</strong><p>可以重试，也可以继续探索其他地标。</p><button onClick={()=>scene.current?.retryModel()}>重新载入</button></>:<><CircleNotch className="spinner" size={24}/><strong>正在展开建筑细节</strong><p>正在载入这座自建建筑。</p></>}</div>}
         <div className="map-tools-top"><button className={`layer-toggle ${layersOpen?'active':''}`} onClick={()=>setLayersOpen(!layersOpen)} aria-expanded={layersOpen} aria-label="图层"><Stack size={17}/><span>图层</span></button>{layersOpen&&<section className="layer-panel" aria-label="图层设置"><header><strong>看见城市的层次</strong><button className="icon-button" onClick={()=>setLayersOpen(false)} aria-label="关闭图层设置"><X size={15}/></button></header>{[{id:'buildings',label:'城市建筑',Icon:Buildings},{id:'trees',label:'山林与树木',Icon:Tree},{id:'labels',label:'地标名称',Icon:MapPin}].map(({id,label,Icon})=><label key={id}><Icon size={17}/><span>{label}</span><input type="checkbox" checked={layers[id]} onChange={()=>toggleLayer(id)}/></label>)}<label className="motion-setting"><Waves size={17}/><span>江面动态</span><input type="checkbox" checked={motionEnabled} onChange={e=>setMotionEnabled(e.target.checked)}/></label><p className="layer-note">{authored?'城市与自建建筑一起显示。':'靠近江岸，看看船只缓缓经过。'}</p></section>}</div>
         <div className="compass"><span>N</span><div ref={compassRef}><NavigationArrow size={22} weight="fill"/></div></div>
@@ -442,8 +453,8 @@ export default function App(){
             <p>换一个角度，发现城市的另一面。</p>
             {canPreviewCandidate&&<button onClick={()=>setModal('candidate')}><Buildings size={20}/><span><strong>查看候选模型</strong><small>单独旋转查看，城市沙盘保持原位</small></span><ArrowUpRight size={16}/></button>}
             {authored&&<button className={cameraAngle==='context'&&view==='perspective'?'active':''} onClick={()=>frameSelected({angle:'context',close:false})}><MapTrifold size={20}/><span><strong>连同沙盘看</strong><small>建筑与城市，一起入镜</small></span><ArrowUpRight size={16}/></button>}
-            <button className={cameraAngle==='detail'&&closeView&&view==='perspective'?'active':''} onClick={()=>frameSelected({angle:'detail',close:true})}><Buildings size={20}/><span><strong>{authored?'建筑近景':guideOnly?'周边街区':'地标近景'}</strong><small>{authored?'靠近建筑，按需载入细节':guideOnly?'观察导览参考点附近的城市轮廓':'看见建筑与层次'}</small></span><ArrowUpRight size={16}/></button>
-            {authored&&<button className={cameraAngle==='front'&&view==='perspective'?'active':''} onClick={()=>frameSelected({angle:'front',close:true})}><Buildings size={20}/><span><strong>正立面</strong><small>观察立面、窗格与入口</small></span><ArrowUpRight size={16}/></button>}
+            <button className={cameraAngle==='detail'&&closeView&&view==='perspective'?'active':''} onClick={()=>frameSelected({angle:'detail',close:true})}><Buildings size={20}/><span><strong>{authored?'建筑近景':guideOnly?'周边街区':'地标近景'}</strong><small>{authored?'直接查看几个楼层的幕墙细节':guideOnly?'观察导览参考点附近的城市轮廓':'看见建筑与层次'}</small></span><ArrowUpRight size={16}/></button>
+            {authored&&<button className={cameraAngle==='front'&&!closeView&&view==='perspective'?'active':''} onClick={()=>frameSelected({angle:'front',close:false})}><Buildings size={20}/><span><strong>正立面</strong><small>完整查看建筑正立面</small></span><ArrowUpRight size={16}/></button>}
             {['zhenjiang-pavilion','tianran-pagoda'].includes(selectedId)&&<button className={cameraAngle==='river'&&view==='perspective'?'active':''} onClick={()=>frameSelected({angle:'river',close:false})}><Waves size={20}/><span><strong>江岸视角</strong><small>从江面，望向一城风景</small></span><ArrowUpRight size={16}/></button>}
             <button className={view==='top'?'active':''} onClick={()=>{if(authored)frameSelected({angle:'detail',close:true});changeView('top');}}><MapTrifold size={20}/><span><strong>{authored?'顶部与轮廓':'俯瞰此处'}</strong><small>{authored?'查看候选模型的顶部形态':'读懂街巷与江岸'}</small></span><ArrowUpRight size={16}/></button>
             <button onClick={reset}><Compass size={20}/><span><strong>回到城市全景</strong><small>收起介绍，继续探索宜昌</small></span><ArrowUpRight size={16}/></button>

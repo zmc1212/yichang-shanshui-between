@@ -22,6 +22,25 @@ assert.equal(unknown.state.theme, 'night');
 assert.equal(readSceneLocation('#place=zhenjiang-pavilion&angle=front', places).state.angle, 'detail');
 assert.equal(readSceneLocation('#place=zhenjiang-pavilion&angle=river', places).state.angle, 'river');
 assert.equal(readSceneLocation('#place=meilian-s05&angle=context&close=1', places).state.close, false);
+for (const place of BUSINESS_BUILDINGS.filter(item => item.kind === 'authored')) {
+  for (const angle of ['detail','front','entrance','crown']) {
+    const inspection = { place: place.id, theme: 'day', view: 'perspective', angle, close: true, filter: 'all', query: '' };
+    const hash = serializeSceneLocation(inspection, places);
+    assert.deepEqual(readSceneLocation('#' + hash, places).state, inspection, `${place.id}: ${angle} detail survives a shared link`);
+    const whole = { ...inspection, angle: 'detail', close: false };
+    assert.deepEqual(readSceneLocation('#' + serializeSceneLocation(whole, places), places).state, whole, `${place.id}: whole-building link remains distinct`);
+  }
+  const context = readSceneLocation(`#place=${place.id}&angle=context&close=1`, places).state;
+  assert.equal(context.angle, 'context');
+  assert.equal(context.close, false, 'city context cannot be mislabeled as local inspection');
+}
+for (const id of ['meilian-s05','business-1649141','zhenjiang-pavilion','yiling-bridge']) {
+  for (const angle of ['entrance','crown']) {
+    assert.equal(readSceneLocation(`#place=${id}&angle=${angle}&close=1`, places).state.angle, 'detail', `${id}: native model inspection presets cannot apply to another place kind`);
+  }
+}
+assert.equal(readSceneLocation('#place=shouxin-wealth-s01&angle=unknown&close=1', places).state.angle, 'detail');
+assert.equal(readSceneLocation('#place=shouxin-wealth-s01&close=1', places).state.close, true, 'an existing close-view link remains usable without a new parameter');
 assert.equal(readSceneLocation('#unknown-section', places).recognized, false);
 assert.equal(readSceneLocation('#place=%E0%A4%A', places).invalidPlace, true);
 assert.equal(readSceneLocation('#q=' + 'a'.repeat(200), places).state.query.length, 120);
@@ -30,4 +49,4 @@ for (const item of places) {
   const state = { place: item.id, theme: 'day', view: 'perspective', angle: 'detail', close: false, filter: 'all', query: '' };
   assert.deepEqual(readSceneLocation('#' + serializeSceneLocation(state, places), places).state, state);
 }
-console.log(JSON.stringify({ ok: true, stableIds: places.length, checked: ['Chinese query and view round-trip', 'transient query excluded from copied URL', 'unknown and malformed IDs', 'per-building view restrictions', 'bounded query and fragment input'] }, null, 2));
+console.log(JSON.stringify({ ok: true, stableIds: places.length, checked: ['Chinese query and view round-trip', 'authored facade/entrance/crown inspection links and whole-view recovery', 'old close links remain valid', 'transient query excluded from copied URL', 'unknown and malformed IDs', 'per-building view restrictions', 'bounded query and fragment input'] }, null, 2));

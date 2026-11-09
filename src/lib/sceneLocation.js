@@ -11,7 +11,7 @@ const RIVER_VIEWS = new Set(['zhenjiang-pavilion', 'tianran-pagoda']);
 
 export function normalizeSceneLocation(value = {}, places = []) {
   const place = places.find(item => item.id === value.place);
-  const allowedAngles = place?.kind === 'authored' ? ['detail', 'front', 'context']
+  const allowedAngles = place?.kind === 'authored' ? ['detail', 'front', 'entrance', 'crown', 'context']
     : place?.kind === 'business-poi' ? ['detail', 'context']
       : RIVER_VIEWS.has(place?.id) ? ['detail', 'river'] : ['detail'];
   const angle = place && allowedAngles.includes(value.angle) ? value.angle : 'detail';
