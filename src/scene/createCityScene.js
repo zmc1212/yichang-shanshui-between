@@ -586,8 +586,11 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     const wide = item.spec.kind === 'bridge' || item.spec.kind === 'dam';
     const defaultHeight = Math.max(37, Math.min(extent * 0.43, maxSize * (wide ? 1.75 : 5.2)));
     const safetyHeight = Math.max(projectedHeight / fractionY, projectedWidth / (aspect * fractionX)) * 1.12;
-    const visibleHeight = Math.max(defaultHeight / (options.close ? 1.4 : 1), safetyHeight);
-    const zoom = THREE.MathUtils.clamp(baseHalfHeight * 2 / visibleHeight, 1.5, options.close ? controls.maxZoom : 9);
+    // Reserve the close-view margin before selecting either framing. The
+    // narrower mobile viewport must not force both states onto the same cap.
+    const framedDefaultHeight = Math.max(defaultHeight, safetyHeight * 1.4);
+    const visibleHeight = framedDefaultHeight / (options.close ? 1.4 : 1);
+    const zoom = THREE.MathUtils.clamp(baseHalfHeight * 2 / visibleHeight, 1.5, focusZoomLimit());
     const actualHeight = baseHalfHeight * 2 / zoom;
     const ndcX = ((left + rightEdge) / 2 / widthPx) * 2 - 1;
     const ndcY = 1 - ((top + bottom) / 2 / heightPx) * 2;
@@ -629,7 +632,13 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     const shift = right.multiplyScalar((maxX + minX) / 2).add(up.multiplyScalar((maxY + minY) / 2));
     return { position: position.add(shift), target: target.add(shift), zoom: 1, halfHeight };
   }
+  function focusZoomLimit() {
+    // A fixed minimum visible world height keeps zoom useful on portrait
+    // screens without changing the full-board overview or its camera angle.
+    return Math.max(16, baseHalfHeight * 2 / 18);
+  }
   function setFrustum() {
+    controls.maxZoom = focusZoomLimit();
     const aspect = widthPx / heightPx;
     camera.left = -baseHalfHeight * aspect; camera.right = baseHalfHeight * aspect;
     camera.top = baseHalfHeight; camera.bottom = -baseHalfHeight;
@@ -708,7 +717,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
       if (t === 1) tween = null;
     }
     controls.update(delta);
-    motionRunning = Boolean(motionEnabled && !reducedMotion && selectedId && waterfrontPlan.getSite(selectedId)?.routes.length && camera.zoom > 2 && currentView === 'perspective' && layers.boats.visible && !tween);
+    motionRunning = Boolean(motionEnabled && selectedId && waterfrontPlan.getSite(selectedId)?.routes.length && camera.zoom > 2 && currentView === 'perspective' && layers.boats.visible && !tween);
     let boatsMoved = false;
     if (motionRunning && time - lastMotionFrame >= 1000 / 30) {
       boatsMoved = waterfront.update(Math.min((time - (lastMotionFrame || time)) / 1000, 0.05), selectedId);
@@ -762,7 +771,8 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
       transition(defaultState.target, defaultState.position, 1);
     },
     setMotion(enabled) {
-      motionEnabled = Boolean(enabled) && !reducedMotion; lastMotionFrame = 0;
+      // Reduced motion sets the default; an explicit checkbox choice may opt in.
+      motionEnabled = Boolean(enabled); lastMotionFrame = 0;
       if (!motionEnabled) motionRunning = false;
       return motionEnabled;
     },

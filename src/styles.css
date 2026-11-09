@@ -17,6 +17,8 @@
 @media(max-width:700px){.scene-bottom-caption{padding:8px 10px}.scene-attribution{gap:7px;flex-wrap:wrap;right:auto}}
 
 .save-view-button{padding:8px 10px;border-radius:4px;color:#61775b;white-space:nowrap}
+/* Offscreen projected labels must not make the fixed stage scroll on focus. */
+.main-scene,.map-labels{overflow:clip}
 .detail-navigation{display:flex;align-items:center;gap:1px;margin-right:-8px}
 .detail-top .detail-navigation .icon-button{margin:0;width:28px;height:30px}
 .detail-navigation-divider{height:13px;width:1px;background:var(--line);margin:0 3px}

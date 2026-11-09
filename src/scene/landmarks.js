@@ -29,9 +29,9 @@ const NIGHT = {
 };
 const NIGHT_EMISSION = {
   glass: { color: '#d7a359', intensity: .28 },
-  lantern: { color: '#efb658', intensity: .55 },
-  windowLight: { color: '#efbd70', intensity: .46 },
-  eaveLight: { color: '#ffd69a', intensity: 1.12 },
+  lantern: { color: '#efb658', intensity: .95 },
+  windowLight: { color: '#f6bf72', intensity: 1.05 },
+  eaveLight: { color: '#ffd18b', intensity: 1.55 },
   deckLight: { color: '#f9d7a0', intensity: .82 },
 };
 const NIGHT_ONLY_ROLES = new Set(['eaveLight', 'deckLight']);
@@ -214,10 +214,14 @@ function hipRoof(b, { x = 0, y, z = 0, width, depth = width, height, role = 'roo
     for (let i = 0; i <= count; i++) {
       const p = perimeter(i % count, .97);
       housing.push([p[0], p[1] - .052, p[2]]);
-      light.push([p[0], p[1] - .079, p[2]]);
+      // The visible emitter sits on the outer/upper lip, rather than beneath
+      // the opaque overhang. A thin exposed edge reads from the atlas camera.
+      const edge = perimeter(i % count, 1), dx = edge[0] - x, dz = edge[2] - z;
+      const r = Math.hypot(dx, dz) || 1;
+      light.push([edge[0] + dx / r * .020, edge[1] + .044, edge[2] + dz / r * .020]);
     }
     b.line('teal', housing, .030, 4);
-    b.line('eaveLight', light, .018, 4);
+    b.line('eaveLight', light, .024, 5);
   }
   for (let corner = 0; corner < 4; corner++) {
     const path = [];
@@ -275,10 +279,12 @@ function polygonRoof(b, { y, radius, height, sides = 8, role = 'roof', lift = .1
     for (let i = 0; i <= segments; i++) {
       const p = point(i % segments, .96);
       housing.push([p[0], p[1] - .044, p[2]]);
-      light.push([p[0], p[1] - .067, p[2]]);
+      const edge = point(i % segments, 1), dx = edge[0] - cx, dz = edge[2] - cz;
+      const r = Math.hypot(dx, dz) || 1;
+      light.push([edge[0] + dx / r * .014, edge[1] + .034, edge[2] + dz / r * .014]);
     }
     b.line('stone', housing, .026, 4);
-    b.line('eaveLight', light, .015, 4);
+    b.line('eaveLight', light, .020, 5);
   }
   for (let s = 0; s < sides; s++) {
     const path = [];
@@ -313,6 +319,15 @@ function archWindow(b, x, y, z, width, height, angle = 0, role = 'dark') {
   shape.lineTo(-r, 0);
   const geo = new THREE.ExtrudeGeometry(shape, { depth: .025, bevelEnabled: false, curveSegments: 8 });
   b.add(geo, role, x, y, z, [0, angle, 0]);
+}
+
+function latticeWindow(b, x, y, z, width, height, angle = 0) {
+  const nx = Math.sin(angle), nz = Math.cos(angle), rotation = [0, angle, 0];
+  b.box('redDark', x, y, z, width + .065, height + .065, .045, rotation);
+  b.box('windowLight', x + nx * .033, y, z + nz * .033, width, height, .025, rotation);
+  b.box('gold', x + nx * .057, y, z + nz * .057, .019, height, .019, rotation);
+  b.box('gold', x + nx * .057, y, z + nz * .057, width, .021, .019, rotation);
+  b.box('stone', x + nx * .025, y - height / 2 - .037, z + nz * .025, width + .10, .035, .095, rotation);
 }
 
 function stoneSteps(b, z, width, top = .45, count = 5, x = 0, detailed = false) {
@@ -358,17 +373,18 @@ function pavilion(b) {
     }
     for (const pz of [-t.d / 2, t.d / 2]) b.box('red', 0, t.y + t.h - .05, pz, t.w + .18, .14, .12);
     for (const px of [-t.w / 2, t.w / 2]) b.box('red', px, t.y + t.h - .05, 0, .12, .14, t.d);
-    // Lattice front and back windows with visible mullions.
-    for (const face of [-1, 1]) for (const px of [-.62, 0, .62]) {
-      const wx = px * t.w / 3.2, wz = face * (t.d * .30 + .02), wy = t.y + .35;
-      b.box('windowLight', wx, wy + .32, wz, .39 * t.w / 3.2, .64, .035);
-      b.box('gold', wx, wy + .32, wz + face * .025, .023, .64, .023);
-      b.box('gold', wx, wy + .32, wz + face * .025, .39 * t.w / 3.2, .026, .025);
+    // Small glazed screens occupy the outer column bays. The previous panes
+    // were deep behind the solid core/overhang and invisible from above.
+    const paneH = Math.min(.58, t.h * .46), paneY = t.y + .18 + paneH / 2;
+    for (const face of [-1, 1]) for (const offset of [-.25, .25]) {
+      latticeWindow(b, offset * t.w, paneY, face * (t.d / 2 + .005), t.w * .16, paneH, face < 0 ? Math.PI : 0);
+      latticeWindow(b, face * (t.w / 2 + .005), paneY, offset * t.d, t.d * .16, paneH, face * Math.PI / 2);
     }
     // Corner lanterns, warm highlights in daylight and emissive after dark.
     if (index === 0) for (const px of [-t.w / 2, t.w / 2]) for (const pz of [-t.d / 2, t.d / 2]) {
-      b.rod('gold', [px, t.y + t.h - .10, pz], [px, t.y + t.h - .33, pz], .014);
-      b.cyl('lantern', px, t.y + t.h - .43, pz, .095, .19, 8);
+      const lx = px + Math.sign(px) * .06, lz = pz + Math.sign(pz) * .06;
+      b.rod('gold', [px, t.y + t.h - .10, pz], [lx, t.y + t.h - .625, lz], .014);
+      b.cyl('lantern', lx, t.y + t.h - .72, lz, .095, .19, 8);
     }
     hipRoof(b, { y: t.y + t.h, width: t.roofW, depth: t.roofD, height: t.roofH, lift: .23, role: index === 1 ? 'roof' : 'gold', litEaves: true });
   });
@@ -410,8 +426,8 @@ function pagoda(b) {
       // Selective, inset panes leave a dark reveal and avoid an all-lit facade.
       if ((k + level) % 3 !== 0) {
         const paneR = rr + .035;
-        archWindow(b, Math.cos(a) * paneR, y + .23, Math.sin(a) * paneR, .15 - level * .004, .34, Math.PI / 2 - a, 'windowLight');
-        b.rod('gold', [Math.cos(a) * (paneR + .028), y + .25, Math.sin(a) * (paneR + .028)], [Math.cos(a) * (paneR + .028), y + .49, Math.sin(a) * (paneR + .028)], .008, 4);
+        archWindow(b, Math.cos(a) * paneR, y + .20, Math.sin(a) * paneR, .18 - level * .005, .35, Math.PI / 2 - a, 'windowLight');
+        b.rod('gold', [Math.cos(a) * (paneR + .028), y + .22, Math.sin(a) * (paneR + .028)], [Math.cos(a) * (paneR + .028), y + .47, Math.sin(a) * (paneR + .028)], .008, 4);
       }
       if (level < 5) {
         const nr = radius + .18, next = corner + Math.PI / 4;

@@ -194,7 +194,7 @@ export default function App(){
           </div>:<div id="landmark-panel" role="tabpanel" aria-labelledby="view-tab" className="detail-view">
             <p>换一个角度，发现城市的另一面。</p>
             <button className={cameraAngle==='detail'&&closeView&&view==='perspective'?'active':''} onClick={()=>frameSelected({angle:'detail',close:true})}><Buildings size={20}/><span><strong>地标近景</strong><small>看见建筑与层次</small></span><ArrowUpRight size={16}/></button>
-            <button className={cameraAngle==='river'&&view==='perspective'?'active':''} onClick={()=>frameSelected({angle:'river',close:false})}><Waves size={20}/><span><strong>江岸视角</strong><small>从江面，望向一城风景</small></span><ArrowUpRight size={16}/></button>
+            {['zhenjiang-pavilion','tianran-pagoda'].includes(selectedId)&&<button className={cameraAngle==='river'&&view==='perspective'?'active':''} onClick={()=>frameSelected({angle:'river',close:false})}><Waves size={20}/><span><strong>江岸视角</strong><small>从江面，望向一城风景</small></span><ArrowUpRight size={16}/></button>}
             <button className={view==='top'?'active':''} onClick={()=>changeView('top')}><MapTrifold size={20}/><span><strong>俯瞰此处</strong><small>读懂街巷与江岸</small></span><ArrowUpRight size={16}/></button>
             <button onClick={reset}><Compass size={20}/><span><strong>回到城市</strong><small>让整座宜昌重新展开</small></span><ArrowUpRight size={16}/></button>
           </div>}
