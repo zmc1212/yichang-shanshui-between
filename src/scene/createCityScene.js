@@ -163,6 +163,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
   renderer.domElement.dataset.sceneMode = 'city';
   container.appendChild(renderer.domElement);
   const camera = new THREE.OrthographicCamera(-extent, extent, extent, -extent, 0.1, extent * 16);
+  const lodFrustum = new THREE.Frustum(), lodProjection = new THREE.Matrix4();
   camera.position.set(extent * 0.62, extent * 0.98, extent * 0.84);
   const controls = new OrbitControls(camera, renderer.domElement);
   controls.enableDamping = true;
@@ -924,16 +925,19 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
       // resting city must not poll seven controllers or churn their LOD state.
       lodDirty = false;
       camera.updateMatrixWorld();
+      lodFrustum.setFromProjectionMatrix(lodProjection.multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse));
       // One detailed building at a time, even where several towers fill the
       // screen. All other projects keep their resident city model.
       let detailId=null,largest=0;
       for (const {spec,controller} of authoredEntries.values()) {
         const item=landmarkMap.get(spec.id),state=controller.getStats();
         const pixels=item.size.y/(baseHalfHeight*2)*camera.zoom*heightPx;
-        const screen=item.center.clone().project(camera);
-        const onScreen=layers.landmarks.visible&&Math.abs(screen.x)<1.2&&Math.abs(screen.y)<1.2&&Math.abs(screen.z)<=1;
+        // In a real close-up the tower's centre can be off screen while its
+        // entrance or crown fills the view. Cull the volume, not the centre,
+        // or the local inspection would immediately unload its detail asset.
+        const onScreen=layers.landmarks.visible&&lodFrustum.intersectsBox(item.bounds);
         const threshold=window.innerWidth<=700?300:430;
-        const explicit=selectedId===spec.id&&managedFocus&&currentFocusOptions.close;
+        const explicit=selectedId===spec.id&&currentFocusOptions.close&&(managedFocus||pixels>threshold*.78);
         const wanted=onScreen&&(explicit||pixels>threshold*(state.detailRequested ? .78 : 1));
         const score=explicit?Number.MAX_VALUE:pixels;
         if(wanted&&score>largest){detailId=spec.id;largest=score;}

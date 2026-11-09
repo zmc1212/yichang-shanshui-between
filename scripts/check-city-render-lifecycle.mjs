@@ -305,6 +305,16 @@ try {
     }
     assert.ok(point.depth>=-1&&point.depth<=1,`${label}: stays inside the camera clipping planes`);
   };
+  let offscreenDetailCenters=0;
+  const assertDetailRetained=(id,label)=>{
+    const residents=engine.getStats().authoredResidents;
+    assert.equal(residents.find(value=>value.id===id)?.detailRequested,true,
+      `${label}: a visible local subject must retain its requested detail LOD even when the whole-building center is offscreen`);
+    assert.deepEqual(residents.filter(value=>value.detailRequested).map(value=>value.id),[id],
+      `${label}: only the selected local subject may request detailed geometry`);
+    const center=new Box3().setFromPoints(authoredCorners.get(id)).getCenter(new Vector3()).project(renderer.camera);
+    if(Math.abs(center.x)>1.2||Math.abs(center.y)>1.2) offscreenDetailCenters++;
+  };
   const assertBuildingFits=(id,label,{minOccupancy=0}={})=>{
     const points=authoredCorners.get(id)||allPoints.get(id).slice(1);
     const available=availableBuildingRect(),box=screenBounds(points);
@@ -334,6 +344,7 @@ try {
     assert.equal(renderer.scene,cityScene);assert.equal(renderer.domElement,cityCanvas);
     assert.equal(cityScene.getObjectByName('Yichang miniature').visible,true);
     for(const layer of ['terrain','buildings','roads']) assert.equal(cityScene.getObjectByName(layer).visible,true,`${label}: ${layer} remains visible`);
+    assertDetailRetained(id,label);
     return {height:body.bottom-body.top,zoom:renderer.camera.zoom};
   };
   const focusViewports=[
@@ -410,9 +421,14 @@ try {
   noteRect={...focusViewports[0].inspectionNote};
   wake(()=>engine.focus('shouxin-wealth-s01',{close:true}),'manual facade zoom baseline');
   const nearZoom=renderer.camera.zoom;
-  for(let i=0;i<8;i++) wake(()=>engine.zoom(1),`manual facade zoom ${i}`);
+  for(let i=0;i<8;i++) {
+    wake(()=>engine.zoom(1),`manual facade zoom ${i}`);
+    assertDetailRetained('shouxin-wealth-s01',`manual facade zoom ${i}`);
+  }
   assert.ok(renderer.camera.zoom>nearZoom*2,'manual zoom must go meaningfully closer than the facade preset');
   assert.ok(Number.isFinite(renderer.camera.zoom),'manual close zoom remains finite');
+  assert.ok(offscreenDetailCenters>0,'the LOD regression must exercise a visible subject with its building center outside the former screen gate');
+  checks.push('visible facade/entrance/crown subjects retain exactly one selected detail LOD request even with offscreen building centers and after manual close zoom');
 
   // Small ordinary landmarks previously inherited large neighborhood-sized
   // minimum frames. Their full geometry must now fill a useful part of the

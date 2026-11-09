@@ -6,7 +6,7 @@
 
 - 相机、OrbitControls、独立源坐标投影和生命周期检查通过，覆盖全部 7 个楼宇的幕墙、入口、顶部及返回全貌。
 - 分享链接往返检查通过，旧近景链接兼容。
-- 构建通过。预期运行文件为 `index-BzmST9vy.js`、`index-Dt0YRcge.css`。
+- 初版局部镜头构建通过，V33/V34 运行文件为 `index-BzmST9vy.js`、`index-Dt0YRcge.css`；后续 LOD 修复会生成新的 JS 文件。
 - 实际局部窗口来自当前 GLB 可见几何。未改变建筑比例、朝向、位置或资产版本。
 
 ## 首次发布观察
@@ -30,8 +30,16 @@ V33 独立保存并发布成功后，同一原网址已实际返回 `index-BzmST
 - 320×740 窄屏：6 个按钮均在说明卡内容区内，最左 28 px、最右 293 px，没有水平溢出。
 - 手机万达：幕墙观察位置确实在中间塔楼上，能够看到窗格和竖向构件；点击“全貌”后退出局部工具区并恢复“靠近看看”入口。
 - 点击加号可以进一步放大；当前检查的浏览器 warning/error 记录为空。
-- 近景时 DOM 状态为 `modelQuality=detail`、`cityVisible=true`、`sceneMode=city`、`residentModels=7`，静止后 `renderState=idle`。
+- 幕墙近景时核对过 DOM 状态为 `modelQuality=detail`、`cityVisible=true`、`sceneMode=city`、`residentModels=7`，静止后 `renderState=idle`。入口、顶部初次截图未分别记录最终模型质量，不能据此断言这些初次截图均使用细节版。
 
 截图为浏览器原图：`facade-desktop.png`、`entrance-desktop.png`、`crown-desktop.png`、`facade-mobile.png`、`entrance-mobile.png`、`wanda-facade-mobile.png`。未合成或补画模型细节。
 
 所有 7 个模型完成几何和相机回归；本轮实际浏览器重点检查首信和万达，不扩大表述为所有模型的实景验收。手机测试采用浏览器响应式视口，未测物理手机帧率、功耗或网络性能。
+
+## 局部视角的细节保留修复
+
+V34 最后检查发现首信顶部的画面仍处于局部观察，但整楼中心离开屏幕后，原 LOD 判断把细节卸载为 `modelQuality=light`、`detailModels=0`。入口也可能触发同一问题。
+
+现将可见性判断改为整个建筑包围体与镜头视锥相交，手动缩放后保留可见且足够大的选中建筑的细节优先级。仍最多只允许一栋建筑请求细节。
+
+回归先证明旧实现失败（中南冶金桌面入口），再验证修复通过，覆盖 7 个模型 × 3 个局部部位 × 3 种视口布局及连续手动放大。新运行包发布后的实际 GLB 加载结果与替换截图继续在此记录。
