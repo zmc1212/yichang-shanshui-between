@@ -559,6 +559,11 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
       // Look from the source water side, at a gentler elevation than overview.
       const n = site.shore.normal, t = site.shore.tangent;
       direction.set(-n[0] + t[0] * 0.12, 0.62, -n[1] + t[1] * 0.12).normalize();
+    } else if (item.spec.id === 'tianran-pagoda' && site) {
+      // Frame the pagoda from open water, above the low river angle, so its
+      // neighboring towers remain behind it instead of crossing its silhouette.
+      const n = site.shore.normal, t = site.shore.tangent;
+      direction.set(-n[0] + t[0] * 0.35, 1.15, -n[1] + t[1] * 0.35).normalize();
     }
     if (view === 'top') direction.set(0, 1, 0.0001).normalize();
     const right = new THREE.Vector3(direction.z, 0, -direction.x).normalize();
