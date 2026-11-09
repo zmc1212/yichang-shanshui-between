@@ -134,7 +134,8 @@ export function planWaterfront({ data, landmarks, modelBounds, inWater, heightAt
     }
     const padding = clamp(Math.max(maxX - minX, maxZ - minZ) * 0.04, 0.04, 0.12);
     const footprintWorld = { minX: center[0] + footprint.minX - padding, maxX: center[0] + footprint.maxX + padding, minZ: center[1] + footprint.minZ - padding, maxZ: center[1] + footprint.maxZ + padding };
-    sites.push({ id: spec.id, original: [spec.x, spec.z], center, footprint: footprintWorld, footprintFitsLand: found, fitClearance: clearance, anchorPolicy: 'fixed-source-poi', shift: 0, shore: nearest, paving: [], rails: [], benches: [], lamps: [], routes: [] });
+    const furnitureScale = clamp(Number.isFinite(spec.modelScale) && spec.modelScale > 0 ? spec.modelScale : 1, 0.28, 1);
+    sites.push({ id: spec.id, original: [spec.x, spec.z], center, footprint: footprintWorld, footprintFitsLand: found, fitClearance: clearance, anchorPolicy: 'fixed-source-poi', shift: 0, furnitureScale, shore: nearest, paving: [], rails: [], benches: [], lamps: [], routes: [] });
   }
   const omittedBuildingIndices = new Set();
   const buildings = [];
@@ -296,28 +297,32 @@ export function createWaterfront(plan, { heightAt, makeMaterial }) {
   };
   const lampPositions = [];
   for (const site of plan.sites) {
+    const scale = site.furnitureScale || 1;
     site.paving.forEach((p, i) => batches.add(p.plaza && i % 9 === 0 ? 'pavingAlt' : 'paving', quadGeometry(p.points, heightAt, p.plaza ? 0.091 : 0.085)));
     for (const rail of site.rails) {
-      const ay = heightAt(rail.a[0], rail.a[1]), by = heightAt(rail.b[0], rail.b[1]);
-      batches.rod('stone', [rail.a[0], ay + 0.11, rail.a[1]], [rail.b[0], by + 0.11, rail.b[1]], 0.075);
-      for (const h of [0.23, 0.4]) batches.rod('metal', [rail.a[0], ay + h, rail.a[1]], [rail.b[0], by + h, rail.b[1]], 0.018);
-      batches.rod('metal', [rail.a[0], ay + 0.14, rail.a[1]], [rail.a[0], ay + 0.43, rail.a[1]], 0.026);
+      // Keep the mapped shoreline endpoints; only the rail profile scales
+      // above the existing paving surface.
+      const ay = heightAt(rail.a[0], rail.a[1]) + 0.085, by = heightAt(rail.b[0], rail.b[1]) + 0.085;
+      const rise = height => (height - 0.085) * scale;
+      batches.rod('stone', [rail.a[0], ay + rise(0.11), rail.a[1]], [rail.b[0], by + rise(0.11), rail.b[1]], 0.075 * scale);
+      for (const h of [0.23, 0.4]) batches.rod('metal', [rail.a[0], ay + rise(h), rail.a[1]], [rail.b[0], by + rise(h), rail.b[1]], 0.018 * scale);
+      batches.rod('metal', [rail.a[0], ay + rise(0.14), rail.a[1]], [rail.a[0], ay + rise(0.43), rail.a[1]], 0.026 * scale);
     }
     for (const bench of site.benches) {
       const sin = Math.sin(bench.angle), cos = Math.cos(bench.angle);
-      const local = (x, y, z) => [bench.x + cos * x + sin * z, bench.y + y, bench.z - sin * x + cos * z];
+      const local = (x, y, z) => [bench.x + (cos * x + sin * z) * scale, bench.y + y * scale, bench.z + (-sin * x + cos * z) * scale];
       for (const x of [-0.23, 0.23]) for (const z of [-0.07, 0.07]) {
-        const p = local(x, 0.12, z); batches.box('metal', ...p, 0.04, 0.24, 0.04, bench.angle);
+        const p = local(x, 0.12, z); batches.box('metal', ...p, 0.04 * scale, 0.24 * scale, 0.04 * scale, bench.angle);
       }
-      for (let i = 0; i < 3; i++) { const p = local(0, 0.25, (i - 1) * 0.065); batches.box('wood', ...p, 0.65, 0.045, 0.052, bench.angle); }
-      const back = local(0, 0.38, 0.105); batches.box('wood', ...back, 0.65, 0.19, 0.045, bench.angle);
+      for (let i = 0; i < 3; i++) { const p = local(0, 0.25, (i - 1) * 0.065); batches.box('wood', ...p, 0.65 * scale, 0.045 * scale, 0.052 * scale, bench.angle); }
+      const back = local(0, 0.38, 0.105); batches.box('wood', ...back, 0.65 * scale, 0.19 * scale, 0.045 * scale, bench.angle);
     }
     for (const lamp of site.lamps) {
-      batches.box('stone', lamp.x, lamp.y + 0.04, lamp.z, 0.15, 0.08, 0.15);
-      batches.rod('metal', [lamp.x, lamp.y + 0.06, lamp.z], [lamp.x, lamp.y + 0.96, lamp.z], 0.024);
-      batches.box('metal', lamp.x, lamp.y + 0.98, lamp.z, 0.17, 0.045, 0.17);
-      batches.box('light', lamp.x, lamp.y + 0.91, lamp.z, 0.105, 0.11, 0.105);
-      lampPositions.push(lamp.x, lamp.y + 0.91, lamp.z);
+      batches.box('stone', lamp.x, lamp.y + 0.04 * scale, lamp.z, 0.15 * scale, 0.08 * scale, 0.15 * scale);
+      batches.rod('metal', [lamp.x, lamp.y + 0.06 * scale, lamp.z], [lamp.x, lamp.y + 0.96 * scale, lamp.z], 0.024 * scale);
+      batches.box('metal', lamp.x, lamp.y + 0.98 * scale, lamp.z, 0.17 * scale, 0.045 * scale, 0.17 * scale);
+      batches.box('light', lamp.x, lamp.y + 0.91 * scale, lamp.z, 0.105 * scale, 0.11 * scale, 0.105 * scale);
+      lampPositions.push(lamp.x, lamp.y + 0.91 * scale, lamp.z);
     }
   }
   batches.finish(group, materials);

@@ -549,8 +549,9 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     }
     const maxSize = Math.max(item.size.x, item.size.z, item.size.y);
     const wide = item.spec.kind === 'bridge' || item.spec.kind === 'dam';
-    const minimumHeight = site ? 10 : 37;
-    const defaultHeight = Math.max(minimumHeight, Math.min(extent * 0.43, maxSize * (wide ? 1.75 : 5.2)));
+    const pagoda = item.spec.id === 'tianran-pagoda';
+    const minimumHeight = pagoda ? 7.2 : site ? 10 : 37;
+    const defaultHeight = Math.max(minimumHeight, Math.min(extent * 0.43, maxSize * (wide ? 1.75 : pagoda ? 4 : 5.2)));
     const safetyHeight = Math.max(projectedHeight / fractionY, projectedWidth / (aspect * fractionX)) * 1.12;
     // Reserve the close-view margin before selecting either framing. The
     // narrower mobile viewport must not force both states onto the same cap.
@@ -601,7 +602,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
   function focusZoomLimit() {
     // A fixed minimum visible world height keeps zoom useful on portrait
     // screens without changing the full-board overview or its camera angle.
-    return Math.max(16, baseHalfHeight * 2 / 6);
+    return Math.max(16, baseHalfHeight * 2 / 4.8);
   }
   function setFrustum() {
     controls.maxZoom = focusZoomLimit();
