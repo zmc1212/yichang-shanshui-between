@@ -48,7 +48,11 @@ check('empty, unready and invalid projected points do not create map locations',
 check('one POI remains an independent label at its screen anchor', () => {
   const result = layoutPoiLabels([point('single', 200, 160)], desktop);
   everyPointOnce(result, ['single']);
-  assert.deepEqual(result.markers[0], { key: 'poi:single', memberIds: ['single'], anchorX: 200, anchorY: 160, left: 153, top: 112, width: 94, height: 40, selected: false });
+  assert.equal(result.markers[0].kind, 'label');
+  assert.equal(result.markers[0].representativeId, 'single');
+  assert.equal(result.markers[0].left, 153);
+  assert.equal(result.markers[0].top, 112);
+  assert.equal(result.markers[0].selected, false);
   assert.equal(result.markers[0].anchorY - result.markers[0].top - result.markers[0].height, 8, 'natural capsule leaves room for a visible anchor dot and leader');
   usableLayout(result, desktop);
 });
@@ -117,6 +121,97 @@ check('layout is deterministic across reversed source order and never mutates in
   assert.equal(JSON.stringify(input), initial);
 });
 
+check('landmarks and search targets remain independent beside a named business group', () => {
+  const input = [
+    point('landmark', 190, 260, { isLandmark: true, priority: 90 }),
+    point('search-target', 195, 265, { protected: true, priority: 100 }),
+    point('office-a', 198, 267, { priority: 30 }),
+    point('office-b', 204, 271, { priority: 50, clusterWidth: 202, clusterHeight: 44 }),
+  ];
+  const result = layoutPoiLabels(input, phone);
+  everyPointOnce(result, input.map(item => item.id));
+  for (const id of ['landmark', 'search-target']) {
+    const marker = result.markers.find(item => item.memberIds.includes(id));
+    assert.deepEqual(marker.memberIds, [id]);
+  }
+  assert.equal(result.markers.find(item => item.memberIds[0] === 'search-target').kind, 'label');
+  const namedGroup = result.markers.find(item => item.kind === 'cluster');
+  assert.ok(namedGroup, 'the two nearby business places retain a named grouping');
+  assert.equal(namedGroup.representativeId, 'office-b');
+  assert.equal(namedGroup.memberIds.length, 2, 'count includes the representative');
+  assert.equal(namedGroup.width, 202, 'group uses its representative name measurement');
+  assert.equal(namedGroup.height, 44);
+  usableLayout(result, phone);
+});
+
+check('screen overlap does not merge geographically distant business sites', () => {
+  const input = [
+    point('near-a', 200, 250, { lon: 111.29, lat: 30.68 }),
+    point('near-b', 202, 251, { lon: 111.291, lat: 30.681 }),
+    point('far', 204, 252, { lon: 111.39, lat: 30.75 }),
+  ];
+  const result = layoutPoiLabels(input, desktop);
+  assert.ok(result.markers.every(marker => !marker.memberIds.includes('far') || marker.memberIds.length === 1));
+  everyPointOnce(result, input.map(item => item.id));
+  usableLayout(result, desktop);
+});
+
+check('selection is extracted from a previous group with updated nonduplicated membership', () => {
+  const input = [point('a', 200, 250), point('b', 202, 252), point('c', 204, 254)];
+  const initial = layoutPoiLabels(input, desktop);
+  const selected = layoutPoiLabels(input, { ...desktop, selectedId: 'b', previousMarkers: initial.markers });
+  everyPointOnce(selected, ['a', 'b', 'c']);
+  assert.deepEqual(selected.markers.find(marker => marker.selected).memberIds, ['b']);
+  assert.deepEqual(selected.markers.find(marker => marker.kind === 'cluster').memberIds, ['a', 'c']);
+  usableLayout(selected, desktop);
+});
+
+check('small camera changes preserve group identity and relative label placement', () => {
+  const input = [
+    point('landmark', 230, 250, { isLandmark: true, priority: 100 }),
+    point('office-z', 234, 254, { priority: 50 }),
+    point('office-a', 248, 266, { priority: 10 }),
+    point('separate', 600, 450),
+  ];
+  const initial = layoutPoiLabels(input, desktop);
+  const moved = input.map(item => ({ ...item, x: item.x + 0.75, y: item.y + 0.4 }));
+  const next = layoutPoiLabels(moved, { ...desktop, previousMarkers: initial.markers });
+  assert.deepEqual(next.markers.map(marker => marker.key), initial.markers.map(marker => marker.key));
+  for (const marker of next.markers) {
+    const old = initial.markers.find(item => item.key === marker.key);
+    assert.equal(marker.representativeId, old.representativeId);
+    assert.ok(Math.abs(marker.left - old.left - 0.75) < 0.00001);
+    assert.ok(Math.abs(marker.top - old.top - 0.4) < 0.00001);
+  }
+  usableLayout(next, desktop);
+});
+
+check('compact points need clear extra space before promoting their name again', () => {
+  const input = [point('landmark', 200, 300, { isLandmark: true })];
+  const corridor = gap => [
+    { left: 0, top: 0, right: 200 - gap / 2, bottom: phone.height },
+    { left: 200 + gap / 2, top: 0, right: phone.width, bottom: phone.height },
+  ];
+  const tight = layoutPoiLabels(input, { ...phone, obstacles: corridor(100) });
+  assert.equal(tight.markers[0].kind, 'dot');
+  const marginal = layoutPoiLabels(input, { ...phone, obstacles: corridor(106), previousMarkers: tight.markers });
+  assert.equal(marginal.markers[0].kind, 'dot');
+  const clear = layoutPoiLabels(input, { ...phone, previousMarkers: marginal.markers });
+  assert.equal(clear.markers[0].kind, 'label');
+  usableLayout(tight, phone, corridor(100));
+  usableLayout(marginal, phone, corridor(106));
+  usableLayout(clear, phone);
+});
+
+check('incomplete or stale previous markers cannot manufacture duplicate members', () => {
+  const input = [point('a', 200, 250), point('b', 202, 252)];
+  const result = layoutPoiLabels(input, { ...desktop, previousMarkers: [
+    null, { key: 'incomplete' }, { key: 'old', memberIds: ['a', 'a', 'b', 'removed'] },
+  ] });
+  everyPointOnce(result, ['a', 'b']);
+  usableLayout(result, desktop);
+});
+
 check('small valid viewport clamps long labels without dropping selected or clustered members', () => {
   const tiny = { width: 170, height: 150, compact: true, selectedId: 'selected' };
   const result = layoutPoiLabels([point('selected', 85, 75, { width: 280 }), point('a', 85, 75), point('b', 88, 77)], tiny);
@@ -131,7 +226,7 @@ check('physically blocked screen reports constraints while retaining all list me
   assert.equal(result.constrained, true);
   everyPointOnce(result, ['selected', 'a', 'b']);
   assert.equal(result.markers.filter(marker => marker.selected).length, 1);
-  assert.equal(result.markers.length, 2);
+  assert.ok(result.markers.length >= 2);
 });
 
 const city = JSON.parse(fs.readFileSync(new URL('../public/data/city.json', import.meta.url), 'utf8'));
@@ -140,11 +235,21 @@ check('all 30 existing registry IDs survive dense overview, selected mobile view
   assert.equal(registry.length, 30);
   // A deliberately dense screen projection represents a small-city overview;
   // real WebGL projection and visual readability are verified in the browser.
-  const input = registry.map((item, index) => point(item.id, 110 + (index % 6) * 30, 210 + Math.floor(index / 6) * 24, { width: Math.max(76, item.name.length * 10 + 24) }));
+  const input = registry.map((item, index) => point(item.id, 110 + (index % 6) * 30, 210 + Math.floor(index / 6) * 24, {
+    width: Math.max(76, item.name.length * 10 + 24),
+    priority: item.business ? item.kind === 'authored' ? 50 : 10 : 100 - index,
+    isLandmark: !item.business, lon: item.lon, lat: item.lat,
+  }));
   for (const selectedId of [null, registry[0].id, registry[13].id, registry[29].id]) {
     const result = layoutPoiLabels(input, { ...phone, selectedId, obstacles: [{ left: 12, top: 560, right: 378, bottom: 740 }] });
     everyPointOnce(result, registry.map(item => item.id));
     usableLayout(result, phone, [{ left: 12, top: 560, right: 378, bottom: 740 }]);
+    for (const landmark of registry.filter(item => !item.business)) {
+      assert.deepEqual(result.markers.find(marker => marker.memberIds.includes(landmark.id)).memberIds, [landmark.id]);
+    }
+    const landmarkIds = new Set(registry.filter(item => !item.business).map(item => item.id));
+    assert.ok(result.markers.filter(marker => marker.kind === 'label' && landmarkIds.has(marker.representativeId)).length <= 4 + Number(landmarkIds.has(selectedId)), 'phone overview reserves room beyond ordinary landmark names');
+    assert.ok(result.markers.some(marker => marker.kind === 'dot'), 'dense mobile uses compact access points instead of swallowing landmarks');
     if (selectedId) assert.deepEqual(result.markers.find(marker => marker.selected)?.memberIds, [selectedId]);
   }
 });

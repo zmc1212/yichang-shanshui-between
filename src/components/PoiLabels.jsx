@@ -1,6 +1,7 @@
 import React, { forwardRef, useCallback, useEffect, useId, useImperativeHandle, useLayoutEffect, useRef, useState } from 'react';
-import { ArrowUpRight, CaretRight, MagnifyingGlassPlus, MapPin, Stack, X } from '@phosphor-icons/react';
+import { ArrowUpRight, Buildings, CaretRight, List, MagnifyingGlassPlus, MapPin, Stack, X } from '@phosphor-icons/react';
 import { layoutPoiLabels, POI_CLUSTER_DIMENSIONS } from '../lib/poiLabelLayout.js';
+import { poiDisplayName, poiDisplayPriority } from '../lib/poiDisplayPolicy.js';
 
 const OBSTACLES = '.scene-toolbar,.map-tools-top,.layer-panel,.detail-panel,.authored-note,.map-controls,.scene-attribution,.scene-bottom-caption,.interaction-hint';
 const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
@@ -8,8 +9,8 @@ const circlePath = (x, y, radius) => 'M' + (x - radius) + ',' + y + 'a' + radius
 
 function placeStatus(place) {
   if (!place.business) return place.category || '城市地标';
-  if (place.modelStatus === 'available') return (place.stage || '自建模型 · 阶段候选') + ' · 非实测';
-  if (place.modelStatus === 'registration-pending') return '独立候选预览 · 地图配准待核准';
+  if (place.modelStatus === 'available') return '自建模型 · 阶段候选';
+  if (place.modelStatus === 'registration-pending') return '独立预览 · 位置待核准';
   return '导览参考点 · 模型待恢复';
 }
 
@@ -23,6 +24,7 @@ function focusable(element) {
 // and moved; neither a cluster centre nor a displaced label is written back.
 const PoiLabels = forwardRef(function PoiLabels({
   places = [], selectedId = null, visible = true, compact = false,
+  searchIds = [], searchTargetId = null,
   onSelect, onZoomGroup, onOpenGroup, layoutKey,
 }, forwardedRef) {
   const hostRef = useRef(null);
@@ -46,7 +48,7 @@ const PoiLabels = forwardRef(function PoiLabels({
   const [clusters, setClusters] = useState([]);
   const [openGroup, setOpenGroup] = useState(null);
   const popupTitleId = useId();
-  propsRef.current = { places, selectedId, visible, compact, onSelect, onZoomGroup, onOpenGroup };
+  propsRef.current = { places, selectedId, visible, compact, searchIds, searchTargetId, onSelect, onZoomGroup, onOpenGroup };
 
   const dismiss = useCallback(({ restoreFocus = false } = {}) => {
     const previous = openRef.current;
@@ -57,7 +59,7 @@ const PoiLabels = forwardRef(function PoiLabels({
     if (restoreFocus) {
       focusFrameRef.current = requestAnimationFrame(() => {
         if (!mountedRef.current || !propsRef.current.visible) return;
-        const trigger = clusterRefs.current.get(previous.key);
+        const trigger = clusterRefs.current.get(previous.key)?.querySelector('.poi-cluster-list');
         const selected = soloRefs.current.get(propsRef.current.selectedId);
         if (focusable(trigger)) trigger.focus({ preventScroll: true });
         else if (focusable(selected)) selected.focus({ preventScroll: true });
@@ -88,13 +90,15 @@ const PoiLabels = forwardRef(function PoiLabels({
 
   const measureSoloButtons = useCallback(() => {
     const measured = new Map();
-    const savedWidths = new Map();
+    const savedStyles = new Map();
     // Measure intrinsic text, not the width assigned by the previous layout.
     // Batch these writes before reading so repeated refreshes cannot grow a
     // label or retain the previous device/font's wider measurement.
     for (const [id, button] of soloRefs.current) {
-      savedWidths.set(id, button.style.width);
+      savedStyles.set(id, { width: button.style.width, height: button.style.height, dot: button.classList.contains('is-dot') });
+      button.classList.remove('is-dot');
       button.style.width = 'max-content';
+      button.style.height = '';
     }
     for (const place of propsRef.current.places) {
       const button = soloRefs.current.get(place.id);
@@ -102,20 +106,23 @@ const PoiLabels = forwardRef(function PoiLabels({
       const title = button.querySelector('.poi-label-title');
       const note = button.querySelector('.poi-label-note');
       const style = getComputedStyle(button);
-      const horizontal = parseFloat(style.paddingLeft) + parseFloat(style.paddingRight)
-        + parseFloat(style.borderLeftWidth) + parseFloat(style.borderRightWidth);
-      const vertical = parseFloat(style.paddingTop) + parseFloat(style.paddingBottom)
-        + parseFloat(style.borderTopWidth) + parseFloat(style.borderBottomWidth);
       const textWidth = Math.max(title?.scrollWidth || 0, note?.scrollWidth || 0,
         title?.getBoundingClientRect().width || 0, note?.getBoundingClientRect().width || 0);
+      const bounds = button.getBoundingClientRect();
       measured.set(place.id, {
-        width: Math.ceil(Math.max(parseFloat(style.minWidth) || 0,
-          textWidth + horizontal + 1)),
-        height: Math.ceil(Math.max(parseFloat(style.minHeight) || 0,
-          (title?.offsetHeight || 14) + (note ? note.offsetHeight + 3 : 0) + vertical)),
+        width: Math.ceil(Math.max(parseFloat(style.minWidth) || 0, bounds.width + 1)),
+        height: Math.ceil(Math.max(parseFloat(style.minHeight) || 0, bounds.height)),
+        clusterWidth: Math.ceil(Math.min(propsRef.current.compact ? 224 : 244,
+          Math.max(propsRef.current.compact ? 168 : 156, textWidth + (propsRef.current.compact ? 113 : 106)))),
+        clusterHeight: propsRef.current.compact ? 44 : 40,
       });
     }
-    for (const [id, button] of soloRefs.current) button.style.width = savedWidths.get(id) || '';
+    for (const [id, button] of soloRefs.current) {
+      const saved = savedStyles.get(id);
+      button.style.width = saved?.width || '';
+      button.style.height = saved?.height || '';
+      button.classList.toggle('is-dot', Boolean(saved?.dot));
+    }
     measureRef.current = measured;
   }, []);
 
@@ -137,7 +144,10 @@ const PoiLabels = forwardRef(function PoiLabels({
         element.style.height = marker.height + 'px';
         element.style.visibility = show ? 'visible' : 'hidden';
         element.style.pointerEvents = show ? 'auto' : 'none';
-        element.tabIndex = show ? 0 : -1;
+        element.tabIndex = solo && show ? 0 : -1;
+        element.dataset.poiKind = marker.kind || (solo ? 'label' : 'cluster');
+        element.classList.toggle('is-dot', marker.kind === 'dot');
+        for (const button of element.querySelectorAll('button')) button.tabIndex = show ? 0 : -1;
         element.setAttribute('aria-hidden', show ? 'false' : 'true');
       }
       const x = clamp(marker.anchorX, marker.left, marker.left + marker.width);
@@ -150,6 +160,7 @@ const PoiLabels = forwardRef(function PoiLabels({
     const hide = element => {
       element.style.visibility = 'hidden'; element.style.pointerEvents = 'none';
       element.tabIndex = -1; element.setAttribute('aria-hidden', 'true');
+      for (const button of element.querySelectorAll('button')) button.tabIndex = -1;
     };
     for (const [id, element] of soloRefs.current) if (!activeSoloIds.has(id)) hide(element);
     for (const [key, element] of clusterRefs.current) if (!activeClusterKeys.has(key)) hide(element);
@@ -167,6 +178,7 @@ const PoiLabels = forwardRef(function PoiLabels({
     host.dataset.representedPois = String(show ? representedIds.length : 0);
     host.dataset.representedIds = JSON.stringify(show ? representedIds : []);
     host.dataset.clusterCount = String(show ? markers.filter(item => item.memberIds.length > 1).length : 0);
+    host.dataset.namedCount = String(show ? markers.filter(item => item.kind !== 'dot').length : 0);
     host.dataset.layoutConstrained = String(constrained);
     positionPopup();
   }, [positionPopup]);
@@ -190,20 +202,30 @@ const PoiLabels = forwardRef(function PoiLabels({
       return { left: box.left - mainRect.left, top: box.top - mainRect.top,
         right: box.right - mainRect.left, bottom: box.bottom - mainRect.top };
     });
-    const known = new Set(current.places.map(place => place.id));
+    const known = new Map(current.places.map(place => [place.id, place]));
+    const matching = new Set(current.searchIds);
     const points = (projection.labels || []).filter(point => known.has(point.id))
-      .map(point => ({ ...point, ...(measureRef.current.get(point.id) || { width: 96, height: current.compact ? 44 : 32 }) }));
+      .map(point => {
+        const place = known.get(point.id);
+        const target = point.id === current.searchTargetId;
+        return { ...point, ...(measureRef.current.get(point.id) || { width: 96, height: current.compact ? 44 : 32 }),
+          priority: poiDisplayPriority(place) + (target ? 1000 : matching.has(point.id) ? 200 : 0),
+          isLandmark: !place.business, protected: target,
+          lon: place.lon, lat: place.lat,
+        };
+      });
     const visibleIds = [...new Set(points.filter(point => point.visible !== false
       && Number.isFinite(point.x) && Number.isFinite(point.y)
       && point.x >= 0 && point.x <= width && point.y >= 0 && point.y <= height).map(point => point.id))];
-    const layout = layoutPoiLabels(points, { width, height, selectedId: current.selectedId, compact: current.compact, obstacles });
+    const layout = layoutPoiLabels(points, { width, height, selectedId: current.selectedId, compact: current.compact, obstacles,
+      previousMarkers: latestLayout.current.markers });
     latestLayout.current = layout;
     host.dataset.visiblePois = String(current.visible ? visibleIds.length : 0);
     host.dataset.visibleIds = JSON.stringify(current.visible ? visibleIds : []);
     svgRef.current?.setAttribute('viewBox', '0 0 ' + width + ' ' + height);
     const nextClusters = layout.markers.filter(marker => marker.memberIds.length > 1)
-      .map(marker => ({ key: marker.key, memberIds: marker.memberIds }));
-    const topology = nextClusters.map(marker => marker.key).sort().join('\n');
+      .map(marker => ({ key: marker.key, memberIds: marker.memberIds, representativeId: marker.representativeId }));
+    const topology = nextClusters.map(marker => marker.key + ':' + marker.representativeId).sort().join('\n');
     if (topology !== topologyRef.current) {
       topologyRef.current = topology;
       setClusters(nextClusters);
@@ -219,7 +241,7 @@ const PoiLabels = forwardRef(function PoiLabels({
   const refresh = useCallback(() => { measureSoloButtons(); project(); }, [measureSoloButtons, project]);
   useImperativeHandle(forwardedRef, () => ({ project, refresh, dismiss }), [project, refresh, dismiss]);
 
-  useLayoutEffect(() => { refresh(); }, [places, selectedId, compact, visible, layoutKey, refresh]);
+  useLayoutEffect(() => { refresh(); }, [places, selectedId, compact, visible, searchIds, searchTargetId, layoutKey, refresh]);
   useLayoutEffect(() => { applyLayout(); }, [clusters, applyLayout]);
   useEffect(() => { if (!visible) dismiss(); }, [visible, dismiss]);
   useEffect(() => {
@@ -270,9 +292,24 @@ const PoiLabels = forwardRef(function PoiLabels({
     if (!propsRef.current.visible) return;
     if (openRef.current?.key === marker.key) { dismiss({ restoreFocus: true }); return; }
     propsRef.current.onOpenGroup?.(marker.memberIds);
-    const next = { key: marker.key, memberIds: [...marker.memberIds] };
+    const byId = new Map(propsRef.current.places.map(place => [place.id, place]));
+    const memberIds = [...marker.memberIds].sort((a, b) => {
+      if (a === marker.representativeId) return -1;
+      if (b === marker.representativeId) return 1;
+      return poiDisplayPriority(byId.get(b)) - poiDisplayPriority(byId.get(a)) || a.localeCompare(b);
+    });
+    const next = { key: marker.key, memberIds, representativeId: marker.representativeId };
     openRef.current = next;
     setOpenGroup(next);
+  };
+  const zoom = marker => {
+    const ids = [...marker.memberIds];
+    dismiss();
+    propsRef.current.onOpenGroup?.(ids);
+    // The old cluster can unmount during the camera tween. Keep keyboard focus
+    // on the stable map surface instead of letting it fall back to the document.
+    hostRef.current?.focus({ preventScroll: true });
+    propsRef.current.onZoomGroup?.(ids);
   };
   const selectMember = id => {
     dismiss();
@@ -311,27 +348,42 @@ const PoiLabels = forwardRef(function PoiLabels({
     </svg>
     {places.map(place => <button key={place.id}
       ref={element => { if (element) soloRefs.current.set(place.id, element); else soloRefs.current.delete(place.id); }}
-      className={'poi-marker poi-solo' + (selectedId === place.id ? ' is-selected' : '') + (place.kind === 'business-poi' ? ' is-reference' : '')}
+      className={'poi-marker poi-solo' + (selectedId === place.id ? ' is-selected' : '') + (place.kind === 'business-poi' ? ' is-reference' : '')
+        + (!place.business ? ' is-landmark' : '') + (searchIds.includes(place.id) ? ' is-search-match' : '')}
       data-poi-members={JSON.stringify([place.id])} data-poi-count="1" tabIndex={-1}
       title={place.name + (place.kind === 'business-poi' ? ' · 导览参考点' : '')}
       aria-label={'查看' + place.name + (place.kind === 'business-poi' ? '的导览参考点' : '')}
       onClick={() => selectMember(place.id)}>
-      <span className="poi-label-title">{place.name}</span>
-      {selectedId === place.id && place.kind === 'business-poi' && <small className="poi-label-note">导览参考点</small>}
+      {place.business ? <Buildings className="poi-kind-icon" size={13}/> : <MapPin className="poi-kind-icon" size={13} weight="duotone"/>}
+      <span className="poi-label-title">{poiDisplayName(place)}</span>
+      {selectedId === place.id && place.kind === 'business-poi' && <small className="poi-label-note">{place.modelStatus === 'registration-pending' ? '位置待核准' : '导览参考点'}</small>}
     </button>)}
-    {clusters.map(marker => <button key={marker.key}
+    {clusters.map(marker => {
+      const representative = placeById.get(marker.representativeId || marker.memberIds[0]);
+      const name = poiDisplayName(representative);
+      const groupName = name + '等 ' + marker.memberIds.length + ' 处';
+      const preview = marker.memberIds.map(id => placeById.get(id)?.name).filter(Boolean).slice(0, 3).join('、');
+      return <div key={marker.key}
       ref={element => { if (element) clusterRefs.current.set(marker.key, element); else clusterRefs.current.delete(marker.key); }}
       className={'poi-marker poi-cluster' + (openGroup?.key === marker.key ? ' is-open' : '')}
       style={{ width: clusterSize.width, height: clusterSize.height }}
-      data-poi-members={JSON.stringify(marker.memberIds)} data-poi-count={marker.memberIds.length} tabIndex={-1}
-      aria-label={'附近' + marker.memberIds.length + '处地点，展开列表'} aria-haspopup="dialog"
-      aria-expanded={openGroup?.key === marker.key} aria-controls={openGroup?.key === marker.key ? popupTitleId + '-panel' : undefined}
-      onClick={() => open(marker)}>
-      <Stack size={13}/><span>附近 <strong>{marker.memberIds.length}</strong> 处</span>
-    </button>)}
+      data-poi-members={JSON.stringify(marker.memberIds)} data-poi-count={marker.memberIds.length}
+      data-representative-id={representative?.id} role="group" aria-label={groupName + '，地点分组'} tabIndex={-1}>
+        <button className="poi-cluster-zoom" tabIndex={-1} aria-label={'靠近查看' + groupName}
+          title={preview + (marker.memberIds.length > 3 ? '等' : '') + ' · 点击靠近展开'}
+          onClick={() => zoom(marker)}>
+          <Stack size={13}/><span className="poi-cluster-name">{name}</span>
+          <span className="poi-cluster-count">等 <strong>{marker.memberIds.length}</strong> 处</span>
+        </button>
+        <button className="poi-cluster-list" tabIndex={-1} aria-label={'查看' + groupName + '的地点列表'}
+          title="查看组内地点" aria-haspopup="dialog"
+          aria-expanded={openGroup?.key === marker.key} aria-controls={openGroup?.key === marker.key ? popupTitleId + '-panel' : undefined}
+          onClick={() => open(marker)}><List size={15}/></button>
+      </div>;
+    })}
     {visible && openGroup && <section ref={popupRef} id={popupTitleId + '-panel'} className="poi-group-popover"
       role="dialog" aria-labelledby={popupTitleId} onKeyDown={popupKeys}>
-      <header><div><span className="eyebrow">沿着街区，逐处看看</span><h3 id={popupTitleId}>附近 {openGroup.memberIds.length} 处</h3></div>
+      <header><div><span className="eyebrow">组内地点 · 共 {openGroup.memberIds.length} 处</span><h3 id={popupTitleId}>{poiDisplayName(placeById.get(openGroup.representativeId || openGroup.memberIds[0]))}等地点</h3></div>
         <button className="icon-button" aria-label="关闭附近地点列表" onClick={() => dismiss({ restoreFocus: true })}><X size={18}/></button>
       </header>
       <div className="poi-group-list">
@@ -340,15 +392,11 @@ const PoiLabels = forwardRef(function PoiLabels({
           if (!place) return null;
           return <button key={id} ref={element => { if (element) popupRowsRef.current.set(id, element); else popupRowsRef.current.delete(id); }}
             className={'poi-group-row' + (selectedId === id ? ' is-selected' : '')} onClick={() => selectMember(id)}>
-            <MapPin size={15}/><span><strong>{place.name}</strong><small>{placeStatus(place)}</small></span><CaretRight size={14}/>
+            {place.business ? <Buildings size={15}/> : <MapPin size={15}/>}<span><strong>{place.name}</strong><small>{placeStatus(place)}</small></span><CaretRight size={14}/>
           </button>;
         })}
       </div>
-      <footer><span>可直接选择地点，也可放大后逐处查看。</span><button onClick={() => {
-        const ids = [...openGroup.memberIds]; dismiss();
-        propsRef.current.onZoomGroup?.(ids);
-        hostRef.current?.focus({ preventScroll: true });
-      }}><MagnifyingGlassPlus size={15}/>放大这组<ArrowUpRight size={13}/></button></footer>
+      <footer><span>选择名称定位；候选模型与参考位置请查看地点说明。</span><button onClick={() => zoom(openGroup)}><MagnifyingGlassPlus size={15}/>靠近查看这组<ArrowUpRight size={13}/></button></footer>
     </section>}
   </div>;
 });

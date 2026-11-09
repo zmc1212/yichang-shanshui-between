@@ -128,6 +128,8 @@ export default function App(){
   const directoryNavigation = useMemo(()=>getDirectoryNavigation(filtered,selectedId),[filtered,selectedId]);
   const directoryPositions = useMemo(()=>new Map(filtered.map((item,index)=>[item.id,index+1])),[filtered]);
   const activeResult = filtered.find(item=>item.id===activeResultId);
+  const poiSearchIds = useMemo(()=>query.trim()?filtered.map(item=>item.id):[],[query,filtered]);
+  const poiSearchTarget = query.trim() ? activeResult?.id || poiSearchIds[0] || null : null;
 
   useEffect(()=>{setActiveResultId(null);},[query,directoryFilter]);
   useEffect(()=>()=>{clearTimeout(compositionEndTimerRef.current);cancelAnimationFrame(poiZoomFrame.current);},[]);
@@ -408,7 +410,7 @@ export default function App(){
       </aside>
       <main className={`main-scene ${selected?'detail-open':''} ${authored?'authored-open':''} ${business?'business-open':''}`} inert={mobileNavOpen} aria-hidden={mobileNavOpen?true:undefined} aria-label={authored?'宜昌城市沙盘与自建建筑':business?'宜昌城市沙盘与楼宇导览点':'宜昌城市三维微缩沙盘'}>
         <div className="canvas-host" ref={canvasHost}/>
-        <PoiLabels ref={poiLabelsRef} places={landmarks} selectedId={selectedId} visible={layers.labels&&ready} compact={compact} onSelect={chooseLandmark} onZoomGroup={zoomPoiGroup} onOpenGroup={openPoiGroup} layoutKey={`${selectedId||''}:${detailTab}:${detailCollapsed}:${layersOpen}:${ready}`}/>
+        <PoiLabels ref={poiLabelsRef} places={landmarks} selectedId={selectedId} visible={layers.labels&&ready} compact={compact} searchIds={poiSearchIds} searchTargetId={poiSearchTarget} onSelect={chooseLandmark} onZoomGroup={zoomPoiGroup} onOpenGroup={openPoiGroup} layoutKey={`${selectedId||''}:${detailTab}:${detailCollapsed}:${layersOpen}:${ready}`}/>
         {(!ready||error)&&<div className="scene-loading" role="status">{error?<><WarningCircle size={32}/><h2>这座城还在路上</h2><p>{error}</p><button onClick={()=>window.location.reload()}>重新打开沙盘</button></>:<><MapTrifold size={44} weight="duotone"/><span className="eyebrow">YICHANG · 江山之间</span><h2>让山水，慢慢展开。</h2><p>{data?'正在安放楼阁、街巷与树木':'正在读取宜昌城市轮廓'}</p><CircleNotch className="spinner" size={22}/></>}</div>}
         <div className="scene-toolbar" aria-label="沙盘显示设置"><div className="view-segment"><button className={view==='perspective'?'active':''} onClick={()=>changeView('perspective')} aria-pressed={view==='perspective'}><Buildings size={16}/><span>{authored&&cameraAngle!=='context'?'建筑视角':'城市沙盘'}</span></button><button className={view==='top'?'active':''} onClick={()=>changeView('top')} aria-pressed={view==='top'}><MapTrifold size={16}/><span>{authored&&cameraAngle!=='context'?'俯瞰建筑':'俯瞰地图'}</span></button></div><span className="toolbar-divider"/><button className="toolbar-button reset-button" onClick={reset} title="回到全景"><ArrowCounterClockwise size={16}/><span>回到全景</span></button><span className="toolbar-divider day-divider"/><div className="day-segment"><button className={theme==='day'?'active':''} onClick={()=>setTheme('day')} aria-pressed={theme==='day'} title="日景"><Sun size={17}/><span>日景</span></button><button className={theme==='night'?'active':''} onClick={()=>setTheme('night')} aria-pressed={theme==='night'} title="夜景"><MoonStars size={16}/><span>夜景</span></button></div></div>
         {business&&<div className="authored-note"><span className="eyebrow">{authored?`自建建筑 · ${selected.stage||'阶段待核准'}`:businessStatus(selected)}</span><p><span>{registrationLabel}</span>{authored&&<button onClick={()=>frameSelected({angle:cameraAngle==='context'?'detail':'context',close:cameraAngle==='context'})}>{cameraAngle==='context'?'靠近建筑':'连同沙盘看'} <ArrowUpRight size={12}/></button>}</p></div>}
@@ -447,7 +449,7 @@ export default function App(){
           </div>
         </section>}
         <div className="scene-bottom-caption"><span className="eyebrow">{authored?'YICHANG / 建筑细读':'YICHANG / 长江之畔'}</span><p>{selected?selected.name:'把一座城，放在眼前。'}</p></div>
-        <div className="interaction-hint"><Mouse size={14}/><span>拖动旋转</span><span className="hint-dot">·</span><span>滚轮缩放</span><span className="hint-dot">·</span><span>点击地标探索</span></div>
+        <div className="interaction-hint"><Mouse size={14}/><span>拖动旋转</span><span className="hint-dot">·</span><span>滚轮缩放</span><span className="hint-dot">·</span><span>点分组展开</span></div>
         <div className="map-controls"><button className={autoRotate?'active':''} onClick={toggleRotate} aria-pressed={autoRotate} title={autoRotate?'暂停环绕':'自动环绕'} aria-label={autoRotate?'暂停环绕':'自动环绕'}>{autoRotate?<Pause size={16}/>:<Play size={16}/>}</button><div className="zoom-controls"><button aria-label="放大沙盘" onClick={()=>scene.current?.zoom(1)}><Plus size={19}/></button><button aria-label="缩小沙盘" onClick={()=>scene.current?.zoom(-1)}><Minus size={19}/></button></div></div>
         <div className="scene-attribution"><button onClick={()=>setModal(business?'model':'about')}>{business?'楼宇资料与说明':'地图数据与来源'}</button><span>© OpenStreetMap contributors</span></div>
         {toast&&<div className="toast" role="status"><Check size={17}/>{toast}</div>}
