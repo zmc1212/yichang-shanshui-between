@@ -88,6 +88,14 @@ const PoiLabels = forwardRef(function PoiLabels({
 
   const measureSoloButtons = useCallback(() => {
     const measured = new Map();
+    const savedWidths = new Map();
+    // Measure intrinsic text, not the width assigned by the previous layout.
+    // Batch these writes before reading so repeated refreshes cannot grow a
+    // label or retain the previous device/font's wider measurement.
+    for (const [id, button] of soloRefs.current) {
+      savedWidths.set(id, button.style.width);
+      button.style.width = 'max-content';
+    }
     for (const place of propsRef.current.places) {
       const button = soloRefs.current.get(place.id);
       if (!button) continue;
@@ -98,15 +106,16 @@ const PoiLabels = forwardRef(function PoiLabels({
         + parseFloat(style.borderLeftWidth) + parseFloat(style.borderRightWidth);
       const vertical = parseFloat(style.paddingTop) + parseFloat(style.paddingBottom)
         + parseFloat(style.borderTopWidth) + parseFloat(style.borderBottomWidth);
-      // scrollWidth preserves full text width after a constrained layout has
-      // ellipsized the previous frame. Do not measure the clamped button width.
+      const textWidth = Math.max(title?.scrollWidth || 0, note?.scrollWidth || 0,
+        title?.getBoundingClientRect().width || 0, note?.getBoundingClientRect().width || 0);
       measured.set(place.id, {
         width: Math.ceil(Math.max(parseFloat(style.minWidth) || 0,
-          Math.max(title?.scrollWidth || 0, note?.scrollWidth || 0) + horizontal)),
+          textWidth + horizontal + 1)),
         height: Math.ceil(Math.max(parseFloat(style.minHeight) || 0,
           (title?.offsetHeight || 14) + (note ? note.offsetHeight + 3 : 0) + vertical)),
       });
     }
+    for (const [id, button] of soloRefs.current) button.style.width = savedWidths.get(id) || '';
     measureRef.current = measured;
   }, []);
 

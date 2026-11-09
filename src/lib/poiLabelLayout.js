@@ -4,8 +4,8 @@
  * exactly one solo label or a cluster whose memberIds can be opened as a list.
  */
 export const POI_CLUSTER_DIMENSIONS = Object.freeze({
-  desktop: Object.freeze({ width: 88, height: 40 }),
-  compact: Object.freeze({ width: 96, height: 44 }),
+  desktop: Object.freeze({ width: 96, height: 40 }),
+  compact: Object.freeze({ width: 104, height: 44 }),
 });
 
 const compareId = (a, b) => a < b ? -1 : a > b ? 1 : 0;
