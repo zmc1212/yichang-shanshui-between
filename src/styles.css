@@ -32,7 +32,7 @@
 
 /* The independent exhibit shares the city palette, but never a map pin. */
 .exhibit-tag{font-size:8px;letter-spacing:.5px;padding:3px 5px;border:1px solid #d8dfcc;border-radius:3px;color:#738367;white-space:nowrap}
-.exhibition-note{position:absolute;z-index:6;left:28px;top:85px;max-width:calc(100% - 350px);pointer-events:none}
+.exhibition-note{position:absolute;z-index:6;left:28px;top:85px;max-width:calc(100% - 350px);padding:8px 10px;border:1px solid var(--line);border-radius:4px;background:rgba(var(--paper-rgb),.94);backdrop-filter:blur(5px);pointer-events:none}
 .exhibition-note .eyebrow{font-size:8px;letter-spacing:1.4px}
 .exhibition-note p{font-size:12px;color:var(--text);letter-spacing:1px;margin-top:6px;line-height:1.8}
 .exhibition-note p>span{font-size:9px;color:#7d8a76;letter-spacing:.2px;margin-left:12px;display:inline-block}
