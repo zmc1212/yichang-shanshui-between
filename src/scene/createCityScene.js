@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 import * as LandmarkFactory from './landmarks.js';
+import { planWaterfront, createWaterfront } from './waterfront.js';
 
 /* Coordinates in city.json are in a local metric frame: x east, z south.
    The miniature uses the actual polygon and line data; only its materials,
@@ -116,7 +117,7 @@ function makeLineGeometry(positions) {
 }
 function ease(t) { return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
 
-export function createCityScene({ container, data, onSelect, onCameraChange, onReady, onError }) {
+export function createCityScene({ container, data, onSelect, onCameraChange, onReady, onError, onInteraction }) {
   let disposed = false;
   let renderer;
   try {
@@ -131,7 +132,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
   const extent = Math.max(width, depth);
   const city = new THREE.Group(); city.name = 'Yichang miniature'; scene.add(city);
   const layers = {};
-  for (const name of ['base', 'terrain', 'water', 'parks', 'roads', 'buildings', 'trees', 'landmarks', 'nightlights']) {
+  for (const name of ['base', 'terrain', 'water', 'parks', 'roads', 'buildings', 'trees', 'landmarks', 'waterfront', 'boats', 'nightlights']) {
     layers[name] = new THREE.Group(); layers[name].name = name; city.add(layers[name]);
   }
   const materialThemes = [];
@@ -230,7 +231,17 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     const b = [best.last[0] + dx / len * approach, best.last[1] + dz / len * approach];
     return { ...spec, x: (a[0] + b[0]) / 2, z: (a[1] + b[1]) / 2, endpoints: [a, b], modelScale: 1, spanSource: 'named-road-water-crossing' };
   }
-  const landmarks = (data.landmarks || []).map(bridgeLandmarkSpec);
+  let landmarks = (data.landmarks || []).map(bridgeLandmarkSpec);
+  // Reuse these groups after measuring them; their textures are disposed with
+  // the scene. The shore fitting never edits the original POI coordinates.
+  const preparedLandmarks = new Map(), modelBounds = new Map();
+  for (const spec of landmarks) {
+    const group = LandmarkFactory.createLandmark?.(spec) || new THREE.Group();
+    group.updateMatrixWorld(true);
+    const box = new THREE.Box3().setFromObject(group);
+    preparedLandmarks.set(spec.id, group);
+    if (!box.isEmpty()) modelBounds.set(spec.id, { minX: box.min.x, maxX: box.max.x, minZ: box.min.z, maxZ: box.max.z });
+  }
   const terrain = data.terrain;
   const terrainValid = terrain && terrain.cols > 1 && terrain.rows > 1 && terrain.heights?.length >= terrain.cols * terrain.rows;
   const hills = !terrainValid ? landmarks.filter(l => /磨基山|白马山|东山/.test(l.name || '')).map(l => ({ x: l.x, z: l.z, height: /磨基山/.test(l.name) ? 4.8 : 2.4, radius: extent * 0.065 })) : [];
@@ -254,6 +265,11 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     if (inWater(x, z)) return 0;
     return rawHeight(x, z);
   }
+  const waterfrontPlan = planWaterfront({ data, landmarks, modelBounds, inWater, heightAt: surfaceHeight });
+  landmarks = landmarks.map(spec => {
+    const site = waterfrontPlan.getSite(spec.id);
+    return site ? { ...spec, x: site.center[0], z: site.center[1], sourceX: spec.x, sourceZ: spec.z } : spec;
+  });
   const baseThickness = 9.4;
   const soilMaterial = makeMaterial(DAY.soil, NIGHT.soil);
   const rimMaterial = makeMaterial(DAY.rim, NIGHT.rim);
@@ -381,6 +397,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
   const roofEdges = [];
   for (let index = 0; index < (data.buildings || []).length; index++) {
     const building = data.buildings[index];
+    if (waterfrontPlan.omittedBuildingIndices.has(index)) continue;
     const ring = cleanRing(building.ring); if (ring.length < 3) continue;
     const bounds = polygonBounds(ring);
     const cx = (bounds.minX + bounds.maxX) / 2, cz = (bounds.minZ + bounds.maxZ) / 2;
@@ -421,7 +438,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     const chance = park ? 0.82 : h > 1.8 ? 0.55 : pattern > 0.75 ? 0.1 : 0.018;
     if (treeRandom() > chance) continue;
     const cell = `${Math.round(x / 0.9)},${Math.round(z / 0.9)}`;
-    if (treeCells.has(cell)) continue;
+    if (treeCells.has(cell) || waterfrontPlan.reserveTree(x, z)) continue;
     if (landmarks.some(l => l.kind !== 'park' && l.kind !== 'bridge' && Math.hypot(x - l.x, z - l.z) < (l.modelScale || 1) * 3.1)) continue;
     if (buildingIndex.get(x, z).some(b => x >= b.bounds.minX - 0.5 && x <= b.bounds.maxX + 0.5 && z >= b.bounds.minZ - 0.5 && z <= b.bounds.maxZ + 0.5)) continue;
     if (roadIndex.get(x, z).some(r => pointSegmentDistanceSq(x, z, r.a, r.b) < (r.width * 0.5 + 0.45) ** 2)) continue;
@@ -465,7 +482,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
   selectedRing.rotation.x = -Math.PI / 2; selectedRing.visible = false; layers.landmarks.add(selectedRing);
   const platformMaterial = makeMaterial('#ded2b4', '#758377');
   for (const spec of landmarks) {
-    const group = LandmarkFactory.createLandmark?.(spec) || new THREE.Group();
+    const group = preparedLandmarks.get(spec.id);
     group.name = spec.name || spec.id;
     const scale = Number(spec.modelScale) || 1;
     const base = Number.isFinite(spec.elevation) ? spec.elevation : surfaceHeight(spec.x, spec.z);
@@ -475,11 +492,11 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     group.traverse(object => {
       if (object.isMesh) {
         object.userData.landmarkId = spec.id;
-        object.castShadow = true; object.receiveShadow = true; pickObjects.push(object);
+        object.castShadow = !object.userData.noShadow; object.receiveShadow = !object.userData.noShadow; pickObjects.push(object);
       }
     });
     layers.landmarks.add(group);
-    if (!['bridge', 'dam', 'park'].includes(spec.kind)) {
+    if (!['bridge', 'dam', 'park'].includes(spec.kind) && !waterfrontPlan.getSite(spec.id)) {
       const platform = new THREE.Mesh(new THREE.CylinderGeometry(2.7 * scale, 2.78 * scale, 0.15, 24), platformMaterial);
       platform.position.set(spec.x, base + 0.11, spec.z); platform.receiveShadow = true; layers.landmarks.add(platform);
     }
@@ -488,8 +505,11 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     const size = bounds.isEmpty() ? new THREE.Vector3(5, 8, 5) : bounds.getSize(new THREE.Vector3());
     const center = bounds.isEmpty() ? group.position.clone() : bounds.getCenter(new THREE.Vector3());
     const anchor = new THREE.Vector3(spec.x, Math.max(base + 3, bounds.isEmpty() ? base + 8 : bounds.max.y) + 1, spec.z);
-    landmarkMap.set(spec.id, { spec, group, base, size, center, anchor });
+    landmarkMap.set(spec.id, { spec, group, base, size, center, anchor, bounds });
   }
+
+  const waterfront = createWaterfront(waterfrontPlan, { heightAt: surfaceHeight, makeMaterial });
+  layers.waterfront.add(waterfront.group); layers.boats.add(waterfront.boatGroup);
 
   // A small set of warm points creates a clear, readable evening layer.
   const nightPositions = [];
@@ -502,7 +522,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
       nightPositions.push(p[0], surfaceHeight(p[0], p[1]) + 0.5, p[1]);
     }
   }
-  const nightPointMaterial = new THREE.PointsMaterial({ color: '#ffd99a', size: 0.48, sizeAttenuation: true, transparent: true, opacity: 0.85, depthWrite: false });
+  const nightPointMaterial = new THREE.PointsMaterial({ color: '#ffd99a', size: 2, sizeAttenuation: false, transparent: true, opacity: 0.85, depthWrite: false });
   layers.nightlights.add(new THREE.Points(makeLineGeometry(nightPositions), nightPointMaterial));
   layers.nightlights.visible = false;
 
@@ -521,10 +541,75 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
   let readyCalled = false;
   let userMoved = false;
   let lastPointer = null;
-  const reducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+  const motionMedia = window.matchMedia?.('(prefers-reduced-motion: reduce)');
+  let reducedMotion = Boolean(motionMedia?.matches);
+  let motionEnabled = !reducedMotion;
+  let lastMotionFrame = 0;
+  let motionRunning = false;
+  let currentFocusOptions = { angle: 'detail', close: false };
+  let managedFocus = false;
+  let hiddenAt = document.hidden ? performance.now() : 0;
   const defaultDirection = new THREE.Vector3(0.62, 0.98, 0.84).normalize();
   const cameraDistance = extent * 1.6;
   const getOffset = view => view === 'top' ? new THREE.Vector3(0, cameraDistance, 0.01) : defaultDirection.clone().multiplyScalar(cameraDistance);
+  function calculateFocusState(item, options = currentFocusOptions, view = currentView) {
+    const site = waterfrontPlan.getSite(item.spec.id);
+    let direction = defaultDirection.clone();
+    if (options.angle === 'river' && site) {
+      // Look from the source water side, at a gentler elevation than overview.
+      const n = site.shore.normal, t = site.shore.tangent;
+      direction.set(-n[0] + t[0] * 0.12, 0.62, -n[1] + t[1] * 0.12).normalize();
+    }
+    if (view === 'top') direction.set(0, 1, 0.0001).normalize();
+    const right = new THREE.Vector3(direction.z, 0, -direction.x).normalize();
+    const up = new THREE.Vector3().crossVectors(direction, right).normalize();
+    const aspect = widthPx / heightPx;
+    const containerRect = container.getBoundingClientRect();
+    const panel = container.parentElement?.querySelector('.detail-panel')?.getBoundingClientRect();
+    const mobile = window.innerWidth <= 700;
+    const left = mobile ? 18 : 24;
+    const top = mobile ? 68 : 84;
+    const panelWidth = panel?.width || (window.innerWidth >= 1600 ? 318 : window.innerWidth <= 1200 ? 270 : 298);
+    const rightEdge = mobile ? widthPx - 18 : Math.max(left + 150, widthPx - panelWidth - 48);
+    const bottom = mobile
+      ? Math.max(top + 105, panel ? panel.top - containerRect.top - 14 : heightPx * 0.47 - 60)
+      : Math.max(top + 150, heightPx - 50);
+    const fractionX = Math.min(1, (rightEdge - left) / widthPx);
+    const fractionY = Math.min(1, (bottom - top) / heightPx);
+    let projectedWidth = 0, projectedHeight = 0;
+    for (const x of [item.bounds.min.x, item.bounds.max.x]) for (const z of [item.bounds.min.z, item.bounds.max.z]) for (const y of [item.bounds.min.y, item.bounds.max.y + 0.8]) {
+      const delta = new THREE.Vector3(x, y, z).sub(item.center);
+      projectedWidth = Math.max(projectedWidth, Math.abs(delta.dot(right)) * 2);
+      projectedHeight = Math.max(projectedHeight, Math.abs(delta.dot(up)) * 2);
+    }
+    const maxSize = Math.max(item.size.x, item.size.z, item.size.y);
+    const wide = item.spec.kind === 'bridge' || item.spec.kind === 'dam';
+    const defaultHeight = Math.max(37, Math.min(extent * 0.43, maxSize * (wide ? 1.75 : 5.2)));
+    const safetyHeight = Math.max(projectedHeight / fractionY, projectedWidth / (aspect * fractionX)) * 1.12;
+    const visibleHeight = Math.max(defaultHeight / (options.close ? 1.4 : 1), safetyHeight);
+    const zoom = THREE.MathUtils.clamp(baseHalfHeight * 2 / visibleHeight, 1.5, options.close ? controls.maxZoom : 9);
+    const actualHeight = baseHalfHeight * 2 / zoom;
+    const ndcX = ((left + rightEdge) / 2 / widthPx) * 2 - 1;
+    const ndcY = 1 - ((top + bottom) / 2 / heightPx) * 2;
+    const target = item.center.clone().sub(right.multiplyScalar(ndcX * actualHeight * aspect / 2)).sub(up.multiplyScalar(ndcY * actualHeight / 2));
+    return { target, position: target.clone().add(direction.multiplyScalar(cameraDistance)), zoom };
+  }
+  function showSelection(item) {
+    selectedRing.geometry.dispose();
+    const scale = item.spec.modelScale || 1;
+    if (waterfrontPlan.getSite(item.spec.id)) {
+      const positions = [], inner = 3.6 * scale, outer = 3.72 * scale;
+      for (let i = 0; i < 96; i++) {
+        const a = i / 96 * Math.PI * 2, b = (i + 1) / 96 * Math.PI * 2;
+        const quad = [[Math.cos(a) * inner, Math.sin(a) * inner], [Math.cos(b) * inner, Math.sin(b) * inner], [Math.cos(b) * outer, Math.sin(b) * outer], [Math.cos(a) * outer, Math.sin(a) * outer]];
+        if (quad.some(p => inWater(item.spec.x + p[0], item.spec.z + p[1]))) continue;
+        for (const index of [0, 1, 2, 0, 2, 3]) positions.push(quad[index][0], -quad[index][1], 0);
+      }
+      selectedRing.geometry = makeLineGeometry(positions);
+    } else selectedRing.geometry = new THREE.RingGeometry(3.6 * scale, 3.72 * scale, 64);
+    selectedRing.position.set(item.spec.x, item.base + 0.21, item.spec.z); selectedRing.scale.setScalar(1);
+    selectedRing.visible = item.spec.kind !== 'bridge' && item.spec.kind !== 'dam';
+  }
   function calculateDefaultState(view = currentView) {
     const target = new THREE.Vector3(0, 0.7, 0);
     const position = target.clone().add(getOffset(view));
@@ -556,7 +641,10 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     widthPx = Math.max(1, rect.width); heightPx = Math.max(1, rect.height);
     renderer.setSize(widthPx, heightPx, false);
     defaultState = calculateDefaultState(currentView); baseHalfHeight = defaultState.halfHeight;
-    if (!userMoved && !selectedId) {
+    if (selectedId && managedFocus) {
+      const frame = calculateFocusState(landmarkMap.get(selectedId));
+      tween = null; camera.position.copy(frame.position); controls.target.copy(frame.target); camera.zoom = frame.zoom;
+    } else if (!userMoved && !selectedId) {
       camera.position.copy(defaultState.position); controls.target.copy(defaultState.target); camera.zoom = 1;
     } else if (previousHalfHeight) camera.zoom *= baseHalfHeight / previousHalfHeight;
     setFrustum(); controls.update(); labelsDirty = true;
@@ -570,7 +658,10 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     controls.autoRotate = false; labelsDirty = true;
   }
   const onChange = () => { labelsDirty = true; };
-  const onStart = () => { tween = null; userMoved = true; };
+  const onStart = () => {
+    tween = null; userMoved = true; managedFocus = false; controls.autoRotate = false;
+    onInteraction?.({ type: 'orbit' });
+  };
   controls.addEventListener('change', onChange); controls.addEventListener('start', onStart);
   const raycaster = new THREE.Raycaster();
   const pointer = new THREE.Vector2();
@@ -603,7 +694,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     onCameraChange({ labels, heading });
   }
   function animate(time) {
-    if (disposed) return;
+    if (disposed || document.hidden) { animationId = 0; return; }
     animationId = requestAnimationFrame(animate);
     const delta = Math.min(0.05, (time - (lastTime || time)) / 1000); lastTime = time;
     let animating = false;
@@ -617,8 +708,14 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
       if (t === 1) tween = null;
     }
     controls.update(delta);
-    // Avoid a permanent full redraw when the model is resting.
-    const renderNow = labelsDirty || animating || controls.autoRotate || frameNumber < 3;
+    motionRunning = Boolean(motionEnabled && !reducedMotion && selectedId && waterfrontPlan.getSite(selectedId)?.routes.length && camera.zoom > 2 && currentView === 'perspective' && layers.boats.visible && !tween);
+    let boatsMoved = false;
+    if (motionRunning && time - lastMotionFrame >= 1000 / 30) {
+      boatsMoved = waterfront.update(Math.min((time - (lastMotionFrame || time)) / 1000, 0.05), selectedId);
+      lastMotionFrame = time;
+    } else if (!motionRunning) lastMotionFrame = time;
+    // Boat motion redraws at most 30 fps; resting overview remains static.
+    const renderNow = labelsDirty || animating || controls.autoRotate || boatsMoved || frameNumber < 3;
     if (renderNow) {
       renderer.render(scene, camera);
       if (labelsDirty && (time - lastLabels > 30 || animating || frameNumber < 3)) { publishLabels(); lastLabels = time; labelsDirty = false; }
@@ -626,29 +723,48 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
       if (!readyCalled && frameNumber >= 2) { readyCalled = true; onReady?.(); }
     }
   }
-  animationId = requestAnimationFrame(animate);
+  function handleVisibility() {
+    if (document.hidden) {
+      hiddenAt = performance.now(); motionRunning = false;
+      cancelAnimationFrame(animationId); animationId = 0;
+    } else {
+      if (tween && hiddenAt) tween.started += performance.now() - hiddenAt;
+      hiddenAt = 0; lastTime = 0; lastMotionFrame = 0; labelsDirty = true;
+      if (!animationId) animationId = requestAnimationFrame(animate);
+    }
+  }
+  function handleMotionPreference(event) {
+    reducedMotion = event.matches;
+    if (reducedMotion) { motionEnabled = false; motionRunning = false; }
+    lastMotionFrame = 0;
+  }
+  document.addEventListener('visibilitychange', handleVisibility);
+  motionMedia?.addEventListener?.('change', handleMotionPreference);
+  if (!document.hidden) animationId = requestAnimationFrame(animate);
 
   return {
-    focus(id) {
+    focus(id, options = {}) {
       const item = landmarkMap.get(id); if (!item) return;
-      selectedId = id; userMoved = true; currentView = 'perspective';
-      const maxSize = Math.max(item.size.x, item.size.z, item.size.y);
-      const visibleHeight = Math.max(37, Math.min(extent * 0.43, maxSize * (item.spec.kind === 'bridge' || item.spec.kind === 'dam' ? 1.75 : 5.2)));
-      const zoom = THREE.MathUtils.clamp(baseHalfHeight * 2 / visibleHeight, 1.5, 9);
-      const target = new THREE.Vector3(item.spec.x, item.base + Math.min(item.size.y * 0.3, 3.5), item.spec.z);
-      // Leave the right-hand story card clear while retaining the neighborhood.
-      const right = new THREE.Vector3(defaultDirection.z, 0, -defaultDirection.x).normalize();
-      if (widthPx > 850) target.add(right.multiplyScalar(visibleHeight * widthPx / heightPx * 0.12));
-      transition(target, target.clone().add(getOffset('perspective')), zoom);
-      selectedRing.position.set(item.spec.x, item.base + 0.21, item.spec.z);
-      selectedRing.scale.setScalar(item.spec.kind === 'bridge' || item.spec.kind === 'dam' ? 1.15 : item.spec.modelScale || 1);
-      selectedRing.visible = item.spec.kind !== 'bridge' && item.spec.kind !== 'dam';
-      labelsDirty = true;
+      selectedId = id; userMoved = true; managedFocus = true; currentView = 'perspective';
+      currentFocusOptions = { angle: options.angle === 'river' ? 'river' : 'detail', close: Boolean(options.close) };
+      const frame = calculateFocusState(item);
+      transition(frame.target, frame.position, frame.zoom);
+      showSelection(item); labelsDirty = true;
+    },
+    clearSelection() {
+      selectedId = null; managedFocus = false; selectedRing.visible = false; motionRunning = false;
+      currentFocusOptions = { angle: 'detail', close: false }; labelsDirty = true;
     },
     reset() {
-      selectedId = null; userMoved = false; currentView = 'perspective'; selectedRing.visible = false;
+      selectedId = null; userMoved = false; managedFocus = false; currentView = 'perspective'; selectedRing.visible = false; motionRunning = false;
+      currentFocusOptions = { angle: 'detail', close: false };
       defaultState = calculateDefaultState('perspective'); baseHalfHeight = defaultState.halfHeight; setFrustum();
       transition(defaultState.target, defaultState.position, 1);
+    },
+    setMotion(enabled) {
+      motionEnabled = Boolean(enabled) && !reducedMotion; lastMotionFrame = 0;
+      if (!motionEnabled) motionRunning = false;
+      return motionEnabled;
     },
     setTheme(theme) {
       const night = theme === 'night'; currentTheme = night ? 'night' : 'day';
@@ -667,12 +783,17 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
         if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true;
       }
       for (const item of landmarkMap.values()) LandmarkFactory.updateLandmarkTheme?.(item.group, night);
+      waterfront.setTheme(night);
       labelsDirty = true;
     },
     setView(view) {
       const next = view === 'top' ? 'top' : 'perspective'; if (next === currentView) return;
-      currentView = next;
-      if (selectedId || userMoved) {
+      currentView = next; controls.autoRotate = false; onInteraction?.({ type: 'view' });
+      if (selectedId) {
+        managedFocus = true;
+        const frame = calculateFocusState(landmarkMap.get(selectedId));
+        transition(frame.target, frame.position, frame.zoom, 950);
+      } else if (userMoved) {
         const target = controls.target.clone(); transition(target, target.clone().add(getOffset(next)), camera.zoom, 950);
       } else {
         defaultState = calculateDefaultState(next);
@@ -683,7 +804,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     },
     setAutoRotate(enabled) {
       // UI also calls false after reset; that must not cancel its transition.
-      if (enabled) { tween = null; userMoved = true; }
+      if (enabled) { tween = null; userMoved = true; managedFocus = false; }
       controls.autoRotate = Boolean(enabled); labelsDirty = true;
     },
     setLayer(name, enabled) {
@@ -694,7 +815,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
       labelsDirty = true;
     },
     zoom(delta) {
-      tween = null; userMoved = true;
+      tween = null; userMoved = true; managedFocus = false; controls.autoRotate = false; onInteraction?.({ type: 'zoom' });
       camera.zoom = THREE.MathUtils.clamp(camera.zoom * Math.pow(1.27, Number(delta) || 0), controls.minZoom, controls.maxZoom);
       camera.updateProjectionMatrix(); labelsDirty = true;
     },
@@ -703,11 +824,12 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
       renderer.render(scene, camera); return renderer.domElement.toDataURL('image/png');
     },
     getStats() {
-      return { buildings: buildingCount, roads: (data.roads || []).length, waterPolygons: waterPolygons.length, parks: parkPolygons.length, trees: treeSpecs.length, landmarks: landmarkMap.size, drawCalls: renderer.info.render.calls, triangles: renderer.info.render.triangles, theme: currentTheme, view: currentView, cameraZoom: camera.zoom, terrain: terrainValid ? 'source-grid' : hills.length ? 'illustrative-hills' : 'flat', heightExaggeration: BUILDING_HEIGHT_EXAGGERATION, bridgeSpans: landmarks.filter(l => l.kind === 'bridge').map(l => ({ id: l.id, endpoints: l.endpoints, source: l.spanSource || 'landmark-spec' })), renderer: 'Three.js / WebGL', projection: 'orthographic' };
+      return { ...waterfront.stats, motionEnabled, motionRunning, motionReduced: reducedMotion, motionFpsLimit: 30, focusAngle: currentFocusOptions.angle, focusClose: currentFocusOptions.close, landmarkOffsets: waterfrontPlan.sites.map(s => ({ id: s.id, source: s.original, model: s.center, distance: s.shift })), buildings: buildingCount, roads: (data.roads || []).length, waterPolygons: waterPolygons.length, parks: parkPolygons.length, trees: treeSpecs.length, landmarks: landmarkMap.size, drawCalls: renderer.info.render.calls, triangles: renderer.info.render.triangles, theme: currentTheme, view: currentView, cameraZoom: camera.zoom, terrain: terrainValid ? 'source-grid' : hills.length ? 'illustrative-hills' : 'flat', heightExaggeration: BUILDING_HEIGHT_EXAGGERATION, bridgeSpans: landmarks.filter(l => l.kind === 'bridge').map(l => ({ id: l.id, endpoints: l.endpoints, source: l.spanSource || 'landmark-spec' })), renderer: 'Three.js / WebGL', projection: 'orthographic' };
     },
     dispose() {
       if (disposed) return; disposed = true;
       cancelAnimationFrame(animationId); resizeObserver.disconnect();
+      document.removeEventListener('visibilitychange', handleVisibility); motionMedia?.removeEventListener?.('change', handleMotionPreference);
       controls.removeEventListener('change', onChange); controls.removeEventListener('start', onStart); controls.dispose();
       renderer.domElement.removeEventListener('pointerdown', handlePointerDown); renderer.domElement.removeEventListener('pointerup', handlePointerUp); renderer.domElement.removeEventListener('webglcontextlost', handleContextLost);
       const geometries = new Set(), materials = new Set(), textures = new Set();
@@ -718,7 +840,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
       });
       geometries.forEach(g => g.dispose()); materials.forEach(m => m.dispose()); textures.forEach(t => t.dispose());
       renderer.dispose(); renderer.domElement.remove();
-      landmarkMap.clear();
+      landmarkMap.clear(); preparedLandmarks.clear();
     },
   };
 }

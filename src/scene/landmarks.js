@@ -15,6 +15,7 @@ const DAY = {
   foam: '#d9edda', foliage: '#6d955d', foliageLight: '#92ad70',
   foliageDark: '#3f7357', trunk: '#82644a', road: '#c2bea8',
   cable: '#f7edd7', lantern: '#edb75a', lawn: '#a6bd7c',
+  windowLight: '#4d6c5b', eaveLight: '#bca77e', deckLight: '#c5bba0', plaque: '#ffffff',
 };
 const NIGHT = {
   ivory: '#c4c6b2', stone: '#949d90', cream: '#e1d6b7',
@@ -24,7 +25,16 @@ const NIGHT = {
   foam: '#b2d9cf', foliage: '#507a5b', foliageLight: '#729266',
   foliageDark: '#305e4f', trunk: '#615847', road: '#8c9a91',
   cable: '#d5d7bd', lantern: '#ffd891', lawn: '#72915f',
+  windowLight: '#d7b77d', eaveLight: '#f5cf8d', deckLight: '#efd29c', plaque: '#e4dac3',
 };
+const NIGHT_EMISSION = {
+  glass: { color: '#d7a359', intensity: .28 },
+  lantern: { color: '#efb658', intensity: .55 },
+  windowLight: { color: '#efbd70', intensity: .46 },
+  eaveLight: { color: '#ffd69a', intensity: 1.12 },
+  deckLight: { color: '#f9d7a0', intensity: .82 },
+};
+const NIGHT_ONLY_ROLES = new Set(['eaveLight', 'deckLight']);
 const UP = new THREE.Vector3(0, 1, 0);
 const TMP = new THREE.Object3D();
 const clamp = THREE.MathUtils.clamp;
@@ -32,7 +42,7 @@ const clamp = THREE.MathUtils.clamp;
 // Accumulate by palette role so a pavilion's many tiles, pillars and rails are
 // rendered in a handful of batches instead of hundreds of individual meshes.
 class ModelBuilder {
-  constructor() { this.batches = new Map(); }
+  constructor() { this.batches = new Map(); this.plaques = []; }
   add(geometry, role, x = 0, y = 0, z = 0, rotation = null, scale = null) {
     TMP.position.set(x, y, z);
     TMP.quaternion.identity();
@@ -67,6 +77,9 @@ class ModelBuilder {
   line(role, pts, radius = .025, segments = 5) {
     for (let i = 1; i < pts.length; i++) this.rod(role, pts[i - 1], pts[i], radius, segments);
   }
+  plaque(text, x, y, z, width, height, angle = 0) {
+    this.plaques.push({ text, x, y, z, width, height, angle });
+  }
   finish(group) {
     for (const [role, geometries] of this.batches) {
       const merged = mergeGeometries(geometries, false);
@@ -83,17 +96,80 @@ class ModelBuilder {
       material.userData.paletteRole = role;
       const mesh = new THREE.Mesh(merged, material);
       mesh.name = `${group.name} / ${role}`;
-      mesh.castShadow = true;
-      mesh.receiveShadow = true;
+      const nightOnly = NIGHT_ONLY_ROLES.has(role);
+      mesh.castShadow = !nightOnly;
+      mesh.receiveShadow = !nightOnly;
+      mesh.visible = !nightOnly;
       mesh.userData = {
         isLandmark: true,
         landmarkId: group.userData.landmarkId,
         pick: group.userData.pick,
+        nightOnly,
+        noShadow: nightOnly,
       };
       group.add(mesh);
     }
+    // Text faces retain UVs and share one small texture/batch per inscription.
+    // The surrounding plaque is geometry, so canvas-free environments still
+    // have a complete model without fetching a font, image, or remote asset.
+    const inscriptions = new Map();
+    for (const plaque of this.plaques) {
+      const list = inscriptions.get(plaque.text) || [];
+      list.push(plaque);
+      inscriptions.set(plaque.text, list);
+    }
+    for (const [text, signs] of inscriptions) {
+      const texture = plaqueTexture(text);
+      if (!texture) continue;
+      const geometries = signs.map(sign => {
+        const g = new THREE.PlaneGeometry(sign.width, sign.height);
+        g.rotateY(sign.angle);
+        g.translate(sign.x, sign.y, sign.z);
+        return g;
+      });
+      const geometry = mergeGeometries(geometries, false);
+      geometries.forEach(g => g.dispose());
+      const material = new THREE.MeshStandardMaterial({ map: texture, color: DAY.plaque, roughness: .9, metalness: 0 });
+      material.name = 'landmark-plaque';
+      material.userData.paletteRole = 'plaque';
+      const mesh = new THREE.Mesh(geometry, material);
+      mesh.name = `${group.name} / inscription`;
+      mesh.userData = { isLandmark: true, landmarkId: group.userData.landmarkId, pick: group.userData.pick, noShadow: true };
+      mesh.castShadow = false;
+      mesh.receiveShadow = false;
+      group.add(mesh);
+    }
     this.batches.clear();
+    this.plaques.length = 0;
   }
+}
+
+function plaqueTexture(text) {
+  const canvas = typeof document !== 'undefined' ? document.createElement('canvas')
+    : typeof OffscreenCanvas !== 'undefined' ? new OffscreenCanvas(256, 80) : null;
+  if (!canvas) return null;
+  canvas.width = 256; canvas.height = 80;
+  const context = canvas.getContext('2d');
+  if (!context) return null;
+  context.fillStyle = '#315747';
+  context.fillRect(0, 0, 256, 80);
+  context.strokeStyle = '#c7a568';
+  context.lineWidth = 2;
+  context.strokeRect(4, 4, 248, 72);
+  context.lineWidth = 1;
+  context.strokeRect(9, 9, 238, 62);
+  context.fillStyle = '#edd19a';
+  context.font = '600 48px "Noto Serif SC", "Songti SC", "STSong", serif';
+  context.textAlign = 'center';
+  context.textBaseline = 'middle';
+  const characters = [...text];
+  const spacing = Math.min(64, 204 / Math.max(1, characters.length));
+  characters.forEach((character, i) => context.fillText(character, 128 + (i - (characters.length - 1) / 2) * spacing, 42));
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.name = `inscription-${text}`;
+  texture.colorSpace = THREE.SRGBColorSpace;
+  texture.anisotropy = 2;
+  return texture;
 }
 
 function trianglesGeometry(vertices, indices) {
@@ -106,7 +182,7 @@ function trianglesGeometry(vertices, indices) {
 
 // A hipped roof swept from a short ridge to a concave, gently lifted eave.
 // The corner lift is part of the actual roof surface, not a flat roof decoration.
-function hipRoof(b, { x = 0, y, z = 0, width, depth = width, height, role = 'roof', lift = .2, ridge = width * .13, ribs = true }) {
+function hipRoof(b, { x = 0, y, z = 0, width, depth = width, height, role = 'roof', lift = .2, ridge = width * .13, ribs = true, litEaves = false }) {
   const rings = 9, sideSamples = 10, count = sideSamples * 4;
   const vertices = [], indices = [];
   const perimeter = (i, t) => {
@@ -133,6 +209,16 @@ function hipRoof(b, { x = 0, y, z = 0, width, depth = width, height, role = 'roo
   const border = [];
   for (let i = 0; i <= count; i++) border.push(perimeter(i % count, 1));
   b.line('gold', border, .032);
+  if (litEaves) {
+    const housing = [], light = [];
+    for (let i = 0; i <= count; i++) {
+      const p = perimeter(i % count, .97);
+      housing.push([p[0], p[1] - .052, p[2]]);
+      light.push([p[0], p[1] - .079, p[2]]);
+    }
+    b.line('teal', housing, .030, 4);
+    b.line('eaveLight', light, .018, 4);
+  }
   for (let corner = 0; corner < 4; corner++) {
     const path = [];
     for (let r = 0; r <= rings; r++) path.push(perimeter(corner * sideSamples, r / rings));
@@ -156,7 +242,7 @@ function hipRoof(b, { x = 0, y, z = 0, width, depth = width, height, role = 'roo
   }
 }
 
-function polygonRoof(b, { y, radius, height, sides = 8, role = 'roof', lift = .12, cx = 0, cz = 0 }) {
+function polygonRoof(b, { y, radius, height, sides = 8, role = 'roof', lift = .12, cx = 0, cz = 0, litEaves = false, detailedSoffit = false }) {
   const segments = sides * 4, rings = 7, vertices = [], indices = [];
   const point = (i, t) => {
     const side = Math.floor(i / 4), u = (i % 4) / 4;
@@ -175,6 +261,25 @@ function polygonRoof(b, { y, radius, height, sides = 8, role = 'roof', lift = .1
   const edge = [];
   for (let i = 0; i <= segments; i++) edge.push(point(i % segments, 1));
   b.line('gold', edge, .025);
+  if (detailedSoffit) {
+    b.cyl('cream', cx, y - .065, cz, radius * .84, .055, sides);
+    for (let side = 0; side < sides; side++) for (const fraction of [.25, .50, .75]) {
+      const a = side / sides * Math.PI * 2, next = (side + 1) / sides * Math.PI * 2;
+      const px = cx + radius * .86 * (Math.cos(a) * (1 - fraction) + Math.cos(next) * fraction);
+      const pz = cz + radius * .86 * (Math.sin(a) * (1 - fraction) + Math.sin(next) * fraction);
+      b.box('stone', px, y - .08, pz, .07, .10, .13, [0, Math.PI / 2 - a - Math.PI / sides, 0]);
+    }
+  }
+  if (litEaves) {
+    const housing = [], light = [];
+    for (let i = 0; i <= segments; i++) {
+      const p = point(i % segments, .96);
+      housing.push([p[0], p[1] - .044, p[2]]);
+      light.push([p[0], p[1] - .067, p[2]]);
+    }
+    b.line('stone', housing, .026, 4);
+    b.line('eaveLight', light, .015, 4);
+  }
   for (let s = 0; s < sides; s++) {
     const path = [];
     for (let j = 0; j <= rings; j++) path.push(point(s * 4, j / rings));
@@ -210,10 +315,14 @@ function archWindow(b, x, y, z, width, height, angle = 0, role = 'dark') {
   b.add(geo, role, x, y, z, [0, angle, 0]);
 }
 
-function stoneSteps(b, z, width, top = .45, count = 5, x = 0) {
+function stoneSteps(b, z, width, top = .45, count = 5, x = 0, detailed = false) {
   for (let i = 0; i < count; i++) {
     const h = top * (i + 1) / count;
     b.box('ivory', x, h / 2, z - i * .16, width, h, .2);
+    if (detailed) {
+      b.box('cream', x, h + .008, z - i * .16 + .065, width, .016, .045);
+      b.rod('stone', [x - width / 2 + .04, h - .025, z - i * .16 + .089], [x + width / 2 - .04, h - .025, z - i * .16 + .089], .006, 4);
+    }
   }
 }
 
@@ -221,7 +330,16 @@ function pavilion(b) {
   b.box('stone', 0, .09, 0, 4.75, .18, 4.35);
   b.box('ivory', 0, .25, 0, 4.5, .16, 4.1);
   b.box('cream', 0, .41, 0, 4.1, .16, 3.72);
-  stoneSteps(b, 2.68, 1.48, .49, 5);
+  stoneSteps(b, 2.68, 1.48, .49, 5, 0, true);
+  // Step cheeks and inset landing stones stay inside the original plinth.
+  for (const side of [-1, 1]) {
+    b.box('stone', side * .84, .17, 2.47, .14, .34, .49);
+    b.box('cream', side * .84, .36, 2.47, .18, .05, .52);
+    b.rod('ivory', [side * .84, .40, 2.65], [side * .84, .67, 2.03], .043, 6);
+    b.cyl('ivory', side * .84, .55, 2.03, .065, .25, 8);
+    b.add(new THREE.SphereGeometry(.077, 8, 6), 'cream', side * .84, .71, 2.03);
+  }
+  for (const x of [-.48, 0, .48]) b.box('stone', x, .499, 1.73, .43, .014, .24);
   squareRail(b, .49, 1.99, 1.82, { gate: true });
   const tiers = [
     { y: .50, h: 1.48, w: 3.2, d: 2.85, roofW: 4.52, roofD: 4.0, roofH: .83 },
@@ -243,7 +361,7 @@ function pavilion(b) {
     // Lattice front and back windows with visible mullions.
     for (const face of [-1, 1]) for (const px of [-.62, 0, .62]) {
       const wx = px * t.w / 3.2, wz = face * (t.d * .30 + .02), wy = t.y + .35;
-      b.box('glass', wx, wy + .32, wz, .39 * t.w / 3.2, .64, .035);
+      b.box('windowLight', wx, wy + .32, wz, .39 * t.w / 3.2, .64, .035);
       b.box('gold', wx, wy + .32, wz + face * .025, .023, .64, .023);
       b.box('gold', wx, wy + .32, wz + face * .025, .39 * t.w / 3.2, .026, .025);
     }
@@ -252,19 +370,32 @@ function pavilion(b) {
       b.rod('gold', [px, t.y + t.h - .10, pz], [px, t.y + t.h - .33, pz], .014);
       b.cyl('lantern', px, t.y + t.h - .43, pz, .095, .19, 8);
     }
-    hipRoof(b, { y: t.y + t.h, width: t.roofW, depth: t.roofD, height: t.roofH, lift: .23, role: index === 1 ? 'roof' : 'gold' });
+    hipRoof(b, { y: t.y + t.h, width: t.roofW, depth: t.roofD, height: t.roofH, lift: .23, role: index === 1 ? 'roof' : 'gold', litEaves: true });
   });
   b.cyl('gold', 0, 6.58, 0, .045, .38, 8);
   b.add(new THREE.SphereGeometry(.095, 8, 6), 'gold', 0, 6.77, 0);
-  // Tiny lintel plaque reads as a sign at the centre without using a texture.
-  b.box('teal', 0, 1.78, 1.44, .79, .27, .075);
-  for (const dx of [-.23, 0, .23]) b.box('gold', dx, 1.78, 1.483, .08, .13, .015);
+  // A modest inscription on each river-facing/front-rear elevation. The thin
+  // frame remains geometry; only these two tiny faces share a 256 x 80 canvas.
+  for (const face of [-1, 1]) {
+    b.box('gold', 0, 1.78, face * 1.45, .91, .34, .08);
+    b.box('teal', 0, 1.78, face * 1.499, .85, .28, .022);
+    b.plaque('镇江阁', 0, 1.78, face * 1.513, .79, .245, face < 0 ? Math.PI : 0);
+  }
 }
 
 function pagoda(b) {
   b.cyl('stone', 0, .11, 0, 1.92, .22, 8);
   b.cyl('ivory', 0, .29, 0, 1.75, .14, 8);
   b.cyl('cream', 0, .43, 0, 1.58, .14, 8);
+  b.cyl('ivory', 0, .19, 0, 1.91, .025, 8);
+  b.cyl('stone', 0, .345, 0, 1.745, .020, 8);
+  // Fine stone-block joints make the octagonal base legible in close views.
+  for (let side = 0; side < 8; side++) for (const fraction of [.25, .5, .75]) {
+    const a = side * Math.PI / 4, next = a + Math.PI / 4;
+    const x = 1.92 * (Math.cos(a) * (1 - fraction) + Math.cos(next) * fraction);
+    const z = 1.92 * (Math.sin(a) * (1 - fraction) + Math.sin(next) * fraction);
+    b.rod('ivory', [x, .035, z], [x, .17, z], .006, 4);
+  }
   const floorCount = 7, step = 1.12;
   for (let level = 0; level < floorCount; level++) {
     const y = .50 + level * step, radius = 1.32 - level * .089, wallH = .81;
@@ -276,18 +407,29 @@ function pagoda(b) {
       b.cyl('red', Math.cos(corner) * radius, y + wallH / 2, Math.sin(corner) * radius, .042, wallH, 6);
       const a = corner + Math.PI / 8, rr = radius * Math.cos(Math.PI / 8) + .015;
       archWindow(b, Math.cos(a) * rr, y + .17, Math.sin(a) * rr, .26 - level * .008, .48, Math.PI / 2 - a, 'redDark');
+      // Selective, inset panes leave a dark reveal and avoid an all-lit facade.
+      if ((k + level) % 3 !== 0) {
+        const paneR = rr + .035;
+        archWindow(b, Math.cos(a) * paneR, y + .23, Math.sin(a) * paneR, .15 - level * .004, .34, Math.PI / 2 - a, 'windowLight');
+        b.rod('gold', [Math.cos(a) * (paneR + .028), y + .25, Math.sin(a) * (paneR + .028)], [Math.cos(a) * (paneR + .028), y + .49, Math.sin(a) * (paneR + .028)], .008, 4);
+      }
       if (level < 5) {
         const nr = radius + .18, next = corner + Math.PI / 4;
         b.rod('teal', [Math.cos(corner) * nr, y + .16, Math.sin(corner) * nr], [Math.cos(next) * nr, y + .16, Math.sin(next) * nr], .023);
       }
     }
-    polygonRoof(b, { y: y + wallH, radius: radius + .34, height: .43, lift: .13, role: level % 2 ? 'roof' : 'gold' });
+    polygonRoof(b, { y: y + wallH, radius: radius + .34, height: .43, lift: .13, role: level % 2 ? 'roof' : 'gold', litEaves: true, detailedSoffit: true });
   }
   const topY = .50 + (floorCount - 1) * step + 1.24;
   b.cyl('gold', 0, topY + .22, 0, .07, .5, 8);
   for (let i = 0; i < 4; i++) b.add(new THREE.SphereGeometry(.15 - i * .027, 8, 6), 'gold', 0, topY + .13 + i * .18, 0);
   b.add(new THREE.ConeGeometry(.09, .40, 8), 'gold', 0, topY + .87, 0);
-  stoneSteps(b, 2.18, .90, .50, 4);
+  stoneSteps(b, 2.18, .90, .50, 4, 0, true);
+  const plaqueAngle = Math.PI * 3 / 8, plaqueRadius = 1.32 * Math.cos(Math.PI / 8) + .050;
+  const plaqueRotation = Math.PI / 2 - plaqueAngle;
+  b.box('gold', Math.cos(plaqueAngle) * plaqueRadius, 1.205, Math.sin(plaqueAngle) * plaqueRadius, .66, .23, .045, [0, plaqueRotation, 0]);
+  b.box('teal', Math.cos(plaqueAngle) * (plaqueRadius + .030), 1.205, Math.sin(plaqueAngle) * (plaqueRadius + .030), .61, .185, .016, [0, plaqueRotation, 0]);
+  b.plaque('天然塔', Math.cos(plaqueAngle) * (plaqueRadius + .041), 1.205, Math.sin(plaqueAngle) * (plaqueRadius + .041), .59, .181, plaqueRotation);
 }
 
 function endpointPoint(p) {
@@ -313,6 +455,15 @@ function bridgeDeck(b, L, w, deckY, centralCablePlane = false) {
     b.box('ivory', 0, deckY + .21, s * w * .46, L, .13, w * .10);
     b.rod('teal', [-half, deckY + .46, s * w * .49], [half, deckY + .46, s * w * .49], .025);
     for (let x = -half; x <= half; x += Math.max(.75, L / 45)) b.rod('teal', [x, deckY + .24, s * w * .49], [x, deckY + .46, s * w * .49], .021);
+    // Recessed rail lights, below the existing guardrail: the bridge silhouette
+    // and all tower/cable geometry remain unchanged, with no extra PointLights.
+    const lightCount = Math.round(clamp(L / 2.4, 6, 14));
+    for (let i = 0; i < lightCount; i++) {
+      const x = THREE.MathUtils.lerp(-half + .6, half - .6, i / (lightCount - 1));
+      b.box('teal', x, deckY + .37, s * w * .465, .13, .13, .065);
+      b.box('cream', x, deckY + .44, s * w * .465, .15, .035, .080);
+      b.box('deckLight', x, deckY + .402, s * w * .438, .105, .043, .023);
+    }
   }
   if (centralCablePlane) {
     b.box('ivory', 0, deckY + .21, 0, L, .08, w * .09);
@@ -531,7 +682,7 @@ function park(b) {
       for (const h of [.77, .98]) b.rod('teal', [Math.cos(a) * r, h, Math.sin(a) * r], [Math.cos(a2) * r, h, Math.sin(a2) * r], .034);
     }
   }
-  polygonRoof(b, { y: 2.13, radius: 1.45, height: .70, role: 'roof' });
+  polygonRoof(b, { y: 2.13, radius: 1.45, height: .70, role: 'roof', litEaves: true });
   polygonRoof(b, { y: 2.66, radius: .79, height: .55, role: 'gold', lift: .10 });
   b.cyl('gold', 0, 3.28, 0, .037, .30, 8);
   b.add(new THREE.SphereGeometry(.085, 8, 6), 'gold', 0, 3.45, 0);
@@ -606,6 +757,8 @@ export function createLandmark(spec = {}) {
   else if (kind === 'museum') museum(b);
   else pavilion(b);
   b.finish(group);
+  updateLandmarkTheme(group, false);
+  group.userData.lighting = 'emissive-detail-only';
   const scale = Number.isFinite(spec.modelScale) && spec.modelScale > 0 ? spec.modelScale : 1;
   group.scale.setScalar(scale);
   group.updateMatrixWorld(true);
@@ -620,18 +773,19 @@ export function createLandmark(spec = {}) {
   return group;
 }
 
-/** Update material colours only; this preserves batches, placement and pick data. */
+/** Preserve geometry/placement; reveal the small emitter batches only at night. */
 export function updateLandmarkTheme(group, night = false) {
   group.traverse(object => {
     if (!object.isMesh || !object.material) return;
+    if (object.userData.nightOnly) object.visible = !!night;
     const materials = Array.isArray(object.material) ? object.material : [object.material];
     materials.forEach(material => {
       const role = material.userData.paletteRole;
       if (!role) return;
       material.color.set((night ? NIGHT : DAY)[role]);
-      const lit = night && (role === 'glass' || role === 'lantern');
-      material.emissive.set(lit ? role === 'lantern' ? '#efb658' : '#d7a359' : '#000000');
-      material.emissiveIntensity = lit ? role === 'lantern' ? .55 : .28 : 0;
+      const light = night ? NIGHT_EMISSION[role] : null;
+      material.emissive.set(light ? light.color : '#000000');
+      material.emissiveIntensity = light ? light.intensity : 0;
     });
   });
   group.userData.night = !!night;
