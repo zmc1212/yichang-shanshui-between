@@ -245,8 +245,16 @@ export default function App(){
     const paused=Boolean(modal||mobileNavOpen);
     scene.current?.setSuspended(paused);
     clearTimeout(captureTimer.current);
-    if(!paused&&ready&&selectedRef.current)capturePostcard(900);
+    if(!paused&&ready&&selectedRef.current)capturePostcard(1500);
   },[modal,mobileNavOpen,ready,capturePostcard]);
+  useEffect(()=>{
+    const resumePostcard=()=>{
+      clearTimeout(captureTimer.current);
+      if(!document.hidden&&selectedRef.current&&scene.current&&!scene.current.getStats().suspended)capturePostcard(1500);
+    };
+    document.addEventListener('visibilitychange',resumePostcard);
+    return()=>document.removeEventListener('visibilitychange',resumePostcard);
+  },[capturePostcard]);
   useEffect(()=>{
     if(detailContentRef.current)detailContentRef.current.scrollTop=0;
   },[selectedId,detailTab]);
