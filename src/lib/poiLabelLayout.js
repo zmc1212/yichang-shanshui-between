@@ -209,9 +209,13 @@ export function layoutPoiLabels(points, {
   // removes off-screen landmarks or separates them, naturally lifting this
   // budget. Selected/search targets are never counted against it.
   const landmarkNameBudget = compact && ordinaryLandmarks.length > 4 && crowdedLandmarks >= 4 ? 4 : Infinity;
-  let landmarkNames = 0;
+  const namedLandmarkIds = new Set([...ordinaryLandmarks].sort(rankPoints).slice(0, landmarkNameBudget).map(point => point.id));
+  const mobileTier = group => group.representative.protected ? 0
+    : group.representative.isLandmark ? namedLandmarkIds.has(group.representative.id) ? 1 : 3
+      : group.points.length > 1 ? 2 : 4;
   const groups = [...independent.map(point => groupOf([point])), ...clusterNearby(business, compact, previous)]
-    .sort((a, b) => rankPoints(a.representative, b.representative) || compareId(a.key, b.key));
+    .sort((a, b) => (compact ? mobileTier(a) - mobileTier(b) : 0)
+      || rankPoints(a.representative, b.representative) || compareId(a.key, b.key));
   const blocked = normalizedObstacles(obstacles, width, height);
   const markers = [];
   const localShift = compact ? 78 : 106;
@@ -244,17 +248,30 @@ export function layoutPoiLabels(points, {
   for (const group of groups) {
     if (group.points.length === 1) {
       const ordinaryLandmark = group.representative.isLandmark && !group.representative.protected;
-      placeSingle(group, ordinaryLandmark && landmarkNames >= landmarkNameBudget);
-      if (ordinaryLandmark && markers.at(-1).kind === 'label') landmarkNames++;
+      placeSingle(group, ordinaryLandmark && !namedLandmarkIds.has(group.representative.id));
       continue;
     }
-    const size = markerSize(group, viewport, 'cluster');
-    const placement = findPlacement(group, size, blocked, viewport, 'cluster', previousByKey.get(group.key), localShift);
-    if (placement) { commit(group, placement, 'cluster'); continue; }
-    // Never solve crowding by merging distant sites or swallowing landmarks.
-    // If a long group name cannot fit near its anchor, preserve access as
-    // separate compact points rather than an anonymous, city-wide bucket.
-    for (const point of [...group.points].sort(rankPoints)) placeSingle(groupOf([point]), true);
+    let size = markerSize(group, viewport, 'cluster');
+    const prior = previousByKey.get(group.key);
+    let placement = findPlacement(group, size, blocked, viewport, 'cluster', prior, localShift);
+    // A dense phone overview needs labels around the board, rather than one
+    // large icon per member. Preserve the geographic group and its real count.
+    const expandedShift = compact ? 176 : 156;
+    if (!placement) placement = findPlacement(group, size, blocked, viewport, 'cluster', prior, expandedShift);
+    if (!placement) for (const fallbackWidth of [176, 156]) {
+      size = { ...size, width: Math.min(size.width, fallbackWidth) };
+      placement = findPlacement(group, size, blocked, viewport, 'cluster', prior, expandedShift);
+      if (placement) break;
+    }
+    // The title may ellipsize, but the group total and accessible list remain.
+    // Last resort uses available screen space with a connector; a group never
+    // explodes into N dots merely because its name could not fit locally.
+    if (!placement) placement = findPlacement(group, size, blocked, viewport, 'cluster', prior, fullShift);
+    if (!placement) {
+      constrained = true;
+      placement = findPlacement(group, size, blocked, viewport, 'cluster', prior, fullShift, true);
+    }
+    commit(group, placement, 'cluster');
   }
   return { markers, representedIds: markers.flatMap(marker => marker.memberIds).sort(compareId), constrained };
 }

@@ -1,0 +1,251 @@
+{
+  "compact": true,
+  "height": 784,
+  "ids": [
+    "zhenjiang-pavilion",
+    "gezhouba-dam",
+    "zhixi-bridge",
+    "yiling-bridge",
+    "mojishan-park",
+    "tianran-pagoda",
+    "xiba-island",
+    "zhongnan-s09",
+    "jinjiang-s03",
+    "wanda-soho-s01",
+    "fujiang-s01",
+    "yichang-international-s01",
+    "shouxin-wealth-s01",
+    "jiuzhou-s01",
+    "meilian-s05",
+    "business-1649141",
+    "business-1649139",
+    "business-1649144",
+    "business-1649148",
+    "business-1649137",
+    "business-1649146",
+    "business-1649142",
+    "business-1649134",
+    "business-1649147",
+    "business-1649128",
+    "business-1649140",
+    "business-1649143",
+    "business-1649131",
+    "business-1649127",
+    "business-1649130"
+  ],
+  "obstacles": [
+    {
+      "bottom": 52,
+      "left": 12,
+      "right": 238.40625,
+      "top": 13
+    },
+    {
+      "bottom": 50,
+      "left": 342,
+      "right": 379,
+      "top": 13
+    },
+    {
+      "bottom": 722,
+      "left": 17,
+      "right": 202,
+      "top": 649
+    },
+    {
+      "bottom": 727,
+      "left": 339,
+      "right": 377,
+      "top": 610
+    },
+    {
+      "bottom": 768,
+      "left": 15,
+      "right": 184.734375,
+      "top": 745
+    }
+  ],
+  "points": [
+    {
+      "id": "zhenjiang-pavilion",
+      "visible": true,
+      "x": 161.91214705123213,
+      "y": 351.007008902334
+    },
+    {
+      "id": "gezhouba-dam",
+      "visible": true,
+      "x": 200.955519430114,
+      "y": 310.87930845751123
+    },
+    {
+      "id": "zhixi-bridge",
+      "visible": true,
+      "x": 164.83448959629604,
+      "y": 330.3657754624022
+    },
+    {
+      "id": "yiling-bridge",
+      "visible": true,
+      "x": 164.63285009140756,
+      "y": 381.21139298702684
+    },
+    {
+      "id": "mojishan-park",
+      "visible": true,
+      "x": 154.16782126814383,
+      "y": 378.367071919187
+    },
+    {
+      "id": "tianran-pagoda",
+      "visible": true,
+      "x": 184.99085901075375,
+      "y": 426.63095958982
+    },
+    {
+      "id": "xiba-island",
+      "visible": true,
+      "x": 195.77519464572862,
+      "y": 326.4763550475919
+    },
+    {
+      "id": "zhongnan-s09",
+      "visible": true,
+      "x": 179.17701333910014,
+      "y": 389.08967276721756
+    },
+    {
+      "id": "jinjiang-s03",
+      "visible": true,
+      "x": 172.49148803846356,
+      "y": 380.6332642118484
+    },
+    {
+      "id": "wanda-soho-s01",
+      "visible": true,
+      "x": 179.42555192663156,
+      "y": 394.374768205184
+    },
+    {
+      "id": "fujiang-s01",
+      "visible": true,
+      "x": 183.35582870389922,
+      "y": 403.87742605454264
+    },
+    {
+      "id": "yichang-international-s01",
+      "visible": true,
+      "x": 180.52255686688412,
+      "y": 397.67328965113035
+    },
+    {
+      "id": "shouxin-wealth-s01",
+      "visible": true,
+      "x": 184.52291540414004,
+      "y": 418.19713207992595
+    },
+    {
+      "id": "jiuzhou-s01",
+      "visible": true,
+      "x": 185.13427660159388,
+      "y": 419.2258080035497
+    },
+    {
+      "id": "meilian-s05",
+      "visible": true,
+      "x": 172.89452187983994,
+      "y": 383.2467132166321
+    },
+    {
+      "id": "business-1649141",
+      "visible": true,
+      "x": 209.21454368393373,
+      "y": 411.99535039485846
+    },
+    {
+      "id": "business-1649139",
+      "visible": true,
+      "x": 209.37531988932022,
+      "y": 416.9156801377535
+    },
+    {
+      "id": "business-1649144",
+      "visible": true,
+      "x": 206.907705038714,
+      "y": 415.4881679858873
+    },
+    {
+      "id": "business-1649148",
+      "visible": true,
+      "x": 186.82798365394564,
+      "y": 431.3050344354842
+    },
+    {
+      "id": "business-1649137",
+      "visible": true,
+      "x": 186.5474621582902,
+      "y": 425.757797326293
+    },
+    {
+      "id": "business-1649146",
+      "visible": true,
+      "x": 186.79232338806503,
+      "y": 427.89509297689875
+    },
+    {
+      "id": "business-1649142",
+      "visible": true,
+      "x": 190.1795008581486,
+      "y": 430.4802858970882
+    },
+    {
+      "id": "business-1649134",
+      "visible": true,
+      "x": 204.5854896342021,
+      "y": 469.19427270899456
+    },
+    {
+      "id": "business-1649147",
+      "visible": true,
+      "x": 190.04206108556693,
+      "y": 468.4940395010091
+    },
+    {
+      "id": "business-1649128",
+      "visible": true,
+      "x": 212.56466712130822,
+      "y": 465.85066808075686
+    },
+    {
+      "id": "business-1649140",
+      "visible": true,
+      "x": 202.40721592126695,
+      "y": 492.5733873472435
+    },
+    {
+      "id": "business-1649143",
+      "visible": true,
+      "x": 205.88619784903526,
+      "y": 408.2656467183178
+    },
+    {
+      "id": "business-1649131",
+      "visible": true,
+      "x": 227.78272336918687,
+      "y": 454.942787250906
+    },
+    {
+      "id": "business-1649127",
+      "visible": true,
+      "x": 249.9862978544239,
+      "y": 464.88644466453206
+    },
+    {
+      "id": "business-1649130",
+      "visible": true,
+      "x": 273.49386170768304,
+      "y": 457.7777145186446
+    }
+  ],
+  "width": 390
+}

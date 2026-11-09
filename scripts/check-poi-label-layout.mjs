@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import { performance } from 'node:perf_hooks';
 import { layoutPoiLabels, POI_CLUSTER_DIMENSIONS } from '../src/lib/poiLabelLayout.js';
 import { BUSINESS_BUILDINGS } from '../src/scene/buildingCatalog.js';
+import { poiDisplayName, poiDisplayPriority } from '../src/lib/poiDisplayPolicy.js';
 
 const passed = [];
 function check(name, run) {
@@ -231,6 +232,43 @@ check('physically blocked screen reports constraints while retaining all list me
 
 const city = JSON.parse(fs.readFileSync(new URL('../public/data/city.json', import.meta.url), 'utf8'));
 const registry = [...city.landmarks, ...BUSINESS_BUILDINGS];
+const placeById = new Map(registry.map(place => [place.id, place]));
+function enrichObservedPoints(fixture) {
+  return fixture.points.map(projected => {
+    const place = placeById.get(projected.id);
+    if (!place) return projected;
+    // Screen positions/obstacles come from Chrome; approximate typography is
+    // only used where DOM measurements were not exported with the fixture.
+    const nameWidth = [...poiDisplayName(place)].reduce((sum, char) => sum + (char.charCodeAt(0) > 255 ? 10 : 6), 0);
+    return {
+      priority: poiDisplayPriority(place), isLandmark: !place.business,
+      lon: place.lon, lat: place.lat,
+      width: nameWidth + 39, height: fixture.compact ? 44 : 32,
+      clusterWidth: Math.min(fixture.compact ? 224 : 244, Math.max(fixture.compact ? 168 : 156, nameWidth + (fixture.compact ? 113 : 106))),
+      clusterHeight: fixture.compact ? 44 : 40,
+      ...projected,
+    };
+  });
+}
+const mobileObserved = JSON.parse(fs.readFileSync(new URL('./fixtures/poi-mobile-overview-20261109.json', import.meta.url), 'utf8'));
+check('observed 390px overview keeps named business groups instead of exploding into 24 dots', () => {
+  const points = enrichObservedPoints(mobileObserved);
+  const result = layoutPoiLabels(points, mobileObserved);
+  everyPointOnce(result, registry.map(place => place.id));
+  usableLayout(result, mobileObserved, mobileObserved.obstacles);
+  const groups = result.markers.filter(marker => marker.kind === 'cluster');
+  assert.ok(groups.length >= 3, 'mobile overview must retain several named business groups');
+  assert.ok(result.markers.filter(marker => marker.kind === 'dot').length <= 8, 'a crowded group must not become one large dot per business member');
+  for (const marker of groups) {
+    assert.ok(marker.memberIds.includes(marker.representativeId));
+    assert.ok(marker.memberIds.every(id => placeById.get(id).business));
+  }
+  assert.equal(result.markers.filter(marker => marker.kind === 'label' && !placeById.get(marker.representativeId).business).length, 4);
+  const repeated = layoutPoiLabels(points, { ...mobileObserved, previousMarkers: result.markers });
+  everyPointOnce(repeated, registry.map(place => place.id));
+  assert.deepEqual(repeated.markers.map(marker => [marker.key, marker.kind]), result.markers.map(marker => [marker.key, marker.kind]));
+  usableLayout(repeated, mobileObserved, mobileObserved.obstacles);
+});
 check('all 30 existing registry IDs survive dense overview, selected mobile view and obstacle packing', () => {
   assert.equal(registry.length, 30);
   // A deliberately dense screen projection represents a small-city overview;
@@ -276,24 +314,26 @@ let observed = null;
 if (process.argv[2]) {
   const fixture = JSON.parse(fs.readFileSync(process.argv[2], 'utf8'));
   const inputIds = fixture.points.map(item => item.id);
-  const viewport = { width: fixture.width, height: fixture.height };
-  const result = layoutPoiLabels(fixture.points, viewport);
+  const viewport = { width: fixture.width, height: fixture.height, compact: Boolean(fixture.compact), obstacles: fixture.obstacles || [] };
+  const fixturePoints = enrichObservedPoints(fixture);
+  const result = layoutPoiLabels(fixturePoints, viewport);
   check('observed browser projection retains every point with nonoverlapping labels', () => {
     everyPointOnce(result, inputIds);
-    usableLayout(result, viewport);
-    assert.deepEqual(result, layoutPoiLabels([...fixture.points].reverse(), viewport));
+    usableLayout(result, viewport, viewport.obstacles);
+    assert.deepEqual(result, layoutPoiLabels([...fixturePoints].reverse(), viewport));
   });
   const measured = [];
   for (let repeat = 0; repeat < 100; repeat++) {
     const start = performance.now();
-    layoutPoiLabels(fixture.points, viewport);
+    layoutPoiLabels(fixturePoints, viewport);
     measured.push(performance.now() - start);
   }
   measured.sort((a, b) => a - b);
   observed = {
     source: process.argv[2], points: fixture.points.length, markers: result.markers.length,
     clusters: result.markers.filter(item => item.memberIds.length > 1).map(item => item.memberIds.length),
-    soloLabels: result.markers.filter(item => item.memberIds.length === 1).length,
+    soloLabels: result.markers.filter(item => item.kind === 'label').length,
+    compactPoints: result.markers.filter(item => item.kind === 'dot').length,
     represented: result.representedIds.length, medianMilliseconds: Number(measured[50].toFixed(2)),
     p95Milliseconds: Number(measured[95].toFixed(2)), maxMilliseconds: Number(measured[99].toFixed(2)),
   };
