@@ -4,6 +4,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { ArrowCounterClockwise, Buildings, CircleNotch, MagnifyingGlassPlus, Mouse, WarningCircle } from '@phosphor-icons/react';
 import { createAuthoredStage } from '../scene/authoredModels.js';
 import { previewScopeLabel } from '../lib/businessModelStatus.js';
+import { previewViewport, previewViewHeight } from '../lib/modelPreviewFraming.js';
 
 // A separate viewer for a recoverable candidate whose map registration is not
 // ready. It never owns or alters the city's renderer, camera, or visibility.
@@ -22,6 +23,8 @@ export default function ModelPreview({ model, theme = 'day' }) {
     let renderer, controls, stage, floor, sun, observer;
     let disposed = false, frame = 0, fitted = false, aspect = 1;
     let viewHeight = 12;
+    let fittedWidth = 0, fittedHeight = 0;
+    const framePadding = model.coverage ? 1.13 : 1.25;
     const previewScene = new THREE.Scene();
     const camera = new THREE.OrthographicCamera(-8, 8, 8, -8, 0.02, 250);
     const bounds = new THREE.Box3();
@@ -52,6 +55,9 @@ export default function ModelPreview({ model, theme = 'day' }) {
         renderer.domElement.dataset.drawCalls = String(renderer.info.render.calls);
         renderer.domElement.dataset.triangles = String(renderer.info.render.triangles);
         renderer.domElement.dataset.renderState = changed ? 'settling' : 'idle';
+        renderer.domElement.dataset.frustumHeight = viewHeight.toFixed(6);
+        renderer.domElement.dataset.viewportAspect = aspect.toFixed(6);
+        renderer.domElement.dataset.cameraZoom = camera.zoom.toFixed(6);
         if (changed) invalidate();
       } catch {
         failViewer('独立模型视图暂时无法绘制。可以重新打开查看器，或关闭此面板返回城市。');
@@ -94,7 +100,9 @@ export default function ModelPreview({ model, theme = 'day' }) {
         }
       }
       const projectedSize = projected.getSize(new THREE.Vector3());
-      viewHeight = Math.max(projectedSize.y, projectedSize.x / aspect, 1) * (model.coverage ? 1.13 : 1.25);
+      fittedWidth = projectedSize.x;
+      fittedHeight = projectedSize.y;
+      viewHeight = previewViewHeight(fittedWidth, fittedHeight, aspect, framePadding);
       camera.zoom = 1;
       camera.near = 0.02;
       camera.far = radius * 12 + 80;
@@ -120,13 +128,14 @@ export default function ModelPreview({ model, theme = 'day' }) {
     }
     function resize() {
       if (disposed || !renderer) return;
-      const width = Math.max(host.clientWidth, 1);
-      const height = Math.max(host.clientHeight, 1);
-      const previousAspect = aspect;
-      aspect = width / height;
-      renderer.setSize(width, height, false);
-      // Keep the inspected region visible when a phone changes orientation.
-      if (fitted && aspect < previousAspect) viewHeight *= previousAspect / aspect;
+      const viewport = previewViewport(host.clientWidth, host.clientHeight);
+      if (!viewport) return;
+      aspect = viewport.aspect;
+      renderer.setSize(viewport.width, viewport.height, false);
+      // Scrollbars and responsive layout may fluctuate repeatedly. Recompute
+      // from the fitted envelope so narrowing/widening is fully reversible.
+      // OrbitControls zoom and target remain intact for an inspected region.
+      if (fitted) viewHeight = previewViewHeight(fittedWidth, fittedHeight, aspect, framePadding);
       updateFrustum();
       invalidate();
     }
@@ -278,7 +287,6 @@ export default function ModelPreview({ model, theme = 'day' }) {
         <p>{viewerError || (status.state === 'error' ? '网页模型下载或读取失败，可以重试。' : hasDetail ? '先载入轻量模型，细节由你按需打开。' : '正在载入已建范围，保持原模型比例。')}</p>
         {viewerError ? <button onClick={()=>setRestart(value=>value+1)}>重新打开查看器</button> : status.state === 'error' && <button onClick={()=>runtimeRef.current?.stage.retry()}>重新载入模型</button>}
       </div>}
-      {ready && <div className="candidate-preview-hint"><Mouse size={13}/><span>拖动旋转 · 滚轮或双指缩放</span></div>}
     </div>
     <div className="candidate-preview-controls">
       {hasDetail&&<div className="candidate-quality-controls" role="group" aria-label="候选模型精细度">
@@ -286,6 +294,7 @@ export default function ModelPreview({ model, theme = 'day' }) {
         {hasDetail&&<button className={detailWanted?'active':''} aria-pressed={detailWanted} disabled={!ready} onClick={()=>chooseQuality(true)}><MagnifyingGlassPlus size={14}/>近景细节</button>}
       </div>}
       <div className="candidate-angle-controls"><button disabled={!ready} onClick={()=>runtimeRef.current?.fit('front')}><Buildings size={15}/>正面</button><button disabled={!ready} onClick={()=>runtimeRef.current?.fit()}><ArrowCounterClockwise size={15}/>重置</button></div>
+      {ready&&<div className="candidate-preview-hint"><Mouse size={13}/><span>拖动旋转 · 滚轮或双指缩放</span></div>}
     </div>
     <div className="candidate-preview-quality" role="status"><span className={`quality-dot ${ready?'is-ready':''}`}/><span>{qualityLabel}</span>{status.detailState==='error'&&!viewerError&&<button onClick={()=>runtimeRef.current?.stage.retry()}>重试细节</button>}</div>
     {model.coverage?<p className="candidate-preview-note"><strong>尚缺部分：</strong>{model.coverage.missing} 采用三轴等比缩放；模型厚度、尺寸和朝向不作为实测依据。</p>:<p className="candidate-preview-note">这里单独查看候选模型的外形与幕墙细节，采用三轴等比缩放。模型的占地、朝向和绝对尺寸尚未可靠配准；原城市沙盘保持原位。</p>}
