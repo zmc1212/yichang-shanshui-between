@@ -1,7 +1,18 @@
 import * as THREE from 'three';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
+import { resolveBuildingInspection } from './buildingInspection.js';
 
-const SAMPLE_ID = 'shouxin-wealth-s01';
+// These are bounded presentation areas derived from the registered model's
+// complete bounds, including its existing stairs/canopies. They do not claim
+// a surveyed entrance or extend the model's source parcel.
+const STREET_SITES = [
+  { id: 'shouxin-wealth-s01', roadName: '沿江大道', courtDepth: 9, halfRun: 55,
+    treeSpan: 48, treeStep: 12, lampOffsets: [-42,-18,18,42], benchOffsets: [-31,31] },
+  { id: 'wanda-soho-s01', roadName: '沿江大道', courtDepth: 6, halfRun: 118, followModelEntrance: true,
+    treeSpan: 96, treeStep: 24, lampOffsets: [-87,-43,43,87], benchOffsets: [-65,65] },
+  { id: 'jiuzhou-s01', roadName: '沿江大道', courtDepth: 7, halfRun: 50, followModelEntrance: true,
+    treeSpan: 42, treeStep: 14, lampOffsets: [-35,35], benchOffsets: [-22,22] },
+];
 const EPS = 1e-9;
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 const mix = (a, b, t) => a + (b - a) * t;
@@ -61,22 +72,24 @@ function makePath(road) {
   return { road, points, lengths, length: lengths.at(-1), width: Number(road.width) || 0.12 };
 }
 
-/** One bounded, illustrative street sample. All placement is derived from the
- * frozen mapped building and road geometry. No entrance survey is implied. */
-export function planStreetDetails({ data, authoredModels, authoredGround, waterfrontPlan, inWater, heightAt }) {
-  const model = authoredModels.find(item => item.id === SAMPLE_ID);
+function planStreetSite({ data, authoredModels, authoredGround, waterfrontPlan, inWater, heightAt, allPaths, model, settings }) {
   const units = Number(data.meta.unitsPerMeter) || 0.02;
   const empty = { sites: [], stats: { streetSites: 0 }, reserveTree: () => false };
   if (!model) return empty;
   const center = [model.x, model.z], front = [Math.sin(model.yaw), Math.cos(model.yaw)], tangent = [Math.cos(model.yaw), -Math.sin(model.yaw)];
   const frontCenter = add(center, front, model.localSize.z / 2);
-  const allPaths = (data.roads || []).map(makePath).filter(path => path.points.length > 1);
+  // The existing inspection subject locates the visible entry in the authored
+  // frame. Project only its lateral position onto the complete model bounds:
+  // neither the new path nor its court may replace existing steps/canopies.
+  const entrySubject = settings.followModelEntrance ? resolveBuildingInspection(model, 0, 'entrance') : null;
+  const entryLateral = entrySubject ? (entrySubject.center.x-model.x)*tangent[0] + (entrySubject.center.z-model.z)*tangent[1] : 0;
+  const entryFront = add(frontCenter, tangent, entryLateral);
   let nearest = null;
   for (const path of allPaths) {
     // A nearby bridge or tunnel is never assumed to be an accessible sidewalk.
-    if (path.road.name !== '沿江大道' || path.road.kind === 'bridge' || (path.road.bridge != null && !['no','false','0',''].includes(String(path.road.bridge))) || (path.road.tunnel && path.road.tunnel !== 'no') || Number(path.road.layer || 0) !== 0) continue;
+    if (path.road.name !== settings.roadName || path.road.kind === 'bridge' || (path.road.bridge != null && !['no','false','0',''].includes(String(path.road.bridge))) || (path.road.tunnel && path.road.tunnel !== 'no') || Number(path.road.layer || 0) !== 0) continue;
     for (let i = 1; i < path.points.length; i++) {
-      const p = project(frontCenter, path.points[i - 1], path.points[i]);
+      const p = project(entryFront, path.points[i - 1], path.points[i]);
       if (!nearest || p.distance < nearest.distance) nearest = { ...p, path, at: path.lengths[i - 1] + p.t * distance(path.points[i - 1], path.points[i]) };
     }
   }
@@ -131,6 +144,8 @@ export function planStreetDetails({ data, authoredModels, authoredGround, waterf
   }
   const site = { id: model.id, roadName: nearest.path.road.name, roadSourceId: nearest.path.road.osmId || null, roadWidth: nearest.path.width, sourceAnchor: [...center], frontBearingDeg: model.registration.frontBearingDeg,
     paving: [], curbs: [], trees: [], lamps: [], benches: [], entranceRoute: [], illustrative: true, groundLift };
+  if (entrySubject) site.entranceReference = { method: 'authored-visible-subject-lateral-projection',
+    sourceCenter: entrySubject.sourceCenter.toArray(), lateralOffset: entryLateral, surveyed: false };
   const pavingKeys = new Set();
   function addPaving(points, role) {
     if (!polygonSafe(points)) return false;
@@ -139,9 +154,9 @@ export function planStreetDetails({ data, authoredModels, authoredGround, waterf
     pavingKeys.add(key); site.paving.push({ points, role }); return true;
   }
 
-  // A 9 m forecourt along the documented front, split into restrained slabs.
+  // A narrow forecourt along the documented front, split into restrained slabs.
   // The model's complete bounds, including entrance stairs, remain untouched.
-  const courtWidth = model.localSize.x + 3 * units, courtDepth = 9 * units, slab = 3 * units;
+  const courtWidth = model.localSize.x + 3 * units, courtDepth = settings.courtDepth * units, slab = 3 * units;
   const nx = Math.ceil(courtWidth / slab), nz = Math.ceil(courtDepth / slab);
   for (let i = 0; i < nx; i++) for (let j = 0; j < nz; j++) {
     const u0 = -courtWidth / 2 + courtWidth * i / nx, u1 = -courtWidth / 2 + courtWidth * (i + 1) / nx;
@@ -153,7 +168,7 @@ export function planStreetDetails({ data, authoredModels, authoredGround, waterf
   const baseNormal = [-roadSample.tangent[1], roadSample.tangent[0]];
   const side = (center[0] - nearest.point[0]) * baseNormal[0] + (center[1] - nearest.point[1]) * baseNormal[1] >= 0 ? 1 : -1;
   const normalAt = sample => [-sample.tangent[1] * side, sample.tangent[0] * side];
-  const sidewalkInner = nearest.path.width / 2 + 0.014, sidewalkWidth = 3.6 * units, halfRun = 55 * units;
+  const sidewalkInner = nearest.path.width / 2 + 0.014, sidewalkWidth = 3.6 * units, halfRun = settings.halfRun * units;
   const startAt = Math.max(0, nearest.at - halfRun), endAt = Math.min(nearest.path.length, nearest.at + halfRun);
   const runSteps = Math.ceil((endAt - startAt) / (3 * units));
   const acceptedSidewalk = [];
@@ -173,7 +188,7 @@ export function planStreetDetails({ data, authoredModels, authoredGround, waterf
 
   // The pedestrian connection ends at the building-side sidewalk edge. It
   // never crosses a carriageway, including the mapped residential junction.
-  const routeStart = add(frontCenter, front, courtDepth + .009), routeEnd = add(roadSample.point, normalAt(roadSample), sidewalkInner + sidewalkWidth);
+  const routeStart = add(entryFront, front, courtDepth + .009), routeEnd = add(roadSample.point, normalAt(roadSample), sidewalkInner + sidewalkWidth);
   const routeVector = [routeEnd[0] - routeStart[0], routeEnd[1] - routeStart[1]], routeLength = Math.hypot(...routeVector);
   const routeWidth = 4.6 * units;
   const endDirection = roadSample.tangent[0] * tangent[0] + roadSample.tangent[1] * tangent[1] < 0 ? roadSample.tangent.map(v => -v) : roadSample.tangent;
@@ -206,9 +221,9 @@ export function planStreetDetails({ data, authoredModels, authoredGround, waterf
     site[kind].push({ x:p[0], z:p[1], angle:Math.atan2(normal[0],normal[1]), footprint, safetyFootprint, width, depth, y:heightAt(p[0],p[1])+groundLift(p[0],p[1]) });
   }
   // Even spacing, limited counts, and genuine metre sizes (0.02 unit/m here).
-  for (let at = nearest.at - 48 * units; at <= nearest.at + 48 * units; at += 12 * units) place('trees', at, sidewalkInner + sidewalkWidth + 2.8 * units, 2.3 * units, 2.3 * units, 2.8 * units);
-  for (const metres of [-42,-18,18,42]) place('lamps', nearest.at + metres * units, sidewalkInner + sidewalkWidth * .42, .7 * units, .7 * units, 1.3 * units);
-  for (const metres of [-31,31]) place('benches', nearest.at + metres * units, sidewalkInner + sidewalkWidth * .8, 2.1 * units, .75 * units);
+  for (let at = nearest.at - settings.treeSpan * units; at <= nearest.at + settings.treeSpan * units; at += settings.treeStep * units) place('trees', at, sidewalkInner + sidewalkWidth + 2.8 * units, 2.3 * units, 2.3 * units, 2.8 * units);
+  for (const metres of settings.lampOffsets) place('lamps', nearest.at + metres * units, sidewalkInner + sidewalkWidth * .42, .7 * units, .7 * units, 1.3 * units);
+  for (const metres of settings.benchOffsets) place('benches', nearest.at + metres * units, sidewalkInner + sidewalkWidth * .8, 2.1 * units, .75 * units);
   site.bounds = bounds([...site.paving.flatMap(p => p.points), ...occupied.flat()]);
   site.units = units;
   const stats = { streetSites: 1, streetPavingCells: site.paving.length, streetCurbSegments: site.curbs.length, streetTrees: site.trees.length, streetLamps: site.lamps.length, streetBenches: site.benches.length, streetEntranceConnected: site.entranceRoute.length === 2, streetIllustrative: true, streetMarkings: 0 };
@@ -217,6 +232,28 @@ export function planStreetDetails({ data, authoredModels, authoredGround, waterf
     if (!boxesNear({minX:x,maxX:x,minZ:z,maxZ:z},site.bounds,.15)) return false;
     return site.paving.some(cell => inside(p,cell.points) || edges(cell.points).some(([a,b])=>project(p,a,b).distance<.12)) || occupied.some(ring=>inside(p,ring)||edges(ring).some(([a,b])=>project(p,a,b).distance<.12));
   } };
+}
+
+/** Reusable bounded streets, with fixed geographic transforms and conservative
+ * same-ground road access. Every surface is illustrative, never a survey. */
+export function planStreetDetails(options) {
+  const allPaths = (options.data.roads || []).map(makePath).filter(path => path.points.length > 1);
+  const plans = STREET_SITES.map(settings => planStreetSite({ ...options, allPaths, settings,
+    model: options.authoredModels.find(item => item.id === settings.id) }));
+  const sites = plans.flatMap(plan => plan.sites);
+  const sum = key => sites.reduce((total, site) => total + site[key].length, 0);
+  const connected = sites.filter(site => site.entranceRoute.length === 2).length;
+  return { sites, stats: {
+    streetSites: sites.length, streetPavingCells: sum('paving'), streetCurbSegments: sum('curbs'),
+    streetTrees: sum('trees'), streetLamps: sum('lamps'), streetBenches: sum('benches'),
+    streetEntranceConnected: sites.length > 0 && connected === sites.length,
+    streetEntrancesConnected: connected, streetIllustrative: true, streetMarkings: 0,
+    streetSiteIds: sites.map(site => site.id),
+    streetSiteSummaries: sites.map(site => ({ id: site.id, roadName: site.roadName, sourceRoad: site.roadSourceId,
+      pavingCells: site.paving.length, curbSegments: site.curbs.length, trees: site.trees.length,
+      lamps: site.lamps.length, benches: site.benches.length, entranceConnected: site.entranceRoute.length === 2,
+      illustrative: site.illustrative })),
+  }, reserveTree: (x,z) => plans.some(plan => plan.reserveTree(x,z)) };
 }
 
 function quadsGeometry(cells, surface) {
@@ -254,7 +291,7 @@ export function streetDetailTier(roadPixels, previous = 0) {
 }
 
 export function createStreetDetails(plan,{heightAt,makeMaterial}) {
-  const group=new THREE.Group();group.name='Shouxin illustrative street sample';
+  const group=new THREE.Group();group.name='Building forecourts and illustrative streets';
   const material={
     paving:makeMaterial('#ddd5c4','#61776e',{side:THREE.DoubleSide}),accent:makeMaterial('#c7bfae','#526c63',{side:THREE.DoubleSide}),
     stone:makeMaterial('#bdbba9','#627a6d'),metal:makeMaterial('#536f63','#7c9180'),wood:makeMaterial('#ad895f','#9b805c'),
@@ -316,7 +353,7 @@ export function createStreetDetails(plan,{heightAt,makeMaterial}) {
   let meshes=0,triangles=0,geometryBytes=0;
   group.traverse(object=>{if(!object.isMesh)return;meshes++;const g=object.geometry;triangles+=(g.index?g.index.count:g.attributes.position.count)/3*(object.isInstancedMesh?object.count:1);for(const a of Object.values(g.attributes))geometryBytes+=a.array.byteLength;if(g.index)geometryBytes+=g.index.array.byteLength;if(object.instanceMatrix)geometryBytes+=object.instanceMatrix.array.byteLength;});
   const resourceStats={...plan.stats,streetMeshes:meshes,streetTriangles:triangles,streetGeometryBytes:geometryBytes};
-  const getStats=()=>({...resourceStats,streetVisibleSites:entries.filter(e=>e.group.visible).length,streetVisibleTier:Math.max(0,...entries.filter(e=>e.group.visible).map(e=>e.tier)),streetVisibleDrawCalls:entries.reduce((n,e)=>{if(!e.group.visible)return n;let count=0;e.group.traverseVisible(o=>{if(o.isMesh)count++;});return n+count;},0)});
+  const getStats=()=>({...resourceStats,streetVisibleSites:entries.filter(e=>e.group.visible).length,streetVisibleIds:entries.filter(e=>e.group.visible).map(e=>e.site.id),streetVisibleTier:Math.max(0,...entries.filter(e=>e.group.visible).map(e=>e.tier)),streetVisibleDrawCalls:entries.reduce((n,e)=>{if(!e.group.visible)return n;let count=0;e.group.traverseVisible(o=>{if(o.isMesh)count++;});return n+count;},0)});
   return {group,stats:resourceStats,getStats,
     update({pixelsPerUnit,frustum,enabled=true,treesEnabled=true}) {
       let changed=false;

@@ -25,7 +25,7 @@ function focusable(element) {
 const PoiLabels = forwardRef(function PoiLabels({
   places = [], selectedId = null, visible = true, compact = false,
   searchIds = [], searchTargetId = null,
-  onSelect, onZoomGroup, onOpenGroup, layoutKey,
+  onSelect, onZoomGroup, onOpenGroup, onLayout, layoutKey,
 }, forwardedRef) {
   const hostRef = useRef(null);
   const svgRef = useRef(null);
@@ -48,7 +48,7 @@ const PoiLabels = forwardRef(function PoiLabels({
   const [clusters, setClusters] = useState([]);
   const [openGroup, setOpenGroup] = useState(null);
   const popupTitleId = useId();
-  propsRef.current = { places, selectedId, visible, compact, searchIds, searchTargetId, onSelect, onZoomGroup, onOpenGroup };
+  propsRef.current = { places, selectedId, visible, compact, searchIds, searchTargetId, onSelect, onZoomGroup, onOpenGroup, onLayout };
 
   const dismiss = useCallback(({ restoreFocus = false } = {}) => {
     const previous = openRef.current;
@@ -75,6 +75,7 @@ const PoiLabels = forwardRef(function PoiLabels({
     if (propsRef.current.compact) {
       popup.style.removeProperty('left');
       popup.style.removeProperty('top');
+      propsRef.current.onLayout?.();
       return;
     }
     const marker = latestLayout.current.markers.find(item => item.key === current.key);
@@ -86,6 +87,7 @@ const PoiLabels = forwardRef(function PoiLabels({
     const wantedTop = below + popupHeight <= height - margin ? below : marker.top - popupHeight - 9;
     popup.style.left = left + 'px';
     popup.style.top = clamp(wantedTop, margin, Math.max(margin, height - popupHeight - margin)) + 'px';
+    propsRef.current.onLayout?.();
   }, []);
 
   const measureSoloButtons = useCallback(() => {
@@ -181,6 +183,7 @@ const PoiLabels = forwardRef(function PoiLabels({
     host.dataset.namedCount = String(show ? markers.filter(item => item.kind !== 'dot').length : 0);
     host.dataset.layoutConstrained = String(constrained);
     positionPopup();
+    if (!openRef.current) propsRef.current.onLayout?.();
   }, [positionPopup]);
 
   const project = useCallback(payload => {
@@ -239,7 +242,13 @@ const PoiLabels = forwardRef(function PoiLabels({
   }, [applyLayout, dismiss, measureSoloButtons]);
 
   const refresh = useCallback(() => { measureSoloButtons(); project(); }, [measureSoloButtons, project]);
-  useImperativeHandle(forwardedRef, () => ({ project, refresh, dismiss }), [project, refresh, dismiss]);
+  // Secondary map text uses the final POI rectangles. It cannot displace a
+  // selected building or change the POI clustering/priority calculation.
+  const getObstacles = useCallback(() => propsRef.current.visible ? latestLayout.current.markers.map(marker => ({
+    left: marker.left, top: marker.top, right: marker.left + marker.width,
+    bottom: marker.top + marker.height, selected: Boolean(marker.selected),
+  })) : [], []);
+  useImperativeHandle(forwardedRef, () => ({ project, refresh, dismiss, getObstacles }), [project, refresh, dismiss, getObstacles]);
 
   useLayoutEffect(() => { refresh(); }, [places, selectedId, compact, visible, searchIds, searchTargetId, layoutKey, refresh]);
   useLayoutEffect(() => { applyLayout(); }, [clusters, applyLayout]);
@@ -257,7 +266,7 @@ const PoiLabels = forwardRef(function PoiLabels({
   }, [refresh]);
 
   useLayoutEffect(() => {
-    if (!openGroup) return;
+    if (!openGroup) { propsRef.current.onLayout?.(); return; }
     positionPopup();
     const first = popupRowsRef.current.get(openGroup.memberIds[0]);
     first?.focus({ preventScroll: true });

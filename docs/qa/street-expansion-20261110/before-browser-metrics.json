@@ -1,0 +1,180 @@
+{
+  "baselineVersion": 40,
+  "sourceCommit": "e87fde278f678ae76668766f27c3ad5e46144c56",
+  "environment": "Same connected Chrome; fixed 1920×863 desktop and 390×844 responsive viewport; no physical phone timing.",
+  "records": [
+    {
+      "canvas": {
+        "authoredModels": "7",
+        "businessProjects": "23",
+        "cityVisible": "true",
+        "detailModels": "0",
+        "drawCalls": "258",
+        "engine": "three.js r170",
+        "focusAngle": "overview",
+        "geometries": "256",
+        "modelAnchor": "",
+        "modelQuality": "light",
+        "renderFrames": "5",
+        "renderState": "idle",
+        "residentModels": "7",
+        "sceneMode": "city",
+        "streetDetails": "0",
+        "streetDetailsEnabled": "true",
+        "textures": "14",
+        "triangles": "1313930"
+      },
+      "case": "desktop-overview",
+      "url": "https://yichang-miniature-city.gaoronghai.chatgpt.site/",
+      "viewport": [
+        1920,
+        863
+      ]
+    },
+    {
+      "canvas": {
+        "authoredModels": "7",
+        "authoredSelection": "true",
+        "businessProjects": "23",
+        "cityVisible": "true",
+        "detailModels": "1",
+        "drawCalls": "80",
+        "engine": "three.js r170",
+        "focusAngle": "detail",
+        "geometries": "288",
+        "modelAnchor": "[-10.740095151693664,0.08558491166028073,16.1045533568941]",
+        "modelQuality": "detail",
+        "renderFrames": "16",
+        "renderState": "idle",
+        "residentModels": "7",
+        "sceneMode": "city",
+        "streetDetails": "0",
+        "streetDetailsEnabled": "true",
+        "textures": "24",
+        "triangles": "1212940"
+      },
+      "case": "desktop-wanda-whole",
+      "url": "https://yichang-miniature-city.gaoronghai.chatgpt.site/#place=wanda-soho-s01&close=1",
+      "viewport": [
+        1920,
+        863
+      ]
+    },
+    {
+      "canvas": {
+        "authoredModels": "7",
+        "authoredSelection": "true",
+        "businessProjects": "23",
+        "cityVisible": "true",
+        "detailModels": "1",
+        "drawCalls": "85",
+        "engine": "three.js r170",
+        "focusAngle": "detail",
+        "geometries": "284",
+        "modelAnchor": "[20.110797496633346,0.06500000072340281,46.66588413788607]",
+        "modelQuality": "detail",
+        "renderFrames": "25",
+        "renderState": "idle",
+        "residentModels": "7",
+        "sceneMode": "city",
+        "streetDetails": "2",
+        "streetDetailsEnabled": "true",
+        "textures": "14",
+        "triangles": "806560"
+      },
+      "case": "desktop-jiuzhou-whole",
+      "url": "https://yichang-miniature-city.gaoronghai.chatgpt.site/#place=jiuzhou-s01&close=1",
+      "viewport": [
+        1920,
+        863
+      ]
+    },
+    {
+      "canvas": {
+        "authoredModels": "7",
+        "authoredSelection": "true",
+        "businessProjects": "23",
+        "cityVisible": "true",
+        "detailModels": "1",
+        "drawCalls": "84",
+        "engine": "three.js r170",
+        "focusAngle": "detail",
+        "geometries": "287",
+        "modelAnchor": "[17.84661482668662,0.06500000405919155,44.801642264664586]",
+        "modelQuality": "detail",
+        "renderFrames": "35",
+        "renderState": "idle",
+        "residentModels": "7",
+        "sceneMode": "city",
+        "streetDetails": "2",
+        "streetDetailsEnabled": "true",
+        "textures": "14",
+        "triangles": "778280"
+      },
+      "case": "desktop-shouxin-whole",
+      "url": "https://yichang-miniature-city.gaoronghai.chatgpt.site/#place=shouxin-wealth-s01&close=1",
+      "viewport": [
+        1920,
+        863
+      ]
+    },
+    {
+      "canvas": {
+        "authoredModels": "7",
+        "authoredSelection": "true",
+        "businessProjects": "23",
+        "cityVisible": "true",
+        "detailModels": "1",
+        "drawCalls": "72",
+        "engine": "three.js r170",
+        "focusAngle": "detail",
+        "geometries": "299",
+        "modelAnchor": "[-10.740095151693664,0.08558491166028073,16.1045533568941]",
+        "modelQuality": "detail",
+        "renderFrames": "43",
+        "renderState": "idle",
+        "residentModels": "7",
+        "sceneMode": "city",
+        "streetDetails": "0",
+        "streetDetailsEnabled": "true",
+        "textures": "24",
+        "triangles": "1124088"
+      },
+      "case": "phone-wanda-whole",
+      "url": "https://yichang-miniature-city.gaoronghai.chatgpt.site/#place=wanda-soho-s01&close=1",
+      "viewport": [
+        390,
+        844
+      ]
+    },
+    {
+      "canvas": {
+        "authoredModels": "7",
+        "authoredSelection": "true",
+        "businessProjects": "23",
+        "cityVisible": "true",
+        "detailModels": "1",
+        "drawCalls": "56",
+        "engine": "three.js r170",
+        "focusAngle": "detail",
+        "geometries": "284",
+        "modelAnchor": "[20.110797496633346,0.06500000072340281,46.66588413788607]",
+        "modelQuality": "detail",
+        "renderFrames": "66",
+        "renderState": "idle",
+        "residentModels": "7",
+        "sceneMode": "city",
+        "streetDetails": "0",
+        "streetDetailsEnabled": "true",
+        "textures": "14",
+        "triangles": "730778"
+      },
+      "case": "phone-jiuzhou-whole",
+      "url": "https://yichang-miniature-city.gaoronghai.chatgpt.site/#place=jiuzhou-s01&close=1",
+      "viewport": [
+        390,
+        844
+      ]
+    }
+  ]
+}

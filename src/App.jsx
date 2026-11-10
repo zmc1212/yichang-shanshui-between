@@ -5,6 +5,7 @@ import { AUTHORED_MODELS } from './scene/authoredModels.js';
 import { BUSINESS_BUILDINGS, BUSINESS_REGISTRY_INFO } from './scene/buildingCatalog.js';
 import ModelPreview from './components/ModelPreview.jsx';
 import PoiLabels from './components/PoiLabels.jsx';
+import RoadLabels from './components/RoadLabels.jsx';
 import { buildDirectoryResults, getDirectoryNavigation, moveDirectoryActiveId, isComposingKeyEvent } from './lib/directoryNavigation.js';
 import { createSceneLocationUrl } from './lib/sceneLocation.js';
 import { useSceneLocation } from './hooks/useSceneLocation.js';
@@ -67,6 +68,8 @@ export default function App(){
   const canvasHost = useRef(null);
   const scene = useRef(null);
   const poiLabelsRef = useRef(null);
+  const roadLabelsRef = useRef(null);
+  const projectingLabels = useRef(false);
   const poiZoomFrame = useRef(0);
   const compassRef = useRef(null);
   const captureTimer = useRef(null);
@@ -94,7 +97,7 @@ export default function App(){
   const [view,setView]=useState('perspective');
   const [autoRotate,setAutoRotate]=useState(false);
   const [layersOpen,setLayersOpen]=useState(false);
-  const [layers,setLayers]=useState({buildings:true,trees:true,labels:true,streetDetails:true});
+  const [layers,setLayers]=useState({buildings:true,trees:true,labels:true,streetDetails:true,roadNames:true});
   const [modal,setModal]=useState(null);
   const [mobileNav,setMobileNav]=useState(false);
   const [detailCollapsed,setDetailCollapsed]=useState(false);
@@ -135,6 +138,10 @@ export default function App(){
   const activeResult = filtered.find(item=>item.id===activeResultId);
   const poiSearchIds = useMemo(()=>query.trim()?filtered.map(item=>item.id):[],[query,filtered]);
   const poiSearchTarget = query.trim() ? activeResult?.id || poiSearchIds[0] || null : null;
+  const getPoiObstacles = useCallback(()=>poiLabelsRef.current?.getObstacles() || [],[]);
+  const refreshRoadLabels = useCallback(()=>{
+    if(!projectingLabels.current)roadLabelsRef.current?.refresh();
+  },[]);
 
   useEffect(()=>{setActiveResultId(null);},[query,directoryFilter]);
   useEffect(()=>()=>{clearTimeout(compositionEndTimerRef.current);cancelAnimationFrame(poiZoomFrame.current);},[]);
@@ -227,8 +234,12 @@ export default function App(){
         },
         onInteraction:()=>{if(alive){setAutoRotate(false);poiLabelsRef.current?.dismiss();}},
         onReady:()=>{if(alive)setReady(true);},onError:e=>{if(alive)setError(typeof e==='string'?e:'三维场景暂时无法启动，请刷新重试。');},
-        onCameraChange:({labels,heading,width,height,zoom})=>{
-          poiLabelsRef.current?.project({labels,width,height,zoom});
+        onCameraChange:payload=>{
+          projectingLabels.current=true;
+          try { poiLabelsRef.current?.project(payload); }
+          finally { projectingLabels.current=false; }
+          roadLabelsRef.current?.project(payload);
+          const {heading}=payload;
           if(compassRef.current)compassRef.current.style.transform=`rotate(${-heading||0}deg)`;
         }
       });
@@ -421,7 +432,8 @@ export default function App(){
       </aside>
       <main className={`main-scene ${selected?'detail-open':''} ${authored?'authored-open':''} ${business?'business-open':''} ${buildingView?'building-view':''}`} inert={mobileNavOpen} aria-hidden={mobileNavOpen?true:undefined} aria-label={authored?'宜昌城市沙盘与自建建筑':business?'宜昌城市沙盘与楼宇导览点':'宜昌城市三维微缩沙盘'}>
         <div className="canvas-host" ref={canvasHost}/>
-        <PoiLabels ref={poiLabelsRef} places={landmarks} selectedId={selectedId} visible={layers.labels&&ready} compact={compact} searchIds={poiSearchIds} searchTargetId={poiSearchTarget} onSelect={chooseLandmark} onZoomGroup={zoomPoiGroup} onOpenGroup={openPoiGroup} layoutKey={`${selectedId||''}:${detailTab}:${detailCollapsed}:${layersOpen}:${ready}`}/>
+        <RoadLabels ref={roadLabelsRef} visible={layers.roadNames&&ready} compact={compact} getPoiObstacles={getPoiObstacles} layoutKey={`${selectedId||''}:${detailTab}:${detailCollapsed}:${layersOpen}:${ready}`}/>
+        <PoiLabels ref={poiLabelsRef} places={landmarks} selectedId={selectedId} visible={layers.labels&&ready} compact={compact} searchIds={poiSearchIds} searchTargetId={poiSearchTarget} onSelect={chooseLandmark} onZoomGroup={zoomPoiGroup} onOpenGroup={openPoiGroup} onLayout={refreshRoadLabels} layoutKey={`${selectedId||''}:${detailTab}:${detailCollapsed}:${layersOpen}:${ready}`}/>
         {(!ready||error)&&<div className="scene-loading" role="status">{error?<><WarningCircle size={32}/><h2>这座城还在路上</h2><p>{error}</p><button onClick={()=>window.location.reload()}>重新打开沙盘</button></>:<><MapTrifold size={44} weight="duotone"/><span className="eyebrow">YICHANG · 江山之间</span><h2>让山水，慢慢展开。</h2><p>{data?'正在安放楼阁、街巷与树木':'正在读取宜昌城市轮廓'}</p><CircleNotch className="spinner" size={22}/></>}</div>}
         <div className="scene-toolbar" aria-label="沙盘显示设置"><div className="view-segment"><button className={view==='perspective'?'active':''} onClick={()=>changeView('perspective')} aria-pressed={view==='perspective'}><Buildings size={16}/><span>{authored&&cameraAngle!=='context'?'建筑视角':'城市沙盘'}</span></button><button className={view==='top'?'active':''} onClick={()=>changeView('top')} aria-pressed={view==='top'}><MapTrifold size={16}/><span>{authored&&cameraAngle!=='context'?'俯瞰建筑':'俯瞰地图'}</span></button></div><span className="toolbar-divider"/><button className="toolbar-button reset-button" onClick={reset} title="回到全景"><ArrowCounterClockwise size={16}/><span>回到全景</span></button><span className="toolbar-divider day-divider"/><div className="day-segment"><button className={theme==='day'?'active':''} onClick={()=>setTheme('day')} aria-pressed={theme==='day'} title="日景"><Sun size={17}/><span>日景</span></button><button className={theme==='night'?'active':''} onClick={()=>setTheme('night')} aria-pressed={theme==='night'} title="夜景"><MoonStars size={16}/><span>夜景</span></button></div></div>
         {business&&<div className={`authored-note ${buildingView?'is-inspecting':''}`}><span className="eyebrow">{authored?`自建建筑 · ${selected.stage||'阶段待核准'}`:businessStatus(selected)}</span><p><span>{registrationLabel}</span>{authored&&<button onClick={()=>frameSelected({angle:cameraAngle==='context'?'detail':'context',close:cameraAngle==='context'})}>{cameraAngle==='context'?'靠近建筑':'连同沙盘看'} <ArrowUpRight size={12}/></button>}</p>
@@ -436,7 +448,7 @@ export default function App(){
           </div>}
         </div>}
         {authored&&ready&&(!modelState||modelState.state==='loading'||modelState.state==='error')&&<div className="model-load-state" role="status">{modelState?.state==='error'?<><WarningCircle size={24}/><strong>模型暂未载入</strong><p>可以重试，也可以继续探索其他地标。</p><button onClick={()=>scene.current?.retryModel()}>重新载入</button></>:<><CircleNotch className="spinner" size={24}/><strong>正在展开建筑细节</strong><p>正在载入这座自建建筑。</p></>}</div>}
-        <div className="map-tools-top"><button className={`layer-toggle ${layersOpen?'active':''}`} onClick={()=>setLayersOpen(!layersOpen)} aria-expanded={layersOpen} aria-label="图层"><Stack size={17}/><span>图层</span></button>{layersOpen&&<section className="layer-panel" aria-label="图层设置"><header><strong>看见城市的层次</strong><button className="icon-button" onClick={()=>setLayersOpen(false)} aria-label="关闭图层设置"><X size={15}/></button></header>{[{id:'buildings',label:'城市建筑',Icon:Buildings},{id:'trees',label:'山林与树木',Icon:Tree},{id:'streetDetails',label:'街道细节',Icon:MapTrifold},{id:'labels',label:'地标名称',Icon:MapPin}].map(({id,label,Icon})=><label key={id}><Icon size={17}/><span>{label}</span><input type="checkbox" checked={layers[id]} onChange={()=>toggleLayer(id)}/></label>)}<label className="motion-setting"><Waves size={17}/><span>江面动态</span><input type="checkbox" checked={motionEnabled} onChange={e=>setMotionEnabled(e.target.checked)}/></label><p className="layer-note">街道细节随缩放展开；关闭后保留基础路网。</p></section>}</div>
+        <div className="map-tools-top"><button className={`layer-toggle ${layersOpen?'active':''}`} onClick={()=>setLayersOpen(!layersOpen)} aria-expanded={layersOpen} aria-label="图层"><Stack size={17}/><span>图层</span></button>{layersOpen&&<section className="layer-panel" aria-label="图层设置"><header><strong>看见城市的层次</strong><button className="icon-button" onClick={()=>setLayersOpen(false)} aria-label="关闭图层设置"><X size={15}/></button></header>{[{id:'buildings',label:'城市建筑',Icon:Buildings},{id:'trees',label:'山林与树木',Icon:Tree},{id:'streetDetails',label:'街道细节',Icon:MapTrifold},{id:'roadNames',label:'道路名称',Icon:MapTrifold},{id:'labels',label:'地标名称',Icon:MapPin}].map(({id,label,Icon})=><label key={id}><Icon size={17}/><span>{label}</span><input type="checkbox" checked={layers[id]} onChange={()=>toggleLayer(id)}/></label>)}<label className="motion-setting"><Waves size={17}/><span>江面动态</span><input type="checkbox" checked={motionEnabled} onChange={e=>setMotionEnabled(e.target.checked)}/></label><p className="layer-note">道路名称自动避让地标；街道细节随缩放展开。</p></section>}</div>
         <div className="compass"><span>N</span><div ref={compassRef}><NavigationArrow size={22} weight="fill"/></div></div>
         {selected&&<section ref={detailPanelRef} className={`detail-panel ${compact&&detailCollapsed?'is-collapsed':''}`} aria-label={`${selected.name}介绍`}>
           <div className="detail-header">
@@ -477,7 +489,7 @@ export default function App(){
       </main>
     </div>
     {modal==='guide'&&<Modal fallbackFocusRef={mobileMenuRef} title="用自己的节奏，认识宜昌。" onClose={closeModal}><div className="guide-steps"><div><Mouse size={26}/><span><strong>转一转，看见山水</strong><p>按住鼠标左键拖动，旋转沙盘；右键拖动可平移。</p></span></div><div><Plus size={26}/><span><strong>近一点，看见细节</strong><p>滚动鼠标滚轮，或使用右下角的加减按钮缩放。</p></span></div><div><CursorClick size={26}/><span><strong>点一处，听一座城</strong><p>点击地标名称或左侧目录，镜头会带你靠近风景。相近地点会合并为数量气泡，点开即可选择其中一处，也可放大这一组。</p></span></div><div><Sun size={26}/><span><strong>从日景，走到夜色</strong><p>切换顶部日夜按钮，也可以开启自动环绕慢慢欣赏。</p></span></div></div><p className="touch-note">触屏：单指旋转，双指缩放与平移。手机介绍可收起，留出更多画面。点击顶部相机可保存画面，楼名旁的链接按钮可复制定位；图层里可暂停江面动态。</p><button className="primary-button" onClick={closeModal}>开始探索 <ArrowUpRight size={17}/></button></Modal>}
-    {modal==='about'&&<Modal fallbackFocusRef={mobileMenuRef} title="关于这座沙盘" onClose={closeModal}><div className="about-content"><p className="about-lead">把宜昌的山水、街巷与楼阁，装进一座可以探索的微缩城市。</p><p>沙盘以公开道路、水系和建筑轮廓为基础，采用统一的色彩与简化造型呈现中心城区。地标、树木、江面船只与部分建筑高度经过展示性处理，适合城市导览与空间探索。</p><div className="about-data"><span>地图与轮廓</span><strong>OpenStreetMap · Overture Maps</strong><span>展示范围</span><strong>{data?.meta?.name||'宜昌中心城区'}</strong><span>商务楼宇</span><strong>{BUSINESS_BUILDINGS.length} 项</strong><span>恢复进度</span><strong>已恢复 {availableCount+registrationCount} 项 · {recoveryCount} 项待恢复</strong><span>模型展示</span><strong>{availableCount} 项沙盘模型 · {previewCount} 项独立预览</strong>{registrationCount>previewCount&&<><span>待配准源件</span><strong>{registrationCount-previewCount} 项尚待网页转换</strong></>}<span>作品</span><strong>宜昌Online · 江山之间</strong></div><p className="data-note">{BUSINESS_REGISTRY_INFO.note} 没有可用网页模型的项目先显示导览参考点，参考点不等于精确楼体中心。独立预览的候选仍待地图配准，阶段候选也不等于通过实景验收。</p><p className="data-note">首信周边的铺装、树池与街灯为展示性街道设计；实际入口和标线仍待核实。地标位置为公开资料参考，模型并非测绘或工程成果。</p><a className="source-link" href="/data/sources.txt" target="_blank" rel="noreferrer">查看完整数据来源与说明 <ArrowUpRight size={15}/></a>{BUSINESS_REGISTRY_INFO.sourceUrl&&<a className="source-link" href={BUSINESS_REGISTRY_INFO.sourceUrl} target="_blank" rel="noreferrer">查看原商务楼宇导图 <ArrowUpRight size={15}/></a>}</div><button className="primary-button" onClick={closeModal}>回到山水之间 <ArrowLeft size={17}/></button></Modal>}
+    {modal==='about'&&<Modal fallbackFocusRef={mobileMenuRef} title="关于这座沙盘" onClose={closeModal}><div className="about-content"><p className="about-lead">把宜昌的山水、街巷与楼阁，装进一座可以探索的微缩城市。</p><p>沙盘以公开道路、水系和建筑轮廓为基础，采用统一的色彩与简化造型呈现中心城区。地标、树木、江面船只与部分建筑高度经过展示性处理，适合城市导览与空间探索。</p><div className="about-data"><span>地图与轮廓</span><strong>OpenStreetMap · Overture Maps</strong><span>展示范围</span><strong>{data?.meta?.name||'宜昌中心城区'}</strong><span>商务楼宇</span><strong>{BUSINESS_BUILDINGS.length} 项</strong><span>恢复进度</span><strong>已恢复 {availableCount+registrationCount} 项 · {recoveryCount} 项待恢复</strong><span>模型展示</span><strong>{availableCount} 项沙盘模型 · {previewCount} 项独立预览</strong>{registrationCount>previewCount&&<><span>待配准源件</span><strong>{registrationCount-previewCount} 项尚待网页转换</strong></>}<span>作品</span><strong>宜昌Online · 江山之间</strong></div><p className="data-note">{BUSINESS_REGISTRY_INFO.note} 没有可用网页模型的项目先显示导览参考点，参考点不等于精确楼体中心。独立预览的候选仍待地图配准，阶段候选也不等于通过实景验收。</p><p className="data-note">首信、万达与九州方园周边的铺装、树池与街灯为展示性街道设计；真实入口尺寸、场地边界和设施点位仍待核实。道路名称取自保留的地图资料，按视野择要显示。地标位置为公开资料参考，模型并非测绘或工程成果。</p><a className="source-link" href="/data/sources.txt" target="_blank" rel="noreferrer">查看完整数据来源与说明 <ArrowUpRight size={15}/></a>{BUSINESS_REGISTRY_INFO.sourceUrl&&<a className="source-link" href={BUSINESS_REGISTRY_INFO.sourceUrl} target="_blank" rel="noreferrer">查看原商务楼宇导图 <ArrowUpRight size={15}/></a>}</div><button className="primary-button" onClick={closeModal}>回到山水之间 <ArrowLeft size={17}/></button></Modal>}
     {modal==='model'&&business&&<Modal fallbackFocusRef={mobileMenuRef} title={`${selected.name} · ${authored?'模型':'资料'}说明`} onClose={closeModal}><div className="about-content">
       <p className="about-lead">{authored?selected.subtitle||'近一点，看见建筑的细节。':businessStatus(selected)}</p>
       <p>{selected.description}</p>

@@ -12,6 +12,7 @@ import { createRenderScheduler } from './renderScheduler.js';
 import { resolveBuildingInspection } from './buildingInspection.js';
 import { createRoadNetwork, getRoadWidth } from './roadNetwork.js';
 import { planStreetDetails, createStreetDetails } from './streetDetails.js';
+import { buildRoadLabelAnchors, projectRoadLabelAnchors } from './roadLabelAnchors.js';
 
 /* Coordinates in city.json are in a local metric frame: x east, z south.
    The miniature uses the actual polygon and line data; only its materials,
@@ -328,6 +329,8 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
   // hierarchy distinguish the street network from the porcelain buildings.
   const roadIndex = makeGridIndex(5);
   const roadNetwork = createRoadNetwork({ roads: data.roads || [], heightAt: surfaceHeight, inWater, makeMaterial });
+  const roadLabelPlan = buildRoadLabelAnchors(data.roads || []);
+  let roadNamesEnabled = true;
   layers.roads.add(roadNetwork.group);
   for (const road of data.roads || []) {
     const points = (road.points || []).filter(p => p && Number.isFinite(p[0]) && Number.isFinite(p[1]));
@@ -477,8 +480,8 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     const points = road.points || [];
     for (let i = 0; i < points.length; i += 3) {
       const p = points[i]; if (nightRandom() > 0.62 || inWater(p[0], p[1])) continue;
-      // The sample's lamps have their own aligned warm light pools.
-      if (streetPlan.sites.some(site => site.bounds && p[0] >= site.bounds.minX && p[0] <= site.bounds.maxX && p[1] >= site.bounds.minZ && p[1] <= site.bounds.maxZ)) continue;
+      // Road-centre points remain at every scale. The sample lamps sit beside
+      // the carriageway; hiding their LOD must not leave gaps in the road light.
       nightPositions.push(p[0], surfaceHeight(p[0], p[1]) + 0.5 * authoredGround.heightFactor(p[0], p[1]) / BUILDING_HEIGHT_EXAGGERATION, p[1]);
     }
   }
@@ -912,6 +915,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     if (!onCameraChange) return;
     camera.updateMatrixWorld();
     const labels = [];
+    let selectedBuildingRect = null;
     for (const [id, item] of landmarkMap) {
       const displayAnchor = item.anchor.clone();
       if (id === selectedId && item.spec.kind === 'authored' && currentView === 'perspective'
@@ -920,10 +924,32 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
       const p = displayAnchor.project(camera);
       const inCurrentScene = layers.landmarks.visible && (item.spec.kind !== 'authored' || Boolean(authoredEntries.get(id)?.controller.getStats().quality));
       labels.push({ id, x: (p.x * 0.5 + 0.5) * widthPx, y: (-p.y * 0.5 + 0.5) * heightPx, visible: inCurrentScene && p.z >= -1 && p.z <= 1 && Math.abs(p.x) < 1.04 && Math.abs(p.y) < 1.04, depth: p.z });
+      if (id === selectedId && item.spec.kind === 'authored' && inCurrentScene) {
+        const corners = [];
+        for (const [x, z] of item.spec.footprint) for (const y of [item.base, item.base + item.spec.localSize.y]) {
+          const q = new THREE.Vector3(x, y, z).project(camera);
+          corners.push({ x: (q.x * .5 + .5) * widthPx, y: (-q.y * .5 + .5) * heightPx });
+        }
+        if (corners.length) selectedBuildingRect = {
+          left: Math.min(...corners.map(q => q.x)), right: Math.max(...corners.map(q => q.x)),
+          top: Math.min(...corners.map(q => q.y)), bottom: Math.max(...corners.map(q => q.y)),
+        };
+      }
     }
     const direction = camera.position.clone().sub(controls.target);
     const heading = Math.atan2(direction.x, direction.z) * 180 / Math.PI;
-    onCameraChange({ labels, heading, width: widthPx, height: heightPx, zoom: camera.zoom });
+    const pixelsPerUnit = heightPx / (2 * baseHalfHeight) * camera.zoom;
+    const roadPoint = new THREE.Vector3();
+    const roadLabels = roadNamesEnabled ? projectRoadLabelAnchors(roadLabelPlan, {
+      pixelsPerUnit, focusPoint: [controls.target.x, controls.target.z],
+      project: ([x, z]) => {
+        const p = roadPoint.set(x, surfaceHeight(x, z) + .14, z).project(camera);
+        return { x: (p.x * .5 + .5) * widthPx, y: (-p.y * .5 + .5) * heightPx,
+          depth: p.z, visible: p.z >= -1 && p.z <= 1 && Math.abs(p.x) < 1.08 && Math.abs(p.y) < 1.08 };
+      },
+    }) : [];
+    onCameraChange({ labels, roadLabels, heading, width: widthPx, height: heightPx, zoom: camera.zoom,
+      pixelsPerUnit, selectedId, selectedBuildingRect, focusAngle: currentFocusOptions.angle, focusClose: currentFocusOptions.close });
   }
   function animate(time) {
     if (disposed) return false;
@@ -994,7 +1020,11 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
       renderer.domElement.dataset.triangles = String(renderer.info.render.triangles);
       renderer.domElement.dataset.geometries = String(renderer.info.memory.geometries);
       renderer.domElement.dataset.textures = String(renderer.info.memory.textures);
-      renderer.domElement.dataset.streetDetails = streetDetails.getStats().streetVisibleTier;
+      const streetStats = streetDetails.getStats();
+      renderer.domElement.dataset.streetDetails = streetStats.streetVisibleTier;
+      renderer.domElement.dataset.streetVisibleSites = String(streetStats.streetVisibleSites);
+      renderer.domElement.dataset.streetVisibleDrawCalls = String(streetStats.streetVisibleDrawCalls);
+      renderer.domElement.dataset.streetVisibleIds = JSON.stringify(streetStats.streetVisibleIds || []);
       renderer.domElement.dataset.streetDetailsEnabled = String(streetDetailsEnabled);
       if (labelsDirty && (time - lastLabels > 30 || animating || frameNumber < 3)) { publishLabels(); lastLabels = time; labelsDirty = false; }
       frameNumber++;
@@ -1125,6 +1155,9 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     },
     setLayer(name, enabled) {
       const key = name === 'greenery' ? 'trees' : name;
+      // The text layer has no scene geometry or shadows. Only a one-shot
+      // projection is needed to refresh it after this display preference.
+      if (key === 'roadNames') { roadNamesEnabled = Boolean(enabled); requestRender(); return; }
       if (key === 'streetDetails') streetDetailsEnabled = Boolean(enabled);
       if (layers[key]) layers[key].visible = Boolean(enabled);
       if (key === 'trees') layers.parks.visible = true;
@@ -1160,7 +1193,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
           endpoints: spec.endpoints, mainSpanEndpoints: spec.mainSpanEndpoints,
         };
       });
-      return { roadNetwork: roadNetwork.stats, streetDetails: streetDetails.getStats(), alignments, authoredSelection, authoredModels: selectedAuthored()?.controller.getStats() || {}, authoredResidents: residentStats(), authoredReplacedBuildings: [...authoredGround.omittedBuildingIndices], authoredRetainedBackground: authoredGround.retainedBuildings.map(building => building.retainedFromSourceFeatureId), ...waterfront.stats, motionEnabled, motionRunning, motionReduced: reducedMotion, motionFpsLimit: 30, renderState: renderScheduler.getState(), renderFrames: renderedFrames, suspended: viewSuspended, hidden: Boolean(document.hidden), focusAngle: currentFocusOptions.angle, focusClose: currentFocusOptions.close, landmarkOffsets: waterfrontPlan.sites.map(s => ({ id: s.id, source: s.original, model: s.center, distance: s.shift })), buildings: buildingCount, roads: (data.roads || []).length, waterPolygons: waterPolygons.length, parks: parkPolygons.length, trees: treeSpecs.length, landmarks: landmarks.length + BUSINESS_BUILDINGS.length, businessProjects: BUSINESS_BUILDINGS.length, pendingModels: pendingBusiness.length, drawCalls: renderer.info.render.calls, triangles: renderer.info.render.triangles, theme: currentTheme, view: currentView, cameraZoom: camera.zoom, terrain: terrainValid ? 'source-grid' : hills.length ? 'illustrative-hills' : 'flat', heightExaggeration: BUILDING_HEIGHT_EXAGGERATION, bridgeSpans: landmarks.filter(l => l.kind === 'bridge').map(l => ({ id: l.id, endpoints: l.endpoints, mainSpanEndpoints: l.mainSpanEndpoints, source: l.spanSource || 'landmark-spec' })), renderer: 'Three.js / WebGL', projection: 'orthographic' };
+      return { roadNetwork: roadNetwork.stats, roadLabels: roadLabelPlan.stats, streetDetails: streetDetails.getStats(), alignments, authoredSelection, authoredModels: selectedAuthored()?.controller.getStats() || {}, authoredResidents: residentStats(), authoredReplacedBuildings: [...authoredGround.omittedBuildingIndices], authoredRetainedBackground: authoredGround.retainedBuildings.map(building => building.retainedFromSourceFeatureId), ...waterfront.stats, motionEnabled, motionRunning, motionReduced: reducedMotion, motionFpsLimit: 30, renderState: renderScheduler.getState(), renderFrames: renderedFrames, suspended: viewSuspended, hidden: Boolean(document.hidden), focusAngle: currentFocusOptions.angle, focusClose: currentFocusOptions.close, landmarkOffsets: waterfrontPlan.sites.map(s => ({ id: s.id, source: s.original, model: s.center, distance: s.shift })), buildings: buildingCount, roads: (data.roads || []).length, waterPolygons: waterPolygons.length, parks: parkPolygons.length, trees: treeSpecs.length, landmarks: landmarks.length + BUSINESS_BUILDINGS.length, businessProjects: BUSINESS_BUILDINGS.length, pendingModels: pendingBusiness.length, drawCalls: renderer.info.render.calls, triangles: renderer.info.render.triangles, theme: currentTheme, view: currentView, cameraZoom: camera.zoom, terrain: terrainValid ? 'source-grid' : hills.length ? 'illustrative-hills' : 'flat', heightExaggeration: BUILDING_HEIGHT_EXAGGERATION, bridgeSpans: landmarks.filter(l => l.kind === 'bridge').map(l => ({ id: l.id, endpoints: l.endpoints, mainSpanEndpoints: l.mainSpanEndpoints, source: l.spanSource || 'landmark-spec' })), renderer: 'Three.js / WebGL', projection: 'orthographic' };
     },
     retryModel() { selectedAuthored()?.controller.retry(); requestRender(); },
     refitSelection() {
