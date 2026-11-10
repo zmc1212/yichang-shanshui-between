@@ -1,0 +1,790 @@
+{
+  "date": "2026-11-10",
+  "browser": "connected Chrome",
+  "scope": "Browser UI observations; responsive viewport checks are not physical-phone performance tests",
+  "startingVersion": 56,
+  "featureVersion": 57,
+  "roadRenderFixVersion": 58,
+  "appBundle": "index-Cyb37a5N.js",
+  "observations": [
+    {
+      "name": "v57-wanda-whole-after",
+      "observations": [
+        {
+          "case": "V57-wanda-whole-after",
+          "canvas": [
+            {
+              "dataset": {
+                "authoredModels": "7",
+                "authoredSelection": "true",
+                "businessProjects": "23",
+                "cityVisible": "true",
+                "detailModels": "1",
+                "drawCalls": "100",
+                "engine": "three.js r170",
+                "focusAngle": "detail",
+                "geometries": "308",
+                "modelAnchor": "[-10.740095151693664,0.08558491166028073,16.1045533568941]",
+                "modelQuality": "detail",
+                "renderFrames": "10",
+                "renderState": "idle",
+                "residentModels": "7",
+                "sceneMode": "city",
+                "streetDetails": "2",
+                "streetDetailsEnabled": "true",
+                "streetVisibleDrawCalls": "20",
+                "streetVisibleExtensions": "2",
+                "streetVisibleIds": "[\"wanda-soho-s01\",\"international-yanjiang-extension\",\"wanda-yanjiang-extension\"]",
+                "streetVisibleLinks": "0",
+                "streetVisibleSites": "1",
+                "textures": "14",
+                "triangles": "1217672"
+              },
+              "height": 849,
+              "width": 1616
+            }
+          ],
+          "layout": [
+            {
+              "className": "",
+              "rect": {
+                "height": 849,
+                "width": 1616,
+                "x": 304,
+                "y": 70
+              },
+              "tag": "CANVAS"
+            },
+            {
+              "className": "scene-toolbar",
+              "rect": {
+                "height": 43,
+                "width": 451.828125,
+                "x": 334,
+                "y": 97
+              },
+              "tag": "DIV"
+            },
+            {
+              "className": "authored-note is-inspecting",
+              "rect": {
+                "height": 144,
+                "width": 304,
+                "x": 338,
+                "y": 164
+              },
+              "tag": "DIV"
+            },
+            {
+              "className": "detail-panel ",
+              "rect": {
+                "height": 623.28125,
+                "width": 318,
+                "x": 1572,
+                "y": 163
+              },
+              "tag": "SECTION"
+            }
+          ],
+          "scripts": [
+            "https://yichang-miniature-city.gaoronghai.chatgpt.site/assets/index-D_C8hMHp.js"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "v57-streetscape-day-before-junction-fix",
+      "observations": [
+        {
+          "case": "V57-streetscape-day-wanda-selected",
+          "url": "https://yichang-miniature-city.gaoronghai.chatgpt.site/#place=wanda-soho-s01&angle=streetscape&close=1",
+          "canvas": [
+            {
+              "dataset": {
+                "authoredModels": "7",
+                "authoredSelection": "true",
+                "businessProjects": "23",
+                "cityVisible": "true",
+                "detailModels": "1",
+                "drawCalls": "90",
+                "engine": "three.js r170",
+                "focusAngle": "streetscape",
+                "geometries": "315",
+                "modelAnchor": "[-10.740095151693664,0.08558491166028073,16.1045533568941]",
+                "modelQuality": "detail",
+                "renderFrames": "55",
+                "renderState": "idle",
+                "residentModels": "7",
+                "sceneMode": "city",
+                "streetDetails": "2",
+                "streetDetailsEnabled": "true",
+                "streetVisibleDrawCalls": "27",
+                "streetVisibleExtensions": "2",
+                "streetVisibleIds": "[\"wanda-soho-s01\",\"yichang-international-s01\",\"international-yanjiang-extension\",\"wanda-yanjiang-extension\"]",
+                "streetVisibleLinks": "0",
+                "streetVisibleSites": "2",
+                "textures": "15",
+                "triangles": "986026"
+              },
+              "height": 849,
+              "width": 1616
+            }
+          ],
+          "panel": "换一个角度，发现城市的另一面。\n\n连同沙盘看\n建筑与城市，一起入镜\n沿江街景\n万达路口两侧的人行空间\n建筑全貌\n完整展示楼体，自动适配画面\n正立面\n完整查看建筑正立面\n顶部与轮廓\n查看候选模型的顶部形态\n回到城市全景\n收起介绍，继续探索宜昌"
+        }
+      ]
+    },
+    {
+      "name": "v57-streetscape-night-before-junction-fix",
+      "observations": [
+        {
+          "case": "V57-streetscape-night",
+          "url": "https://yichang-miniature-city.gaoronghai.chatgpt.site/#place=wanda-soho-s01&theme=night&angle=streetscape&close=1",
+          "canvas": [
+            {
+              "dataset": {
+                "authoredModels": "7",
+                "authoredSelection": "true",
+                "businessProjects": "23",
+                "cityVisible": "true",
+                "detailModels": "1",
+                "drawCalls": "96",
+                "engine": "three.js r170",
+                "focusAngle": "streetscape",
+                "geometries": "321",
+                "modelAnchor": "[-10.740095151693664,0.08558491166028073,16.1045533568941]",
+                "modelQuality": "detail",
+                "renderFrames": "57",
+                "renderState": "idle",
+                "residentModels": "7",
+                "sceneMode": "city",
+                "streetDetails": "2",
+                "streetDetailsEnabled": "true",
+                "streetVisibleDrawCalls": "31",
+                "streetVisibleExtensions": "2",
+                "streetVisibleIds": "[\"wanda-soho-s01\",\"yichang-international-s01\",\"international-yanjiang-extension\",\"wanda-yanjiang-extension\"]",
+                "streetVisibleLinks": "0",
+                "streetVisibleSites": "2",
+                "textures": "15",
+                "triangles": "986242"
+              },
+              "height": 849,
+              "width": 1616
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "v57-street-details-off",
+      "observations": [
+        {
+          "case": "V57-streetscape-night-street-off",
+          "canvas": [
+            {
+              "authoredModels": "7",
+              "authoredSelection": "true",
+              "businessProjects": "23",
+              "cityVisible": "true",
+              "detailModels": "1",
+              "drawCalls": "75",
+              "engine": "three.js r170",
+              "focusAngle": "streetscape",
+              "geometries": "321",
+              "modelAnchor": "[-10.740095151693664,0.08558491166028073,16.1045533568941]",
+              "modelQuality": "detail",
+              "renderFrames": "58",
+              "renderState": "idle",
+              "residentModels": "7",
+              "sceneMode": "city",
+              "streetDetails": "0",
+              "streetDetailsEnabled": "false",
+              "streetVisibleDrawCalls": "0",
+              "streetVisibleExtensions": "0",
+              "streetVisibleIds": "[]",
+              "streetVisibleLinks": "0",
+              "streetVisibleSites": "0",
+              "textures": "15",
+              "triangles": "982500"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "v57-responsive-390-expanded",
+      "observations": [
+        {
+          "case": "V57-responsive-390-expanded",
+          "canvas": [
+            {
+              "dataset": {
+                "authoredModels": "7",
+                "authoredSelection": "true",
+                "businessProjects": "23",
+                "cityVisible": "true",
+                "detailModels": "1",
+                "drawCalls": "109",
+                "engine": "three.js r170",
+                "focusAngle": "streetscape",
+                "geometries": "312",
+                "modelAnchor": "[-5.912434062168668,0.06914715175472351,20.48598798096113]",
+                "modelQuality": "detail",
+                "renderFrames": "72",
+                "renderState": "idle",
+                "residentModels": "7",
+                "sceneMode": "city",
+                "streetDetails": "2",
+                "streetDetailsEnabled": "true",
+                "streetVisibleDrawCalls": "27",
+                "streetVisibleExtensions": "2",
+                "streetVisibleIds": "[\"wanda-soho-s01\",\"yichang-international-s01\",\"international-yanjiang-extension\",\"wanda-yanjiang-extension\"]",
+                "streetVisibleLinks": "0",
+                "streetVisibleSites": "2",
+                "textures": "11",
+                "triangles": "1452996"
+              },
+              "height": 784,
+              "width": 390
+            }
+          ],
+          "layout": [
+            {
+              "className": "",
+              "rect": {
+                "height": 784,
+                "width": 390,
+                "x": 0,
+                "y": 60
+              }
+            },
+            {
+              "className": "authored-note is-inspecting",
+              "rect": {
+                "height": 140,
+                "width": 357,
+                "x": 17,
+                "y": 126
+              }
+            },
+            {
+              "className": "detail-panel ",
+              "rect": {
+                "height": 415.515625,
+                "width": 366,
+                "x": 12,
+                "y": 382.484375
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "v57-responsive-390-collapsed",
+      "observations": [
+        {
+          "case": "V57-responsive-390-collapsed",
+          "canvas": [
+            {
+              "dataset": {
+                "authoredModels": "7",
+                "authoredSelection": "true",
+                "businessProjects": "23",
+                "cityVisible": "true",
+                "detailModels": "1",
+                "drawCalls": "109",
+                "engine": "three.js r170",
+                "focusAngle": "streetscape",
+                "geometries": "312",
+                "modelAnchor": "[-5.912434062168668,0.06914715175472351,20.48598798096113]",
+                "modelQuality": "detail",
+                "renderFrames": "79",
+                "renderState": "idle",
+                "residentModels": "7",
+                "sceneMode": "city",
+                "streetDetails": "2",
+                "streetDetailsEnabled": "true",
+                "streetVisibleDrawCalls": "27",
+                "streetVisibleExtensions": "2",
+                "streetVisibleIds": "[\"wanda-soho-s01\",\"yichang-international-s01\",\"international-yanjiang-extension\",\"wanda-yanjiang-extension\"]",
+                "streetVisibleLinks": "0",
+                "streetVisibleSites": "2",
+                "textures": "11",
+                "triangles": "1452996"
+              },
+              "height": 784,
+              "width": 390
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "v58-responsive-320-streetscape",
+      "observations": [
+        {
+          "case": "V58-responsive-320-streetscape",
+          "url": "https://yichang-miniature-city.gaoronghai.chatgpt.site/#place=yichang-international-s01&angle=streetscape&close=1",
+          "canvas": [
+            {
+              "dataset": {
+                "authoredModels": "7",
+                "authoredSelection": "true",
+                "businessProjects": "23",
+                "cityVisible": "true",
+                "detailModels": "1",
+                "drawCalls": "110",
+                "engine": "three.js r170",
+                "focusAngle": "streetscape",
+                "geometries": "282",
+                "modelAnchor": "[-5.912434062168668,0.06914715175472351,20.48598798096113]",
+                "modelQuality": "detail",
+                "renderFrames": "10",
+                "renderState": "idle",
+                "residentModels": "7",
+                "sceneMode": "city",
+                "streetDetails": "2",
+                "streetDetailsEnabled": "true",
+                "streetVisibleDrawCalls": "27",
+                "streetVisibleExtensions": "2",
+                "streetVisibleIds": "[\"wanda-soho-s01\",\"yichang-international-s01\",\"international-yanjiang-extension\",\"wanda-yanjiang-extension\"]",
+                "streetVisibleLinks": "0",
+                "streetVisibleSites": "2",
+                "textures": "10",
+                "triangles": "1453464"
+              },
+              "height": 680,
+              "width": 320
+            }
+          ],
+          "scripts": [
+            "https://yichang-miniature-city.gaoronghai.chatgpt.site/assets/index-Cyb37a5N.js"
+          ],
+          "horizontalOverflow": false
+        }
+      ]
+    },
+    {
+      "name": "v58-responsive-320-whole",
+      "observations": [
+        {
+          "case": "V58-responsive-320-whole-restored",
+          "canvas": [
+            {
+              "dataset": {
+                "authoredModels": "7",
+                "authoredSelection": "true",
+                "businessProjects": "23",
+                "cityVisible": "true",
+                "detailModels": "1",
+                "drawCalls": "70",
+                "engine": "three.js r170",
+                "focusAngle": "detail",
+                "geometries": "282",
+                "modelAnchor": "[-5.912434062168668,0.06914715175472351,20.48598798096113]",
+                "modelQuality": "detail",
+                "renderFrames": "30",
+                "renderState": "idle",
+                "residentModels": "7",
+                "sceneMode": "city",
+                "streetDetails": "2",
+                "streetDetailsEnabled": "true",
+                "streetVisibleDrawCalls": "11",
+                "streetVisibleExtensions": "1",
+                "streetVisibleIds": "[\"yichang-international-s01\",\"international-yanjiang-extension\"]",
+                "streetVisibleLinks": "0",
+                "streetVisibleSites": "1",
+                "textures": "10",
+                "triangles": "1353398"
+              },
+              "height": 680,
+              "width": 320
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "v58-junction-fixed-day",
+      "observations": [
+        {
+          "case": "V58-streetscape-day-junction-fix",
+          "url": "https://yichang-miniature-city.gaoronghai.chatgpt.site/#place=wanda-soho-s01&angle=streetscape&close=1",
+          "canvas": [
+            {
+              "dataset": {
+                "authoredModels": "7",
+                "authoredSelection": "true",
+                "businessProjects": "23",
+                "cityVisible": "true",
+                "detailModels": "1",
+                "drawCalls": "90",
+                "engine": "three.js r170",
+                "focusAngle": "streetscape",
+                "geometries": "313",
+                "modelAnchor": "[-10.740095151693664,0.08558491166028073,16.1045533568941]",
+                "modelQuality": "detail",
+                "renderFrames": "75",
+                "renderState": "idle",
+                "residentModels": "7",
+                "sceneMode": "city",
+                "streetDetails": "2",
+                "streetDetailsEnabled": "true",
+                "streetVisibleDrawCalls": "27",
+                "streetVisibleExtensions": "2",
+                "streetVisibleIds": "[\"wanda-soho-s01\",\"yichang-international-s01\",\"international-yanjiang-extension\",\"wanda-yanjiang-extension\"]",
+                "streetVisibleLinks": "0",
+                "streetVisibleSites": "2",
+                "textures": "11",
+                "triangles": "986026"
+              },
+              "height": 849,
+              "width": 1616
+            }
+          ],
+          "scripts": [
+            "https://yichang-miniature-city.gaoronghai.chatgpt.site/assets/index-Cyb37a5N.js"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "v58-junction-fixed-night",
+      "observations": [
+        {
+          "case": "V58-streetscape-night-junction-fix",
+          "url": "https://yichang-miniature-city.gaoronghai.chatgpt.site/#place=wanda-soho-s01&theme=night&angle=streetscape&close=1",
+          "canvas": [
+            {
+              "dataset": {
+                "authoredModels": "7",
+                "authoredSelection": "true",
+                "businessProjects": "23",
+                "cityVisible": "true",
+                "detailModels": "1",
+                "drawCalls": "96",
+                "engine": "three.js r170",
+                "focusAngle": "streetscape",
+                "geometries": "319",
+                "modelAnchor": "[-10.740095151693664,0.08558491166028073,16.1045533568941]",
+                "modelQuality": "detail",
+                "renderFrames": "77",
+                "renderState": "idle",
+                "residentModels": "7",
+                "sceneMode": "city",
+                "streetDetails": "2",
+                "streetDetailsEnabled": "true",
+                "streetVisibleDrawCalls": "31",
+                "streetVisibleExtensions": "2",
+                "streetVisibleIds": "[\"wanda-soho-s01\",\"yichang-international-s01\",\"international-yanjiang-extension\",\"wanda-yanjiang-extension\"]",
+                "streetVisibleLinks": "0",
+                "streetVisibleSites": "2",
+                "textures": "11",
+                "triangles": "986242"
+              },
+              "height": 849,
+              "width": 1616
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "v58-final-international-streetscape",
+      "observations": [
+        {
+          "case": "V58-final-international-streetscape",
+          "url": "https://yichang-miniature-city.gaoronghai.chatgpt.site/#place=yichang-international-s01&angle=streetscape&close=1",
+          "canvas": [
+            {
+              "dataset": {
+                "authoredModels": "7",
+                "authoredSelection": "true",
+                "businessProjects": "23",
+                "cityVisible": "true",
+                "detailModels": "1",
+                "drawCalls": "90",
+                "engine": "three.js r170",
+                "focusAngle": "streetscape",
+                "geometries": "348",
+                "modelAnchor": "[-5.912434062168668,0.06914715175472351,20.48598798096113]",
+                "modelQuality": "detail",
+                "renderFrames": "869",
+                "renderState": "idle",
+                "residentModels": "7",
+                "sceneMode": "city",
+                "streetDetails": "2",
+                "streetDetailsEnabled": "true",
+                "streetVisibleDrawCalls": "27",
+                "streetVisibleExtensions": "2",
+                "streetVisibleIds": "[\"wanda-soho-s01\",\"yichang-international-s01\",\"international-yanjiang-extension\",\"wanda-yanjiang-extension\"]",
+                "streetVisibleLinks": "0",
+                "streetVisibleSites": "2",
+                "textures": "21",
+                "triangles": "1392092"
+              },
+              "height": 793,
+              "width": 1616
+            }
+          ],
+          "scripts": [
+            "https://yichang-miniature-city.gaoronghai.chatgpt.site/assets/index-Cyb37a5N.js"
+          ],
+          "console": []
+        }
+      ]
+    }
+  ],
+  "extras": [
+    {
+      "key": "linkInternationalFrontage",
+      "observations": [
+        {
+          "case": "V57-international-original-frontage-settled",
+          "url": "https://yichang-miniature-city.gaoronghai.chatgpt.site/#place=yichang-international-s01&angle=frontage&close=1",
+          "canvas": [
+            {
+              "authoredModels": "7",
+              "authoredSelection": "true",
+              "businessProjects": "23",
+              "cityVisible": "true",
+              "detailModels": "1",
+              "drawCalls": "64",
+              "engine": "three.js r170",
+              "focusAngle": "frontage",
+              "geometries": "305",
+              "modelAnchor": "[-5.912434062168668,0.06914715175472351,20.48598798096113]",
+              "modelQuality": "detail",
+              "renderFrames": "36",
+              "renderState": "idle",
+              "residentModels": "7",
+              "sceneMode": "city",
+              "streetDetails": "2",
+              "streetDetailsEnabled": "true",
+              "streetVisibleDrawCalls": "11",
+              "streetVisibleExtensions": "1",
+              "streetVisibleIds": "[\"yichang-international-s01\",\"international-yanjiang-extension\"]",
+              "streetVisibleLinks": "0",
+              "streetVisibleSites": "1",
+              "textures": "11",
+              "triangles": "1252182"
+            }
+          ]
+        },
+        "换一个角度，发现城市的另一面。\n\n连同沙盘看\n建筑与城市，一起入镜\n沿江街景\n万达路口两侧的人行空间\n建筑全貌\n完整展示楼体，自动适配画面\n正立面\n完整查看建筑正立面\n顶部与轮廓\n查看候选模型的顶部形态\n回到城市全景\n收起介绍，继续探索宜昌"
+      ]
+    },
+    {
+      "key": "linkReloadRecord",
+      "observations": [
+        {
+          "case": "V57-night-streetscape-reload",
+          "url": "https://yichang-miniature-city.gaoronghai.chatgpt.site/#place=wanda-soho-s01&theme=night&angle=streetscape&close=1",
+          "clipboardReadableLength": 0,
+          "canvas": [
+            {
+              "authoredModels": "7",
+              "authoredSelection": "true",
+              "businessProjects": "23",
+              "cityVisible": "true",
+              "detailModels": "1",
+              "drawCalls": "96",
+              "engine": "three.js r170",
+              "focusAngle": "streetscape",
+              "geometries": "287",
+              "modelAnchor": "[-10.740095151693664,0.08558491166028073,16.1045533568941]",
+              "modelQuality": "detail",
+              "renderFrames": "9",
+              "renderState": "idle",
+              "residentModels": "7",
+              "sceneMode": "city",
+              "streetDetails": "2",
+              "streetDetailsEnabled": "true",
+              "streetVisibleDrawCalls": "31",
+              "streetVisibleExtensions": "2",
+              "streetVisibleIds": "[\"wanda-soho-s01\",\"yichang-international-s01\",\"international-yanjiang-extension\",\"wanda-yanjiang-extension\"]",
+              "streetVisibleLinks": "0",
+              "streetVisibleSites": "2",
+              "textures": "11",
+              "triangles": "986242"
+            }
+          ],
+          "nightPressed": "true"
+        },
+        {
+          "url": "https://yichang-miniature-city.gaoronghai.chatgpt.site/#place=yichang-international-s01&close=1",
+          "heading": "宜昌国际广场"
+        }
+      ]
+    },
+    {
+      "key": "linkInternationalStreetAndPhoneStart",
+      "observations": [
+        {
+          "case": "V57-international-streetscape",
+          "url": "https://yichang-miniature-city.gaoronghai.chatgpt.site/#place=yichang-international-s01&angle=streetscape&close=1",
+          "canvas": [
+            {
+              "authoredModels": "7",
+              "authoredSelection": "true",
+              "businessProjects": "23",
+              "cityVisible": "true",
+              "detailModels": "1",
+              "drawCalls": "90",
+              "engine": "three.js r170",
+              "focusAngle": "streetscape",
+              "geometries": "305",
+              "modelAnchor": "[-5.912434062168668,0.06914715175472351,20.48598798096113]",
+              "modelQuality": "detail",
+              "renderFrames": "54",
+              "renderState": "idle",
+              "residentModels": "7",
+              "sceneMode": "city",
+              "streetDetails": "2",
+              "streetDetailsEnabled": "true",
+              "streetVisibleDrawCalls": "27",
+              "streetVisibleExtensions": "2",
+              "streetVisibleIds": "[\"wanda-soho-s01\",\"yichang-international-s01\",\"international-yanjiang-extension\",\"wanda-yanjiang-extension\"]",
+              "streetVisibleLinks": "0",
+              "streetVisibleSites": "2",
+              "textures": "11",
+              "triangles": "1392092"
+            }
+          ]
+        },
+        "- banner:\n  - button \"宜昌江山之间，回到全景\":\n    - strong: 宜昌 · 江山之间\n    - generic: YICHANG · A CITY IN MINIATURE\n  - button \"保存当前画面\":\n  - button \"操作指引\":\n  - button \"打开地标与楼宇目录\":\n- dialog:\n  - generic: 地标与楼宇\n  - button:\n  - searchbox\n  - paragraph: 上下键预选目录结果，回车打开；Escape先清空搜索，搜索为空时可收起手机目录。非输入状态按斜杠可搜索。\n  - status: 30项结果\n  - region:\n    - text: 商务楼宇\n    - strong: 23 项\n    - paragraph:\n      - generic: 7 沙盘模型\n      - generic: 16 独立预览\n    - text: 预览含 15 项局部或研究模型\n  - button [pressed]: 全部\n  - button: 沙盘模型\n  - button: 模型预览\n  - generic: 探索地标与建筑\n  - generic: 30 项\n  - navigation:\n    - heading [level=2]:\n      - text: 历史文化\n      - generic: \"2\"\n    - button:\n      - generic: \"01\"\n      - strong: 镇江阁\n    - button:\n      - generic: \"02\"\n      - strong: 天然塔\n    - heading [level=2]:\n      - text: 水利工程\n      - generic: \"1\"\n    - button:\n      - generic: \"03\"\n      - strong: 葛洲坝水利枢纽\n    - heading [level=2]:\n      - text: 城市桥梁\n      - generic: \"2\"\n    - button:\n      - generic: \"04\"\n      - strong: 至喜长江大桥\n    - button:\n      - generic: \"05\"\n      - strong: 夷陵长江大桥\n    - heading [level=2]:\n      - text: 山水公园\n      - generic: \"2\"\n    - button:\n      - generic: \"06\"\n      - strong: 磨基山公园\n    - button:\n      - generic: \"07\"\n      - strong: 西坝岛\n    - heading [level=2]:\n      - text: 商务楼宇\n      - generic: \"23\"\n    - button:\n      - generic: \"08\"\n      - strong: 美联御峰\n      - generic: 独立预览 · 待配准\n    - button:\n      - generic: \"09\"\n      - strong: 中南冶金大楼\n      - generic: 自建模型 · 阶段候选\n      - generic: 自建\n    - button:\n      - generic: \"10\"\n      - strong: 锦江银座\n      - generic: 自建模型 · 阶段候选\n      - generic: 自建\n    - button:\n      - generic: \"11\"\n      - strong: 万达 SOHO\n      - generic: 自建模型 · 阶段候选\n      - generic: 自建\n    - button:\n      - generic: \"12\"\n      - strong: 福江铭座\n      - generic: 自建模型 · 阶段候选\n      - generic: 自建\n    - button [pressed]:\n      - generic: \"13\"\n      - strong: 宜昌国际广场\n      - generic: 自建模型 · 阶段候选\n      - generic: 自建\n    - button:\n      - generic: \"14\"\n      - strong: 首信财富中心\n      - generic: 自建模型 · 阶段候选\n      - generic: 自建\n    - button:\n      - generic: \"15\"\n      - strong: 九州方园大厦\n      - generic: 自建模型 · 阶段候选\n      - generic: 自建\n    - button:\n      - generic: \"16\"\n      - strong: 兴发广场写字楼\n      - generic: 局部模型 · 可预览\n    - button:\n      - generic: \"17\"\n      - strong: 新华广场武银大厦\n      - generic: 局部模型 · 可预览\n    - button:\n      - generic: \"18\"\n      - strong: 长江国际文化广场\n      - generic: 局部模型 · 可预览\n    - button:\n      - generic: \"19\"\n      - strong: 致远广场\n      - generic: 局部模型 · 可预览\n    - button:\n      - generic: \"20\"\n      - strong: 外滩领馆\n      - generic: 局部模型 · 可预览\n    - button:\n      - generic: \"21\"\n      - strong: 长乐大厦\n      - generic: 局部模型 · 可预览\n    - button:\n      - generic: \"22\"\n      - strong: 兴发集团宜昌总部\n      - generic: 局部模型 · 可预览\n    - button:\n      - generic: \"23\"\n      - strong: 丽景国际综合楼\n      - generic: 局部模型 · 可预览\n    - button:\n      - generic: \"24\"\n      - strong: 中建·宜昌之星\n      - generic: 局部模型 · 可预览\n    - button:\n      - generic: \"25\"\n      - strong: 福久源大厦\n      - generic: 局部模型 · 可预览\n    - button:\n      - generic: \"26\"\n      - strong: 鑫鼎大厦\n      - generic: 局部模型 · 可预览\n    - button:\n      - generic: \"27\"\n      - strong: 旭光商贸大厦\n      - generic: 局部模型 · 可预览\n    - button:\n      - generic: \"28\"\n      - strong: 光联大厦\n      - generic: 局部模型 · 可预览\n    - button:\n      - generic: \"29\"\n      - strong: 共和景晨创业中心\n      - generic: 研究模型 · 身份待核\n    - button:\n      - generic: \"30\"\n      - strong: 共同大厦\n      - generic: 局部模型 · 可预览\n  - generic: 宜昌中心城区 · 风格化沙盘\n  - button:\n    - text: 关于这座沙盘\n  - generic: YICHANG ONLINE\n  - generic: VOL. 01\n- main \"宜昌城市沙盘与自建建筑\":\n  - img \"可旋转、缩放和探索的宜昌三维城市沙盘\"\n  - generic: 沿江大道\n  - generic \"地图地点标注与附近分组\":\n    - button \"查看宜昌国际广场\":\n      - generic: 宜昌国际广场\n  - generic \"沙盘显示设置\":\n    - button \"建筑视角\" [pressed]:\n      - generic: 建筑视角\n    - button \"俯瞰建筑\":\n      - generic: 俯瞰建筑\n    - button \"回到全景\":\n    - button \"日景\" [pressed]:\n    - button \"夜景\":\n  - text: 自建建筑 · S01 静态组团候选\n  - paragraph:\n    - generic: 组团候选定位·相对布局待核 · 非实测\n    - button \"连同沙盘看\":\n      - text: 连同沙盘看\n  - group \"建筑观察位置\":\n    - button \"查看建筑全貌\": 全貌\n    - button \"细看幕墙\": 幕墙\n    - button \"细看入口\": 入口\n    - button \"细看顶部\": 顶部\n    - button \"查看前场与街道\": 前场\n  - group \"建筑缩放\":\n    - button \"缩小建筑\":\n    - button \"放大建筑\":\n  - generic: 沿江街景 · 双指平移与缩放\n  - button \"图层\":\n  - region \"宜昌国际广场介绍\":\n    - generic: 商务楼宇 / S01 静态组团候选\n    - generic \"当前结果第13项，共30项\":\n      - text: \"13\"\n      - generic: / 30\n    - button \"当前结果中的上一项\":\n    - button \"当前结果中的下一项\":\n    - button \"关闭地标介绍\":\n    - generic: \"13\"\n    - heading \"宜昌国际广场\" [level=2]\n    - button \"复制定位链接\":\n    - paragraph: 办公与住宅，围合一段开放的商业街。\n    - button \"收起介绍\" [expanded]:\n      - generic: 收起介绍\n    - button \"回到建筑全貌\":\n      - generic: 回到建筑全貌\n    - tablist \"地标内容\":\n      - tab \"楼宇手记\"\n      - tab \"观察视角\" [selected]\n    - tabpanel \"观察视角\":\n      - paragraph: 换一个角度，发现城市的另一面。\n      - button \"连同沙盘看 建筑与城市，一起入镜\":\n        - strong: 连同沙盘看\n        - generic: 建筑与城市，一起入镜\n      - button \"查看沿江街景\" [active]:\n        - strong: 沿江街景\n        - generic: 万达路口两侧的人行空间\n      - button \"建筑全貌 完整展示楼体，自动适配画面\":\n        - strong: 建筑全貌\n        - generic: 完整展示楼体，自动适配画面\n      - button \"正立面 完整查看建筑正立面\":\n        - strong: 正立面\n        - generic: 完整查看建筑正立面\n      - button \"顶部与轮廓 查看候选模型的顶部形态\":\n        - strong: 顶部与轮廓\n        - generic: 查看候选模型的顶部形态\n      - button \"回到城市全景 收起介绍，继续探索宜昌\":\n        - strong: 回到城市全景\n        - generic: 收起介绍，继续探索宜昌\n    - status:\n      - generic: 近景模型已就绪\n      - button \"模型说明\"\n    - generic: 等比微缩 · 尺寸与朝向非实测\n  - button \"楼宇资料与说明\"\n  - generic: © OpenStreetMap contributors\n- link \"在 ChatGPT 中编辑网站\":\n  - /url: https://chatgpt.com/sites/appgprj_6af0b8d6dbec81919ea6c30c51e88270/edit?account_id=personal&conversation_id=6af28273-5888-83e8-a59e-1f06eb13b829&codex_thread_id=01a1c34d-b6c2-7654-b103-d1c5a96fa008&browser_url=https%3A%2F%2Fyichang-miniature-city.gaoronghai.chatgpt.site%2F%23place%3Dyichang-international-s01%26angle%3Dstreetscape%26close%3D1\n- button \"编辑网站\":\n  - generic: 编辑网站\n- button \"隐藏工具栏\":"
+      ]
+    },
+    {
+      "key": "linkOverviewInitial",
+      "observations": [
+        {
+          "case": "V58-overview-street-zero",
+          "canvas": [
+            {
+              "authoredModels": "7",
+              "authoredSelection": "false",
+              "businessProjects": "23",
+              "cityVisible": "true",
+              "detailModels": "0",
+              "drawCalls": "258",
+              "engine": "three.js r170",
+              "focusAngle": "overview",
+              "geometries": "321",
+              "modelAnchor": "",
+              "modelQuality": "light",
+              "renderFrames": "112",
+              "renderState": "idle",
+              "residentModels": "7",
+              "sceneMode": "city",
+              "streetDetails": "0",
+              "streetDetailsEnabled": "true",
+              "streetVisibleDrawCalls": "0",
+              "streetVisibleExtensions": "0",
+              "streetVisibleIds": "[]",
+              "streetVisibleLinks": "0",
+              "streetVisibleSites": "0",
+              "textures": "15",
+              "triangles": "1313930"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "linkOverviewReset",
+      "observations": [
+        {
+          "url": "https://yichang-miniature-city.gaoronghai.chatgpt.site/",
+          "canvas": [
+            {
+              "authoredModels": "7",
+              "authoredSelection": "false",
+              "businessProjects": "23",
+              "cityVisible": "true",
+              "detailModels": "0",
+              "drawCalls": "225",
+              "engine": "three.js r170",
+              "focusAngle": "overview",
+              "geometries": "330",
+              "modelAnchor": "",
+              "modelQuality": "light",
+              "renderFrames": "843",
+              "renderState": "active",
+              "residentModels": "7",
+              "sceneMode": "city",
+              "streetDetails": "0",
+              "streetDetailsEnabled": "true",
+              "streetVisibleDrawCalls": "0",
+              "streetVisibleExtensions": "0",
+              "streetVisibleIds": "[]",
+              "streetVisibleLinks": "0",
+              "streetVisibleSites": "0",
+              "textures": "15",
+              "triangles": "1297710"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "linkOverviewFollowUp",
+      "observations": [
+        {
+          "case": "V58-overview-follow-up",
+          "url": "https://yichang-miniature-city.gaoronghai.chatgpt.site/",
+          "canvas": [
+            {
+              "dataset": {
+                "authoredModels": "7",
+                "authoredSelection": "false",
+                "businessProjects": "23",
+                "cityVisible": "true",
+                "detailModels": "0",
+                "drawCalls": "258",
+                "engine": "three.js r170",
+                "focusAngle": "overview",
+                "geometries": "330",
+                "modelAnchor": "",
+                "modelQuality": "light",
+                "renderFrames": "854",
+                "renderState": "idle",
+                "residentModels": "7",
+                "sceneMode": "city",
+                "streetDetails": "0",
+                "streetDetailsEnabled": "true",
+                "streetVisibleDrawCalls": "0",
+                "streetVisibleExtensions": "0",
+                "streetVisibleIds": "[]",
+                "streetVisibleLinks": "0",
+                "streetVisibleSites": "0",
+                "textures": "15",
+                "triangles": "1313930"
+              },
+              "height": 793,
+              "width": 1616
+            }
+          ]
+        },
+        {
+          "url": "https://yichang-miniature-city.gaoronghai.chatgpt.site/#place=yichang-international-s01&close=1",
+          "heading": "宜昌国际广场"
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Clipboard button displayed a success toast, but the browser tool returned an empty clipboard string. Clipboard payload was not independently verified; actual address-bar location reload was verified.",
+    "Viewport changed from 1920x919 to 1920x863 during later QA; final-page resources are not compared against the 1920x919 baseline.",
+    "The two extensions are illustrative and stop separately before Wanda Road; no crossing or surveyed public route is claimed."
+  ],
+  "finalPreferences": {
+    "viewportOverride": "reset",
+    "streetDetails": true,
+    "waterMotion": true,
+    "theme": "day",
+    "selected": "yichang-international-s01",
+    "angle": "streetscape"
+  }
+}
