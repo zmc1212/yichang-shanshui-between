@@ -10,7 +10,7 @@ const STREET_SITES = [
     treeSpan: 48, treeStep: 12, lampOffsets: [-42,-18,18,42], benchOffsets: [-31,31] },
   { id: 'wanda-soho-s01', roadName: '沿江大道', courtDepth: 6, halfRun: 118, followModelEntrance: true,
     treeSpan: 96, treeStep: 24, lampOffsets: [-87,-43,43,87], benchOffsets: [-65,65] },
-  { id: 'jiuzhou-s01', roadName: '沿江大道', courtDepth: 7, halfRun: 50, followModelEntrance: true,
+  { id: 'jiuzhou-s01', roadName: '沿江大道', courtDepth: 7, halfRun: 50, followModelEntrance: true, fillEntryApron: true,
     treeSpan: 42, treeStep: 14, lampOffsets: [-35,35], benchOffsets: [-22,22] },
 ];
 const EPS = 1e-9;
@@ -99,18 +99,38 @@ function planStreetSite({ data, authoredModels, authoredGround, waterfrontPlan, 
   const buildings = [...(data.buildings || []).filter((_, i) => !authoredGround.omittedBuildingIndices.has(i) && !waterfrontPlan?.omittedBuildingIndices?.has(i)), ...(authoredGround.retainedBuildings || [])]
     .filter(b => b.ring?.length > 2).map(b => ({ rings: b.rings || [b.ring], bounds: bounds(b.ring) })).filter(b => boxesNear(siteBounds, b.bounds));
   // Model bounds include stairs/canopies and are stricter than a source parcel.
-  for (const spec of authoredModels) if (boxesNear(siteBounds, bounds(spec.footprint))) buildings.push({ rings: [spec.footprint], bounds: bounds(spec.footprint), authored: true });
+  for (const spec of authoredModels) if (boxesNear(siteBounds, bounds(spec.footprint))) buildings.push({ rings: [spec.footprint], bounds: bounds(spec.footprint), authored: true, modelId: spec.id });
   const water = (data.water || []).map(p => ({ rings: p.rings || [p.ring], bounds: bounds((p.rings || [p.ring])[0]) })).filter(p => boxesNear(siteBounds, p.bounds));
   const roadSegments = [];
   for (const path of allPaths) for (let i = 1; i < path.points.length; i++) {
     const a = path.points[i - 1], b = path.points[i], box = bounds([a, b]);
     if (boxesNear(siteBounds, box, path.width)) roadSegments.push({ a, b, width: path.width, bounds: box, road: path.road });
   }
-  function polygonSafe(ring, clearance = 0.006) {
+  // City-mode assets are normalized from their common source minimum Y and
+  // placed at heightAt(anchor)+0.065 in createCityScene. A narrow entry apron
+  // may pass BELOW its own empty XZ envelope, with a larger-than-quantization
+  // vertical gap. No other building or source polygon receives this exception.
+  const modelBase = heightAt(model.x,model.z) + .065;
+  const apronCeiling = modelBase - .006;
+  function belowModelEnvelope(ring, surface) {
+    const p=ring.map(([x,z])=>[x,surface(x,z),z]);
+    if(p.some(v=>!v.every(Number.isFinite)||v[1]>apronCeiling))return false;
+    // The rendered triangles interpolate these vertices, so their complete
+    // interiors also remain below the same horizontal ceiling. Samples guard
+    // against a local terrain rise that could bury this small paved strip.
+    for(const tri of [[0,1,2],[0,2,3]])for(const w of [[1,0,0],[0,1,0],[0,0,1],[.5,.5,0],[.5,0,.5],[0,.5,.5],[1/3,1/3,1/3]]){
+      const v=[0,0,0];for(let i=0;i<3;i++)for(let j=0;j<3;j++)v[j]+=p[tri[i]][j]*w[i];
+      if(v[1]<heightAt(v[0],v[2])+.003||v[1]>apronCeiling+EPS)return false;
+    }
+    return true;
+  }
+  function polygonSafe(ring, clearance = 0.006, belowOwnModel = null) {
     const box = bounds(ring);
+    if(belowOwnModel && !belowModelEnvelope(ring,belowOwnModel))return false;
     if (ring.some(p => Math.abs(p[0]) >= data.meta.width / 2 || Math.abs(p[1]) >= data.meta.depth / 2 || inWater(p[0], p[1]))) return false;
     for (const b of buildings) {
       if (!boxesNear(box, b.bounds, clearance)) continue;
+      if(belowOwnModel && b.modelId===model.id)continue;
       // Source holes are respected when an entire candidate is in one hole.
       if (b.rings.slice(1).some(hole => ring.every(p => inside(p, hole)) && boundaryDistance(ring, hole) > clearance)) continue;
       if (ringDistance(ring, b.rings[0]) < clearance) return false;
@@ -147,11 +167,12 @@ function planStreetSite({ data, authoredModels, authoredGround, waterfrontPlan, 
   if (entrySubject) site.entranceReference = { method: 'authored-visible-subject-lateral-projection',
     sourceCenter: entrySubject.sourceCenter.toArray(), lateralOffset: entryLateral, surveyed: false };
   const pavingKeys = new Set();
-  function addPaving(points, role) {
-    if (!polygonSafe(points)) return false;
+  function addPaving(points, role, surface = null) {
+    const underModel = role==='entry-apron' && settings.fillEntryApron ? surface : null;
+    if (!polygonSafe(points,.006,underModel)) return false;
     const key = points.map(p => p.map(v => v.toFixed(5)).join(',')).sort().join(';');
     if (pavingKeys.has(key)) return true;
-    pavingKeys.add(key); site.paving.push({ points, role }); return true;
+    pavingKeys.add(key); site.paving.push(underModel ? { points, role, surface, belowModelId:model.id } : { points, role }); return true;
   }
 
   // A narrow forecourt along the documented front, split into restrained slabs.
@@ -208,6 +229,33 @@ function planStreetSite({ data, authoredModels, authoredGround, waterfrontPlan, 
     site.entranceRoute = [[...routeStart],[...routeEnd]];
   }
 
+  // Jiuzhou's exported front canopy and detached small forecourt pieces make
+  // its full AABB deeper than the visible entrance. Bridge that empty grass
+  // interval with one 4.6 m strip, entirely below every vertex of this model.
+  // The existing exterior forecourt and road connection remain unchanged.
+  if(settings.fillEntryApron && entrySubject && site.entranceRoute.length===2){
+    const start=[entrySubject.center.x,entrySubject.center.z],end=add(entryFront,front,.009);
+    const length=(end[0]-start[0])*front[0]+(end[1]-start[1])*front[1],width=routeWidth;
+    if(length>EPS){
+      const surface=(x,z)=>{
+        const along=(x-start[0])*front[0]+(z-start[1])*front[1],side=(x-start[0])*tangent[0]+(z-start[1])*tangent[1];
+        const t=clamp(along/length,0,1),startSide=add(start,tangent,side),endSide=add(end,tangent,side);
+        const low=Math.min(heightAt(...startSide)+.055,modelBase-.008);
+        return mix(low,heightAt(...endSide)+groundLift(...endSide),t*t*(3-2*t));
+      };
+      const count=Math.ceil(length/(2.5*units)),cells=[];
+      for(let i=0;i<count;i++){
+        const a=add(start,front,length*i/count),b=add(start,front,length*(i+1)/count);
+        cells.push([add(a,tangent,-width/2),add(b,tangent,-width/2),add(b,tangent,width/2),add(a,tangent,width/2)]);
+      }
+      if(cells.every(points=>polygonSafe(points,.006,surface))){
+        cells.forEach(points=>addPaving(points,'entry-apron',surface));
+        site.entryApron={start,end,width,length,cells:cells.length,modelBase,maxHeight:apronCeiling,
+          clearance:.006,belowModelId:model.id,method:'below-model-envelope',illustrative:true};
+      }
+    }
+  }
+
   const occupied = [];
   function place(kind, at, offset, width, depth, reserveRadius = 0) {
     const sample = pointOnPath(nearest.path, at), normal = normalAt(sample), p = add(sample.point, normal, offset);
@@ -248,23 +296,25 @@ export function planStreetDetails(options) {
     streetTrees: sum('trees'), streetLamps: sum('lamps'), streetBenches: sum('benches'),
     streetEntranceConnected: sites.length > 0 && connected === sites.length,
     streetEntrancesConnected: connected, streetIllustrative: true, streetMarkings: 0,
+    streetEntryApronCells: sites.reduce((total,site)=>total+(site.entryApron?.cells||0),0),
     streetSiteIds: sites.map(site => site.id),
     streetSiteSummaries: sites.map(site => ({ id: site.id, roadName: site.roadName, sourceRoad: site.roadSourceId,
       pavingCells: site.paving.length, curbSegments: site.curbs.length, trees: site.trees.length,
       lamps: site.lamps.length, benches: site.benches.length, entranceConnected: site.entranceRoute.length === 2,
-      illustrative: site.illustrative })),
+      entryApronConnected: Boolean(site.entryApron), illustrative: site.illustrative })),
   }, reserveTree: (x,z) => plans.some(plan => plan.reserveTree(x,z)) };
 }
 
 function quadsGeometry(cells, surface) {
   const positions=[],normals=[],step=.002;
   for(const cell of cells){
+    const cellSurface=cell.surface||surface;
     const signedArea=edges(cell.points).reduce((sum,[a,b])=>sum+a[0]*b[1]-b[0]*a[1],0);
     // Consistent upward winding plus normals from the same height function
     // avoids alternating face lighting along slab and path boundaries.
     for(const index of signedArea>0?[0,2,1,0,3,2]:[0,1,2,0,2,3]){
-      const p=cell.points[index];positions.push(p[0],surface(p[0],p[1]),p[1]);
-      const dx=(surface(p[0]+step,p[1])-surface(p[0]-step,p[1]))/(2*step),dz=(surface(p[0],p[1]+step)-surface(p[0],p[1]-step))/(2*step),length=Math.hypot(dx,1,dz);
+      const p=cell.points[index];positions.push(p[0],cellSurface(p[0],p[1]),p[1]);
+      const dx=(cellSurface(p[0]+step,p[1])-cellSurface(p[0]-step,p[1]))/(2*step),dz=(cellSurface(p[0],p[1]+step)-cellSurface(p[0],p[1]-step))/(2*step),length=Math.hypot(dx,1,dz);
       normals.push(-dx/length,1/length,-dz/length);
     }
   }

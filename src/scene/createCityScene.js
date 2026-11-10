@@ -924,9 +924,18 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
       const p = displayAnchor.project(camera);
       const inCurrentScene = layers.landmarks.visible && (item.spec.kind !== 'authored' || Boolean(authoredEntries.get(id)?.controller.getStats().quality));
       labels.push({ id, x: (p.x * 0.5 + 0.5) * widthPx, y: (-p.y * 0.5 + 0.5) * heightPx, visible: inCurrentScene && p.z >= -1 && p.z <= 1 && Math.abs(p.x) < 1.04 && Math.abs(p.y) < 1.04, depth: p.z });
-      if (id === selectedId && item.spec.kind === 'authored' && inCurrentScene) {
+      if (id === selectedId && item.spec.kind !== 'business-poi' && inCurrentScene) {
         const corners = [];
-        for (const [x, z] of item.spec.footprint) for (const y of [item.base, item.base + item.spec.localSize.y]) {
+        const positions = [];
+        if (item.spec.kind === 'authored') {
+          for (const [x, z] of item.spec.footprint) for (const y of [item.base, item.base + item.spec.localSize.y]) positions.push([x, y, z]);
+        } else if (!item.bounds.isEmpty()) {
+          // Historic landmarks deserve the same clear silhouette as authored
+          // towers. Their existing measured world bounds include roofs/rails.
+          for (const x of [item.bounds.min.x, item.bounds.max.x]) for (const y of [item.bounds.min.y, item.bounds.max.y])
+            for (const z of [item.bounds.min.z, item.bounds.max.z]) positions.push([x, y, z]);
+        }
+        for (const [x, y, z] of positions) {
           const q = new THREE.Vector3(x, y, z).project(camera);
           corners.push({ x: (q.x * .5 + .5) * widthPx, y: (-q.y * .5 + .5) * heightPx });
         }

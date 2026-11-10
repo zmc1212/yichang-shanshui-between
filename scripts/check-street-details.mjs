@@ -5,7 +5,9 @@ import { resolveBuildingInspection } from '../src/scene/buildingInspection.js';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import * as THREE from 'three';
-import { AUTHORED_MODELS } from '../src/scene/authoredModels.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
+import { AUTHORED_MODELS, prepareAuthoredModel } from '../src/scene/authoredModels.js';
 import { resolveAuthoredPlacement, planAuthoredGround } from '../src/scene/authoredPlacement.js';
 import { planStreetDetails, createStreetDetails, streetDetailTier } from '../src/scene/streetDetails.js';
 
@@ -53,9 +55,9 @@ passed.push('The complete Shouxin geometry matches its frozen V40 SHA-256; Wanda
 const box=ring=>({x0:Math.min(...ring.map(p=>p[0])),x1:Math.max(...ring.map(p=>p[0])),z0:Math.min(...ring.map(p=>p[1])),z1:Math.max(...ring.map(p=>p[1]))});
 const near=(a,b,pad=0)=>a.x0<=b.x1+pad&&b.x0<=a.x1+pad&&a.z0<=b.z1+pad&&b.z0<=a.z1+pad;
 const buildings=[...data.buildings.filter((_,i)=>!ground.omittedBuildingIndices.has(i)),...ground.retainedBuildings].map(b=>b.rings||[b.ring]);
-const hardFootprints=[...buildings.map(rings=>rings[0]),...models.map(m=>m.footprint)].map(ring=>({ring,box:box(ring)}));
+const hardFootprints=[...buildings.map(rings=>({ring:rings[0]})),...models.map(m=>({ring:m.footprint,modelId:m.id}))].map(item=>({...item,box:box(item.ring)}));
 const candidates=plan.sites.flatMap(site=>[
-  ...site.paving.map(p=>({ring:p.points,kind:'paving',site:site.id})),
+  ...site.paving.map(p=>({ring:p.points,kind:'paving',role:p.role,belowModelId:p.belowModelId,site:site.id})),
   ...site.curbs.map(c=>({ring:c.footprint,kind:'curb',site:site.id})),
   ...['trees','lamps','benches'].flatMap(kind=>site[kind].map(item=>({ring:item.safetyFootprint,kind,site:site.id})))
 ]).map(c=>({...c,box:box(c.ring)}));
@@ -65,7 +67,14 @@ for(const candidate of candidates){
   const ring=candidate.ring;
   assert(ring.every(p=>p.every(Number.isFinite)),`${candidate.site} ${candidate.kind}: finite footprint`);
   assert(ring.every(p=>Math.abs(p[0])<data.meta.width/2&&Math.abs(p[1])<data.meta.depth/2),`${candidate.kind}: board boundary`);
-  for(const obstacle of hardFootprints){if(!near(candidate.box,obstacle.box,.0038))continue;assert(polygonDistance(ring,obstacle.ring)>.0038,`${candidate.site} ${candidate.kind} overlaps a retained or authored building`);}
+  for(const obstacle of hardFootprints){
+    if(!near(candidate.box,obstacle.box,.0038))continue;
+    if(candidate.role==='entry-apron'&&obstacle.modelId===candidate.belowModelId){
+      assert.equal(candidate.site,'jiuzhou-s01','Only the explicit Jiuzhou apron receives a below-envelope exception');
+      assert.equal(candidate.belowModelId,candidate.site);continue;
+    }
+    assert(polygonDistance(ring,obstacle.ring)>.0038,`${candidate.site} ${candidate.kind} overlaps a retained or authored building`);
+  }
   for(const water of waters){if(!near(candidate.box,water.box,.0038))continue;const [outer,...holes]=water.rings;if(holes.some(h=>ring.every(p=>winding(p,h))))continue;assert(polygonDistance(ring,outer)>.0038,`${candidate.site} ${candidate.kind} enters mapped water`);}
   for(const road of roadSegments){
     if(!near(candidate.box,road.box,road.width/2+.0038))continue;
@@ -73,7 +82,9 @@ for(const candidate of candidates){
     assert(!winding(road.a,ring)&&!winding(road.b,ring)&&clearance>road.width/2+.0038,`${candidate.site} ${candidate.kind} occupies a carriageway, including a side-street opening`);
   }
 }
-passed.push(`${candidates.length} complete paving, curb and furnishing footprints clear every mapped road, retained building and water polygon`);
+const apronCandidates=candidates.filter(c=>c.role==='entry-apron');
+assert.equal(apronCandidates.length,5);
+passed.push(`${candidates.length-apronCandidates.length} complete paving, curb and furnishing footprints clear all mapped obstacles in XZ; ${apronCandidates.length} narrow Jiuzhou apron cells also clear every other building, retained source polygon, road and water, with only their own model envelope checked vertically below`);
 const paving=candidates.filter(c=>c.kind==='paving');
 for(let i=0;i<paving.length;i++)for(let j=i+1;j<paving.length;j++){
   if(!near(paving[i].box,paving[j].box))continue;
@@ -100,7 +111,7 @@ for(const site of plan.sites){
   assert(connection.at(-1).points.some(p=>site.paving.filter(c=>c.role==='sidewalk'||c.role==='accent').some(c=>pairs(c.points).some(([a,b])=>pointDistance(p,a,b)<1e-6))),`${site.id}: route touches sidewalk`);
   for(let i=1;i<connection.length;i++)assert(boundaryDistance(connection[i-1].points,connection[i].points)<1e-9);
   const [a,b]=site.entranceRoute;assert(site.groundLift(...a)<site.groundLift(...b));
-  const nearModel=site.paving.flatMap(p=>p.points).sort((a,b)=>Math.min(...pairs(model.footprint).map(([p,q])=>pointDistance(a,p,q)))-Math.min(...pairs(model.footprint).map(([p,q])=>pointDistance(b,p,q))))[0];
+  const nearModel=site.paving.filter(p=>p.role!=='entry-apron').flatMap(p=>p.points).sort((a,b)=>Math.min(...pairs(model.footprint).map(([p,q])=>pointDistance(a,p,q)))-Math.min(...pairs(model.footprint).map(([p,q])=>pointDistance(b,p,q))))[0];
   assert(site.groundLift(...nearModel)<.06,`${site.id}: forecourt at threshold stays below the 0.065 model base`);
   for(const item of [...site.trees,...site.lamps,...site.benches])assert(pointDistance([item.x,item.z],...site.entranceRoute)>.07,`${site.id}: furniture keeps entrance path clear`);
   assert.equal(plan.reserveTree((a[0]+b[0])/2,(a[1]+b[1])/2),true);
@@ -113,6 +124,65 @@ for(const site of plan.sites){
 }
 assert.equal(plan.reserveTree(0,0),false);
 passed.push('All three continuous paths join the complete model footprint front, narrow court and same-side sidewalk; new paths align with the authored visible entry while remaining illustrative');
+
+// Actual GIS terrain and actual decoded light/detail GLBs verify the apron
+// exception in three dimensions. Source models and render transforms are read
+// through the same retained, immutable asset frame; no GPU is being simulated.
+function sourceHeightAt(x,z){
+  if(inWater(x,z))return 0;
+  const t=data.terrain;if(!t?.cols||!t?.rows)return 0;
+  const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+  const fx=clamp((x/(t.width||data.meta.width)+.5)*(t.cols-1),0,t.cols-1.001),fz=clamp((z/(t.depth||data.meta.depth)+.5)*(t.rows-1),0,t.rows-1.001);
+  const ix=Math.floor(fx),iz=Math.floor(fz),tx=fx-ix,tz=fz-iz;
+  const a=Number(t.heights[iz*t.cols+ix])||0,b=Number(t.heights[iz*t.cols+ix+1])||0,c=Number(t.heights[(iz+1)*t.cols+ix])||0,d=Number(t.heights[(iz+1)*t.cols+ix+1])||0;
+  return clamp((a+(b-a)*tx)*(1-tz)+(c+(d-c)*tx)*tz,0,Math.max(data.meta.width,data.meta.depth)*.12);
+}
+const terrainPlan=planStreetDetails({...input,heightAt:sourceHeightAt}),entrySite=terrainPlan.sites.find(s=>s.id==='jiuzhou-s01'),entryModel=models.find(m=>m.id===entrySite.id),entry=entrySite.entryApron;
+assert(entry&&entry.method==='below-model-envelope');assert.equal(entry.illustrative,true);
+assert(Math.abs(entry.width/data.meta.unitsPerMeter-4.6)<1e-10);assert(entry.length/data.meta.unitsPerMeter<12);
+const entryCells=entrySite.paving.filter(p=>p.role==='entry-apron'),entrySubject=resolveBuildingInspection(entryModel,0,'entrance');
+assert.deepEqual(entry.start,[entrySubject.center.x,entrySubject.center.z]);
+for(const [cell,indices,endpoint] of [[entryCells[0],[0,3],entry.start],[entryCells.at(-1),[1,2],entry.end]])
+  for(let axis=0;axis<2;axis++)assert(Math.abs((cell.points[indices[0]][axis]+cell.points[indices[1]][axis])/2-endpoint[axis])<1e-10,'Apron end edges centre exactly on the entry and exterior court');
+for(let i=1;i<entryCells.length;i++)assert(boundaryDistance(entryCells[i-1].points,entryCells[i].points)<1e-9);
+assert(entryCells.at(-1).points.some(p=>entrySite.paving.filter(c=>c.role==='forecourt'||c.role==='accent').some(c=>pairs(c.points).some(([a,b])=>pointDistance(p,a,b)<1e-7))));
+// End-line coordinates also belong to the exterior court: meet it without
+// changing any existing court surface or introducing a step.
+for(const index of [1,2]){const p=entryCells.at(-1).points[index];assert(Math.abs(entryCells.at(-1).surface(...p)-sourceHeightAt(...p)-entrySite.groundLift(...p))<1e-10);}
+const raisedTerrain=(x,z)=>Math.hypot(x-entry.start[0],z-entry.start[1])<.08?.2:0;
+assert(!planStreetDetails({...input,heightAt:raisedTerrain}).sites.find(s=>s.id===entrySite.id).entryApron,'Apron must be rejected when terrain would force it through or below the model envelope');
+const middle=[(entry.start[0]+entry.end[0])/2,(entry.start[1]+entry.end[1])/2];
+const blocker={ring:[[-1,-1],[1,-1],[1,1],[-1,1]].map(([x,z])=>[middle[0]+x*.01,middle[1]+z*.01])};
+const blockedGround={...ground,retainedBuildings:[...ground.retainedBuildings,blocker]};
+assert(!planStreetDetails({...input,authoredGround:blockedGround}).sites.find(s=>s.id===entrySite.id).entryApron,'A retained source building still blocks the entire new apron');
+const apronRender=createStreetDetails({sites:[entrySite],stats:{}},{heightAt:sourceHeightAt,makeMaterial:(day,night,options={})=>new THREE.MeshStandardMaterial({color:day,...options})});
+const apronMesh=apronRender.group.getObjectByName('forecourt, entrance path and sidewalk'),position=apronMesh.geometry.attributes.position;
+const apronIndices=entrySite.paving.filter(c=>c.role!=='accent').flatMap((c,i)=>c.role==='entry-apron'?Array.from({length:6},(_,j)=>i*6+j):[]);
+const loader=new GLTFLoader();loader.setMeshoptDecoder(MeshoptDecoder);
+const actualAssetBounds=[];
+for(const tier of ['light','detail']){
+  const file=path.join(root,'public/models/jiuzhou-s01',`${tier}.glb`),bytes=fs.readFileSync(file);
+  const raw=(await loader.parseAsync(bytes.buffer.slice(bytes.byteOffset,bytes.byteOffset+bytes.byteLength),'')).scene;
+  raw.updateMatrixWorld(true);const sourceBounds=new THREE.Box3().setFromObject(raw);
+  assert(Math.abs(sourceBounds.min.y-entryModel.sourceBounds.min[1])<1e-8,'The decoded GLB minimum Y matches the shared normalization frame');
+  const prepared=prepareAuthoredModel(raw,entryModel);prepared.rotation.y=entryModel.yaw;prepared.position.set(entryModel.x,entry.modelBase,entryModel.z);prepared.updateMatrixWorld(true);
+  const actualBounds=new THREE.Box3().setFromObject(prepared);assert(Math.abs(actualBounds.min.y-entry.modelBase)<1e-8);
+  actualAssetBounds.push({tier,sourceMinimumY:sourceBounds.min.y,normalizedWorldMinimumY:actualBounds.min.y});
+  prepared.traverse(o=>{o.geometry?.dispose();for(const m of Array.isArray(o.material)?o.material:o.material?[o.material]:[])m.dispose();});
+}
+const lowestModelY=Math.min(...actualAssetBounds.map(b=>b.normalizedWorldMinimumY));let highestPavingY=-Infinity,minimumGroundGap=Infinity;
+for(let i=0;i<apronIndices.length;i+=3){
+  const vertices=[0,1,2].map(j=>new THREE.Vector3().fromBufferAttribute(position,apronIndices[i+j]));
+  for(const weights of [[1,0,0],[0,1,0],[0,0,1],[.5,.5,0],[.5,0,.5],[0,.5,.5],[1/3,1/3,1/3]]){
+    const p=vertices.reduce((sum,v,j)=>sum.addScaledVector(v,weights[j]),new THREE.Vector3());
+    highestPavingY=Math.max(highestPavingY,p.y);minimumGroundGap=Math.min(minimumGroundGap,p.y-sourceHeightAt(p.x,p.z));
+    assert(lowestModelY-p.y>=.0059,'Every emitted apron vertex and sampled triangle interior stays below the complete model minimum Y');
+    assert(p.y-sourceHeightAt(p.x,p.z)>.003,'The actual apron remains visible above the GIS terrain');
+  }
+}
+const entryApronEvidence={role:'entry-apron',policy:'XZ overlap allowed only below its own complete model envelope',widthMetres:entry.width/data.meta.unitsPerMeter,lengthMetres:entry.length/data.meta.unitsPerMeter,cells:entryCells.length,triangles:apronIndices.length/3,modelBase:entry.modelBase,highestPavingY,minimumModelGap:lowestModelY-highestPavingY,minimumGroundGap,actualAssetBounds};
+passed.push('Five Jiuzhou apron cells connect the visible entry to the exterior court; actual GIS terrain and both decoded GLBs prove every rendered triangle stays below the complete model by at least 0.0059 world units, while all other obstacles retain full XZ clearance');
+apronRender.group.traverse(o=>{o.geometry?.dispose();for(const m of Array.isArray(o.material)?o.material:o.material?[o.material]:[])m.dispose();});
 
 const inaccessible={...data,roads:data.roads.map(road=>road.name==='沿江大道'?{...road,bridge:'yes',layer:'1'}:road)};
 assert.equal(planStreetDetails({...input,data:inaccessible}).sites.length,0,'An elevated road is never converted to ground-level pedestrian access');
@@ -171,6 +241,6 @@ render.update({pixelsPerUnit:60,frustum:visibleFrustum});assert.equal(render.upd
 render.update({pixelsPerUnit:2,frustum:visibleFrustum});assert.equal(render.getStats().streetVisibleDrawCalls,0,'All street detail disappears again at overview scale');
 passed.push('Every site obeys pixel-scale hysteresis, independent frustum visibility, street/tree toggles, theme changes and zero overview draw calls without a continuous loop');
 
-const report={checkedAt:'2026-11-10',scope:'geometric-data-resource-lifecycle-only',baseline:'V40 e87fde278f678ae76668766f27c3ad5e46144c56',stats:render.stats,sites:plan.sites.map(site=>({id:site.id,sourceRoad:site.roadSourceId,sourceAnchor:site.sourceAnchor,entranceReference:site.entranceReference||null,illustrative:site.illustrative})),passed};
+const report={checkedAt:'2026-11-10',scope:'geometric-data-resource-lifecycle-only',baseline:'V40 e87fde278f678ae76668766f27c3ad5e46144c56',stats:render.stats,sites:plan.sites.map(site=>({id:site.id,sourceRoad:site.roadSourceId,sourceAnchor:site.sourceAnchor,entranceReference:site.entranceReference||null,illustrative:site.illustrative})),entryApronEvidence,passed};
 console.log(JSON.stringify(report,null,2));
 const geometries=new Set(),usedMaterials=new Set();render.group.traverse(o=>{if(o.geometry)geometries.add(o.geometry);if(o.material)usedMaterials.add(o.material);});geometries.forEach(g=>g.dispose());usedMaterials.forEach(m=>m.dispose());
