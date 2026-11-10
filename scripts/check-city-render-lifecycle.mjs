@@ -122,6 +122,17 @@ try {
   wake(()=>engine.setView('top'),'top view');
   wake(()=>engine.setView('perspective'),'perspective view');
   wake(()=>engine.focus('shouxin-wealth-s01',{close:true}),'focus');
+  const sourceRoadLayer=renderer.scene.getObjectByName('roads');
+  const streetBeforeToggle=engine.getStats().streetDetails;
+  assert.equal(streetBeforeToggle.streetVisibleTier,2,'Shouxin whole-building view reveals the street sample');
+  assert.ok(streetBeforeToggle.streetVisibleDrawCalls>0);
+  wake(()=>engine.setLayer('streetDetails',false),'street details off');
+  assert.equal(engine.getStats().streetDetails.streetVisibleDrawCalls,0);
+  assert.equal(sourceRoadLayer.visible,true,'street detail toggle retains the base road network');
+  wake(()=>engine.setLayer('streetDetails',true),'street details on');
+  assert.equal(engine.getStats().streetDetails.streetVisibleTier,2);
+  assert.equal(renderer.scene.getObjectByName('street tree crowns').parent.visible,false,'street trees honor the existing tree layer');
+  checks.push('street sample wakes on toggle, reveals by screen scale, retains base roads and existing tree-layer state, then returns to idle');
   wake(()=>engine.refitSelection(),'selection refit');
   wake(()=>engine.reset(),'reset');
   const wheel=new Event('wheel',{cancelable:true}); Object.assign(wheel,{deltaY:-100,deltaMode:0,ctrlKey:false,clientX:600,clientY:400});

@@ -1,0 +1,34 @@
+{
+  "checkedAt": "2026-11-10",
+  "scope": "geometric-data-resource-lifecycle-only",
+  "street": "shouxin-wealth-s01",
+  "sourceRoad": "way/39725551",
+  "sourceAnchor": [
+    17.84661482668662,
+    44.801642264664586
+  ],
+  "stats": {
+    "streetSites": 1,
+    "streetPavingCells": 77,
+    "streetCurbSegments": 66,
+    "streetTrees": 7,
+    "streetLamps": 3,
+    "streetBenches": 2,
+    "streetEntranceConnected": true,
+    "streetIllustrative": true,
+    "streetMarkings": 0,
+    "streetMeshes": 12,
+    "streetTriangles": 1782,
+    "streetGeometryBytes": 45508
+  },
+  "passed": [
+    "One bounded Shouxin sample derives its fixed anchor, front and road identity from the retained data",
+    "155 complete paving, curb and furnishing footprints clear every mapped road, retained building and water polygon",
+    "Every pair of paving cells has zero overlapping area, including inset colors and entrance connections",
+    "The continuous entrance route meets both forecourt and sidewalk; ground lift stays below the doorway and rises towards the road",
+    "All source data and architectural transforms remain byte-for-byte unchanged in memory",
+    "12 meshes, 1782 triangles and 45508 geometry/instance bytes; all repeated furnishings use instances",
+    "One merged night-pool mesh follows the slope at every vertex; triangle centres and edge midpoints stay just above the paving",
+    "Pixel-based LOD has hysteresis, off-screen/toggle suppression, tree-layer handling and day/night light state without a continuous loop"
+  ]
+}

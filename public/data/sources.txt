@@ -237,3 +237,13 @@ OpenStreetMap 坝顶道路 way/1465238639；几何使用项目保留快照：htt
 配准证据与待核项：/data/business-buildings-registration.json
 本轮恢复8项模型：7项在城市中候选落位，美联1项独立候选预览；其余15项模型待恢复。所有阶段候选均不等于实景验收。
 各模型原件未修改；网页派生说明：/models/<model-id>/README.txt。万达/福江仅用修正版；中南研究方案关闭，锦江未用S04。
+
+道路分级与首信街道样板（2026-11-10）
+已对照原道路快照SHA-256 5c2241d19f315856f4bbf4c580a38285566345a94c12b680626d0d023c7c27dd，逐条精确复现3600段原始导出记录，补回highway、osmId、bridge、layer、lanes、oneway及来源宽度等实际存在的标签。原道路坐标、宽度、名称与城市其他数据未改动。
+桥属性为352段bridge=yes和27段bridge=viaduct；旧kind仅将352段标为bridge，现按来源highway继续其道路材质等级。
+首信临街样板参考沿江大道近侧way/39725551及相邻支路way/1451960669的保留道路几何，建筑锚点、方位与等比模型沿用既有候选配准。
+新增前场、人行连接、铺装、树池、灯具与长椅为展示性街道设计，不代表入口、人行道边界或设施点位经实地核实。完整安全轮廓避让现有道路、水体、建筑和入口通道。
+源快照没有lane_markings、crossing或原始OSM节点ID；未添加推测的车道标线、停止线、斑马线。恢复的layer仅描述相对叠置，不作为实测桥梁高程；道路宽度含原有按车道数估计值，非测绘宽度。
+OpenStreetMap道路标签说明：https://wiki.openstreetmap.org/wiki/Key:lanes
+OpenStreetMap层级说明：https://wiki.openstreetmap.org/wiki/Key:layer
+道路恢复审计和几何验收随本轮源代码归档，未改动原模型、地理锚点和建筑取景策略。

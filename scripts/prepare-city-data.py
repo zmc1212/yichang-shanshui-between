@@ -99,6 +99,22 @@ def source_feature_id(feature, source_file):
     return 'geometry-sha256:' + hashlib.sha256((source_file+'\n'+payload).encode()).hexdigest()
 
 
+def road_source_metadata(properties):
+    """Keep original road semantics separate from the historic display kind.
+
+    Missing OSM tags stay absent. In particular, lanes do not establish that
+    painted markings exist, and layer is a relative order rather than metres.
+    Keep this whitelist in sync with restore-road-metadata.py.
+    """
+    fields = ('osmId', 'highway', 'bridge', 'tunnel', 'layer', 'lanes',
+              'oneway', 'lane_markings', 'widthSource', 'ref', 'access', 'service',
+              'lanes:forward', 'lanes:backward', 'lanes:both_ways', 'crossing')
+    metadata = {key: properties[key] for key in fields if key in properties}
+    if 'widthMeters' in properties:
+        metadata['sourceWidthMeters'] = properties['widthMeters']
+    return metadata
+
+
 def polygon_parts(g):
     if g.is_empty: return []
     if g.geom_type == 'Polygon': return [g]
@@ -299,6 +315,9 @@ def main():
                 wm=p.get('widthMeters', {'motorway':16,'trunk':14,'primary':12,'secondary':10,'tertiary':8,'residential':6}.get(base_kind,4))
                 obj={'points':points,'width':round(float(wm)*SCALE,3),'kind':'bridge' if p.get('bridge')=='yes' else base_kind}
                 if p.get('name'):obj['name']=p['name']
+                # Preserve the old shape/width/kind contract while recovering
+                # highway/link type, bridge and relative layer independently.
+                obj.update(road_source_metadata(p))
                 pool.append((road_classes[base_kind],-part.length,p.get('osmId',''),obj))
                 if p.get('bridge')=='yes' and p.get('name') in ['至喜长江大桥','夷陵长江大桥']:
                     if pool is legacy_roads:
@@ -307,8 +326,9 @@ def main():
     for pool in [legacy_roads,expansion_roads]:
         pool.sort(key=lambda r:(r[0],r[1],r[2]))
     road_candidates=len(legacy_roads)+len(expansion_roads)
-    legacy_road_geometry=[r[3] for r in legacy_roads[:LEGACY_ROADS]]
-    roads=[{**r,'points':[move_legacy_point(p) for p in r['points']]} for r in legacy_road_geometry]
+    # Keep the historic geometry hash independent of newly retained tags.
+    legacy_road_geometry=[{key:r[3][key] for key in ('points','width','kind','name') if key in r[3]} for r in legacy_roads[:LEGACY_ROADS]]
+    roads=[{**r[3],'points':[move_legacy_point(p) for p in r[3]['points']]} for r in legacy_roads[:LEGACY_ROADS]]
     roads += [r[3] for r in expansion_roads[:ADDITIONAL_ROADS]]
     pois={p['id']:p for p in json.loads(pois_path.read_text())}
     # Keep fidelity / presentation notes in metadata, not in visitor copy.

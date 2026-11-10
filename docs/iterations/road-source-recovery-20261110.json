@@ -1,0 +1,103 @@
+{
+  "date": "2026-11-10",
+  "sourceSnapshotCommit": "38c01bf002511c01294feacd8aa85e54e6342724",
+  "sourceFile": "dist/data/gis-yichang/roads.geojson",
+  "sourceSha256": "5c2241d19f315856f4bbf4c580a38285566345a94c12b680626d0d023c7c27dd",
+  "sourceFeatureCount": 7210,
+  "replayedCandidates": 4380,
+  "exactlyMatchedOriginalRoadRecords": 3600,
+  "legacyRoadCount": 2950,
+  "expansionRoadCount": 650,
+  "legacyRoadFieldsPreserved": [
+    "points",
+    "width",
+    "kind",
+    "name"
+  ],
+  "legacyRoadFieldsSha256": "2598c1859e45008b7f8e6888d1053b9d1bf42f499cc44bd74426e0bf9745b5dc",
+  "nonRoadCityFieldsSha256": "10920eb7811f2f82e192f7a04519dca3051a9bdc49d7f96ebf7e05ec08ca3347",
+  "recoveredFieldCounts": {
+    "osmId": 3600,
+    "highway": 3600,
+    "bridge": 379,
+    "tunnel": 0,
+    "layer": 392,
+    "lanes": 368,
+    "oneway": 1409,
+    "lane_markings": 0,
+    "widthSource": 368,
+    "ref": 229,
+    "access": 11,
+    "service": 5,
+    "lanes:forward": 0,
+    "lanes:backward": 0,
+    "lanes:both_ways": 0,
+    "crossing": 0,
+    "sourceWidthMeters": 3600
+  },
+  "selectedHighwayCounts": {
+    "living_street": 3,
+    "motorway": 104,
+    "motorway_link": 133,
+    "primary": 375,
+    "primary_link": 91,
+    "residential": 647,
+    "secondary": 186,
+    "secondary_link": 34,
+    "service": 1301,
+    "tertiary": 324,
+    "tertiary_link": 16,
+    "trunk": 228,
+    "trunk_link": 150,
+    "unclassified": 8
+  },
+  "legacyBridgeKindCount": 352,
+  "legacyBridgeRecoveredHighwayCounts": {
+    "motorway": 46,
+    "motorway_link": 31,
+    "primary": 58,
+    "primary_link": 8,
+    "residential": 16,
+    "secondary": 22,
+    "service": 6,
+    "tertiary": 25,
+    "tertiary_link": 3,
+    "trunk": 98,
+    "trunk_link": 39
+  },
+  "sourceBridgeValueCounts": {
+    "viaduct": 27,
+    "yes": 352
+  },
+  "sourceWidthSourceCounts": {
+    "<absent>": 3232,
+    "estimated-from-lanes": 368
+  },
+  "sourceLayerValueCounts": {
+    "-1": 7,
+    "0": 5,
+    "1": 345,
+    "2": 34,
+    "3": 1
+  },
+  "uniqueSelectedOsmIds": 3498,
+  "geometryEngine": {
+    "gdal": "GDAL 3.10.3, released 2025/04/01",
+    "geos": "3.13.1"
+  },
+  "method": "Replay original WGS84 clipping, GEOS topology-preserving simplification, length/class/OSM-ID ordering, separate 2950+650 budgets and legacy recentering; require exact equality of every original road record before adding source tags.",
+  "limitations": [
+    "Missing tags remain absent; no neighbour/class/width-based tag inference was performed.",
+    "layer is a relative crossing order, not a bridge elevation in metres.",
+    "lanes does not establish whether painted markings exist or where crossings and stop lines are.",
+    "The recovered source has no lane_markings, crossing or original OSM node-ID topology.",
+    "sourceWidthMeters includes the existing export estimates; it is not a surveyed width.",
+    "Original display kind is retained for backwards compatibility; bridge=viaduct must be read independently."
+  ],
+  "checks": {
+    "sourceHashMatches": true,
+    "allOriginalRoadFieldsMatchExactly": true,
+    "allNonRoadCityFieldsPreserved": true,
+    "sourceCheckoutModified": false
+  }
+}

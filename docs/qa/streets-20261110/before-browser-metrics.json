@@ -1,0 +1,196 @@
+{
+  "version": 38,
+  "sourceCommit": "e7e85e3812fb99584b940fbbcaee967a597e571c",
+  "browser": "Connected Chrome, Windows; same session and viewport planned for after",
+  "records": [
+    {
+      "case": "desktop-shouxin-whole",
+      "canvas": {
+        "authoredModels": "7",
+        "authoredSelection": "true",
+        "businessProjects": "23",
+        "cityVisible": "true",
+        "detailModels": "1",
+        "drawCalls": "71",
+        "engine": "three.js r170",
+        "focusAngle": "detail",
+        "geometries": "274",
+        "modelAnchor": "[17.84661482668662,0.06500000405919155,44.801642264664586]",
+        "modelQuality": "detail",
+        "renderFrames": "167",
+        "renderState": "idle",
+        "residentModels": "7",
+        "sceneMode": "city",
+        "textures": "14",
+        "triangles": "699702"
+      },
+      "url": "https://yichang-miniature-city.gaoronghai.chatgpt.site/#place=shouxin-wealth-s01&close=1",
+      "viewport": [
+        1920,
+        863
+      ]
+    },
+    {
+      "case": "desktop-shouxin-entrance",
+      "canvas": {
+        "authoredModels": "7",
+        "authoredSelection": "true",
+        "businessProjects": "23",
+        "cityVisible": "true",
+        "detailModels": "1",
+        "drawCalls": "51",
+        "engine": "three.js r170",
+        "focusAngle": "entrance",
+        "geometries": "274",
+        "modelAnchor": "[17.84661482668662,0.06500000405919155,44.801642264664586]",
+        "modelQuality": "detail",
+        "renderFrames": "172",
+        "renderState": "idle",
+        "residentModels": "7",
+        "sceneMode": "city",
+        "textures": "14",
+        "triangles": "643554"
+      },
+      "url": "https://yichang-miniature-city.gaoronghai.chatgpt.site/#place=shouxin-wealth-s01&angle=entrance&close=1",
+      "viewport": [
+        1920,
+        863
+      ]
+    },
+    {
+      "case": "desktop-shouxin-entrance-night",
+      "canvas": {
+        "authoredModels": "7",
+        "authoredSelection": "true",
+        "businessProjects": "23",
+        "cityVisible": "true",
+        "detailModels": "1",
+        "drawCalls": "54",
+        "engine": "three.js r170",
+        "focusAngle": "entrance",
+        "geometries": "277",
+        "modelAnchor": "[17.84661482668662,0.06500000405919155,44.801642264664586]",
+        "modelQuality": "detail",
+        "renderFrames": "174",
+        "renderState": "idle",
+        "residentModels": "7",
+        "sceneMode": "city",
+        "textures": "14",
+        "triangles": "643554"
+      },
+      "url": "https://yichang-miniature-city.gaoronghai.chatgpt.site/#place=shouxin-wealth-s01&theme=night&angle=entrance&close=1",
+      "viewport": [
+        1920,
+        863
+      ]
+    },
+    {
+      "case": "desktop-wanda-whole",
+      "canvas": {
+        "authoredModels": "7",
+        "authoredSelection": "true",
+        "businessProjects": "23",
+        "cityVisible": "true",
+        "detailModels": "1",
+        "drawCalls": "78",
+        "engine": "three.js r170",
+        "focusAngle": "detail",
+        "geometries": "289",
+        "modelAnchor": "[-10.740095151693664,0.08558491166028073,16.1045533568941]",
+        "modelQuality": "detail",
+        "renderFrames": "184",
+        "renderState": "idle",
+        "residentModels": "7",
+        "sceneMode": "city",
+        "textures": "24",
+        "triangles": "1136072"
+      },
+      "url": "https://yichang-miniature-city.gaoronghai.chatgpt.site/#place=wanda-soho-s01&close=1",
+      "viewport": [
+        1920,
+        863
+      ]
+    },
+    {
+      "case": "desktop-zhenjiang-still",
+      "canvas": {
+        "authoredModels": "7",
+        "authoredSelection": "false",
+        "businessProjects": "23",
+        "cityVisible": "true",
+        "detailModels": "0",
+        "drawCalls": "51",
+        "engine": "three.js r170",
+        "focusAngle": "detail",
+        "geometries": "258",
+        "modelAnchor": "",
+        "modelQuality": "light",
+        "renderFrames": "262",
+        "renderState": "idle",
+        "residentModels": "7",
+        "sceneMode": "city",
+        "textures": "14",
+        "triangles": "561728"
+      },
+      "url": "https://yichang-miniature-city.gaoronghai.chatgpt.site/#place=zhenjiang-pavilion",
+      "viewport": [
+        1920,
+        863
+      ]
+    },
+    {
+      "case": "phone-shouxin-whole",
+      "canvas": {
+        "authoredModels": "7",
+        "authoredSelection": "true",
+        "businessProjects": "23",
+        "cityVisible": "true",
+        "detailModels": "1",
+        "drawCalls": "57",
+        "engine": "three.js r170",
+        "focusAngle": "detail",
+        "geometries": "277",
+        "modelAnchor": "[17.84661482668662,0.06500000405919155,44.801642264664586]",
+        "modelQuality": "detail",
+        "renderFrames": "276",
+        "renderState": "idle",
+        "residentModels": "7",
+        "sceneMode": "city",
+        "textures": "14",
+        "triangles": "654006"
+      },
+      "url": "https://yichang-miniature-city.gaoronghai.chatgpt.site/#place=shouxin-wealth-s01&close=1&q=%E9%A6%96%E4%BF%A1",
+      "viewport": [
+        390,
+        844
+      ]
+    },
+    {
+      "case": "desktop-overview",
+      "canvas": {
+        "authoredModels": "7",
+        "authoredSelection": "false",
+        "businessProjects": "23",
+        "cityVisible": "true",
+        "detailModels": "0",
+        "drawCalls": "256",
+        "engine": "three.js r170",
+        "focusAngle": "overview",
+        "geometries": "258",
+        "modelAnchor": "",
+        "modelQuality": "light",
+        "renderFrames": "322",
+        "renderState": "idle",
+        "residentModels": "7",
+        "sceneMode": "city",
+        "textures": "14",
+        "triangles": "1237062"
+      },
+      "url": "https://yichang-miniature-city.gaoronghai.chatgpt.site/",
+      "viewport": [
+        1920,
+        863
+      ]
+    }
+  ]
+}
