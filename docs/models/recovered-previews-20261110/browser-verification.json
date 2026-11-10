@@ -1,6 +1,6 @@
 {
   "date": "2026-11-10",
-  "codeCommit": "fd8d12c20d5411232680c8bb62a1d7afc3a8ae3b",
+  "codeCommit": "69ec4360f3c993ff4356ddc5817c5ba1b294c52d",
   "viewport": [
     1920,
     863
@@ -106,7 +106,7 @@
         "cameraZoom": "1.000000",
         "drawCalls": "7",
         "engine": "three.js r170",
-        "frustumHeight": "9.326276",
+        "frustumHeight": "9.469169",
         "modelQuality": "light",
         "previewId": "business-1649146",
         "renderState": "idle",
@@ -124,14 +124,14 @@
         "cameraZoom": "1.000000",
         "drawCalls": "4",
         "engine": "three.js r170",
-        "frustumHeight": "9.221610",
+        "frustumHeight": "9.312653",
         "modelQuality": "light",
         "previewId": "business-1649142",
         "renderState": "idle",
         "triangles": "1262",
         "viewportAspect": "1.739241"
       },
-      "scope": "当前已建范围\n\n一组开放 L 形双立面，以及照片可辨的主横肋和部分细肋。",
+      "scope": "当前已建范围\n\n一组开放 L 形双立面，以及照片可辨的主竖肋和部分细肋。",
       "status": "模型已就绪",
       "title": "兴发集团总部 · 双可见立面"
     },
@@ -196,7 +196,7 @@
         "cameraZoom": "1.000000",
         "drawCalls": "9",
         "engine": "three.js r170",
-        "frustumHeight": "9.791335",
+        "frustumHeight": "11.911735",
         "modelQuality": "light",
         "previewId": "business-1649140",
         "renderState": "idle",
@@ -268,7 +268,7 @@
         "cameraZoom": "1.000000",
         "drawCalls": "7",
         "engine": "three.js r170",
-        "frustumHeight": "9.313974",
+        "frustumHeight": "10.127975",
         "modelQuality": "light",
         "previewId": "business-1649130",
         "renderState": "idle",
@@ -327,8 +327,161 @@
     }
   },
   "sourceGeometryChecks": "business-model-check.json",
-  "remainingAtThisCheckpoint": [
-    "Four default corner views refined after this pass; verify updated views",
-    "Night and responsive viewport checks"
+  "remainingAtThisCheckpoint": [],
+  "verifiedVersion": 48,
+  "loadedScripts": [
+    "/assets/index-CZy3CdlL.js"
+  ],
+  "mobileNight": {
+    "horizontalOverflow": false,
+    "modal": {
+      "bottom": 824,
+      "height": 804,
+      "left": 20,
+      "right": 370,
+      "top": 20,
+      "width": 350,
+      "x": 20,
+      "y": 20
+    },
+    "preview": {
+      "cameraZoom": "1.000000",
+      "drawCalls": "6",
+      "engine": "three.js r170",
+      "frustumHeight": "8.978612",
+      "modelQuality": "light",
+      "previewId": "business-1649131",
+      "renderState": "idle",
+      "triangles": "69744",
+      "viewportAspect": "0.914373"
+    },
+    "stage": {
+      "bottom": 597.4375,
+      "height": 329.15625,
+      "left": 37,
+      "right": 338,
+      "top": 268.28125,
+      "width": 301,
+      "x": 37,
+      "y": 268.28125
+    },
+    "viewport": [
+      390,
+      844
+    ]
+  },
+  "desktopAfterMobile": {
+    "check": "desktop restored after mobile",
+    "viewport": [
+      1920,
+      863
+    ],
+    "preview": {
+      "cameraZoom": "1.000000",
+      "drawCalls": "6",
+      "engine": "three.js r170",
+      "frustumHeight": "8.978612",
+      "modelQuality": "light",
+      "previewId": "business-1649131",
+      "renderState": "idle",
+      "triangles": "69744",
+      "viewportAspect": "1.739241"
+    }
+  },
+  "guanglianQualitySwitch": [
+    {
+      "check": "Guanglian detail switch",
+      "data": {
+        "cameraZoom": "1.000000",
+        "drawCalls": "6",
+        "engine": "three.js r170",
+        "frustumHeight": "8.978612",
+        "modelQuality": "detail",
+        "previewId": "business-1649131",
+        "renderState": "idle",
+        "triangles": "100350",
+        "viewportAspect": "1.739241"
+      }
+    },
+    {
+      "check": "Guanglian light restored",
+      "data": {
+        "cameraZoom": "1.000000",
+        "drawCalls": "6",
+        "engine": "three.js r170",
+        "frustumHeight": "8.978612",
+        "modelQuality": "light",
+        "previewId": "business-1649131",
+        "renderState": "idle",
+        "triangles": "69744",
+        "viewportAspect": "1.739241"
+      }
+    }
+  ],
+  "overviewAfter": {
+    "city": {
+      "authoredModels": "7",
+      "businessProjects": "23",
+      "cityVisible": "true",
+      "detailModels": "0",
+      "drawCalls": "258",
+      "engine": "three.js r170",
+      "focusAngle": "overview",
+      "geometries": "256",
+      "modelAnchor": "",
+      "modelQuality": "light",
+      "renderFrames": "5",
+      "renderState": "idle",
+      "residentModels": "7",
+      "sceneMode": "city",
+      "streetDetails": "0",
+      "streetDetailsEnabled": "true",
+      "streetVisibleDrawCalls": "0",
+      "streetVisibleIds": "[]",
+      "streetVisibleSites": "0",
+      "textures": "14",
+      "triangles": "1313930"
+    },
+    "summary": "商务楼宇\n23 项\n\n7 沙盘模型\n16 独立预览\n\n预览含 15 项局部或研究模型",
+    "viewport": [
+      1920,
+      863
+    ]
+  },
+  "overviewBefore": {
+    "viewport": [
+      1920,
+      863
+    ],
+    "drawCalls": 258,
+    "triangles": 1313930,
+    "geometries": 256,
+    "textures": 14,
+    "residentModels": 7
+  },
+  "existingModelSmoke": {
+    "name": "首信财富中心",
+    "wholeBuildingVisible": true,
+    "crownAndBaseVisible": true,
+    "originalSceneAndPlacementCodeUnchanged": true
+  },
+  "aboutCounts": {
+    "projects": 23,
+    "viewableModels": 23,
+    "cityModels": 7,
+    "independentPreviews": 16,
+    "partial": 14,
+    "identityReview": 1,
+    "groupCandidate": 1
+  },
+  "scope": "Real connected Chrome screenshots and DOM-backed renderer diagnostics. Desktop and 390×844 desktop viewport override; no physical-phone FPS or device-memory benchmark.",
+  "knownResolvedIssues": [
+    "Preview resize accumulated frustum growth; replaced with absolute extent recomputation and invalid-size guard",
+    "Preview filter missing from location links; roundtrip and legacy queue links fixed",
+    "HQ scope corrected from horizontal to vertical ribs and source-authored two-face camera direction used"
+  ],
+  "toolLimits": [
+    "Managed local cloud browser has WebGL disabled; live connected Chrome used for visual QA",
+    "One screenshot timeout and one initial-load locator timeout resolved by fresh observed page state; no application console errors"
   ]
 }
