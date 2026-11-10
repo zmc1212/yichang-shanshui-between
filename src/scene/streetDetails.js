@@ -12,8 +12,13 @@ const STREET_SITES = [
     treeSpan: 96, treeStep: 24, lampOffsets: [-87,-43,43,87], benchOffsets: [-65,65] },
   { id: 'jiuzhou-s01', roadName: '沿江大道', courtDepth: 7, halfRun: 50, followModelEntrance: true, fillEntryApron: true,
     // The inspection target is a canopy view, not the curved vestibule door.
-    // This point is just in front of the retained door frame's source Z=10.83.
-    entryThresholdSource: [-13,.09,10.90],
+    // Join the actual stone step's front at its top, without covering its face.
+    entryThresholdSource: [-13,.1801239127460832,11.001],
+    entryStepFrontSource: 10.999567160678746,
+    // Exact clipping of BOTH retained GLBs proves this convex source corridor
+    // has no low model triangles (source Y <= 1). It is not an AABB exemption.
+    // Millimetre-sized margin also contains the emitted Float32 coordinates.
+    entryClearSource: [[-14.794,11.0005],[-11.824,25.402],[-8.236,25.402],[-11.206,11.0005]],
     treeSpan: 42, treeStep: 14, lampOffsets: [-35,35], benchOffsets: [-22,22] },
 ];
 const EPS = 1e-9;
@@ -109,15 +114,17 @@ function planStreetSite({ data, authoredModels, authoredGround, waterfrontPlan, 
     const a = path.points[i - 1], b = path.points[i], box = bounds([a, b]);
     if (boxesNear(siteBounds, box, path.width)) roadSegments.push({ a, b, width: path.width, bounds: box, road: path.road });
   }
-  // City-mode assets are normalized from their common source minimum Y and
-  // placed at heightAt(anchor)+0.065 in createCityScene. A narrow entry apron
-  // may pass BELOW its own empty XZ envelope, with a larger-than-quantization
-  // vertical gap. No other building or source polygon receives this exception.
+  // Only the certified native-space Jiuzhou approach may enter its model's
+  // otherwise conservative XZ envelope. Its inner edge joins the retained
+  // step top; every other model and source polygon keeps full XZ clearance.
   const modelBase = heightAt(model.x,model.z) + .065;
-  const apronCeiling = modelBase - .006;
-  function belowModelEnvelope(ring, surface) {
+  const apronCeiling = settings.entryThresholdSource ? modelBase+(settings.entryThresholdSource[1]-model.sourceBounds.min[1])*model.uniformScale : 0;
+  function certifiedEntryCorridor(ring, surface) {
+    if(model.id!=='jiuzhou-s01'||!settings.fillEntryApron||!settings.entryClearSource)return false;
+    const c=Math.cos(model.yaw),s=Math.sin(model.yaw),cx=(model.sourceBounds.min[0]+model.sourceBounds.max[0])/2,cz=(model.sourceBounds.min[2]+model.sourceBounds.max[2])/2;
+    for(const [x,z] of ring){const dx=x-model.x,dz=z-model.z,native=[(dx*c-dz*s)/model.uniformScale+cx,(dx*s+dz*c)/model.uniformScale+cz];if(!inside(native,settings.entryClearSource))return false;}
     const p=ring.map(([x,z])=>[x,surface(x,z),z]);
-    if(p.some(v=>!v.every(Number.isFinite)||v[1]>apronCeiling))return false;
+    if(p.some(v=>!v.every(Number.isFinite)||v[1]>apronCeiling+EPS))return false;
     // The rendered triangles interpolate these vertices, so their complete
     // interiors also remain below the same horizontal ceiling. Samples guard
     // against a local terrain rise that could bury this small paved strip.
@@ -127,13 +134,13 @@ function planStreetSite({ data, authoredModels, authoredGround, waterfrontPlan, 
     }
     return true;
   }
-  function polygonSafe(ring, clearance = 0.006, belowOwnModel = null) {
+  function polygonSafe(ring, clearance = 0.006, clearedEntry = null) {
     const box = bounds(ring);
-    if(belowOwnModel && !belowModelEnvelope(ring,belowOwnModel))return false;
+    if(clearedEntry && !certifiedEntryCorridor(ring,clearedEntry))return false;
     if (ring.some(p => Math.abs(p[0]) >= data.meta.width / 2 || Math.abs(p[1]) >= data.meta.depth / 2 || inWater(p[0], p[1]))) return false;
     for (const b of buildings) {
       if (!boxesNear(box, b.bounds, clearance)) continue;
-      if(belowOwnModel && b.modelId===model.id)continue;
+      if(clearedEntry && b.modelId===model.id)continue;
       // Source holes are respected when an entire candidate is in one hole.
       if (b.rings.slice(1).some(hole => ring.every(p => inside(p, hole)) && boundaryDistance(ring, hole) > clearance)) continue;
       if (ringDistance(ring, b.rings[0]) < clearance) return false;
@@ -171,11 +178,11 @@ function planStreetSite({ data, authoredModels, authoredGround, waterfrontPlan, 
     sourceCenter: entrySubject.sourceCenter.toArray(), lateralOffset: entryLateral, surveyed: false };
   const pavingKeys = new Set();
   function addPaving(points, role, surface = null) {
-    const underModel = role==='entry-apron' && settings.fillEntryApron ? surface : null;
-    if (!polygonSafe(points,.006,underModel)) return false;
+    const clearedEntry = role==='entry-apron' && settings.fillEntryApron ? surface : null;
+    if (!polygonSafe(points,.006,clearedEntry)) return false;
     const key = points.map(p => p.map(v => v.toFixed(5)).join(',')).sort().join(';');
     if (pavingKeys.has(key)) return true;
-    pavingKeys.add(key); site.paving.push(underModel ? { points, role, surface, belowModelId:model.id } : { points, role }); return true;
+    pavingKeys.add(key); site.paving.push(clearedEntry ? { points, role, surface, clearedModelId:model.id } : { points, role }); return true;
   }
 
   // A narrow forecourt along the documented front, split into restrained slabs.
@@ -234,7 +241,7 @@ function planStreetSite({ data, authoredModels, authoredGround, waterfrontPlan, 
 
   // Jiuzhou's full AABB and canopy inspection subject lie ahead of the actual
   // curved vestibule. Connect its retained door frame to the exterior court
-  // with one narrow diagonal strip, entirely below the model's minimum Y.
+  // with one narrow diagonal strip in the source-verified empty corridor.
   // The existing exterior forecourt and road connection remain unchanged.
   if(settings.fillEntryApron && entrySubject && site.entranceRoute.length===2){
     const sourceThreshold=settings.entryThresholdSource;
@@ -247,9 +254,8 @@ function planStreetSite({ data, authoredModels, authoredGround, waterfrontPlan, 
       const surface=(x,z)=>{
         const along=(x-start[0])*front[0]+(z-start[1])*front[1],t=clamp(along/forwardLength,0,1);
         const center=[mix(start[0],end[0],t),mix(start[1],end[1],t)],side=(x-center[0])*tangent[0]+(z-center[1])*tangent[1];
-        const startSide=add(start,tangent,side),endSide=add(end,tangent,side);
-        const low=Math.min(heightAt(...startSide)+.055,modelBase-.008);
-        return mix(low,heightAt(...endSide)+groundLift(...endSide),t*t*(3-2*t));
+        const endSide=add(end,tangent,side);
+        return mix(threshold.y,heightAt(...endSide)+groundLift(...endSide),t*t*(3-2*t));
       };
       const count=Math.ceil(length/(2.5*units)),cells=[];
       for(let i=0;i<count;i++){
@@ -259,8 +265,10 @@ function planStreetSite({ data, authoredModels, authoredGround, waterfrontPlan, 
       if(cells.every(points=>polygonSafe(points,.006,surface))){
         cells.forEach(points=>addPaving(points,'entry-apron',surface));
         site.entryApron={start,end,width,length,cells:cells.length,modelBase,maxHeight:apronCeiling,
-          clearance:.006,belowModelId:model.id,method:'below-model-envelope',illustrative:true,
+          stepTopHeight:threshold.y,clearedModelId:model.id,method:'source-cleared-step-join',illustrative:true,
+          clearedSourceCorridor:settings.entryClearSource.map(p=>[...p]),stepFrontSource:settings.entryStepFrontSource,
           thresholdSource:[...sourceThreshold],thresholdObject:'Entry_curved_vestibule_closed_frames',
+          thresholdEvidenceStatus:'PATTERN_INFERRED',
           thresholdEvidence:'docs/models/business-buildings-evidence/jiuzhou-web-export-report.json'};
       }
     }

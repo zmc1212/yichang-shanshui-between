@@ -116,13 +116,14 @@
   ],
   "entryApronEvidence": {
     "role": "entry-apron",
-    "policy": "XZ overlap allowed only below its own complete model envelope",
+    "policy": "Only a certified source-cleared corridor may enter this model envelope; inner edge joins the original stone step top",
     "thresholdObject": "Entry_curved_vestibule_closed_frames",
     "thresholdSource": [
       -13,
-      0.09,
-      10.9
+      0.1801239127460832,
+      11.001
     ],
+    "thresholdEvidenceStatus": "PATTERN_INFERRED",
     "doorSourceBounds": {
       "min": [
         -14.729999542236328,
@@ -135,15 +136,34 @@
         10.829999923706055
       ]
     },
+    "certifiedSourceCorridor": [
+      [
+        -14.794,
+        11.0005
+      ],
+      [
+        -11.824,
+        25.402
+      ],
+      [
+        -8.236,
+        25.402
+      ],
+      [
+        -11.206,
+        11.0005
+      ]
+    ],
     "widthMetres": 4.6,
-    "lengthMetres": 18.991771779845408,
+    "lengthMetres": 18.864834536535085,
     "cells": 8,
     "triangles": 16,
     "groundMethod": "scene-fallback-hills-no-GIS-grid",
     "modelBase": 0.06500000072340281,
-    "highestPavingY": 0.055087435990571976,
-    "minimumModelGap": 0.009912564732830864,
-    "minimumGroundGap": 0.0549999988083391,
+    "stepTopY": 0.07064871608936112,
+    "highestPavingY": 0.07064871490001678,
+    "maximumStepOvershoot": -1.1893443313537588e-9,
+    "minimumGroundGap": 0.05508708494589117,
     "actualAssetBounds": [
       {
         "tier": "light",
@@ -159,7 +179,8 @@
     "thresholdStepEvidence": [
       {
         "tier": "light",
-        "clippedTriangles": 6,
+        "corridorTriangles": 0,
+        "stepTriangles": 6,
         "sourceBounds": {
           "min": [
             -14.792566856212057,
@@ -167,16 +188,17 @@
             10.9
           ],
           "max": [
-            -11.187040053590707,
+            -11.207433143787943,
             0.1801239127460832,
             10.999567160678746
           ]
         },
-        "coveredLengthMetres": 0.12775226138289347
+        "endpointGapMetres": 0.001838442135345203
       },
       {
         "tier": "detail",
-        "clippedTriangles": 6,
+        "corridorTriangles": 0,
+        "stepTriangles": 6,
         "sourceBounds": {
           "min": [
             -14.792566856212057,
@@ -184,22 +206,22 @@
             10.9
           ],
           "max": [
-            -11.187040053590707,
+            -11.207433143787943,
             0.1801239127460832,
             10.999567160678746
           ]
         },
-        "coveredLengthMetres": 0.12775226138289347
+        "endpointGapMetres": 0.001838442135345203
       }
     ]
   },
   "passed": [
     "The complete Shouxin geometry matches its frozen V40 SHA-256; Wanda and Jiuzhou are added without changing source transforms",
-    "750 complete paving, curb and furnishing footprints clear all mapped obstacles in XZ; 8 narrow Jiuzhou apron cells also clear every other building, retained source polygon, road and water, with only their own model envelope checked vertically below",
+    "750 complete paving, curb and furnishing footprints clear all mapped obstacles in XZ; 8 narrow Jiuzhou apron cells also clear every other building, retained source polygon, road and water, with only their own model envelope replaced by an exact source-cleared entry-corridor check",
     "All paving cells have zero overlapping area; independent street sites and furniture safety footprints remain separated",
     "All three continuous paths join the complete model footprint front, narrow court and same-side sidewalk; new paths align with the authored visible entry while remaining illustrative",
-    "Eight diagonal Jiuzhou apron cells now begin at the actual curved vestibule frame rather than the canopy camera target; exact clipping of both GLBs finds only the original 0.13 m doorstep over the start, with no other low model geometry along the approach",
-    "Actual scene fallback hills and both decoded GLBs prove every apron triangle stays below the complete model by at least 0.0059 world units and above ground; no absent GIS terrain grid is implied",
+    "Eight diagonal Jiuzhou apron cells now join the decoded stone step top just 1.84 mm outside its front; exact clipping of both GLBs proves zero low model triangles throughout the certified approach",
+    "Every emitted Float32 apron triangle lies inside that explicit source-cleared corridor, stays above scene ground, and descends from the unchanged doorstep to the unchanged exterior court without a vertical join gap",
     "Bridge/tunnel/layer eligibility is conservative, unavailable models create no streets, and all input data remains byte-for-byte unchanged",
     "36 total meshes, 5770 triangles and 178604 geometry/instance bytes; furnishings are instanced and single-pass light pools follow each surface",
     "Every site obeys pixel-scale hysteresis, independent frustum visibility, street/tree toggles, theme changes and zero overview draw calls without a continuous loop"

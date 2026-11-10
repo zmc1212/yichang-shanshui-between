@@ -57,7 +57,7 @@ const near=(a,b,pad=0)=>a.x0<=b.x1+pad&&b.x0<=a.x1+pad&&a.z0<=b.z1+pad&&b.z0<=a.
 const buildings=[...data.buildings.filter((_,i)=>!ground.omittedBuildingIndices.has(i)),...ground.retainedBuildings].map(b=>b.rings||[b.ring]);
 const hardFootprints=[...buildings.map(rings=>({ring:rings[0]})),...models.map(m=>({ring:m.footprint,modelId:m.id}))].map(item=>({...item,box:box(item.ring)}));
 const candidates=plan.sites.flatMap(site=>[
-  ...site.paving.map(p=>({ring:p.points,kind:'paving',role:p.role,belowModelId:p.belowModelId,site:site.id})),
+  ...site.paving.map(p=>({ring:p.points,kind:'paving',role:p.role,clearedModelId:p.clearedModelId,site:site.id})),
   ...site.curbs.map(c=>({ring:c.footprint,kind:'curb',site:site.id})),
   ...['trees','lamps','benches'].flatMap(kind=>site[kind].map(item=>({ring:item.safetyFootprint,kind,site:site.id})))
 ]).map(c=>({...c,box:box(c.ring)}));
@@ -69,9 +69,9 @@ for(const candidate of candidates){
   assert(ring.every(p=>Math.abs(p[0])<data.meta.width/2&&Math.abs(p[1])<data.meta.depth/2),`${candidate.kind}: board boundary`);
   for(const obstacle of hardFootprints){
     if(!near(candidate.box,obstacle.box,.0038))continue;
-    if(candidate.role==='entry-apron'&&obstacle.modelId===candidate.belowModelId){
-      assert.equal(candidate.site,'jiuzhou-s01','Only the explicit Jiuzhou apron receives a below-envelope exception');
-      assert.equal(candidate.belowModelId,candidate.site);continue;
+    if(candidate.role==='entry-apron'&&obstacle.modelId===candidate.clearedModelId){
+      assert.equal(candidate.site,'jiuzhou-s01','Only the explicit Jiuzhou apron receives a certified source-corridor exception');
+      assert.equal(candidate.clearedModelId,candidate.site);continue;
     }
     assert(polygonDistance(ring,obstacle.ring)>.0038,`${candidate.site} ${candidate.kind} overlaps a retained or authored building`);
   }
@@ -84,7 +84,7 @@ for(const candidate of candidates){
 }
 const apronCandidates=candidates.filter(c=>c.role==='entry-apron');
 assert.equal(apronCandidates.length,8);
-passed.push(`${candidates.length-apronCandidates.length} complete paving, curb and furnishing footprints clear all mapped obstacles in XZ; ${apronCandidates.length} narrow Jiuzhou apron cells also clear every other building, retained source polygon, road and water, with only their own model envelope checked vertically below`);
+passed.push(`${candidates.length-apronCandidates.length} complete paving, curb and furnishing footprints clear all mapped obstacles in XZ; ${apronCandidates.length} narrow Jiuzhou apron cells also clear every other building, retained source polygon, road and water, with only their own model envelope replaced by an exact source-cleared entry-corridor check`);
 const paving=candidates.filter(c=>c.kind==='paving');
 for(let i=0;i<paving.length;i++)for(let j=i+1;j<paving.length;j++){
   if(!near(paving[i].box,paving[j].box))continue;
@@ -142,14 +142,15 @@ function sourceHeightAt(x,z){
   return clamp((a+(b-a)*tx)*(1-tz)+(c+(d-c)*tx)*tz,0,Math.max(data.meta.width,data.meta.depth)*.12);
 }
 const terrainPlan=planStreetDetails({...input,heightAt:sourceHeightAt}),entrySite=terrainPlan.sites.find(s=>s.id==='jiuzhou-s01'),entryModel=models.find(m=>m.id===entrySite.id),entry=entrySite.entryApron;
-assert(entry&&entry.method==='below-model-envelope');assert.equal(entry.illustrative,true);
+assert(entry&&entry.method==='source-cleared-step-join');assert.equal(entry.illustrative,true);
 assert(Math.abs(entry.width/data.meta.unitsPerMeter-4.6)<1e-10);assert(entry.length/data.meta.unitsPerMeter>18&&entry.length/data.meta.unitsPerMeter<20);
 const entryCells=entrySite.paving.filter(p=>p.role==='entry-apron');
 const nativeEvidence=JSON.parse(fs.readFileSync(path.join(root,entry.thresholdEvidence),'utf8'));
-const doorEvidence=nativeEvidence.nativeObjects.find(object=>object.name===entry.thresholdObject).gltfBounds;
+const doorRecord=nativeEvidence.nativeObjects.find(object=>object.name===entry.thresholdObject),doorEvidence=doorRecord.gltfBounds;
+assert.equal(entry.thresholdEvidenceStatus,doorRecord.evidenceStatus);assert.equal(entry.thresholdEvidenceStatus,'PATTERN_INFERRED');
 assert.equal(entry.thresholdObject,'Entry_curved_vestibule_closed_frames');
 assert(Math.abs(entry.thresholdSource[0]-(doorEvidence.min[0]+doorEvidence.max[0])/2)<1e-8,'The strip starts at the curved vestibule, not the canopy inspection target');
-assert(entry.thresholdSource[2]>doorEvidence.max[2]+.05&&entry.thresholdSource[2]<doorEvidence.max[2]+.1,'The starting edge sits immediately in front of the retained door frame');
+assert(entry.thresholdSource[2]>entry.stepFrontSource&&entry.thresholdSource[2]-entry.stepFrontSource<.002,'The starting edge sits immediately outside the original step face');
 const nativeCenter=new THREE.Vector3((entryModel.sourceBounds.min[0]+entryModel.sourceBounds.max[0])/2,entryModel.sourceBounds.min[1],(entryModel.sourceBounds.min[2]+entryModel.sourceBounds.max[2])/2);
 const threshold=new THREE.Vector3(...entry.thresholdSource).sub(nativeCenter).multiplyScalar(entryModel.uniformScale).applyAxisAngle(new THREE.Vector3(0,1,0),entryModel.yaw).add(new THREE.Vector3(entryModel.x,entry.modelBase,entryModel.z));
 assert.deepEqual(entry.start,[threshold.x,threshold.z]);
@@ -161,7 +162,7 @@ assert(entryCells.at(-1).points.some(p=>entrySite.paving.filter(c=>c.role==='for
 // changing any existing court surface or introducing a step.
 for(const index of [1,2]){const p=entryCells.at(-1).points[index];assert(Math.abs(entryCells.at(-1).surface(...p)-sourceHeightAt(...p)-entrySite.groundLift(...p))<1e-10);}
 const raisedTerrain=(x,z)=>Math.hypot(x-entry.start[0],z-entry.start[1])<.08?.2:0;
-assert(!planStreetDetails({...input,heightAt:raisedTerrain}).sites.find(s=>s.id===entrySite.id).entryApron,'Reject an apron that cannot stay both above ground and below the model');
+assert(!planStreetDetails({...input,heightAt:raisedTerrain}).sites.find(s=>s.id===entrySite.id).entryApron,'Reject an apron that cannot stay above ground while remaining at or below its certified step top');
 const middle=[(entry.start[0]+entry.end[0])/2,(entry.start[1]+entry.end[1])/2];
 const blocker={ring:[[-1,-1],[1,-1],[1,1],[-1,1]].map(([x,z])=>[middle[0]+x*.01,middle[1]+z*.01])};
 const blockedGround={...ground,retainedBuildings:[...ground.retainedBuildings,blocker]};
@@ -173,11 +174,12 @@ const loader=new GLTFLoader();loader.setMeshoptDecoder(MeshoptDecoder);
 const actualAssetBounds=[];
 const sourceEnd=new THREE.Vector3(entry.end[0]-entryModel.x,0,entry.end[1]-entryModel.z).applyAxisAngle(new THREE.Vector3(0,1,0),-entryModel.yaw).divideScalar(entryModel.uniformScale).add(nativeCenter);
 const sourceHalfWidth=entry.width/entryModel.uniformScale/2;
-const centreX=z=>entry.thresholdSource[0]+(sourceEnd.x-entry.thresholdSource[0])*(z-entry.thresholdSource[2])/(sourceEnd.z-entry.thresholdSource[2]);
-const clipPlanes=[p=>p.z-entry.thresholdSource[2],p=>sourceEnd.z-p.z,p=>p.x-centreX(p.z)+sourceHalfWidth,p=>centreX(p.z)+sourceHalfWidth-p.x,p=>1-p.y];
-function clipTriangle(points){
+const certifiedRing=entry.clearedSourceCorridor,certifiedSign=Math.sign(pairs(certifiedRing).reduce((sum,[a,b])=>sum+a[0]*b[1]-b[0]*a[1],0));
+const clipPlanes=pairs(certifiedRing).map(([a,b])=>p=>certifiedSign*((b[0]-a[0])*(p.z-a[1])-(b[1]-a[1])*(p.x-a[0]))).concat([p=>1-p.y]);
+const stepPlanes=[p=>p.z-10.9,p=>11.001-p.z,p=>p.x+13+sourceHalfWidth,p=>-13+sourceHalfWidth-p.x,p=>1-p.y];
+function clipTriangle(points,planes=clipPlanes){
   let result=points;
-  for(const side of clipPlanes){const next=[];for(let i=0;i<result.length;i++){const a=result[i],b=result[(i+1)%result.length],da=side(a),db=side(b);if(da>=0)next.push(a);if((da>=0)!==(db>=0))next.push(a.clone().lerp(b,da/(da-db)));}result=next;if(!result.length)break;}
+  for(const side of planes){const next=[];for(let i=0;i<result.length;i++){const a=result[i],b=result[(i+1)%result.length],da=side(a),db=side(b);if(da>=0)next.push(a);if((da>=0)!==(db>=0))next.push(a.clone().lerp(b,da/(da-db)));}result=next;if(!result.length)break;}
   if(result.length<3)return [];
   let area=0;for(let i=1;i<result.length-1;i++)area+=result[i].clone().sub(result[0]).cross(result[i+1].clone().sub(result[0])).length();
   return area>1e-9?result:[];
@@ -188,39 +190,50 @@ for(const tier of ['light','detail']){
   const raw=(await loader.parseAsync(bytes.buffer.slice(bytes.byteOffset,bytes.byteOffset+bytes.byteLength),'')).scene;
   raw.updateMatrixWorld(true);const sourceBounds=new THREE.Box3().setFromObject(raw);
   assert(Math.abs(sourceBounds.min.y-entryModel.sourceBounds.min[1])<1e-8,'The decoded GLB minimum Y matches the shared normalization frame');
-  let clippedTriangles=0;const stepBounds=new THREE.Box3();
+  let corridorTriangles=0,stepTriangles=0;const stepBounds=new THREE.Box3();
   raw.traverse(mesh=>{
     if(!mesh.isMesh)return;
     const positions=mesh.geometry.attributes.position,indices=mesh.geometry.index,count=indices?.count||positions.count;
     for(let i=0;i<count;i+=3){
       const points=[0,1,2].map(j=>new THREE.Vector3().fromBufferAttribute(positions,indices?indices.getX(i+j):i+j).applyMatrix4(mesh.matrixWorld));
-      if(points.every(p=>p.y>1)||points.every(p=>p.z<entry.thresholdSource[2])||points.every(p=>p.z>sourceEnd.z))continue;
-      const clipped=clipTriangle(points);if(!clipped.length)continue;
-      assert.equal(mesh.material.name,'Dark_grey_stone_original_PBR','Only the existing stone doorstep may cover the start of the paved strip');
-      for(const p of clipped){assert(p.z<11.001&&p.y<.181&&p.y>-.021,'No low occupied model geometry may extend along the approach beyond the original doorstep');stepBounds.expandByPoint(p);}
-      clippedTriangles++;
+      if(points.every(p=>p.y>1)||points.every(p=>p.z<10.9)||points.every(p=>p.z>25.402))continue;
+      if(clipTriangle(points).length)corridorTriangles++;
+      const step=clipTriangle(points,stepPlanes);if(!step.length)continue;
+      assert.equal(mesh.material.name,'Dark_grey_stone_original_PBR','The retained join surface is the original stone doorstep');
+      step.forEach(p=>stepBounds.expandByPoint(p));stepTriangles++;
     }
   });
-  assert.equal(clippedTriangles,6,'Exact triangle clipping identifies only the six retained doorstep faces across the new diagonal approach');
-  thresholdStepEvidence.push({tier,clippedTriangles,sourceBounds:{min:stepBounds.min.toArray(),max:stepBounds.max.toArray()},coveredLengthMetres:(stepBounds.max.z-entry.thresholdSource[2])*entryModel.uniformScale/data.meta.unitsPerMeter});
+  assert.equal(corridorTriangles,0,'Exact clipping proves the entire certified approach, including Float32 margin, contains zero low model triangles');
+  assert.equal(stepTriangles,6,'The untouched original doorstep is identified independently just behind the approach');
+  assert(Math.abs(stepBounds.max.y-entry.thresholdSource[1])<1e-10,'The apron inner edge uses the actual decoded stone step top');
+  assert(Math.abs(stepBounds.max.z-entry.stepFrontSource)<1e-10,'The apron is immediately in front of the actual step face');
+  thresholdStepEvidence.push({tier,corridorTriangles,stepTriangles,sourceBounds:{min:stepBounds.min.toArray(),max:stepBounds.max.toArray()},endpointGapMetres:(entry.thresholdSource[2]-stepBounds.max.z)*entryModel.uniformScale/data.meta.unitsPerMeter});
   const prepared=prepareAuthoredModel(raw,entryModel);prepared.rotation.y=entryModel.yaw;prepared.position.set(entryModel.x,entry.modelBase,entryModel.z);prepared.updateMatrixWorld(true);
   const actualBounds=new THREE.Box3().setFromObject(prepared);assert(Math.abs(actualBounds.min.y-entry.modelBase)<1e-8);
   actualAssetBounds.push({tier,sourceMinimumY:sourceBounds.min.y,normalizedWorldMinimumY:actualBounds.min.y});
   prepared.traverse(o=>{o.geometry?.dispose();for(const m of Array.isArray(o.material)?o.material:o.material?[o.material]:[])m.dispose();});
 }
-const lowestModelY=Math.min(...actualAssetBounds.map(b=>b.normalizedWorldMinimumY));let highestPavingY=-Infinity,minimumGroundGap=Infinity;
+let highestPavingY=-Infinity,minimumGroundGap=Infinity;
+const localise=v=>v.clone().sub(new THREE.Vector3(entryModel.x,entry.modelBase,entryModel.z)).applyAxisAngle(new THREE.Vector3(0,1,0),-entryModel.yaw).divideScalar(entryModel.uniformScale).add(nativeCenter);
 for(let i=0;i<apronIndices.length;i+=3){
   const vertices=[0,1,2].map(j=>new THREE.Vector3().fromBufferAttribute(position,apronIndices[i+j]));
   for(const weights of [[1,0,0],[0,1,0],[0,0,1],[.5,.5,0],[.5,0,.5],[0,.5,.5],[1/3,1/3,1/3]]){
-    const p=vertices.reduce((sum,v,j)=>sum.addScaledVector(v,weights[j]),new THREE.Vector3());
+    const p=vertices.reduce((sum,v,j)=>sum.addScaledVector(v,weights[j]),new THREE.Vector3()),native=localise(p);
     highestPavingY=Math.max(highestPavingY,p.y);minimumGroundGap=Math.min(minimumGroundGap,p.y-sourceHeightAt(p.x,p.z));
-    assert(lowestModelY-p.y>=.0059,'Every emitted apron vertex and sampled triangle interior stays below the complete model minimum Y');
+    assert(winding([native.x,native.z],certifiedRing),'Every Float32 vertex/interior remains in the source-cleared corridor');
+    assert(p.y<=entry.stepTopHeight+1e-8,'The gently sloping approach never rises above the original step top');
     assert(p.y-sourceHeightAt(p.x,p.z)>.003,'The actual apron remains above the scene ground');
+    if(Math.abs(native.z-entry.thresholdSource[2])<.0001)assert(Math.abs(p.y-entry.stepTopHeight)<1e-8,'The rendered inner edge joins the actual doorstep top without a vertical gap');
   }
 }
-const entryApronEvidence={role:'entry-apron',policy:'XZ overlap allowed only below its own complete model envelope',thresholdObject:entry.thresholdObject,thresholdSource:entry.thresholdSource,doorSourceBounds:doorEvidence,widthMetres:entry.width/data.meta.unitsPerMeter,lengthMetres:entry.length/data.meta.unitsPerMeter,cells:entryCells.length,triangles:apronIndices.length/3,groundMethod:data.terrain?'source-grid':'scene-fallback-hills-no-GIS-grid',modelBase:entry.modelBase,highestPavingY,minimumModelGap:lowestModelY-highestPavingY,minimumGroundGap,actualAssetBounds,thresholdStepEvidence};
-passed.push('Eight diagonal Jiuzhou apron cells now begin at the actual curved vestibule frame rather than the canopy camera target; exact clipping of both GLBs finds only the original 0.13 m doorstep over the start, with no other low model geometry along the approach');
-passed.push('Actual scene fallback hills and both decoded GLBs prove every apron triangle stays below the complete model by at least 0.0059 world units and above ground; no absent GIS terrain grid is implied');
+let previousHeight=Infinity;
+for(let i=0;i<=32;i++){
+  const t=i/32,p=[entry.start[0]+(entry.end[0]-entry.start[0])*t,entry.start[1]+(entry.end[1]-entry.start[1])*t],y=entryCells[0].surface(...p);
+  assert(y<=previousHeight+1e-10,'The approach descends gently and monotonically from the step to the existing court');previousHeight=y;
+}
+const entryApronEvidence={role:'entry-apron',policy:'Only a certified source-cleared corridor may enter this model envelope; inner edge joins the original stone step top',thresholdObject:entry.thresholdObject,thresholdSource:entry.thresholdSource,thresholdEvidenceStatus:entry.thresholdEvidenceStatus,doorSourceBounds:doorEvidence,certifiedSourceCorridor:certifiedRing,widthMetres:entry.width/data.meta.unitsPerMeter,lengthMetres:entry.length/data.meta.unitsPerMeter,cells:entryCells.length,triangles:apronIndices.length/3,groundMethod:data.terrain?'source-grid':'scene-fallback-hills-no-GIS-grid',modelBase:entry.modelBase,stepTopY:entry.stepTopHeight,highestPavingY,maximumStepOvershoot:highestPavingY-entry.stepTopHeight,minimumGroundGap,actualAssetBounds,thresholdStepEvidence};
+passed.push('Eight diagonal Jiuzhou apron cells now join the decoded stone step top just 1.84 mm outside its front; exact clipping of both GLBs proves zero low model triangles throughout the certified approach');
+passed.push('Every emitted Float32 apron triangle lies inside that explicit source-cleared corridor, stays above scene ground, and descends from the unchanged doorstep to the unchanged exterior court without a vertical join gap');
 apronRender.group.traverse(o=>{o.geometry?.dispose();for(const m of Array.isArray(o.material)?o.material:o.material?[o.material]:[])m.dispose();});
 
 const inaccessible={...data,roads:data.roads.map(road=>road.name==='沿江大道'?{...road,bridge:'yes',layer:'1'}:road)};
