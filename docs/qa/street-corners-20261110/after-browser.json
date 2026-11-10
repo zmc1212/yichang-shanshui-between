@@ -1,0 +1,83 @@
+[
+  {
+    "key": "cornerAfterWhole",
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"case\":\"after-zhongnan-whole\",\"canvas\":[{\"dataset\":{\"authoredModels\":\"7\",\"authoredSelection\":\"true\",\"businessProjects\":\"23\",\"cityVisible\":\"true\",\"detailModels\":\"1\",\"drawCalls\":\"89\",\"engine\":\"three.js r170\",\"focusAngle\":\"detail\",\"geometries\":\"300\",\"modelAnchor\":\"[-16.5153984916032,0.1399886569031138,8.769154736196347]\",\"modelQuality\":\"detail\",\"renderFrames\":\"16\",\"renderState\":\"idle\",\"residentModels\":\"7\",\"sceneMode\":\"city\",\"streetDetails\":\"2\",\"streetDetailsEnabled\":\"true\",\"streetVisibleDrawCalls\":\"12\",\"streetVisibleIds\":\"[\\\"zhongnan-s09\\\"]\",\"streetVisibleLinks\":\"0\",\"streetVisibleSites\":\"1\",\"textures\":\"20\",\"triangles\":\"1312554\"},\"height\":849,\"width\":1616}]}"
+      }
+    ]
+  },
+  {
+    "key": "cornerAfterEntrance",
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"case\":\"after-zhongnan-entrance\",\"canvas\":[{\"dataset\":{\"authoredModels\":\"7\",\"authoredSelection\":\"true\",\"businessProjects\":\"23\",\"cityVisible\":\"true\",\"detailModels\":\"1\",\"drawCalls\":\"72\",\"engine\":\"three.js r170\",\"focusAngle\":\"entrance\",\"geometries\":\"300\",\"modelAnchor\":\"[-16.5153984916032,0.1399886569031138,8.769154736196347]\",\"modelQuality\":\"detail\",\"renderFrames\":\"21\",\"renderState\":\"idle\",\"residentModels\":\"7\",\"sceneMode\":\"city\",\"streetDetails\":\"2\",\"streetDetailsEnabled\":\"true\",\"streetVisibleDrawCalls\":\"12\",\"streetVisibleIds\":\"[\\\"zhongnan-s09\\\"]\",\"streetVisibleLinks\":\"0\",\"streetVisibleSites\":\"1\",\"textures\":\"20\",\"triangles\":\"1302562\"},\"height\":849,\"width\":1616}]}"
+      }
+    ]
+  },
+  {
+    "key": "cornerAfterStreet",
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"case\":\"after-zhongnan-entry-minus-one\",\"canvas\":[{\"dataset\":{\"authoredModels\":\"7\",\"authoredSelection\":\"true\",\"businessProjects\":\"23\",\"cityVisible\":\"true\",\"detailModels\":\"1\",\"drawCalls\":\"75\",\"engine\":\"three.js r170\",\"focusAngle\":\"entrance\",\"geometries\":\"300\",\"modelAnchor\":\"[-16.5153984916032,0.1399886569031138,8.769154736196347]\",\"modelQuality\":\"detail\",\"renderFrames\":\"22\",\"renderState\":\"idle\",\"residentModels\":\"7\",\"sceneMode\":\"city\",\"streetDetails\":\"2\",\"streetDetailsEnabled\":\"true\",\"streetVisibleDrawCalls\":\"12\",\"streetVisibleIds\":\"[\\\"zhongnan-s09\\\"]\",\"streetVisibleLinks\":\"0\",\"streetVisibleSites\":\"1\",\"textures\":\"20\",\"triangles\":\"1302646\"},\"height\":849,\"width\":1616}]}"
+      }
+    ]
+  },
+  {
+    "key": "cornerAfterNight",
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"case\":\"after-zhongnan-night\",\"canvas\":[{\"dataset\":{\"authoredModels\":\"7\",\"authoredSelection\":\"true\",\"businessProjects\":\"23\",\"cityVisible\":\"true\",\"detailModels\":\"1\",\"drawCalls\":\"79\",\"engine\":\"three.js r170\",\"focusAngle\":\"entrance\",\"geometries\":\"304\",\"modelAnchor\":\"[-16.5153984916032,0.1399886569031138,8.769154736196347]\",\"modelQuality\":\"detail\",\"renderFrames\":\"24\",\"renderState\":\"idle\",\"residentModels\":\"7\",\"sceneMode\":\"city\",\"streetDetails\":\"2\",\"streetDetailsEnabled\":\"true\",\"streetVisibleDrawCalls\":\"13\",\"streetVisibleIds\":\"[\\\"zhongnan-s09\\\"]\",\"streetVisibleLinks\":\"0\",\"streetVisibleSites\":\"1\",\"textures\":\"20\",\"triangles\":\"1302694\"},\"height\":849,\"width\":1616}]}"
+      }
+    ]
+  },
+  {
+    "key": "cornerAfterMobile",
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"case\":\"after-mobile-whole\",\"canvas\":[{\"dataset\":{\"authoredModels\":\"7\",\"authoredSelection\":\"true\",\"businessProjects\":\"23\",\"cityVisible\":\"true\",\"detailModels\":\"1\",\"drawCalls\":\"92\",\"engine\":\"three.js r170\",\"focusAngle\":\"detail\",\"geometries\":\"304\",\"modelAnchor\":\"[-16.5153984916032,0.1399886569031138,8.769154736196347]\",\"modelQuality\":\"detail\",\"renderFrames\":\"41\",\"renderState\":\"idle\",\"residentModels\":\"7\",\"sceneMode\":\"city\",\"streetDetails\":\"2\",\"streetDetailsEnabled\":\"true\",\"streetVisibleDrawCalls\":\"12\",\"streetVisibleIds\":\"[\\\"zhongnan-s09\\\"]\",\"streetVisibleLinks\":\"0\",\"streetVisibleSites\":\"1\",\"textures\":\"20\",\"triangles\":\"1314666\"},\"height\":784,\"width\":390}],\"layout\":{\"content\":390,\"viewport\":390}}"
+      }
+    ]
+  },
+  {
+    "key": "cornerAfterLinkWide",
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"case\":\"after-shouxin-link-wide\",\"canvas\":[{\"dataset\":{\"authoredModels\":\"7\",\"authoredSelection\":\"true\",\"businessProjects\":\"23\",\"cityVisible\":\"true\",\"detailModels\":\"1\",\"drawCalls\":\"101\",\"engine\":\"three.js r170\",\"focusAngle\":\"detail\",\"geometries\":\"318\",\"modelAnchor\":\"[17.84661482668662,0.06500000405919155,44.801642264664586]\",\"modelQuality\":\"detail\",\"renderFrames\":\"84\",\"renderState\":\"idle\",\"residentModels\":\"7\",\"sceneMode\":\"city\",\"streetDetails\":\"2\",\"streetDetailsEnabled\":\"true\",\"streetVisibleDrawCalls\":\"26\",\"streetVisibleIds\":\"[\\\"shouxin-wealth-s01\\\",\\\"jiuzhou-s01\\\",\\\"jiuzhou-shouxin-walk\\\"]\",\"streetVisibleLinks\":\"1\",\"streetVisibleSites\":\"2\",\"textures\":\"15\",\"triangles\":\"781570\"},\"height\":793,\"width\":1616}]}"
+      }
+    ]
+  },
+  {
+    "key": "cornerAfterOverview",
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"case\":\"after-overview\",\"canvas\":[{\"dataset\":{\"authoredModels\":\"7\",\"authoredSelection\":\"false\",\"businessProjects\":\"23\",\"cityVisible\":\"true\",\"detailModels\":\"0\",\"drawCalls\":\"258\",\"engine\":\"three.js r170\",\"focusAngle\":\"overview\",\"geometries\":\"299\",\"modelAnchor\":\"\",\"modelQuality\":\"light\",\"renderFrames\":\"89\",\"renderState\":\"idle\",\"residentModels\":\"7\",\"sceneMode\":\"city\",\"streetDetails\":\"0\",\"streetDetailsEnabled\":\"true\",\"streetVisibleDrawCalls\":\"0\",\"streetVisibleIds\":\"[]\",\"streetVisibleLinks\":\"0\",\"streetVisibleSites\":\"0\",\"textures\":\"15\",\"triangles\":\"1313930\"},\"height\":793,\"width\":1616}],\"logs\":[]}"
+      }
+    ]
+  },
+  {
+    "key": "cornerAfterLayerOff",
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"case\":\"street-layer-off-night\",\"canvas\":[{\"dataset\":{\"authoredModels\":\"7\",\"authoredSelection\":\"true\",\"businessProjects\":\"23\",\"cityVisible\":\"true\",\"detailModels\":\"1\",\"drawCalls\":\"66\",\"engine\":\"three.js r170\",\"focusAngle\":\"entrance\",\"geometries\":\"304\",\"modelAnchor\":\"[-16.5153984916032,0.1399886569031138,8.769154736196347]\",\"modelQuality\":\"detail\",\"renderFrames\":\"25\",\"renderState\":\"idle\",\"residentModels\":\"7\",\"sceneMode\":\"city\",\"streetDetails\":\"0\",\"streetDetailsEnabled\":\"false\",\"streetVisibleDrawCalls\":\"0\",\"streetVisibleIds\":\"[]\",\"streetVisibleLinks\":\"0\",\"streetVisibleSites\":\"0\",\"textures\":\"20\",\"triangles\":\"1301636\"},\"height\":849,\"width\":1616}]}"
+      }
+    ]
+  },
+  {
+    "key": "cornerAfterLink",
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"case\":\"after-shouxin-link\",\"canvas\":[{\"dataset\":{\"authoredModels\":\"7\",\"authoredSelection\":\"true\",\"businessProjects\":\"23\",\"cityVisible\":\"true\",\"detailModels\":\"1\",\"drawCalls\":\"100\",\"engine\":\"three.js r170\",\"focusAngle\":\"detail\",\"geometries\":\"318\",\"modelAnchor\":\"[17.84661482668662,0.06500000405919155,44.801642264664586]\",\"modelQuality\":\"detail\",\"renderFrames\":\"83\",\"renderState\":\"idle\",\"residentModels\":\"7\",\"sceneMode\":\"city\",\"streetDetails\":\"2\",\"streetDetailsEnabled\":\"true\",\"streetVisibleDrawCalls\":\"26\",\"streetVisibleIds\":\"[\\\"shouxin-wealth-s01\\\",\\\"jiuzhou-s01\\\",\\\"jiuzhou-shouxin-walk\\\"]\",\"streetVisibleLinks\":\"1\",\"streetVisibleSites\":\"2\",\"textures\":\"15\",\"triangles\":\"781522\"},\"height\":793,\"width\":1616}]}"
+      }
+    ]
+  }
+]
