@@ -4,7 +4,7 @@
   "baseline": "V40 e87fde278f678ae76668766f27c3ad5e46144c56",
   "stats": {
     "streetSites": 3,
-    "streetPavingCells": 428,
+    "streetPavingCells": 431,
     "streetCurbSegments": 292,
     "streetTrees": 20,
     "streetLamps": 9,
@@ -13,7 +13,7 @@
     "streetEntrancesConnected": 3,
     "streetIllustrative": true,
     "streetMarkings": 0,
-    "streetEntryApronCells": 5,
+    "streetEntryApronCells": 8,
     "streetSiteIds": [
       "shouxin-wealth-s01",
       "wanda-soho-s01",
@@ -50,7 +50,7 @@
         "id": "jiuzhou-s01",
         "roadName": "沿江大道",
         "sourceRoad": "way/39725551",
-        "pavingCells": 115,
+        "pavingCells": 118,
         "curbSegments": 68,
         "trees": 6,
         "lamps": 2,
@@ -61,8 +61,8 @@
       }
     ],
     "streetMeshes": 36,
-    "streetTriangles": 5764,
-    "streetGeometryBytes": 178172
+    "streetTriangles": 5770,
+    "streetGeometryBytes": 178604
   },
   "sites": [
     {
@@ -117,35 +117,91 @@
   "entryApronEvidence": {
     "role": "entry-apron",
     "policy": "XZ overlap allowed only below its own complete model envelope",
+    "thresholdObject": "Entry_curved_vestibule_closed_frames",
+    "thresholdSource": [
+      -13,
+      0.09,
+      10.9
+    ],
+    "doorSourceBounds": {
+      "min": [
+        -14.729999542236328,
+        0.09000000357627869,
+        9.0600004196167
+      ],
+      "max": [
+        -11.270000457763672,
+        3.859999895095825,
+        10.829999923706055
+      ]
+    },
     "widthMetres": 4.6,
-    "lengthMetres": 11.266331997909935,
-    "cells": 5,
-    "triangles": 10,
-    "modelBase": 0.065,
+    "lengthMetres": 18.991771779845408,
+    "cells": 8,
+    "triangles": 16,
+    "groundMethod": "scene-fallback-hills-no-GIS-grid",
+    "modelBase": 0.06500000072340281,
     "highestPavingY": 0.055087435990571976,
-    "minimumModelGap": 0.009912564009427971,
-    "minimumGroundGap": 0.054999999701976776,
+    "minimumModelGap": 0.009912564732830864,
+    "minimumGroundGap": 0.0549999988083391,
     "actualAssetBounds": [
       {
         "tier": "light",
         "sourceMinimumY": -0.03999999910593033,
-        "normalizedWorldMinimumY": 0.06499999999999995
+        "normalizedWorldMinimumY": 0.06500000072340284
       },
       {
         "tier": "detail",
         "sourceMinimumY": -0.03999999910593033,
-        "normalizedWorldMinimumY": 0.06499999999999995
+        "normalizedWorldMinimumY": 0.06500000072340284
+      }
+    ],
+    "thresholdStepEvidence": [
+      {
+        "tier": "light",
+        "clippedTriangles": 6,
+        "sourceBounds": {
+          "min": [
+            -14.792566856212057,
+            -0.019363382369803617,
+            10.9
+          ],
+          "max": [
+            -11.187040053590707,
+            0.1801239127460832,
+            10.999567160678746
+          ]
+        },
+        "coveredLengthMetres": 0.12775226138289347
+      },
+      {
+        "tier": "detail",
+        "clippedTriangles": 6,
+        "sourceBounds": {
+          "min": [
+            -14.792566856212057,
+            -0.019363382369803617,
+            10.9
+          ],
+          "max": [
+            -11.187040053590707,
+            0.1801239127460832,
+            10.999567160678746
+          ]
+        },
+        "coveredLengthMetres": 0.12775226138289347
       }
     ]
   },
   "passed": [
     "The complete Shouxin geometry matches its frozen V40 SHA-256; Wanda and Jiuzhou are added without changing source transforms",
-    "750 complete paving, curb and furnishing footprints clear all mapped obstacles in XZ; 5 narrow Jiuzhou apron cells also clear every other building, retained source polygon, road and water, with only their own model envelope checked vertically below",
+    "750 complete paving, curb and furnishing footprints clear all mapped obstacles in XZ; 8 narrow Jiuzhou apron cells also clear every other building, retained source polygon, road and water, with only their own model envelope checked vertically below",
     "All paving cells have zero overlapping area; independent street sites and furniture safety footprints remain separated",
     "All three continuous paths join the complete model footprint front, narrow court and same-side sidewalk; new paths align with the authored visible entry while remaining illustrative",
-    "Five Jiuzhou apron cells connect the visible entry to the exterior court; actual GIS terrain and both decoded GLBs prove every rendered triangle stays below the complete model by at least 0.0059 world units, while all other obstacles retain full XZ clearance",
+    "Eight diagonal Jiuzhou apron cells now begin at the actual curved vestibule frame rather than the canopy camera target; exact clipping of both GLBs finds only the original 0.13 m doorstep over the start, with no other low model geometry along the approach",
+    "Actual scene fallback hills and both decoded GLBs prove every apron triangle stays below the complete model by at least 0.0059 world units and above ground; no absent GIS terrain grid is implied",
     "Bridge/tunnel/layer eligibility is conservative, unavailable models create no streets, and all input data remains byte-for-byte unchanged",
-    "36 total meshes, 5764 triangles and 178172 geometry/instance bytes; furnishings are instanced and single-pass light pools follow each surface",
+    "36 total meshes, 5770 triangles and 178604 geometry/instance bytes; furnishings are instanced and single-pass light pools follow each surface",
     "Every site obeys pixel-scale hysteresis, independent frustum visibility, street/tree toggles, theme changes and zero overview draw calls without a continuous loop"
   ]
 }

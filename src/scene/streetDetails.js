@@ -11,6 +11,9 @@ const STREET_SITES = [
   { id: 'wanda-soho-s01', roadName: '沿江大道', courtDepth: 6, halfRun: 118, followModelEntrance: true,
     treeSpan: 96, treeStep: 24, lampOffsets: [-87,-43,43,87], benchOffsets: [-65,65] },
   { id: 'jiuzhou-s01', roadName: '沿江大道', courtDepth: 7, halfRun: 50, followModelEntrance: true, fillEntryApron: true,
+    // The inspection target is a canopy view, not the curved vestibule door.
+    // This point is just in front of the retained door frame's source Z=10.83.
+    entryThresholdSource: [-13,.09,10.90],
     treeSpan: 42, treeStep: 14, lampOffsets: [-35,35], benchOffsets: [-22,22] },
 ];
 const EPS = 1e-9;
@@ -229,29 +232,36 @@ function planStreetSite({ data, authoredModels, authoredGround, waterfrontPlan, 
     site.entranceRoute = [[...routeStart],[...routeEnd]];
   }
 
-  // Jiuzhou's exported front canopy and detached small forecourt pieces make
-  // its full AABB deeper than the visible entrance. Bridge that empty grass
-  // interval with one 4.6 m strip, entirely below every vertex of this model.
+  // Jiuzhou's full AABB and canopy inspection subject lie ahead of the actual
+  // curved vestibule. Connect its retained door frame to the exterior court
+  // with one narrow diagonal strip, entirely below the model's minimum Y.
   // The existing exterior forecourt and road connection remain unchanged.
   if(settings.fillEntryApron && entrySubject && site.entranceRoute.length===2){
-    const start=[entrySubject.center.x,entrySubject.center.z],end=add(entryFront,front,.009);
-    const length=(end[0]-start[0])*front[0]+(end[1]-start[1])*front[1],width=routeWidth;
-    if(length>EPS){
+    const sourceThreshold=settings.entryThresholdSource;
+    const sourceFrameCenter=new THREE.Vector3((model.sourceBounds.min[0]+model.sourceBounds.max[0])/2,model.sourceBounds.min[1],(model.sourceBounds.min[2]+model.sourceBounds.max[2])/2);
+    const threshold=new THREE.Vector3(...sourceThreshold).sub(sourceFrameCenter).multiplyScalar(model.uniformScale)
+      .applyAxisAngle(new THREE.Vector3(0,1,0),model.yaw).add(new THREE.Vector3(model.x,modelBase,model.z));
+    const start=[threshold.x,threshold.z],end=add(entryFront,front,.009);
+    const forwardLength=(end[0]-start[0])*front[0]+(end[1]-start[1])*front[1],length=distance(start,end),width=routeWidth;
+    if(forwardLength>EPS){
       const surface=(x,z)=>{
-        const along=(x-start[0])*front[0]+(z-start[1])*front[1],side=(x-start[0])*tangent[0]+(z-start[1])*tangent[1];
-        const t=clamp(along/length,0,1),startSide=add(start,tangent,side),endSide=add(end,tangent,side);
+        const along=(x-start[0])*front[0]+(z-start[1])*front[1],t=clamp(along/forwardLength,0,1);
+        const center=[mix(start[0],end[0],t),mix(start[1],end[1],t)],side=(x-center[0])*tangent[0]+(z-center[1])*tangent[1];
+        const startSide=add(start,tangent,side),endSide=add(end,tangent,side);
         const low=Math.min(heightAt(...startSide)+.055,modelBase-.008);
         return mix(low,heightAt(...endSide)+groundLift(...endSide),t*t*(3-2*t));
       };
       const count=Math.ceil(length/(2.5*units)),cells=[];
       for(let i=0;i<count;i++){
-        const a=add(start,front,length*i/count),b=add(start,front,length*(i+1)/count);
+        const a=[mix(start[0],end[0],i/count),mix(start[1],end[1],i/count)],b=[mix(start[0],end[0],(i+1)/count),mix(start[1],end[1],(i+1)/count)];
         cells.push([add(a,tangent,-width/2),add(b,tangent,-width/2),add(b,tangent,width/2),add(a,tangent,width/2)]);
       }
       if(cells.every(points=>polygonSafe(points,.006,surface))){
         cells.forEach(points=>addPaving(points,'entry-apron',surface));
         site.entryApron={start,end,width,length,cells:cells.length,modelBase,maxHeight:apronCeiling,
-          clearance:.006,belowModelId:model.id,method:'below-model-envelope',illustrative:true};
+          clearance:.006,belowModelId:model.id,method:'below-model-envelope',illustrative:true,
+          thresholdSource:[...sourceThreshold],thresholdObject:'Entry_curved_vestibule_closed_frames',
+          thresholdEvidence:'docs/models/business-buildings-evidence/jiuzhou-web-export-report.json'};
       }
     }
   }
