@@ -7,6 +7,7 @@ import { createStreetPavingTexture, streetPavingFrame, streetPavingUv } from './
 import { partitionStreetPaving } from './streetPavingPartition.js';
 import { planContinuousStreetSites } from './continuousStreetSites.js';
 import { planInternationalStreetSite } from './internationalStreetSite.js';
+import { planWandaInternationalApproaches } from './wandaInternationalApproaches.js';
 
 // These are bounded presentation areas derived from the registered model's
 // complete bounds, including its existing stairs/canopies. They do not claim
@@ -330,11 +331,13 @@ export function planStreetDetails(options) {
   const links = connections.sites;
   const frontage = planInternationalStreetSite({ ...options, sites: [...entranceSites, ...links] });
   const sites = [...entranceSites, ...frontage.sites];
-  const allSites = [...sites, ...links];
+  const approaches = planWandaInternationalApproaches({ ...options, sites, links });
+  const extensions = approaches.sites, streetViews = approaches.views;
+  const allSites = [...sites, ...links, ...extensions];
   const sum = key => allSites.reduce((total, site) => total + site[key].length, 0);
   const connected = sites.filter(site => site.entranceRoute.length === 2).length;
-  return { sites, links, stats: {
-    ...connections.stats, ...frontage.stats,
+  return { sites, links, extensions, streetViews, stats: {
+    ...connections.stats, ...frontage.stats, ...approaches.stats,
     streetSites: sites.length, streetPavingCells: sum('paving'), streetCurbSegments: sum('curbs'),
     streetTrees: sum('trees'), streetLamps: sum('lamps'), streetBenches: sum('benches'),
     streetEntranceConnected: entranceSites.length > 0 && connected === entranceSites.length,
@@ -342,11 +345,17 @@ export function planStreetDetails(options) {
     streetEntryApronCells: sites.reduce((total,site)=>total+(site.entryApron?.cells||0),0),
     streetSiteIds: sites.map(site => site.id),
     streetLinkIds: links.map(site => site.id),
+    streetExtensionIds: extensions.map(site => site.id),
+    streetExtensionSummaries: extensions.map(site => ({ id: site.id, originSite: site.connectedSiteIds[0],
+      roadName: site.roadName, sourceRoad: site.roadSourceId, lengthMetres: site.fullWidthStopEvidence.lengthMetres,
+      pavingCells: site.paving.length, curbSegments: site.curbs.length, lamps: site.lamps.length,
+      junctionClearanceMetres: site.fullWidthStopEvidence.junctionClearanceMetres, illustrative: true,
+      routeConnectedBetweenSites: false })),
     streetSiteSummaries: sites.map(site => ({ id: site.id, roadName: site.roadName, sourceRoad: site.roadSourceId,
       pavingCells: site.paving.length, curbSegments: site.curbs.length, trees: site.trees.length,
       lamps: site.lamps.length, benches: site.benches.length, entranceConnected: site.entranceRoute.length === 2,
       entryApronConnected: Boolean(site.entryApron), frontageConnected: Boolean(site.frontageRoute?.length), illustrative: site.illustrative })),
-  }, reserveTree: (x,z) => plans.some(plan => plan.reserveTree(x,z)) || connections.reserveTree(x,z) || frontage.reserveTree(x,z) };
+  }, reserveTree: (x,z) => plans.some(plan => plan.reserveTree(x,z)) || connections.reserveTree(x,z) || frontage.reserveTree(x,z) || approaches.reserveTree(x,z) };
 }
 
 function quadsGeometry(cells, surface, frame = null) {
@@ -416,11 +425,11 @@ export function createStreetDetails(plan,{heightAt,makeMaterial}) {
   // would draw front and back separately without changing this ground decal.
   const glowMaterial=new THREE.MeshBasicMaterial({color:'#f8d694',transparent:true,opacity:.19,depthWrite:false,toneMapped:false,side:THREE.DoubleSide,forceSinglePass:true});
   const entries=[];let night=false;
-  for(const site of [...plan.sites, ...(plan.links || [])]){
+  for(const site of [...plan.sites, ...(plan.links || []), ...(plan.extensions || [])]){
     const unit=site.units,surface=(x,z)=>heightAt(x,z)+site.groundLift(x,z);
     const siteGroup=new THREE.Group(),pavingGroup=new THREE.Group(),landscapeGroup=new THREE.Group(),detailGroup=new THREE.Group(),treeGroup=new THREE.Group(),nightGroup=new THREE.Group();
     siteGroup.name=site.id;landscapeGroup.name='street landscape';siteGroup.add(pavingGroup,landscapeGroup,detailGroup);landscapeGroup.add(treeGroup);detailGroup.add(nightGroup);group.add(siteGroup);
-    const pavingFrame=streetPavingFrame(site);
+    const pavingFrame=site.pavingFrame||streetPavingFrame(site);
     for(const accent of [false,true]){
       const cells=site.paving.filter(p=>(p.role==='accent')===accent);if(!cells.length)continue;
       const mesh=new THREE.Mesh(quadsGeometry(cells,surface,pavingFrame),accent?material.accent:material.paving);mesh.name=accent?'street paving insets':'forecourt, entrance path and sidewalk';mesh.receiveShadow=true;pavingGroup.add(mesh);
@@ -473,7 +482,7 @@ export function createStreetDetails(plan,{heightAt,makeMaterial}) {
   let meshes=0,triangles=0,geometryBytes=0;
   group.traverse(object=>{if(!object.isMesh)return;meshes++;const g=object.geometry;triangles+=(g.index?g.index.count:g.attributes.position.count)/3*(object.isInstancedMesh?object.count:1);for(const a of Object.values(g.attributes))geometryBytes+=a.array.byteLength;if(g.index)geometryBytes+=g.index.array.byteLength;if(object.instanceMatrix)geometryBytes+=object.instanceMatrix.array.byteLength;});
   const resourceStats={...plan.stats,streetMeshes:meshes,streetTriangles:triangles,streetGeometryBytes:geometryBytes,streetTextureCount:1,streetTextureSourceBytes:pavingTexture.image.data.byteLength};
-  const getStats=()=>({...resourceStats,streetVisibleSites:entries.filter(e=>e.group.visible&&e.site.kind!=='street-link').length,streetVisibleLinks:entries.filter(e=>e.group.visible&&e.site.kind==='street-link').length,streetVisibleIds:entries.filter(e=>e.group.visible).map(e=>e.site.id),streetVisibleTier:Math.max(0,...entries.filter(e=>e.group.visible).map(e=>e.tier)),streetVisibleDrawCalls:entries.reduce((n,e)=>{if(!e.group.visible)return n;let count=0;e.group.traverseVisible(o=>{if(o.isMesh)count++;});return n+count;},0)});
+  const getStats=()=>({...resourceStats,streetVisibleSites:entries.filter(e=>e.group.visible&&!['street-link','street-extension'].includes(e.site.kind)).length,streetVisibleLinks:entries.filter(e=>e.group.visible&&e.site.kind==='street-link').length,streetVisibleExtensions:entries.filter(e=>e.group.visible&&e.site.kind==='street-extension').length,streetVisibleIds:entries.filter(e=>e.group.visible).map(e=>e.site.id),streetVisibleTier:Math.max(0,...entries.filter(e=>e.group.visible).map(e=>e.tier)),streetVisibleDrawCalls:entries.reduce((n,e)=>{if(!e.group.visible)return n;let count=0;e.group.traverseVisible(o=>{if(o.isMesh)count++;});return n+count;},0)});
   return {group,stats:resourceStats,getStats,
     update({pixelsPerUnit,frustum,enabled=true,treesEnabled=true}) {
       let changed=false;

@@ -10,6 +10,7 @@ import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
 import { AUTHORED_MODELS, prepareAuthoredModel } from '../src/scene/authoredModels.js';
 import { resolveAuthoredPlacement, planAuthoredGround } from '../src/scene/authoredPlacement.js';
 import { planStreetDetails, createStreetDetails, streetDetailTier } from '../src/scene/streetDetails.js';
+import { retainedStreetTestPlan } from './retained-street-test-plan.mjs';
 
 // Geometric/data/lifecycle checks only. Actual browser pixels and real-device
 // performance remain separate acceptance checks.
@@ -47,7 +48,7 @@ assert.deepEqual(plan.sites.map(s=>s.id),expectedIds);
 assert.equal(plan.stats.streetSites,7);assert.equal(plan.stats.streetMarkings,0);assert.equal(plan.stats.streetEntranceConnected,true);assert.equal(plan.stats.streetEntrancesConnected,6);
 assert.equal(plan.stats.streetFrontageConnections,1);assert.equal(plan.stats.streetFrontageConnected,true);
 assert.equal(plan.stats.streetLinks,1);assert.deepEqual(plan.links.map(link=>link.id),['jiuzhou-shouxin-walk']);
-const allStreetGroups=[...plan.sites,...plan.links];
+const allStreetGroups=[...plan.sites,...plan.links,...(plan.extensions||[])];
 const shouxin=plan.sites[0];
 const flatPlan=planStreetDetails({...input,inWater:()=>false,heightAt:()=>0});
 // Captured independently from V51 before the street-corner work. Preserve
@@ -125,8 +126,9 @@ for(let i=0;i<candidates.length;i++)for(let j=i+1;j<candidates.length;j++){
   const a=candidates[i],b=candidates[j];
   if(a.site===b.site||!near(a.box,b.box,.0038))continue;
   const linkJoin=(a.site==='jiuzhou-shouxin-walk'&&['shouxin-wealth-s01','jiuzhou-s01'].includes(b.site))||(b.site==='jiuzhou-shouxin-walk'&&['shouxin-wealth-s01','jiuzhou-s01'].includes(a.site));
-  if(linkJoin&&['paving','curb'].includes(a.kind)&&['paving','curb'].includes(b.kind)){
-    assert(convexIntersectionArea(a.ring,b.ring)<1e-9,'An explicit street link may share its endpoint edge, never duplicate paved or curb area');continue;
+  const extensionJoin=(plan.extensions||[]).some(extension=>extension.connectedSiteIds.length===1&&((a.site===extension.id&&b.site===extension.connectedSiteIds[0])||(b.site===extension.id&&a.site===extension.connectedSiteIds[0])));
+  if((linkJoin||extensionJoin)&&['paving','curb'].includes(a.kind)&&['paving','curb'].includes(b.kind)){
+    assert(convexIntersectionArea(a.ring,b.ring)<1e-9,'An explicit street link or extension may share its original endpoint edge, never duplicate paved or curb area');continue;
   }
   assert(polygonDistance(a.ring,b.ring)>.0038,'Independent street sites cannot overlap one another');
 }
@@ -325,7 +327,10 @@ assert.equal(planStreetDetails({...input,authoredModels:[]}).sites.length,0,'No 
 assert.equal(JSON.stringify({data,models}),snapshot,'Street planning cannot mutate source coordinates, scale, yaw, roads, or buildings');
 passed.push('Bridge/tunnel/layer eligibility is conservative, unavailable models create no streets, and all input data remains byte-for-byte unchanged');
 
-const render=createStreetDetails(plan,{heightAt,makeMaterial:(day,night,options={})=>new THREE.MeshStandardMaterial({color:day,...options})});
+// Retain the original eight groups' exact resource/LOD contract. The new
+// extension integration has its own incremental-budget and lifecycle checks;
+// its complete footprints still participate in the physical checks above.
+const render=createStreetDetails(retainedStreetTestPlan(plan),{heightAt,makeMaterial:(day,night,options={})=>new THREE.MeshStandardMaterial({color:day,...options})});
 render.group.traverse(object=>{
   if(!object.isMesh)return;
   assert.equal(object.castShadow,false);

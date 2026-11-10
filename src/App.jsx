@@ -63,6 +63,7 @@ export default function App(){
   const canvasHost = useRef(null);
   const scene = useRef(null);
   const frontageIdsRef = useRef([]);
+  const streetViewIdsRef = useRef([]);
   const poiLabelsRef = useRef(null);
   const roadLabelsRef = useRef(null);
   const projectingLabels = useRef(false);
@@ -112,7 +113,7 @@ export default function App(){
   const selected = landmarks.find(l=>l.id===selectedId);
   const authored = selected?.kind === 'authored';
   const buildingView = authored && view === 'perspective' && cameraAngle !== 'context';
-  const inspecting = buildingView && closeView && ['facade','entrance','crown','frontage'].includes(cameraAngle);
+  const inspecting = buildingView && closeView && ['facade','entrance','crown','frontage','streetscape'].includes(cameraAngle);
   const business = Boolean(selected?.business);
   const guideOnly = business && !authored;
   const focusActionLabel = authored ? inspecting ? '回到建筑全貌' : '适配建筑全貌'
@@ -194,7 +195,9 @@ export default function App(){
     cancelAnimationFrame(poiZoomFrame.current);
     poiLabelsRef.current?.dismiss();
     const nextView=options.view==='top'?'top':'perspective';
-    const nextAngle=options.angle==='frontage'&&!frontageIdsRef.current.includes(id)?'detail':options.angle||'detail';
+    const unavailable=(options.angle==='frontage'&&!frontageIdsRef.current.includes(id))
+      ||(options.angle==='streetscape'&&!streetViewIdsRef.current.includes(id));
+    const nextAngle=unavailable?'detail':options.angle||'detail';
     const nextBuilding=BUSINESS_BUILDINGS.find(place=>place.id===id);
     const nextClose=nextAngle!=='context'&&Boolean(options.close??(nextBuilding?.kind==='authored'));
     const nextGuideOnly=Boolean(nextBuilding&&nextBuilding.kind!=='authored');
@@ -243,6 +246,7 @@ export default function App(){
       });
       scene.current=engine;
       frontageIdsRef.current=engine.getStats().streetDetails.streetSiteSummaries.filter(site=>site.frontageConnected).map(site=>site.id);
+      streetViewIdsRef.current=engine.getStats().streetDetails.streetViewSiteIds||[];
     }catch(e){setError(/WebGL|context/i.test(e.message||'')?'当前浏览器无法启动三维沙盘，请在支持三维加速的浏览器中打开。':e.message||'当前浏览器无法启动三维场景');}
     return()=>{alive=false;clearTimeout(captureTimer.current);scene.current?.dispose();scene.current=null;};
   },[data,chooseLandmark]);
@@ -304,6 +308,7 @@ export default function App(){
   const frameSelected=({angle=cameraAngle,close=closeView}={})=>{
     if(!selectedId)return;
     if(angle==='frontage'&&!frontageIdsRef.current.includes(selectedId))angle='detail';
+    if(angle==='streetscape'&&!streetViewIdsRef.current.includes(selectedId))angle='detail';
     if(compact&&close&&!guideOnly)setDetailCollapsed(true);
     setView('perspective');setCameraAngle(angle);setCloseView(close);setAutoRotate(false);
     scene.current?.setAutoRotate(false);scene.current?.focus(selectedId,{angle,close});capturePostcard();
@@ -384,6 +389,7 @@ export default function App(){
   const locationState={place:selectedId,theme,view,angle:cameraAngle,close:closeView,filter:directoryFilter,query};
   const restoreLocation=(next,{invalidPlace=false}={})=>{
     if(next.angle==='frontage'&&!frontageIdsRef.current.includes(next.place))next={...next,angle:'detail'};
+    if(next.angle==='streetscape'&&!streetViewIdsRef.current.includes(next.place))next={...next,angle:'detail'};
     clearTimeout(captureTimer.current);
     setModal(null);setLayersOpen(false);setMobileNav(false);
     setQuery(next.query);setDirectoryFilter(next.filter);setTheme(next.theme);
@@ -447,7 +453,7 @@ export default function App(){
               <button aria-label="细看顶部" aria-pressed={inspecting&&cameraAngle==='crown'} onClick={()=>frameSelected({angle:'crown',close:true})}>顶部</button>
               {frontageIdsRef.current.includes(selectedId)&&<button aria-label="查看前场与街道" aria-pressed={inspecting&&cameraAngle==='frontage'} onClick={()=>frameSelected({angle:'frontage',close:true})}>前场</button>}
             </div><div role="group" aria-label="建筑缩放" className="inspection-zoom"><button aria-label="缩小建筑" onClick={()=>scene.current?.zoom(-1)}><Minus size={15}/></button><button aria-label="放大建筑" onClick={()=>scene.current?.zoom(1)}><Plus size={15}/></button></div></div>
-            <small className="inspection-help">{inspecting?'局部细看':'完整入镜'} · {compact?'双指平移与缩放':'右键平移 · 滚轮缩放'}</small>
+            <small className="inspection-help">{inspecting?cameraAngle==='streetscape'?'沿江街景':'局部细看':'完整入镜'} · {compact?'双指平移与缩放':'右键平移 · 滚轮缩放'}</small>
           </div>}
         </div>}
         {authored&&ready&&(!modelState||modelState.state==='loading'||modelState.state==='error')&&<div className="model-load-state" role="status">{modelState?.state==='error'?<><WarningCircle size={24}/><strong>模型暂未载入</strong><p>可以重试，也可以继续探索其他地标。</p><button onClick={()=>scene.current?.retryModel()}>重新载入</button></>:<><CircleNotch className="spinner" size={24}/><strong>正在展开建筑细节</strong><p>正在载入这座自建建筑。</p></>}</div>}
@@ -473,6 +479,7 @@ export default function App(){
             <p>换一个角度，发现城市的另一面。</p>
             {canPreviewCandidate&&<button onClick={()=>setModal('candidate')}><Buildings size={20}/><span><strong>查看候选模型</strong><small>单独旋转查看，城市沙盘保持原位</small></span><ArrowUpRight size={16}/></button>}
             {authored&&<button className={cameraAngle==='context'&&view==='perspective'?'active':''} onClick={()=>frameSelected({angle:'context',close:false})}><MapTrifold size={20}/><span><strong>连同沙盘看</strong><small>建筑与城市，一起入镜</small></span><ArrowUpRight size={16}/></button>}
+            {streetViewIdsRef.current.includes(selectedId)&&<button aria-label="查看沿江街景" className={cameraAngle==='streetscape'&&view==='perspective'?'active':''} onClick={()=>frameSelected({angle:'streetscape',close:true})}><MapTrifold size={20}/><span><strong>沿江街景</strong><small>万达路口两侧的人行空间</small></span><ArrowUpRight size={16}/></button>}
             <button className={cameraAngle==='detail'&&closeView&&view==='perspective'?'active':''} onClick={()=>frameSelected({angle:'detail',close:true})}><Buildings size={20}/><span><strong>{authored?'建筑全貌':guideOnly?'周边街区':'地标近景'}</strong><small>{authored?'完整展示楼体，自动适配画面':guideOnly?'观察导览参考点附近的城市轮廓':'看见建筑与层次'}</small></span><ArrowUpRight size={16}/></button>
             {authored&&<button className={cameraAngle==='front'&&!closeView&&view==='perspective'?'active':''} onClick={()=>frameSelected({angle:'front',close:false})}><Buildings size={20}/><span><strong>正立面</strong><small>完整查看建筑正立面</small></span><ArrowUpRight size={16}/></button>}
             {['zhenjiang-pavilion','tianran-pagoda'].includes(selectedId)&&<button className={cameraAngle==='river'&&view==='perspective'?'active':''} onClick={()=>frameSelected({angle:'river',close:false})}><Waves size={20}/><span><strong>江岸视角</strong><small>从江面，望向一城风景</small></span><ArrowUpRight size={16}/></button>}
@@ -492,7 +499,7 @@ export default function App(){
       </main>
     </div>
     {modal==='guide'&&<Modal fallbackFocusRef={mobileMenuRef} title="用自己的节奏，认识宜昌。" onClose={closeModal}><div className="guide-steps"><div><Mouse size={26}/><span><strong>转一转，看见山水</strong><p>按住鼠标左键拖动，旋转沙盘；右键拖动可平移。</p></span></div><div><Plus size={26}/><span><strong>近一点，看见细节</strong><p>滚动鼠标滚轮，或使用右下角的加减按钮缩放。</p></span></div><div><CursorClick size={26}/><span><strong>点一处，听一座城</strong><p>点击地标名称或左侧目录，镜头会带你靠近风景。相近地点会合并为数量气泡，点开即可选择其中一处，也可放大这一组。</p></span></div><div><Sun size={26}/><span><strong>从日景，走到夜色</strong><p>切换顶部日夜按钮，也可以开启自动环绕慢慢欣赏。</p></span></div></div><p className="touch-note">触屏：单指旋转，双指缩放与平移。手机介绍可收起，留出更多画面。点击顶部相机可保存画面，楼名旁的链接按钮可复制定位；图层里可暂停江面动态。</p><button className="primary-button" onClick={closeModal}>开始探索 <ArrowUpRight size={17}/></button></Modal>}
-    {modal==='about'&&<Modal fallbackFocusRef={mobileMenuRef} title="关于这座沙盘" onClose={closeModal}><div className="about-content"><p className="about-lead">把宜昌的山水、街巷与楼阁，装进一座可以探索的微缩城市。</p><p>沙盘以公开道路、水系和建筑轮廓为基础，采用统一的色彩与简化造型呈现中心城区。地标、树木、江面船只与部分建筑高度经过展示性处理，适合城市导览与空间探索。</p><div className="about-data"><span>地图与轮廓</span><strong>OpenStreetMap · Overture Maps</strong><span>展示范围</span><strong>{data?.meta?.name||'宜昌中心城区'}</strong><span>商务楼宇</span><strong>{BUSINESS_BUILDINGS.length} 项</strong><span>可查看模型</span><strong>{availableCount+previewCount} 项 · 详见各项模型范围</strong><span>模型展示</span><strong>{availableCount} 项沙盘模型 · {previewCount} 项独立预览</strong>{partialCount>0&&<><span>局部模型</span><strong>{partialCount} 项可见范围候选</strong></>}{researchCount>0&&<><span>研究模型</span><strong>{researchCount} 项主体身份待核</strong></>}{registrationCount>0&&<><span>组团候选</span><strong>{registrationCount} 项占地与朝向待核</strong></>}<span>作品</span><strong>宜昌Online · 江山之间</strong></div><p className="data-note">{BUSINESS_REGISTRY_INFO.note} 独立预览包含已建可见组团、局部立面和研究模型，各项均注明已包含与尚缺的部分。能查看几何不代表完整楼宇已恢复，也不代表已通过实景验收。导览参考点不等于精确楼体中心。</p><p className="data-note">首信、万达、九州方园、锦江银座、福江铭座与中南冶金周边的街道样板、首信—九州沿街补齐段，以及国际广场前场至沿江人行道的衔接，均为展示性设计。国际广场保留模型原有的通道与圆环装饰；新增路径不代表已核实的真实入口或公共通行范围。场地边界、尺寸和设施点位仍待核实。道路名称取自保留的地图资料，按视野择要显示。地标位置为公开资料参考，模型并非测绘或工程成果。</p><a className="source-link" href="/data/sources.txt" target="_blank" rel="noreferrer">查看完整数据来源与说明 <ArrowUpRight size={15}/></a>{BUSINESS_REGISTRY_INFO.sourceUrl&&<a className="source-link" href={BUSINESS_REGISTRY_INFO.sourceUrl} target="_blank" rel="noreferrer">查看原商务楼宇导图 <ArrowUpRight size={15}/></a>}</div><button className="primary-button" onClick={closeModal}>回到山水之间 <ArrowLeft size={17}/></button></Modal>}
+    {modal==='about'&&<Modal fallbackFocusRef={mobileMenuRef} title="关于这座沙盘" onClose={closeModal}><div className="about-content"><p className="about-lead">把宜昌的山水、街巷与楼阁，装进一座可以探索的微缩城市。</p><p>沙盘以公开道路、水系和建筑轮廓为基础，采用统一的色彩与简化造型呈现中心城区。地标、树木、江面船只与部分建筑高度经过展示性处理，适合城市导览与空间探索。</p><div className="about-data"><span>地图与轮廓</span><strong>OpenStreetMap · Overture Maps</strong><span>展示范围</span><strong>{data?.meta?.name||'宜昌中心城区'}</strong><span>商务楼宇</span><strong>{BUSINESS_BUILDINGS.length} 项</strong><span>可查看模型</span><strong>{availableCount+previewCount} 项 · 详见各项模型范围</strong><span>模型展示</span><strong>{availableCount} 项沙盘模型 · {previewCount} 项独立预览</strong>{partialCount>0&&<><span>局部模型</span><strong>{partialCount} 项可见范围候选</strong></>}{researchCount>0&&<><span>研究模型</span><strong>{researchCount} 项主体身份待核</strong></>}{registrationCount>0&&<><span>组团候选</span><strong>{registrationCount} 项占地与朝向待核</strong></>}<span>作品</span><strong>宜昌Online · 江山之间</strong></div><p className="data-note">{BUSINESS_REGISTRY_INFO.note} 独立预览包含已建可见组团、局部立面和研究模型，各项均注明已包含与尚缺的部分。能查看几何不代表完整楼宇已恢复，也不代表已通过实景验收。导览参考点不等于精确楼体中心。</p><p className="data-note">首信、万达、九州方园、锦江银座、福江铭座与中南冶金周边的街道样板、首信—九州沿街补齐段，以及国际广场前场至沿江人行道的衔接，均为展示性设计。国际广场保留模型原有的通道与圆环装饰。万达和国际广场两侧的沿江人行道分别延伸到万达路口前，保留街口开口；两段不表示已经过街连通。新增路径不代表已核实的真实入口或公共通行范围。场地边界、尺寸和设施点位仍待核实。道路名称取自保留的地图资料，按视野择要显示。地标位置为公开资料参考，模型并非测绘或工程成果。</p><a className="source-link" href="/data/sources.txt" target="_blank" rel="noreferrer">查看完整数据来源与说明 <ArrowUpRight size={15}/></a>{BUSINESS_REGISTRY_INFO.sourceUrl&&<a className="source-link" href={BUSINESS_REGISTRY_INFO.sourceUrl} target="_blank" rel="noreferrer">查看原商务楼宇导图 <ArrowUpRight size={15}/></a>}</div><button className="primary-button" onClick={closeModal}>回到山水之间 <ArrowLeft size={17}/></button></Modal>}
     {modal==='model'&&business&&<Modal fallbackFocusRef={mobileMenuRef} title={`${selected.name} · ${authored?'模型':'资料'}说明`} onClose={closeModal}><div className="about-content">
       <p className="about-lead">{authored?selected.subtitle||'近一点，看见建筑的细节。':businessStatus(selected)}</p>
       <p>{selected.description}</p>

@@ -7,6 +7,7 @@ import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
 import { AUTHORED_MODELS, prepareAuthoredModel } from '../src/scene/authoredModels.js';
 import { resolveAuthoredPlacement, planAuthoredGround } from '../src/scene/authoredPlacement.js';
 import { planStreetDetails, createStreetDetails } from '../src/scene/streetDetails.js';
+import { retainedStreetTestPlan } from './retained-street-test-plan.mjs';
 
 // Independent renderer-buffer, source-triangle, endpoint and obstacle checks.
 // This script does not modify source models or claim browser/GPU/device timing.
@@ -310,7 +311,9 @@ for(const [from,to,edge]of joins){
   for(const index of [from,to])lineCoverage(...world,site.paving.filter(cell=>convexArea(cell.points,intended[index].world)>1e-12).map(cell=>cell.points),`${intended[index].name} join`);
 }
 for(let i=1;i<site.frontageRoute.length;i++)lineCoverage(site.frontageRoute[i-1],site.frontageRoute[i],site.paving.map(c=>c.points),'Complete frontage-route centreline');
-const rendered=createStreetDetails(plan,{heightAt,makeMaterial}),group=rendered.group.getObjectByName(site.id);
+// Keep this frontage's original incremental budget scoped to the V56 eight
+// groups. New approaches are independently budgeted by their own check.
+const rendered=createStreetDetails(retainedStreetTestPlan(plan),{heightAt,makeMaterial}),group=rendered.group.getObjectByName(site.id);
 const emitted=emittedPaving(site,group);
 assert(emitted.maximumRenderedSlope<.101,'No short steep discontinuity is hidden in the emitted display paving');
 for(const [from,to,edge]of joins){

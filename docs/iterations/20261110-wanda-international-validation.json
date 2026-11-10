@@ -1,0 +1,332 @@
+{
+  "checkedAt": "2026-11-10",
+  "scope": "independent source-envelope, whole-area coverage, actual Float32 geometry/UV/instance buffers and renderer lifecycle; no browser/GPU/phone timing",
+  "baseline": {
+    "version": "V56",
+    "commit": "7eb9d5f5f868d08ef4bb123350058f9efcfa9edd",
+    "cases": [
+      {
+        "terrain": "flat",
+        "unchangedCompletePlanAndBufferGroups": 8
+      },
+      {
+        "terrain": "actual-terrain",
+        "unchangedCompletePlanAndBufferGroups": 8
+      }
+    ]
+  },
+  "claims": {
+    "independentApproaches": true,
+    "crossesWandaRoad": false,
+    "connectedBetweenSites": false,
+    "surveyedEntrance": false,
+    "accessibilityCertification": false,
+    "dimensions": "display metres derived from existing coordinates"
+  },
+  "coverage": [
+    {
+      "id": "international-yanjiang-extension",
+      "origin": "yichang-international-s01",
+      "sourceSegment": 0,
+      "lengthDisplayMetres": 143.45226054433988,
+      "widthDisplayMetres": 3.5999999999999233,
+      "intendedAreaDisplaySquareMetres": 516.4281379595969,
+      "actualAreaDisplaySquareMetres": 516.4281379594726,
+      "cells": 48,
+      "curbs": 96,
+      "lamps": 4,
+      "stopStation": 12.3285,
+      "independentUnroundedSafeBoundary": 12.32855225546067,
+      "clearances": [
+        {
+          "road": "way/1070095025",
+          "minimumFullWidthClearanceDisplayMetres": 9.292790145973397,
+          "clearanceIncludingDecorativeRoadEdgeDisplayMetres": 8.748290145973396
+        },
+        {
+          "road": "way/1070095026",
+          "minimumFullWidthClearanceDisplayMetres": 2.002612641047368,
+          "clearanceIncludingDecorativeRoadEdgeDisplayMetres": 1.4581126410473682
+        }
+      ]
+    },
+    {
+      "id": "wanda-yanjiang-extension",
+      "origin": "wanda-soho-s01",
+      "sourceSegment": 1,
+      "lengthDisplayMetres": 92.04660198135865,
+      "widthDisplayMetres": 3.600000000000044,
+      "intendedAreaDisplaySquareMetres": 331.36776713288185,
+      "actualAreaDisplaySquareMetres": 331.3677671328463,
+      "cells": 31,
+      "curbs": 62,
+      "lamps": 3,
+      "stopStation": 12.6839,
+      "independentUnroundedSafeBoundary": 12.68381721523374,
+      "clearances": [
+        {
+          "road": "way/1070095025",
+          "minimumFullWidthClearanceDisplayMetres": 2.0041359486551085,
+          "clearanceIncludingDecorativeRoadEdgeDisplayMetres": 1.4596359486551087
+        },
+        {
+          "road": "way/1070095026",
+          "minimumFullWidthClearanceDisplayMetres": 9.25176619331401,
+          "clearanceIncludingDecorativeRoadEdgeDisplayMetres": 8.707266193314009
+        }
+      ]
+    }
+  ],
+  "sourceAudit": {
+    "file": "docs/iterations/20261110-wanda-international-corridor-audit.json",
+    "sourceCitySha256": "5de08b00affb5141ee2b221cab96962923489491a30a7101f5c5221f970f8cb2",
+    "matchesIndependentGeometry": true
+  },
+  "junctionOpenSourceStationMetres": 17.769999999999975,
+  "minimumCompleteDomainSeparationDisplayMetres": 17.34750304975477,
+  "endpointChecks": [
+    {
+      "id": "international-yanjiang-extension",
+      "fullWidthJoinedDisplayMetres": 3.5999999999999233,
+      "joinedActualPavingVertices": 3,
+      "joinedCurbCornerColumns": 4,
+      "identicalFloat32XYZAndUv": true,
+      "actualPavingTriangles": 96,
+      "actualFloat32AreaErrorWorld": 1.749036400156001e-07,
+      "floatWorldTolerance": 2.5624188410614153e-06,
+      "floatAreaTolerance": 3.014475864315909e-05
+    },
+    {
+      "id": "wanda-yanjiang-extension",
+      "fullWidthJoinedDisplayMetres": 3.600000000000044,
+      "joinedActualPavingVertices": 3,
+      "joinedCurbCornerColumns": 4,
+      "identicalFloat32XYZAndUv": true,
+      "actualPavingTriangles": 62,
+      "actualFloat32AreaErrorWorld": 1.348578834381442e-06,
+      "floatWorldTolerance": 2.323177676270459e-06,
+      "floatAreaTolerance": 1.7776324042737468e-05
+    }
+  ],
+  "emitted": {
+    "actualPavingTriangles": 158,
+    "maxUvError": 2.1092166157643533e-05,
+    "maximumFloat32AreaErrorWorld": 1.348578834381442e-06,
+    "conservativeWholeTriangleGroundClearanceWorld": 0.1137803346391136
+  },
+  "resources": {
+    "meshes": 98,
+    "triangles": 14312,
+    "geometryBytes": 631340,
+    "textureCount": 1,
+    "textureSourceBytes": 262144,
+    "resourceDelta": {
+      "meshes": 10,
+      "triangles": 1710,
+      "geometryBytes": 95244,
+      "textures": 0
+    },
+    "incrementalBudget": {
+      "meshes": 10,
+      "triangles": 1800,
+      "geometryBytes": 100000,
+      "newTextures": 0
+    },
+    "perExtension": [
+      {
+        "id": "international-yanjiang-extension",
+        "meshes": 5,
+        "triangles": 1016,
+        "geometryBytes": 56680
+      },
+      {
+        "id": "wanda-yanjiang-extension",
+        "meshes": 5,
+        "triangles": 694,
+        "geometryBytes": 38564
+      }
+    ],
+    "nearDayDrawCalls": 89,
+    "nearNightDrawCalls": 98
+  },
+  "lifecycle": [
+    {
+      "pixelsPerUnit": 2,
+      "visibleSites": 0,
+      "visibleLinks": 0,
+      "visibleExtensions": 0,
+      "drawCalls": 0
+    },
+    {
+      "pixelsPerUnit": 15,
+      "visibleSites": 6,
+      "visibleLinks": 1,
+      "visibleExtensions": 2,
+      "drawCalls": 24
+    },
+    {
+      "pixelsPerUnit": 20,
+      "visibleSites": 7,
+      "visibleLinks": 1,
+      "visibleExtensions": 2,
+      "drawCalls": 27
+    },
+    {
+      "pixelsPerUnit": 60,
+      "visibleSites": 7,
+      "visibleLinks": 1,
+      "visibleExtensions": 2,
+      "drawCalls": 85
+    },
+    {
+      "pixelsPerUnit": 80,
+      "visibleSites": 7,
+      "visibleLinks": 1,
+      "visibleExtensions": 2,
+      "drawCalls": 89
+    }
+  ],
+  "failClosedCases": 35,
+  "failClosed": [
+    {
+      "name": "way/1543968654: missing",
+      "reason": "changed-source-road-or-junction"
+    },
+    {
+      "name": "way/1543968654: bridge",
+      "reason": "changed-source-road-or-junction"
+    },
+    {
+      "name": "way/1543968654: tunnel",
+      "reason": "changed-source-road-or-junction"
+    },
+    {
+      "name": "way/1543968654: nonzero-layer",
+      "reason": "changed-source-road-or-junction"
+    },
+    {
+      "name": "way/1543968654: unknown-layer",
+      "reason": "changed-source-road-or-junction"
+    },
+    {
+      "name": "way/1543968654: width",
+      "reason": "changed-source-road-or-junction"
+    },
+    {
+      "name": "way/1543968654: changed topology",
+      "reason": "changed-source-road-or-junction"
+    },
+    {
+      "name": "way/1070095025: missing",
+      "reason": "changed-source-road-or-junction"
+    },
+    {
+      "name": "way/1070095025: bridge",
+      "reason": "changed-source-road-or-junction"
+    },
+    {
+      "name": "way/1070095025: tunnel",
+      "reason": "changed-source-road-or-junction"
+    },
+    {
+      "name": "way/1070095025: nonzero-layer",
+      "reason": "changed-source-road-or-junction"
+    },
+    {
+      "name": "way/1070095025: unknown-layer",
+      "reason": "changed-source-road-or-junction"
+    },
+    {
+      "name": "way/1070095025: width",
+      "reason": "changed-source-road-or-junction"
+    },
+    {
+      "name": "way/1070095025: changed topology",
+      "reason": "changed-source-road-or-junction"
+    },
+    {
+      "name": "way/1070095026: missing",
+      "reason": "changed-source-road-or-junction"
+    },
+    {
+      "name": "way/1070095026: bridge",
+      "reason": "changed-source-road-or-junction"
+    },
+    {
+      "name": "way/1070095026: tunnel",
+      "reason": "changed-source-road-or-junction"
+    },
+    {
+      "name": "way/1070095026: nonzero-layer",
+      "reason": "changed-source-road-or-junction"
+    },
+    {
+      "name": "way/1070095026: unknown-layer",
+      "reason": "changed-source-road-or-junction"
+    },
+    {
+      "name": "way/1070095026: width",
+      "reason": "changed-source-road-or-junction"
+    },
+    {
+      "name": "way/1070095026: changed topology",
+      "reason": "changed-source-road-or-junction"
+    },
+    {
+      "name": "yichang-international-s01: missing original site",
+      "reason": "missing-existing-site"
+    },
+    {
+      "name": "yichang-international-s01: missing authored model",
+      "reason": "missing-existing-site"
+    },
+    {
+      "name": "yichang-international-s01: missing full-width terminal section",
+      "reason": "missing-full-width-sidewalk-end"
+    },
+    {
+      "name": "yichang-international-s01: missing original curb ends",
+      "reason": "missing-longitudinal-curb-join"
+    },
+    {
+      "name": "yichang-international-s01: enclosed small building",
+      "reason": "extension-obstacle-or-height-conflict"
+    },
+    {
+      "name": "yichang-international-s01: enclosed small water polygon",
+      "reason": "extension-obstacle-or-height-conflict"
+    },
+    {
+      "name": "wanda-soho-s01: missing original site",
+      "reason": "missing-existing-site"
+    },
+    {
+      "name": "wanda-soho-s01: missing authored model",
+      "reason": "missing-existing-site"
+    },
+    {
+      "name": "wanda-soho-s01: missing full-width terminal section",
+      "reason": "missing-full-width-sidewalk-end"
+    },
+    {
+      "name": "wanda-soho-s01: missing original curb ends",
+      "reason": "missing-longitudinal-curb-join"
+    },
+    {
+      "name": "wanda-soho-s01: enclosed small building",
+      "reason": "extension-obstacle-or-height-conflict"
+    },
+    {
+      "name": "wanda-soho-s01: enclosed small water polygon",
+      "reason": "extension-obstacle-or-height-conflict"
+    },
+    {
+      "name": "non-finite terrain",
+      "reason": "extension-obstacle-or-height-conflict"
+    },
+    {
+      "name": "water callback covers the approaches",
+      "reason": "extension-obstacle-or-height-conflict"
+    }
+  ]
+}

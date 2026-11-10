@@ -6,6 +6,7 @@ import * as THREE from 'three';
 import { AUTHORED_MODELS } from '../src/scene/authoredModels.js';
 import { resolveAuthoredPlacement, planAuthoredGround } from '../src/scene/authoredPlacement.js';
 import { planStreetDetails, createStreetDetails } from '../src/scene/streetDetails.js';
+import { retainedStreetTestPlan } from './retained-street-test-plan.mjs';
 
 // Read-only integration checks. This script writes no reports or assets and
 // does not create a browser/WebGL context; image quality and GPU timings are
@@ -48,7 +49,10 @@ const plan = planStreetDetails({ data, authoredModels: models, authoredGround,
   waterfrontPlan: { omittedBuildingIndices: new Set() }, inWater, heightAt });
 assert.equal(plan.sites.length, 7);
 const themes = [];
-const street = createStreetDetails(plan, { heightAt, makeMaterial(day, night, options = {}) {
+// This frozen seven-sample/one-link appearance budget remains unchanged.
+// check-wanda-international-link separately exercises all integrated groups,
+// including their shared atlas, UV joins, visibility and incremental resources.
+const street = createStreetDetails(retainedStreetTestPlan(plan), { heightAt, makeMaterial(day, night, options = {}) {
   const material = new THREE.MeshStandardMaterial({ color: day, roughness: .94, metalness: 0, ...options });
   themes.push({ material, day, night });
   return material;

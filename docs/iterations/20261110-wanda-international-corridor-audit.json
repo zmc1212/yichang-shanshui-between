@@ -1,0 +1,938 @@
+{
+  "schema": "independent-street-corridor-source-audit/v1",
+  "date": "2026-11-10",
+  "baseVersion": 56,
+  "baseCommit": "7eb9d5f5f868d08ef4bb123350058f9efcfa9edd",
+  "sourceCitySha256": "5de08b00affb5141ee2b221cab96962923489491a30a7101f5c5221f970f8cb2",
+  "unitsPerDisplayMetre": 0.02,
+  "decision": "Two separate same-side illustrative extensions, each stopping before Wanda Road. No walking connection or crossing through the junction.",
+  "method": "Actual current seven-site planning with the city hill/terrain height function and all retained source polygons. Waterfront omission set is empty, so retained source obstacle filtering is conservative.",
+  "sources": {
+    "city": "public/data/city.json",
+    "placement": "src/scene/authoredPlacement.js",
+    "sites": "src/scene/streetDetails.js",
+    "renderedRoadGeometry": "src/scene/roadNetwork.js",
+    "roadDomain": "Every source segment swept by its half-width disk, conservatively covering rectangular strokes, circular outside joins and semicircular source end caps. Decorative road edge bands are separately reported."
+  },
+  "auditedGeometryCounts": {
+    "sourceRoads": 3600,
+    "sourceRoadSegments": 16749,
+    "retainedBuildingPolygons": 15985,
+    "authoredModelFootprints": 7,
+    "waterPolygons": 64,
+    "oldSites": 7,
+    "oldLinks": 1,
+    "oldGeometryFootprints": 1253
+  },
+  "baselineGeometry": {
+    "streetSites": 7,
+    "streetLinks": 1,
+    "streetLinkLengthMetres": 31.149130312317652,
+    "streetPavingCells": 685,
+    "streetCurbSegments": 509,
+    "streetTrees": 29,
+    "streetLamps": 17,
+    "streetBenches": 13,
+    "streetSiteIds": [
+      "shouxin-wealth-s01",
+      "wanda-soho-s01",
+      "jiuzhou-s01",
+      "jinjiang-s03",
+      "fujiang-s01",
+      "zhongnan-s09",
+      "yichang-international-s01"
+    ],
+    "streetLinkIds": [
+      "jiuzhou-shouxin-walk"
+    ]
+  },
+  "mainRoad": {
+    "points": [
+      [
+        1.384,
+        27.467
+      ],
+      [
+        -8.46,
+        19.643
+      ],
+      [
+        -13.682,
+        15.09
+      ],
+      [
+        -15.518,
+        13.962
+      ],
+      [
+        -17.665,
+        12.468
+      ]
+    ],
+    "width": 0.192,
+    "kind": "primary",
+    "name": "沿江大道",
+    "osmId": "way/1543968654",
+    "highway": "primary",
+    "lanes": "3",
+    "oneway": "yes",
+    "widthSource": "estimated-from-lanes",
+    "sourceWidthMeters": 9.6
+  },
+  "mainSourceSegments": [
+    {
+      "a": [
+        1.384,
+        27.467
+      ],
+      "b": [
+        -8.46,
+        19.643
+      ],
+      "at": 0,
+      "length": 12.574550170880865,
+      "index": 0
+    },
+    {
+      "a": [
+        -8.46,
+        19.643
+      ],
+      "b": [
+        -13.682,
+        15.09
+      ],
+      "at": 12.574550170880865,
+      "length": 6.928137772879521,
+      "index": 1
+    },
+    {
+      "a": [
+        -13.682,
+        15.09
+      ],
+      "b": [
+        -15.518,
+        13.962
+      ],
+      "at": 19.502687943760385,
+      "length": 2.1548271392387837,
+      "index": 2
+    },
+    {
+      "a": [
+        -15.518,
+        13.962
+      ],
+      "b": [
+        -17.665,
+        12.468
+      ],
+      "at": 21.65751508299917,
+      "length": 2.6156538379533316,
+      "index": 3
+    }
+  ],
+  "existingEndpoints": [
+    {
+      "id": "yichang-international-s01",
+      "inner": [
+        -5.952901256131976,
+        21.495127189478517
+      ],
+      "outer": [
+        -5.90810219832516,
+        21.43876191275941
+      ],
+      "station": 9.459454789113202,
+      "segment": 0,
+      "cellIndex": 21,
+      "innerHeight": 0.12608701334678507,
+      "outerHeight": 0.12603120625373135
+    },
+    {
+      "id": "wanda-soho-s01",
+      "inner": [
+        -9.857712088881929,
+        18.27841204601759
+      ],
+      "outer": [
+        -9.810395477875252,
+        18.224142917382213
+      ],
+      "station": 14.524832039627173,
+      "segment": 1,
+      "cellIndex": 152,
+      "innerHeight": 0.1375728782044624,
+      "outerHeight": 0.1298752470424289
+    }
+  ],
+  "existingEndpointSourceStationGapMetres": 253.2688625256985,
+  "existingSide": 1,
+  "blockingRoads": [
+    {
+      "points": [
+        [
+          -5.709,
+          16.348
+        ],
+        [
+          -5.843,
+          16.386
+        ],
+        [
+          -8.596,
+          19.81
+        ]
+      ],
+      "width": 0.121,
+      "kind": "tertiary",
+      "name": "万达路",
+      "osmId": "way/1070095025",
+      "highway": "tertiary",
+      "oneway": "yes",
+      "sourceWidthMeters": 6.05
+    },
+    {
+      "points": [
+        [
+          -8.479,
+          19.906
+        ],
+        [
+          -5.709,
+          16.348
+        ]
+      ],
+      "width": 0.121,
+      "kind": "tertiary",
+      "name": "万达路",
+      "osmId": "way/1070095026",
+      "highway": "tertiary",
+      "oneway": "yes",
+      "sourceWidthMeters": 6.05
+    }
+  ],
+  "geometricCenterlineCrossings": [
+    {
+      "branchId": "way/1070095025",
+      "branchSegment": 1,
+      "mainSegment": 1,
+      "point": [
+        -8.461015227882642,
+        19.642114834823886
+      ],
+      "t": 0.00019441361214873632,
+      "u": 0.9509681176471638,
+      "mainStationMetres": 628.7948547585377
+    },
+    {
+      "branchId": "way/1070095026",
+      "branchSegment": 0,
+      "mainSegment": 0,
+      "point": [
+        -8.34525091662,
+        19.734202440914785
+      ],
+      "t": 0.9883432463043477,
+      "u": 0.048284867646209664,
+      "mainStationMetres": 621.3985868352643
+    }
+  ],
+  "sourceGradeEvidence": {
+    "bridge": false,
+    "tunnel": false,
+    "nonzeroLayer": false,
+    "gradePolicy": "surface-default",
+    "explicitLayerRetained": false,
+    "sharedJunctionNodeVerified": false,
+    "crossingOrPublicWalkwayVerified": false
+  },
+  "selectedPolicy": {
+    "pavingWidthDisplayMetres": 3.6,
+    "longitudinalCurbFullWidthDisplayMetres": 0.2,
+    "minimumCarriagewayClearanceDisplayMetres": 0.3,
+    "minimumJunctionCarriagewayClearanceDisplayMetres": 2,
+    "stationQuantizationDisplayMetres": 0.005,
+    "quantizationDirection": "toward existing sample, away from junction",
+    "noTransverseClosingCurb": true,
+    "noCrossingMarkings": true,
+    "noCrossJunctionConnection": true,
+    "bothArmsRemainWithinOneOriginalStraightSegment": true
+  },
+  "auditedArms": [
+    {
+      "id": "international-toward-wanda-junction",
+      "existingSite": "yichang-international-s01",
+      "sourceSegment": 0,
+      "start": {
+        "inner": [
+          -5.952901256131976,
+          21.495127189478517
+        ],
+        "outer": [
+          -5.90810219832516,
+          21.43876191275941
+        ],
+        "station": 9.459454789113202,
+        "segment": 0,
+        "cellIndex": 21
+      },
+      "stop": {
+        "inner": [
+          -8.198936356566204,
+          19.70998104707732
+        ],
+        "outer": [
+          -8.154137298759387,
+          19.653615770358215
+        ],
+        "station": 12.3285,
+        "segment": 0
+      },
+      "startStationMetres": 472.97273945566013,
+      "stopStationMetres": 616.425,
+      "lengthMetres": 143.45226054433988,
+      "widthMetres": 3.6,
+      "curbFullWidthMetres": 0.2,
+      "rings": [
+        [
+          [
+            -5.952901256131976,
+            21.495127189478517
+          ],
+          [
+            -8.198936356566204,
+            19.70998104707732
+          ],
+          [
+            -8.154137298759387,
+            19.653615770358215
+          ],
+          [
+            -5.90810219832516,
+            21.43876191275941
+          ]
+        ],
+        [
+          [
+            -5.954145674404387,
+            21.4966928916096
+          ],
+          [
+            -8.200180774838616,
+            19.711546749208406
+          ],
+          [
+            -8.197691938293792,
+            19.708415344946236
+          ],
+          [
+            -5.951656837859565,
+            21.49356148734743
+          ]
+        ],
+        [
+          [
+            -5.909346616597571,
+            21.440327614890496
+          ],
+          [
+            -8.1553817170318,
+            19.6551814724893
+          ],
+          [
+            -8.152892880486975,
+            19.65205006822713
+          ],
+          [
+            -5.906857780052749,
+            21.437196210628326
+          ]
+        ]
+      ],
+      "bounds": {
+        "minX": -8.200180774838616,
+        "maxX": -5.906857780052749,
+        "minZ": 19.65205006822713,
+        "maxZ": 21.4966928916096
+      },
+      "minimumRoadClearance": {
+        "osmId": "way/1543968654",
+        "name": "沿江大道",
+        "sourceSegment": 0,
+        "widthMetres": 9.6,
+        "clearanceMetres": 0.600000000000011,
+        "bridge": null,
+        "tunnel": null,
+        "layer": null
+      },
+      "nearRoadSegments": [
+        {
+          "osmId": "way/1543968654",
+          "name": "沿江大道",
+          "sourceSegment": 0,
+          "widthMetres": 9.6,
+          "clearanceMetres": 0.600000000000011,
+          "bridge": null,
+          "tunnel": null,
+          "layer": null,
+          "decorativeEdgeHalfExtensionMetres": 0.864,
+          "clearanceIncludingDecorativeEdgeMetres": -0.263999999999989
+        },
+        {
+          "osmId": "way/1070095026",
+          "name": "万达路",
+          "sourceSegment": 0,
+          "widthMetres": 6.05,
+          "clearanceMetres": 2.0026126410474525,
+          "bridge": null,
+          "tunnel": null,
+          "layer": null,
+          "decorativeEdgeHalfExtensionMetres": 0.5444999999999999,
+          "clearanceIncludingDecorativeEdgeMetres": 1.4581126410474528
+        },
+        {
+          "osmId": "way/1543968654",
+          "name": "沿江大道",
+          "sourceSegment": 1,
+          "widthMetres": 9.6,
+          "clearanceMetres": 8.635464877564006,
+          "bridge": null,
+          "tunnel": null,
+          "layer": null,
+          "decorativeEdgeHalfExtensionMetres": 0.864,
+          "clearanceIncludingDecorativeEdgeMetres": 7.771464877564006
+        },
+        {
+          "osmId": "way/1070095025",
+          "name": "万达路",
+          "sourceSegment": 1,
+          "widthMetres": 6.05,
+          "clearanceMetres": 9.292790145973537,
+          "bridge": null,
+          "tunnel": null,
+          "layer": null,
+          "decorativeEdgeHalfExtensionMetres": 0.5444999999999999,
+          "clearanceIncludingDecorativeEdgeMetres": 8.748290145973538
+        }
+      ],
+      "nearestRetainedBuildings": [
+        {
+          "id": "bb15e7cf-9138-4cad-bb0c-a6c219e81197:retained-after-authored-wanda",
+          "clearanceMetres": 37.72528810662269
+        },
+        {
+          "id": "61431edd-ecb8-4725-9ed5-ac835593e91d",
+          "index": 1159,
+          "clearanceMetres": 37.755249474596916
+        },
+        {
+          "id": "99001192-a54a-4a48-a7de-a88d0f9b295b",
+          "index": 2077,
+          "clearanceMetres": 88.43246173138813
+        }
+      ],
+      "nearestAuthoredModels": [
+        {
+          "id": "yichang-international-s01",
+          "clearanceMetres": 4.457848214025057
+        },
+        {
+          "id": "wanda-soho-s01",
+          "clearanceMetres": 103.7042154806556
+        },
+        {
+          "id": "fujiang-s01",
+          "clearanceMetres": 517.5893389399495
+        }
+      ],
+      "nearestWater": [
+        {
+          "index": 2,
+          "clearanceMetres": 81.66241208462702
+        },
+        {
+          "index": 13,
+          "clearanceMetres": 778.0886828625092
+        },
+        {
+          "index": 12,
+          "clearanceMetres": 832.2027142249109
+        }
+      ],
+      "oldGeometryMaximumPositiveOverlapSquareMetres": 3.4765571112706825e-15,
+      "positiveOldGeometryOverlaps": [],
+      "minimumBoardClearanceMetres": 6160.94035541952,
+      "terrainCheck": {
+        "sampleCount": 725,
+        "waterSampleCount": 0,
+        "minTerrain": 0.004031206253731341,
+        "maxTerrain": 0.009130578571839604,
+        "minParentSiteSurface": 0.12603120625373135,
+        "maxParentSiteSurface": 0.1311305785718396,
+        "note": "Parent-site groundLift evaluated only as continuity evidence; extension designer must preserve the exact join surface and may blend elsewhere."
+      },
+      "touchingOldGeometryCount": 3,
+      "passes": {
+        "carriagewayClearanceAtLeast0_3DisplayMetres": true,
+        "junctionCarriagewayClearanceAtLeast2DisplayMetres": true,
+        "modelBuildingWaterClearanceAtLeast0_3DisplayMetres": true,
+        "zeroPositiveExistingGeometryOverlap": true,
+        "noWaterAtInteriorSamples": true,
+        "insideBoard": true
+      }
+    },
+    {
+      "id": "wanda-toward-international-junction",
+      "existingSite": "wanda-soho-s01",
+      "sourceSegment": 1,
+      "start": {
+        "inner": [
+          -8.47013184349984,
+          19.48822684058378
+        ],
+        "outer": [
+          -8.422815232493162,
+          19.433957711948405
+        ],
+        "station": 12.683900000000001,
+        "segment": 1
+      },
+      "stop": {
+        "inner": [
+          -9.857712088881929,
+          18.27841204601759
+        ],
+        "outer": [
+          -9.810395477875252,
+          18.224142917382213
+        ],
+        "station": 14.524832039627173,
+        "segment": 1,
+        "cellIndex": 152
+      },
+      "startStationMetres": 634.195,
+      "stopStationMetres": 726.2416019813586,
+      "lengthMetres": 92.04660198135856,
+      "widthMetres": 3.6,
+      "curbFullWidthMetres": 0.2,
+      "rings": [
+        [
+          [
+            -8.47013184349984,
+            19.48822684058378
+          ],
+          [
+            -9.857712088881929,
+            18.27841204601759
+          ],
+          [
+            -9.810395477875252,
+            18.224142917382213
+          ],
+          [
+            -8.422815232493162,
+            19.433957711948405
+          ]
+        ],
+        [
+          [
+            -8.47144619380558,
+            19.48973431637921
+          ],
+          [
+            -9.85902643918767,
+            18.279919521813017
+          ],
+          [
+            -9.856397738576188,
+            18.27690457022216
+          ],
+          [
+            -8.468817493194098,
+            19.486719364788353
+          ]
+        ],
+        [
+          [
+            -8.424129582798903,
+            19.435465187743834
+          ],
+          [
+            -9.811709828180993,
+            18.22565039317764
+          ],
+          [
+            -9.809081127569511,
+            18.222635441586785
+          ],
+          [
+            -8.421500882187422,
+            19.432450236152977
+          ]
+        ]
+      ],
+      "bounds": {
+        "minX": -9.85902643918767,
+        "maxX": -8.421500882187422,
+        "minZ": 18.222635441586785,
+        "maxZ": 19.48973431637921
+      },
+      "minimumRoadClearance": {
+        "osmId": "way/1543968654",
+        "name": "沿江大道",
+        "sourceSegment": 1,
+        "widthMetres": 9.6,
+        "clearanceMetres": 0.5999999999998451,
+        "bridge": null,
+        "tunnel": null,
+        "layer": null
+      },
+      "nearRoadSegments": [
+        {
+          "osmId": "way/1543968654",
+          "name": "沿江大道",
+          "sourceSegment": 1,
+          "widthMetres": 9.6,
+          "clearanceMetres": 0.5999999999998451,
+          "bridge": null,
+          "tunnel": null,
+          "layer": null,
+          "decorativeEdgeHalfExtensionMetres": 0.864,
+          "clearanceIncludingDecorativeEdgeMetres": -0.2640000000001549
+        },
+        {
+          "osmId": "way/1070095025",
+          "name": "万达路",
+          "sourceSegment": 1,
+          "widthMetres": 6.05,
+          "clearanceMetres": 2.0041359486551493,
+          "bridge": null,
+          "tunnel": null,
+          "layer": null,
+          "decorativeEdgeHalfExtensionMetres": 0.5444999999999999,
+          "clearanceIncludingDecorativeEdgeMetres": 1.4596359486551496
+        },
+        {
+          "osmId": "way/1543968654",
+          "name": "沿江大道",
+          "sourceSegment": 0,
+          "widthMetres": 9.6,
+          "clearanceMetres": 2.884625093064619,
+          "bridge": null,
+          "tunnel": null,
+          "layer": null,
+          "decorativeEdgeHalfExtensionMetres": 0.864,
+          "clearanceIncludingDecorativeEdgeMetres": 2.020625093064619
+        },
+        {
+          "osmId": "way/1070095026",
+          "name": "万达路",
+          "sourceSegment": 0,
+          "widthMetres": 6.05,
+          "clearanceMetres": 9.251766193314063,
+          "bridge": null,
+          "tunnel": null,
+          "layer": null,
+          "decorativeEdgeHalfExtensionMetres": 0.5444999999999999,
+          "clearanceIncludingDecorativeEdgeMetres": 8.707266193314064
+        }
+      ],
+      "nearestRetainedBuildings": [
+        {
+          "id": "bb15e7cf-9138-4cad-bb0c-a6c219e81197:retained-after-authored-wanda",
+          "clearanceMetres": 26.728022274873876
+        },
+        {
+          "id": "61431edd-ecb8-4725-9ed5-ac835593e91d",
+          "index": 1159,
+          "clearanceMetres": 26.75405550032382
+        },
+        {
+          "id": "51c07457-495d-4a0c-8ed0-cd5112d7c164",
+          "index": 10447,
+          "clearanceMetres": 102.25807676590024
+        }
+      ],
+      "nearestAuthoredModels": [
+        {
+          "id": "wanda-soho-s01",
+          "clearanceMetres": 15.842949084811423
+        },
+        {
+          "id": "yichang-international-s01",
+          "clearanceMetres": 68.23817526884538
+        },
+        {
+          "id": "zhongnan-s09",
+          "clearanceMetres": 537.1424768967803
+        }
+      ],
+      "nearestWater": [
+        {
+          "index": 2,
+          "clearanceMetres": 79.07476178058903
+        },
+        {
+          "index": 13,
+          "clearanceMetres": 834.4370106657194
+        },
+        {
+          "index": 12,
+          "clearanceMetres": 884.1140128270041
+        }
+      ],
+      "oldGeometryMaximumPositiveOverlapSquareMetres": 1.5878793564469573e-14,
+      "positiveOldGeometryOverlaps": [],
+      "minimumBoardClearanceMetres": 6261.288284181039,
+      "terrainCheck": {
+        "sampleCount": 470,
+        "waterSampleCount": 0,
+        "minTerrain": 0.009868747084203296,
+        "maxTerrain": 0.01580495391751476,
+        "minParentSiteSurface": 0.12923241642937527,
+        "maxParentSiteSurface": 0.1375728782044624,
+        "note": "Parent-site groundLift evaluated only as continuity evidence; extension designer must preserve the exact join surface and may blend elsewhere."
+      },
+      "touchingOldGeometryCount": 3,
+      "passes": {
+        "carriagewayClearanceAtLeast0_3DisplayMetres": true,
+        "junctionCarriagewayClearanceAtLeast2DisplayMetres": true,
+        "modelBuildingWaterClearanceAtLeast0_3DisplayMetres": true,
+        "zeroPositiveExistingGeometryOverlap": true,
+        "noWaterAtInteriorSamples": true,
+        "insideBoard": true
+      }
+    }
+  ],
+  "totalNewPavementLengthDisplayMetres": 235.49886252569843,
+  "openJunction": {
+    "sourceStationIntervalDisplayMetres": [
+      616.425,
+      634.195
+    ],
+    "sourceStationLengthDisplayMetres": 17.770000000000064,
+    "minimumFullDomainSeparationDisplayMetres": 17.34750304975495,
+    "sourceBendStationDisplayMetres": 628.7275085440433,
+    "sourceBendPoint": [
+      -8.46,
+      19.643
+    ]
+  },
+  "alternativeTerminalLimitsByJunctionCarriagewayClearance": [
+    {
+      "clearanceMetres": 0.3,
+      "internationalEnd": {
+        "inner": [
+          -8.225595545677418,
+          19.68879235390319
+        ],
+        "outer": [
+          -8.180796487870602,
+          19.632427077184083
+        ],
+        "station": 12.362553973079436,
+        "segment": 0,
+        "stationMetres": 618.1276986539718,
+        "lengthMetres": 145.15495919831167,
+        "branchClearance": {
+          "clearanceMetres": 0.30000000000006477,
+          "road": "way/1070095026"
+        }
+      },
+      "wandaStart": {
+        "inner": [
+          -8.444421973644637,
+          19.51064297184589
+        ],
+        "outer": [
+          -8.39710536263796,
+          19.456373843210514
+        ],
+        "station": 12.64979017225591,
+        "segment": 1,
+        "stationMetres": 632.4895086127955,
+        "lengthMetres": 93.75209336856311,
+        "branchClearance": {
+          "clearanceMetres": 0.30000000000003496,
+          "road": "way/1070095025"
+        }
+      },
+      "unconnectedSourceRoadIntervalMetres": 14.361809958823724
+    },
+    {
+      "clearanceMetres": 0.5,
+      "internationalEnd": {
+        "inner": [
+          -8.22246398322234,
+          19.691281316179555
+        ],
+        "outer": [
+          -8.177664925415524,
+          19.63491603946045
+        ],
+        "station": 12.358553771006639,
+        "segment": 0,
+        "stationMetres": 617.9276885503319,
+        "lengthMetres": 144.9549490946718,
+        "branchClearance": {
+          "clearanceMetres": 0.5000000000001975,
+          "road": "way/1070095026"
+        }
+      },
+      "wandaStart": {
+        "inner": [
+          -8.447439323272818,
+          19.508012180414042
+        ],
+        "outer": [
+          -8.40012271226614,
+          19.453743051778666
+        ],
+        "station": 12.653793353782717,
+        "segment": 1,
+        "stationMetres": 632.6896676891358,
+        "lengthMetres": 93.55193429222277,
+        "branchClearance": {
+          "clearanceMetres": 0.5000000000002287,
+          "road": "way/1070095025"
+        }
+      },
+      "unconnectedSourceRoadIntervalMetres": 14.761979138803927
+    },
+    {
+      "clearanceMetres": 1,
+      "internationalEnd": {
+        "inner": [
+          -8.214635077084651,
+          19.69750372187046
+        ],
+        "outer": [
+          -8.169836019277835,
+          19.641138445151356
+        ],
+        "station": 12.34855326582465,
+        "segment": 0,
+        "stationMetres": 617.4276632912325,
+        "lengthMetres": 144.4549238355724,
+        "branchClearance": {
+          "clearanceMetres": 1.0000000000000293,
+          "road": "way/1070095026"
+        }
+      },
+      "wandaStart": {
+        "inner": [
+          -8.454982697343263,
+          19.50143520183443
+        ],
+        "outer": [
+          -8.407666086336587,
+          19.447166073199053
+        ],
+        "station": 12.663801307599725,
+        "segment": 1,
+        "stationMetres": 633.1900653799862,
+        "lengthMetres": 93.05153660137239,
+        "branchClearance": {
+          "clearanceMetres": 1.0000000000001106,
+          "road": "way/1070095025"
+        }
+      },
+      "unconnectedSourceRoadIntervalMetres": 15.762402088753724
+    },
+    {
+      "clearanceMetres": 2,
+      "internationalEnd": {
+        "inner": [
+          -8.198977264809269,
+          19.709948533252277
+        ],
+        "outer": [
+          -8.154178207002452,
+          19.65358325653317
+        ],
+        "station": 12.32855225546067,
+        "segment": 0,
+        "stationMetres": 616.4276127730335,
+        "lengthMetres": 143.45487331737337,
+        "branchClearance": {
+          "clearanceMetres": 2.0000000000000133,
+          "road": "way/1070095026"
+        }
+      },
+      "wandaStart": {
+        "inner": [
+          -8.470069445484153,
+          19.488281244675203
+        ],
+        "outer": [
+          -8.422752834477476,
+          19.434012116039828
+        ],
+        "station": 12.68381721523374,
+        "segment": 1,
+        "stationMetres": 634.190860761687,
+        "lengthMetres": 92.05074121967165,
+        "branchClearance": {
+          "clearanceMetres": 2.0000000000000537,
+          "road": "way/1070095025"
+        }
+      },
+      "unconnectedSourceRoadIntervalMetres": 17.763247988653497
+    },
+    {
+      "clearanceMetres": 3,
+      "internationalEnd": {
+        "inner": [
+          -8.183319452533883,
+          19.722393344634092
+        ],
+        "outer": [
+          -8.138520394727067,
+          19.666028067914986
+        ],
+        "station": 12.308551245096684,
+        "segment": 0,
+        "stationMetres": 615.4275622548341,
+        "lengthMetres": 142.45482279917408,
+        "branchClearance": {
+          "clearanceMetres": 3.000000000000068,
+          "road": "way/1070095026"
+        }
+      },
+      "wandaStart": {
+        "inner": [
+          -8.485156193625048,
+          19.475127287515974
+        ],
+        "outer": [
+          -8.437839582618372,
+          19.4208581588806
+        ],
+        "station": 12.70383312286776,
+        "segment": 1,
+        "stationMetres": 635.191656143388,
+        "lengthMetres": 91.04994583797064,
+        "branchClearance": {
+          "clearanceMetres": 3.0000000000001346,
+          "road": "way/1070095025"
+        }
+      },
+      "unconnectedSourceRoadIntervalMetres": 19.764093888553802
+    }
+  ],
+  "limitations": [
+    "Distances are display dimensions from the current sandbox units, not surveyed public-space measurements.",
+    "Along-river width is estimated from the retained lanes count. Wanda Road retains a sourceWidthMeters value but no surveyed width provenance.",
+    "Retained road objects have no explicit bridge/tunnel/nonzero-layer values at this junction; this is current source-ground eligibility, not proof of verified same-level public crossing.",
+    "Road clearance uses every source segment as a full half-width capsule, including its endpoints, and the entire proposed paving plus both curb rectangles.",
+    "Prior furniture safetyFootprints and all retained source/model/water polygon boundaries were checked, not only centerline or object origins.",
+    "Waterfront omission set was empty, so extra source-building obstacles may be retained conservatively.",
+    "Both arms stay in their own straight source segment, stopping on either side of the source bend and double one-way side road.",
+    "Existing seven sample sites and old Jiuzhou–Shouxin link are not modified by this audit.",
+    "Existing standard sidewalks and their curbs overlap the main road decorative edge band in plan projection by at most 0.264 display metres. They remain outside the actual carriageway by 0.6 display metres and are placed above the lower decorative band. This preserves the old cross-section, not a new carriageway encroachment.",
+    "No new lamps, trees or benches were included in this independent arm audit. Their final full footprints require implementation review.",
+    "Terrain samples verify existing-site endpoint continuity and absence of water; final extension surface interpolation and camera rendering require runtime validation."
+  ]
+}

@@ -443,6 +443,33 @@ try {
         assert.ok(engine.getStats().streetDetails.streetVisibleIds.includes(spec.id));
         for(const layer of ['terrain','buildings','roads'])assert.equal(cityScene.getObjectByName(layer).visible,true);
       }
+      if(['wanda-soho-s01','yichang-international-s01'].includes(spec.id)) {
+        wake(()=>engine.focus(spec.id,{angle:'streetscape',close:true}),`${viewport.name} ${spec.name} Yanjiang streetscape`);
+        const stats=engine.getStats();
+        assert.equal(stats.focusAngle,'streetscape');
+        assert.equal(stats.streetDetails.streetRouteConnectedBetweenSites,false,'the street view must not assert a crossing between the buildings');
+        assert.equal(stats.streetDetails.streetExtensions,2);
+        const streets=cityScene.getObjectByName('Building forecourts and illustrative streets'),points=[];
+        for(const id of stats.streetDetails.streetExtensionIds) {
+          const extension=streets.getObjectByName(id);
+          assert.ok(extension,'both separately bounded approaches exist');
+          extension.traverse(mesh=>{
+            if(!mesh.isMesh||!['forecourt, entrance path and sidewalk','open-entry sidewalk kerbs','street lamps'].includes(mesh.name))return;
+            const position=mesh.geometry.attributes.position;
+            if(mesh.isInstancedMesh) {
+              for(let instance=0;instance<mesh.count;instance++) {
+                const transform=mesh.matrixWorld.clone();mesh.getMatrixAt(instance,transform);transform.premultiply(mesh.matrixWorld);
+                for(let i=0;i<position.count;i++)points.push(new Vector3().fromBufferAttribute(position,i).applyMatrix4(transform));
+              }
+            } else for(let i=0;i<position.count;i++)points.push(new Vector3().fromBufferAttribute(position,i).applyMatrix4(mesh.matrixWorld));
+          });
+          assert.ok(stats.streetDetails.streetVisibleIds.includes(id),`${viewport.name}: both approaches remain visible`);
+        }
+        assert.ok(points.length>1000,'the view oracle reads emitted pavement, full kerbs and complete instanced lamps');
+        for(const point of projectPoints(points))assertPointClearsUi(point,availableBuildingRect(),`${viewport.name}: complete streetscape`);
+        assertDetailRetained(spec.id,`${viewport.name}: streetscape retains its selected building`);
+        for(const layer of ['terrain','buildings','roads'])assert.equal(cityScene.getObjectByName(layer).visible,true);
+      }
       wake(()=>engine.focus(spec.id,{angle:'detail',close:true}),`${viewport.name} ${spec.name} return to full-height building`);
       assertBuildingFits(spec.id,`${viewport.name} restored full-height building`,{minOccupancy:.9,whole:true});
       assert.ok(renderer.camera.position.distanceTo(wholePose.position)<1e-9);
@@ -460,6 +487,10 @@ try {
   assert.equal(engine.getStats().focusAngle,'detail','unsupported frontage preset normalizes to complete-building view');
   assertBuildingFits('shouxin-wealth-s01','unsupported frontage falls back to whole building',{minOccupancy:.9,whole:true});
   checks.push('International Plaza frontage frames every emitted paving vertex and the retained passage edge on desktop and both phone sheet states; selected detail persists, whole-building pose restores exactly, and unsupported frontage links fall back safely');
+  wake(()=>engine.focus('shouxin-wealth-s01',{angle:'streetscape',close:true}),'unsupported streetscape preset');
+  assert.equal(engine.getStats().focusAngle,'detail','unsupported streetscape preset normalizes to complete-building view');
+  assertBuildingFits('shouxin-wealth-s01','unsupported streetscape falls back to whole building',{minOccupancy:.9,whole:true});
+  checks.push('Wanda and International Plaza streetscape frames both full approaches and complete lamps on desktop and both phone sheet states, retains selection, restores the exact whole-building pose, and excludes unsupported buildings');
   // A short phone with its introduction expanded can leave no real framing
   // area between the provenance note and the sheet. Preserve the camera
   // instead of manufacturing a viewport behind that sheet; a later card-only

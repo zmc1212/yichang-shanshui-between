@@ -50,6 +50,11 @@ assert.equal(readSceneLocation('#place=shouxin-wealth-s01&angle=unknown&close=1'
 const frontage = { place:'yichang-international-s01', theme:'day', view:'perspective', angle:'frontage', close:true, filter:'all', query:'宜昌国际' };
 assert.deepEqual(readSceneLocation('#'+serializeSceneLocation(frontage,places),places).state,frontage,'The frontage view survives reload and a copied location link');
 for(const place of ['shouxin-wealth-s01','zhenjiang-pavilion','business-1649141']) assert.equal(readSceneLocation(`#place=${place}&angle=frontage&close=1`,places).state.angle,'detail','Frontage view is limited to its actual supported building');
+for(const place of ['wanda-soho-s01','yichang-international-s01']) {
+  const street={...frontage,place,angle:'streetscape',theme:'night'};
+  assert.deepEqual(readSceneLocation('#'+serializeSceneLocation(street,places),places).state,street,'Both supported buildings share the same streetscape preset without changing their selection');
+}
+for(const place of ['shouxin-wealth-s01','zhenjiang-pavilion','business-1649141']) assert.equal(readSceneLocation(`#place=${place}&angle=streetscape&close=1`,places).state.angle,'detail','Streetscape is unavailable on unrelated buildings or guide points');
 assert.equal(readSceneLocation('#place=shouxin-wealth-s01&close=1', places).state.close, true, 'an existing close-view link remains usable without a new parameter');
 assert.equal(readSceneLocation('#place=shouxin-wealth-s01&close=1', places).state.angle, 'detail', 'an existing close-view link now opens the full-building preset, not an implicit facade crop');
 assert.equal(readSceneLocation('#unknown-section', places).recognized, false);
@@ -60,4 +65,4 @@ for (const item of places) {
   const state = { place: item.id, theme: 'day', view: 'perspective', angle: 'detail', close: false, filter: 'all', query: '' };
   assert.deepEqual(readSceneLocation('#' + serializeSceneLocation(state, places), places).state, state);
 }
-console.log(JSON.stringify({ ok: true, stableIds: places.length, checked: ['Chinese query and view round-trip', 'authored facade/entrance/crown inspection links and whole-view recovery', 'old close links remain valid', 'transient query excluded from copied URL', 'unknown and malformed IDs', 'per-building view restrictions', 'bounded query and fragment input'] }, null, 2));
+console.log(JSON.stringify({ ok: true, stableIds: places.length, checked: ['Chinese query and view round-trip', 'authored facade/entrance/crown inspection links and whole-view recovery', 'International frontage and both Yanjiang streetscape links preserve selection', 'old close links remain valid', 'transient query excluded from copied URL', 'unknown and malformed IDs', 'per-building view restrictions', 'bounded query and fragment input'] }, null, 2));

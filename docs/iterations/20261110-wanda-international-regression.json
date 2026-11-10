@@ -1,0 +1,1146 @@
+{
+  "checkedAt": "2026-11-10",
+  "baselineVersion": "V56",
+  "baselineCommit": "7eb9d5f5f868d08ef4bb123350058f9efcfa9edd",
+  "scope": "Node geometry/data/resource regression; not browser, WebGL/GPU, or physical-phone timing",
+  "extensionValidation": "docs/iterations/20261110-wanda-international-validation.json",
+  "checks": [
+    {
+      "command": "node scripts/check-street-details.mjs",
+      "result": "passed",
+      "scope": "All 10 groups participate in physical footprint checks; original 8 groups retain their exact resource and LOD budget.",
+      "testSourceSha256": "af7d2129ebc7304ebe045ca152eff7529dcc856aa888908ceed653ae3a1df98b",
+      "report": {
+        "checkedAt": "2026-11-10",
+        "scope": "geometric-data-resource-lifecycle-only",
+        "baseline": "V40 e87fde278f678ae76668766f27c3ad5e46144c56",
+        "stats": {
+          "streetLinks": 1,
+          "streetLinkLengthMetres": 31.149130312317652,
+          "streetFrontageConnections": 1,
+          "streetFrontageConnected": true,
+          "streetFrontagePavingCells": 42,
+          "streetFrontageSourceRampGrade": 0.09805399138172378,
+          "streetFrontageExternalRampGrade": 0.08653668428674167,
+          "streetSites": 7,
+          "streetPavingCells": 685,
+          "streetCurbSegments": 509,
+          "streetTrees": 29,
+          "streetLamps": 17,
+          "streetBenches": 13,
+          "streetEntranceConnected": true,
+          "streetEntrancesConnected": 6,
+          "streetIllustrative": true,
+          "streetMarkings": 0,
+          "streetEntryApronCells": 8,
+          "streetSiteIds": [
+            "shouxin-wealth-s01",
+            "wanda-soho-s01",
+            "jiuzhou-s01",
+            "jinjiang-s03",
+            "fujiang-s01",
+            "zhongnan-s09",
+            "yichang-international-s01"
+          ],
+          "streetLinkIds": [
+            "jiuzhou-shouxin-walk"
+          ],
+          "streetSiteSummaries": [
+            {
+              "id": "shouxin-wealth-s01",
+              "roadName": "沿江大道",
+              "sourceRoad": "way/39725551",
+              "pavingCells": 77,
+              "curbSegments": 66,
+              "trees": 7,
+              "lamps": 3,
+              "benches": 2,
+              "entranceConnected": true,
+              "entryApronConnected": false,
+              "frontageConnected": false,
+              "illustrative": true
+            },
+            {
+              "id": "wanda-soho-s01",
+              "roadName": "沿江大道",
+              "sourceRoad": "way/1543968654",
+              "pavingCells": 236,
+              "curbSegments": 158,
+              "trees": 7,
+              "lamps": 4,
+              "benches": 2,
+              "entranceConnected": true,
+              "entryApronConnected": false,
+              "frontageConnected": false,
+              "illustrative": true
+            },
+            {
+              "id": "jiuzhou-s01",
+              "roadName": "沿江大道",
+              "sourceRoad": "way/39725551",
+              "pavingCells": 118,
+              "curbSegments": 68,
+              "trees": 6,
+              "lamps": 2,
+              "benches": 2,
+              "entranceConnected": true,
+              "entryApronConnected": true,
+              "frontageConnected": false,
+              "illustrative": true
+            },
+            {
+              "id": "jinjiang-s03",
+              "roadName": "沿江大道",
+              "sourceRoad": "way/724326275",
+              "pavingCells": 71,
+              "curbSegments": 60,
+              "trees": 4,
+              "lamps": 2,
+              "benches": 2,
+              "entranceConnected": true,
+              "entryApronConnected": false,
+              "frontageConnected": false,
+              "illustrative": true
+            },
+            {
+              "id": "fujiang-s01",
+              "roadName": "沿江大道",
+              "sourceRoad": "way/39725551",
+              "pavingCells": 70,
+              "curbSegments": 64,
+              "trees": 3,
+              "lamps": 2,
+              "benches": 2,
+              "entranceConnected": true,
+              "entryApronConnected": false,
+              "frontageConnected": false,
+              "illustrative": true
+            },
+            {
+              "id": "zhongnan-s09",
+              "roadName": "夷陵大道",
+              "sourceRoad": "way/397144798",
+              "pavingCells": 60,
+              "curbSegments": 30,
+              "trees": 2,
+              "lamps": 2,
+              "benches": 1,
+              "entranceConnected": true,
+              "entryApronConnected": false,
+              "frontageConnected": false,
+              "illustrative": true
+            },
+            {
+              "id": "yichang-international-s01",
+              "roadName": "沿江大道",
+              "sourceRoad": "way/1543968654",
+              "pavingCells": 42,
+              "curbSegments": 41,
+              "trees": 0,
+              "lamps": 2,
+              "benches": 2,
+              "entranceConnected": false,
+              "entryApronConnected": false,
+              "frontageConnected": true,
+              "illustrative": true
+            }
+          ],
+          "streetMeshes": 88,
+          "streetTriangles": 12602,
+          "streetGeometryBytes": 536096,
+          "streetTextureCount": 1,
+          "streetTextureSourceBytes": 262144
+        },
+        "sites": [
+          {
+            "id": "shouxin-wealth-s01",
+            "sourceRoad": "way/39725551",
+            "sourceAnchor": [
+              17.84661482668662,
+              44.801642264664586
+            ],
+            "entranceReference": null,
+            "illustrative": true
+          },
+          {
+            "id": "wanda-soho-s01",
+            "sourceRoad": "way/1543968654",
+            "sourceAnchor": [
+              -10.740095151693664,
+              16.1045533568941
+            ],
+            "entranceReference": {
+              "method": "authored-visible-subject-lateral-projection",
+              "sourceCenter": [
+                0,
+                7.05,
+                10.16
+              ],
+              "lateralOffset": -0.2549830542295053,
+              "surveyed": false
+            },
+            "illustrative": true
+          },
+          {
+            "id": "jiuzhou-s01",
+            "sourceRoad": "way/39725551",
+            "sourceAnchor": [
+              20.110797496633346,
+              46.66588413788607
+            ],
+            "entranceReference": {
+              "method": "authored-visible-subject-lateral-projection",
+              "sourceCenter": [
+                -10.03,
+                3,
+                16.62
+              ],
+              "lateralOffset": -0.21013580575377297,
+              "surveyed": false
+            },
+            "illustrative": true
+          },
+          {
+            "id": "jinjiang-s03",
+            "sourceRoad": "way/724326275",
+            "sourceAnchor": [
+              -30.593319771790565,
+              2.8551606057318497
+            ],
+            "entranceReference": {
+              "method": "authored-visible-subject-lateral-projection",
+              "sourceCenter": [
+                0.34,
+                5.05,
+                16.58
+              ],
+              "lateralOffset": 8.503507166729429e-05,
+              "surveyed": false
+            },
+            "illustrative": true
+          },
+          {
+            "id": "fujiang-s01",
+            "sourceRoad": "way/39725551",
+            "sourceAnchor": [
+              3.5533045711504165,
+              27.733723753768164
+            ],
+            "entranceReference": {
+              "method": "authored-visible-subject-lateral-projection",
+              "sourceCenter": [
+                0,
+                6.88,
+                10.42
+              ],
+              "lateralOffset": 2.7755575615628914e-16,
+              "surveyed": false
+            },
+            "illustrative": true
+          },
+          {
+            "id": "zhongnan-s09",
+            "sourceRoad": "way/397144798",
+            "sourceAnchor": [
+              -16.5153984916032,
+              8.769154736196347
+            ],
+            "entranceReference": {
+              "method": "authored-visible-subject-lateral-projection",
+              "sourceCenter": [
+                10.31,
+                7.46,
+                1.2
+              ],
+              "lateralOffset": 8.142430835814118e-06,
+              "surveyed": false
+            },
+            "illustrative": true
+          },
+          {
+            "id": "yichang-international-s01",
+            "sourceRoad": "way/1543968654",
+            "sourceAnchor": [
+              -5.912434062168668,
+              20.48598798096113
+            ],
+            "entranceReference": null,
+            "illustrative": true
+          }
+        ],
+        "entryApronEvidence": {
+          "role": "entry-apron",
+          "policy": "Only a certified source-cleared corridor may enter this model envelope; inner edge joins the original stone step top",
+          "thresholdObject": "Entry_curved_vestibule_closed_frames",
+          "thresholdSource": [
+            -13,
+            0.1801239127460832,
+            11.001
+          ],
+          "thresholdEvidenceStatus": "PATTERN_INFERRED",
+          "doorSourceBounds": {
+            "min": [
+              -14.729999542236328,
+              0.09000000357627869,
+              9.0600004196167
+            ],
+            "max": [
+              -11.270000457763672,
+              3.859999895095825,
+              10.829999923706055
+            ]
+          },
+          "certifiedSourceCorridor": [
+            [
+              -14.794,
+              11.0005
+            ],
+            [
+              -11.824,
+              25.402
+            ],
+            [
+              -8.236,
+              25.402
+            ],
+            [
+              -11.206,
+              11.0005
+            ]
+          ],
+          "widthMetres": 4.6,
+          "lengthMetres": 18.864834536535085,
+          "cells": 8,
+          "triangles": 16,
+          "groundMethod": "scene-fallback-hills-no-GIS-grid",
+          "modelBase": 0.06500000072340281,
+          "stepTopY": 0.07064871608936112,
+          "highestPavingY": 0.07064871490001678,
+          "maximumStepOvershoot": -1.1893443313537588e-09,
+          "minimumGroundGap": 0.05508708494589117,
+          "actualAssetBounds": [
+            {
+              "tier": "light",
+              "sourceMinimumY": -0.03999999910593033,
+              "normalizedWorldMinimumY": 0.06500000072340284
+            },
+            {
+              "tier": "detail",
+              "sourceMinimumY": -0.03999999910593033,
+              "normalizedWorldMinimumY": 0.06500000072340284
+            }
+          ],
+          "thresholdStepEvidence": [
+            {
+              "tier": "light",
+              "corridorTriangles": 0,
+              "stepTriangles": 6,
+              "sourceBounds": {
+                "min": [
+                  -14.792566856212057,
+                  -0.019363382369803617,
+                  10.9
+                ],
+                "max": [
+                  -11.207433143787943,
+                  0.1801239127460832,
+                  10.999567160678746
+                ]
+              },
+              "endpointGapMetres": 0.001838442135345203
+            },
+            {
+              "tier": "detail",
+              "corridorTriangles": 0,
+              "stepTriangles": 6,
+              "sourceBounds": {
+                "min": [
+                  -14.792566856212057,
+                  -0.019363382369803617,
+                  10.9
+                ],
+                "max": [
+                  -11.207433143787943,
+                  0.1801239127460832,
+                  10.999567160678746
+                ]
+              },
+              "endpointGapMetres": 0.001838442135345203
+            }
+          ]
+        },
+        "passed": [
+          "All five prior street plans match their independently captured V51 SHA-256 snapshots, including the unchanged V40 Shouxin geometry",
+          "1483 complete footprints clear all mapped obstacles in XZ; 8 narrow Jiuzhou apron and 6 exact international corridor cells clear every other building, source polygon, road and water. Only their own certified native corridor replaces its envelope, with full source-geometry validation in the dedicated checks",
+          "All paving cells have zero overlapping area; independent street sites and furniture safety footprints remain separated",
+          "All six continuous paths join the complete model footprint front, narrow court and same-side sidewalk; new paths align laterally with the authored visible entry while remaining illustrative",
+          "The clipped Zhongnan corner retains the complete 4.6 m entry strip and full-width court/sidewalk joins; no clipping gap, narrowing or new model-envelope exception is accepted",
+          "Eight diagonal Jiuzhou apron cells now join the decoded stone step top just 1.84 mm outside its front; exact clipping of both GLBs proves zero low model triangles throughout the certified approach",
+          "Every emitted Float32 apron triangle lies inside that explicit source-cleared corridor, stays above scene ground, and descends from the unchanged doorstep to the unchanged exterior court without a vertical join gap",
+          "Bridge/tunnel/layer eligibility is conservative, unavailable models create no streets, and all input data remains byte-for-byte unchanged",
+          "88 total meshes, 12602 triangles and 536096 geometry/instance bytes; furnishings are instanced and single-pass light pools follow each surface",
+          "Every site obeys pixel-scale hysteresis, independent frustum visibility, street/tree toggles, theme changes and zero overview draw calls without a continuous loop"
+        ]
+      }
+    },
+    {
+      "command": "node scripts/check-street-appearance.mjs",
+      "result": "passed",
+      "scope": "Original 8 groups retain their exact atlas, UV, material, resource, LOD and disposal contract; the extension script checks all 10 integrated groups.",
+      "testSourceSha256": "826b3248f137755a564801285d133e4cd3e16ce8658e954e2df7e64072b55f79",
+      "report": {
+        "scope": "read-only geometry/material/visibility integration; no browser or GPU timing",
+        "sites": [
+          "shouxin-wealth-s01",
+          "wanda-soho-s01",
+          "jiuzhou-s01",
+          "jinjiang-s03",
+          "fujiang-s01",
+          "zhongnan-s09",
+          "yichang-international-s01"
+        ],
+        "passed": [
+          "Fifteen paving meshes across seven building samples and one short link share one opaque, neutral, repeat-wrapped 256² RGBA atlas with mipmap filtering",
+          "All five previous paving positions/surfaces remain unchanged, including the 48 Jiuzhou apron vertices; corner polygons render their full area with conforming shared edges and identical heights, and all sites share continuous UVs",
+          "Every transformed vertex of the enlarged beds, soil, low foliage, trunks and crowns stays inside its actual 16-sided safety polygon; convexity also contains every triangle interior",
+          "Far → planting → furniture → far preserves separate 3/2.4 crown-pixel and 9/6.5 road-pixel hysteresis, with stable repeated updates",
+          "Tree, street and frustum switches remain independent; day/night reuse the same opaque atlas and only add one light-pool draw per visible site",
+          "Independently counted geometry/instance buffers match the published stats; source texture and theoretical RGBA8 mip storage are recorded separately",
+          "The existing scene cleanup discovers the new map and disposes the one shared texture, all materials and all geometries exactly once"
+        ],
+        "resources": {
+          "meshCount": 88,
+          "triangleCount": 12602,
+          "geometryBytes": 536096,
+          "textureCount": 1,
+          "textureSourceBytes": 262144,
+          "theoreticalRgba8MipBytes": 349524,
+          "nearDayDraws": 81,
+          "nearNightDraws": 88,
+          "geometryDisposals": 88,
+          "materialDisposals": 10,
+          "textureDisposals": 1
+        },
+        "uv": {
+          "sharedUvVertices": 3177,
+          "maximumUvProjectionError": 4.2625217918867975e-05,
+          "jiuzhouEntryVertexCount": 48,
+          "jiuzhouStepTopY": 0.07064871608936112
+        },
+        "polygonCoverage": [
+          {
+            "site": "zhongnan-s09",
+            "accent": false,
+            "cells": 53,
+            "triangles": 223,
+            "maximumAreaError": 5.1743221859967825e-08
+          },
+          {
+            "site": "zhongnan-s09",
+            "accent": true,
+            "cells": 7,
+            "triangles": 31,
+            "maximumAreaError": 4.3645037178970114e-08
+          }
+        ],
+        "safety": {
+          "street tree pits": {
+            "instances": 29,
+            "vertices": 4176,
+            "minimumInsetMetres": 0.17479727638221101
+          },
+          "street tree soil": {
+            "instances": 29,
+            "vertices": 696,
+            "minimumInsetMetres": 0.4158357016429577
+          },
+          "street planted bed foliage": {
+            "instances": 29,
+            "vertices": 3480,
+            "minimumInsetMetres": 0.7782954374982924
+          },
+          "street tree trunks": {
+            "instances": 29,
+            "vertices": 1160,
+            "minimumInsetMetres": 2.5261498100253394
+          },
+          "street tree crowns": {
+            "instances": 29,
+            "vertices": 6960,
+            "minimumInsetMetres": 0.3961540841101927
+          }
+        },
+        "landscapeStates": [
+          {
+            "pixelsPerUnit": 15,
+            "crownPixels": 1.41,
+            "landscape": false,
+            "draws": 20
+          },
+          {
+            "pixelsPerUnit": 31,
+            "crownPixels": 2.914,
+            "landscape": false,
+            "draws": 23
+          },
+          {
+            "pixelsPerUnit": 32,
+            "crownPixels": 3.008,
+            "landscape": true,
+            "draws": 53
+          },
+          {
+            "pixelsPerUnit": 30,
+            "crownPixels": 2.82,
+            "landscape": true,
+            "draws": 53
+          },
+          {
+            "pixelsPerUnit": 31,
+            "crownPixels": 2.914,
+            "landscape": true,
+            "draws": 53
+          },
+          {
+            "pixelsPerUnit": 25.6,
+            "crownPixels": 2.4064,
+            "landscape": true,
+            "draws": 53
+          },
+          {
+            "pixelsPerUnit": 25.4,
+            "crownPixels": 2.3876,
+            "landscape": false,
+            "draws": 23
+          },
+          {
+            "pixelsPerUnit": 28,
+            "crownPixels": 2.632,
+            "landscape": false,
+            "draws": 23
+          },
+          {
+            "pixelsPerUnit": 31,
+            "crownPixels": 2.914,
+            "landscape": false,
+            "draws": 23
+          },
+          {
+            "pixelsPerUnit": 32,
+            "crownPixels": 3.008,
+            "landscape": true,
+            "draws": 53
+          }
+        ]
+      }
+    },
+    {
+      "command": "node scripts/check-street-surface-geometry.mjs",
+      "result": "passed",
+      "scope": "All 10 groups checked for complete curb openings, no expanded footprint, upward/outward finite Float32 geometry and preserved roadway edges.",
+      "testSourceSha256": "ec3b60856ece1c16588ebac2ff1160a4f07a0a61c5a081e31204bddcb33dbbb7",
+      "report": {
+        "passed": [
+          "Oblique entry clears the complete curb thickness, preserves the parallel road edge, conserves area and leaves the planner unchanged",
+          "Full crossings, exact boundary contact and reversed winding preserve their geometric meaning without spurious curb cuts",
+          "Multiple entry openings remain disjoint, duplicate connection masks do not double-count area, and ordinary forecourt paving cannot remove a curb",
+          "Explicit corner court masks open only a positively intersected building-side curb; a synthetic mask spanning both sides leaves the road-side curb completely intact",
+          "7 real building street sites, 1 short links and 2 independent street extensions have zero permitted opening/curb overlap, full-thickness openings, preserved road-side edges and finite upward/outward geometry",
+          "Empty sites are harmless; invalid heights fail explicitly instead of emitting NaN vertices"
+        ],
+        "sites": [
+          {
+            "id": "shouxin-wealth-s01",
+            "sourceCurbs": 66,
+            "renderedCells": 65,
+            "cuts": 3,
+            "courtCuts": 0,
+            "originalOverlapSquareMeters": 0.4599999115577148,
+            "removedSquareMeters": 0.9200942186259687,
+            "openingWidthMeters": 4.600471093123491,
+            "maxPenetrationMeters": 0.10000000000013869,
+            "geometry": {
+              "renderedCells": 65,
+              "boundaryEdges": 140,
+              "topTriangles": 130,
+              "sideTriangles": 280,
+              "lift": 0.0035,
+              "geometryBytes": 28700,
+              "vertices": 820,
+              "triangles": 410
+            }
+          },
+          {
+            "id": "wanda-soho-s01",
+            "sourceCurbs": 158,
+            "renderedCells": 157,
+            "cuts": 3,
+            "courtCuts": 0,
+            "originalOverlapSquareMeters": 0.45999932619882977,
+            "removedSquareMeters": 0.9201975098344374,
+            "openingWidthMeters": 4.600987549170968,
+            "maxPenetrationMeters": 0.10000000000002697,
+            "geometry": {
+              "renderedCells": 157,
+              "boundaryEdges": 320,
+              "topTriangles": 314,
+              "sideTriangles": 640,
+              "lift": 0.0035,
+              "geometryBytes": 66780,
+              "vertices": 1908,
+              "triangles": 954
+            }
+          },
+          {
+            "id": "jiuzhou-s01",
+            "sourceCurbs": 68,
+            "renderedCells": 68,
+            "cuts": 2,
+            "courtCuts": 0,
+            "originalOverlapSquareMeters": 0.4599997337864817,
+            "removedSquareMeters": 0.920144018238931,
+            "openingWidthMeters": 4.600720091188275,
+            "maxPenetrationMeters": 0.10000000000013864,
+            "geometry": {
+              "renderedCells": 68,
+              "boundaryEdges": 142,
+              "topTriangles": 136,
+              "sideTriangles": 284,
+              "lift": 0.0035,
+              "geometryBytes": 29400,
+              "vertices": 840,
+              "triangles": 420
+            }
+          },
+          {
+            "id": "jinjiang-s03",
+            "sourceCurbs": 60,
+            "renderedCells": 60,
+            "cuts": 2,
+            "courtCuts": 0,
+            "originalOverlapSquareMeters": 0.45999726410980063,
+            "removedSquareMeters": 0.9203516984219559,
+            "openingWidthMeters": 4.601758492111338,
+            "maxPenetrationMeters": 0.09999999999995711,
+            "geometry": {
+              "renderedCells": 60,
+              "boundaryEdges": 126,
+              "topTriangles": 120,
+              "sideTriangles": 252,
+              "lift": 0.0035,
+              "geometryBytes": 26040,
+              "vertices": 744,
+              "triangles": 372
+            }
+          },
+          {
+            "id": "fujiang-s01",
+            "sourceCurbs": 64,
+            "renderedCells": 64,
+            "cuts": 2,
+            "courtCuts": 0,
+            "originalOverlapSquareMeters": 0.45985921743491265,
+            "removedSquareMeters": 0.9208032019182253,
+            "openingWidthMeters": 4.604016009589945,
+            "maxPenetrationMeters": 0.10000000000002673,
+            "geometry": {
+              "renderedCells": 64,
+              "boundaryEdges": 134,
+              "topTriangles": 128,
+              "sideTriangles": 268,
+              "lift": 0.0035,
+              "geometryBytes": 27720,
+              "vertices": 792,
+              "triangles": 396
+            }
+          },
+          {
+            "id": "zhongnan-s09",
+            "sourceCurbs": 30,
+            "renderedCells": 28,
+            "cuts": 5,
+            "courtCuts": 2,
+            "originalOverlapSquareMeters": 1.181004672190271,
+            "removedSquareMeters": 1.6661651561830644,
+            "openingWidthMeters": 8.330825780915719,
+            "maxPenetrationMeters": 0.09999999999999054,
+            "geometry": {
+              "renderedCells": 28,
+              "boundaryEdges": 62,
+              "topTriangles": 56,
+              "sideTriangles": 124,
+              "lift": 0.0035,
+              "geometryBytes": 12600,
+              "vertices": 360,
+              "triangles": 180
+            }
+          },
+          {
+            "id": "yichang-international-s01",
+            "sourceCurbs": 41,
+            "renderedCells": 41,
+            "cuts": 1,
+            "courtCuts": 0,
+            "originalOverlapSquareMeters": 2.846927261778787e-05,
+            "removedSquareMeters": 0.00011387709044269117,
+            "openingWidthMeters": 0.0005693854520365249,
+            "maxPenetrationMeters": 0.09999999999994003,
+            "geometry": {
+              "renderedCells": 41,
+              "boundaryEdges": 88,
+              "topTriangles": 82,
+              "sideTriangles": 176,
+              "lift": 0.0035,
+              "geometryBytes": 18060,
+              "vertices": 516,
+              "triangles": 258
+            }
+          },
+          {
+            "id": "jiuzhou-shouxin-walk",
+            "sourceCurbs": 22,
+            "renderedCells": 22,
+            "cuts": 0,
+            "courtCuts": 0,
+            "originalOverlapSquareMeters": 0,
+            "removedSquareMeters": 0,
+            "openingWidthMeters": 0,
+            "maxPenetrationMeters": 0,
+            "geometry": {
+              "renderedCells": 22,
+              "boundaryEdges": 48,
+              "topTriangles": 44,
+              "sideTriangles": 96,
+              "lift": 0.0035,
+              "geometryBytes": 9800,
+              "vertices": 280,
+              "triangles": 140
+            }
+          },
+          {
+            "id": "international-yanjiang-extension",
+            "sourceCurbs": 96,
+            "renderedCells": 96,
+            "cuts": 0,
+            "courtCuts": 0,
+            "originalOverlapSquareMeters": 0,
+            "removedSquareMeters": 0,
+            "openingWidthMeters": 0,
+            "maxPenetrationMeters": 0,
+            "geometry": {
+              "renderedCells": 96,
+              "boundaryEdges": 196,
+              "topTriangles": 192,
+              "sideTriangles": 392,
+              "lift": 0.0035,
+              "geometryBytes": 40880,
+              "vertices": 1168,
+              "triangles": 584
+            }
+          },
+          {
+            "id": "wanda-yanjiang-extension",
+            "sourceCurbs": 62,
+            "renderedCells": 62,
+            "cuts": 0,
+            "courtCuts": 0,
+            "originalOverlapSquareMeters": 0,
+            "removedSquareMeters": 0,
+            "openingWidthMeters": 0,
+            "maxPenetrationMeters": 0,
+            "geometry": {
+              "renderedCells": 62,
+              "boundaryEdges": 128,
+              "topTriangles": 124,
+              "sideTriangles": 256,
+              "lift": 0.0035,
+              "geometryBytes": 26600,
+              "vertices": 760,
+              "triangles": 380
+            }
+          }
+        ]
+      }
+    },
+    {
+      "command": "node scripts/check-international-street.mjs",
+      "result": "passed",
+      "scope": "International frontage keeps its original V53-relative dedicated budget; extension geometry and global counters are excluded from this legacy scope.",
+      "testSourceSha256": "3e44fda6d14ef68289c6d2c7882628f8cee6ea47085f89a2d30d08a2c8674e7f",
+      "report": {
+        "checkedAt": "2026-11-10",
+        "scope": "independent Three GLTFLoader / exact native triangle evidence / actual Float32 geometry; no browser, GPU or phone timing",
+        "baseline": {
+          "version": "V53",
+          "commit": "9c047f9efb5a2c5273c6015cbb823c65c92738f6",
+          "unchangedCompletePlansAndBuffers": [
+            "shouxin-wealth-s01",
+            "wanda-soho-s01",
+            "jiuzhou-s01",
+            "jinjiang-s03",
+            "fujiang-s01",
+            "zhongnan-s09",
+            "jiuzhou-shouxin-walk"
+          ]
+        },
+        "site": "yichang-international-s01",
+        "claims": {
+          "illustrative": true,
+          "surveyedEntrance": false,
+          "accessibilityCertification": false,
+          "displayDimensionsOnly": true
+        },
+        "sourceChecks": [
+          {
+            "tier": "light",
+            "sha256": "6531a8d0d9007c6b5a03e586dcbe61f89548cb12b4d1826db5b7f0cc0fb7564d",
+            "totalSourceTriangles": 132122,
+            "checkedSourceTriangles": 13474,
+            "checkedSourceMaximumY": 1.8757219034291088,
+            "actualNewTriangles": 84,
+            "clippedPairs": 10,
+            "retainedRingTriangles": 126,
+            "underlayRingTriangles": 6,
+            "boundaryContactTriangles": [],
+            "minimumRingSourceY": -0.10551009012808164,
+            "minimumVerticalClearanceSource": 0.024489878354462744,
+            "minimumPlaneClearanceDisplayMetres": 0.03443559812330872,
+            "minimumVerticalClearanceDisplayMetres": 0.03443559812330872,
+            "thresholdHeightErrorWorld": 2.097241588727705e-09,
+            "thresholdHorizontalErrorWorld": 7.702887737763051e-07,
+            "thresholdEndpointErrorWorld": 8.498488359629977e-07,
+            "maximumThresholdBoundaryRoundoffWorld": 0,
+            "nonRingInteriorConflicts": 0
+          },
+          {
+            "tier": "detail",
+            "sha256": "b9ddf888b54514f22acf1c6e54812ea2cac07026e0468f99bc313a8ca73db8f0",
+            "totalSourceTriangles": 738676,
+            "checkedSourceTriangles": 41522,
+            "checkedSourceMaximumY": 1.8757219034291088,
+            "actualNewTriangles": 84,
+            "clippedPairs": 112,
+            "retainedRingTriangles": 2304,
+            "underlayRingTriangles": 104,
+            "boundaryContactTriangles": [],
+            "minimumRingSourceY": -0.10555536251796079,
+            "minimumVerticalClearanceSource": 0.0244446059645836,
+            "minimumPlaneClearanceDisplayMetres": 0.03437193991311285,
+            "minimumVerticalClearanceDisplayMetres": 0.03437193991311285,
+            "thresholdHeightErrorWorld": 2.097241588727705e-09,
+            "thresholdHorizontalErrorWorld": 7.702887737763051e-07,
+            "thresholdEndpointErrorWorld": 8.498488359629977e-07,
+            "maximumThresholdBoundaryRoundoffWorld": 0,
+            "nonRingInteriorConflicts": 0
+          }
+        ],
+        "coverage": [
+          {
+            "region": "passage-departure-ramp",
+            "displayAreaSquareMetres": 4.64600342069334,
+            "acceptedAreaErrorWorld": 5.789639601072594e-17
+          },
+          {
+            "region": "inlay-underlay-taper",
+            "displayAreaSquareMetres": 11.383503683011648,
+            "acceptedAreaErrorWorld": 1.5612511283791264e-17
+          },
+          {
+            "region": "inlay-underlay-exit",
+            "displayAreaSquareMetres": 18.506225700910292,
+            "acceptedAreaErrorWorld": 0
+          },
+          {
+            "region": "outer-low-turn",
+            "displayAreaSquareMetres": 10.795298325531727,
+            "acceptedAreaErrorWorld": 3.7643499428696714e-16
+          },
+          {
+            "region": "outer-rise",
+            "displayAreaSquareMetres": 64.21818491085487,
+            "acceptedAreaErrorWorld": 1.3912482277333993e-15
+          },
+          {
+            "region": "outer-high-turn",
+            "displayAreaSquareMetres": 3.8752352963445995,
+            "acceptedAreaErrorWorld": 6.201636426617085e-17
+          },
+          {
+            "region": "sidewalk-approach",
+            "displayAreaSquareMetres": 5.9154787297897,
+            "acceptedAreaErrorWorld": 7.936359902593892e-17
+          },
+          {
+            "region": "roadside-sidewalk",
+            "displayAreaSquareMetres": 204.50875674486463,
+            "acceptedAreaErrorWorld": 9.853229343548264e-16
+          }
+        ],
+        "joins": {
+          "fullWidthJoins": 7,
+          "sourceJoinWidthDisplayMetres": 1.4061155235192744,
+          "maximumRenderedSlope": 0.09805777202185977,
+          "sourceDepartureSlope": 0.09805399138172378,
+          "outerSlope": 0.08457632085986641,
+          "outerRunDisplayMetres": 32.62188014564717,
+          "floatWorldTolerance": 2e-06,
+          "maximumTriangulationAreaErrorWorld": 7.366506821031293e-08
+        },
+        "resources": {
+          "streetLinks": 1,
+          "streetLinkLengthMetres": 31.149130312317652,
+          "streetFrontageConnections": 1,
+          "streetFrontageConnected": true,
+          "streetFrontagePavingCells": 42,
+          "streetFrontageSourceRampGrade": 0.09805399138172378,
+          "streetFrontageExternalRampGrade": 0.08457632085986641,
+          "streetSites": 7,
+          "streetPavingCells": 685,
+          "streetCurbSegments": 509,
+          "streetTrees": 29,
+          "streetLamps": 17,
+          "streetBenches": 13,
+          "streetEntranceConnected": true,
+          "streetEntrancesConnected": 6,
+          "streetIllustrative": true,
+          "streetMarkings": 0,
+          "streetEntryApronCells": 8,
+          "streetSiteIds": [
+            "shouxin-wealth-s01",
+            "wanda-soho-s01",
+            "jiuzhou-s01",
+            "jinjiang-s03",
+            "fujiang-s01",
+            "zhongnan-s09",
+            "yichang-international-s01"
+          ],
+          "streetLinkIds": [
+            "jiuzhou-shouxin-walk"
+          ],
+          "streetSiteSummaries": [
+            {
+              "id": "shouxin-wealth-s01",
+              "roadName": "沿江大道",
+              "sourceRoad": "way/39725551",
+              "pavingCells": 77,
+              "curbSegments": 66,
+              "trees": 7,
+              "lamps": 3,
+              "benches": 2,
+              "entranceConnected": true,
+              "entryApronConnected": false,
+              "frontageConnected": false,
+              "illustrative": true
+            },
+            {
+              "id": "wanda-soho-s01",
+              "roadName": "沿江大道",
+              "sourceRoad": "way/1543968654",
+              "pavingCells": 236,
+              "curbSegments": 158,
+              "trees": 7,
+              "lamps": 4,
+              "benches": 2,
+              "entranceConnected": true,
+              "entryApronConnected": false,
+              "frontageConnected": false,
+              "illustrative": true
+            },
+            {
+              "id": "jiuzhou-s01",
+              "roadName": "沿江大道",
+              "sourceRoad": "way/39725551",
+              "pavingCells": 118,
+              "curbSegments": 68,
+              "trees": 6,
+              "lamps": 2,
+              "benches": 2,
+              "entranceConnected": true,
+              "entryApronConnected": true,
+              "frontageConnected": false,
+              "illustrative": true
+            },
+            {
+              "id": "jinjiang-s03",
+              "roadName": "沿江大道",
+              "sourceRoad": "way/724326275",
+              "pavingCells": 71,
+              "curbSegments": 60,
+              "trees": 4,
+              "lamps": 2,
+              "benches": 2,
+              "entranceConnected": true,
+              "entryApronConnected": false,
+              "frontageConnected": false,
+              "illustrative": true
+            },
+            {
+              "id": "fujiang-s01",
+              "roadName": "沿江大道",
+              "sourceRoad": "way/39725551",
+              "pavingCells": 70,
+              "curbSegments": 64,
+              "trees": 3,
+              "lamps": 2,
+              "benches": 2,
+              "entranceConnected": true,
+              "entryApronConnected": false,
+              "frontageConnected": false,
+              "illustrative": true
+            },
+            {
+              "id": "zhongnan-s09",
+              "roadName": "夷陵大道",
+              "sourceRoad": "way/397144798",
+              "pavingCells": 60,
+              "curbSegments": 30,
+              "trees": 2,
+              "lamps": 2,
+              "benches": 1,
+              "entranceConnected": true,
+              "entryApronConnected": false,
+              "frontageConnected": false,
+              "illustrative": true
+            },
+            {
+              "id": "yichang-international-s01",
+              "roadName": "沿江大道",
+              "sourceRoad": "way/1543968654",
+              "pavingCells": 42,
+              "curbSegments": 41,
+              "trees": 0,
+              "lamps": 2,
+              "benches": 2,
+              "entranceConnected": false,
+              "entryApronConnected": false,
+              "frontageConnected": true,
+              "illustrative": true
+            }
+          ],
+          "streetMeshes": 88,
+          "streetTriangles": 12602,
+          "streetGeometryBytes": 536096,
+          "streetTextureCount": 1,
+          "streetTextureSourceBytes": 262144
+        },
+        "resourceDelta": {
+          "streetSites": 1,
+          "streetPavingCells": 42,
+          "streetCurbSegments": 41,
+          "streetTrees": 0,
+          "streetLamps": 2,
+          "streetBenches": 2,
+          "streetMeshes": 8,
+          "streetTriangles": 606,
+          "streetGeometryBytes": 35276,
+          "streetTextureCount": 0,
+          "streetTextureSourceBytes": 0
+        },
+        "visibleCounts": [
+          {
+            "pixelsPerUnit": 2,
+            "totalDraws": 0,
+            "newFrontageDraws": 0
+          },
+          {
+            "pixelsPerUnit": 15,
+            "totalDraws": 20,
+            "newFrontageDraws": 3
+          },
+          {
+            "pixelsPerUnit": 20,
+            "totalDraws": 23,
+            "newFrontageDraws": 3
+          },
+          {
+            "pixelsPerUnit": 60,
+            "totalDraws": 77,
+            "newFrontageDraws": 7
+          },
+          {
+            "pixelsPerUnit": 80,
+            "totalDraws": 81,
+            "newFrontageDraws": 7
+          }
+        ],
+        "nearNightDraws": 88,
+        "failClosedCases": 7
+      }
+    },
+    {
+      "command": "node scripts/check-continuous-streets.mjs",
+      "result": "passed",
+      "scope": "Original Jiuzhou-Shouxin link remains independently valid and unchanged.",
+      "testSourceSha256": "bd969146d7f85fc5e4034746b1efcdcaf1d86760d6e701c9e719752d5d086b8d",
+      "report": {
+        "passed": true,
+        "sourceCommit": "2c2c35ab161ac95ba66662b723e959c2edf491b4",
+        "method": "Local geometry, source-state, Float32 join, failure-mode and render-resource checks; not a browser or physical-device benchmark",
+        "evidence": {
+          "method": "existing-same-side-sidewalk-end-infill",
+          "sourceSegmentIndex": 9,
+          "lengthMetres": 31.149130312317652,
+          "widthMetres": 3.6,
+          "start": {
+            "siteId": "jiuzhou-s01",
+            "inner": [
+              18.642527894487756,
+              46.49774199482476
+            ],
+            "outer": [
+              18.69055713306604,
+              46.44410252948821
+            ],
+            "sourceRoadStationMetres": 3499.4847196819546
+          },
+          "end": {
+            "siteId": "shouxin-wealth-s01",
+            "inner": [
+              18.178410479029132,
+              46.082167269470204
+            ],
+            "outer": [
+              18.226439717607416,
+              46.02852780413366
+            ],
+            "sourceRoadStationMetres": 3530.6338499942726
+          },
+          "surveyed": false
+        },
+        "geometry": {
+          "pavingCells": 11,
+          "curbSegments": 22,
+          "completeCheckedFootprints": 33,
+          "minimumRoadEdgeClearanceMetres": 0.5999999999994828,
+          "minimumNearbyBuildingClearanceMetres": 21.170342011699724,
+          "minimumNearbyWaterClearanceMetres": 79.95155991845799,
+          "maxEndpointHeightDifference": 0,
+          "curbFloat32JoinedCorners": 8,
+          "pavingFloat32EndpointVertices": 6,
+          "renderedPavingTriangles": 22,
+          "renderedPavingSelfOverlapPairs": 0
+        },
+        "resources": {
+          "streetLinks": 1,
+          "streetLinkLengthMetres": 31.149130312317652,
+          "streetMeshes": 2,
+          "streetTriangles": 162,
+          "streetGeometryBytes": 11912,
+          "streetTextureCount": 1,
+          "streetTextureSourceBytes": 262144
+        },
+        "existingSitesUnchanged": true,
+        "existingSiteHashes": {
+          "shouxin-wealth-s01": "b18da81af7e64df99f33aa11273b207d00478bf57b84df8bfcab9df98ce0e786",
+          "wanda-soho-s01": "a1398c37fa1488b992afc0bf91c3ca114ea0f428c50390a3a451a649cc418ee8",
+          "jiuzhou-s01": "b404b4a514e8a73aebb8b9c13646cc89a940478ee1d870fbc0c594c46bb7cc05",
+          "jinjiang-s03": "45a10f6521611a1aaf5e123e154e6ab3d41b8980047fcc9b4f4f6a1a310c13b2",
+          "fujiang-s01": "7fbd95e6ba0b55943f3d3f5f46676697a7a58fe6672e574e38405fbf604e62c3",
+          "zhongnan-s09": "77879b25825d0cf34ed40304093a3b865fb78b85cd66fe45a8c0d5b53b5695ae",
+          "yichang-international-s01": "262b32ba269dde122c16484fd8ff42d04eedb43a630e85c0511323763fd5f7f5"
+        },
+        "failureCases": 10
+      }
+    }
+  ]
+}

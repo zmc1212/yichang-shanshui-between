@@ -165,7 +165,7 @@ const plan = planStreetDetails({ data, authoredModels, authoredGround, waterfron
 const baseline = JSON.stringify({ plan, data, authoredModels });
 const expected = new Map([['shouxin-wealth-s01', 3], ['wanda-soho-s01', 3], ['jiuzhou-s01', 2]]);
 for (const id of expected.keys()) assert(plan.sites.some(site => site.id === id), `${id}: required real street site exists`);
-for (const site of [...plan.sites,...(plan.links||[])]) {
+for (const site of [...plan.sites,...(plan.links||[]),...(plan.extensions||[])]) {
   const cells = trimStreetCurbs(site); checkCells(site, cells);
   if(site.id==='zhongnan-s09'){
     assert(cells.cutouts.some(cut=>cut.courtMaskIndices?.length),'The actual oblique court opens its inner sidewalk curb');
@@ -187,7 +187,7 @@ for (const site of [...plan.sites,...(plan.links||[])]) {
   });
 }
 assert.equal(JSON.stringify({ plan, data, authoredModels }), baseline, 'No planner cells, geographic inputs or model transforms were changed');
-passed.push(`${plan.sites.length} real building street sites and ${(plan.links||[]).length} short links have zero permitted opening/curb overlap, full-thickness openings, preserved road-side edges and finite upward/outward geometry`);
+passed.push(`${plan.sites.length} real building street sites, ${(plan.links||[]).length} short links and ${(plan.extensions||[]).length} independent street extensions have zero permitted opening/curb overlap, full-thickness openings, preserved road-side edges and finite upward/outward geometry`);
 const empty = createStreetCurbGeometry([], () => 0); assert.equal(empty.attributes.position.count, 0); assert.equal(empty.index.count, 0); empty.dispose();
 assert.throws(() => createStreetCurbGeometry(obliqueCells, () => NaN), /non-finite/);
 passed.push('Empty sites are harmless; invalid heights fail explicitly instead of emitting NaN vertices');

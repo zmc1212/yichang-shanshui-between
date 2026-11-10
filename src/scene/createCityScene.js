@@ -636,9 +636,12 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     const context = authored && options.angle === 'context';
     const frontageView = authored && options.close && options.angle === 'frontage' && view !== 'top'
       ? streetPlan.sites.find(street => street.id === item.spec.id)?.frontageView : null;
-    const inspection = frontageView ? { center: new THREE.Vector3(...frontageView.center), span: frontageView.span,
-      framePoints: frontageView.framePoints?.map(point => new THREE.Vector3(...point)),
-      direction: new THREE.Vector3(...frontageView.direction).normalize() }
+    const streetView = authored && options.close && options.angle === 'streetscape' && view !== 'top'
+      ? streetPlan.streetViews?.find(street => street.siteIds.includes(item.spec.id)) : null;
+    const groundView = frontageView || streetView;
+    const inspection = groundView ? { center: new THREE.Vector3(...groundView.center), span: groundView.span,
+      framePoints: groundView.framePoints?.map(point => new THREE.Vector3(...point)),
+      direction: new THREE.Vector3(...groundView.direction).normalize() }
       : authored && options.close && ['facade', 'entrance', 'crown'].includes(options.angle) && view !== 'top'
       ? resolveBuildingInspection(item.spec, item.base, options.angle) : null;
     const wholeBuilding = authored && !context && !inspection && view !== 'top';
@@ -926,7 +929,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
       const displayAnchor = item.anchor.clone();
       if (id === selectedId && item.spec.kind === 'authored' && currentView === 'perspective'
         && currentFocusOptions.angle !== 'context'
-        && !(currentFocusOptions.close && ['facade', 'entrance', 'crown', 'frontage'].includes(currentFocusOptions.angle))) displayAnchor.y = item.bounds.max.y;
+        && !(currentFocusOptions.close && ['facade', 'entrance', 'crown', 'frontage', 'streetscape'].includes(currentFocusOptions.angle))) displayAnchor.y = item.bounds.max.y;
       const p = displayAnchor.project(camera);
       const inCurrentScene = layers.landmarks.visible && (item.spec.kind !== 'authored' || Boolean(authoredEntries.get(id)?.controller.getStats().quality));
       labels.push({ id, x: (p.x * 0.5 + 0.5) * widthPx, y: (-p.y * 0.5 + 0.5) * heightPx, visible: inCurrentScene && p.z >= -1 && p.z <= 1 && Math.abs(p.x) < 1.04 && Math.abs(p.y) < 1.04, depth: p.z });
@@ -1039,6 +1042,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
       renderer.domElement.dataset.streetDetails = streetStats.streetVisibleTier;
       renderer.domElement.dataset.streetVisibleSites = String(streetStats.streetVisibleSites);
       renderer.domElement.dataset.streetVisibleLinks = String(streetStats.streetVisibleLinks);
+      renderer.domElement.dataset.streetVisibleExtensions = String(streetStats.streetVisibleExtensions);
       renderer.domElement.dataset.streetVisibleDrawCalls = String(streetStats.streetVisibleDrawCalls);
       renderer.domElement.dataset.streetVisibleIds = JSON.stringify(streetStats.streetVisibleIds || []);
       renderer.domElement.dataset.streetDetailsEnabled = String(streetDetailsEnabled);
@@ -1069,7 +1073,8 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
       const item = landmarkMap.get(id); if (!item) return;
       selectedId = id; userMoved = true; managedFocus = true; currentView = 'perspective';
       const validAngle = ['river', 'front', 'facade', 'entrance', 'crown', 'context'].includes(options.angle)
-        || (options.angle === 'frontage' && streetPlan.sites.some(street => street.id === id && street.frontageView));
+        || (options.angle === 'frontage' && streetPlan.sites.some(street => street.id === id && street.frontageView))
+        || (options.angle === 'streetscape' && streetPlan.streetViews?.some(street => street.siteIds.includes(id)));
       currentFocusOptions = { angle: validAngle ? options.angle : 'detail', close: options.angle !== 'context' && Boolean(options.close) };
       controls.screenSpacePanning = item.spec.kind === 'authored' && currentFocusOptions.close;
       setAuthoredSelection(item.spec.kind === 'authored');

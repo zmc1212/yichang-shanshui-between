@@ -1,0 +1,81 @@
+[
+  {
+    "case": "V56-wanda-whole-before",
+    "canvas": [
+      {
+        "dataset": {
+          "authoredModels": "7",
+          "authoredSelection": "true",
+          "businessProjects": "23",
+          "cityVisible": "true",
+          "detailModels": "1",
+          "drawCalls": "92",
+          "engine": "three.js r170",
+          "focusAngle": "detail",
+          "geometries": "300",
+          "modelAnchor": "[-10.740095151693664,0.08558491166028073,16.1045533568941]",
+          "modelQuality": "detail",
+          "renderFrames": "9",
+          "renderState": "idle",
+          "residentModels": "7",
+          "sceneMode": "city",
+          "streetDetails": "2",
+          "streetDetailsEnabled": "true",
+          "streetVisibleDrawCalls": "12",
+          "streetVisibleIds": "[\"wanda-soho-s01\"]",
+          "streetVisibleLinks": "0",
+          "streetVisibleSites": "1",
+          "textures": "14",
+          "triangles": "1216130"
+        },
+        "height": 849,
+        "width": 1616
+      }
+    ],
+    "layout": [
+      {
+        "className": "",
+        "rect": {
+          "height": 849,
+          "width": 1616,
+          "x": 304,
+          "y": 70
+        },
+        "tag": "CANVAS"
+      },
+      {
+        "className": "scene-toolbar",
+        "rect": {
+          "height": 43,
+          "width": 451.828125,
+          "x": 334,
+          "y": 97
+        },
+        "tag": "DIV"
+      },
+      {
+        "className": "authored-note is-inspecting",
+        "rect": {
+          "height": 144,
+          "width": 304,
+          "x": 338,
+          "y": 164
+        },
+        "tag": "DIV"
+      },
+      {
+        "className": "detail-panel ",
+        "rect": {
+          "height": 623.28125,
+          "width": 318,
+          "x": 1572,
+          "y": 163
+        },
+        "tag": "SECTION"
+      }
+    ],
+    "scripts": [
+      "https://yichang-miniature-city.gaoronghai.chatgpt.site/assets/index-CfC8Laf3.js"
+    ]
+  }
+]
