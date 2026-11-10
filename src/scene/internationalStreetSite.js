@@ -198,8 +198,17 @@ export function planInternationalStreetSite({data,authoredModels,authoredGround,
     sidewalk:{nativeX:[22,62.4],widthMetres:3.6,roadSourceId:road.osmId,roadWidth:road.width,joinedWorldEdge:[outerPoint(60),outerPoint(61.4)]},
     start:[...start],end:[...end],notes:'展示连接，保留原薄环；组团候选定位与相对布局待核，不代表现场入口、实测道路或无障碍通道。'};
   const viewCenter=toWorld([44,29.6]),viewNativeDirection=[.8,1.6,1.7];
+  // Fit the long ground subject itself instead of a square around its anchor.
+  // These points affect only inspection framing, never the accepted geometry.
+  const framePoints=site.paving.flatMap(cell=>cell.points.map(([x,z])=>[x,cell.surface(x,z),z]));
+  framePoints.push(...site.lamps.map(lamp=>[lamp.x,lamp.y+6*units,lamp.z]));
+  const sourceFramePoint=(x,y,z)=>{const p=toWorld([x,z]);return[p[0],sourceY(y),p[1]];};
+  for(const x of [32.80037608530704,37.20000076293945])for(const z of [17,PASSAGE_FRONT])framePoints.push(sourceFramePoint(x,PASSAGE_TOP,z));
+  // The union of both retained LODs' decorative-ring bounds, at their actual
+  // low heights, keeps all three original rings visible without framing towers.
+  for(const x of [32.20024671515856,45.79999923706055])for(const y of [-.10555536251796079,-.08958575252055755])for(const z of [16.19949069868115,29.80038156096331])framePoints.push(sourceFramePoint(x,y,z));
   site.frontageView={center:[viewCenter[0],mix(underlayHeight,roadSurface(...viewCenter),.5),viewCenter[1]],span:1.45,
-    direction:[c*viewNativeDirection[0]+s*viewNativeDirection[2],viewNativeDirection[1],-s*viewNativeDirection[0]+c*viewNativeDirection[2]]};
+    direction:[c*viewNativeDirection[0]+s*viewNativeDirection[2],viewNativeDirection[1],-s*viewNativeDirection[0]+c*viewNativeDirection[2]],framePoints};
   return{sites:[site],stats:{streetFrontageConnections:1,streetFrontageConnected:true,streetFrontagePavingCells:site.paving.length,streetFrontageSourceRampGrade:site.connectionEvidence.sourceRamp.grade,streetFrontageExternalRampGrade:site.connectionEvidence.externalRamp.grade},reserveTree(x,z){
     const p=[x,z];if(!near({minX:x,maxX:x,minZ:z,maxZ:z},site.bounds,.15))return false;
     return site.paving.some(cell=>inside(p,cell.points)||edges(cell.points).some(([a,b])=>project(p,a,b).distance<.12))||occupied.some(ring=>inside(p,ring)||edges(ring).some(([a,b])=>project(p,a,b).distance<.12));

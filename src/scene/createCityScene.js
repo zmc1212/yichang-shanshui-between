@@ -637,6 +637,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     const frontageView = authored && options.close && options.angle === 'frontage' && view !== 'top'
       ? streetPlan.sites.find(street => street.id === item.spec.id)?.frontageView : null;
     const inspection = frontageView ? { center: new THREE.Vector3(...frontageView.center), span: frontageView.span,
+      framePoints: frontageView.framePoints?.map(point => new THREE.Vector3(...point)),
       direction: new THREE.Vector3(...frontageView.direction).normalize() }
       : authored && options.close && ['facade', 'entrance', 'crown'].includes(options.angle) && view !== 'top'
       ? resolveBuildingInspection(item.spec, item.base, options.angle) : null;
@@ -678,7 +679,8 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
       // A detail preset frames a real facade/entrance/crown patch, not the
       // whole building. Including the roof label or full bounds would pull the
       // camera away again. Full geometry is intentionally allowed to crop.
-      for (const x of [-0.5, 0.5]) for (const y of [-0.5, 0.5]) points.push(frameCenter.clone()
+      if (inspection.framePoints?.length) points.push(...inspection.framePoints);
+      else for (const x of [-0.5, 0.5]) for (const y of [-0.5, 0.5]) points.push(frameCenter.clone()
         .addScaledVector(right, x * inspection.span).addScaledVector(up, y * inspection.span));
     } else if (authored && !context) {
       // The registered footprint is the rotated LOCAL source box. Reprojecting
