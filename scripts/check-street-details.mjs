@@ -42,9 +42,9 @@ const inWater=(x,z)=>data.water.some(p=>winding([x,z],p.rings[0])&&!p.rings.slic
 const heightAt=(x,z)=>0.001*Math.sin(x*.04)*Math.cos(z*.08);
 const input={data,authoredModels:models,authoredGround:ground,waterfrontPlan:{omittedBuildingIndices:new Set()},inWater,heightAt};
 const plan=planStreetDetails(input);
-const expectedIds=['shouxin-wealth-s01','wanda-soho-s01','jiuzhou-s01'];
+const expectedIds=['shouxin-wealth-s01','wanda-soho-s01','jiuzhou-s01','jinjiang-s03','fujiang-s01'];
 assert.deepEqual(plan.sites.map(s=>s.id),expectedIds);
-assert.equal(plan.stats.streetSites,3);assert.equal(plan.stats.streetMarkings,0);assert.equal(plan.stats.streetEntranceConnected,true);assert.equal(plan.stats.streetEntrancesConnected,3);
+assert.equal(plan.stats.streetSites,5);assert.equal(plan.stats.streetMarkings,0);assert.equal(plan.stats.streetEntranceConnected,true);assert.equal(plan.stats.streetEntrancesConnected,5);
 const shouxin=plan.sites[0];
 const flatPlan=planStreetDetails({...input,inWater:()=>false,heightAt:()=>0});
 // Frozen V40 geometry, captured before the multi-site refactor. This protects
@@ -104,7 +104,7 @@ for(const site of plan.sites){
   assert.deepEqual(site.sourceAnchor,[model.x,model.z]);assert.equal(site.frontBearingDeg,model.registration.frontBearingDeg);
   assert.equal(site.roadName,'沿江大道');assert.equal(site.roadWidth,.192);assert(site.illustrative);
   assert(!road.bridge||road.bridge==='no');assert(!road.tunnel||road.tunnel==='no');assert.equal(Number(road.layer||0),0);
-  assert(site.paving.length>50&&site.paving.length<250);assert(site.trees.length>=4&&site.trees.length<=10);assert(site.lamps.length>=2&&site.lamps.length<=4);assert.equal(site.benches.length,2);
+  assert(site.paving.length>40&&site.paving.length<250);assert(site.trees.length>=3&&site.trees.length<=10);assert(site.lamps.length>=2&&site.lamps.length<=4);assert.equal(site.benches.length,2);
   assert.equal(site.entranceRoute.length,2);
   const connection=site.paving.filter(p=>p.role==='connection');assert(connection.length>=3);
   assert(connection[0].points.some(p=>site.paving.filter(c=>c.role==='forecourt'||c.role==='accent').some(c=>pairs(c.points).some(([a,b])=>pointDistance(p,a,b)<1e-7))),`${site.id}: route touches court`);
@@ -123,7 +123,7 @@ for(const site of plan.sites){
   }
 }
 assert.equal(plan.reserveTree(0,0),false);
-passed.push('All three continuous paths join the complete model footprint front, narrow court and same-side sidewalk; new paths align with the authored visible entry while remaining illustrative');
+passed.push('All five continuous paths join the complete model footprint front, narrow court and same-side sidewalk; new paths align laterally with the authored visible entry while remaining illustrative');
 
 // Actual scene ground and decoded light/detail GLBs verify the apron
 // exception in three dimensions. Source models and render transforms are read
@@ -253,7 +253,8 @@ render.group.traverse(object=>{
     for(let i=0;i<p.count;i+=3){const a=new THREE.Vector3().fromBufferAttribute(p,i),b=new THREE.Vector3().fromBufferAttribute(p,i+1),c=new THREE.Vector3().fromBufferAttribute(p,i+2);assert(b.sub(a).cross(c.sub(a)).y>0,'Paving triangles always face up');assert(n.getY(i)>0,'Paving normals always face up');}
   }
 });
-const stats=render.getStats();assert(stats.streetMeshes<=36);assert(stats.streetTriangles<7000);assert(stats.streetGeometryBytes<200000);
+const stats=render.getStats();assert(stats.streetMeshes<=65);assert(stats.streetTriangles<12000);assert(stats.streetGeometryBytes<550000);
+assert.equal(stats.streetTextureCount,1);assert.equal(stats.streetTextureSourceBytes,256*256*4);
 for(const site of plan.sites){
   const group=render.group.getObjectByName(site.id);
   for(const [name,key]of [['street tree crowns','trees'],['street lamps','lamps'],['street bench seats','benches']])assert.equal(group.getObjectByName(name).count,site[key].length);
@@ -279,10 +280,10 @@ assert.equal(streetDetailTier(2.1,0),0);assert.equal(streetDetailTier(2.2,0),1);
 assert.equal(streetDetailTier(9,1),2);assert.equal(streetDetailTier(7,2),2);assert.equal(streetDetailTier(6.4,2),1);
 const visibleFrustum={intersectsBox:()=>true},invisibleFrustum={intersectsBox:()=>false};
 render.update({pixelsPerUnit:2,frustum:visibleFrustum});assert.equal(render.getStats().streetVisibleDrawCalls,0);
-render.update({pixelsPerUnit:15,frustum:visibleFrustum});assert.equal(render.getStats().streetVisibleTier,1);assert.equal(render.getStats().streetVisibleDrawCalls,9);
-render.update({pixelsPerUnit:60,frustum:visibleFrustum});assert.equal(render.getStats().streetVisibleTier,2);assert.equal(render.getStats().streetVisibleDrawCalls,33);
+render.update({pixelsPerUnit:15,frustum:visibleFrustum});assert.equal(render.getStats().streetVisibleTier,1);assert.equal(render.getStats().streetVisibleDrawCalls,15);
+render.update({pixelsPerUnit:60,frustum:visibleFrustum});assert.equal(render.getStats().streetVisibleTier,2);assert.equal(render.getStats().streetVisibleDrawCalls,60);
 render.update({pixelsPerUnit:38,frustum:visibleFrustum});assert.equal(render.getStats().streetVisibleTier,2);
-render.update({pixelsPerUnit:60,frustum:{intersectsBox:box=>box.max.x<0}});assert.deepEqual(render.getStats().streetVisibleIds,['wanda-soho-s01']);assert.equal(render.getStats().streetVisibleDrawCalls,11);
+render.update({pixelsPerUnit:60,frustum:{intersectsBox:box=>box.max.x<0}});assert.deepEqual(render.getStats().streetVisibleIds,['wanda-soho-s01','jinjiang-s03']);assert.equal(render.getStats().streetVisibleDrawCalls,24);
 render.update({pixelsPerUnit:60,frustum:visibleFrustum,enabled:false});assert.equal(render.getStats().streetVisibleDrawCalls,0);
 render.update({pixelsPerUnit:60,frustum:invisibleFrustum});assert.equal(render.getStats().streetVisibleDrawCalls,0);
 render.update({pixelsPerUnit:60,frustum:visibleFrustum,treesEnabled:false});

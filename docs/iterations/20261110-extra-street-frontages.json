@@ -1,0 +1,360 @@
+{
+  "checkedAt": "2026-11-10",
+  "base": {
+    "version": "V49",
+    "sha": "32a74232e5902ee5a7bb77cbfbd8f3d5f421a5a1"
+  },
+  "scope": "Two bounded illustrative front-edge and same-side sidewalk extensions. No new certified model-interior corridor; no road markings, carriageway changes, model transforms or camera changes.",
+  "unitsPerMetre": 0.02,
+  "distanceMeaning": "All listed distances and sizes are computed from the current registered display geometry and source roads, not field measurements.",
+  "groundMethod": "scene-fallback-hills-no-GIS-grid",
+  "sourceFiles": {
+    "city": {
+      "path": "public/data/city.json",
+      "sha256": "5de08b00affb5141ee2b221cab96962923489491a30a7101f5c5221f970f8cb2"
+    },
+    "registrations": {
+      "path": "src/data/business-registrations.json",
+      "sha256": "fe9e3699d75ba34ec2551f463e220cc22f479fe8878456ccda42234b88e6c820"
+    },
+    "inspection": {
+      "path": "src/scene/buildingInspection.js",
+      "sha256": "2e039e5fba50ad999d6e3438c5fab13474a358a5b8118069fd04eba49ddcbbca"
+    },
+    "models": "src/data/business-models.json"
+  },
+  "sites": [
+    {
+      "id": "jinjiang-s03",
+      "road": "way/724326275",
+      "roadWidth": 9.6,
+      "settings": {
+        "id": "jinjiang-s03",
+        "roadName": "沿江大道",
+        "courtDepth": 4,
+        "halfRun": 44,
+        "followModelEntrance": true,
+        "treeSpan": 36,
+        "treeStep": 18,
+        "lampOffsets": [
+          -27,
+          27
+        ],
+        "benchOffsets": [
+          -8,
+          8
+        ]
+      },
+      "cells": 71,
+      "roles": {
+        "accent": 9,
+        "forecourt": 33,
+        "sidewalk": 26,
+        "connection": 3
+      },
+      "curbs": 60,
+      "trees": 4,
+      "lamps": 2,
+      "benches": 2,
+      "connected": true,
+      "touchesCourt": true,
+      "touchesWalk": true,
+      "connectionLength": 5.874736889309454,
+      "route": [
+        [
+          -30.92018672861841,
+          3.377948172264719
+        ],
+        [
+          -30.98656164770261,
+          3.474898590128755
+        ]
+      ],
+      "bounds": {
+        "minX": -31.761057443991014,
+        "maxX": -30.25167281590394,
+        "minZ": 2.976063292298737,
+        "maxZ": 4.019110979726247
+      },
+      "pavingModelClearance": 0.449999999999997,
+      "roadFlags": {
+        "kind": "primary",
+        "highway": "primary"
+      },
+      "roadEndpointDistanceMetres": [
+        759.6161312954074,
+        1753.8615709401486
+      ],
+      "name": "锦江银座",
+      "frontEdgeToNearestCarriagewayMetres": 14.62,
+      "inspectionSubjectToFullModelFrontMetres": 8.45,
+      "retainedSourceObjects": [
+        "Terrace paving surface",
+        "Curved planter rim",
+        "Entrance canopy",
+        "Observed canopy diagonal rod"
+      ],
+      "sourceEvidence": "Retained S03 default 00 includes an observed terrace and interpreted curved planting island. Native source units are not surveyed metres.",
+      "illustrative": true,
+      "entranceClaim": "Only lateral alignment to the authored inspection subject, projected onto the complete model front. This is not a surveyed doorway connection.",
+      "modelEnvelopeException": false,
+      "anchorLonLat": [
+        111.29157252910032,
+        30.688798507854592
+      ],
+      "sourceAnchor": [
+        -30.593319771790565,
+        2.8551606057318497
+      ],
+      "sourceBounds": {
+        "min": [
+          -15.100000381469727,
+          0,
+          -9.475000381469727
+        ],
+        "max": [
+          15.774999618530273,
+          72.11499786376953,
+          21.549999237060547
+        ]
+      },
+      "registration": {
+        "method": "footprint-candidate",
+        "label": "塔楼与裙房配准候选 · 非实测",
+        "frontBearingDeg": 212.02311420859468,
+        "scaleMetersPerSourceUnit": 1.7004419665125114,
+        "uncertainty": "使用S03默认00，不是S04研究版。；源地图两轮廓均为默认12m高度，不能从它们推实高。；模型原底部/景观造型保留；等比例后显示高度不是实测楼高。"
+      },
+      "assetSha256": {
+        "light": "019218c3a04dafcda9c8523316335aa849a28e039481f2c3492e1353c039da00",
+        "detail": "79f840e0a48f6be97cced551bf55a3e07ad77295f226828d3a34038a77c485e3"
+      },
+      "resources": {
+        "meshes": 13,
+        "triangles": 1594,
+        "geometryAndInstanceBytes": 66384
+      },
+      "inspectionSubjectSourceCenter": [
+        0.34,
+        5.05,
+        16.58
+      ]
+    },
+    {
+      "id": "fujiang-s01",
+      "road": "way/39725551",
+      "roadWidth": 9.6,
+      "settings": {
+        "id": "fujiang-s01",
+        "roadName": "沿江大道",
+        "courtDepth": 2,
+        "halfRun": 48,
+        "followModelEntrance": true,
+        "treeSpan": 36,
+        "treeStep": 18,
+        "lampOffsets": [
+          -30,
+          30
+        ],
+        "benchOffsets": [
+          -8,
+          8
+        ]
+      },
+      "cells": 70,
+      "roles": {
+        "accent": 9,
+        "forecourt": 25,
+        "sidewalk": 28,
+        "connection": 8
+      },
+      "curbs": 64,
+      "trees": 3,
+      "lamps": 2,
+      "benches": 2,
+      "connected": true,
+      "touchesCourt": true,
+      "touchesWalk": true,
+      "connectionLength": 19.702683311461932,
+      "route": [
+        [
+          3.3950992155548874,
+          28.366203204814592
+        ],
+        [
+          3.1285391844521335,
+          28.656416990991616
+        ]
+      ],
+      "bounds": {
+        "minX": 2.3420126023982006,
+        "maxX": 4.271829264722437,
+        "minZ": 28.045740999386705,
+        "maxZ": 29.322647423797797
+      },
+      "pavingModelClearance": 0.4499999999999219,
+      "roadFlags": {
+        "kind": "primary",
+        "highway": "primary"
+      },
+      "roadEndpointDistanceMetres": [
+        4600.124345521182,
+        19.210287038270902
+      ],
+      "name": "福江铭座",
+      "frontEdgeToNearestCarriagewayMetres": 26.19,
+      "inspectionSubjectToFullModelFrontMetres": 3.13,
+      "retainedSourceObjects": [
+        "Entry_recessed_double_height_glazing_and_doors",
+        "Entry_projecting_canopy_thick_glass",
+        "Podium_continuous_curved_projection_and_coping",
+        "CLOSURE_HOLD_podium_unseen_rear_and_left"
+      ],
+      "sourceEvidence": "Entrance and canopy are PARTIAL_PATTERN_RECONSTRUCTION. Front chord is a registration candidate; curved wall geometry and rear depth remain unverified.",
+      "nearbyElevatedSourceRoads": [
+        "way/724326276",
+        "way/724326274"
+      ],
+      "nearbySideStreet": {
+        "name": "亚栈路",
+        "sourceRoads": [
+          "way/724326278",
+          "way/724326277"
+        ]
+      },
+      "illustrative": true,
+      "entranceClaim": "Only lateral alignment to the authored inspection subject, projected onto the complete model front. This is not a surveyed doorway connection.",
+      "modelEnvelopeException": false,
+      "anchorLonLat": [
+        111.3093345,
+        30.6774695
+      ],
+      "sourceAnchor": [
+        3.5533045711504165,
+        27.733723753768164
+      ],
+      "sourceBounds": {
+        "min": [
+          -24.24829864501953,
+          -0.125,
+          -21.674999237060547
+        ],
+        "max": [
+          24.24829864501953,
+          100,
+          12.180000305175781
+        ]
+      },
+      "registration": {
+        "method": "front-arc-candidate",
+        "label": "弧形立面候选定位·后侧深度待核 · 非实测",
+        "frontBearingDeg": 194.04353238773376,
+        "scaleMetersPerSourceUnit": 1.7810239083169832,
+        "uncertainty": "两个端点能拟合弦端点但不能独立验证曲率、后部深度、顶部尺寸。；原生后侧深度是CLOSURE_HOLD；全模型在源裙房建筑轮廓外约1413㎡，虽与邻楼和机动车道无相交，仍应显示“弧形立面候选定位·后侧深度待核”。；不能把2点零计算残差作为地理精度或现场验收证明。"
+      },
+      "assetSha256": {
+        "light": "efdeb253b9fe459a4a9e6e6aa822f77577f6b1cc366b09a823b31e4e78c4b10b",
+        "detail": "d2ec0d62e0d0b73a95fb3b1b71ed91b4b2d5250bc49595bf96897dac9ca49b8e"
+      },
+      "resources": {
+        "meshes": 13,
+        "triangles": 1412,
+        "geometryAndInstanceBytes": 67552
+      },
+      "inspectionSubjectSourceCenter": [
+        0,
+        6.88,
+        10.42
+      ]
+    }
+  ],
+  "excluded": [
+    {
+      "id": "zhongnan-s09",
+      "name": "中南冶金",
+      "sourceRoad": "way/397144798",
+      "reason": "Front and road are oblique near the street corner. Trial 2/3/4 m courts leave 2/2/4 coplanar forecourt-to-sidewalk intersections. A continuous centre route alone is insufficient; requires a corner-specific clipped layout. Not added."
+    },
+    {
+      "id": "yichang-international-s01",
+      "name": "宜昌国际广场",
+      "reason": "Retained compound includes inner-street/open-court/east-passage paving and planting. Projected office-side full-envelope edge has only about 8.92 m to the near carriageway, while the inspection entrance is about 38.25 m behind that envelope front. The compound registration has unresolved relative-layout errors; a generic band could duplicate existing ground. Not added."
+    }
+  ],
+  "rejectedTrials": [
+    {
+      "id": "fujiang-s01",
+      "courtDepthMetres": 5,
+      "pavingOverlapPairs": 4
+    },
+    {
+      "id": "fujiang-s01",
+      "courtDepthMetres": 3,
+      "pavingOverlapPairs": 2
+    }
+  ],
+  "verification": {
+    "method": "Read source module into memory, inject only exported EXTRA_STREET_SITES, call the existing planner and renderer, then independently test complete footprints and polygon intersections. Existing streetDetails.js and its test script were not edited by this task.",
+    "scope": "Local geometry/data/resource/lifecycle verification; browser appearance and physical-device performance must be checked separately by the integrator.",
+    "newCompleteFootprints": 280,
+    "allFiveSiteFootprints": 1038,
+    "strictXZFootprints": 1030,
+    "unchangedExistingCertifiedJiuzhouApronCells": 8,
+    "allMappedBuildingRoadWaterConflicts": 0,
+    "pavingOverlapPairs": 0,
+    "crossSiteConflicts": 0,
+    "furnitureSafetyConflicts": 0,
+    "connectedNewRoutes": 2,
+    "allNewCellsOutsideCompleteOwnModel": true,
+    "sourceInputsUnchanged": true,
+    "existingThreePlansUnchanged": true,
+    "shouxinFrozenV40Hash": "142350a232df3b5a0fce57c111045a24821cdf88ec6e15df1f16856297c34fea",
+    "missingModelProducesNoStreet": true,
+    "bridgeLayerOneProducesNoStreet": true,
+    "overviewDrawCallsAtPixelsPerUnit2": 0,
+    "allFiveSitePavingDrawCallsAtPixelsPerUnit15": 15,
+    "allFiveSiteDayCallsAtPixelsPerUnit60": 60,
+    "disabledAndOffscreenCalls": 0,
+    "stableUpdateRequestsNewFrame": false
+  },
+  "resourceBudget": {
+    "fiveSites": {
+      "meshes": 65,
+      "triangles": 10776,
+      "geometryAndInstanceBytes": 425980,
+      "pavingCells": 572,
+      "curbSegments": 416,
+      "trees": 27,
+      "lamps": 13,
+      "benches": 10,
+      "sharedTextureCount": 1,
+      "sharedTextureSourceBytes": 262144
+    },
+    "added": {
+      "meshes": 26,
+      "triangles": 3006,
+      "geometryAndInstanceBytes": 133936
+    },
+    "measurementContext": "Current integrated working-tree renderer with Ico0 planted-bed foliage, shared paving texture and trimmed curbs. Source base remains V49. Geometry bytes exclude materials, texture bytes and driver overhead; shared texture source bytes are recorded separately.",
+    "historicalV49Trial": {
+      "context": "V49 32a74232e5902ee5a7bb77cbfbd8f3d5f421a5a1 renderer plus the same two candidate configurations injected in memory, before the concurrent curb/texture/planting enhancements. Historical candidate trial only; not the final current-working-tree budget.",
+      "fiveSites": {
+        "meshes": 60,
+        "triangles": 7976,
+        "geometryAndInstanceBytes": 263660
+      },
+      "added": {
+        "meshes": 24,
+        "triangles": 2206,
+        "geometryAndInstanceBytes": 85056
+      }
+    }
+  },
+  "integrationNotes": [
+    "Import EXTRA_STREET_SITES into streetDetails.js and append the array without changing existing site configuration.",
+    "Do not enable fillEntryApron or a model-envelope exception for either new site. Existing native ground, steps, canopies and landscape remain inside their complete exclusion envelope.",
+    "Fujiang 2 m depth is a geometric constraint; increasing it to 3 m reintroduces self-overlap.",
+    "All furniture is instanced and inherits current screen-width hysteresis, frustum rejection and on-demand rendering.",
+    "Keep candidate-registration and illustrative-space labels. Inspect the full-building and entrance views in day/night before release."
+  ]
+}

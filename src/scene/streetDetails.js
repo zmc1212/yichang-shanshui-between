@@ -1,6 +1,9 @@
 import * as THREE from 'three';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 import { resolveBuildingInspection } from './buildingInspection.js';
+import { EXTRA_STREET_SITES } from './additionalStreetSites.js';
+import { trimStreetCurbs, createStreetCurbGeometry } from './streetSurfaceGeometry.js';
+import { createStreetPavingTexture, streetPavingFrame, streetPavingUv } from './streetPavingTexture.js';
 
 // These are bounded presentation areas derived from the registered model's
 // complete bounds, including its existing stairs/canopies. They do not claim
@@ -304,7 +307,7 @@ function planStreetSite({ data, authoredModels, authoredGround, waterfrontPlan, 
  * same-ground road access. Every surface is illustrative, never a survey. */
 export function planStreetDetails(options) {
   const allPaths = (options.data.roads || []).map(makePath).filter(path => path.points.length > 1);
-  const plans = STREET_SITES.map(settings => planStreetSite({ ...options, allPaths, settings,
+  const plans = [...STREET_SITES, ...EXTRA_STREET_SITES].map(settings => planStreetSite({ ...options, allPaths, settings,
     model: options.authoredModels.find(item => item.id === settings.id) }));
   const sites = plans.flatMap(plan => plan.sites);
   const sum = key => sites.reduce((total, site) => total + site[key].length, 0);
@@ -323,8 +326,8 @@ export function planStreetDetails(options) {
   }, reserveTree: (x,z) => plans.some(plan => plan.reserveTree(x,z)) };
 }
 
-function quadsGeometry(cells, surface) {
-  const positions=[],normals=[],step=.002;
+function quadsGeometry(cells, surface, frame = null) {
+  const positions=[],normals=[],uvs=[],step=.002;
   for(const cell of cells){
     const cellSurface=cell.surface||surface;
     const signedArea=edges(cell.points).reduce((sum,[a,b])=>sum+a[0]*b[1]-b[0]*a[1],0);
@@ -332,11 +335,12 @@ function quadsGeometry(cells, surface) {
     // avoids alternating face lighting along slab and path boundaries.
     for(const index of signedArea>0?[0,2,1,0,3,2]:[0,1,2,0,2,3]){
       const p=cell.points[index];positions.push(p[0],cellSurface(p[0],p[1]),p[1]);
+      if(frame)uvs.push(...streetPavingUv(p,frame));
       const dx=(cellSurface(p[0]+step,p[1])-cellSurface(p[0]-step,p[1]))/(2*step),dz=(cellSurface(p[0],p[1]+step)-cellSurface(p[0],p[1]-step))/(2*step),length=Math.hypot(dx,1,dz);
       normals.push(-dx/length,1/length,-dz/length);
     }
   }
-  const geometry=new THREE.BufferGeometry();geometry.setAttribute('position',new THREE.Float32BufferAttribute(positions,3));geometry.setAttribute('normal',new THREE.Float32BufferAttribute(normals,3));return geometry;
+  const geometry=new THREE.BufferGeometry();geometry.setAttribute('position',new THREE.Float32BufferAttribute(positions,3));geometry.setAttribute('normal',new THREE.Float32BufferAttribute(normals,3));if(frame)geometry.setAttribute('uv',new THREE.Float32BufferAttribute(uvs,2));return geometry;
 }
 function combine(parts) {
   const expanded=parts.map(g=>{const p=g.index?g.toNonIndexed():g;if(p!==g)g.dispose();p.deleteAttribute('uv');p.clearGroups();return p;});
@@ -360,10 +364,11 @@ export function streetDetailTier(roadPixels, previous = 0) {
 
 export function createStreetDetails(plan,{heightAt,makeMaterial}) {
   const group=new THREE.Group();group.name='Building forecourts and illustrative streets';
+  const pavingTexture=createStreetPavingTexture();
   const material={
-    paving:makeMaterial('#ddd5c4','#61776e',{side:THREE.DoubleSide}),accent:makeMaterial('#c7bfae','#526c63',{side:THREE.DoubleSide}),
+    paving:makeMaterial('#e3dccd','#71867c',{side:THREE.DoubleSide,map:pavingTexture}),accent:makeMaterial('#cfc6b2','#5e786c',{side:THREE.DoubleSide,map:pavingTexture}),
     stone:makeMaterial('#bdbba9','#627a6d'),metal:makeMaterial('#536f63','#7c9180'),wood:makeMaterial('#ad895f','#9b805c'),
-    soil:makeMaterial('#94866a','#485e4d'),leaves:makeMaterial('#81a16c','#486b50',{flatShading:true}),light:makeMaterial('#f5e1ac','#ffdda5')
+    soil:makeMaterial('#94866a','#485e4d'),leaves:makeMaterial('#81a16c','#486b50',{flatShading:true}),lowLeaves:makeMaterial('#6e8d5b','#405e46',{flatShading:true}),light:makeMaterial('#f5e1ac','#ffdda5')
   };
   // A flat transparent pool needs one pass; the default double-sided material
   // would draw front and back separately without changing this ground decal.
@@ -371,20 +376,25 @@ export function createStreetDetails(plan,{heightAt,makeMaterial}) {
   const entries=[];let night=false;
   for(const site of plan.sites){
     const unit=site.units,surface=(x,z)=>heightAt(x,z)+site.groundLift(x,z);
-    const siteGroup=new THREE.Group(),pavingGroup=new THREE.Group(),detailGroup=new THREE.Group(),treeGroup=new THREE.Group(),nightGroup=new THREE.Group();
-    siteGroup.name=site.id;siteGroup.add(pavingGroup,detailGroup);detailGroup.add(treeGroup,nightGroup);group.add(siteGroup);
+    const siteGroup=new THREE.Group(),pavingGroup=new THREE.Group(),landscapeGroup=new THREE.Group(),detailGroup=new THREE.Group(),treeGroup=new THREE.Group(),nightGroup=new THREE.Group();
+    siteGroup.name=site.id;landscapeGroup.name='street landscape';siteGroup.add(pavingGroup,landscapeGroup,detailGroup);landscapeGroup.add(treeGroup);detailGroup.add(nightGroup);group.add(siteGroup);
+    const pavingFrame=streetPavingFrame(site);
     for(const accent of [false,true]){
       const cells=site.paving.filter(p=>(p.role==='accent')===accent);if(!cells.length)continue;
-      const mesh=new THREE.Mesh(quadsGeometry(cells,surface),accent?material.accent:material.paving);mesh.name=accent?'street paving insets':'forecourt, entrance path and sidewalk';mesh.receiveShadow=true;pavingGroup.add(mesh);
+      const mesh=new THREE.Mesh(quadsGeometry(cells,surface,pavingFrame),accent?material.accent:material.paving);mesh.name=accent?'street paving insets':'forecourt, entrance path and sidewalk';mesh.receiveShadow=true;pavingGroup.add(mesh);
     }
-    const curbCells=site.curbs.map(c=>({points:c.footprint}));
-    if(curbCells.length){const mesh=new THREE.Mesh(quadsGeometry(curbCells,(x,z)=>surface(x,z)+.0035),material.stone);mesh.name='junction-trimmed sidewalk edges';mesh.receiveShadow=true;pavingGroup.add(mesh);}
+    const curbCells=trimStreetCurbs(site);
+    if(curbCells.length){const mesh=new THREE.Mesh(createStreetCurbGeometry(curbCells,surface,.0035),material.stone);mesh.name='open-entry sidewalk kerbs';mesh.receiveShadow=true;pavingGroup.add(mesh);}
     // Every repeated object is instanced. This fixed geometry never casts
     // cached shadows that could survive after its LOD becomes invisible.
-    const pitSize=2.3*unit,pitDepth=.12*unit,rim=.18*unit;
-    const pitGeometry=combine([box(pitSize,pitDepth,rim,0,pitDepth/2,-(pitSize-rim)/2),box(pitSize,pitDepth,rim,0,pitDepth/2,(pitSize-rim)/2),box(rim,pitDepth,pitSize-rim*2,-(pitSize-rim)/2,pitDepth/2),box(rim,pitDepth,pitSize-rim*2,(pitSize-rim)/2,pitDepth/2)]);
-    instances('street tree pits',pitGeometry,material.stone,site.trees,detailGroup);
-    instances('street tree soil',box(pitSize-rim*2,.001,pitSize-rim*2,0,.0005),material.soil,site.trees,detailGroup);
+    // The whole planted bed (corner radius 2.57 m), including low foliage,
+    // stays inside each already-checked 2.8 m tree safety footprint.
+    const pitLength=4.6*unit,pitSize=2.3*unit,pitDepth=.12*unit,rim=.18*unit;
+    const pitGeometry=combine([box(pitLength,pitDepth,rim,0,pitDepth/2,-(pitSize-rim)/2),box(pitLength,pitDepth,rim,0,pitDepth/2,(pitSize-rim)/2),box(rim,pitDepth,pitSize-rim*2,-(pitLength-rim)/2,pitDepth/2),box(rim,pitDepth,pitSize-rim*2,(pitLength-rim)/2,pitDepth/2)]);
+    instances('street tree pits',pitGeometry,material.stone,site.trees,landscapeGroup);
+    instances('street tree soil',box(pitLength-rim*2,.001,pitSize-rim*2,0,.0005),material.soil,site.trees,landscapeGroup);
+    const lowPlantParts=[-1.45,1.45].map(x=>{const g=new THREE.IcosahedronGeometry(1,0);g.scale(.56*unit,.45*unit,.78*unit);g.translate(x*unit,.42*unit,0);return g;});
+    instances('street planted bed foliage',combine(lowPlantParts),material.lowLeaves,site.trees,treeGroup);
     const trunk=new THREE.CylinderGeometry(.16*unit,.22*unit,3.3*unit,6);trunk.translate(0,1.65*unit,0);
     instances('street tree trunks',trunk,material.wood,site.trees,treeGroup);
     const crown=new THREE.IcosahedronGeometry(1,1);crown.scale(2.35*unit,2.7*unit,2.35*unit);crown.translate(0,5.1*unit,0);
@@ -415,19 +425,20 @@ export function createStreetDetails(plan,{heightAt,makeMaterial}) {
     const benchMetal=combine([box(.12*unit,.45*unit,.58*unit,-.7*unit,.225*unit),box(.12*unit,.45*unit,.58*unit,.7*unit,.225*unit)]);
     instances('street bench legs',benchMetal,material.metal,site.benches,detailGroup);
     const b=site.bounds,y=surface((b.minX+b.maxX)/2,(b.minZ+b.maxZ)/2);
-    entries.push({site,group:siteGroup,pavingGroup,detailGroup,treeGroup,nightGroup,tier:0,bounds:new THREE.Box3(new THREE.Vector3(b.minX,y-.2,b.minZ),new THREE.Vector3(b.maxX,y+12*unit,b.maxZ))});
+    entries.push({site,group:siteGroup,pavingGroup,landscapeGroup,detailGroup,treeGroup,nightGroup,tier:0,landscapeVisible:false,bounds:new THREE.Box3(new THREE.Vector3(b.minX,y-.2,b.minZ),new THREE.Vector3(b.maxX,y+12*unit,b.maxZ))});
     siteGroup.visible=false;nightGroup.visible=false;
   }
   let meshes=0,triangles=0,geometryBytes=0;
   group.traverse(object=>{if(!object.isMesh)return;meshes++;const g=object.geometry;triangles+=(g.index?g.index.count:g.attributes.position.count)/3*(object.isInstancedMesh?object.count:1);for(const a of Object.values(g.attributes))geometryBytes+=a.array.byteLength;if(g.index)geometryBytes+=g.index.array.byteLength;if(object.instanceMatrix)geometryBytes+=object.instanceMatrix.array.byteLength;});
-  const resourceStats={...plan.stats,streetMeshes:meshes,streetTriangles:triangles,streetGeometryBytes:geometryBytes};
+  const resourceStats={...plan.stats,streetMeshes:meshes,streetTriangles:triangles,streetGeometryBytes:geometryBytes,streetTextureCount:1,streetTextureSourceBytes:pavingTexture.image.data.byteLength};
   const getStats=()=>({...resourceStats,streetVisibleSites:entries.filter(e=>e.group.visible).length,streetVisibleIds:entries.filter(e=>e.group.visible).map(e=>e.site.id),streetVisibleTier:Math.max(0,...entries.filter(e=>e.group.visible).map(e=>e.tier)),streetVisibleDrawCalls:entries.reduce((n,e)=>{if(!e.group.visible)return n;let count=0;e.group.traverseVisible(o=>{if(o.isMesh)count++;});return n+count;},0)});
   return {group,stats:resourceStats,getStats,
     update({pixelsPerUnit,frustum,enabled=true,treesEnabled=true}) {
       let changed=false;
       for(const entry of entries){const previous=entry.tier;entry.tier=streetDetailTier(entry.site.roadWidth*pixelsPerUnit,entry.tier);const visible=Boolean(enabled&&entry.tier>0&&(!frustum||frustum.intersectsBox(entry.bounds)));
-        changed ||= previous!==entry.tier||entry.group.visible!==visible||entry.treeGroup.visible!==Boolean(treesEnabled);
-        entry.group.visible=visible;entry.detailGroup.visible=entry.tier===2;entry.treeGroup.visible=Boolean(treesEnabled);entry.nightGroup.visible=night;
+        const crownPixels=4.7*entry.site.units*pixelsPerUnit,landscapeVisible=entry.tier===2||crownPixels>=(entry.landscapeVisible?2.4:3);
+        changed ||= previous!==entry.tier||entry.group.visible!==visible||entry.treeGroup.visible!==Boolean(treesEnabled)||entry.landscapeVisible!==landscapeVisible;
+        entry.landscapeVisible=landscapeVisible;entry.group.visible=visible;entry.landscapeGroup.visible=landscapeVisible;entry.detailGroup.visible=entry.tier===2;entry.treeGroup.visible=Boolean(treesEnabled);entry.nightGroup.visible=night;
       }
       return changed;
     },

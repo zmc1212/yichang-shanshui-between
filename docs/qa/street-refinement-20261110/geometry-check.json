@@ -1,0 +1,297 @@
+{
+  "checkedAt": "2026-11-10",
+  "scope": "geometric-data-resource-lifecycle-only",
+  "baseline": "V40 e87fde278f678ae76668766f27c3ad5e46144c56",
+  "stats": {
+    "streetSites": 5,
+    "streetPavingCells": 572,
+    "streetCurbSegments": 416,
+    "streetTrees": 27,
+    "streetLamps": 13,
+    "streetBenches": 10,
+    "streetEntranceConnected": true,
+    "streetEntrancesConnected": 5,
+    "streetIllustrative": true,
+    "streetMarkings": 0,
+    "streetEntryApronCells": 8,
+    "streetSiteIds": [
+      "shouxin-wealth-s01",
+      "wanda-soho-s01",
+      "jiuzhou-s01",
+      "jinjiang-s03",
+      "fujiang-s01"
+    ],
+    "streetSiteSummaries": [
+      {
+        "id": "shouxin-wealth-s01",
+        "roadName": "沿江大道",
+        "sourceRoad": "way/39725551",
+        "pavingCells": 77,
+        "curbSegments": 66,
+        "trees": 7,
+        "lamps": 3,
+        "benches": 2,
+        "entranceConnected": true,
+        "entryApronConnected": false,
+        "illustrative": true
+      },
+      {
+        "id": "wanda-soho-s01",
+        "roadName": "沿江大道",
+        "sourceRoad": "way/1543968654",
+        "pavingCells": 236,
+        "curbSegments": 158,
+        "trees": 7,
+        "lamps": 4,
+        "benches": 2,
+        "entranceConnected": true,
+        "entryApronConnected": false,
+        "illustrative": true
+      },
+      {
+        "id": "jiuzhou-s01",
+        "roadName": "沿江大道",
+        "sourceRoad": "way/39725551",
+        "pavingCells": 118,
+        "curbSegments": 68,
+        "trees": 6,
+        "lamps": 2,
+        "benches": 2,
+        "entranceConnected": true,
+        "entryApronConnected": true,
+        "illustrative": true
+      },
+      {
+        "id": "jinjiang-s03",
+        "roadName": "沿江大道",
+        "sourceRoad": "way/724326275",
+        "pavingCells": 71,
+        "curbSegments": 60,
+        "trees": 4,
+        "lamps": 2,
+        "benches": 2,
+        "entranceConnected": true,
+        "entryApronConnected": false,
+        "illustrative": true
+      },
+      {
+        "id": "fujiang-s01",
+        "roadName": "沿江大道",
+        "sourceRoad": "way/39725551",
+        "pavingCells": 70,
+        "curbSegments": 64,
+        "trees": 3,
+        "lamps": 2,
+        "benches": 2,
+        "entranceConnected": true,
+        "entryApronConnected": false,
+        "illustrative": true
+      }
+    ],
+    "streetMeshes": 65,
+    "streetTriangles": 10776,
+    "streetGeometryBytes": 425980,
+    "streetTextureCount": 1,
+    "streetTextureSourceBytes": 262144
+  },
+  "sites": [
+    {
+      "id": "shouxin-wealth-s01",
+      "sourceRoad": "way/39725551",
+      "sourceAnchor": [
+        17.84661482668662,
+        44.801642264664586
+      ],
+      "entranceReference": null,
+      "illustrative": true
+    },
+    {
+      "id": "wanda-soho-s01",
+      "sourceRoad": "way/1543968654",
+      "sourceAnchor": [
+        -10.740095151693664,
+        16.1045533568941
+      ],
+      "entranceReference": {
+        "method": "authored-visible-subject-lateral-projection",
+        "sourceCenter": [
+          0,
+          7.05,
+          10.16
+        ],
+        "lateralOffset": -0.2549830542295053,
+        "surveyed": false
+      },
+      "illustrative": true
+    },
+    {
+      "id": "jiuzhou-s01",
+      "sourceRoad": "way/39725551",
+      "sourceAnchor": [
+        20.110797496633346,
+        46.66588413788607
+      ],
+      "entranceReference": {
+        "method": "authored-visible-subject-lateral-projection",
+        "sourceCenter": [
+          -10.03,
+          3,
+          16.62
+        ],
+        "lateralOffset": -0.21013580575377297,
+        "surveyed": false
+      },
+      "illustrative": true
+    },
+    {
+      "id": "jinjiang-s03",
+      "sourceRoad": "way/724326275",
+      "sourceAnchor": [
+        -30.593319771790565,
+        2.8551606057318497
+      ],
+      "entranceReference": {
+        "method": "authored-visible-subject-lateral-projection",
+        "sourceCenter": [
+          0.34,
+          5.05,
+          16.58
+        ],
+        "lateralOffset": 0.00008503507166729429,
+        "surveyed": false
+      },
+      "illustrative": true
+    },
+    {
+      "id": "fujiang-s01",
+      "sourceRoad": "way/39725551",
+      "sourceAnchor": [
+        3.5533045711504165,
+        27.733723753768164
+      ],
+      "entranceReference": {
+        "method": "authored-visible-subject-lateral-projection",
+        "sourceCenter": [
+          0,
+          6.88,
+          10.42
+        ],
+        "lateralOffset": 2.7755575615628914e-16,
+        "surveyed": false
+      },
+      "illustrative": true
+    }
+  ],
+  "entryApronEvidence": {
+    "role": "entry-apron",
+    "policy": "Only a certified source-cleared corridor may enter this model envelope; inner edge joins the original stone step top",
+    "thresholdObject": "Entry_curved_vestibule_closed_frames",
+    "thresholdSource": [
+      -13,
+      0.1801239127460832,
+      11.001
+    ],
+    "thresholdEvidenceStatus": "PATTERN_INFERRED",
+    "doorSourceBounds": {
+      "min": [
+        -14.729999542236328,
+        0.09000000357627869,
+        9.0600004196167
+      ],
+      "max": [
+        -11.270000457763672,
+        3.859999895095825,
+        10.829999923706055
+      ]
+    },
+    "certifiedSourceCorridor": [
+      [
+        -14.794,
+        11.0005
+      ],
+      [
+        -11.824,
+        25.402
+      ],
+      [
+        -8.236,
+        25.402
+      ],
+      [
+        -11.206,
+        11.0005
+      ]
+    ],
+    "widthMetres": 4.6,
+    "lengthMetres": 18.864834536535085,
+    "cells": 8,
+    "triangles": 16,
+    "groundMethod": "scene-fallback-hills-no-GIS-grid",
+    "modelBase": 0.06500000072340281,
+    "stepTopY": 0.07064871608936112,
+    "highestPavingY": 0.07064871490001678,
+    "maximumStepOvershoot": -1.1893443313537588e-9,
+    "minimumGroundGap": 0.05508708494589117,
+    "actualAssetBounds": [
+      {
+        "tier": "light",
+        "sourceMinimumY": -0.03999999910593033,
+        "normalizedWorldMinimumY": 0.06500000072340284
+      },
+      {
+        "tier": "detail",
+        "sourceMinimumY": -0.03999999910593033,
+        "normalizedWorldMinimumY": 0.06500000072340284
+      }
+    ],
+    "thresholdStepEvidence": [
+      {
+        "tier": "light",
+        "corridorTriangles": 0,
+        "stepTriangles": 6,
+        "sourceBounds": {
+          "min": [
+            -14.792566856212057,
+            -0.019363382369803617,
+            10.9
+          ],
+          "max": [
+            -11.207433143787943,
+            0.1801239127460832,
+            10.999567160678746
+          ]
+        },
+        "endpointGapMetres": 0.001838442135345203
+      },
+      {
+        "tier": "detail",
+        "corridorTriangles": 0,
+        "stepTriangles": 6,
+        "sourceBounds": {
+          "min": [
+            -14.792566856212057,
+            -0.019363382369803617,
+            10.9
+          ],
+          "max": [
+            -11.207433143787943,
+            0.1801239127460832,
+            10.999567160678746
+          ]
+        },
+        "endpointGapMetres": 0.001838442135345203
+      }
+    ]
+  },
+  "passed": [
+    "The complete Shouxin geometry matches its frozen V40 SHA-256; Wanda and Jiuzhou are added without changing source transforms",
+    "1030 complete paving, curb and furnishing footprints clear all mapped obstacles in XZ; 8 narrow Jiuzhou apron cells also clear every other building, retained source polygon, road and water, with only their own model envelope replaced by an exact source-cleared entry-corridor check",
+    "All paving cells have zero overlapping area; independent street sites and furniture safety footprints remain separated",
+    "All five continuous paths join the complete model footprint front, narrow court and same-side sidewalk; new paths align laterally with the authored visible entry while remaining illustrative",
+    "Eight diagonal Jiuzhou apron cells now join the decoded stone step top just 1.84 mm outside its front; exact clipping of both GLBs proves zero low model triangles throughout the certified approach",
+    "Every emitted Float32 apron triangle lies inside that explicit source-cleared corridor, stays above scene ground, and descends from the unchanged doorstep to the unchanged exterior court without a vertical join gap",
+    "Bridge/tunnel/layer eligibility is conservative, unavailable models create no streets, and all input data remains byte-for-byte unchanged",
+    "65 total meshes, 10776 triangles and 425980 geometry/instance bytes; furnishings are instanced and single-pass light pools follow each surface",
+    "Every site obeys pixel-scale hysteresis, independent frustum visibility, street/tree toggles, theme changes and zero overview draw calls without a continuous loop"
+  ]
+}

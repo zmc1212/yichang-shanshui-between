@@ -1,0 +1,130 @@
+{
+  "before-jinjiang": [
+    [
+      {
+        "dataset": {
+          "authoredModels": "7",
+          "authoredSelection": "true",
+          "businessProjects": "23",
+          "cityVisible": "true",
+          "detailModels": "1",
+          "drawCalls": "61",
+          "engine": "three.js r170",
+          "focusAngle": "detail",
+          "geometries": "301",
+          "modelAnchor": "[-30.593319771790565,0.7093055088137867,2.8551606057318497]",
+          "modelQuality": "detail",
+          "renderFrames": "862",
+          "renderState": "idle",
+          "residentModels": "7",
+          "sceneMode": "city",
+          "streetDetails": "0",
+          "streetDetailsEnabled": "true",
+          "streetVisibleDrawCalls": "0",
+          "streetVisibleIds": "[]",
+          "streetVisibleSites": "0",
+          "textures": "14",
+          "triangles": "667853"
+        },
+        "height": 793,
+        "width": 1616
+      }
+    ]
+  ],
+  "before-fujiang": [
+    [
+      {
+        "dataset": {
+          "authoredModels": "7",
+          "authoredSelection": "true",
+          "businessProjects": "23",
+          "cityVisible": "true",
+          "detailModels": "1",
+          "drawCalls": "69",
+          "engine": "three.js r170",
+          "focusAngle": "detail",
+          "geometries": "308",
+          "modelAnchor": "[3.5533045711504165,0.06507002690175351,27.733723753768164]",
+          "modelQuality": "detail",
+          "renderFrames": "902",
+          "renderState": "idle",
+          "residentModels": "7",
+          "sceneMode": "city",
+          "streetDetails": "0",
+          "streetDetailsEnabled": "true",
+          "streetVisibleDrawCalls": "0",
+          "streetVisibleIds": "[]",
+          "streetVisibleSites": "0",
+          "textures": "24",
+          "triangles": "1149798"
+        },
+        "height": 793,
+        "width": 1616
+      }
+    ]
+  ],
+  "before-overview": [
+    [
+      {
+        "dataset": {
+          "authoredModels": "7",
+          "authoredSelection": "false",
+          "businessProjects": "23",
+          "cityVisible": "true",
+          "detailModels": "0",
+          "drawCalls": "258",
+          "engine": "three.js r170",
+          "focusAngle": "overview",
+          "geometries": "290",
+          "modelAnchor": "",
+          "modelQuality": "light",
+          "renderFrames": "972",
+          "renderState": "idle",
+          "residentModels": "7",
+          "sceneMode": "city",
+          "streetDetails": "0",
+          "streetDetailsEnabled": "true",
+          "streetVisibleDrawCalls": "0",
+          "streetVisibleIds": "[]",
+          "streetVisibleSites": "0",
+          "textures": "14",
+          "triangles": "1313930"
+        },
+        "height": 793,
+        "width": 1616
+      }
+    ]
+  ],
+  "before-shouxin": [
+    [
+      {
+        "dataset": {
+          "authoredModels": "7",
+          "authoredSelection": "true",
+          "businessProjects": "23",
+          "cityVisible": "true",
+          "detailModels": "1",
+          "drawCalls": "93",
+          "engine": "three.js r170",
+          "focusAngle": "detail",
+          "geometries": "309",
+          "modelAnchor": "[17.84661482668662,0.06500000405919155,44.801642264664586]",
+          "modelQuality": "detail",
+          "renderFrames": "1010",
+          "renderState": "idle",
+          "residentModels": "7",
+          "sceneMode": "city",
+          "streetDetails": "2",
+          "streetDetailsEnabled": "true",
+          "streetVisibleDrawCalls": "22",
+          "streetVisibleIds": "[\"shouxin-wealth-s01\",\"jiuzhou-s01\"]",
+          "streetVisibleSites": "2",
+          "textures": "14",
+          "triangles": "779756"
+        },
+        "height": 793,
+        "width": 1616
+      }
+    ]
+  ]
+}
