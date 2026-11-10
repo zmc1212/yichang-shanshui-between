@@ -1,0 +1,197 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-10",
+  "title": "万达路口旧道路表面条纹：独立只读渲染诊断",
+  "scope": {
+    "site": "宜昌 · 江山之间（原站B）",
+    "repositoryHead": "f26755fb1a73ea8e151bc4ab2d3d6b6754eb5224",
+    "precedingBaseCommit": "7eb9d5f5f868d08ef4bb123350058f9efcfa9edd",
+    "auditor": "corridor_planner",
+    "applicationFilesEditedByAuditor": [],
+    "diagnosticRegion": {
+      "minX": -8.9,
+      "maxX": -8.1,
+      "minZ": 19.2,
+      "maxZ": 20.1
+    },
+    "unitsPerDisplayMetre": 0.02
+  },
+  "hashes": {
+    "cityJsonSha256": "5de08b00affb5141ee2b221cab96962923489491a30a7101f5c5221f970f8cb2",
+    "roadNetworkBeforeRenderOrderCandidateSha256": "c25736725570370e9c757611884c293dfeb41c0b3cbe237f51fab283032671d7",
+    "roadNetworkAfterRootRenderOrderCandidateSha256": "38bfaf8af0a94d7caaf4c892afd0bc451c26347f8995ea506bd8f560cb147ffc",
+    "createCitySceneSha256": "93961009cc79d92bc2143f29cacc6cbccc616fa7909abf9343789a50ae0ea04a"
+  },
+  "reportedObservation": {
+    "source": "root browser QA message",
+    "description": "沿江街景近景中，万达路口主路表面出现细平行条纹；关闭街道细节后条纹仍存在。",
+    "independentlyObservedByThisAuditor": false
+  },
+  "sourceWays": [
+    {
+      "id": "way/1543968654",
+      "name": "沿江大道",
+      "class": "major",
+      "width": 0.192,
+      "role": "new-street-adjacent main carriageway"
+    },
+    {
+      "id": "way/1070095025",
+      "name": "万达路",
+      "class": "secondary",
+      "width": 0.121
+    },
+    {
+      "id": "way/1070095026",
+      "name": "万达路",
+      "class": "secondary",
+      "width": 0.121
+    },
+    {
+      "id": "way/1543968653",
+      "name": "沿江大道",
+      "class": "major",
+      "width": 0.192,
+      "role": "opposite main carriageway, contextual check"
+    }
+  ],
+  "method": {
+    "builder": "src/scene/roadNetwork.js:createRoadNetwork",
+    "terrain": "Current city Gaussian hill function: landmarks named 磨基山 / 白马山 / 东山, same 4.8 / 2.4 heights, radius=max(width,depth)*0.065; the diagnostic region is outside water.",
+    "procedure": [
+      "Build each of the four source ways independently with the production road builder and current terrain.",
+      "Read actual Float32 position/index buffers of road surface meshes.",
+      "Intersect triangle projections in XZ using convex clipping, clipped again to the diagnostic rectangle.",
+      "For positive-area overlap polygons, evaluate both Float32 triangle planes at every intersection vertex.",
+      "Record minimum/maximum signed Y differences and whether any overlapping triangle pair changes vertical ordering."
+    ],
+    "coverage": "Individual source-way stroke meshes, including their source bends and end caps. The test excludes additional disks created only when multiple ways are passed together to the topology builder. This is a targeted diagnosis, not a complete-scene occlusion proof.",
+    "sourceTopology": "Among the four ways, the exact shared-vertex junction is [-8.479,19.906], involving way/1070095026 and way/1543968653. The adjacent way/1543968654 crosses the Wanda Road strips without a shared source vertex.",
+    "geometry": "Each source segment is a rectangle represented by two triangles; heights are sampled at edge vertices and linearly interpolated within the triangles. The underlying terrain function is nonlinear. All emitted road normals point upward."
+  },
+  "existingRendering": {
+    "majorSurfaceLift": 0.1206,
+    "secondarySurfaceLift": 0.1204,
+    "nominalClassLiftSeparation": 0.0002,
+    "beforeCandidate": {
+      "surfaceRenderOrder": 1,
+      "surfaceBucketInsertionOrder": [
+        "major",
+        "secondary",
+        "local",
+        "pedestrian"
+      ],
+      "depthTestingEnabled": true,
+      "depthWritingEnabled": true,
+      "explanation": "The later secondary bucket can win a quantized equal-depth comparison, despite the intended major-road height/colour priority."
+    },
+    "camera": {
+      "projection": "orthographic",
+      "near": 0.1,
+      "far": 5054.448,
+      "extent": 315.903
+    },
+    "hypotheticalDepthPrecision": {
+      "assumedBits": 24,
+      "actualGpuDepthBitsMeasured": false,
+      "cameraDepthStepWorldUnits": 0.0003012626350678584,
+      "formula": "(far-near)/(2^24-1)",
+      "plannedStreetscapeVerticalProjectionFactor": 0.8692102948675111,
+      "note": "The depth step is along the camera depth axis; the numeric triangle separations below are vertical Y differences. Camera direction affects their projection. The reported value is an explanatory assumption, not a GPU measurement."
+    }
+  },
+  "float32SurfaceOverlapResults": [
+    {
+      "a": "way/1543968654",
+      "b": "way/1070095025",
+      "signedDifference": "Y(a)-Y(b)",
+      "overlappingTrianglePairs": 7,
+      "minDeltaY": 0.000034708606414191046,
+      "maxDeltaY": 0.00030654790167938817,
+      "trianglePairsChangingVerticalOrder": 0,
+      "minimumLocationXZ": [
+        -8.400267601013184,
+        19.567846298217773
+      ]
+    },
+    {
+      "a": "way/1543968654",
+      "b": "way/1070095026",
+      "signedDifference": "Y(a)-Y(b)",
+      "overlappingTrianglePairs": 4,
+      "minDeltaY": 0.0002007934070369921,
+      "maxDeltaY": 0.0005228629960723763,
+      "trianglePairsChangingVerticalOrder": 0,
+      "minimumLocationXZ": [
+        -8.334437672583775,
+        19.62182811850179
+      ]
+    },
+    {
+      "a": "way/1070095025",
+      "b": "way/1543968653",
+      "signedDifference": "Y(a)-Y(b)",
+      "overlappingTrianglePairs": 6,
+      "minDeltaY": -0.0007596683205020049,
+      "maxDeltaY": -0.00040449082530388814,
+      "trianglePairsChangingVerticalOrder": 0,
+      "minimumLocationXZ": [
+        -8.643149375915527,
+        19.772090911865234
+      ]
+    },
+    {
+      "a": "way/1070095026",
+      "b": "way/1543968653",
+      "signedDifference": "Y(a)-Y(b)",
+      "overlappingTrianglePairs": 10,
+      "minDeltaY": -0.00036350707219279244,
+      "maxDeltaY": -0.00014869049426158298,
+      "trianglePairsChangingVerticalOrder": 0,
+      "minimumLocationXZ": [
+        -8.526738166809082,
+        19.868833541870117
+      ]
+    }
+  ],
+  "conclusion": {
+    "classification": "Evidence-backed inference of quantized depth ties in existing road rendering; not a measured GPU diagnosis.",
+    "findings": [
+      "The diagnosed road geometry predates this street-extension iteration; roadNetwork.js had no iteration diff when this investigation began.",
+      "Nonlinear terrain edge sampling narrows the main/secondary vertical separation to approximately 0.00003471 world units in this junction.",
+      "All analyzed overlap pairs retain the intended vertical order: major road above secondary road. No true plane crossing was detected in these clipped source-stroke overlaps.",
+      "These separations are comparable to or smaller than the nominal camera-depth quantum of a 24-bit buffer under the current broad orthographic near/far range.",
+      "The bucket draw order explains why the secondary colour could win equal-depth fragments, consistent with the reported fine stripes and their persistence with street details disabled."
+    ],
+    "limitations": [
+      "Actual browser framebuffer depth precision was not queried.",
+      "No GPU depth-buffer readback or per-pixel colour identification was performed by this auditor.",
+      "Global topology junction disks and other full-scene surfaces were not included in the pairwise numerical check.",
+      "This result does not assert that all city-wide road overlaps are geometrically ordered.",
+      "This report alone does not establish that the candidate removes the visual symptom; root owns the same-camera browser comparison."
+    ]
+  },
+  "minimalCandidate": {
+    "owner": "root",
+    "status": "Root authorized and applied the rendering-order candidate while this report was being written.",
+    "before": "mesh.renderOrder = part === 'edge' ? 0 : 1;",
+    "after": "mesh.renderOrder = part === 'edge' ? 0 : 1 + style.rank;",
+    "reason": "Draw lower road classes first and the intended dominant class last, retaining normal depth testing and writing. In the diagnosed junction, the dominant surface is already geometrically higher, so it can win equal-depth ties.",
+    "preserves": [
+      "source road coordinates",
+      "source road widths",
+      "road vertex/index buffers",
+      "road height samples",
+      "all pre-existing street plans and rendered buffers",
+      "depth testing",
+      "depth writing"
+    ],
+    "doesNotClaim": [
+      "to repair true intersecting road planes",
+      "to reconstruct a surveyed junction",
+      "to correct unknown bridge/tunnel layers",
+      "to remove every depth artifact at every camera angle"
+    ],
+    "furtherValidation": "Run the existing road checks and compare the original browser view before/after. If stripes remain, record the existing limitation and avoid broadening this street iteration."
+  }
+}

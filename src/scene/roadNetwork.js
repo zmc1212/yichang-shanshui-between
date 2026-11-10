@@ -248,8 +248,9 @@ export function createRoadNetwork({ roads = [], heightAt = () => 0, inWater = ()
       : makeMaterial(style.edgeDay, style.edgeNight, { roughness: 1 });
     const mesh = new THREE.Mesh(geometry, material);
     mesh.name = `roads ${role} ${part}`; mesh.castShadow = false; mesh.receiveShadow = true;
-    // Explicit order is only for stable rasterisation, not physical elevation.
-    mesh.renderOrder = part === 'edge' ? 0 : 1;
+    // Resolve quantised depth ties in the same order as the existing class
+    // heights. Keep depth testing: this is colour precedence, not elevation.
+    mesh.renderOrder = part === 'edge' ? 0 : 1 + style.rank;
     group.add(mesh); vertices += geometry.getAttribute('position').count; triangles += bucket.triangles;
   }
   const stats = {
