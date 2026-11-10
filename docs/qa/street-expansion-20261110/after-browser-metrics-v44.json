@@ -1,0 +1,256 @@
+{
+  "checkedAt": "2026-11-10",
+  "codeVersion": 44,
+  "sourceCommit": "c6a9ac9027f9cce01c15e071edee817a1b29b71f",
+  "applicationModule": "/assets/index-B1qYcHNm.js",
+  "screenshotObservation": "Jiuzhou entry paving visibly joins the original step; prior grass seam is gone. No authored model or camera transform changes.",
+  "cases": [
+    {
+      "canvas": {
+        "authoredModels": "7",
+        "authoredSelection": "true",
+        "businessProjects": "23",
+        "cityVisible": "true",
+        "detailModels": "1",
+        "drawCalls": "65",
+        "engine": "three.js r170",
+        "focusAngle": "entrance",
+        "geometries": "268",
+        "modelAnchor": "[20.110797496633346,0.06500000072340281,46.66588413788607]",
+        "modelQuality": "detail",
+        "renderFrames": "6",
+        "renderState": "idle",
+        "residentModels": "7",
+        "sceneMode": "city",
+        "streetDetails": "2",
+        "streetDetailsEnabled": "true",
+        "streetVisibleDrawCalls": "11",
+        "streetVisibleIds": "[\"jiuzhou-s01\"]",
+        "streetVisibleSites": "1",
+        "textures": "3",
+        "triangles": "731670"
+      },
+      "case": "v44-jiuzhou-entrance",
+      "labels": [],
+      "overlaps": [],
+      "pageOverflow": false,
+      "roads": {
+        "roadCandidates": "0",
+        "roadCount": "0",
+        "roadInspectionHidden": "true",
+        "roadNames": "[]",
+        "roadNamesEnabled": "true"
+      },
+      "url": "https://yichang-miniature-city.gaoronghai.chatgpt.site/#place=jiuzhou-s01&angle=entrance&close=1",
+      "viewport": [
+        1920,
+        863
+      ]
+    },
+    {
+      "canvas": {
+        "authoredModels": "7",
+        "authoredSelection": "true",
+        "businessProjects": "23",
+        "cityVisible": "true",
+        "detailModels": "1",
+        "drawCalls": "96",
+        "engine": "three.js r170",
+        "focusAngle": "detail",
+        "geometries": "279",
+        "modelAnchor": "[20.110797496633346,0.06500000072340281,46.66588413788607]",
+        "modelQuality": "detail",
+        "renderFrames": "14",
+        "renderState": "idle",
+        "residentModels": "7",
+        "sceneMode": "city",
+        "streetDetails": "2",
+        "streetDetailsEnabled": "true",
+        "streetVisibleDrawCalls": "22",
+        "streetVisibleIds": "[\"shouxin-wealth-s01\",\"jiuzhou-s01\"]",
+        "streetVisibleSites": "2",
+        "textures": "3",
+        "triangles": "808132"
+      },
+      "case": "v44-jiuzhou-whole-desktop",
+      "labels": [],
+      "overlaps": [],
+      "pageOverflow": false,
+      "roads": {
+        "roadCandidates": "0",
+        "roadCount": "0",
+        "roadInspectionHidden": "false",
+        "roadNames": "[]",
+        "roadNamesEnabled": "true"
+      },
+      "url": "https://yichang-miniature-city.gaoronghai.chatgpt.site/#place=jiuzhou-s01&close=1",
+      "viewport": [
+        1920,
+        863
+      ]
+    },
+    {
+      "canvas": {
+        "authoredModels": "7",
+        "authoredSelection": "true",
+        "businessProjects": "23",
+        "cityVisible": "true",
+        "detailModels": "1",
+        "drawCalls": "67",
+        "engine": "three.js r170",
+        "focusAngle": "detail",
+        "geometries": "279",
+        "modelAnchor": "[20.110797496633346,0.06500000072340281,46.66588413788607]",
+        "modelQuality": "detail",
+        "renderFrames": "27",
+        "renderState": "idle",
+        "residentModels": "7",
+        "sceneMode": "city",
+        "streetDetails": "2",
+        "streetDetailsEnabled": "true",
+        "streetVisibleDrawCalls": "11",
+        "streetVisibleIds": "[\"jiuzhou-s01\"]",
+        "streetVisibleSites": "1",
+        "textures": "3",
+        "triangles": "732350"
+      },
+      "case": "v44-jiuzhou-whole-phone",
+      "labels": [],
+      "overlaps": [],
+      "pageOverflow": false,
+      "roads": {
+        "roadCandidates": "0",
+        "roadCount": "0",
+        "roadInspectionHidden": "false",
+        "roadNames": "[]",
+        "roadNamesEnabled": "true"
+      },
+      "url": "https://yichang-miniature-city.gaoronghai.chatgpt.site/#place=jiuzhou-s01&close=1",
+      "viewport": [
+        390,
+        844
+      ]
+    },
+    {
+      "canvas": {
+        "authoredModels": "7",
+        "authoredSelection": "true",
+        "businessProjects": "23",
+        "cityVisible": "true",
+        "detailModels": "1",
+        "drawCalls": "91",
+        "engine": "three.js r170",
+        "focusAngle": "detail",
+        "geometries": "321",
+        "modelAnchor": "[-10.740095151693664,0.08558491166028073,16.1045533568941]",
+        "modelQuality": "detail",
+        "renderFrames": "39",
+        "renderState": "idle",
+        "residentModels": "7",
+        "sceneMode": "city",
+        "streetDetails": "2",
+        "streetDetailsEnabled": "true",
+        "streetVisibleDrawCalls": "11",
+        "streetVisibleIds": "[\"wanda-soho-s01\"]",
+        "streetVisibleSites": "1",
+        "textures": "13",
+        "triangles": "1215212"
+      },
+      "case": "v44-wanda-whole-desktop",
+      "labels": [],
+      "overlaps": [],
+      "pageOverflow": false,
+      "roads": {
+        "roadCandidates": "0",
+        "roadCount": "0",
+        "roadInspectionHidden": "false",
+        "roadNames": "[]",
+        "roadNamesEnabled": "true"
+      },
+      "url": "https://yichang-miniature-city.gaoronghai.chatgpt.site/#place=wanda-soho-s01&close=1",
+      "viewport": [
+        1920,
+        863
+      ]
+    },
+    {
+      "canvas": {
+        "authoredModels": "7",
+        "authoredSelection": "false",
+        "businessProjects": "23",
+        "cityVisible": "true",
+        "detailModels": "0",
+        "drawCalls": "258",
+        "engine": "three.js r170",
+        "focusAngle": "overview",
+        "geometries": "290",
+        "modelAnchor": "",
+        "modelQuality": "light",
+        "renderFrames": "48",
+        "renderState": "idle",
+        "residentModels": "7",
+        "sceneMode": "city",
+        "streetDetails": "0",
+        "streetDetailsEnabled": "true",
+        "streetVisibleDrawCalls": "0",
+        "streetVisibleIds": "[]",
+        "streetVisibleSites": "0",
+        "textures": "14",
+        "triangles": "1313930"
+      },
+      "case": "v44-overview",
+      "labels": [
+        {
+          "bottom": 414.6304626464844,
+          "left": 1308.89453125,
+          "name": "发展大道",
+          "right": 1376.04296875,
+          "top": 379.9945373535156
+        },
+        {
+          "bottom": 453.5328369140625,
+          "left": 861.6820068359375,
+          "name": "五龙大道",
+          "right": 929.2242431640625,
+          "top": 408.6546630859375
+        },
+        {
+          "bottom": 685.8319702148438,
+          "left": 964.3370971679688,
+          "name": "翻坝高速",
+          "right": 1013.3191528320312,
+          "top": 618.8867797851562
+        },
+        {
+          "bottom": 330.8201599121094,
+          "left": 805.2034912109375,
+          "name": "点军路",
+          "right": 856.7652587890625,
+          "top": 304.9923095703125
+        },
+        {
+          "bottom": 751.4890747070312,
+          "left": 1192.5072021484375,
+          "name": "东站一路",
+          "right": 1260.1802978515625,
+          "top": 709.4171752929688
+        }
+      ],
+      "overlaps": [],
+      "pageOverflow": false,
+      "roads": {
+        "roadCandidates": "24",
+        "roadCount": "5",
+        "roadInspectionHidden": "false",
+        "roadNames": "[\"发展大道\",\"五龙大道\",\"翻坝高速\",\"点军路\",\"东站一路\"]",
+        "roadNamesEnabled": "true"
+      },
+      "url": "https://yichang-miniature-city.gaoronghai.chatgpt.site/",
+      "viewport": [
+        1920,
+        863
+      ]
+    }
+  ],
+  "console": []
+}
