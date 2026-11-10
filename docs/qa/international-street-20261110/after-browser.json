@@ -1,0 +1,478 @@
+[
+  {
+    "name": "after-international-whole",
+    "observations": [
+      {
+        "case": "after-international-whole",
+        "layout": [
+          {
+            "box": {
+              "height": 793,
+              "width": 1616,
+              "x": 304,
+              "y": 70
+            },
+            "className": "",
+            "dataset": {
+              "authoredModels": "7",
+              "authoredSelection": "true",
+              "businessProjects": "23",
+              "cityVisible": "true",
+              "detailModels": "1",
+              "drawCalls": "96",
+              "engine": "three.js r170",
+              "focusAngle": "detail",
+              "geometries": "289",
+              "modelAnchor": "[-5.912434062168668,0.06914715175472351,20.48598798096113]",
+              "modelQuality": "detail",
+              "renderFrames": "39",
+              "renderState": "idle",
+              "residentModels": "7",
+              "sceneMode": "city",
+              "streetDetails": "2",
+              "streetDetailsEnabled": "true",
+              "streetVisibleDrawCalls": "19",
+              "streetVisibleIds": "[\"wanda-soho-s01\",\"yichang-international-s01\"]",
+              "streetVisibleLinks": "0",
+              "streetVisibleSites": "2",
+              "textures": "11",
+              "triangles": "1449988"
+            }
+          },
+          {
+            "box": {
+              "height": 43,
+              "width": 451.828125,
+              "x": 334,
+              "y": 97
+            },
+            "className": "scene-toolbar",
+            "dataset": {}
+          },
+          {
+            "box": {
+              "height": 144,
+              "width": 304,
+              "x": 338,
+              "y": 164
+            },
+            "className": "authored-note is-inspecting",
+            "dataset": {}
+          },
+          {
+            "box": {
+              "height": 623.28125,
+              "width": 318,
+              "x": 1572,
+              "y": 163
+            },
+            "className": "detail-panel ",
+            "dataset": {}
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "after-international-entrance",
+    "observations": [
+      {
+        "case": "after-international-entrance",
+        "canvas": [
+          {
+            "dataset": {
+              "authoredModels": "7",
+              "authoredSelection": "true",
+              "businessProjects": "23",
+              "cityVisible": "true",
+              "detailModels": "1",
+              "drawCalls": "58",
+              "engine": "three.js r170",
+              "focusAngle": "entrance",
+              "geometries": "289",
+              "modelAnchor": "[-5.912434062168668,0.06914715175472351,20.48598798096113]",
+              "modelQuality": "detail",
+              "renderFrames": "37",
+              "renderState": "idle",
+              "residentModels": "7",
+              "sceneMode": "city",
+              "streetDetails": "0",
+              "streetDetailsEnabled": "true",
+              "streetVisibleDrawCalls": "0",
+              "streetVisibleIds": "[]",
+              "streetVisibleLinks": "0",
+              "streetVisibleSites": "0",
+              "textures": "11",
+              "triangles": "1351738"
+            },
+            "height": 793,
+            "width": 1616
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "frontage-day",
+    "observations": [
+      {
+        "case": "frontage-day",
+        "url": "https://yichang-miniature-city.gaoronghai.chatgpt.site/#place=yichang-international-s01&angle=frontage&close=1&q=%E5%AE%9C%E6%98%8C%E5%9B%BD%E9%99%85",
+        "canvas": [
+          {
+            "dataset": {
+              "authoredModels": "7",
+              "authoredSelection": "true",
+              "businessProjects": "23",
+              "cityVisible": "true",
+              "detailModels": "1",
+              "drawCalls": "62",
+              "engine": "three.js r170",
+              "focusAngle": "frontage",
+              "geometries": "282",
+              "modelAnchor": "[-5.912434062168668,0.06914715175472351,20.48598798096113]",
+              "modelQuality": "detail",
+              "renderFrames": "24",
+              "renderState": "idle",
+              "residentModels": "7",
+              "sceneMode": "city",
+              "streetDetails": "2",
+              "streetDetailsEnabled": "true",
+              "streetVisibleDrawCalls": "7",
+              "streetVisibleIds": "[\"yichang-international-s01\"]",
+              "streetVisibleLinks": "0",
+              "streetVisibleSites": "1",
+              "textures": "11",
+              "triangles": "1251502"
+            },
+            "height": 793,
+            "width": 1616
+          }
+        ],
+        "scripts": [
+          "https://yichang-miniature-city.gaoronghai.chatgpt.site/assets/index-CfC8Laf3.js"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "frontage-night",
+    "observations": [
+      {
+        "case": "frontage-night",
+        "canvas": [
+          {
+            "dataset": {
+              "authoredModels": "7",
+              "authoredSelection": "true",
+              "businessProjects": "23",
+              "cityVisible": "true",
+              "detailModels": "1",
+              "drawCalls": "66",
+              "engine": "three.js r170",
+              "focusAngle": "frontage",
+              "geometries": "286",
+              "modelAnchor": "[-5.912434062168668,0.06914715175472351,20.48598798096113]",
+              "modelQuality": "detail",
+              "renderFrames": "26",
+              "renderState": "idle",
+              "residentModels": "7",
+              "sceneMode": "city",
+              "streetDetails": "2",
+              "streetDetailsEnabled": "true",
+              "streetVisibleDrawCalls": "8",
+              "streetVisibleIds": "[\"yichang-international-s01\"]",
+              "streetVisibleLinks": "0",
+              "streetVisibleSites": "1",
+              "textures": "11",
+              "triangles": "1251550"
+            },
+            "height": 793,
+            "width": 1616
+          }
+        ],
+        "night": "true"
+      }
+    ]
+  },
+  {
+    "name": "street-details-off",
+    "observations": [
+      {
+        "case": "street-details-off",
+        "canvas": [
+          {
+            "dataset": {
+              "authoredModels": "7",
+              "authoredSelection": "true",
+              "businessProjects": "23",
+              "cityVisible": "true",
+              "detailModels": "1",
+              "drawCalls": "55",
+              "engine": "three.js r170",
+              "focusAngle": "frontage",
+              "geometries": "286",
+              "modelAnchor": "[-5.912434062168668,0.06914715175472351,20.48598798096113]",
+              "modelQuality": "detail",
+              "renderFrames": "29",
+              "renderState": "idle",
+              "residentModels": "7",
+              "sceneMode": "city",
+              "streetDetails": "0",
+              "streetDetailsEnabled": "false",
+              "streetVisibleDrawCalls": "0",
+              "streetVisibleIds": "[]",
+              "streetVisibleLinks": "0",
+              "streetVisibleSites": "0",
+              "textures": "11",
+              "triangles": "1250944"
+            },
+            "height": 793,
+            "width": 1616
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "mobile-390-frontage",
+    "observations": [
+      {
+        "case": "mobile-390-frontage",
+        "layout": [
+          {
+            "box": {
+              "height": 784,
+              "width": 390,
+              "x": 0,
+              "y": 60
+            },
+            "className": "",
+            "dataset": {
+              "authoredModels": "7",
+              "authoredSelection": "true",
+              "businessProjects": "23",
+              "cityVisible": "true",
+              "detailModels": "1",
+              "drawCalls": "64",
+              "engine": "three.js r170",
+              "focusAngle": "frontage",
+              "geometries": "298",
+              "modelAnchor": "[-5.912434062168668,0.06914715175472351,20.48598798096113]",
+              "modelQuality": "detail",
+              "renderFrames": "50",
+              "renderState": "idle",
+              "residentModels": "7",
+              "sceneMode": "city",
+              "streetDetails": "2",
+              "streetDetailsEnabled": "true",
+              "streetVisibleDrawCalls": "7",
+              "streetVisibleIds": "[\"yichang-international-s01\"]",
+              "streetVisibleLinks": "0",
+              "streetVisibleSites": "1",
+              "textures": "11",
+              "triangles": "1346938"
+            }
+          },
+          {
+            "box": {
+              "height": 140,
+              "width": 357,
+              "x": 17,
+              "y": 126
+            },
+            "className": "authored-note is-inspecting",
+            "dataset": {}
+          },
+          {
+            "box": {
+              "height": 36,
+              "width": 335,
+              "x": 28,
+              "y": 204
+            },
+            "className": "inspection-actions",
+            "dataset": {}
+          },
+          {
+            "box": {
+              "height": 127,
+              "width": 366,
+              "x": 12,
+              "y": 671
+            },
+            "className": "detail-panel is-collapsed",
+            "dataset": {}
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "mobile-390-expanded",
+    "observations": [
+      {
+        "case": "mobile-390-expanded",
+        "canvas": [
+          {
+            "dataset": {
+              "authoredModels": "7",
+              "authoredSelection": "true",
+              "businessProjects": "23",
+              "cityVisible": "true",
+              "detailModels": "1",
+              "drawCalls": "64",
+              "engine": "three.js r170",
+              "focusAngle": "frontage",
+              "geometries": "298",
+              "modelAnchor": "[-5.912434062168668,0.06914715175472351,20.48598798096113]",
+              "modelQuality": "detail",
+              "renderFrames": "53",
+              "renderState": "idle",
+              "residentModels": "7",
+              "sceneMode": "city",
+              "streetDetails": "2",
+              "streetDetailsEnabled": "true",
+              "streetVisibleDrawCalls": "7",
+              "streetVisibleIds": "[\"yichang-international-s01\"]",
+              "streetVisibleLinks": "0",
+              "streetVisibleSites": "1",
+              "textures": "11",
+              "triangles": "1346938"
+            },
+            "height": 784,
+            "width": 390
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "mobile-320-frontage",
+    "observations": [
+      {
+        "case": "mobile-320-frontage",
+        "canvas": [
+          {
+            "dataset": {
+              "authoredModels": "7",
+              "authoredSelection": "true",
+              "businessProjects": "23",
+              "cityVisible": "true",
+              "detailModels": "1",
+              "drawCalls": "64",
+              "engine": "three.js r170",
+              "focusAngle": "frontage",
+              "geometries": "298",
+              "modelAnchor": "[-5.912434062168668,0.06914715175472351,20.48598798096113]",
+              "modelQuality": "detail",
+              "renderFrames": "63",
+              "renderState": "idle",
+              "residentModels": "7",
+              "sceneMode": "city",
+              "streetDetails": "2",
+              "streetDetailsEnabled": "true",
+              "streetVisibleDrawCalls": "7",
+              "streetVisibleIds": "[\"yichang-international-s01\"]",
+              "streetVisibleLinks": "0",
+              "streetVisibleSites": "1",
+              "textures": "11",
+              "triangles": "1346938"
+            },
+            "height": 680,
+            "width": 320
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "mobile-320-whole",
+    "observations": [
+      {
+        "case": "mobile-320-whole",
+        "canvas": [
+          {
+            "dataset": {
+              "authoredModels": "7",
+              "authoredSelection": "true",
+              "businessProjects": "23",
+              "cityVisible": "true",
+              "detailModels": "1",
+              "drawCalls": "66",
+              "engine": "three.js r170",
+              "focusAngle": "detail",
+              "geometries": "298",
+              "modelAnchor": "[-5.912434062168668,0.06914715175472351,20.48598798096113]",
+              "modelQuality": "detail",
+              "renderFrames": "68",
+              "renderState": "idle",
+              "residentModels": "7",
+              "sceneMode": "city",
+              "streetDetails": "2",
+              "streetDetailsEnabled": "true",
+              "streetVisibleDrawCalls": "7",
+              "streetVisibleIds": "[\"yichang-international-s01\"]",
+              "streetVisibleLinks": "0",
+              "streetVisibleSites": "1",
+              "textures": "11",
+              "triangles": "1352478"
+            },
+            "height": 680,
+            "width": 320
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "overview-static",
+    "observations": [
+      {
+        "case": "overview-static",
+        "url": "https://yichang-miniature-city.gaoronghai.chatgpt.site/#q=%E5%AE%9C%E6%98%8C%E5%9B%BD%E9%99%85",
+        "canvas": [
+          {
+            "dataset": {
+              "authoredModels": "7",
+              "authoredSelection": "false",
+              "businessProjects": "23",
+              "cityVisible": "true",
+              "detailModels": "0",
+              "drawCalls": "258",
+              "engine": "three.js r170",
+              "focusAngle": "overview",
+              "geometries": "280",
+              "modelAnchor": "",
+              "modelQuality": "light",
+              "renderFrames": "76",
+              "renderState": "idle",
+              "residentModels": "7",
+              "sceneMode": "city",
+              "streetDetails": "0",
+              "streetDetailsEnabled": "true",
+              "streetVisibleDrawCalls": "0",
+              "streetVisibleIds": "[]",
+              "streetVisibleLinks": "0",
+              "streetVisibleSites": "0",
+              "textures": "15",
+              "triangles": "1313930"
+            },
+            "height": 793,
+            "width": 1616
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "share-link-fallback",
+    "observations": [
+      {
+        "case": "share-clipboard-fallback",
+        "value": "https://yichang-miniature-city.gaoronghai.chatgpt.site/#place=yichang-international-s01&angle=frontage&close=1&q=%E5%AE%9C%E6%98%8C%E5%9B%BD%E9%99%85",
+        "dialogVisible": true
+      }
+    ]
+  }
+]

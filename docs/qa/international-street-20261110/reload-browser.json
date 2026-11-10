@@ -1,0 +1,39 @@
+[
+  {
+    "case": "frontage-reload",
+    "url": "https://yichang-miniature-city.gaoronghai.chatgpt.site/#place=yichang-international-s01&angle=frontage&close=1&q=%E5%AE%9C%E6%98%8C%E5%9B%BD%E9%99%85",
+    "selected": "true",
+    "canvas": [
+      {
+        "dataset": {
+          "authoredModels": "7",
+          "authoredSelection": "true",
+          "businessProjects": "23",
+          "cityVisible": "true",
+          "detailModels": "1",
+          "drawCalls": "62",
+          "engine": "three.js r170",
+          "focusAngle": "frontage",
+          "geometries": "282",
+          "modelAnchor": "[-5.912434062168668,0.06914715175472351,20.48598798096113]",
+          "modelQuality": "detail",
+          "renderFrames": "6",
+          "renderState": "idle",
+          "residentModels": "7",
+          "sceneMode": "city",
+          "streetDetails": "2",
+          "streetDetailsEnabled": "true",
+          "streetVisibleDrawCalls": "7",
+          "streetVisibleIds": "[\"yichang-international-s01\"]",
+          "streetVisibleLinks": "0",
+          "streetVisibleSites": "1",
+          "textures": "11",
+          "triangles": "1251502"
+        },
+        "height": 793,
+        "width": 1616
+      }
+    ],
+    "logs": []
+  }
+]
