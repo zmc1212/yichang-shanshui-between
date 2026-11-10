@@ -84,7 +84,7 @@ export default function ModelPreview({ model, theme = 'day' }) {
       const radius = Math.max(size.length() / 2, 1);
       const direction = angle === 'front'
         ? new THREE.Vector3(0, 0.12, 1)
-        : new THREE.Vector3(0.8, 0.55, 1);
+        : new THREE.Vector3().fromArray(model.previewDetailDirection || [0.8, 0.55, 1]);
       camera.position.copy(center).addScaledVector(direction.normalize(), radius * 4 + 10);
       camera.up.set(0, 1, 0);
       camera.lookAt(center);

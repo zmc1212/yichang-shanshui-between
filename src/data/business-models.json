@@ -602,7 +602,12 @@
     "stage": "20261109独立新建候选",
     "front": "+Z",
     "previewOnly": true,
-    "previewDefaultAngle": "front",
+    "previewDefaultAngle": "detail",
+    "previewDetailDirection": [
+      -0.599501422,
+      0.119900284,
+      0.791341877
+    ],
     "subtitle": "长乐大厦 · 相邻双立面",
     "description": "两个相邻可见立面、窄折角玻璃、上部绿板格，以及裙房可见白色嵌板。 未包含已配准的裙房入口与独立窗片、背面、屋顶细部和真实场地。",
     "caveat": "本次接入的是新建可见范围候选，历史完整原稿仍待恢复。未核实的背衬或技术厚度保留源模型状态，不代表实际墙体、楼体进深或测绘尺寸。占地与地理朝向尚未配准，地图继续显示原导览参考点。",
@@ -659,15 +664,20 @@
     "stage": "双可见面R2",
     "front": "+Z",
     "previewOnly": true,
-    "previewDefaultAngle": "front",
+    "previewDefaultAngle": "detail",
+    "previewDetailDirection": [
+      0.680399321,
+      0.113399887,
+      0.724014662
+    ],
     "subtitle": "兴发集团总部 · 双可见立面",
-    "description": "一组开放 L 形双立面，以及照片可辨的主横肋和部分细肋。 未知后背、屋顶、入口与裙房未补建；转角和进深仍为归一化展示假设。",
+    "description": "一组开放 L 形双立面，以及照片可辨的主竖肋和部分细肋。 未知后背、屋顶、入口与裙房未补建；转角和进深仍为归一化展示假设。",
     "caveat": "本次接入的是新建可见范围候选，历史完整原稿仍待恢复。未核实的背衬或技术厚度保留源模型状态，不代表实际墙体、楼体进深或测绘尺寸。占地与地理朝向尚未配准，地图继续显示原导览参考点。",
     "coverage": {
       "type": "partial",
       "identity": "candidate",
       "title": "兴发集团总部 · 双可见立面",
-      "scope": "一组开放 L 形双立面，以及照片可辨的主横肋和部分细肋。",
+      "scope": "一组开放 L 形双立面，以及照片可辨的主竖肋和部分细肋。",
       "missing": "未知后背、屋顶、入口与裙房未补建；转角和进深仍为归一化展示假设。",
       "isWholeBuildingValidated": false,
       "isHistoricalOriginalRecovered": false,
@@ -888,7 +898,12 @@
     "stage": "可见冠屏两侧边框候选",
     "front": "+Z",
     "previewOnly": true,
-    "previewDefaultAngle": "front",
+    "previewDefaultAngle": "detail",
+    "previewDetailDirection": [
+      0.625072243,
+      0.351002106,
+      0.697195964
+    ],
     "subtitle": "鑫鼎大厦 · 可见外观与屏幕边框",
     "description": "已建可见塔身与裙房外观，并补齐入口上方广告屏两侧边框。 未确认背侧、完整屋顶、真实进深、转角角度、入口门扇和精确落位。",
     "caveat": "本次接入的是新建可见范围候选，历史完整原稿仍待恢复。未核实的背衬或技术厚度保留源模型状态，不代表实际墙体、楼体进深或测绘尺寸。占地与地理朝向尚未配准，地图继续显示原导览参考点。",
@@ -1118,7 +1133,12 @@
     "stage": "20261109独立新建候选",
     "front": "+Z",
     "previewOnly": true,
-    "previewDefaultAngle": "front",
+    "previewDefaultAngle": "detail",
+    "previewDetailDirection": [
+      -0.449630107,
+      0.260785462,
+      0.854297202
+    ],
     "subtitle": "共同大厦 · 可见双面与裙房",
     "description": "长面窗组、短面可见玻璃段、圆角窗带及部分金色裙房。 独立雨棚与入口墩尚未配准安装；背面、屋顶、基部和真实进深仍待核实。",
     "caveat": "本次接入的是新建可见范围候选，历史完整原稿仍待恢复。未核实的背衬或技术厚度保留源模型状态，不代表实际墙体、楼体进深或测绘尺寸。占地与地理朝向尚未配准，地图继续显示原导览参考点。",

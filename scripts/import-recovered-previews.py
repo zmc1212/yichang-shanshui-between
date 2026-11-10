@@ -85,6 +85,7 @@ for source in sources:
         'stage': source['sourceStage'].split('：', 1)[-1],
         'front': '+Z', 'previewOnly': True,
         'previewDefaultAngle': note['defaultView'],
+        **({'previewDetailDirection': note['defaultDirection']} if note.get('defaultDirection') else {}),
         'subtitle': note['previewTitle'],
         'description': note['scope'] + ' ' + note['missingScope'],
         'caveat': caveat, 'coverage': scope,

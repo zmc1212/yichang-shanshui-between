@@ -25,10 +25,15 @@
     "coverageType": "partial",
     "scope": "长面窗组、短面可见玻璃段、圆角窗带及部分金色裙房。",
     "missingScope": "独立雨棚与入口墩尚未配准安装；背面、屋顶、基部和真实进深仍待核实。",
-    "defaultView": "front",
+    "defaultView": "detail",
     "sourceStage": "C20261109_new_evidence_candidate",
     "sourceGitPath": "landmarks/yichang-gongtong-building/stages/C20261109_new_evidence_candidate/model/Gongtong_C20261109.blend.gz",
-    "sourceCommit": "440804ded49a2cef615015547349b3adf6aa09d5"
+    "sourceCommit": "440804ded49a2cef615015547349b3adf6aa09d5",
+    "defaultDirection": [
+      -0.449630107,
+      0.260785462,
+      0.854297202
+    ]
   },
   "1649131": {
     "previewTitle": "光联大厦 · 可见主立面薄壳",
@@ -77,10 +82,15 @@
     "coverageType": "partial",
     "scope": "已建可见塔身与裙房外观，并补齐入口上方广告屏两侧边框。",
     "missingScope": "未确认背侧、完整屋顶、真实进深、转角角度、入口门扇和精确落位。",
-    "defaultView": "front",
+    "defaultView": "detail",
     "sourceStage": "D20261109_visible_screen_side_frames",
     "sourceGitPath": "landmarks/yichang-xinding-tower/stages/D20261109_visible_screen_side_frames/model/Xinding_D20261109_VisibleScreenFrame.blend",
-    "sourceCommit": "440804ded49a2cef615015547349b3adf6aa09d5"
+    "sourceCommit": "440804ded49a2cef615015547349b3adf6aa09d5",
+    "defaultDirection": [
+      0.625072243,
+      0.351002106,
+      0.697195964
+    ]
   },
   "1649141": {
     "previewTitle": "兴发广场 · 右塔可见面",
@@ -96,12 +106,17 @@
   "1649142": {
     "previewTitle": "兴发集团总部 · 双可见立面",
     "coverageType": "partial",
-    "scope": "一组开放 L 形双立面，以及照片可辨的主横肋和部分细肋。",
+    "scope": "一组开放 L 形双立面，以及照片可辨的主竖肋和部分细肋。",
     "missingScope": "未知后背、屋顶、入口与裙房未补建；转角和进深仍为归一化展示假设。",
-    "defaultView": "front",
+    "defaultView": "detail",
     "sourceStage": "D20261109_two_visible_facades_r2",
     "sourceGitPath": "landmarks/yichang-xingfa-headquarters/stages/D20261109_two_visible_facades_r2/model/XingfaHQ_VisibleTower.blend",
-    "sourceCommit": "440804ded49a2cef615015547349b3adf6aa09d5"
+    "sourceCommit": "440804ded49a2cef615015547349b3adf6aa09d5",
+    "defaultDirection": [
+      0.680399321,
+      0.113399887,
+      0.724014662
+    ]
   },
   "1649143": {
     "previewTitle": "旭光商贸大厦 · 可见主立面",
@@ -129,10 +144,15 @@
     "coverageType": "partial",
     "scope": "两个相邻可见立面、窄折角玻璃、上部绿板格，以及裙房可见白色嵌板。",
     "missingScope": "未包含已配准的裙房入口与独立窗片、背面、屋顶细部和真实场地。",
-    "defaultView": "front",
+    "defaultView": "detail",
     "sourceStage": "C20261109_new_evidence_candidate",
     "sourceGitPath": "landmarks/yichang-changle-building/stages/C20261109_new_evidence_candidate/model/Changle_C20261109.blend.gz",
-    "sourceCommit": "440804ded49a2cef615015547349b3adf6aa09d5"
+    "sourceCommit": "440804ded49a2cef615015547349b3adf6aa09d5",
+    "defaultDirection": [
+      -0.599501422,
+      0.119900284,
+      0.791341877
+    ]
   },
   "1649147": {
     "previewTitle": "宜昌之星／时代中心 · 可见轮廓",

@@ -1,0 +1,143 @@
+{
+  "schemaVersion": 1,
+  "asOf": "2026-11-10",
+  "scope": "Read-only resize/fit/OrbitControls review, pure mathematical reproduction. No browser or code edits.",
+  "confirmedDefect": "resize multiplies previous viewHeight only for decreasing aspect and never reverses it, producing path-dependent cumulative frustum growth. Zero-sized host dimensions are coerced to 1 and can magnify the error.",
+  "observedBrowserTrigger": "Parent observed large then tiny model while draw calls/triangles remained stable; the exact intervening clientWidth/clientHeight sequence is not yet observed by this reviewer. A single normal 688 to704 growth cannot cause the shrinking by itself.",
+  "model": "business-1649141",
+  "projectedFitSpans": {
+    "width": 3.8790477571033293,
+    "height": 8.063408116701655,
+    "padding": 1.13,
+    "initialViewport": [
+      688,
+      395
+    ],
+    "initialViewHeight": 9.11165117187287,
+    "initialVisibleHeightRatio": 0.8849557522123894
+  },
+  "simulations": {
+    "one_688_to_704_growth": {
+      "events": 1,
+      "currentAlgorithm": {
+        "viewHeight": 9.11165117187287,
+        "frustumExpansion": 1.0,
+        "modelViewportHeightRatio": 0.8849557522123894
+      },
+      "proposedAbsoluteFitAlgorithm": {
+        "viewHeight": 9.11165117187287,
+        "frustumExpansion": 1.0,
+        "modelViewportHeightRatio": 0.8849557522123894
+      }
+    },
+    "one_688_704_width_round_trip": {
+      "events": 2,
+      "currentAlgorithm": {
+        "viewHeight": 9.32355003633503,
+        "frustumExpansion": 1.0232558139534884,
+        "modelViewportHeightRatio": 0.8648431214802896
+      },
+      "proposedAbsoluteFitAlgorithm": {
+        "viewHeight": 9.11165117187287,
+        "frustumExpansion": 1.0,
+        "modelViewportHeightRatio": 0.8849557522123894
+      }
+    },
+    "100_688_704_width_round_trips": {
+      "events": 200,
+      "currentAlgorithm": {
+        "viewHeight": 90.78606145355333,
+        "frustumExpansion": 9.963733218168464,
+        "modelViewportHeightRatio": 0.08881768839401565
+      },
+      "proposedAbsoluteFitAlgorithm": {
+        "viewHeight": 9.11165117187287,
+        "frustumExpansion": 1.0,
+        "modelViewportHeightRatio": 0.8849557522123894
+      }
+    },
+    "transient_zero_width_then_recover": {
+      "events": 2,
+      "currentAlgorithm": {
+        "viewHeight": 6268.816006248535,
+        "frustumExpansion": 688.0,
+        "modelViewportHeightRatio": 0.0012862728956575427
+      },
+      "proposedAbsoluteFitAlgorithm": {
+        "viewHeight": 9.11165117187287,
+        "frustumExpansion": 1.0,
+        "modelViewportHeightRatio": 0.8849557522123894
+      }
+    },
+    "transient_zero_height_then_recover": {
+      "events": 2,
+      "currentAlgorithm": {
+        "viewHeight": 3599.1022128897835,
+        "frustumExpansion": 395.0,
+        "modelViewportHeightRatio": 0.0022403943093984545
+      },
+      "proposedAbsoluteFitAlgorithm": {
+        "viewHeight": 9.11165117187287,
+        "frustumExpansion": 1.0,
+        "modelViewportHeightRatio": 0.8849557522123894
+      }
+    },
+    "transient_both_zero_then_recover": {
+      "events": 2,
+      "currentAlgorithm": {
+        "viewHeight": 15.870420268983631,
+        "frustumExpansion": 1.7417721518987341,
+        "modelViewportHeightRatio": 0.5080777937847294
+      },
+      "proposedAbsoluteFitAlgorithm": {
+        "viewHeight": 9.11165117187287,
+        "frustumExpansion": 1.0,
+        "modelViewportHeightRatio": 0.8849557522123894
+      }
+    },
+    "valid_portrait_then_return": {
+      "events": 2,
+      "currentAlgorithm": {
+        "viewHeight": 20.89605335416178,
+        "frustumExpansion": 2.293333333333333,
+        "modelViewportHeightRatio": 0.3858818686972629
+      },
+      "proposedAbsoluteFitAlgorithm": {
+        "viewHeight": 9.11165117187287,
+        "frustumExpansion": 1.0,
+        "modelViewportHeightRatio": 0.8849557522123894
+      }
+    }
+  },
+  "orbitControlsAssessment": {
+    "source": "node_modules/three/examples/jsm/controls/OrbitControls.js",
+    "orthographicZoomRange": [
+      0.55,
+      7
+    ],
+    "scaleResetAfterEveryUpdate": true,
+    "autoRotateEnabledByPreview": false,
+    "conclusion": "No-input settling does not cumulatively modify camera frustum. A zoom clamp >=0.55 cannot explain an orders-of-magnitude reduction from an initially fitted view."
+  },
+  "minimalFix": [
+    "Save projected x/y extents at explicit fit, then derive viewHeight = max(savedY,savedX/aspect,1)*padding for every valid resize.",
+    "Read raw host dimensions and ignore width<=0 or height<=0; do not clamp invalid dimensions to1.",
+    "Do not mark initial fit complete while host dimensions are invalid. Retry first fit from the next valid resize after active geometry exists.",
+    "Preserve camera.zoom, position, orientation and controls.target during routine resize. Do not call full fit on every resize."
+  ],
+  "verificationCases": [
+    "Repeated 688↔704 width changes return identical viewHeight.",
+    "688×395 →0×395 →704×395 remains correctly framed.",
+    "688×395 →704×0 →704×395 remains correctly framed.",
+    "Geometry loaded while hidden fits upon first valid resize.",
+    "Manual zoom/pan/orbit survive resize."
+  ],
+  "optionalDiagnosticFields": [
+    "frustumHeight",
+    "aspect",
+    "camera.zoom",
+    "lastValidWidth",
+    "lastValidHeight",
+    "resizeCount"
+  ]
+}

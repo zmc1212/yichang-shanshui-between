@@ -1,0 +1,561 @@
+{
+  "schema": "yichang-preview-local-camera-directions/1",
+  "meaning": "previewFrontDirection is a normalized vector FROM the model target TO the camera in unrotated glTF Y-up local coordinates. It is not camera look direction and does not encode geographic orientation.",
+  "axisConversion": "(Blender X, Blender Y, Blender Z) -> (glTF X, glTF Z, -glTF Y)",
+  "sourceGeometryUnchanged": true,
+  "all15HavePrimaryNegativeYFace": true,
+  "customCornerViews": [
+    "1649142",
+    "1649140",
+    "1649146",
+    "1649130"
+  ],
+  "scopeCorrection": {
+    "sceneId": "1649142",
+    "incorrectText": "主横肋和部分细肋",
+    "correctText": "主竖肋和部分细肋",
+    "evidence": "principal_rib has width .22 and height about 62.1; OBSERVED_light_vertical_ribs_APPROX_finish material."
+  },
+  "models": {
+    "1649141": {
+      "name": "兴发广场写字楼",
+      "previewFrontDirection": [
+        0,
+        0,
+        1
+      ],
+      "previewFrontDirectionUnnormalized": [
+        0,
+        0,
+        1
+      ],
+      "blenderCameraMinusTarget": [
+        0,
+        -1,
+        0
+      ],
+      "needsCustomCornerView": false,
+      "frontFaceIncludesNegativeY": true,
+      "sourceBuildPath": "landmarks/yichang-xingfa-plaza/stages/C20261109_right_corner_2x2_patch/scripts/build.py",
+      "reason": "主体宽面朝 -Y，+Z 正视正确；只有很小的近角侧片朝 +X，不应为了该侧片把整个右塔宽面转成侧视。",
+      "cameraLookDirection": [
+        0,
+        0,
+        -1
+      ]
+    },
+    "1649139": {
+      "name": "新华广场武银大厦",
+      "previewFrontDirection": [
+        0,
+        0,
+        1
+      ],
+      "previewFrontDirectionUnnormalized": [
+        0,
+        0,
+        1
+      ],
+      "blenderCameraMinusTarget": [
+        0,
+        -1,
+        0
+      ],
+      "needsCustomCornerView": false,
+      "frontFaceIncludesNegativeY": true,
+      "sourceBuildPath": "landmarks/yichang-xinhua-wuyin-tower/stages/C20261109_new_evidence_candidate/scripts/build.py",
+      "reason": "主要已建观察面朝 Blender -Y；保留 glTF +Z 正视，避免把未知侧背当主要内容。",
+      "cameraLookDirection": [
+        0,
+        0,
+        -1
+      ]
+    },
+    "1649144": {
+      "name": "长江国际文化广场",
+      "previewFrontDirection": [
+        0,
+        0,
+        1
+      ],
+      "previewFrontDirectionUnnormalized": [
+        0,
+        0,
+        1
+      ],
+      "blenderCameraMinusTarget": [
+        0,
+        -1,
+        0
+      ],
+      "needsCustomCornerView": false,
+      "frontFaceIncludesNegativeY": true,
+      "sourceBuildPath": "landmarks/yichang-changjiang-cultural-plaza/stages/C20261109_central_tower_visible_face_candidate/scripts/build.py",
+      "reason": "主要已建观察面朝 Blender -Y；保留 glTF +Z 正视，避免把未知侧背当主要内容。",
+      "cameraLookDirection": [
+        0,
+        0,
+        -1
+      ]
+    },
+    "1649148": {
+      "name": "致远广场",
+      "previewFrontDirection": [
+        0,
+        0,
+        1
+      ],
+      "previewFrontDirectionUnnormalized": [
+        0,
+        0,
+        1
+      ],
+      "blenderCameraMinusTarget": [
+        0,
+        -1,
+        0
+      ],
+      "needsCustomCornerView": false,
+      "frontFaceIncludesNegativeY": true,
+      "sourceBuildPath": "landmarks/yichang-zhiyuan-plaza/stages/C20261109_visible_main_facade_v7/scripts/build.py",
+      "reason": "主要已建观察面朝 Blender -Y；保留 glTF +Z 正视，避免把未知侧背当主要内容。",
+      "cameraLookDirection": [
+        0,
+        0,
+        -1
+      ]
+    },
+    "1649137": {
+      "name": "外滩领馆",
+      "previewFrontDirection": [
+        0,
+        0,
+        1
+      ],
+      "previewFrontDirectionUnnormalized": [
+        0,
+        0,
+        1
+      ],
+      "blenderCameraMinusTarget": [
+        0,
+        -1,
+        0
+      ],
+      "needsCustomCornerView": false,
+      "frontFaceIncludesNegativeY": true,
+      "sourceBuildPath": "landmarks/yichang-waitan-lingguan/stages/C20261109_visible_facade_candidate/scripts/build.py",
+      "reason": "主要已建观察面朝 Blender -Y；保留 glTF +Z 正视，避免把未知侧背当主要内容。",
+      "cameraLookDirection": [
+        0,
+        0,
+        -1
+      ]
+    },
+    "1649146": {
+      "name": "长乐大厦",
+      "previewFrontDirection": [
+        -0.599501422,
+        0.119900284,
+        0.791341877
+      ],
+      "previewFrontDirectionUnnormalized": [
+        -125,
+        25,
+        165
+      ],
+      "blenderCameraMinusTarget": [
+        -125,
+        -165,
+        25
+      ],
+      "needsCustomCornerView": true,
+      "frontFaceIncludesNegativeY": true,
+      "sourceBuildPath": "landmarks/yichang-changle-building/stages/C20261109_new_evidence_candidate/scripts/build.py",
+      "blenderOffset": [
+        -125,
+        -165,
+        25
+      ],
+      "sourceCamera": "01_observed_corner",
+      "sourceLocation": [
+        -125,
+        -165,
+        80
+      ],
+      "sourceTarget": [
+        0,
+        0,
+        55
+      ],
+      "blenderFaceNormals": [
+        [
+          0,
+          -1,
+          0
+        ],
+        [
+          -1,
+          0,
+          0
+        ]
+      ],
+      "reason": "已建 F 面朝 -Y，L 面朝 -X；从 -X/-Y 看相邻双面与独立窄折角。",
+      "evidence": "panel F -> (-15+t,-18-off,z), panel L -> (-18-off,-15+t,z); authored camera 01_observed_corner.",
+      "cameraLookDirection": [
+        0.599501422,
+        -0.119900284,
+        -0.791341877
+      ]
+    },
+    "1649142": {
+      "name": "兴发集团宜昌总部",
+      "previewFrontDirection": [
+        0.680399321,
+        0.113399887,
+        0.724014662
+      ],
+      "previewFrontDirectionUnnormalized": [
+        78,
+        13,
+        83
+      ],
+      "blenderCameraMinusTarget": [
+        78,
+        -83,
+        13
+      ],
+      "needsCustomCornerView": true,
+      "frontFaceIncludesNegativeY": true,
+      "sourceBuildPath": "landmarks/yichang-xingfa-headquarters/stages/D20261109_two_visible_facades_r2/scripts/build.py",
+      "blenderOffset": [
+        78,
+        -83,
+        13
+      ],
+      "sourceCamera": "01_two_visible_elevations",
+      "sourceLocation": [
+        72,
+        -77,
+        45
+      ],
+      "sourceTarget": [
+        -6,
+        6,
+        32
+      ],
+      "blenderFaceNormals": [
+        [
+          0,
+          -1,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ]
+      ],
+      "reason": "F 面朝 -Y，R 面朝 +X；从 +X/-Y 同时看两面。主肋本身沿 Z 竖直，不能通过改视角变成横肋。",
+      "evidence": "place(...) for side F uses (u,v,z), side R uses (-v,-u,z); principal_rib size (.22,.72,~62.1); authored camera 01_two_visible_elevations.",
+      "cameraLookDirection": [
+        -0.680399321,
+        -0.113399887,
+        -0.724014662
+      ]
+    },
+    "1649134": {
+      "name": "丽景国际综合楼",
+      "previewFrontDirection": [
+        0,
+        0,
+        1
+      ],
+      "previewFrontDirectionUnnormalized": [
+        0,
+        0,
+        1
+      ],
+      "blenderCameraMinusTarget": [
+        0,
+        -1,
+        0
+      ],
+      "needsCustomCornerView": false,
+      "frontFaceIncludesNegativeY": true,
+      "sourceBuildPath": "landmarks/yichang-lijing-international/stages/C20261109_central_lower_r3_side_seams/scripts/build.py",
+      "reason": "主要已建观察面朝 Blender -Y；保留 glTF +Z 正视，避免把未知侧背当主要内容。",
+      "cameraLookDirection": [
+        0,
+        0,
+        -1
+      ]
+    },
+    "1649147": {
+      "name": "中建·宜昌之星",
+      "previewFrontDirection": [
+        0,
+        0,
+        1
+      ],
+      "previewFrontDirectionUnnormalized": [
+        0,
+        0,
+        1
+      ],
+      "blenderCameraMinusTarget": [
+        0,
+        -1,
+        0
+      ],
+      "needsCustomCornerView": false,
+      "frontFaceIncludesNegativeY": true,
+      "sourceBuildPath": "landmarks/yichang-star/research/D20261109_2025_visible_silhouette/scripts/build.py",
+      "reason": "这是 XZ 平面的轮廓薄壳，主外观朝 -Y。应保持正视；斜视仅是技术厚度，不构成第二建筑立面。",
+      "sourceCamera": "01_observed_front",
+      "sourceLocation": [
+        0,
+        -10,
+        2.08
+      ],
+      "sourceTarget": [
+        0,
+        0,
+        2.08
+      ],
+      "blenderFaceNormals": [
+        [
+          0,
+          -1,
+          0
+        ]
+      ],
+      "evidence": "Front vertices at y=0 (major bands to y=-.022), technical back y=.045; authored 01_observed_front at (0,-10,2.08).",
+      "cameraLookDirection": [
+        0,
+        0,
+        -1
+      ]
+    },
+    "1649128": {
+      "name": "福久源大厦",
+      "previewFrontDirection": [
+        0,
+        0,
+        1
+      ],
+      "previewFrontDirectionUnnormalized": [
+        0,
+        0,
+        1
+      ],
+      "blenderCameraMinusTarget": [
+        0,
+        -1,
+        0
+      ],
+      "needsCustomCornerView": false,
+      "frontFaceIncludesNegativeY": true,
+      "sourceBuildPath": "landmarks/yichang-fujiuyuan-building/stages/C20261109_visible_facade_candidate/scripts/build.py",
+      "reason": "主要已建观察面朝 Blender -Y；保留 glTF +Z 正视，避免把未知侧背当主要内容。",
+      "cameraLookDirection": [
+        0,
+        0,
+        -1
+      ]
+    },
+    "1649140": {
+      "name": "鑫鼎大厦",
+      "previewFrontDirection": [
+        0.625072243,
+        0.351002106,
+        0.697195964
+      ],
+      "previewFrontDirectionUnnormalized": [
+        130,
+        73,
+        145
+      ],
+      "blenderCameraMinusTarget": [
+        130,
+        -145,
+        73
+      ],
+      "needsCustomCornerView": true,
+      "frontFaceIncludesNegativeY": true,
+      "sourceBuildPath": "landmarks/yichang-xinding-tower/stages/D20261109_visible_screen_side_frames/scripts/build.py",
+      "blenderOffset": [
+        130,
+        -145,
+        73
+      ],
+      "sourceCamera": "01_front_right",
+      "sourceLocation": [
+        130,
+        -145,
+        110
+      ],
+      "sourceTarget": [
+        0,
+        0,
+        37
+      ],
+      "blenderFaceNormals": [
+        [
+          0,
+          -1,
+          0
+        ],
+        [
+          1,
+          0,
+          0
+        ]
+      ],
+      "reason": "已建主面分别朝 -Y 与 +X，中间斜面及入口屏幕朝 +X/-Y；该方向同时展示两面和斜角入口。",
+      "evidence": "Source comment: Observed sides face negative Y and positive X; faces A through C follow CCW polygon, n=(t.y,-t.x); authored camera 01_front_right.",
+      "cameraLookDirection": [
+        -0.625072243,
+        -0.351002106,
+        -0.697195964
+      ]
+    },
+    "1649143": {
+      "name": "旭光商贸大厦",
+      "previewFrontDirection": [
+        0,
+        0,
+        1
+      ],
+      "previewFrontDirectionUnnormalized": [
+        0,
+        0,
+        1
+      ],
+      "blenderCameraMinusTarget": [
+        0,
+        -1,
+        0
+      ],
+      "needsCustomCornerView": false,
+      "frontFaceIncludesNegativeY": true,
+      "sourceBuildPath": "landmarks/yichang-xuguang-commercial-building/stages/C20261109_visible_facade_candidate/scripts/build.py",
+      "reason": "主要已建观察面朝 Blender -Y；保留 glTF +Z 正视，避免把未知侧背当主要内容。",
+      "cameraLookDirection": [
+        0,
+        0,
+        -1
+      ]
+    },
+    "1649131": {
+      "name": "光联大厦",
+      "previewFrontDirection": [
+        0,
+        0,
+        1
+      ],
+      "previewFrontDirectionUnnormalized": [
+        0,
+        0,
+        1
+      ],
+      "blenderCameraMinusTarget": [
+        0,
+        -1,
+        0
+      ],
+      "needsCustomCornerView": false,
+      "frontFaceIncludesNegativeY": true,
+      "sourceBuildPath": "landmarks/yichang-guanglian-building/stages/D20261109_visible_main_facade_r2/scripts/build.py",
+      "reason": "主要已建观察面朝 Blender -Y；保留 glTF +Z 正视，避免把未知侧背当主要内容。",
+      "cameraLookDirection": [
+        0,
+        0,
+        -1
+      ]
+    },
+    "1649127": {
+      "name": "共和景晨创业中心",
+      "previewFrontDirection": [
+        0,
+        0,
+        1
+      ],
+      "previewFrontDirectionUnnormalized": [
+        0,
+        0,
+        1
+      ],
+      "blenderCameraMinusTarget": [
+        0,
+        -1,
+        0
+      ],
+      "needsCustomCornerView": false,
+      "frontFaceIncludesNegativeY": true,
+      "sourceBuildPath": "landmarks/yichang-gonghe-jingchen/research/C20261109_scene1649127_left_facade_identity_hold/scripts/build.py",
+      "reason": "主要已建观察面朝 Blender -Y；保留 glTF +Z 正视，避免把未知侧背当主要内容。",
+      "cameraLookDirection": [
+        0,
+        0,
+        -1
+      ]
+    },
+    "1649130": {
+      "name": "共同大厦",
+      "previewFrontDirection": [
+        -0.449630107,
+        0.260785462,
+        0.854297202
+      ],
+      "previewFrontDirectionUnnormalized": [
+        -100,
+        58,
+        190
+      ],
+      "blenderCameraMinusTarget": [
+        -100,
+        -190,
+        58
+      ],
+      "needsCustomCornerView": true,
+      "frontFaceIncludesNegativeY": true,
+      "sourceBuildPath": "landmarks/yichang-gongtong-building/stages/C20261109_new_evidence_candidate/scripts/build.py",
+      "blenderOffset": [
+        -100,
+        -190,
+        58
+      ],
+      "sourceCamera": "01_observed_corner",
+      "sourceLocation": [
+        -100,
+        -190,
+        109
+      ],
+      "sourceTarget": [
+        0,
+        0,
+        51
+      ],
+      "blenderFaceNormals": [
+        [
+          0,
+          -1,
+          0
+        ],
+        [
+          -1,
+          0,
+          0
+        ]
+      ],
+      "reason": "长面玻璃朝 -Y，已建左短面朝 -X；从 -X/-Y 展示窗带连续性和左侧玻璃段。",
+      "evidence": "Front_glass objects at y=-14.18; Left_glass at x=-28.18; authored camera 01_observed_corner.",
+      "cameraLookDirection": [
+        0.449630107,
+        -0.260785462,
+        -0.854297202
+      ]
+    }
+  }
+}

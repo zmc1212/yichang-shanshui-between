@@ -1,0 +1,334 @@
+{
+  "date": "2026-11-10",
+  "codeCommit": "fd8d12c20d5411232680c8bb62a1d7afc3a8ae3b",
+  "viewport": [
+    1920,
+    863
+  ],
+  "browser": "Connected Chrome",
+  "verifiedNewPreviews": 15,
+  "verifiedExistingGroupPreview": 1,
+  "previews": [
+    {
+      "canvases": 2,
+      "cityVisible": "true",
+      "preview": {
+        "cameraZoom": "1.000000",
+        "drawCalls": "6",
+        "engine": "three.js r170",
+        "frustumHeight": "9.111650",
+        "modelQuality": "light",
+        "previewId": "business-1649141",
+        "renderState": "idle",
+        "triangles": "22454",
+        "viewportAspect": "1.739241"
+      },
+      "scope": "当前已建范围\n\n右侧红字塔的已知宽立面，以及相邻窄面靠转角的两列、顶部两条窗带。\n\n这是兴发广场右塔的局部候选，不代表整组楼宇。",
+      "status": "模型已就绪",
+      "title": "兴发广场 · 右塔可见面"
+    },
+    {
+      "canvases": 2,
+      "cityVisible": "true",
+      "preview": {
+        "cameraZoom": "1.000000",
+        "drawCalls": "7",
+        "engine": "three.js r170",
+        "frustumHeight": "9.164512",
+        "modelQuality": "light",
+        "previewId": "business-1649139",
+        "renderState": "idle",
+        "triangles": "47558",
+        "viewportAspect": "1.739241"
+      },
+      "scope": "当前已建范围\n\n中央主塔的已观察正立面、冠部前屏及九处可见开窗样本。\n\n模型对应原导览中央主塔，未纳入右侧新华保险邻塔和背向白色天线楼。",
+      "status": "模型已就绪",
+      "title": "新华武银大厦 · 主立面"
+    },
+    {
+      "canvases": 2,
+      "cityVisible": "true",
+      "preview": {
+        "cameraZoom": "1.000000",
+        "drawCalls": "9",
+        "engine": "three.js r170",
+        "frustumHeight": "9.130906",
+        "modelQuality": "light",
+        "previewId": "business-1649144",
+        "renderState": "idle",
+        "triangles": "25494",
+        "viewportAspect": "1.739241"
+      },
+      "scope": "当前已建范围\n\n金铜色商城相邻中央高塔的一处可见主立面，以及中央高、两翼低的冠部轮廓。\n\n项目归属有支持，具体办公塔楼号仍待核实；两个主面尚未组合成完整楼体。",
+      "status": "模型已就绪",
+      "title": "长江国际文化广场 · 中央塔楼可见面"
+    },
+    {
+      "canvases": 2,
+      "cityVisible": "true",
+      "preview": {
+        "cameraZoom": "1.000000",
+        "drawCalls": "7",
+        "engine": "three.js r170",
+        "frustumHeight": "8.995637",
+        "modelQuality": "light",
+        "previewId": "business-1649148",
+        "renderState": "idle",
+        "triangles": "40250",
+        "viewportAspect": "1.739241"
+      },
+      "scope": "当前已建范围\n\n连续可见主立面、冠部开口和下部可辨包面、玻璃带。",
+      "status": "模型已就绪",
+      "title": "致远广场 · 连续可见主立面"
+    },
+    {
+      "canvases": 2,
+      "cityVisible": "true",
+      "preview": {
+        "cameraZoom": "1.000000",
+        "drawCalls": "7",
+        "engine": "three.js r170",
+        "frustumHeight": "9.117748",
+        "modelQuality": "light",
+        "previewId": "business-1649137",
+        "renderState": "idle",
+        "triangles": "19010",
+        "viewportAspect": "1.739241"
+      },
+      "scope": "当前已建范围\n\n左右双翼窗列、主窗带，以及中央上段玻璃和冠架。",
+      "status": "模型已就绪",
+      "title": "外滩领馆 · 双翼与中央上段"
+    },
+    {
+      "canvases": 2,
+      "cityVisible": "true",
+      "preview": {
+        "cameraZoom": "1.000000",
+        "drawCalls": "7",
+        "engine": "three.js r170",
+        "frustumHeight": "9.326276",
+        "modelQuality": "light",
+        "previewId": "business-1649146",
+        "renderState": "idle",
+        "triangles": "42642",
+        "viewportAspect": "1.739241"
+      },
+      "scope": "当前已建范围\n\n两个相邻可见立面、窄折角玻璃、上部绿板格，以及裙房可见白色嵌板。",
+      "status": "模型已就绪",
+      "title": "长乐大厦 · 相邻双立面"
+    },
+    {
+      "canvases": 2,
+      "cityVisible": "true",
+      "preview": {
+        "cameraZoom": "1.000000",
+        "drawCalls": "4",
+        "engine": "three.js r170",
+        "frustumHeight": "9.221610",
+        "modelQuality": "light",
+        "previewId": "business-1649142",
+        "renderState": "idle",
+        "triangles": "1262",
+        "viewportAspect": "1.739241"
+      },
+      "scope": "当前已建范围\n\n一组开放 L 形双立面，以及照片可辨的主横肋和部分细肋。",
+      "status": "模型已就绪",
+      "title": "兴发集团总部 · 双可见立面"
+    },
+    {
+      "canvases": 2,
+      "cityVisible": "true",
+      "preview": {
+        "cameraZoom": "1.000000",
+        "drawCalls": "6",
+        "engine": "three.js r170",
+        "frustumHeight": "9.027318",
+        "modelQuality": "light",
+        "previewId": "business-1649134",
+        "renderState": "idle",
+        "triangles": "7130",
+        "viewportAspect": "1.739241"
+      },
+      "scope": "当前已建范围\n\n中央两条玻璃带、两侧各两个相邻窗列及中下部可见主窗带。",
+      "status": "模型已就绪",
+      "title": "丽景国际 · 中央中下立面"
+    },
+    {
+      "canvases": 2,
+      "cityVisible": "true",
+      "preview": {
+        "cameraZoom": "1.000000",
+        "drawCalls": "6",
+        "engine": "three.js r170",
+        "frustumHeight": "8.992897",
+        "modelQuality": "light",
+        "previewId": "business-1649147",
+        "renderState": "idle",
+        "triangles": "334",
+        "viewportAspect": "1.739241"
+      },
+      "scope": "当前已建范围\n\n2025 年发表实景照片中的塔楼可见轮廓薄壳，以及三道强横带。\n\n本模型对应照片中的时代中心塔楼；原导览条目显示住宅地块，办公塔的实际坐标仍待核定。",
+      "status": "模型已就绪",
+      "title": "宜昌之星／时代中心 · 可见轮廓"
+    },
+    {
+      "canvases": 2,
+      "cityVisible": "true",
+      "preview": {
+        "cameraZoom": "1.000000",
+        "drawCalls": "6",
+        "engine": "three.js r170",
+        "frustumHeight": "9.059535",
+        "modelQuality": "light",
+        "previewId": "business-1649128",
+        "renderState": "idle",
+        "triangles": "6582",
+        "viewportAspect": "1.739241"
+      },
+      "scope": "当前已建范围\n\n可见金色塔楼主立面、分段银色竖饰和三段不同高度的冠顶。",
+      "status": "模型已就绪",
+      "title": "福久源大厦 · 金色主立面"
+    },
+    {
+      "canvases": 2,
+      "cityVisible": "true",
+      "preview": {
+        "cameraZoom": "1.000000",
+        "drawCalls": "9",
+        "engine": "three.js r170",
+        "frustumHeight": "9.791335",
+        "modelQuality": "light",
+        "previewId": "business-1649140",
+        "renderState": "idle",
+        "triangles": "5594",
+        "viewportAspect": "1.739241"
+      },
+      "scope": "当前已建范围\n\n已建可见塔身与裙房外观，并补齐入口上方广告屏两侧边框。",
+      "status": "模型已就绪",
+      "title": "鑫鼎大厦 · 可见外观与屏幕边框"
+    },
+    {
+      "canvases": 2,
+      "cityVisible": "true",
+      "preview": {
+        "cameraZoom": "1.000000",
+        "drawCalls": "8",
+        "engine": "three.js r170",
+        "frustumHeight": "9.150120",
+        "modelQuality": "light",
+        "previewId": "business-1649143",
+        "renderState": "idle",
+        "triangles": "35754",
+        "viewportAspect": "1.739241"
+      },
+      "scope": "当前已建范围\n\n主立面窗组、平直顶冠，以及右侧非对称过渡区和凹槽。",
+      "status": "模型已就绪",
+      "title": "旭光商贸大厦 · 可见主立面"
+    },
+    {
+      "canvases": 2,
+      "cityVisible": "true",
+      "preview": {
+        "cameraZoom": "1.000000",
+        "drawCalls": "6",
+        "engine": "three.js r170",
+        "frustumHeight": "8.978612",
+        "modelQuality": "light",
+        "previewId": "business-1649131",
+        "renderState": "idle",
+        "triangles": "69744",
+        "viewportAspect": "1.739241"
+      },
+      "scope": "当前已建范围\n\n可见主面窗框、已确认窗下外观面，以及有限冠部前平面构件。\n\n原导览与外观支持候选归属，楼名与酒店品牌的对应仍待进一步核验。",
+      "status": "轻量模型已就绪",
+      "title": "光联大厦 · 可见主立面薄壳"
+    },
+    {
+      "canvases": 2,
+      "cityVisible": "true",
+      "preview": {
+        "cameraZoom": "1.000000",
+        "drawCalls": "5",
+        "engine": "three.js r170",
+        "frustumHeight": "9.068652",
+        "modelQuality": "light",
+        "previewId": "business-1649127",
+        "renderState": "idle",
+        "triangles": "16118",
+        "viewportAspect": "1.739241"
+      },
+      "scope": "主体身份待核实\n\n原导览左塔朝摄影点的一处可见立面，含七个竖向开间及九条宽分带。\n\n该左塔是否属于共和景晨仍待独立核验，暂不能排除邻楼。",
+      "status": "模型已就绪",
+      "title": "共和景晨条目 · 左塔立面研究"
+    },
+    {
+      "canvases": 2,
+      "cityVisible": "true",
+      "preview": {
+        "cameraZoom": "1.000000",
+        "drawCalls": "7",
+        "engine": "three.js r170",
+        "frustumHeight": "9.313974",
+        "modelQuality": "light",
+        "previewId": "business-1649130",
+        "renderState": "idle",
+        "triangles": "38030",
+        "viewportAspect": "1.739241"
+      },
+      "scope": "当前已建范围\n\n长面窗组、短面可见玻璃段、圆角窗带及部分金色裙房。",
+      "status": "模型已就绪",
+      "title": "共同大厦 · 可见双面与裙房"
+    },
+    {
+      "canvases": 2,
+      "cityVisible": "true",
+      "preview": {
+        "cameraZoom": "1.000000",
+        "drawCalls": "28",
+        "engine": "three.js r170",
+        "frustumHeight": "12.627750",
+        "modelQuality": "light",
+        "previewId": "meilian-s05",
+        "renderState": "idle",
+        "triangles": "71384",
+        "viewportAspect": "1.777215"
+      },
+      "status": "轻量模型已就绪",
+      "title": "美联御峰 · 候选模型"
+    }
+  ],
+  "consoleErrors": [],
+  "afterClose": {
+    "check": "all previews closed",
+    "canvases": 1,
+    "city": {
+      "authoredModels": "7",
+      "authoredSelection": "false",
+      "businessProjects": "23",
+      "cityVisible": "true",
+      "detailModels": "0",
+      "drawCalls": "150",
+      "engine": "three.js r170",
+      "focusAngle": "detail",
+      "geometries": "266",
+      "modelAnchor": "",
+      "modelQuality": "light",
+      "renderFrames": "189",
+      "renderState": "idle",
+      "residentModels": "7",
+      "sceneMode": "city",
+      "streetDetails": "1",
+      "streetDetailsEnabled": "true",
+      "streetVisibleDrawCalls": "3",
+      "streetVisibleIds": "[\"wanda-soho-s01\"]",
+      "streetVisibleSites": "1",
+      "textures": "14",
+      "triangles": "1017456"
+    }
+  },
+  "sourceGeometryChecks": "business-model-check.json",
+  "remainingAtThisCheckpoint": [
+    "Four default corner views refined after this pass; verify updated views",
+    "Night and responsive viewport checks"
+  ]
+}
