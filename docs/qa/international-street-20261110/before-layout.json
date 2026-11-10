@@ -1,0 +1,68 @@
+[
+  [
+    {
+      "box": {
+        "height": 793,
+        "width": 1616,
+        "x": 304,
+        "y": 70
+      },
+      "className": "",
+      "dataset": {
+        "authoredModels": "7",
+        "authoredSelection": "true",
+        "businessProjects": "23",
+        "cityVisible": "true",
+        "detailModels": "1",
+        "drawCalls": "89",
+        "engine": "three.js r170",
+        "focusAngle": "detail",
+        "geometries": "333",
+        "modelAnchor": "[-5.912434062168668,0.06914715175472351,20.48598798096113]",
+        "modelQuality": "detail",
+        "renderFrames": "634",
+        "renderState": "idle",
+        "residentModels": "7",
+        "sceneMode": "city",
+        "streetDetails": "2",
+        "streetDetailsEnabled": "true",
+        "streetVisibleDrawCalls": "12",
+        "streetVisibleIds": "[\"wanda-soho-s01\"]",
+        "streetVisibleLinks": "0",
+        "streetVisibleSites": "1",
+        "textures": "21",
+        "triangles": "1449430"
+      }
+    },
+    {
+      "box": {
+        "height": 43,
+        "width": 451.828125,
+        "x": 334,
+        "y": 97
+      },
+      "className": "scene-toolbar",
+      "dataset": {}
+    },
+    {
+      "box": {
+        "height": 144,
+        "width": 304,
+        "x": 338,
+        "y": 164
+      },
+      "className": "authored-note is-inspecting",
+      "dataset": {}
+    },
+    {
+      "box": {
+        "height": 623.28125,
+        "width": 318,
+        "x": 1572,
+        "y": 163
+      },
+      "className": "detail-panel ",
+      "dataset": {}
+    }
+  ]
+]

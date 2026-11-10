@@ -1,0 +1,145 @@
+{
+  "scope": "read-only geometry/material/visibility integration; no browser or GPU timing",
+  "sites": [
+    "shouxin-wealth-s01",
+    "wanda-soho-s01",
+    "jiuzhou-s01",
+    "jinjiang-s03",
+    "fujiang-s01",
+    "zhongnan-s09",
+    "yichang-international-s01"
+  ],
+  "passed": [
+    "Fifteen paving meshes across seven building samples and one short link share one opaque, neutral, repeat-wrapped 256² RGBA atlas with mipmap filtering",
+    "All five previous paving positions/surfaces remain unchanged, including the 48 Jiuzhou apron vertices; corner polygons render their full area with conforming shared edges and identical heights, and all sites share continuous UVs",
+    "Every transformed vertex of the enlarged beds, soil, low foliage, trunks and crowns stays inside its actual 16-sided safety polygon; convexity also contains every triangle interior",
+    "Far → planting → furniture → far preserves separate 3/2.4 crown-pixel and 9/6.5 road-pixel hysteresis, with stable repeated updates",
+    "Tree, street and frustum switches remain independent; day/night reuse the same opaque atlas and only add one light-pool draw per visible site",
+    "Independently counted geometry/instance buffers match the published stats; source texture and theoretical RGBA8 mip storage are recorded separately",
+    "The existing scene cleanup discovers the new map and disposes the one shared texture, all materials and all geometries exactly once"
+  ],
+  "resources": {
+    "meshCount": 88,
+    "triangleCount": 12602,
+    "geometryBytes": 536096,
+    "textureCount": 1,
+    "textureSourceBytes": 262144,
+    "theoreticalRgba8MipBytes": 349524,
+    "nearDayDraws": 81,
+    "nearNightDraws": 88,
+    "geometryDisposals": 88,
+    "materialDisposals": 10,
+    "textureDisposals": 1
+  },
+  "uv": {
+    "sharedUvVertices": 3177,
+    "maximumUvProjectionError": 0.000042625217918867975,
+    "jiuzhouEntryVertexCount": 48,
+    "jiuzhouStepTopY": 0.07064871608936112
+  },
+  "polygonCoverage": [
+    {
+      "site": "zhongnan-s09",
+      "accent": false,
+      "cells": 53,
+      "triangles": 223,
+      "maximumAreaError": 5.1743221859967825e-8
+    },
+    {
+      "site": "zhongnan-s09",
+      "accent": true,
+      "cells": 7,
+      "triangles": 31,
+      "maximumAreaError": 4.3645037178970114e-8
+    }
+  ],
+  "safety": {
+    "street tree pits": {
+      "instances": 29,
+      "vertices": 4176,
+      "minimumInsetMetres": 0.17479727638221101
+    },
+    "street tree soil": {
+      "instances": 29,
+      "vertices": 696,
+      "minimumInsetMetres": 0.4158357016429577
+    },
+    "street planted bed foliage": {
+      "instances": 29,
+      "vertices": 3480,
+      "minimumInsetMetres": 0.7782954374982924
+    },
+    "street tree trunks": {
+      "instances": 29,
+      "vertices": 1160,
+      "minimumInsetMetres": 2.5261498100253394
+    },
+    "street tree crowns": {
+      "instances": 29,
+      "vertices": 6960,
+      "minimumInsetMetres": 0.3961540841101927
+    }
+  },
+  "landscapeStates": [
+    {
+      "pixelsPerUnit": 15,
+      "crownPixels": 1.41,
+      "landscape": false,
+      "draws": 20
+    },
+    {
+      "pixelsPerUnit": 31,
+      "crownPixels": 2.914,
+      "landscape": false,
+      "draws": 23
+    },
+    {
+      "pixelsPerUnit": 32,
+      "crownPixels": 3.008,
+      "landscape": true,
+      "draws": 53
+    },
+    {
+      "pixelsPerUnit": 30,
+      "crownPixels": 2.82,
+      "landscape": true,
+      "draws": 53
+    },
+    {
+      "pixelsPerUnit": 31,
+      "crownPixels": 2.914,
+      "landscape": true,
+      "draws": 53
+    },
+    {
+      "pixelsPerUnit": 25.6,
+      "crownPixels": 2.4064,
+      "landscape": true,
+      "draws": 53
+    },
+    {
+      "pixelsPerUnit": 25.4,
+      "crownPixels": 2.3876,
+      "landscape": false,
+      "draws": 23
+    },
+    {
+      "pixelsPerUnit": 28,
+      "crownPixels": 2.632,
+      "landscape": false,
+      "draws": 23
+    },
+    {
+      "pixelsPerUnit": 31,
+      "crownPixels": 2.914,
+      "landscape": false,
+      "draws": 23
+    },
+    {
+      "pixelsPerUnit": 32,
+      "crownPixels": 3.008,
+      "landscape": true,
+      "draws": 53
+    }
+  ]
+}

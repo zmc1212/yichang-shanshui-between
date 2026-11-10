@@ -1,0 +1,13 @@
+{
+  "ok": true,
+  "stableIds": 30,
+  "checked": [
+    "Chinese query and view round-trip",
+    "authored facade/entrance/crown inspection links and whole-view recovery",
+    "old close links remain valid",
+    "transient query excluded from copied URL",
+    "unknown and malformed IDs",
+    "per-building view restrictions",
+    "bounded query and fragment input"
+  ]
+}

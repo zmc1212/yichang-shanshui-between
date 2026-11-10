@@ -42,9 +42,10 @@ const inWater=(x,z)=>data.water.some(p=>winding([x,z],p.rings[0])&&!p.rings.slic
 const heightAt=(x,z)=>0.001*Math.sin(x*.04)*Math.cos(z*.08);
 const input={data,authoredModels:models,authoredGround:ground,waterfrontPlan:{omittedBuildingIndices:new Set()},inWater,heightAt};
 const plan=planStreetDetails(input);
-const expectedIds=['shouxin-wealth-s01','wanda-soho-s01','jiuzhou-s01','jinjiang-s03','fujiang-s01','zhongnan-s09'];
+const expectedIds=['shouxin-wealth-s01','wanda-soho-s01','jiuzhou-s01','jinjiang-s03','fujiang-s01','zhongnan-s09','yichang-international-s01'];
 assert.deepEqual(plan.sites.map(s=>s.id),expectedIds);
-assert.equal(plan.stats.streetSites,6);assert.equal(plan.stats.streetMarkings,0);assert.equal(plan.stats.streetEntranceConnected,true);assert.equal(plan.stats.streetEntrancesConnected,6);
+assert.equal(plan.stats.streetSites,7);assert.equal(plan.stats.streetMarkings,0);assert.equal(plan.stats.streetEntranceConnected,true);assert.equal(plan.stats.streetEntrancesConnected,6);
+assert.equal(plan.stats.streetFrontageConnections,1);assert.equal(plan.stats.streetFrontageConnected,true);
 assert.equal(plan.stats.streetLinks,1);assert.deepEqual(plan.links.map(link=>link.id),['jiuzhou-shouxin-walk']);
 const allStreetGroups=[...plan.sites,...plan.links];
 const shouxin=plan.sites[0];
@@ -70,7 +71,7 @@ const near=(a,b,pad=0)=>a.x0<=b.x1+pad&&b.x0<=a.x1+pad&&a.z0<=b.z1+pad&&b.z0<=a.
 const buildings=[...data.buildings.filter((_,i)=>!ground.omittedBuildingIndices.has(i)),...ground.retainedBuildings].map(b=>b.rings||[b.ring]);
 const hardFootprints=[...buildings.map(rings=>({ring:rings[0]})),...models.map(m=>({ring:m.footprint,modelId:m.id}))].map(item=>({...item,box:box(item.ring)}));
 const candidates=allStreetGroups.flatMap(site=>[
-  ...site.paving.map(p=>({ring:p.points,kind:'paving',role:p.role,clearedModelId:p.clearedModelId,site:site.id})),
+  ...site.paving.map(p=>({ring:p.points,kind:'paving',role:p.role,clearedModelId:p.clearedModelId,sourceClearanceZone:p.sourceClearanceZone,site:site.id})),
   ...site.curbs.map(c=>({ring:c.footprint,kind:'curb',site:site.id})),
   ...['trees','lamps','benches'].flatMap(kind=>site[kind].map(item=>({ring:item.safetyFootprint,kind,site:site.id})))
 ]).map(c=>({...c,box:box(c.ring)}));
@@ -91,6 +92,17 @@ for(const candidate of candidates){
       assert.equal(candidate.site,'jiuzhou-s01','Only the explicit Jiuzhou apron receives a certified source-corridor exception');
       assert.equal(candidate.clearedModelId,candidate.site);continue;
     }
+    if(candidate.site==='yichang-international-s01'&&candidate.clearedModelId==='yichang-international-s01'&&obstacle.modelId===candidate.clearedModelId){
+      assert.equal(candidate.kind,'paving');assert.equal(candidate.role,'connection');assert.equal(candidate.clearedModelId,candidate.site);
+      const m=models.find(model=>model.id===candidate.site),cos=Math.cos(m.yaw),sin=Math.sin(m.yaw);
+      const native=ring.map(p=>{const dx=p[0]-m.x,dz=p[1]-m.z;return[(dx*cos-dz*sin)/m.uniformScale+(m.sourceBounds.min[0]+m.sourceBounds.max[0])/2,(dx*sin+dz*cos)/m.uniformScale+(m.sourceBounds.min[2]+m.sourceBounds.max[2])/2];});
+      const range=candidate.sourceClearanceZone==='source-ramp'?[32.9,33.9,23.00016418147591,25.35]:candidate.sourceClearanceZone==='retained-inlay-underlay'?[32.9,36.8,25.35,30.1]:null;
+      assert(range,'Only exact source-certified departure / retained-ring underlay cells can replace their own AABB');
+      assert(native.every(([x,z])=>x>=range[0]-1e-9&&x<=range[1]+1e-9&&z>=range[2]-1e-9&&z<=range[3]+1e-9));
+      // Actual source meshes, emitted Float32 planes and whole-domain positive
+      // ring clearance are independently required by check-international-street.
+      continue;
+    }
     assert(polygonDistance(ring,obstacle.ring)>.0038,`${candidate.site} ${candidate.kind} overlaps a retained or authored building`);
   }
   for(const water of waters){if(!near(candidate.box,water.box,.0038))continue;const [outer,...holes]=water.rings;if(holes.some(h=>ring.every(p=>winding(p,h))))continue;assert(polygonDistance(ring,outer)>.0038,`${candidate.site} ${candidate.kind} enters mapped water`);}
@@ -102,7 +114,8 @@ for(const candidate of candidates){
 }
 const apronCandidates=candidates.filter(c=>c.role==='entry-apron');
 assert.equal(apronCandidates.length,8);
-passed.push(`${candidates.length-apronCandidates.length} complete paving, curb and furnishing footprints clear all mapped obstacles in XZ; ${apronCandidates.length} narrow Jiuzhou apron cells also clear every other building, retained source polygon, road and water, with only their own model envelope replaced by an exact source-cleared entry-corridor check`);
+const frontageCorridorCandidates=candidates.filter(c=>c.clearedModelId==='yichang-international-s01');assert.equal(frontageCorridorCandidates.length,6);
+passed.push(`${candidates.length-apronCandidates.length-frontageCorridorCandidates.length} complete footprints clear all mapped obstacles in XZ; 8 narrow Jiuzhou apron and 6 exact international corridor cells clear every other building, source polygon, road and water. Only their own certified native corridor replaces its envelope, with full source-geometry validation in the dedicated checks`);
 const paving=candidates.filter(c=>c.kind==='paving');
 for(let i=0;i<paving.length;i++)for(let j=i+1;j<paving.length;j++){
   if(!near(paving[i].box,paving[j].box))continue;
@@ -123,12 +136,19 @@ passed.push('All paving cells have zero overlapping area; independent street sit
 
 for(const site of plan.sites){
   const model=models.find(m=>m.id===site.id),road=data.roads.find(r=>r.osmId===site.roadSourceId);
-  assert.deepEqual(site.sourceAnchor,[model.x,model.z]);assert.equal(site.frontBearingDeg,model.registration.frontBearingDeg);
+  assert.deepEqual(site.sourceAnchor,[model.x,model.z]);
+  if(site.id!=='yichang-international-s01')assert.equal(site.frontBearingDeg,model.registration.frontBearingDeg);
   const corner=site.id==='zhongnan-s09';
   assert.equal(site.roadName,corner?'夷陵大道':'沿江大道');assert.equal(site.roadWidth,corner ? .128 : .192);assert(site.illustrative);
   if(corner)assert.equal(site.roadSourceId,'way/397144798','The street corner uses its verified same-level Yiling Avenue segment');
   assert(!road.bridge||road.bridge==='no');assert(!road.tunnel||road.tunnel==='no');assert.equal(Number(road.layer||0),0);
   assert(site.paving.length>40&&site.paving.length<250);
+  if(site.id==='yichang-international-s01'){
+    assert.equal(site.kind,'street-frontage');assert.deepEqual(site.entranceRoute,[]);assert.equal(site.frontageRoute.length,6);
+    assert.equal(site.connectionEvidence.surveyed,false);assert.equal(site.connectionEvidence.accessibilityRoute,false);
+    assert.equal(site.trees.length,0);assert.equal(site.lamps.length,2);assert.equal(site.benches.length,2);
+    continue;
+  }
   if(corner){assert.equal(site.trees.length,2);assert.equal(site.lamps.length,2);assert.equal(site.benches.length,1);}
   else{assert(site.trees.length>=3&&site.trees.length<=10);assert(site.lamps.length>=2&&site.lamps.length<=4);assert.equal(site.benches.length,2);}
   assert.equal(site.entranceRoute.length,2);
@@ -316,11 +336,11 @@ render.group.traverse(object=>{
     for(let i=0;i<p.count;i+=3){const a=new THREE.Vector3().fromBufferAttribute(p,i),b=new THREE.Vector3().fromBufferAttribute(p,i+1),c=new THREE.Vector3().fromBufferAttribute(p,i+2);assert(b.sub(a).cross(c.sub(a)).y>0,'Paving triangles always face up');assert(n.getY(i)>0,'Paving normals always face up');}
   }
 });
-const stats=render.getStats();assert(stats.streetMeshes<=80);assert(stats.streetTriangles<15000);assert(stats.streetGeometryBytes<700000);
+const stats=render.getStats();assert(stats.streetMeshes<=88);assert(stats.streetTriangles<15000);assert(stats.streetGeometryBytes<700000);
 assert.equal(stats.streetTextureCount,1);assert.equal(stats.streetTextureSourceBytes,256*256*4);
 for(const site of plan.sites){
   const group=render.group.getObjectByName(site.id);
-  for(const [name,key]of [['street tree crowns','trees'],['street lamps','lamps'],['street bench seats','benches']])assert.equal(group.getObjectByName(name).count,site[key].length);
+  for(const [name,key]of [['street tree crowns','trees'],['street lamps','lamps'],['street bench seats','benches']]){const mesh=group.getObjectByName(name);assert.equal(mesh?.count||0,site[key].length);if(!site[key].length)assert(!mesh,'Empty furnishing types allocate no mesh');}
   const pools=group.getObjectByName('street lamp pools');
   assert(!pools.isInstancedMesh,'Slope-fitted pools share one merged world-space mesh per site');assert.equal(pools.material.forceSinglePass,true);
   const positions=pools.geometry.attributes.position,indices=pools.geometry.index;
@@ -343,22 +363,22 @@ assert.equal(streetDetailTier(2.1,0),0);assert.equal(streetDetailTier(2.2,0),1);
 assert.equal(streetDetailTier(9,1),2);assert.equal(streetDetailTier(7,2),2);assert.equal(streetDetailTier(6.4,2),1);
 const visibleFrustum={intersectsBox:()=>true},invisibleFrustum={intersectsBox:()=>false};
 render.update({pixelsPerUnit:2,frustum:visibleFrustum});assert.equal(render.getStats().streetVisibleDrawCalls,0);
-render.update({pixelsPerUnit:15,frustum:visibleFrustum});assert.equal(render.getStats().streetVisibleTier,1);assert.equal(render.getStats().streetVisibleDrawCalls,17);
-assert.deepEqual(render.getStats().streetVisibleIds,[...expectedIds.slice(0,5),'jiuzhou-shouxin-walk'],'The narrower Yiling road reaches its own pixel threshold later');
-assert.equal(render.getStats().streetVisibleSites,5);assert.equal(render.getStats().streetVisibleLinks,1,'A street link is counted separately from the building samples');
-render.update({pixelsPerUnit:20,frustum:visibleFrustum});assert.equal(render.getStats().streetVisibleDrawCalls,20);
-render.update({pixelsPerUnit:60,frustum:visibleFrustum});assert.equal(render.getStats().streetVisibleTier,2);assert.equal(render.getStats().streetVisibleDrawCalls,70);
+render.update({pixelsPerUnit:15,frustum:visibleFrustum});assert.equal(render.getStats().streetVisibleTier,1);assert.equal(render.getStats().streetVisibleDrawCalls,20);
+assert.deepEqual(render.getStats().streetVisibleIds,[...expectedIds.slice(0,5),'yichang-international-s01','jiuzhou-shouxin-walk'],'The narrower Yiling road reaches its own pixel threshold later');
+assert.equal(render.getStats().streetVisibleSites,6);assert.equal(render.getStats().streetVisibleLinks,1,'A street link is counted separately from the building samples');
+render.update({pixelsPerUnit:20,frustum:visibleFrustum});assert.equal(render.getStats().streetVisibleDrawCalls,23);
+render.update({pixelsPerUnit:60,frustum:visibleFrustum});assert.equal(render.getStats().streetVisibleTier,2);assert.equal(render.getStats().streetVisibleDrawCalls,77);
 const cornerLamp=render.group.getObjectByName('zhongnan-s09').getObjectByName('street lamps');
 assert.equal(cornerLamp.parent.visible,false,'A 7.68-pixel Yiling road has not entered the 9-pixel furnishing tier');
-render.update({pixelsPerUnit:80,frustum:visibleFrustum});assert.equal(render.getStats().streetVisibleDrawCalls,74);assert.equal(cornerLamp.parent.visible,true);
+render.update({pixelsPerUnit:80,frustum:visibleFrustum});assert.equal(render.getStats().streetVisibleDrawCalls,81);assert.equal(cornerLamp.parent.visible,true);
 render.update({pixelsPerUnit:55,frustum:visibleFrustum});assert.equal(cornerLamp.parent.visible,true,'7.04 road pixels retain furnishings already revealed');
 render.update({pixelsPerUnit:50,frustum:visibleFrustum});assert.equal(cornerLamp.parent.visible,false,'6.4 road pixels exit the furnishing tier');
 render.update({pixelsPerUnit:38,frustum:visibleFrustum});assert.equal(render.getStats().streetVisibleTier,2);
-render.update({pixelsPerUnit:80,frustum:{intersectsBox:box=>box.max.x<0}});assert.deepEqual(render.getStats().streetVisibleIds,['wanda-soho-s01','jinjiang-s03','zhongnan-s09']);assert.equal(render.getStats().streetVisibleDrawCalls,36);
+render.update({pixelsPerUnit:80,frustum:{intersectsBox:box=>box.max.x<0}});assert.deepEqual(render.getStats().streetVisibleIds,['wanda-soho-s01','jinjiang-s03','zhongnan-s09','yichang-international-s01']);assert.equal(render.getStats().streetVisibleDrawCalls,43);
 render.update({pixelsPerUnit:80,frustum:visibleFrustum,enabled:false});assert.equal(render.getStats().streetVisibleDrawCalls,0);
 render.update({pixelsPerUnit:80,frustum:invisibleFrustum});assert.equal(render.getStats().streetVisibleDrawCalls,0);
 render.update({pixelsPerUnit:80,frustum:visibleFrustum,treesEnabled:false});
-for(const site of plan.sites)assert.equal(render.group.getObjectByName(site.id).getObjectByName('street tree crowns').parent.visible,false);
+for(const site of plan.sites.filter(site=>site.trees.length))assert.equal(render.group.getObjectByName(site.id).getObjectByName('street tree crowns').parent.visible,false);
 render.setTheme(true);for(const site of plan.sites){const group=render.group.getObjectByName(site.id);assert.equal(group.getObjectByName('street lamp pools').parent.visible,true);assert(group.getObjectByName('street warm lamp heads').material.emissiveIntensity>0);}
 render.setTheme(false);for(const site of plan.sites)assert.equal(render.group.getObjectByName(site.id).getObjectByName('street lamp pools').parent.visible,false);
 render.update({pixelsPerUnit:80,frustum:visibleFrustum});assert.equal(render.update({pixelsPerUnit:80,frustum:visibleFrustum}),false,'Stable scale does not ask for animation frames');

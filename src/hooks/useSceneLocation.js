@@ -25,10 +25,18 @@ export function useSceneLocation({ ready, places, state, onRestore }) {
         record.initialized = true;
         return;
       }
-      const targetKey = serializeSceneLocation(parsed.state, current.places);
+      // Runtime capabilities can downgrade a valid saved preset (for example,
+      // a frontage whose source geometry is no longer certified). Track the
+      // state actually applied by the UI, or the pending key could never match
+      // its next render and would block every later location update.
+      const applied = normalizeSceneLocation(
+        current.onRestore(parsed.state, { invalidPlace: parsed.invalidPlace }) ?? parsed.state,
+        current.places,
+      );
+      const targetKey = serializeSceneLocation(applied, current.places);
       const currentKey = serializeSceneLocation(current.state, current.places);
       record.pending = targetKey === currentKey ? null : targetKey;
-      record.lastPlace = parsed.state.place;
+      record.lastPlace = applied.place;
       record.initialized = true;
       if (record.pending === null) {
         // Equivalent hashes (or an unknown ID while already at overview) do
@@ -41,7 +49,6 @@ export function useSceneLocation({ ready, places, state, onRestore }) {
           record.lastReadUrl = window.location.href;
         }
       }
-      current.onRestore(parsed.state, { invalidPlace: parsed.invalidPlace });
     };
     applyLocation(true);
     const onNavigation = () => applyLocation();

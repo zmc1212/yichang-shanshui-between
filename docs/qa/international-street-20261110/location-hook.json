@@ -1,0 +1,12 @@
+{
+  "pass": true,
+  "checks": [
+    "runtime frontage downgrade canonicalizes without locking later selections",
+    "place push and view replace remain distinct",
+    "back/forward restore once without duplicating history",
+    "equivalent applied state canonicalizes even when the render key does not change",
+    "legacy void callback retains supported frontage and browser navigation",
+    "returned place fallback also updates history ownership",
+    "unmount removes both navigation subscriptions"
+  ]
+}

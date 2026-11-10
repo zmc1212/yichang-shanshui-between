@@ -1,0 +1,210 @@
+{
+  "passed": true,
+  "checks": [
+    "actual factory finishes initial framing, starts two resident workers, then has zero idle frame callbacks",
+    "late loader completion wakes a sleeping city and does not strand the loading queue",
+    "street sample wakes on toggle, reveals by screen scale, retains base roads and existing tree-layer state, then returns to idle",
+    "theme, layers, zoom, view, focus, refit, reset, real OrbitControls and resize all wake after idle",
+    "cluster framing preserves direction/selection/models, clears desktop/mobile cards, bounds repeated coincident zoom, uses bridge anchors rather than full spans, rejects covered viewports, and resumes from overlays",
+    "International Plaza frontage frames every emitted paving vertex and the retained passage edge on desktop and both phone sheet states; selected detail persists, whole-building pose restores exactly, and unsupported frontage links fall back safely",
+    "covered short-phone single-building focus retains its pose, then a card-only refit recovers when real space becomes available",
+    "visible facade/entrance/crown subjects retain exactly one selected detail LOD request even with offscreen building centers and after manual close zoom",
+    "all seven authored buildings default to complete near-full-height/width bodies for close and ordinary links; measured overlay rectangles stay clear, separate explicit facade/entrance/crown samples retain detail, whole framing restores, and front/roof/manual zoom, guide/context frames and model transforms remain intact",
+    "overlay+hidden suspend rendering without replacing city/canvas; resize waits; snapshot draws once; resume retains motion intent",
+    "waterfront motion remains live while enabled and returns to idle when stopped",
+    "disposing cancels frames and late model promises cannot revive the city"
+  ],
+  "buildingFraming": [
+    {
+      "viewport": "desktop",
+      "id": "zhongnan-s09",
+      "defaultHeight": 784,
+      "wholeHeight": 784,
+      "wholeOccupancy": 0.96,
+      "detailProjectedBodyHeight": 2449,
+      "detailZoomGain": 3.7
+    },
+    {
+      "viewport": "desktop",
+      "id": "jinjiang-s03",
+      "defaultHeight": 784,
+      "wholeHeight": 784,
+      "wholeOccupancy": 0.96,
+      "detailProjectedBodyHeight": 2395,
+      "detailZoomGain": 3.35
+    },
+    {
+      "viewport": "desktop",
+      "id": "wanda-soho-s01",
+      "defaultHeight": 665,
+      "wholeHeight": 634,
+      "wholeOccupancy": 0.958,
+      "detailProjectedBodyHeight": 2514,
+      "detailZoomGain": 5.58
+    },
+    {
+      "viewport": "desktop",
+      "id": "fujiang-s01",
+      "defaultHeight": 784,
+      "wholeHeight": 784,
+      "wholeOccupancy": 0.96,
+      "detailProjectedBodyHeight": 2373,
+      "detailZoomGain": 3.28
+    },
+    {
+      "viewport": "desktop",
+      "id": "yichang-international-s01",
+      "defaultHeight": 784,
+      "wholeHeight": 784,
+      "wholeOccupancy": 0.96,
+      "detailProjectedBodyHeight": 2424,
+      "detailZoomGain": 3.66
+    },
+    {
+      "viewport": "desktop",
+      "id": "shouxin-wealth-s01",
+      "defaultHeight": 784,
+      "wholeHeight": 784,
+      "wholeOccupancy": 0.96,
+      "detailProjectedBodyHeight": 2357,
+      "detailZoomGain": 3.19
+    },
+    {
+      "viewport": "desktop",
+      "id": "jiuzhou-s01",
+      "defaultHeight": 784,
+      "wholeHeight": 784,
+      "wholeOccupancy": 0.96,
+      "detailProjectedBodyHeight": 2377,
+      "detailZoomGain": 3.32
+    },
+    {
+      "viewport": "phone collapsed card",
+      "id": "zhongnan-s09",
+      "defaultHeight": 423,
+      "wholeHeight": 351,
+      "wholeOccupancy": 0.96,
+      "detailProjectedBodyHeight": 1553,
+      "detailZoomGain": 5.24
+    },
+    {
+      "viewport": "phone collapsed card",
+      "id": "jinjiang-s03",
+      "defaultHeight": 423,
+      "wholeHeight": 351,
+      "wholeOccupancy": 0.96,
+      "detailProjectedBodyHeight": 1519,
+      "detailZoomGain": 4.74
+    },
+    {
+      "viewport": "phone collapsed card",
+      "id": "wanda-soho-s01",
+      "defaultHeight": 250,
+      "wholeHeight": 250,
+      "wholeOccupancy": 0.96,
+      "detailProjectedBodyHeight": 1595,
+      "detailZoomGain": 8.98
+    },
+    {
+      "viewport": "phone collapsed card",
+      "id": "fujiang-s01",
+      "defaultHeight": 423,
+      "wholeHeight": 351,
+      "wholeOccupancy": 0.96,
+      "detailProjectedBodyHeight": 1505,
+      "detailZoomGain": 4.65
+    },
+    {
+      "viewport": "phone collapsed card",
+      "id": "yichang-international-s01",
+      "defaultHeight": 423,
+      "wholeHeight": 351,
+      "wholeOccupancy": 0.96,
+      "detailProjectedBodyHeight": 1537,
+      "detailZoomGain": 5.18
+    },
+    {
+      "viewport": "phone collapsed card",
+      "id": "shouxin-wealth-s01",
+      "defaultHeight": 423,
+      "wholeHeight": 351,
+      "wholeOccupancy": 0.96,
+      "detailProjectedBodyHeight": 1495,
+      "detailZoomGain": 4.51
+    },
+    {
+      "viewport": "phone collapsed card",
+      "id": "jiuzhou-s01",
+      "defaultHeight": 423,
+      "wholeHeight": 351,
+      "wholeOccupancy": 0.96,
+      "detailProjectedBodyHeight": 1507,
+      "detailZoomGain": 4.7
+    },
+    {
+      "viewport": "phone expanded card",
+      "id": "zhongnan-s09",
+      "defaultHeight": 198,
+      "wholeHeight": 126,
+      "wholeOccupancy": 0.96,
+      "detailProjectedBodyHeight": 519,
+      "detailZoomGain": 4.89
+    },
+    {
+      "viewport": "phone expanded card",
+      "id": "jinjiang-s03",
+      "defaultHeight": 198,
+      "wholeHeight": 126,
+      "wholeOccupancy": 0.96,
+      "detailProjectedBodyHeight": 508,
+      "detailZoomGain": 4.43
+    },
+    {
+      "viewport": "phone expanded card",
+      "id": "wanda-soho-s01",
+      "defaultHeight": 198,
+      "wholeHeight": 126,
+      "wholeOccupancy": 0.96,
+      "detailProjectedBodyHeight": 533,
+      "detailZoomGain": 5.97
+    },
+    {
+      "viewport": "phone expanded card",
+      "id": "fujiang-s01",
+      "defaultHeight": 198,
+      "wholeHeight": 126,
+      "wholeOccupancy": 0.96,
+      "detailProjectedBodyHeight": 503,
+      "detailZoomGain": 4.34
+    },
+    {
+      "viewport": "phone expanded card",
+      "id": "yichang-international-s01",
+      "defaultHeight": 198,
+      "wholeHeight": 126,
+      "wholeOccupancy": 0.96,
+      "detailProjectedBodyHeight": 514,
+      "detailZoomGain": 4.84
+    },
+    {
+      "viewport": "phone expanded card",
+      "id": "shouxin-wealth-s01",
+      "defaultHeight": 198,
+      "wholeHeight": 126,
+      "wholeOccupancy": 0.96,
+      "detailProjectedBodyHeight": 500,
+      "detailZoomGain": 4.21
+    },
+    {
+      "viewport": "phone expanded card",
+      "id": "jiuzhou-s01",
+      "defaultHeight": 198,
+      "wholeHeight": 126,
+      "wholeOccupancy": 0.96,
+      "detailProjectedBodyHeight": 504,
+      "detailZoomGain": 4.39
+    }
+  ],
+  "renderFrames": 13268,
+  "webglVerified": false
+}

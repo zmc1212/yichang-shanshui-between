@@ -46,7 +46,7 @@ function heightAt(x, z) {
 const authoredGround = planAuthoredGround(models, data, 3.8);
 const plan = planStreetDetails({ data, authoredModels: models, authoredGround,
   waterfrontPlan: { omittedBuildingIndices: new Set() }, inWater, heightAt });
-assert.equal(plan.sites.length, 6);
+assert.equal(plan.sites.length, 7);
 const themes = [];
 const street = createStreetDetails(plan, { heightAt, makeMaterial(day, night, options = {}) {
   const material = new THREE.MeshStandardMaterial({ color: day, roughness: .94, metalness: 0, ...options });
@@ -71,7 +71,7 @@ street.group.traverse(object => {
     if (material.map) mappedMeshes.push(object);
   }
 });
-assert.equal(mappedMeshes.length, 13, 'Both paving materials on six samples and the plain short link use the shared map');
+assert.equal(mappedMeshes.length, 15, 'Both paving materials on seven samples and the plain short link use the shared map');
 assert.equal(resources.textures.size, 1, 'Street sites share one texture instance');
 const [texture] = resources.textures;
 assert(texture.isDataTexture);
@@ -90,7 +90,7 @@ for (const mesh of mappedMeshes) {
   assert.equal(mesh.material.transparent, false); assert.equal(mesh.material.opacity, 1);
   assert.equal(mesh.material.depthWrite, true); assert.equal(mesh.material.alphaTest, 0);
 }
-passed.push('Thirteen paving meshes across six building samples and one short link share one opaque, neutral, repeat-wrapped 256² RGBA atlas with mipmap filtering');
+passed.push('Fifteen paving meshes across seven building samples and one short link share one opaque, neutral, repeat-wrapped 256² RGBA atlas with mipmap filtering');
 
 const positionKey = (x, y, z) => `${Math.fround(x)},${Math.fround(y)},${Math.fround(z)}`;
 const turn = (a,b,c) => (b[0]-a[0])*(c[1]-a[1])-(b[1]-a[1])*(c[0]-a[0]);
@@ -193,6 +193,7 @@ for (const site of plan.sites) {
   const group = street.group.getObjectByName(site.id);
   for (const name of treeMeshes) {
     const mesh = group.getObjectByName(name);
+    if(!site.trees.length){assert(!mesh,'A sample without added trees allocates no tree geometry');continue;}
     assert(mesh?.isInstancedMesh && mesh.count === site.trees.length);
     const record = safety[name] ||= { instances: 0, vertices: 0, minimumInsetMetres: Infinity };
     for (let i = 0; i < mesh.count; i++) {
@@ -217,13 +218,14 @@ for (const site of plan.sites) {
 passed.push('Every transformed vertex of the enlarged beds, soil, low foliage, trunks and crowns stays inside its actual 16-sided safety polygon; convexity also contains every triangle interior');
 
 const visible = object => {
+  if(!object)return false;
   for (let p = object; p; p = p.parent) if (!p.visible) return false;
   return true;
 };
 const inView = { intersectsBox: () => true }, outOfView = { intersectsBox: () => false };
 const update = (pixelsPerUnit, options = {}) => street.update({ pixelsPerUnit, frustum: inView, enabled: true, treesEnabled: true, ...options });
 const landscapeStates = [], assertLandscape = expected => {
-  for (const site of plan.sites) assert.equal(visible(street.group.getObjectByName(site.id).getObjectByName('street tree crowns')), expected);
+  for (const site of plan.sites) assert.equal(visible(street.group.getObjectByName(site.id).getObjectByName('street tree crowns')), site.trees.length>0&&expected);
 };
 update(2); assert.equal(street.getStats().streetVisibleDrawCalls, 0);
 for (const [pixelsPerUnit, expected] of [[15, false], [31, false], [32, true], [30, true], [31, true], [25.6, true], [25.4, false], [28, false], [31, false], [32, true]]) {
@@ -253,7 +255,8 @@ update(80, { treesEnabled: false });
 for (const site of plan.sites) {
   const group = street.group.getObjectByName(site.id);
   for (const name of ['street planted bed foliage', 'street tree trunks', 'street tree crowns']) assert.equal(visible(group.getObjectByName(name)), false);
-  for (const name of ['street tree pits', 'street tree soil', 'street lamps']) assert.equal(visible(group.getObjectByName(name)), true);
+  for (const name of ['street tree pits', 'street tree soil']) assert.equal(visible(group.getObjectByName(name)), site.trees.length>0);
+  assert.equal(visible(group.getObjectByName('street lamps')),true);
 }
 update(80, { enabled: false }); assert.equal(street.getStats().streetVisibleDrawCalls, 0);
 update(80); assertLandscape(true); assert.equal(street.getStats().streetVisibleDrawCalls, nearDayDraws);
@@ -271,7 +274,7 @@ const stats = street.getStats();
 assert.equal(stats.streetMeshes, meshCount); assert.equal(stats.streetTriangles, triangleCount);
 assert.equal(stats.streetGeometryBytes, geometryBytes); assert.equal(stats.streetTextureCount, resources.textures.size);
 assert.equal(stats.streetTextureSourceBytes, texture.image.data.byteLength);
-assert(meshCount <= 80 && triangleCount < 15000 && geometryBytes < 700000, 'Six bounded samples and one short pavement link stay within the recorded resource budget');
+assert(meshCount <= 88 && triangleCount < 15000 && geometryBytes < 700000, 'Seven bounded samples and one short pavement link stay within the recorded resource budget');
 assert.equal(JSON.stringify({ data, models }), sourceSnapshot, 'Appearance/planning cannot mutate source coordinates, authored transforms or data');
 let rgba8MipBytes = 0;
 for (let side = texture.image.width; side >= 1; side /= 2) rgba8MipBytes += side * side * 4;

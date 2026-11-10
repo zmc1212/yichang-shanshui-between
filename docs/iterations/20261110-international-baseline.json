@@ -1,0 +1,153 @@
+{
+  "base": "V53",
+  "commit": "9c047f9efb5a2c5273c6015cbb823c65c92738f6",
+  "method": "flat terrain, no extra water predicate; complete plan JSON and actual renderer buffers before international work",
+  "groups": [
+    {
+      "id": "shouxin-wealth-s01",
+      "planSha256": "142350a232df3b5a0fce57c111045a24821cdf88ec6e15df1f16856297c34fea",
+      "renderedGeometrySha256": "9c1577303a34ea96fc12fd1950a5fc91aef67718a42c53cc6da1da22d2f17741"
+    },
+    {
+      "id": "wanda-soho-s01",
+      "planSha256": "2a6d6f1a12ac79a5ec4bf51f76514efbb3f0d92daaf4fed7e2de0589a7a24d18",
+      "renderedGeometrySha256": "e862b41e27820ab35da4450644241ec8250f1f9f66874a53515b61234f20ddbd"
+    },
+    {
+      "id": "jiuzhou-s01",
+      "planSha256": "2f0e91ce7f1d417479427a9aa84058a3b8b9640dd0e90b7841a646ac77aef688",
+      "renderedGeometrySha256": "f2fd8654b9ad029a103283c3b2b2ff621cefe76e0ac201c72f3762b9a9c36104"
+    },
+    {
+      "id": "jinjiang-s03",
+      "planSha256": "ea7bb79483eb06a23c4a9bfca86bdb40d2f0c3a40f3fe5994552ef7c4d5e2a08",
+      "renderedGeometrySha256": "38c06cc2edd38ce1a301ff1b631f28ca5188ba5ec1586bfe4d7b97166aef66f0"
+    },
+    {
+      "id": "fujiang-s01",
+      "planSha256": "8bb1bd0ec18d5a49d2fa14ad1963e6b3f003de46b9cde2cf8664f273669f340b",
+      "renderedGeometrySha256": "7807ce85c8c22ed265dca5066cf5eafd355b18aca9e3e57b917931ed70a93290"
+    },
+    {
+      "id": "zhongnan-s09",
+      "planSha256": "0986f6637556c3a78d218d80735368f2c93f8a68e6cc9407e304950501d70bf3",
+      "renderedGeometrySha256": "659389d2f49ebadb438638e5cb4e950aa2fd059fe3aa3fe079166c442008fa34"
+    },
+    {
+      "id": "jiuzhou-shouxin-walk",
+      "planSha256": "8a83474d4d2538d676a15ca5d484f3d43b8b46f362d44a0a1fb3d44e8d5c76dd",
+      "renderedGeometrySha256": "1fe3d797339db53040dcf2a10dd837e878cc3f5c13c2c04ee87c4015f69f4ed9"
+    }
+  ],
+  "resources": {
+    "streetLinks": 1,
+    "streetLinkLengthMetres": 31.149130312317652,
+    "streetSites": 6,
+    "streetPavingCells": 643,
+    "streetCurbSegments": 468,
+    "streetTrees": 29,
+    "streetLamps": 15,
+    "streetBenches": 11,
+    "streetEntranceConnected": true,
+    "streetEntrancesConnected": 6,
+    "streetIllustrative": true,
+    "streetMarkings": 0,
+    "streetEntryApronCells": 8,
+    "streetSiteIds": [
+      "shouxin-wealth-s01",
+      "wanda-soho-s01",
+      "jiuzhou-s01",
+      "jinjiang-s03",
+      "fujiang-s01",
+      "zhongnan-s09"
+    ],
+    "streetLinkIds": [
+      "jiuzhou-shouxin-walk"
+    ],
+    "streetSiteSummaries": [
+      {
+        "id": "shouxin-wealth-s01",
+        "roadName": "沿江大道",
+        "sourceRoad": "way/39725551",
+        "pavingCells": 77,
+        "curbSegments": 66,
+        "trees": 7,
+        "lamps": 3,
+        "benches": 2,
+        "entranceConnected": true,
+        "entryApronConnected": false,
+        "illustrative": true
+      },
+      {
+        "id": "wanda-soho-s01",
+        "roadName": "沿江大道",
+        "sourceRoad": "way/1543968654",
+        "pavingCells": 236,
+        "curbSegments": 158,
+        "trees": 7,
+        "lamps": 4,
+        "benches": 2,
+        "entranceConnected": true,
+        "entryApronConnected": false,
+        "illustrative": true
+      },
+      {
+        "id": "jiuzhou-s01",
+        "roadName": "沿江大道",
+        "sourceRoad": "way/39725551",
+        "pavingCells": 118,
+        "curbSegments": 68,
+        "trees": 6,
+        "lamps": 2,
+        "benches": 2,
+        "entranceConnected": true,
+        "entryApronConnected": true,
+        "illustrative": true
+      },
+      {
+        "id": "jinjiang-s03",
+        "roadName": "沿江大道",
+        "sourceRoad": "way/724326275",
+        "pavingCells": 71,
+        "curbSegments": 60,
+        "trees": 4,
+        "lamps": 2,
+        "benches": 2,
+        "entranceConnected": true,
+        "entryApronConnected": false,
+        "illustrative": true
+      },
+      {
+        "id": "fujiang-s01",
+        "roadName": "沿江大道",
+        "sourceRoad": "way/39725551",
+        "pavingCells": 70,
+        "curbSegments": 64,
+        "trees": 3,
+        "lamps": 2,
+        "benches": 2,
+        "entranceConnected": true,
+        "entryApronConnected": false,
+        "illustrative": true
+      },
+      {
+        "id": "zhongnan-s09",
+        "roadName": "夷陵大道",
+        "sourceRoad": "way/397144798",
+        "pavingCells": 60,
+        "curbSegments": 30,
+        "trees": 2,
+        "lamps": 2,
+        "benches": 1,
+        "entranceConnected": true,
+        "entryApronConnected": false,
+        "illustrative": true
+      }
+    ],
+    "streetMeshes": 80,
+    "streetTriangles": 11996,
+    "streetGeometryBytes": 500820,
+    "streetTextureCount": 1,
+    "streetTextureSourceBytes": 262144
+  }
+}

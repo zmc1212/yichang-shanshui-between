@@ -14,6 +14,7 @@ export function normalizeSceneLocation(value = {}, places = []) {
   const allowedAngles = place?.kind === 'authored' ? ['detail', 'front', 'facade', 'entrance', 'crown', 'context']
     : place?.kind === 'business-poi' ? ['detail', 'context']
       : RIVER_VIEWS.has(place?.id) ? ['detail', 'river'] : ['detail'];
+  if (place?.kind === 'authored' && place.id === 'yichang-international-s01') allowedAngles.push('frontage');
   const angle = place && allowedAngles.includes(value.angle) ? value.angle : 'detail';
   // Existing saved links keep their place selection as recovered items move
   // into the unified preview directory. A real remaining recovery queue stays

@@ -47,6 +47,9 @@ for (const id of ['meilian-s05','business-1649141','zhenjiang-pavilion','yiling-
   }
 }
 assert.equal(readSceneLocation('#place=shouxin-wealth-s01&angle=unknown&close=1', places).state.angle, 'detail');
+const frontage = { place:'yichang-international-s01', theme:'day', view:'perspective', angle:'frontage', close:true, filter:'all', query:'宜昌国际' };
+assert.deepEqual(readSceneLocation('#'+serializeSceneLocation(frontage,places),places).state,frontage,'The frontage view survives reload and a copied location link');
+for(const place of ['shouxin-wealth-s01','zhenjiang-pavilion','business-1649141']) assert.equal(readSceneLocation(`#place=${place}&angle=frontage&close=1`,places).state.angle,'detail','Frontage view is limited to its actual supported building');
 assert.equal(readSceneLocation('#place=shouxin-wealth-s01&close=1', places).state.close, true, 'an existing close-view link remains usable without a new parameter');
 assert.equal(readSceneLocation('#place=shouxin-wealth-s01&close=1', places).state.angle, 'detail', 'an existing close-view link now opens the full-building preset, not an implicit facade crop');
 assert.equal(readSceneLocation('#unknown-section', places).recognized, false);

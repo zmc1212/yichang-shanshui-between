@@ -6,6 +6,7 @@ import { trimStreetCurbs, createStreetCurbGeometry } from './streetSurfaceGeomet
 import { createStreetPavingTexture, streetPavingFrame, streetPavingUv } from './streetPavingTexture.js';
 import { partitionStreetPaving } from './streetPavingPartition.js';
 import { planContinuousStreetSites } from './continuousStreetSites.js';
+import { planInternationalStreetSite } from './internationalStreetSite.js';
 
 // These are bounded presentation areas derived from the registered model's
 // complete bounds, including its existing stairs/canopies. They do not claim
@@ -324,17 +325,19 @@ export function planStreetDetails(options) {
   const allPaths = (options.data.roads || []).map(makePath).filter(path => path.points.length > 1);
   const plans = [...STREET_SITES, ...EXTRA_STREET_SITES].map(settings => planStreetSite({ ...options, allPaths, settings,
     model: options.authoredModels.find(item => item.id === settings.id) }));
-  const sites = plans.flatMap(plan => plan.sites);
-  const connections = planContinuousStreetSites({ ...options, sites });
+  const entranceSites = plans.flatMap(plan => plan.sites);
+  const connections = planContinuousStreetSites({ ...options, sites: entranceSites });
   const links = connections.sites;
+  const frontage = planInternationalStreetSite({ ...options, sites: [...entranceSites, ...links] });
+  const sites = [...entranceSites, ...frontage.sites];
   const allSites = [...sites, ...links];
   const sum = key => allSites.reduce((total, site) => total + site[key].length, 0);
   const connected = sites.filter(site => site.entranceRoute.length === 2).length;
   return { sites, links, stats: {
-    ...connections.stats,
+    ...connections.stats, ...frontage.stats,
     streetSites: sites.length, streetPavingCells: sum('paving'), streetCurbSegments: sum('curbs'),
     streetTrees: sum('trees'), streetLamps: sum('lamps'), streetBenches: sum('benches'),
-    streetEntranceConnected: sites.length > 0 && connected === sites.length,
+    streetEntranceConnected: entranceSites.length > 0 && connected === entranceSites.length,
     streetEntrancesConnected: connected, streetIllustrative: true, streetMarkings: 0,
     streetEntryApronCells: sites.reduce((total,site)=>total+(site.entryApron?.cells||0),0),
     streetSiteIds: sites.map(site => site.id),
@@ -342,8 +345,8 @@ export function planStreetDetails(options) {
     streetSiteSummaries: sites.map(site => ({ id: site.id, roadName: site.roadName, sourceRoad: site.roadSourceId,
       pavingCells: site.paving.length, curbSegments: site.curbs.length, trees: site.trees.length,
       lamps: site.lamps.length, benches: site.benches.length, entranceConnected: site.entranceRoute.length === 2,
-      entryApronConnected: Boolean(site.entryApron), illustrative: site.illustrative })),
-  }, reserveTree: (x,z) => plans.some(plan => plan.reserveTree(x,z)) || connections.reserveTree(x,z) };
+      entryApronConnected: Boolean(site.entryApron), frontageConnected: Boolean(site.frontageRoute?.length), illustrative: site.illustrative })),
+  }, reserveTree: (x,z) => plans.some(plan => plan.reserveTree(x,z)) || connections.reserveTree(x,z) || frontage.reserveTree(x,z) };
 }
 
 function quadsGeometry(cells, surface, frame = null) {

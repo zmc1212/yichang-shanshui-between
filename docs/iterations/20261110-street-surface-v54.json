@@ -1,0 +1,180 @@
+{
+  "passed": [
+    "Oblique entry clears the complete curb thickness, preserves the parallel road edge, conserves area and leaves the planner unchanged",
+    "Full crossings, exact boundary contact and reversed winding preserve their geometric meaning without spurious curb cuts",
+    "Multiple entry openings remain disjoint, duplicate connection masks do not double-count area, and ordinary forecourt paving cannot remove a curb",
+    "Explicit corner court masks open only a positively intersected building-side curb; a synthetic mask spanning both sides leaves the road-side curb completely intact",
+    "7 real building street sites and 1 short links have zero permitted opening/curb overlap, full-thickness openings, preserved road-side edges and finite upward/outward geometry",
+    "Empty sites are harmless; invalid heights fail explicitly instead of emitting NaN vertices"
+  ],
+  "sites": [
+    {
+      "id": "shouxin-wealth-s01",
+      "sourceCurbs": 66,
+      "renderedCells": 65,
+      "cuts": 3,
+      "courtCuts": 0,
+      "originalOverlapSquareMeters": 0.4599999115577148,
+      "removedSquareMeters": 0.9200942186259687,
+      "openingWidthMeters": 4.600471093123491,
+      "maxPenetrationMeters": 0.10000000000013869,
+      "geometry": {
+        "renderedCells": 65,
+        "boundaryEdges": 140,
+        "topTriangles": 130,
+        "sideTriangles": 280,
+        "lift": 0.0035,
+        "geometryBytes": 28700,
+        "vertices": 820,
+        "triangles": 410
+      }
+    },
+    {
+      "id": "wanda-soho-s01",
+      "sourceCurbs": 158,
+      "renderedCells": 157,
+      "cuts": 3,
+      "courtCuts": 0,
+      "originalOverlapSquareMeters": 0.45999932619882977,
+      "removedSquareMeters": 0.9201975098344374,
+      "openingWidthMeters": 4.600987549170968,
+      "maxPenetrationMeters": 0.10000000000002697,
+      "geometry": {
+        "renderedCells": 157,
+        "boundaryEdges": 320,
+        "topTriangles": 314,
+        "sideTriangles": 640,
+        "lift": 0.0035,
+        "geometryBytes": 66780,
+        "vertices": 1908,
+        "triangles": 954
+      }
+    },
+    {
+      "id": "jiuzhou-s01",
+      "sourceCurbs": 68,
+      "renderedCells": 68,
+      "cuts": 2,
+      "courtCuts": 0,
+      "originalOverlapSquareMeters": 0.4599997337864817,
+      "removedSquareMeters": 0.920144018238931,
+      "openingWidthMeters": 4.600720091188275,
+      "maxPenetrationMeters": 0.10000000000013864,
+      "geometry": {
+        "renderedCells": 68,
+        "boundaryEdges": 142,
+        "topTriangles": 136,
+        "sideTriangles": 284,
+        "lift": 0.0035,
+        "geometryBytes": 29400,
+        "vertices": 840,
+        "triangles": 420
+      }
+    },
+    {
+      "id": "jinjiang-s03",
+      "sourceCurbs": 60,
+      "renderedCells": 60,
+      "cuts": 2,
+      "courtCuts": 0,
+      "originalOverlapSquareMeters": 0.45999726410980063,
+      "removedSquareMeters": 0.9203516984219559,
+      "openingWidthMeters": 4.601758492111338,
+      "maxPenetrationMeters": 0.09999999999995711,
+      "geometry": {
+        "renderedCells": 60,
+        "boundaryEdges": 126,
+        "topTriangles": 120,
+        "sideTriangles": 252,
+        "lift": 0.0035,
+        "geometryBytes": 26040,
+        "vertices": 744,
+        "triangles": 372
+      }
+    },
+    {
+      "id": "fujiang-s01",
+      "sourceCurbs": 64,
+      "renderedCells": 64,
+      "cuts": 2,
+      "courtCuts": 0,
+      "originalOverlapSquareMeters": 0.45985921743491265,
+      "removedSquareMeters": 0.9208032019182253,
+      "openingWidthMeters": 4.604016009589945,
+      "maxPenetrationMeters": 0.10000000000002673,
+      "geometry": {
+        "renderedCells": 64,
+        "boundaryEdges": 134,
+        "topTriangles": 128,
+        "sideTriangles": 268,
+        "lift": 0.0035,
+        "geometryBytes": 27720,
+        "vertices": 792,
+        "triangles": 396
+      }
+    },
+    {
+      "id": "zhongnan-s09",
+      "sourceCurbs": 30,
+      "renderedCells": 28,
+      "cuts": 5,
+      "courtCuts": 2,
+      "originalOverlapSquareMeters": 1.181004672190271,
+      "removedSquareMeters": 1.6661651561830644,
+      "openingWidthMeters": 8.330825780915719,
+      "maxPenetrationMeters": 0.09999999999999054,
+      "geometry": {
+        "renderedCells": 28,
+        "boundaryEdges": 62,
+        "topTriangles": 56,
+        "sideTriangles": 124,
+        "lift": 0.0035,
+        "geometryBytes": 12600,
+        "vertices": 360,
+        "triangles": 180
+      }
+    },
+    {
+      "id": "yichang-international-s01",
+      "sourceCurbs": 41,
+      "renderedCells": 41,
+      "cuts": 1,
+      "courtCuts": 0,
+      "originalOverlapSquareMeters": 0.00002846927261778787,
+      "removedSquareMeters": 0.00011387709044269117,
+      "openingWidthMeters": 0.0005693854520365249,
+      "maxPenetrationMeters": 0.09999999999994003,
+      "geometry": {
+        "renderedCells": 41,
+        "boundaryEdges": 88,
+        "topTriangles": 82,
+        "sideTriangles": 176,
+        "lift": 0.0035,
+        "geometryBytes": 18060,
+        "vertices": 516,
+        "triangles": 258
+      }
+    },
+    {
+      "id": "jiuzhou-shouxin-walk",
+      "sourceCurbs": 22,
+      "renderedCells": 22,
+      "cuts": 0,
+      "courtCuts": 0,
+      "originalOverlapSquareMeters": 0,
+      "removedSquareMeters": 0,
+      "openingWidthMeters": 0,
+      "maxPenetrationMeters": 0,
+      "geometry": {
+        "renderedCells": 22,
+        "boundaryEdges": 48,
+        "topTriangles": 44,
+        "sideTriangles": 96,
+        "lift": 0.0035,
+        "geometryBytes": 9800,
+        "vertices": 280,
+        "triangles": 140
+      }
+    }
+  ]
+}

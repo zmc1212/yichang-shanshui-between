@@ -423,6 +423,26 @@ try {
         assert.equal(engine.getStats().focusAngle,angle,'the requested inspection subject remains selected');
         assert.ok(renderer.camera.position.distanceTo(facadePosition)>1e-5,'entrance and crown must not reuse the facade camera target');
       }
+      if(spec.id==='yichang-international-s01') {
+        wake(()=>engine.focus(spec.id,{angle:'frontage',close:true}),`${viewport.name} International Plaza frontage`);
+        assert.equal(engine.getStats().focusAngle,'frontage');
+        const frontage=cityScene.getObjectByName('Building forecourts and illustrative streets').getObjectByName(spec.id);
+        assert.ok(frontage,'the frontage preset requires a successfully planned street connection');
+        const points=[];
+        frontage.traverse(mesh=>{
+          if(!mesh.isMesh||!['forecourt, entrance path and sidewalk','street paving insets'].includes(mesh.name))return;
+          const position=mesh.geometry.attributes.position;
+          for(let i=0;i<position.count;i++)points.push(new Vector3().fromBufferAttribute(position,i).applyMatrix4(mesh.matrixWorld));
+        });
+        assert.ok(points.length>0,'the camera oracle uses actual emitted street surfaces');
+        // The whole added ground strip and the original passage join must be
+        // visible together. No camera-target/span calculation is duplicated.
+        points.push(sourcePointToWorld(spec.id,[33.4,.10041078109802713,23.00016418147591]));
+        for(const point of projectPoints(points))assertPointClearsUi(point,availableBuildingRect(),`${viewport.name}: complete frontage ground`);
+        assertDetailRetained(spec.id,`${viewport.name}: frontage retains its selected model`);
+        assert.ok(engine.getStats().streetDetails.streetVisibleIds.includes(spec.id));
+        for(const layer of ['terrain','buildings','roads'])assert.equal(cityScene.getObjectByName(layer).visible,true);
+      }
       wake(()=>engine.focus(spec.id,{angle:'detail',close:true}),`${viewport.name} ${spec.name} return to full-height building`);
       assertBuildingFits(spec.id,`${viewport.name} restored full-height building`,{minOccupancy:.9,whole:true});
       assert.ok(renderer.camera.position.distanceTo(wholePose.position)<1e-9);
@@ -436,6 +456,10 @@ try {
       assert.ok(Math.abs(renderer.camera.zoom-overviewPose.zoom)<1e-9,'return-to-whole must restore its framing, not the city overview');
     }
   }
+  wake(()=>engine.focus('shouxin-wealth-s01',{angle:'frontage',close:true}),'unsupported frontage preset');
+  assert.equal(engine.getStats().focusAngle,'detail','unsupported frontage preset normalizes to complete-building view');
+  assertBuildingFits('shouxin-wealth-s01','unsupported frontage falls back to whole building',{minOccupancy:.9,whole:true});
+  checks.push('International Plaza frontage frames every emitted paving vertex and the retained passage edge on desktop and both phone sheet states; selected detail persists, whole-building pose restores exactly, and unsupported frontage links fall back safely');
   // A short phone with its introduction expanded can leave no real framing
   // area between the provenance note and the sheet. Preserve the camera
   // instead of manufacturing a viewport behind that sheet; a later card-only

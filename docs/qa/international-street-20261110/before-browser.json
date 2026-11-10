@@ -1,0 +1,20 @@
+[
+  {
+    "name": "before-international-whole",
+    "text": [
+      {
+        "type": "text",
+        "text": "{\"case\":\"before-international-whole\",\"canvas\":[{\"dataset\":{\"authoredModels\":\"7\",\"authoredSelection\":\"true\",\"businessProjects\":\"23\",\"cityVisible\":\"true\",\"detailModels\":\"1\",\"drawCalls\":\"89\",\"engine\":\"three.js r170\",\"focusAngle\":\"detail\",\"geometries\":\"333\",\"modelAnchor\":\"[-5.912434062168668,0.06914715175472351,20.48598798096113]\",\"modelQuality\":\"detail\",\"renderFrames\":\"625\",\"renderState\":\"idle\",\"residentModels\":\"7\",\"sceneMode\":\"city\",\"streetDetails\":\"2\",\"streetDetailsEnabled\":\"true\",\"streetVisibleDrawCalls\":\"12\",\"streetVisibleIds\":\"[\\\"wanda-soho-s01\\\"]\",\"streetVisibleLinks\":\"0\",\"streetVisibleSites\":\"1\",\"textures\":\"21\",\"triangles\":\"1449430\"},\"height\":793,\"width\":1616}]}"
+      }
+    ]
+  },
+  {
+    "name": "before-international-entrance",
+    "text": [
+      {
+        "type": "text",
+        "text": "{\"case\":\"before-international-entrance\",\"canvas\":[{\"dataset\":{\"authoredModels\":\"7\",\"authoredSelection\":\"true\",\"businessProjects\":\"23\",\"cityVisible\":\"true\",\"detailModels\":\"1\",\"drawCalls\":\"58\",\"engine\":\"three.js r170\",\"focusAngle\":\"entrance\",\"geometries\":\"333\",\"modelAnchor\":\"[-5.912434062168668,0.06914715175472351,20.48598798096113]\",\"modelQuality\":\"detail\",\"renderFrames\":\"630\",\"renderState\":\"idle\",\"residentModels\":\"7\",\"sceneMode\":\"city\",\"streetDetails\":\"0\",\"streetDetailsEnabled\":\"true\",\"streetVisibleDrawCalls\":\"0\",\"streetVisibleIds\":\"[]\",\"streetVisibleLinks\":\"0\",\"streetVisibleSites\":\"0\",\"textures\":\"21\",\"triangles\":\"1351738\"},\"height\":793,\"width\":1616}]}"
+      }
+    ]
+  }
+]
