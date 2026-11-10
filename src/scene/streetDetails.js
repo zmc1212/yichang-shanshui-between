@@ -260,7 +260,9 @@ export function createStreetDetails(plan,{heightAt,makeMaterial}) {
     stone:makeMaterial('#bdbba9','#627a6d'),metal:makeMaterial('#536f63','#7c9180'),wood:makeMaterial('#ad895f','#9b805c'),
     soil:makeMaterial('#94866a','#485e4d'),leaves:makeMaterial('#81a16c','#486b50',{flatShading:true}),light:makeMaterial('#f5e1ac','#ffdda5')
   };
-  const glowMaterial=new THREE.MeshBasicMaterial({color:'#f8d694',transparent:true,opacity:.19,depthWrite:false,toneMapped:false,side:THREE.DoubleSide});
+  // A flat transparent pool needs one pass; the default double-sided material
+  // would draw front and back separately without changing this ground decal.
+  const glowMaterial=new THREE.MeshBasicMaterial({color:'#f8d694',transparent:true,opacity:.19,depthWrite:false,toneMapped:false,side:THREE.DoubleSide,forceSinglePass:true});
   const entries=[];let night=false;
   for(const site of plan.sites){
     const unit=site.units,surface=(x,z)=>heightAt(x,z)+site.groundLift(x,z);
