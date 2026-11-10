@@ -1,0 +1,68 @@
+{
+  "passed": true,
+  "sourceCommit": "2c2c35ab161ac95ba66662b723e959c2edf491b4",
+  "method": "Local geometry, source-state, Float32 join, failure-mode and render-resource checks; not a browser or physical-device benchmark",
+  "evidence": {
+    "method": "existing-same-side-sidewalk-end-infill",
+    "sourceSegmentIndex": 9,
+    "lengthMetres": 31.149130312317652,
+    "widthMetres": 3.6,
+    "start": {
+      "siteId": "jiuzhou-s01",
+      "inner": [
+        18.642527894487756,
+        46.49774199482476
+      ],
+      "outer": [
+        18.69055713306604,
+        46.44410252948821
+      ],
+      "sourceRoadStationMetres": 3499.4847196819546
+    },
+    "end": {
+      "siteId": "shouxin-wealth-s01",
+      "inner": [
+        18.178410479029132,
+        46.082167269470204
+      ],
+      "outer": [
+        18.226439717607416,
+        46.02852780413366
+      ],
+      "sourceRoadStationMetres": 3530.6338499942726
+    },
+    "surveyed": false
+  },
+  "geometry": {
+    "pavingCells": 11,
+    "curbSegments": 22,
+    "completeCheckedFootprints": 33,
+    "minimumRoadEdgeClearanceMetres": 0.5999999999994828,
+    "minimumNearbyBuildingClearanceMetres": 21.170342011699724,
+    "minimumNearbyWaterClearanceMetres": 79.95155991845799,
+    "maxEndpointHeightDifference": 0,
+    "curbFloat32JoinedCorners": 8,
+    "pavingFloat32EndpointVertices": 6,
+    "renderedPavingTriangles": 22,
+    "renderedPavingSelfOverlapPairs": 0
+  },
+  "resources": {
+    "streetLinks": 1,
+    "streetLinkLengthMetres": 31.149130312317652,
+    "streetMeshes": 2,
+    "streetTriangles": 162,
+    "streetGeometryBytes": 11912,
+    "streetTextureCount": 1,
+    "streetTextureSourceBytes": 262144
+  },
+  "existingSitesUnchanged": true,
+  "existingSiteHashes": {
+    "shouxin-wealth-s01": "b18da81af7e64df99f33aa11273b207d00478bf57b84df8bfcab9df98ce0e786",
+    "wanda-soho-s01": "a1398c37fa1488b992afc0bf91c3ca114ea0f428c50390a3a451a649cc418ee8",
+    "jiuzhou-s01": "b404b4a514e8a73aebb8b9c13646cc89a940478ee1d870fbc0c594c46bb7cc05",
+    "jinjiang-s03": "45a10f6521611a1aaf5e123e154e6ab3d41b8980047fcc9b4f4f6a1a310c13b2",
+    "fujiang-s01": "7fbd95e6ba0b55943f3d3f5f46676697a7a58fe6672e574e38405fbf604e62c3",
+    "zhongnan-s09": "77879b25825d0cf34ed40304093a3b865fb78b85cd66fe45a8c0d5b53b5695ae"
+  },
+  "failureCases": 10
+}

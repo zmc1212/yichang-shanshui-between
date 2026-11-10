@@ -42,21 +42,34 @@ const inWater=(x,z)=>data.water.some(p=>winding([x,z],p.rings[0])&&!p.rings.slic
 const heightAt=(x,z)=>0.001*Math.sin(x*.04)*Math.cos(z*.08);
 const input={data,authoredModels:models,authoredGround:ground,waterfrontPlan:{omittedBuildingIndices:new Set()},inWater,heightAt};
 const plan=planStreetDetails(input);
-const expectedIds=['shouxin-wealth-s01','wanda-soho-s01','jiuzhou-s01','jinjiang-s03','fujiang-s01'];
+const expectedIds=['shouxin-wealth-s01','wanda-soho-s01','jiuzhou-s01','jinjiang-s03','fujiang-s01','zhongnan-s09'];
 assert.deepEqual(plan.sites.map(s=>s.id),expectedIds);
-assert.equal(plan.stats.streetSites,5);assert.equal(plan.stats.streetMarkings,0);assert.equal(plan.stats.streetEntranceConnected,true);assert.equal(plan.stats.streetEntrancesConnected,5);
+assert.equal(plan.stats.streetSites,6);assert.equal(plan.stats.streetMarkings,0);assert.equal(plan.stats.streetEntranceConnected,true);assert.equal(plan.stats.streetEntrancesConnected,6);
+assert.equal(plan.stats.streetLinks,1);assert.deepEqual(plan.links.map(link=>link.id),['jiuzhou-shouxin-walk']);
+const allStreetGroups=[...plan.sites,...plan.links];
 const shouxin=plan.sites[0];
 const flatPlan=planStreetDetails({...input,inWater:()=>false,heightAt:()=>0});
-// Frozen V40 geometry, captured before the multi-site refactor. This protects
-// all prior slabs, tree locations and curbs, not only their counts.
-assert.equal(createHash('sha256').update(JSON.stringify(flatPlan.sites[0])).digest('hex'),'142350a232df3b5a0fce57c111045a24821cdf88ec6e15df1f16856297c34fea','The complete Shouxin plan must match the V40 geometry snapshot');
-passed.push('The complete Shouxin geometry matches its frozen V40 SHA-256; Wanda and Jiuzhou are added without changing source transforms');
+// Captured independently from V51 before the street-corner work. Preserve
+// complete prior cells, curbs, furniture and source metadata, not only counts.
+// Shouxin's hash is unchanged since the original frozen V40 geometry.
+const previousPlans = new Map([
+  ['shouxin-wealth-s01','142350a232df3b5a0fce57c111045a24821cdf88ec6e15df1f16856297c34fea'],
+  ['wanda-soho-s01','2a6d6f1a12ac79a5ec4bf51f76514efbb3f0d92daaf4fed7e2de0589a7a24d18'],
+  ['jiuzhou-s01','2f0e91ce7f1d417479427a9aa84058a3b8b9640dd0e90b7841a646ac77aef688'],
+  ['jinjiang-s03','ea7bb79483eb06a23c4a9bfca86bdb40d2f0c3a40f3fe5994552ef7c4d5e2a08'],
+  ['fujiang-s01','8bb1bd0ec18d5a49d2fa14ad1963e6b3f003de46b9cde2cf8664f273669f340b'],
+]);
+for(const [id,hash] of previousPlans){
+  const site=flatPlan.sites.find(candidate=>candidate.id===id);assert(site,`${id}: retained street site exists`);
+  assert.equal(createHash('sha256').update(JSON.stringify(site)).digest('hex'),hash,`${id}: complete V51 plan remains unchanged`);
+}
+passed.push('All five prior street plans match their independently captured V51 SHA-256 snapshots, including the unchanged V40 Shouxin geometry');
 
 const box=ring=>({x0:Math.min(...ring.map(p=>p[0])),x1:Math.max(...ring.map(p=>p[0])),z0:Math.min(...ring.map(p=>p[1])),z1:Math.max(...ring.map(p=>p[1]))});
 const near=(a,b,pad=0)=>a.x0<=b.x1+pad&&b.x0<=a.x1+pad&&a.z0<=b.z1+pad&&b.z0<=a.z1+pad;
 const buildings=[...data.buildings.filter((_,i)=>!ground.omittedBuildingIndices.has(i)),...ground.retainedBuildings].map(b=>b.rings||[b.ring]);
 const hardFootprints=[...buildings.map(rings=>({ring:rings[0]})),...models.map(m=>({ring:m.footprint,modelId:m.id}))].map(item=>({...item,box:box(item.ring)}));
-const candidates=plan.sites.flatMap(site=>[
+const candidates=allStreetGroups.flatMap(site=>[
   ...site.paving.map(p=>({ring:p.points,kind:'paving',role:p.role,clearedModelId:p.clearedModelId,site:site.id})),
   ...site.curbs.map(c=>({ring:c.footprint,kind:'curb',site:site.id})),
   ...['trees','lamps','benches'].flatMap(kind=>site[kind].map(item=>({ring:item.safetyFootprint,kind,site:site.id})))
@@ -65,7 +78,12 @@ const roadSegments=data.roads.flatMap(road=>road.points.slice(1).map((b,i)=>({a:
 const waters=data.water.map(w=>({...w,box:box(w.rings[0])}));
 for(const candidate of candidates){
   const ring=candidate.ring;
-  assert(ring.every(p=>p.every(Number.isFinite)),`${candidate.site} ${candidate.kind}: finite footprint`);
+  assert(ring.length>=3&&ring.every(p=>p.every(Number.isFinite)),`${candidate.site} ${candidate.kind}: finite polygon footprint`);
+  if(candidate.kind==='paving'){
+    const turns=ring.map((a,i)=>orientation(a,ring[(i+1)%ring.length],ring[(i+2)%ring.length]));
+    assert(turns.every(t=>t>=-1e-10)||turns.every(t=>t<=1e-10),`${candidate.site}: paving remains convex after clipping and edge splitting`);
+    assert(convexIntersectionArea(ring,ring)>1e-12,`${candidate.site}: no zero-area paving fragments`);
+  }
   assert(ring.every(p=>Math.abs(p[0])<data.meta.width/2&&Math.abs(p[1])<data.meta.depth/2),`${candidate.kind}: board boundary`);
   for(const obstacle of hardFootprints){
     if(!near(candidate.box,obstacle.box,.0038))continue;
@@ -93,6 +111,10 @@ for(let i=0;i<paving.length;i++)for(let j=i+1;j<paving.length;j++){
 for(let i=0;i<candidates.length;i++)for(let j=i+1;j<candidates.length;j++){
   const a=candidates[i],b=candidates[j];
   if(a.site===b.site||!near(a.box,b.box,.0038))continue;
+  const linkJoin=(a.site==='jiuzhou-shouxin-walk'&&['shouxin-wealth-s01','jiuzhou-s01'].includes(b.site))||(b.site==='jiuzhou-shouxin-walk'&&['shouxin-wealth-s01','jiuzhou-s01'].includes(a.site));
+  if(linkJoin&&['paving','curb'].includes(a.kind)&&['paving','curb'].includes(b.kind)){
+    assert(convexIntersectionArea(a.ring,b.ring)<1e-9,'An explicit street link may share its endpoint edge, never duplicate paved or curb area');continue;
+  }
   assert(polygonDistance(a.ring,b.ring)>.0038,'Independent street sites cannot overlap one another');
 }
 const furniture=candidates.filter(c=>!['paving','curb'].includes(c.kind));
@@ -102,9 +124,13 @@ passed.push('All paving cells have zero overlapping area; independent street sit
 for(const site of plan.sites){
   const model=models.find(m=>m.id===site.id),road=data.roads.find(r=>r.osmId===site.roadSourceId);
   assert.deepEqual(site.sourceAnchor,[model.x,model.z]);assert.equal(site.frontBearingDeg,model.registration.frontBearingDeg);
-  assert.equal(site.roadName,'沿江大道');assert.equal(site.roadWidth,.192);assert(site.illustrative);
+  const corner=site.id==='zhongnan-s09';
+  assert.equal(site.roadName,corner?'夷陵大道':'沿江大道');assert.equal(site.roadWidth,corner ? .128 : .192);assert(site.illustrative);
+  if(corner)assert.equal(site.roadSourceId,'way/397144798','The street corner uses its verified same-level Yiling Avenue segment');
   assert(!road.bridge||road.bridge==='no');assert(!road.tunnel||road.tunnel==='no');assert.equal(Number(road.layer||0),0);
-  assert(site.paving.length>40&&site.paving.length<250);assert(site.trees.length>=3&&site.trees.length<=10);assert(site.lamps.length>=2&&site.lamps.length<=4);assert.equal(site.benches.length,2);
+  assert(site.paving.length>40&&site.paving.length<250);
+  if(corner){assert.equal(site.trees.length,2);assert.equal(site.lamps.length,2);assert.equal(site.benches.length,1);}
+  else{assert(site.trees.length>=3&&site.trees.length<=10);assert(site.lamps.length>=2&&site.lamps.length<=4);assert.equal(site.benches.length,2);}
   assert.equal(site.entranceRoute.length,2);
   const connection=site.paving.filter(p=>p.role==='connection');assert(connection.length>=3);
   assert(connection[0].points.some(p=>site.paving.filter(c=>c.role==='forecourt'||c.role==='accent').some(c=>pairs(c.points).some(([a,b])=>pointDistance(p,a,b)<1e-7))),`${site.id}: route touches court`);
@@ -123,7 +149,43 @@ for(const site of plan.sites){
   }
 }
 assert.equal(plan.reserveTree(0,0),false);
-passed.push('All five continuous paths join the complete model footprint front, narrow court and same-side sidewalk; new paths align laterally with the authored visible entry while remaining illustrative');
+passed.push('All six continuous paths join the complete model footprint front, narrow court and same-side sidewalk; new paths align laterally with the authored visible entry while remaining illustrative');
+
+// An independent interval oracle checks the whole entry width, not only a
+// vertex touching another cell. Reconstruct the intended strip from immutable
+// model/road directions; clipped fragments may not silently narrow access.
+function assertLineCovered(a,b,cells,label){
+  const intervals=[];
+  for(const cell of cells){
+    const signed=pairs(cell.points).reduce((sum,[p,q])=>sum+p[0]*q[1]-q[0]*p[1],0),sign=Math.sign(signed);
+    let lo=0,hi=1;
+    for(const[p,q]of pairs(cell.points)){
+      const da=sign*orientation(p,q,a),db=sign*orientation(p,q,b),delta=db-da;
+      if(Math.abs(delta)<1e-14){if(da<-1e-11){lo=1;hi=0;break;}continue;}
+      const at=-da/delta;
+      if(delta>0)lo=Math.max(lo,at);else hi=Math.min(hi,at);
+    }
+    if(hi>=lo-1e-9)intervals.push([Math.max(0,lo),Math.min(1,hi)]);
+  }
+  intervals.sort((a,b)=>a[0]-b[0]);let end=0;
+  for(const[lo,hi]of intervals){if(hi<0||lo>1)continue;assert(lo<=end+1e-7,`${label}: full-width join contains a gap`);end=Math.max(end,hi);}
+  assert(end>=1-1e-7,`${label}: complete 4.6 m join must be covered`);
+}
+const corner=plan.sites.find(site=>site.id==='zhongnan-s09'),cornerModel=models.find(model=>model.id===corner.id);
+const cornerRoad=data.roads.find(road=>road.osmId===corner.roadSourceId),cornerStart=corner.entranceRoute[0],cornerEnd=corner.entranceRoute[1];
+const cornerTangent=[Math.cos(cornerModel.yaw),-Math.sin(cornerModel.yaw)],halfWidth=2.3*data.meta.unitsPerMeter;
+const nearestEdge=cornerRoad.points.slice(1).map((b,i)=>({a:cornerRoad.points[i],b,d:pointDistance(cornerEnd,cornerRoad.points[i],b)})).sort((a,b)=>a.d-b.d)[0];
+let roadTangent=[nearestEdge.b[0]-nearestEdge.a[0],nearestEdge.b[1]-nearestEdge.a[1]];const edgeLength=Math.hypot(...roadTangent);roadTangent=roadTangent.map(v=>v/edgeLength);
+if(roadTangent[0]*cornerTangent[0]+roadTangent[1]*cornerTangent[1]<0)roadTangent=roadTangent.map(v=>-v);
+const offset=(p,n,s)=>[p[0]+n[0]*s,p[1]+n[1]*s];
+const fullRoute=[offset(cornerStart,cornerTangent,-halfWidth),offset(cornerEnd,roadTangent,-halfWidth),offset(cornerEnd,roadTangent,halfWidth),offset(cornerStart,cornerTangent,halfWidth)];
+const connectionCoverage=corner.paving.filter(cell=>cell.role==='connection').reduce((sum,cell)=>sum+convexIntersectionArea(fullRoute,cell.points),0),fullRouteArea=convexIntersectionArea(fullRoute,fullRoute);
+assert(Math.abs(connectionCoverage-fullRouteArea)<1e-10,'Polygon ownership preserves the complete intended entry strip, with zero lost or duplicated area');
+assertLineCovered(fullRoute[0],fullRoute[3],corner.paving.filter(cell=>cell.zone==='forecourt'),'Corner court ↔ connection');
+assertLineCovered(fullRoute[1],fullRoute[2],corner.paving.filter(cell=>cell.zone==='sidewalk'),'Corner connection ↔ sidewalk');
+assert(corner.paving.every(cell=>cell.conforming&&Number.isInteger(cell.sourcePavingIndex)),'The corner uses the explicit conforming partition; old sites remain untouched');
+assert(corner.paving.every(cell=>!cell.clearedModelId),'The new corner cannot gain an uncertified internal-model exception');
+passed.push('The clipped Zhongnan corner retains the complete 4.6 m entry strip and full-width court/sidewalk joins; no clipping gap, narrowing or new model-envelope exception is accepted');
 
 // Actual scene ground and decoded light/detail GLBs verify the apron
 // exception in three dimensions. Source models and render transforms are read
@@ -236,7 +298,8 @@ passed.push('Eight diagonal Jiuzhou apron cells now join the decoded stone step 
 passed.push('Every emitted Float32 apron triangle lies inside that explicit source-cleared corridor, stays above scene ground, and descends from the unchanged doorstep to the unchanged exterior court without a vertical join gap');
 apronRender.group.traverse(o=>{o.geometry?.dispose();for(const m of Array.isArray(o.material)?o.material:o.material?[o.material]:[])m.dispose();});
 
-const inaccessible={...data,roads:data.roads.map(road=>road.name==='沿江大道'?{...road,bridge:'yes',layer:'1'}:road)};
+const eligibleRoadNames=new Set(plan.sites.map(site=>site.roadName));
+const inaccessible={...data,roads:data.roads.map(road=>eligibleRoadNames.has(road.name)?{...road,bridge:'yes',layer:'1'}:road)};
 assert.equal(planStreetDetails({...input,data:inaccessible}).sites.length,0,'An elevated road is never converted to ground-level pedestrian access');
 assert.equal(planStreetDetails({...input,authoredModels:[]}).sites.length,0,'No invented site is generated without its authored model');
 assert.equal(JSON.stringify({data,models}),snapshot,'Street planning cannot mutate source coordinates, scale, yaw, roads, or buildings');
@@ -253,7 +316,7 @@ render.group.traverse(object=>{
     for(let i=0;i<p.count;i+=3){const a=new THREE.Vector3().fromBufferAttribute(p,i),b=new THREE.Vector3().fromBufferAttribute(p,i+1),c=new THREE.Vector3().fromBufferAttribute(p,i+2);assert(b.sub(a).cross(c.sub(a)).y>0,'Paving triangles always face up');assert(n.getY(i)>0,'Paving normals always face up');}
   }
 });
-const stats=render.getStats();assert(stats.streetMeshes<=65);assert(stats.streetTriangles<12000);assert(stats.streetGeometryBytes<550000);
+const stats=render.getStats();assert(stats.streetMeshes<=80);assert(stats.streetTriangles<15000);assert(stats.streetGeometryBytes<700000);
 assert.equal(stats.streetTextureCount,1);assert.equal(stats.streetTextureSourceBytes,256*256*4);
 for(const site of plan.sites){
   const group=render.group.getObjectByName(site.id);
@@ -280,17 +343,25 @@ assert.equal(streetDetailTier(2.1,0),0);assert.equal(streetDetailTier(2.2,0),1);
 assert.equal(streetDetailTier(9,1),2);assert.equal(streetDetailTier(7,2),2);assert.equal(streetDetailTier(6.4,2),1);
 const visibleFrustum={intersectsBox:()=>true},invisibleFrustum={intersectsBox:()=>false};
 render.update({pixelsPerUnit:2,frustum:visibleFrustum});assert.equal(render.getStats().streetVisibleDrawCalls,0);
-render.update({pixelsPerUnit:15,frustum:visibleFrustum});assert.equal(render.getStats().streetVisibleTier,1);assert.equal(render.getStats().streetVisibleDrawCalls,15);
-render.update({pixelsPerUnit:60,frustum:visibleFrustum});assert.equal(render.getStats().streetVisibleTier,2);assert.equal(render.getStats().streetVisibleDrawCalls,60);
+render.update({pixelsPerUnit:15,frustum:visibleFrustum});assert.equal(render.getStats().streetVisibleTier,1);assert.equal(render.getStats().streetVisibleDrawCalls,17);
+assert.deepEqual(render.getStats().streetVisibleIds,[...expectedIds.slice(0,5),'jiuzhou-shouxin-walk'],'The narrower Yiling road reaches its own pixel threshold later');
+assert.equal(render.getStats().streetVisibleSites,5);assert.equal(render.getStats().streetVisibleLinks,1,'A street link is counted separately from the building samples');
+render.update({pixelsPerUnit:20,frustum:visibleFrustum});assert.equal(render.getStats().streetVisibleDrawCalls,20);
+render.update({pixelsPerUnit:60,frustum:visibleFrustum});assert.equal(render.getStats().streetVisibleTier,2);assert.equal(render.getStats().streetVisibleDrawCalls,70);
+const cornerLamp=render.group.getObjectByName('zhongnan-s09').getObjectByName('street lamps');
+assert.equal(cornerLamp.parent.visible,false,'A 7.68-pixel Yiling road has not entered the 9-pixel furnishing tier');
+render.update({pixelsPerUnit:80,frustum:visibleFrustum});assert.equal(render.getStats().streetVisibleDrawCalls,74);assert.equal(cornerLamp.parent.visible,true);
+render.update({pixelsPerUnit:55,frustum:visibleFrustum});assert.equal(cornerLamp.parent.visible,true,'7.04 road pixels retain furnishings already revealed');
+render.update({pixelsPerUnit:50,frustum:visibleFrustum});assert.equal(cornerLamp.parent.visible,false,'6.4 road pixels exit the furnishing tier');
 render.update({pixelsPerUnit:38,frustum:visibleFrustum});assert.equal(render.getStats().streetVisibleTier,2);
-render.update({pixelsPerUnit:60,frustum:{intersectsBox:box=>box.max.x<0}});assert.deepEqual(render.getStats().streetVisibleIds,['wanda-soho-s01','jinjiang-s03']);assert.equal(render.getStats().streetVisibleDrawCalls,24);
-render.update({pixelsPerUnit:60,frustum:visibleFrustum,enabled:false});assert.equal(render.getStats().streetVisibleDrawCalls,0);
-render.update({pixelsPerUnit:60,frustum:invisibleFrustum});assert.equal(render.getStats().streetVisibleDrawCalls,0);
-render.update({pixelsPerUnit:60,frustum:visibleFrustum,treesEnabled:false});
+render.update({pixelsPerUnit:80,frustum:{intersectsBox:box=>box.max.x<0}});assert.deepEqual(render.getStats().streetVisibleIds,['wanda-soho-s01','jinjiang-s03','zhongnan-s09']);assert.equal(render.getStats().streetVisibleDrawCalls,36);
+render.update({pixelsPerUnit:80,frustum:visibleFrustum,enabled:false});assert.equal(render.getStats().streetVisibleDrawCalls,0);
+render.update({pixelsPerUnit:80,frustum:invisibleFrustum});assert.equal(render.getStats().streetVisibleDrawCalls,0);
+render.update({pixelsPerUnit:80,frustum:visibleFrustum,treesEnabled:false});
 for(const site of plan.sites)assert.equal(render.group.getObjectByName(site.id).getObjectByName('street tree crowns').parent.visible,false);
 render.setTheme(true);for(const site of plan.sites){const group=render.group.getObjectByName(site.id);assert.equal(group.getObjectByName('street lamp pools').parent.visible,true);assert(group.getObjectByName('street warm lamp heads').material.emissiveIntensity>0);}
 render.setTheme(false);for(const site of plan.sites)assert.equal(render.group.getObjectByName(site.id).getObjectByName('street lamp pools').parent.visible,false);
-render.update({pixelsPerUnit:60,frustum:visibleFrustum});assert.equal(render.update({pixelsPerUnit:60,frustum:visibleFrustum}),false,'Stable scale does not ask for animation frames');
+render.update({pixelsPerUnit:80,frustum:visibleFrustum});assert.equal(render.update({pixelsPerUnit:80,frustum:visibleFrustum}),false,'Stable scale does not ask for animation frames');
 render.update({pixelsPerUnit:2,frustum:visibleFrustum});assert.equal(render.getStats().streetVisibleDrawCalls,0,'All street detail disappears again at overview scale');
 passed.push('Every site obeys pixel-scale hysteresis, independent frustum visibility, street/tree toggles, theme changes and zero overview draw calls without a continuous loop');
 

@@ -1,0 +1,29 @@
+[
+  {
+    "key": "cornerBeforeWhole",
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"case\":\"before-zhongnan-whole\",\"canvas\":[{\"dataset\":{\"authoredModels\":\"7\",\"authoredSelection\":\"true\",\"businessProjects\":\"23\",\"cityVisible\":\"true\",\"detailModels\":\"1\",\"drawCalls\":\"77\",\"engine\":\"three.js r170\",\"focusAngle\":\"detail\",\"geometries\":\"352\",\"modelAnchor\":\"[-16.5153984916032,0.1399886569031138,8.769154736196347]\",\"modelQuality\":\"detail\",\"renderFrames\":\"1122\",\"renderState\":\"idle\",\"residentModels\":\"7\",\"sceneMode\":\"city\",\"streetDetails\":\"0\",\"streetDetailsEnabled\":\"true\",\"streetVisibleDrawCalls\":\"0\",\"streetVisibleIds\":\"[]\",\"streetVisibleSites\":\"0\",\"textures\":\"20\",\"triangles\":\"1311544\"},\"height\":849,\"width\":1616}],\"scripts\":[\"/assets/index-BYswLSmh.js\"]}"
+      }
+    ]
+  },
+  {
+    "key": "cornerBeforeEntrance",
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"case\":\"before-zhongnan-entrance\",\"canvas\":[{\"dataset\":{\"authoredModels\":\"7\",\"authoredSelection\":\"true\",\"businessProjects\":\"23\",\"cityVisible\":\"true\",\"detailModels\":\"1\",\"drawCalls\":\"71\",\"engine\":\"three.js r170\",\"focusAngle\":\"entrance\",\"geometries\":\"352\",\"modelAnchor\":\"[-16.5153984916032,0.1399886569031138,8.769154736196347]\",\"modelQuality\":\"detail\",\"renderFrames\":\"1127\",\"renderState\":\"idle\",\"residentModels\":\"7\",\"sceneMode\":\"city\",\"streetDetails\":\"0\",\"streetDetailsEnabled\":\"true\",\"streetVisibleDrawCalls\":\"0\",\"streetVisibleIds\":\"[]\",\"streetVisibleSites\":\"0\",\"textures\":\"20\",\"triangles\":\"1305932\"},\"height\":849,\"width\":1616}]}"
+      }
+    ]
+  },
+  {
+    "key": "cornerBeforeOverview",
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"case\":\"before-overview\",\"canvas\":[{\"dataset\":{\"authoredModels\":\"7\",\"authoredSelection\":\"false\",\"businessProjects\":\"23\",\"cityVisible\":\"true\",\"detailModels\":\"0\",\"drawCalls\":\"258\",\"engine\":\"three.js r170\",\"focusAngle\":\"overview\",\"geometries\":\"321\",\"modelAnchor\":\"\",\"modelQuality\":\"light\",\"renderFrames\":\"1197\",\"renderState\":\"idle\",\"residentModels\":\"7\",\"sceneMode\":\"city\",\"streetDetails\":\"0\",\"streetDetailsEnabled\":\"true\",\"streetVisibleDrawCalls\":\"0\",\"streetVisibleIds\":\"[]\",\"streetVisibleSites\":\"0\",\"textures\":\"15\",\"triangles\":\"1313930\"},\"height\":849,\"width\":1616}]}"
+      }
+    ]
+  }
+]

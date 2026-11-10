@@ -1032,6 +1032,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
       const streetStats = streetDetails.getStats();
       renderer.domElement.dataset.streetDetails = streetStats.streetVisibleTier;
       renderer.domElement.dataset.streetVisibleSites = String(streetStats.streetVisibleSites);
+      renderer.domElement.dataset.streetVisibleLinks = String(streetStats.streetVisibleLinks);
       renderer.domElement.dataset.streetVisibleDrawCalls = String(streetStats.streetVisibleDrawCalls);
       renderer.domElement.dataset.streetVisibleIds = JSON.stringify(streetStats.streetVisibleIds || []);
       renderer.domElement.dataset.streetDetailsEnabled = String(streetDetailsEnabled);

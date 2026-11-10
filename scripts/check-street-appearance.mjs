@@ -46,7 +46,7 @@ function heightAt(x, z) {
 const authoredGround = planAuthoredGround(models, data, 3.8);
 const plan = planStreetDetails({ data, authoredModels: models, authoredGround,
   waterfrontPlan: { omittedBuildingIndices: new Set() }, inWater, heightAt });
-assert.equal(plan.sites.length, 5);
+assert.equal(plan.sites.length, 6);
 const themes = [];
 const street = createStreetDetails(plan, { heightAt, makeMaterial(day, night, options = {}) {
   const material = new THREE.MeshStandardMaterial({ color: day, roughness: .94, metalness: 0, ...options });
@@ -71,7 +71,7 @@ street.group.traverse(object => {
     if (material.map) mappedMeshes.push(object);
   }
 });
-assert.equal(mappedMeshes.length, 10, 'Both paving materials on every site use the shared map');
+assert.equal(mappedMeshes.length, 13, 'Both paving materials on six samples and the plain short link use the shared map');
 assert.equal(resources.textures.size, 1, 'Street sites share one texture instance');
 const [texture] = resources.textures;
 assert(texture.isDataTexture);
@@ -90,13 +90,20 @@ for (const mesh of mappedMeshes) {
   assert.equal(mesh.material.transparent, false); assert.equal(mesh.material.opacity, 1);
   assert.equal(mesh.material.depthWrite, true); assert.equal(mesh.material.alphaTest, 0);
 }
-passed.push('Ten paving meshes share one opaque, neutral, repeat-wrapped 256² RGBA atlas with mipmap filtering');
+passed.push('Thirteen paving meshes across six building samples and one short link share one opaque, neutral, repeat-wrapped 256² RGBA atlas with mipmap filtering');
 
 const positionKey = (x, y, z) => `${Math.fround(x)},${Math.fround(y)},${Math.fround(z)}`;
+const turn = (a,b,c) => (b[0]-a[0])*(c[1]-a[1])-(b[1]-a[1])*(c[0]-a[0]);
+const polygonArea = ring => Math.abs(ring.slice(1,-1).reduce((sum,p,i)=>sum+turn(ring[0],p,ring[i+2]),0))/2;
+function inConvex(point,ring,tolerance=0){
+  const distances=edges(ring).map(([a,b])=>turn(a,b,point)/Math.hypot(b[0]-a[0],b[1]-a[1]));
+  return distances.every(value=>value>=-tolerance)||distances.every(value=>value<=tolerance);
+}
 let sharedUvVertices = 0, maximumUvProjectionError = 0, jiuzhouEntryVertexCount = 0;
+const polygonCoverage=[];
 for (const site of plan.sites) {
   const group = street.group.getObjectByName(site.id), model = models.find(m => m.id === site.id);
-  const cos = Math.cos(model.yaw), sin = Math.sin(model.yaw), commonUv = new Map();
+  const cos = Math.cos(model.yaw), sin = Math.sin(model.yaw), commonUv = new Map(), commonHeights = new Map();
   for (const accent of [false, true]) {
     const cells = site.paving.filter(p => (p.role === 'accent') === accent);
     const mesh = group.getObjectByName(accent ? 'street paving insets' : 'forecourt, entrance path and sidewalk');
@@ -104,10 +111,13 @@ for (const site of plan.sites) {
     const positions = mesh.geometry.attributes.position, uv = mesh.geometry.attributes.uv;
     assert(uv && uv.count === positions.count);
     const actual = [], expected = [];
-    for (const cell of cells) for (const index of [0, 0, 1, 2, 2, 3]) {
-      const [x, z] = cell.points[index], y = cell.surface ? cell.surface(x, z) : heightAt(x, z) + site.groundLift(x, z);
-      expected.push(positionKey(x, y, z));
-      if (cell.role === 'entry-apron') jiuzhouEntryVertexCount++;
+    for (const cell of cells) {
+      if(cell.conforming)continue;
+      for (const index of [0, 0, 1, 2, 2, 3]) {
+        const [x, z] = cell.points[index], y = cell.surface ? cell.surface(x, z) : heightAt(x, z) + site.groundLift(x, z);
+        expected.push(positionKey(x, y, z));
+        if (cell.role === 'entry-apron') jiuzhouEntryVertexCount++;
+      }
     }
     for (let i = 0; i < positions.count; i++) {
       const x = positions.getX(i), y = positions.getY(i), z = positions.getZ(i), u = uv.getX(i), v = uv.getY(i);
@@ -124,8 +134,48 @@ for (const site of plan.sites) {
         assert(Math.abs(earlier[0] - u) < 1e-5 && Math.abs(earlier[1] - v) < 1e-5, `${site.id}: shared paving vertices retain identical UVs across materials`);
         sharedUvVertices++;
       } else commonUv.set(key, [u, v]);
+      const priorHeight=commonHeights.get(key);
+      if(priorHeight!==undefined)assert.equal(y,priorHeight,`${site.id}: shared rendered paving vertices meet at the exact same Float32 height`);
+      else commonHeights.set(key,y);
     }
-    assert.deepEqual(actual.sort(), expected.sort(), `${site.id}: appearance preserves every paving Float32 position and special cell surface`);
+    if(!cells.some(cell=>cell.conforming)){
+      assert.deepEqual(actual.sort(), expected.sort(), `${site.id}: appearance preserves every paving Float32 position and special cell surface`);
+      continue;
+    }
+    assert(cells.every(cell=>cell.conforming),'A corner paving batch uses one conforming polygon contract');
+    const covered=cells.map(()=>0),triangleCounts=cells.map(()=>0),vertexKeys=new Set(Array.from({length:positions.count},(_,i)=>`${positions.getX(i)},${positions.getZ(i)}`));
+    for(const cell of cells)for(const [x,z]of cell.points){
+      assert(vertexKeys.has(`${Math.fround(x)},${Math.fround(z)}`),`${site.id}: every split boundary vertex is emitted, including collinear joints`);
+    }
+    for(let i=0;i<positions.count;i+=3){
+      const vertices=[0,1,2].map(j=>[positions.getX(i+j),positions.getZ(i+j)]),center=vertices.reduce((p,v)=>[p[0]+v[0]/3,p[1]+v[1]/3],[0,0]);
+      const signed=turn(...vertices);
+      assert(signed<-1e-13,`${site.id}: every Float32 paving triangle has positive upward area and cannot collapse`);
+      const candidate=cells.findIndex(cell=>inConvex(center,cell.points,2e-7)&&vertices.every(v=>inConvex(v,cell.points,2e-6)));
+      assert(candidate>=0,`${site.id}: a rendered triangle cannot cross outside its planned convex polygon`);
+      const cell=cells[candidate];
+      for(let j=0;j<3;j++){
+        const [x,z]=vertices[j],expectedHeight=cell.surface?cell.surface(x,z):heightAt(x,z)+site.groundLift(x,z);
+        assert(Math.abs(positions.getY(i+j)-expectedHeight)<2e-6,`${site.id}: corner paving follows its recorded ground surface`);
+      }
+      covered[candidate]+=Math.abs(signed)/2;triangleCounts[candidate]++;
+    }
+    let maxAreaError=0;
+    for(let i=0;i<cells.length;i++){
+      const area=polygonArea(cells[i].points),perimeter=edges(cells[i].points).reduce((sum,[a,b])=>sum+Math.hypot(b[0]-a[0],b[1]-a[1]),0),error=Math.abs(covered[i]-area);
+      assert(triangleCounts[i]>0,`${site.id}: every accepted polygon is rendered`);
+      assert(error<perimeter*2e-6+1e-10,`${site.id}: rendered triangles exactly cover each source polygon to Float32 world precision`);
+      maxAreaError=Math.max(maxAreaError,error);
+    }
+    polygonCoverage.push({site:site.id,accent,cells:cells.length,triangles:positions.count/3,maximumAreaError:maxAreaError});
+  }
+  if(site.paving.some(cell=>cell.conforming))for(const cell of site.paving)for(const point of cell.points)for(const other of site.paving){
+    if(cell===other)continue;
+    for(const [a,b]of edges(other.points)){
+      const length=Math.hypot(b[0]-a[0],b[1]-a[1]),along=((point[0]-a[0])*(b[0]-a[0])+(point[1]-a[1])*(b[1]-a[1]))/(length*length);
+      if(along>1e-8&&along<1-1e-8&&Math.abs(turn(a,b,point))/length<1e-9)
+        assert(other.points.some(p=>Math.hypot(p[0]-point[0],p[1]-point[1])<1e-9),`${site.id}: all shared edge nodes occur on both polygons, preventing a nonlinear-height T-junction`);
+    }
   }
 }
 assert(sharedUvVertices > 100);
@@ -134,7 +184,7 @@ const entry = plan.sites.find(s => s.id === 'jiuzhou-s01').entryApron;
 assert.equal(entry.method, 'source-cleared-step-join');
 assert.deepEqual(entry.thresholdSource, [-13, .1801239127460832, 11.001]);
 assert(Math.abs(entry.stepTopHeight - .07064871608936112) < 1e-12);
-passed.push('All paving positions/surfaces are unchanged; shared UVs remain continuous, including all 48 emitted Jiuzhou apron vertices');
+passed.push('All five previous paving positions/surfaces remain unchanged, including the 48 Jiuzhou apron vertices; corner polygons render their full area with conforming shared edges and identical heights, and all sites share continuous UVs');
 
 const matrix = new THREE.Matrix4(), vertex = new THREE.Vector3();
 const safety = {};
@@ -183,26 +233,32 @@ for (const [pixelsPerUnit, expected] of [[15, false], [31, false], [32, true], [
   for (const site of plan.sites) assert.equal(visible(street.group.getObjectByName(site.id).getObjectByName('street lamps')), false, 'Mid-scale planting does not bring near-only furniture forward');
 }
 update(60); assertLandscape(true);
+for(const site of plan.sites)assert.equal(visible(street.group.getObjectByName(site.id).getObjectByName('street lamps')),site.id!=='zhongnan-s09','Furniture follows each road width, not a shared world-zoom threshold');
+update(80);
 for (const site of plan.sites) assert(visible(street.group.getObjectByName(site.id).getObjectByName('street lamps')));
 const nearDayDraws = street.getStats().streetVisibleDrawCalls;
+update(55);
+for(const site of plan.sites)assert(visible(street.group.getObjectByName(site.id).getObjectByName('street lamps')),'All roads retain furnishings above their 6.5-pixel exit threshold');
+update(50);
+for(const site of plan.sites)assert.equal(visible(street.group.getObjectByName(site.id).getObjectByName('street lamps')),site.id!=='zhongnan-s09','The 6.4-pixel Yiling road exits while the wider road retains furnishings');
 update(38);
-for (const site of plan.sites) assert(visible(street.group.getObjectByName(site.id).getObjectByName('street lamps')), 'Furniture retains its original exit hysteresis');
+for(const site of plan.sites)assert.equal(visible(street.group.getObjectByName(site.id).getObjectByName('street lamps')),site.id!=='zhongnan-s09','Furniture retains its original per-road exit hysteresis');
 update(33);
 for (const site of plan.sites) assert.equal(visible(street.group.getObjectByName(site.id).getObjectByName('street lamps')), false);
 assertLandscape(true); update(25.4); assertLandscape(false); update(2);
 assert.equal(street.getStats().streetVisibleDrawCalls, 0);
 passed.push('Far → planting → furniture → far preserves separate 3/2.4 crown-pixel and 9/6.5 road-pixel hysteresis, with stable repeated updates');
 
-update(60, { treesEnabled: false });
+update(80, { treesEnabled: false });
 for (const site of plan.sites) {
   const group = street.group.getObjectByName(site.id);
   for (const name of ['street planted bed foliage', 'street tree trunks', 'street tree crowns']) assert.equal(visible(group.getObjectByName(name)), false);
   for (const name of ['street tree pits', 'street tree soil', 'street lamps']) assert.equal(visible(group.getObjectByName(name)), true);
 }
-update(60, { enabled: false }); assert.equal(street.getStats().streetVisibleDrawCalls, 0);
-update(60); assertLandscape(true); assert.equal(street.getStats().streetVisibleDrawCalls, nearDayDraws);
-update(60, { frustum: outOfView }); assert.equal(street.getStats().streetVisibleDrawCalls, 0);
-update(60); assertLandscape(true);
+update(80, { enabled: false }); assert.equal(street.getStats().streetVisibleDrawCalls, 0);
+update(80); assertLandscape(true); assert.equal(street.getStats().streetVisibleDrawCalls, nearDayDraws);
+update(80, { frustum: outOfView }); assert.equal(street.getStats().streetVisibleDrawCalls, 0);
+update(80); assertLandscape(true);
 for (const record of themes) record.material.color.set(record.night);
 street.setTheme(true);
 assert.equal(resources.textures.size, 1); assert(mappedMeshes.every(mesh => mesh.material.map === texture));
@@ -215,7 +271,7 @@ const stats = street.getStats();
 assert.equal(stats.streetMeshes, meshCount); assert.equal(stats.streetTriangles, triangleCount);
 assert.equal(stats.streetGeometryBytes, geometryBytes); assert.equal(stats.streetTextureCount, resources.textures.size);
 assert.equal(stats.streetTextureSourceBytes, texture.image.data.byteLength);
-assert(meshCount <= 65 && triangleCount < 12000 && geometryBytes < 550000, 'Integrated five-site resource budget');
+assert(meshCount <= 80 && triangleCount < 15000 && geometryBytes < 700000, 'Six bounded samples and one short pavement link stay within the recorded resource budget');
 assert.equal(JSON.stringify({ data, models }), sourceSnapshot, 'Appearance/planning cannot mutate source coordinates, authored transforms or data');
 let rgba8MipBytes = 0;
 for (let side = texture.image.width; side >= 1; side /= 2) rgba8MipBytes += side * side * 4;
@@ -243,6 +299,6 @@ console.log(JSON.stringify({ scope: 'read-only geometry/material/visibility inte
   resources: { meshCount, triangleCount, geometryBytes, textureCount: resources.textures.size,
     textureSourceBytes: texture.image.data.byteLength, theoreticalRgba8MipBytes: rgba8MipBytes,
     nearDayDraws, nearNightDraws, geometryDisposals: resources.geometries.size, materialDisposals: resources.materials.size, textureDisposals: resources.textures.size },
-  uv: { sharedUvVertices, maximumUvProjectionError, jiuzhouEntryVertexCount, jiuzhouStepTopY: entry.stepTopHeight },
+  uv: { sharedUvVertices, maximumUvProjectionError, jiuzhouEntryVertexCount, jiuzhouStepTopY: entry.stepTopHeight }, polygonCoverage,
   safety, landscapeStates,
 }, null, 2));

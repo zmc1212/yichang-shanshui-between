@@ -118,16 +118,22 @@ function curbFrame(curb, ring) {
 export function trimStreetCurbs(site) {
   const connections = (site.paving || []).flatMap((cell, index) => cell.role === 'connection'
     ? convexParts(cell.points).map(points => ({ points, bounds: bounds(points), index })) : []);
+  // Corner courts may merge into the same-side sidewalk. Only an explicitly
+  // marked building-side curb accepts these already-safe court masks; the
+  // carriageway edge must stay continuous. Ordinary five-site plans retain
+  // their original connection-only behaviour.
+  const courtOpenings = (site.courtOpeningMasks || []).flatMap((ring, index) =>
+    convexParts(ring).map(points => ({ points, bounds: bounds(points), courtIndex: index })));
   const cells = [], cutouts = [];
   for (let curbIndex = 0; curbIndex < (site.curbs || []).length; curbIndex++) {
     const curb = site.curbs[curbIndex], ring = cleanRing(curb.footprint);
     if (!ring.length) continue;
     const sourceParts = convexParts(ring), sourceBounds = bounds(ring), overlaps = [];
-    for (const connection of connections) {
+    for (const connection of curb.side === 'building' ? [...connections, ...courtOpenings] : connections) {
       if (!boxesOverlap(sourceBounds, connection.bounds)) continue;
       for (const subject of sourceParts) {
         const points = intersectConvex(subject, connection.points);
-        if (points.length && signedArea(points) > AREA_EPSILON) overlaps.push({ points, connectionIndex: connection.index });
+        if (points.length && signedArea(points) > AREA_EPSILON) overlaps.push({ points, connectionIndex: connection.index, courtIndex: connection.courtIndex });
       }
     }
     if (!overlaps.length) {
@@ -163,7 +169,8 @@ export function trimStreetCurbs(site) {
     const removedArea = signedArea(ring) - remaining.reduce((sum, points) => sum + signedArea(points), 0);
     cutouts.push({
       sourceCurbIndex: curbIndex,
-      connectionCellIndices: [...new Set(overlaps.map(overlap => overlap.connectionIndex))],
+      connectionCellIndices: [...new Set(overlaps.map(overlap => overlap.connectionIndex).filter(index => index != null))],
+      ...(overlaps.some(overlap => overlap.courtIndex != null) ? { courtMaskIndices: [...new Set(overlaps.map(overlap => overlap.courtIndex).filter(index => index != null))] } : {}),
       openingWidth: merged.reduce((sum, [a, b]) => sum + b - a, 0),
       curbWidth: frame.maxV - frame.minV,
       maxPenetration: removedArea - originalOverlapArea <= AREA_EPSILON ? 0 : Math.min(frame.maxV - frame.minV, Math.max(0, penetration)),

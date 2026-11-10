@@ -1,0 +1,1153 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "2c2c35ab161ac95ba66662b723e959c2edf491b4",
+  "date": "2026-11-10",
+  "unitsPerMeter": 0.02,
+  "method": "The original planner source is read into memory, annotated for inspection only, and called with alternate halfRun settings. Application modules and source data are not edited. Distances are model/display metres, not surveyed street widths or walkway permissions.",
+  "pairwiseModelDistances": [
+    {
+      "a": "shouxin-wealth-s01",
+      "b": "wanda-soho-s01",
+      "metres": 2025.29
+    },
+    {
+      "a": "shouxin-wealth-s01",
+      "b": "jiuzhou-s01",
+      "metres": 146.65
+    },
+    {
+      "a": "shouxin-wealth-s01",
+      "b": "jinjiang-s03",
+      "metres": 3203.88
+    },
+    {
+      "a": "shouxin-wealth-s01",
+      "b": "fujiang-s01",
+      "metres": 1113.12
+    },
+    {
+      "a": "shouxin-wealth-s01",
+      "b": "zhongnan-s09",
+      "metres": 2489.52
+    },
+    {
+      "a": "wanda-soho-s01",
+      "b": "jiuzhou-s01",
+      "metres": 2171.27
+    },
+    {
+      "a": "wanda-soho-s01",
+      "b": "jinjiang-s03",
+      "metres": 1193.42
+    },
+    {
+      "a": "wanda-soho-s01",
+      "b": "fujiang-s01",
+      "metres": 921.33
+    },
+    {
+      "a": "wanda-soho-s01",
+      "b": "zhongnan-s09",
+      "metres": 466.8
+    },
+    {
+      "a": "jiuzhou-s01",
+      "b": "jinjiang-s03",
+      "metres": 3350.48
+    },
+    {
+      "a": "jiuzhou-s01",
+      "b": "fujiang-s01",
+      "metres": 1257.55
+    },
+    {
+      "a": "jiuzhou-s01",
+      "b": "zhongnan-s09",
+      "metres": 2635.17
+    },
+    {
+      "a": "jinjiang-s03",
+      "b": "fujiang-s01",
+      "metres": 2112.42
+    },
+    {
+      "a": "jinjiang-s03",
+      "b": "zhongnan-s09",
+      "metres": 763.48
+    },
+    {
+      "a": "fujiang-s01",
+      "b": "zhongnan-s09",
+      "metres": 1380.59
+    }
+  ],
+  "sites": [
+    {
+      "id": "shouxin-wealth-s01",
+      "anchor": [
+        17.84661482668662,
+        44.801642264664586
+      ],
+      "nearbySourceRoads": [
+        {
+          "id": "way/1451960670",
+          "kind": "residential",
+          "highway": "residential",
+          "displayWidthMetres": 7.000000000000001,
+          "distanceToModelAnchorMetres": 47.95
+        },
+        {
+          "id": "way/1451960668",
+          "kind": "residential",
+          "highway": "residential",
+          "displayWidthMetres": 7.000000000000001,
+          "distanceToModelAnchorMetres": 54.75
+        },
+        {
+          "id": "way/1451960669",
+          "kind": "residential",
+          "highway": "residential",
+          "displayWidthMetres": 7.000000000000001,
+          "distanceToModelAnchorMetres": 60.24
+        },
+        {
+          "id": "way/724326273",
+          "name": "沿江大道",
+          "kind": "primary",
+          "highway": "primary",
+          "displayWidthMetres": 9.6,
+          "distanceToModelAnchorMetres": 66.98
+        }
+      ],
+      "trials": [
+        {
+          "id": "shouxin-wealth-s01",
+          "settings": {
+            "halfRun": 55,
+            "courtDepth": 9
+          },
+          "sourceRoad": "way/39725551",
+          "sourceRoadKind": "primary",
+          "sourceRoadWidthMetres": 9.6,
+          "roadLengthMetres": 4756.89,
+          "projectedDistanceFromStartMetres": 3585.63,
+          "roadEndpointDistancesMetres": [
+            3585.63,
+            1171.26
+          ],
+          "requestedIntervalMetres": [
+            -55,
+            55
+          ],
+          "acceptedContinuousSidewalkIntervalsMetres": [
+            [
+              -55,
+              37.16
+            ],
+            [
+              49.05,
+              55
+            ]
+          ],
+          "acceptedSlabs": 33,
+          "attemptedSlabs": 37,
+          "connectionPresent": true
+        },
+        {
+          "id": "shouxin-wealth-s01",
+          "settings": {
+            "halfRun": 75,
+            "courtDepth": 9
+          },
+          "sourceRoad": "way/39725551",
+          "sourceRoadKind": "primary",
+          "sourceRoadWidthMetres": 9.6,
+          "roadLengthMetres": 4756.89,
+          "projectedDistanceFromStartMetres": 3585.63,
+          "roadEndpointDistancesMetres": [
+            3585.63,
+            1171.26
+          ],
+          "requestedIntervalMetres": [
+            -75,
+            75
+          ],
+          "acceptedContinuousSidewalkIntervalsMetres": [
+            [
+              -75,
+              39
+            ],
+            [
+              51,
+              75
+            ]
+          ],
+          "acceptedSlabs": 46,
+          "attemptedSlabs": 50,
+          "connectionPresent": true
+        },
+        {
+          "id": "shouxin-wealth-s01",
+          "settings": {
+            "halfRun": 100,
+            "courtDepth": 9
+          },
+          "sourceRoad": "way/39725551",
+          "sourceRoadKind": "primary",
+          "sourceRoadWidthMetres": 9.6,
+          "roadLengthMetres": 4756.89,
+          "projectedDistanceFromStartMetres": 3585.63,
+          "roadEndpointDistancesMetres": [
+            3585.63,
+            1171.26
+          ],
+          "requestedIntervalMetres": [
+            -100,
+            100
+          ],
+          "acceptedContinuousSidewalkIntervalsMetres": [
+            [
+              -100,
+              37.31
+            ],
+            [
+              49.25,
+              100
+            ]
+          ],
+          "acceptedSlabs": 63,
+          "attemptedSlabs": 67,
+          "connectionPresent": true
+        },
+        {
+          "id": "shouxin-wealth-s01",
+          "settings": {
+            "halfRun": 150,
+            "courtDepth": 9
+          },
+          "sourceRoad": "way/39725551",
+          "sourceRoadKind": "primary",
+          "sourceRoadWidthMetres": 9.6,
+          "roadLengthMetres": 4756.89,
+          "projectedDistanceFromStartMetres": 3585.63,
+          "roadEndpointDistancesMetres": [
+            3585.63,
+            1171.26
+          ],
+          "requestedIntervalMetres": [
+            -150,
+            150
+          ],
+          "acceptedContinuousSidewalkIntervalsMetres": [
+            [
+              -150,
+              39
+            ],
+            [
+              51,
+              150
+            ]
+          ],
+          "acceptedSlabs": 96,
+          "attemptedSlabs": 100,
+          "connectionPresent": true
+        }
+      ]
+    },
+    {
+      "id": "wanda-soho-s01",
+      "anchor": [
+        -10.740095151693664,
+        16.1045533568941
+      ],
+      "nearbySourceRoads": [],
+      "trials": [
+        {
+          "id": "wanda-soho-s01",
+          "settings": {
+            "halfRun": 118,
+            "courtDepth": 6
+          },
+          "sourceRoad": "way/1543968654",
+          "sourceRoadKind": "primary",
+          "sourceRoadWidthMetres": 9.6,
+          "roadLengthMetres": 1213.66,
+          "projectedDistanceFromStartMetres": 844.24,
+          "roadEndpointDistancesMetres": [
+            844.24,
+            369.42
+          ],
+          "requestedIntervalMetres": [
+            -118,
+            118
+          ],
+          "acceptedContinuousSidewalkIntervalsMetres": [
+            [
+              -118,
+              118
+            ]
+          ],
+          "acceptedSlabs": 79,
+          "attemptedSlabs": 79,
+          "connectionPresent": true
+        },
+        {
+          "id": "wanda-soho-s01",
+          "settings": {
+            "halfRun": 75,
+            "courtDepth": 6
+          },
+          "sourceRoad": "way/1543968654",
+          "sourceRoadKind": "primary",
+          "sourceRoadWidthMetres": 9.6,
+          "roadLengthMetres": 1213.66,
+          "projectedDistanceFromStartMetres": 844.24,
+          "roadEndpointDistancesMetres": [
+            844.24,
+            369.42
+          ],
+          "requestedIntervalMetres": [
+            -75,
+            75
+          ],
+          "acceptedContinuousSidewalkIntervalsMetres": [
+            [
+              -75,
+              75
+            ]
+          ],
+          "acceptedSlabs": 50,
+          "attemptedSlabs": 50,
+          "connectionPresent": true
+        },
+        {
+          "id": "wanda-soho-s01",
+          "settings": {
+            "halfRun": 100,
+            "courtDepth": 6
+          },
+          "sourceRoad": "way/1543968654",
+          "sourceRoadKind": "primary",
+          "sourceRoadWidthMetres": 9.6,
+          "roadLengthMetres": 1213.66,
+          "projectedDistanceFromStartMetres": 844.24,
+          "roadEndpointDistancesMetres": [
+            844.24,
+            369.42
+          ],
+          "requestedIntervalMetres": [
+            -100,
+            100
+          ],
+          "acceptedContinuousSidewalkIntervalsMetres": [
+            [
+              -100,
+              100
+            ]
+          ],
+          "acceptedSlabs": 67,
+          "attemptedSlabs": 67,
+          "connectionPresent": true
+        },
+        {
+          "id": "wanda-soho-s01",
+          "settings": {
+            "halfRun": 150,
+            "courtDepth": 6
+          },
+          "sourceRoad": "way/1543968654",
+          "sourceRoadKind": "primary",
+          "sourceRoadWidthMetres": 9.6,
+          "roadLengthMetres": 1213.66,
+          "projectedDistanceFromStartMetres": 844.24,
+          "roadEndpointDistancesMetres": [
+            844.24,
+            369.42
+          ],
+          "requestedIntervalMetres": [
+            -150,
+            150
+          ],
+          "acceptedContinuousSidewalkIntervalsMetres": [
+            [
+              -150,
+              126
+            ],
+            [
+              144,
+              150
+            ]
+          ],
+          "acceptedSlabs": 94,
+          "attemptedSlabs": 100,
+          "connectionPresent": true
+        }
+      ]
+    },
+    {
+      "id": "jiuzhou-s01",
+      "anchor": [
+        20.110797496633346,
+        46.66588413788607
+      ],
+      "nearbySourceRoads": [
+        {
+          "id": "way/1451960668",
+          "kind": "residential",
+          "highway": "residential",
+          "displayWidthMetres": 7.000000000000001,
+          "distanceToModelAnchorMetres": 51.66
+        },
+        {
+          "id": "way/397144809",
+          "name": "中南路",
+          "kind": "primary",
+          "highway": "primary",
+          "displayWidthMetres": 6.4,
+          "distanceToModelAnchorMetres": 83.74
+        },
+        {
+          "id": "way/93948937",
+          "name": "中南路",
+          "kind": "primary",
+          "highway": "primary",
+          "displayWidthMetres": 6.4,
+          "distanceToModelAnchorMetres": 89.54
+        }
+      ],
+      "trials": [
+        {
+          "id": "jiuzhou-s01",
+          "settings": {
+            "halfRun": 50,
+            "courtDepth": 7
+          },
+          "sourceRoad": "way/39725551",
+          "sourceRoadKind": "primary",
+          "sourceRoadWidthMetres": 9.6,
+          "roadLengthMetres": 4756.89,
+          "projectedDistanceFromStartMetres": 3449.48,
+          "roadEndpointDistancesMetres": [
+            3449.48,
+            1307.41
+          ],
+          "requestedIntervalMetres": [
+            -50,
+            50
+          ],
+          "acceptedContinuousSidewalkIntervalsMetres": [
+            [
+              -50,
+              50
+            ]
+          ],
+          "acceptedSlabs": 34,
+          "attemptedSlabs": 34,
+          "connectionPresent": true
+        },
+        {
+          "id": "jiuzhou-s01",
+          "settings": {
+            "halfRun": 75,
+            "courtDepth": 7
+          },
+          "sourceRoad": "way/39725551",
+          "sourceRoadKind": "primary",
+          "sourceRoadWidthMetres": 9.6,
+          "roadLengthMetres": 4756.89,
+          "projectedDistanceFromStartMetres": 3449.48,
+          "roadEndpointDistancesMetres": [
+            3449.48,
+            1307.41
+          ],
+          "requestedIntervalMetres": [
+            -75,
+            75
+          ],
+          "acceptedContinuousSidewalkIntervalsMetres": [
+            [
+              -63,
+              75
+            ]
+          ],
+          "acceptedSlabs": 46,
+          "attemptedSlabs": 50,
+          "connectionPresent": true
+        },
+        {
+          "id": "jiuzhou-s01",
+          "settings": {
+            "halfRun": 100,
+            "courtDepth": 7
+          },
+          "sourceRoad": "way/39725551",
+          "sourceRoadKind": "primary",
+          "sourceRoadWidthMetres": 9.6,
+          "roadLengthMetres": 4756.89,
+          "projectedDistanceFromStartMetres": 3449.48,
+          "roadEndpointDistancesMetres": [
+            3449.48,
+            1307.41
+          ],
+          "requestedIntervalMetres": [
+            -100,
+            100
+          ],
+          "acceptedContinuousSidewalkIntervalsMetres": [
+            [
+              -100,
+              -82.09
+            ],
+            [
+              -64.18,
+              100
+            ]
+          ],
+          "acceptedSlabs": 61,
+          "attemptedSlabs": 67,
+          "connectionPresent": true
+        },
+        {
+          "id": "jiuzhou-s01",
+          "settings": {
+            "halfRun": 150,
+            "courtDepth": 7
+          },
+          "sourceRoad": "way/39725551",
+          "sourceRoadKind": "primary",
+          "sourceRoadWidthMetres": 9.6,
+          "roadLengthMetres": 4756.89,
+          "projectedDistanceFromStartMetres": 3449.48,
+          "roadEndpointDistancesMetres": [
+            3449.48,
+            1307.41
+          ],
+          "requestedIntervalMetres": [
+            -150,
+            150
+          ],
+          "acceptedContinuousSidewalkIntervalsMetres": [
+            [
+              -150,
+              -81
+            ],
+            [
+              -63,
+              150
+            ]
+          ],
+          "acceptedSlabs": 94,
+          "attemptedSlabs": 100,
+          "connectionPresent": true
+        }
+      ]
+    },
+    {
+      "id": "jinjiang-s03",
+      "anchor": [
+        -30.593319771790565,
+        2.8551606057318497
+      ],
+      "nearbySourceRoads": [
+        {
+          "id": "way/970255168",
+          "kind": "service",
+          "highway": "service",
+          "displayWidthMetres": 4.5,
+          "distanceToModelAnchorMetres": 55.48
+        }
+      ],
+      "trials": [
+        {
+          "id": "jinjiang-s03",
+          "settings": {
+            "halfRun": 44,
+            "courtDepth": 4
+          },
+          "sourceRoad": "way/724326275",
+          "sourceRoadKind": "primary",
+          "sourceRoadWidthMetres": 9.6,
+          "roadLengthMetres": 2611.6,
+          "projectedDistanceFromStartMetres": 803.6,
+          "roadEndpointDistancesMetres": [
+            803.6,
+            1808.01
+          ],
+          "requestedIntervalMetres": [
+            -44,
+            44
+          ],
+          "acceptedContinuousSidewalkIntervalsMetres": [
+            [
+              -44,
+              44
+            ]
+          ],
+          "acceptedSlabs": 30,
+          "attemptedSlabs": 30,
+          "connectionPresent": true
+        },
+        {
+          "id": "jinjiang-s03",
+          "settings": {
+            "halfRun": 75,
+            "courtDepth": 4
+          },
+          "sourceRoad": "way/724326275",
+          "sourceRoadKind": "primary",
+          "sourceRoadWidthMetres": 9.6,
+          "roadLengthMetres": 2611.6,
+          "projectedDistanceFromStartMetres": 803.6,
+          "roadEndpointDistancesMetres": [
+            803.6,
+            1808.01
+          ],
+          "requestedIntervalMetres": [
+            -75,
+            75
+          ],
+          "acceptedContinuousSidewalkIntervalsMetres": [
+            [
+              -75,
+              -60
+            ],
+            [
+              -51,
+              75
+            ]
+          ],
+          "acceptedSlabs": 47,
+          "attemptedSlabs": 50,
+          "connectionPresent": true
+        },
+        {
+          "id": "jinjiang-s03",
+          "settings": {
+            "halfRun": 100,
+            "courtDepth": 4
+          },
+          "sourceRoad": "way/724326275",
+          "sourceRoadKind": "primary",
+          "sourceRoadWidthMetres": 9.6,
+          "roadLengthMetres": 2611.6,
+          "projectedDistanceFromStartMetres": 803.6,
+          "roadEndpointDistancesMetres": [
+            803.6,
+            1808.01
+          ],
+          "requestedIntervalMetres": [
+            -100,
+            100
+          ],
+          "acceptedContinuousSidewalkIntervalsMetres": [
+            [
+              -100,
+              -61.19
+            ],
+            [
+              -52.24,
+              100
+            ]
+          ],
+          "acceptedSlabs": 64,
+          "attemptedSlabs": 67,
+          "connectionPresent": true
+        },
+        {
+          "id": "jinjiang-s03",
+          "settings": {
+            "halfRun": 150,
+            "courtDepth": 4
+          },
+          "sourceRoad": "way/724326275",
+          "sourceRoadKind": "primary",
+          "sourceRoadWidthMetres": 9.6,
+          "roadLengthMetres": 2611.6,
+          "projectedDistanceFromStartMetres": 803.6,
+          "roadEndpointDistancesMetres": [
+            803.6,
+            1808.01
+          ],
+          "requestedIntervalMetres": [
+            -150,
+            150
+          ],
+          "acceptedContinuousSidewalkIntervalsMetres": [
+            [
+              -141,
+              -60
+            ],
+            [
+              -51,
+              150
+            ]
+          ],
+          "acceptedSlabs": 94,
+          "attemptedSlabs": 100,
+          "connectionPresent": true
+        }
+      ]
+    },
+    {
+      "id": "fujiang-s01",
+      "anchor": [
+        3.5533045711504165,
+        27.733723753768164
+      ],
+      "nearbySourceRoads": [
+        {
+          "id": "way/724326276",
+          "name": "沿江大道",
+          "kind": "bridge",
+          "highway": "primary",
+          "bridge": "yes",
+          "layer": "1",
+          "displayWidthMetres": 9.6,
+          "distanceToModelAnchorMetres": 79.02
+        },
+        {
+          "id": "way/724326273",
+          "name": "沿江大道",
+          "kind": "primary",
+          "highway": "primary",
+          "displayWidthMetres": 9.6,
+          "distanceToModelAnchorMetres": 89.3
+        },
+        {
+          "id": "way/724326274",
+          "name": "沿江大道",
+          "kind": "bridge",
+          "highway": "primary",
+          "bridge": "yes",
+          "layer": "1",
+          "displayWidthMetres": 9.6,
+          "distanceToModelAnchorMetres": 89.3
+        },
+        {
+          "id": "way/724326278",
+          "name": "亚栈路",
+          "kind": "secondary",
+          "highway": "secondary",
+          "displayWidthMetres": 7.7,
+          "distanceToModelAnchorMetres": 94.44
+        },
+        {
+          "id": "way/724326277",
+          "name": "亚栈路",
+          "kind": "secondary",
+          "highway": "secondary",
+          "displayWidthMetres": 7.7,
+          "distanceToModelAnchorMetres": 100.75
+        },
+        {
+          "id": "way/1543968654",
+          "name": "沿江大道",
+          "kind": "primary",
+          "highway": "primary",
+          "displayWidthMetres": 9.6,
+          "distanceToModelAnchorMetres": 109.28
+        },
+        {
+          "id": "way/1543968653",
+          "name": "沿江大道",
+          "kind": "primary",
+          "highway": "primary",
+          "displayWidthMetres": 9.6,
+          "distanceToModelAnchorMetres": 113.97
+        },
+        {
+          "id": "way/1011716229",
+          "kind": "residential",
+          "highway": "residential",
+          "displayWidthMetres": 7.000000000000001,
+          "distanceToModelAnchorMetres": 118.7
+        }
+      ],
+      "trials": [
+        {
+          "id": "fujiang-s01",
+          "settings": {
+            "halfRun": 48,
+            "courtDepth": 2
+          },
+          "sourceRoad": "way/39725551",
+          "sourceRoadKind": "primary",
+          "sourceRoadWidthMetres": 9.6,
+          "roadLengthMetres": 4756.89,
+          "projectedDistanceFromStartMetres": 4690.48,
+          "roadEndpointDistancesMetres": [
+            4690.48,
+            66.41
+          ],
+          "requestedIntervalMetres": [
+            -48,
+            48
+          ],
+          "acceptedContinuousSidewalkIntervalsMetres": [
+            [
+              -48,
+              48
+            ]
+          ],
+          "acceptedSlabs": 32,
+          "attemptedSlabs": 32,
+          "connectionPresent": true
+        },
+        {
+          "id": "fujiang-s01",
+          "settings": {
+            "halfRun": 75,
+            "courtDepth": 2
+          },
+          "sourceRoad": "way/39725551",
+          "sourceRoadKind": "primary",
+          "sourceRoadWidthMetres": 9.6,
+          "roadLengthMetres": 4756.89,
+          "projectedDistanceFromStartMetres": 4690.48,
+          "roadEndpointDistancesMetres": [
+            4690.48,
+            66.41
+          ],
+          "requestedIntervalMetres": [
+            -75,
+            66.41
+          ],
+          "acceptedContinuousSidewalkIntervalsMetres": [
+            [
+              -75,
+              -69.11
+            ],
+            [
+              -48.49,
+              66.41
+            ]
+          ],
+          "acceptedSlabs": 41,
+          "attemptedSlabs": 48,
+          "connectionPresent": true
+        },
+        {
+          "id": "fujiang-s01",
+          "settings": {
+            "halfRun": 100,
+            "courtDepth": 2
+          },
+          "sourceRoad": "way/39725551",
+          "sourceRoadKind": "primary",
+          "sourceRoadWidthMetres": 9.6,
+          "roadLengthMetres": 4756.89,
+          "projectedDistanceFromStartMetres": 4690.48,
+          "roadEndpointDistancesMetres": [
+            4690.48,
+            66.41
+          ],
+          "requestedIntervalMetres": [
+            -100,
+            66.41
+          ],
+          "acceptedContinuousSidewalkIntervalsMetres": [
+            [
+              -100,
+              -70.28
+            ],
+            [
+              -49.48,
+              66.41
+            ]
+          ],
+          "acceptedSlabs": 49,
+          "attemptedSlabs": 56,
+          "connectionPresent": true
+        },
+        {
+          "id": "fujiang-s01",
+          "settings": {
+            "halfRun": 150,
+            "courtDepth": 2
+          },
+          "sourceRoad": "way/39725551",
+          "sourceRoadKind": "primary",
+          "sourceRoadWidthMetres": 9.6,
+          "roadLengthMetres": 4756.89,
+          "projectedDistanceFromStartMetres": 4690.48,
+          "roadEndpointDistancesMetres": [
+            4690.48,
+            66.41
+          ],
+          "requestedIntervalMetres": [
+            -150,
+            66.41
+          ],
+          "acceptedContinuousSidewalkIntervalsMetres": [
+            [
+              -150,
+              -69.96
+            ],
+            [
+              -49.21,
+              66.41
+            ]
+          ],
+          "acceptedSlabs": 66,
+          "attemptedSlabs": 73,
+          "connectionPresent": true
+        }
+      ]
+    },
+    {
+      "id": "zhongnan-s09",
+      "anchor": [
+        -16.5153984916032,
+        8.769154736196347
+      ],
+      "nearbySourceRoads": [
+        {
+          "id": "way/995460041",
+          "kind": "service",
+          "highway": "service",
+          "displayWidthMetres": 4.5,
+          "distanceToModelAnchorMetres": 31.57
+        },
+        {
+          "id": "way/967850233",
+          "kind": "residential",
+          "highway": "residential",
+          "displayWidthMetres": 7.000000000000001,
+          "distanceToModelAnchorMetres": 52.63
+        },
+        {
+          "id": "way/1543968656",
+          "name": "夷陵大道",
+          "kind": "secondary",
+          "highway": "secondary",
+          "displayWidthMetres": 6.4,
+          "distanceToModelAnchorMetres": 70.63
+        },
+        {
+          "id": "way/279499262",
+          "name": "夷陵大道",
+          "kind": "secondary",
+          "highway": "secondary",
+          "displayWidthMetres": 6.4,
+          "distanceToModelAnchorMetres": 73.18
+        },
+        {
+          "id": "way/1543968655",
+          "name": "夷陵大道",
+          "kind": "secondary",
+          "highway": "secondary",
+          "displayWidthMetres": 6.4,
+          "distanceToModelAnchorMetres": 73.18
+        },
+        {
+          "id": "way/814051037",
+          "name": "胜利一路",
+          "kind": "tertiary",
+          "highway": "tertiary",
+          "displayWidthMetres": 6.05,
+          "distanceToModelAnchorMetres": 73.18
+        },
+        {
+          "id": "way/814051038",
+          "name": "胜利二路",
+          "kind": "tertiary",
+          "highway": "tertiary",
+          "displayWidthMetres": 11,
+          "distanceToModelAnchorMetres": 73.94
+        },
+        {
+          "id": "way/1070095022",
+          "name": "胜利一路",
+          "kind": "tertiary",
+          "highway": "tertiary",
+          "displayWidthMetres": 6.05,
+          "distanceToModelAnchorMetres": 76.51
+        },
+        {
+          "id": "way/989814855",
+          "name": "河运路",
+          "kind": "residential",
+          "highway": "residential",
+          "displayWidthMetres": 4.5,
+          "distanceToModelAnchorMetres": 80.93
+        },
+        {
+          "id": "way/967850235",
+          "kind": "service",
+          "highway": "service",
+          "displayWidthMetres": 4.5,
+          "distanceToModelAnchorMetres": 115.96
+        }
+      ],
+      "trials": [
+        {
+          "id": "zhongnan-s09",
+          "settings": {
+            "halfRun": 45,
+            "courtDepth": 3
+          },
+          "sourceRoad": "way/397144798",
+          "sourceRoadKind": "secondary",
+          "sourceRoadWidthMetres": 6.4,
+          "roadLengthMetres": 1439.41,
+          "projectedDistanceFromStartMetres": 1399.9,
+          "roadEndpointDistancesMetres": [
+            1399.9,
+            39.51
+          ],
+          "requestedIntervalMetres": [
+            -45,
+            39.51
+          ],
+          "acceptedContinuousSidewalkIntervalsMetres": [
+            [
+              -39.17,
+              -36.26
+            ],
+            [
+              -12.94,
+              33.68
+            ]
+          ],
+          "acceptedSlabs": 17,
+          "attemptedSlabs": 29,
+          "connectionPresent": true
+        },
+        {
+          "id": "zhongnan-s09",
+          "settings": {
+            "halfRun": 75,
+            "courtDepth": 3
+          },
+          "sourceRoad": "way/397144798",
+          "sourceRoadKind": "secondary",
+          "sourceRoadWidthMetres": 6.4,
+          "roadLengthMetres": 1439.41,
+          "projectedDistanceFromStartMetres": 1399.9,
+          "roadEndpointDistancesMetres": [
+            1399.9,
+            39.51
+          ],
+          "requestedIntervalMetres": [
+            -75,
+            39.51
+          ],
+          "acceptedContinuousSidewalkIntervalsMetres": [
+            [
+              -75,
+              -48.57
+            ],
+            [
+              -39.77,
+              -36.83
+            ],
+            [
+              -10.4,
+              33.64
+            ]
+          ],
+          "acceptedSlabs": 25,
+          "attemptedSlabs": 39,
+          "connectionPresent": true
+        },
+        {
+          "id": "zhongnan-s09",
+          "settings": {
+            "halfRun": 100,
+            "courtDepth": 3
+          },
+          "sourceRoad": "way/397144798",
+          "sourceRoadKind": "secondary",
+          "sourceRoadWidthMetres": 6.4,
+          "roadLengthMetres": 1439.41,
+          "projectedDistanceFromStartMetres": 1399.9,
+          "roadEndpointDistancesMetres": [
+            1399.9,
+            39.51
+          ],
+          "requestedIntervalMetres": [
+            -100,
+            39.51
+          ],
+          "acceptedContinuousSidewalkIntervalsMetres": [
+            [
+              -100,
+              -88.13
+            ],
+            [
+              -73.29,
+              -49.54
+            ],
+            [
+              -40.63,
+              -34.7
+            ],
+            [
+              -10.95,
+              33.57
+            ]
+          ],
+          "acceptedSlabs": 29,
+          "attemptedSlabs": 47,
+          "connectionPresent": true
+        },
+        {
+          "id": "zhongnan-s09",
+          "settings": {
+            "halfRun": 150,
+            "courtDepth": 3
+          },
+          "sourceRoad": "way/397144798",
+          "sourceRoadKind": "secondary",
+          "sourceRoadWidthMetres": 6.4,
+          "roadLengthMetres": 1439.41,
+          "projectedDistanceFromStartMetres": 1399.9,
+          "roadEndpointDistancesMetres": [
+            1399.9,
+            39.51
+          ],
+          "requestedIntervalMetres": [
+            -150,
+            39.51
+          ],
+          "acceptedContinuousSidewalkIntervalsMetres": [
+            [
+              -150,
+              -87.82
+            ],
+            [
+              -73.01,
+              -49.32
+            ],
+            [
+              -40.44,
+              -37.48
+            ],
+            [
+              -10.83,
+              33.59
+            ]
+          ],
+          "acceptedSlabs": 45,
+          "attemptedSlabs": 64,
+          "connectionPresent": true
+        }
+      ]
+    }
+  ],
+  "decision": {
+    "selected": "jiuzhou-shouxin-walk",
+    "sourceRoad": "way/39725551",
+    "lengthDisplayMetres": 31.149130312317652,
+    "widthDisplayMetres": 3.6,
+    "endpointMethod": "Exact existing sidewalk-end vertices on source segment 9, same side, no guessed model entrance. Both previous building-site plans are unchanged.",
+    "evidenceFile": "docs/iterations/20261110-continuous-streets-check.json",
+    "excludedBroadExtensions": [
+      "Zhongnan has only a roughly -11m to +34m continuous interval in the baseline planner; longer settings create disconnected islands near source roads/buildings. Use the independently developed clipped corner sample.",
+      "Fujiang is bounded by a side-street opening in one direction and a transition to elevated source road segments in the other; no continuous extension is included.",
+      "Jinjiang trial expansion crosses a mapped service-road opening; no crossing is assumed.",
+      "Wanda already has approximately 236m of continuous sidewalk; a 300m trial meets an obstacle around +126 to +144m. The extra length offers less immediate value than the 31m missing link."
+    ],
+    "scope": "Display geometry clearance only. Public access, parcel edges, paving materials, absolute lengths and entrances are not surveyed or verified by this audit."
+  }
+}

@@ -4,6 +4,8 @@ import { resolveBuildingInspection } from './buildingInspection.js';
 import { EXTRA_STREET_SITES } from './additionalStreetSites.js';
 import { trimStreetCurbs, createStreetCurbGeometry } from './streetSurfaceGeometry.js';
 import { createStreetPavingTexture, streetPavingFrame, streetPavingUv } from './streetPavingTexture.js';
+import { partitionStreetPaving } from './streetPavingPartition.js';
+import { planContinuousStreetSites } from './continuousStreetSites.js';
 
 // These are bounded presentation areas derived from the registered model's
 // complete bounds, including its existing stairs/canopies. They do not claim
@@ -180,12 +182,15 @@ function planStreetSite({ data, authoredModels, authoredGround, waterfrontPlan, 
   if (entrySubject) site.entranceReference = { method: 'authored-visible-subject-lateral-projection',
     sourceCenter: entrySubject.sourceCenter.toArray(), lateralOffset: entryLateral, surveyed: false };
   const pavingKeys = new Set();
-  function addPaving(points, role, surface = null) {
+  function addPaving(points, role, surface = null, zone = null) {
     const clearedEntry = role==='entry-apron' && settings.fillEntryApron ? surface : null;
     if (!polygonSafe(points,.006,clearedEntry)) return false;
     const key = points.map(p => p.map(v => v.toFixed(5)).join(',')).sort().join(';');
     if (pavingKeys.has(key)) return true;
-    pavingKeys.add(key); site.paving.push(clearedEntry ? { points, role, surface, clearedModelId:model.id } : { points, role }); return true;
+    pavingKeys.add(key);
+    const cell = clearedEntry ? { points, role, surface, clearedModelId:model.id } : { points, role };
+    if (settings.cornerLayout && zone) cell.zone = zone;
+    site.paving.push(cell); return true;
   }
 
   // A narrow forecourt along the documented front, split into restrained slabs.
@@ -195,7 +200,7 @@ function planStreetSite({ data, authoredModels, authoredGround, waterfrontPlan, 
   for (let i = 0; i < nx; i++) for (let j = 0; j < nz; j++) {
     const u0 = -courtWidth / 2 + courtWidth * i / nx, u1 = -courtWidth / 2 + courtWidth * (i + 1) / nx;
     const v0 = 0.009 + courtDepth * j / nz, v1 = 0.009 + courtDepth * (j + 1) / nz;
-    addPaving([[u0,v0],[u1,v0],[u1,v1],[u0,v1]].map(([u,v]) => add(add(frontCenter, tangent, u), front, v)), (i + j) % 7 === 0 ? 'accent' : 'forecourt');
+    addPaving([[u0,v0],[u1,v0],[u1,v1],[u0,v1]].map(([u,v]) => add(add(frontCenter, tangent, u), front, v)), (i + j) % 7 === 0 ? 'accent' : 'forecourt', null, 'forecourt');
   }
 
   const roadSample = pointOnPath(nearest.path, nearest.at);
@@ -203,20 +208,20 @@ function planStreetSite({ data, authoredModels, authoredGround, waterfrontPlan, 
   const side = (center[0] - nearest.point[0]) * baseNormal[0] + (center[1] - nearest.point[1]) * baseNormal[1] >= 0 ? 1 : -1;
   const normalAt = sample => [-sample.tangent[1] * side, sample.tangent[0] * side];
   const sidewalkInner = nearest.path.width / 2 + 0.014, sidewalkWidth = 3.6 * units, halfRun = settings.halfRun * units;
-  const startAt = Math.max(0, nearest.at - halfRun), endAt = Math.min(nearest.path.length, nearest.at + halfRun);
+  const startAt = Math.max(0, nearest.at - (settings.runBefore == null ? halfRun : settings.runBefore * units)), endAt = Math.min(nearest.path.length, nearest.at + (settings.runAfter == null ? halfRun : settings.runAfter * units));
   const runSteps = Math.ceil((endAt - startAt) / (3 * units));
   const acceptedSidewalk = [];
   for (let i = 0; i < runSteps; i++) {
     const a = pointOnPath(nearest.path, mix(startAt, endAt, i / runSteps)), b = pointOnPath(nearest.path, mix(startAt, endAt, (i + 1) / runSteps));
     const an = normalAt(a), bn = normalAt(b);
     const points = [add(a.point, an, sidewalkInner), add(b.point, bn, sidewalkInner), add(b.point, bn, sidewalkInner + sidewalkWidth), add(a.point, an, sidewalkInner + sidewalkWidth)];
-    if (!addPaving(points, i % 8 === 0 ? 'accent' : 'sidewalk')) continue;
+    if (!addPaving(points, i % 8 === 0 ? 'accent' : 'sidewalk', null, 'sidewalk')) continue;
     acceptedSidewalk.push({ a, b, at: mix(startAt, endAt, (i + .5) / runSteps) });
     for (const offset of [sidewalkInner, sidewalkInner + sidewalkWidth]) {
       const p = add(a.point, an, offset), q = add(b.point, bn, offset), mid = [mix(p[0],q[0],.5),mix(p[1],q[1],.5)];
       const t = [(q[0]-p[0])/distance(p,q), (q[1]-p[1])/distance(p,q)], n = [-t[1],t[0]];
       const footprint = rectangle(mid, t, n, distance(p,q), .004);
-      if (polygonSafe(footprint, .004)) site.curbs.push({ a:p, b:q, footprint });
+      if (polygonSafe(footprint, .004)) site.curbs.push(settings.cornerLayout ? { a:p, b:q, footprint, side: offset === sidewalkInner ? 'road' : 'building' } : { a:p, b:q, footprint });
     }
   }
 
@@ -238,7 +243,7 @@ function planStreetSite({ data, authoredModels, authoredGround, waterfrontPlan, 
   // A partially clipped route would imply access where none exists: retain a
   // route only when every cell is clear. Forecourt and sidewalk remain valid.
   if (routeCells.every(points => polygonSafe(points))) {
-    routeCells.forEach(points => addPaving(points, 'connection'));
+    routeCells.forEach(points => addPaving(points, 'connection', null, 'connection'));
     site.entranceRoute = [[...routeStart],[...routeEnd]];
   }
 
@@ -277,6 +282,16 @@ function planStreetSite({ data, authoredModels, authoredGround, waterfrontPlan, 
     }
   }
 
+  if (settings.cornerLayout) {
+    // Keep the original, obstacle-checked court as the opening mask. The
+    // partition gives the continuous route and sidewalk first ownership of
+    // shared ground; it does not add land or relax any source exclusion.
+    site.courtOpeningMasks = site.paving.filter(cell => cell.zone === 'forecourt').map(cell => cell.points.map(p => [...p]));
+    const partition = partitionStreetPaving(site.paving);
+    site.paving = partition.cells;
+    site.pavingPartition = partition.stats;
+  }
+
   const occupied = [];
   function place(kind, at, offset, width, depth, reserveRadius = 0) {
     const sample = pointOnPath(nearest.path, at), normal = normalAt(sample), p = add(sample.point, normal, offset);
@@ -310,20 +325,25 @@ export function planStreetDetails(options) {
   const plans = [...STREET_SITES, ...EXTRA_STREET_SITES].map(settings => planStreetSite({ ...options, allPaths, settings,
     model: options.authoredModels.find(item => item.id === settings.id) }));
   const sites = plans.flatMap(plan => plan.sites);
-  const sum = key => sites.reduce((total, site) => total + site[key].length, 0);
+  const connections = planContinuousStreetSites({ ...options, sites });
+  const links = connections.sites;
+  const allSites = [...sites, ...links];
+  const sum = key => allSites.reduce((total, site) => total + site[key].length, 0);
   const connected = sites.filter(site => site.entranceRoute.length === 2).length;
-  return { sites, stats: {
+  return { sites, links, stats: {
+    ...connections.stats,
     streetSites: sites.length, streetPavingCells: sum('paving'), streetCurbSegments: sum('curbs'),
     streetTrees: sum('trees'), streetLamps: sum('lamps'), streetBenches: sum('benches'),
     streetEntranceConnected: sites.length > 0 && connected === sites.length,
     streetEntrancesConnected: connected, streetIllustrative: true, streetMarkings: 0,
     streetEntryApronCells: sites.reduce((total,site)=>total+(site.entryApron?.cells||0),0),
     streetSiteIds: sites.map(site => site.id),
+    streetLinkIds: links.map(site => site.id),
     streetSiteSummaries: sites.map(site => ({ id: site.id, roadName: site.roadName, sourceRoad: site.roadSourceId,
       pavingCells: site.paving.length, curbSegments: site.curbs.length, trees: site.trees.length,
       lamps: site.lamps.length, benches: site.benches.length, entranceConnected: site.entranceRoute.length === 2,
       entryApronConnected: Boolean(site.entryApron), illustrative: site.illustrative })),
-  }, reserveTree: (x,z) => plans.some(plan => plan.reserveTree(x,z)) };
+  }, reserveTree: (x,z) => plans.some(plan => plan.reserveTree(x,z)) || connections.reserveTree(x,z) };
 }
 
 function quadsGeometry(cells, surface, frame = null) {
@@ -333,8 +353,27 @@ function quadsGeometry(cells, surface, frame = null) {
     const signedArea=edges(cell.points).reduce((sum,[a,b])=>sum+a[0]*b[1]-b[0]*a[1],0);
     // Consistent upward winding plus normals from the same height function
     // avoids alternating face lighting along slab and path boundaries.
-    for(const index of signedArea>0?[0,2,1,0,3,2]:[0,1,2,0,2,3]){
-      const p=cell.points[index];positions.push(p[0],cellSurface(p[0],p[1]),p[1]);
+    let vertices;
+    if (cell.conforming) {
+      // Shared cut points stay on both neighbouring cell boundaries. A
+      // centre fan keeps every edge segment, including collinear vertices,
+      // so non-linear ground lifts cannot leave a T-junction height crack.
+      const ring=cell.points.map(p=>p.map(Math.fround));
+      const center=[0,1].map(axis=>Math.fround(ring.reduce((sum,p)=>sum+p[axis],0)/ring.length));
+      vertices=[];
+      for(let i=0;i<ring.length;i++){
+        const a=ring[i],b=ring[(i+1)%ring.length];
+        if(Math.abs(cross(center,a,b))<1e-14)continue;
+        vertices.push(...(signedArea>0?[center,b,a]:[center,a,b]));
+      }
+    } else {
+      // Preserve the exact legacy four-point ordering and surface samples.
+      const indices=[];
+      for(let i=1;i<cell.points.length-1;i++)indices.push(...(signedArea>0?[0,i+1,i]:[0,i,i+1]));
+      vertices=indices.map(index=>cell.points[index]);
+    }
+    for(const p of vertices){
+      positions.push(p[0],cellSurface(p[0],p[1]),p[1]);
       if(frame)uvs.push(...streetPavingUv(p,frame));
       const dx=(cellSurface(p[0]+step,p[1])-cellSurface(p[0]-step,p[1]))/(2*step),dz=(cellSurface(p[0],p[1]+step)-cellSurface(p[0],p[1]-step))/(2*step),length=Math.hypot(dx,1,dz);
       normals.push(-dx/length,1/length,-dz/length);
@@ -374,7 +413,7 @@ export function createStreetDetails(plan,{heightAt,makeMaterial}) {
   // would draw front and back separately without changing this ground decal.
   const glowMaterial=new THREE.MeshBasicMaterial({color:'#f8d694',transparent:true,opacity:.19,depthWrite:false,toneMapped:false,side:THREE.DoubleSide,forceSinglePass:true});
   const entries=[];let night=false;
-  for(const site of plan.sites){
+  for(const site of [...plan.sites, ...(plan.links || [])]){
     const unit=site.units,surface=(x,z)=>heightAt(x,z)+site.groundLift(x,z);
     const siteGroup=new THREE.Group(),pavingGroup=new THREE.Group(),landscapeGroup=new THREE.Group(),detailGroup=new THREE.Group(),treeGroup=new THREE.Group(),nightGroup=new THREE.Group();
     siteGroup.name=site.id;landscapeGroup.name='street landscape';siteGroup.add(pavingGroup,landscapeGroup,detailGroup);landscapeGroup.add(treeGroup);detailGroup.add(nightGroup);group.add(siteGroup);
@@ -431,7 +470,7 @@ export function createStreetDetails(plan,{heightAt,makeMaterial}) {
   let meshes=0,triangles=0,geometryBytes=0;
   group.traverse(object=>{if(!object.isMesh)return;meshes++;const g=object.geometry;triangles+=(g.index?g.index.count:g.attributes.position.count)/3*(object.isInstancedMesh?object.count:1);for(const a of Object.values(g.attributes))geometryBytes+=a.array.byteLength;if(g.index)geometryBytes+=g.index.array.byteLength;if(object.instanceMatrix)geometryBytes+=object.instanceMatrix.array.byteLength;});
   const resourceStats={...plan.stats,streetMeshes:meshes,streetTriangles:triangles,streetGeometryBytes:geometryBytes,streetTextureCount:1,streetTextureSourceBytes:pavingTexture.image.data.byteLength};
-  const getStats=()=>({...resourceStats,streetVisibleSites:entries.filter(e=>e.group.visible).length,streetVisibleIds:entries.filter(e=>e.group.visible).map(e=>e.site.id),streetVisibleTier:Math.max(0,...entries.filter(e=>e.group.visible).map(e=>e.tier)),streetVisibleDrawCalls:entries.reduce((n,e)=>{if(!e.group.visible)return n;let count=0;e.group.traverseVisible(o=>{if(o.isMesh)count++;});return n+count;},0)});
+  const getStats=()=>({...resourceStats,streetVisibleSites:entries.filter(e=>e.group.visible&&e.site.kind!=='street-link').length,streetVisibleLinks:entries.filter(e=>e.group.visible&&e.site.kind==='street-link').length,streetVisibleIds:entries.filter(e=>e.group.visible).map(e=>e.site.id),streetVisibleTier:Math.max(0,...entries.filter(e=>e.group.visible).map(e=>e.tier)),streetVisibleDrawCalls:entries.reduce((n,e)=>{if(!e.group.visible)return n;let count=0;e.group.traverseVisible(o=>{if(o.isMesh)count++;});return n+count;},0)});
   return {group,stats:resourceStats,getStats,
     update({pixelsPerUnit,frustum,enabled=true,treesEnabled=true}) {
       let changed=false;

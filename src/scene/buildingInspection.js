@@ -10,6 +10,10 @@ const SUBJECTS = {
   },
   'zhongnan-s09': {
     facade: [10.31, 58.61, -0.01], entrance: [10.31, 7.46, 1.20], crown: [10, 99.3, -10],
+    // The old almost-horizontal entry view was fully occluded by the retained
+    // opposite block. Raise this presentation direction, keeping the native
+    // subject, model registration and whole-building framing unchanged.
+    entranceDirection: [0.12, 0.5, 1],
   },
   'jinjiang-s03': {
     facade: [0.34, 39.66, -0.28], entrance: [0.34, 5.05, 16.58], crown: [0.34, 67.79, -0.51],

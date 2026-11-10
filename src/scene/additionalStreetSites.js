@@ -30,4 +30,20 @@ export const EXTRA_STREET_SITES = [
     lampOffsets: [-30, 30],
     benchOffsets: [-8, 8],
   },
+  {
+    id: 'zhongnan-s09',
+    roadName: '夷陵大道',
+    courtDepth: 4,
+    halfRun: 55,
+    // This 44 m display segment stays within the continuous, same-side
+    // frontage. Longer symmetric runs create islands beyond side streets.
+    runBefore: 11,
+    runAfter: 33,
+    followModelEntrance: true,
+    cornerLayout: true,
+    treeSpan: 30,
+    treeStep: 15,
+    lampOffsets: [-7, 25],
+    benchOffsets: [-8, 8],
+  },
 ];

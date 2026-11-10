@@ -45,17 +45,22 @@ function winding(point, ring) {
 
 function checkCells(site, cells) {
   const connection = site.paving.filter(cell => cell.role === 'connection');
+  const masksFor=curb=>[...connection.map(cell=>cell.points),...(curb.side==='building'?site.courtOpeningMasks||[]:[])];
   for (const cell of cells) {
     assert(cell.points.length >= 3 && cell.points.flat().every(Number.isFinite));
     assert(cell.points.every((p, i) => turn(p, cell.points[(i + 1) % cell.points.length], cell.points[(i + 2) % cell.points.length]) >= -1e-12), 'Every returned fragment must be convex');
-    for (const mask of connection) assert(intersectionArea(cell.points, mask.points) < 1e-11, 'No connection area may retain a curb');
-    const source = site.curbs[cell.sourceCurbIndex].footprint;
+    const sourceCurb=site.curbs[cell.sourceCurbIndex];
+    for (const mask of masksFor(sourceCurb)) assert(intersectionArea(cell.points, mask) < 1e-11, 'Neither an entry strip nor an explicitly permitted inner court opening may retain a blocking curb');
+    const source = sourceCurb.footprint;
     assert(Math.abs(intersectionArea(cell.points, source) - area(cell.points)) < 1e-10, 'Trimming cannot expand a curb beyond its source footprint');
   }
   for (let i = 0; i < cells.length; i++) for (let j = i + 1; j < cells.length; j++) {
     if (cells[i].sourceCurbIndex === cells[j].sourceCurbIndex) assert(intersectionArea(cells[i].points, cells[j].points) < 1e-11, 'Fragments from one curb must not overlap');
   }
   for (const cut of cells.cutouts) {
+    const sourceCurb=site.curbs[cut.sourceCurbIndex];
+    for(const index of cut.connectionCellIndices){assert(Number.isInteger(index));assert.equal(site.paving[index].role,'connection');assert(intersectionArea(sourceCurb.footprint,site.paving[index].points)>1e-11,'A reported connection cut needs genuine positive-area intersection');}
+    for(const index of cut.courtMaskIndices||[]){assert.equal(sourceCurb.side,'building','Court opening masks may never cut the carriageway-side curb');assert(Number.isInteger(index));assert(intersectionArea(sourceCurb.footprint,site.courtOpeningMasks[index])>1e-11,'A reported court opening needs genuine positive-area intersection');}
     assert(cut.maxPenetration <= cut.curbWidth + 1e-10, 'The opening only penetrates the original curb thickness');
     assert(cut.originalOverlapArea > 0 && cut.removedArea >= cut.originalOverlapArea - 1e-10);
     for (const mask of cut.openingMasks) for (const cell of cells.filter(c => c.sourceCurbIndex === cut.sourceCurbIndex)) assert(intersectionArea(cell.points, mask) < 1e-11, 'The complete curb thickness at an opening must be clear, including the former half-curb');
@@ -64,7 +69,7 @@ function checkCells(site, cells) {
   }
   for (let i = 0; i < site.curbs.length; i++) {
     const source = site.curbs[i].footprint;
-    if (connection.some(c => intersectionArea(source, c.points) > 1e-11)) continue;
+    if (masksFor(site.curbs[i]).some(mask => intersectionArea(source, mask) > 1e-11)) continue;
     const retained = cells.filter(c => c.sourceCurbIndex === i);
     assert(Math.abs(retained.reduce((sum, c) => sum + area(c.points), 0) - area(source)) < 1e-10, 'Unaffected curbs, including the road-side edge, must remain complete');
   }
@@ -142,6 +147,15 @@ assert(Math.abs(multipleCells.cutouts[0].originalOverlapArea - obliqueCells.cuto
 checkGeometry(multipleCells, (x, z) => 0.3 + 0.02 * x - 0.01 * z);
 passed.push('Multiple entry openings remain disjoint, duplicate connection masks do not double-count area, and ordinary forecourt paving cannot remove a curb');
 
+const cornerCourt={curbs:oblique.curbs.map((curb,index)=>({...curb,side:index===0?'building':'road'})),paving:[],
+  courtOpeningMasks:[[[-.5,-.2],[.5,-.2],[.5,2.2],[-.5,2.2]]]};
+const cornerCourtCells=trimStreetCurbs(cornerCourt);checkCells(cornerCourt,cornerCourtCells);
+assert.equal(cornerCourtCells.cutouts.length,1);assert.equal(cornerCourtCells.cutouts[0].sourceCurbIndex,0);
+assert.deepEqual(cornerCourtCells.cutouts[0].connectionCellIndices,[]);assert.deepEqual(cornerCourtCells.cutouts[0].courtMaskIndices,[0]);
+assert(Math.abs(cornerCourtCells.filter(cell=>cell.sourceCurbIndex===1).reduce((sum,cell)=>sum+area(cell.points),0)-area(cornerCourt.curbs[1].footprint))<1e-12,'Even a court mask spanning both sides cannot remove any road-side curb');
+checkGeometry(cornerCourtCells,(x,z)=>.2+.015*x+.025*z);
+passed.push('Explicit corner court masks open only a positively intersected building-side curb; a synthetic mask spanning both sides leaves the road-side curb completely intact');
+
 const data = JSON.parse(fs.readFileSync(new URL('../public/data/city.json', import.meta.url), 'utf8'));
 const authoredModels = AUTHORED_MODELS.map(spec => resolveAuthoredPlacement(spec, data.meta)).filter(Boolean);
 const authoredGround = planAuthoredGround(authoredModels, data, 3.8);
@@ -151,8 +165,12 @@ const plan = planStreetDetails({ data, authoredModels, authoredGround, waterfron
 const baseline = JSON.stringify({ plan, data, authoredModels });
 const expected = new Map([['shouxin-wealth-s01', 3], ['wanda-soho-s01', 3], ['jiuzhou-s01', 2]]);
 for (const id of expected.keys()) assert(plan.sites.some(site => site.id === id), `${id}: required real street site exists`);
-for (const site of plan.sites) {
+for (const site of [...plan.sites,...(plan.links||[])]) {
   const cells = trimStreetCurbs(site); checkCells(site, cells);
+  if(site.id==='zhongnan-s09'){
+    assert(cells.cutouts.some(cut=>cut.courtMaskIndices?.length),'The actual oblique court opens its inner sidewalk curb');
+    assert(cells.cutouts.every(cut=>site.curbs[cut.sourceCurbIndex].side==='building'),'All real Zhongnan road-side curbs remain complete');
+  }
   if (expected.has(site.id)) assert.equal(cells.cutouts.length, expected.get(site.id), `${site.id}: every baseline blocked curb is opened`);
   const surface = (x, z) => heightAt(x, z) + site.groundLift(x, z);
   const geometry = checkGeometry(cells, surface);
@@ -160,6 +178,7 @@ for (const site of plan.sites) {
   const unit = site.units;
   report.push({
     id: site.id, sourceCurbs: site.curbs.length, renderedCells: cells.length, cuts: cells.cutouts.length,
+    courtCuts:cells.cutouts.filter(cut=>cut.courtMaskIndices?.length).length,
     originalOverlapSquareMeters: cells.cutouts.reduce((sum, c) => sum + c.originalOverlapArea, 0) / unit ** 2,
     removedSquareMeters: cells.cutouts.reduce((sum, c) => sum + c.removedArea, 0) / unit ** 2,
     openingWidthMeters: cells.cutouts.reduce((sum, c) => sum + c.openingWidth, 0) / unit,
@@ -168,7 +187,7 @@ for (const site of plan.sites) {
   });
 }
 assert.equal(JSON.stringify({ plan, data, authoredModels }), baseline, 'No planner cells, geographic inputs or model transforms were changed');
-passed.push(`${plan.sites.length} real street sites have zero connection/curb overlap, full-thickness openings, preserved road-side edges and finite upward/outward geometry`);
+passed.push(`${plan.sites.length} real building street sites and ${(plan.links||[]).length} short links have zero permitted opening/curb overlap, full-thickness openings, preserved road-side edges and finite upward/outward geometry`);
 const empty = createStreetCurbGeometry([], () => 0); assert.equal(empty.attributes.position.count, 0); assert.equal(empty.index.count, 0); empty.dispose();
 assert.throws(() => createStreetCurbGeometry(obliqueCells, () => NaN), /non-finite/);
 passed.push('Empty sites are harmless; invalid heights fail explicitly instead of emitting NaN vertices');
