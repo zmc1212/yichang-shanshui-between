@@ -1,0 +1,235 @@
+{
+  "after-shouxin": [
+    [
+      {
+        "dataset": {
+          "authoredModels": "7",
+          "authoredSelection": "true",
+          "businessProjects": "23",
+          "cityVisible": "true",
+          "detailModels": "1",
+          "drawCalls": "95",
+          "engine": "three.js r170",
+          "focusAngle": "detail",
+          "geometries": "312",
+          "modelAnchor": "[17.84661482668662,0.06500000405919155,44.801642264664586]",
+          "modelQuality": "detail",
+          "renderFrames": "47",
+          "renderState": "idle",
+          "residentModels": "7",
+          "sceneMode": "city",
+          "streetDetails": "2",
+          "streetDetailsEnabled": "true",
+          "streetVisibleDrawCalls": "24",
+          "streetVisibleIds": "[\"shouxin-wealth-s01\",\"jiuzhou-s01\"]",
+          "streetVisibleSites": "2",
+          "textures": "4",
+          "triangles": "780838"
+        },
+        "height": 793,
+        "width": 1616
+      }
+    ]
+  ],
+  "after-jinjiang": [
+    [
+      {
+        "dataset": {
+          "authoredModels": "7",
+          "authoredSelection": "true",
+          "businessProjects": "23",
+          "cityVisible": "true",
+          "detailModels": "1",
+          "drawCalls": "73",
+          "engine": "three.js r170",
+          "focusAngle": "detail",
+          "geometries": "326",
+          "modelAnchor": "[-30.593319771790565,0.7093055088137867,2.8551606057318497]",
+          "modelQuality": "detail",
+          "renderFrames": "87",
+          "renderState": "idle",
+          "residentModels": "7",
+          "sceneMode": "city",
+          "streetDetails": "2",
+          "streetDetailsEnabled": "true",
+          "streetVisibleDrawCalls": "12",
+          "streetVisibleIds": "[\"jinjiang-s03\"]",
+          "streetVisibleSites": "1",
+          "textures": "9",
+          "triangles": "669399"
+        },
+        "height": 793,
+        "width": 1616
+      }
+    ]
+  ],
+  "after-fujiang": [
+    [
+      {
+        "dataset": {
+          "authoredModels": "7",
+          "authoredSelection": "true",
+          "businessProjects": "23",
+          "cityVisible": "true",
+          "detailModels": "1",
+          "drawCalls": "81",
+          "engine": "three.js r170",
+          "focusAngle": "detail",
+          "geometries": "333",
+          "modelAnchor": "[3.5533045711504165,0.06507002690175351,27.733723753768164]",
+          "modelQuality": "detail",
+          "renderFrames": "109",
+          "renderState": "idle",
+          "residentModels": "7",
+          "sceneMode": "city",
+          "streetDetails": "2",
+          "streetDetailsEnabled": "true",
+          "streetVisibleDrawCalls": "12",
+          "streetVisibleIds": "[\"fujiang-s01\"]",
+          "streetVisibleSites": "1",
+          "textures": "25",
+          "triangles": "1151162"
+        },
+        "height": 793,
+        "width": 1616
+      }
+    ]
+  ],
+  "after-fujiang-night": [
+    [
+      {
+        "dataset": {
+          "authoredModels": "7",
+          "authoredSelection": "true",
+          "businessProjects": "23",
+          "cityVisible": "true",
+          "detailModels": "1",
+          "drawCalls": "85",
+          "engine": "three.js r170",
+          "focusAngle": "detail",
+          "geometries": "337",
+          "modelAnchor": "[3.5533045711504165,0.06507002690175351,27.733723753768164]",
+          "modelQuality": "detail",
+          "renderFrames": "111",
+          "renderState": "idle",
+          "residentModels": "7",
+          "sceneMode": "city",
+          "streetDetails": "2",
+          "streetDetailsEnabled": "true",
+          "streetVisibleDrawCalls": "13",
+          "streetVisibleIds": "[\"fujiang-s01\"]",
+          "streetVisibleSites": "1",
+          "textures": "25",
+          "triangles": "1151210"
+        },
+        "height": 793,
+        "width": 1616
+      }
+    ],
+    "看见城市的层次\n城市建筑\n山林与树木\n街道细节\n道路名称\n地标名称\n江面动态\n\n道路名称自动避让地标；街道细节随缩放展开。"
+  ],
+  "after-jiuzhou-entry": [
+    [
+      {
+        "dataset": {
+          "authoredModels": "7",
+          "authoredSelection": "true",
+          "businessProjects": "23",
+          "cityVisible": "true",
+          "detailModels": "1",
+          "drawCalls": "66",
+          "engine": "three.js r170",
+          "focusAngle": "entrance",
+          "geometries": "337",
+          "modelAnchor": "[20.110797496633346,0.06500000072340281,46.66588413788607]",
+          "modelQuality": "detail",
+          "renderFrames": "131",
+          "renderState": "idle",
+          "residentModels": "7",
+          "sceneMode": "city",
+          "streetDetails": "2",
+          "streetDetailsEnabled": "true",
+          "streetVisibleDrawCalls": "12",
+          "streetVisibleIds": "[\"jiuzhou-s01\"]",
+          "streetVisibleSites": "1",
+          "textures": "15",
+          "triangles": "732194"
+        },
+        "height": 793,
+        "width": 1616
+      }
+    ]
+  ],
+  "after-mobile-fujiang": [
+    {
+      "canvas": [
+        {
+          "dataset": {
+            "authoredModels": "7",
+            "authoredSelection": "true",
+            "businessProjects": "23",
+            "cityVisible": "true",
+            "detailModels": "1",
+            "drawCalls": "71",
+            "engine": "three.js r170",
+            "focusAngle": "detail",
+            "geometries": "339",
+            "modelAnchor": "[3.5533045711504165,0.06507002690175351,27.733723753768164]",
+            "modelQuality": "detail",
+            "renderFrames": "152",
+            "renderState": "idle",
+            "residentModels": "7",
+            "sceneMode": "city",
+            "streetDetails": "2",
+            "streetDetailsEnabled": "true",
+            "streetVisibleDrawCalls": "12",
+            "streetVisibleIds": "[\"fujiang-s01\"]",
+            "streetVisibleSites": "1",
+            "textures": "25",
+            "triangles": "1050268"
+          },
+          "height": 784,
+          "width": 390
+        }
+      ],
+      "scrollWidth": 390,
+      "viewport": [
+        390,
+        844
+      ]
+    }
+  ],
+  "after-overview": [
+    [
+      {
+        "dataset": {
+          "authoredModels": "7",
+          "authoredSelection": "false",
+          "businessProjects": "23",
+          "cityVisible": "true",
+          "detailModels": "0",
+          "drawCalls": "258",
+          "engine": "three.js r170",
+          "focusAngle": "overview",
+          "geometries": "321",
+          "modelAnchor": "",
+          "modelQuality": "light",
+          "renderFrames": "165",
+          "renderState": "idle",
+          "residentModels": "7",
+          "sceneMode": "city",
+          "streetDetails": "0",
+          "streetDetailsEnabled": "true",
+          "streetVisibleDrawCalls": "0",
+          "streetVisibleIds": "[]",
+          "streetVisibleSites": "0",
+          "textures": "15",
+          "triangles": "1313930"
+        },
+        "height": 793,
+        "width": 1616
+      }
+    ],
+    []
+  ]
+}
