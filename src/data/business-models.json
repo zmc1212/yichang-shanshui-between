@@ -105,7 +105,11 @@
       ]
     },
     "displayHeight": 8,
-    "defaultViewDirection": [1.65, 0.95, 0.85],
+    "defaultViewDirection": [
+      1.65,
+      0.95,
+      0.85
+    ],
     "flatShading": false,
     "assets": {
       "light": "/models/jinjiang-s03/light.glb?v=019218c3a04d",
@@ -301,6 +305,867 @@
         "bytes": 1337716,
         "triangles": 117744,
         "primitives": 16,
+        "estimatedTextureBytesRGBA8WithMipmaps": 0
+      }
+    }
+  },
+  "1649141": {
+    "id": "business-1649141",
+    "stage": "右塔共有角2×2短段候选",
+    "front": "+Z",
+    "previewOnly": true,
+    "previewDefaultAngle": "front",
+    "subtitle": "兴发广场 · 右塔可见面",
+    "description": "右侧红字塔的已知宽立面，以及相邻窄面靠转角的两列、顶部两条窗带。 未包含完整窄面、左塔、双塔整体关系、裙房、背面和真实屋顶。",
+    "caveat": "本次接入的是新建可见范围候选，历史完整原稿仍待恢复。未核实的背衬或技术厚度保留源模型状态，不代表实际墙体、楼体进深或测绘尺寸。占地与地理朝向尚未配准，地图继续显示原导览参考点。",
+    "coverage": {
+      "type": "partial",
+      "identity": "candidate",
+      "title": "兴发广场 · 右塔可见面",
+      "scope": "右侧红字塔的已知宽立面，以及相邻窄面靠转角的两列、顶部两条窗带。",
+      "missing": "未包含完整窄面、左塔、双塔整体关系、裙房、背面和真实屋顶。",
+      "isWholeBuildingValidated": false,
+      "isHistoricalOriginalRecovered": false,
+      "unitsAreMeasuredMeters": false,
+      "identityNote": "这是兴发广场右塔的局部候选，不代表整组楼宇。"
+    },
+    "sourceBounds": {
+      "min": [
+        -20.1200008392334,
+        0,
+        -10
+      ],
+      "max": [
+        20.610000610351562,
+        84,
+        0.6100000143051147
+      ]
+    },
+    "displayHeight": 8,
+    "flatShading": false,
+    "assets": {
+      "light": "/models/preview-1649141/light.glb?v=e01c4b961672",
+      "detail": "/models/preview-1649141/light.glb?v=e01c4b961672"
+    },
+    "modelNotesUrl": "/models/preview-1649141/README.txt",
+    "sourceModelSha256": "4c493fb14c0d755e7f2e2ca4c265bffb37e5dccf77ae50084047be6b118b5790",
+    "sourceNativeSha256": "4c493fb14c0d755e7f2e2ca4c265bffb37e5dccf77ae50084047be6b118b5790",
+    "sourceNativeFilename": "XingfaPlaza_RightCorner2x2_C20261109.blend",
+    "sourceModelUrl": "https://github.com/zmc1212/china-landmarks-hubei/blob/440804ded49a2cef615015547349b3adf6aa09d5/landmarks/yichang-xingfa-plaza/stages/C20261109_right_corner_2x2_patch/model/XingfaPlaza_RightCorner2x2_C20261109.blend",
+    "webBudget": {
+      "light": {
+        "bytes": 273084,
+        "triangles": 22452,
+        "primitives": 5,
+        "estimatedTextureBytesRGBA8WithMipmaps": 0
+      },
+      "detail": {
+        "bytes": 273084,
+        "triangles": 22452,
+        "primitives": 5,
+        "estimatedTextureBytesRGBA8WithMipmaps": 0
+      }
+    }
+  },
+  "1649139": {
+    "id": "business-1649139",
+    "stage": "20261109独立新建候选",
+    "front": "+Z",
+    "previewOnly": true,
+    "previewDefaultAngle": "front",
+    "subtitle": "新华武银大厦 · 主立面",
+    "description": "中央主塔的已观察正立面、冠部前屏及九处可见开窗样本。 未包含可靠配准的右侧面、裙房、分段雨棚、基部连接、背面和真实屋顶。",
+    "caveat": "本次接入的是新建可见范围候选，历史完整原稿仍待恢复。未核实的背衬或技术厚度保留源模型状态，不代表实际墙体、楼体进深或测绘尺寸。占地与地理朝向尚未配准，地图继续显示原导览参考点。",
+    "coverage": {
+      "type": "partial",
+      "identity": "candidate",
+      "title": "新华武银大厦 · 主立面",
+      "scope": "中央主塔的已观察正立面、冠部前屏及九处可见开窗样本。",
+      "missing": "未包含可靠配准的右侧面、裙房、分段雨棚、基部连接、背面和真实屋顶。",
+      "isWholeBuildingValidated": false,
+      "isHistoricalOriginalRecovered": false,
+      "unitsAreMeasuredMeters": false,
+      "identityNote": "模型对应原导览中央主塔，未纳入右侧新华保险邻塔和背向白色天线楼。"
+    },
+    "sourceBounds": {
+      "min": [
+        -19.649999618530273,
+        0,
+        -10
+      ],
+      "max": [
+        19.649999618530273,
+        117,
+        10.520849058698078
+      ]
+    },
+    "displayHeight": 8,
+    "flatShading": false,
+    "assets": {
+      "light": "/models/preview-1649139/light.glb?v=be827860c751",
+      "detail": "/models/preview-1649139/light.glb?v=be827860c751"
+    },
+    "modelNotesUrl": "/models/preview-1649139/README.txt",
+    "sourceModelSha256": "290de20d6de2b0f25c9561268aad7029b38e51bfbf42aef5490595a532c0c859",
+    "sourceNativeSha256": "290de20d6de2b0f25c9561268aad7029b38e51bfbf42aef5490595a532c0c859",
+    "sourceNativeFilename": "XinhuaWuyin_C20261109.blend",
+    "sourceModelUrl": "https://github.com/zmc1212/china-landmarks-hubei/blob/440804ded49a2cef615015547349b3adf6aa09d5/landmarks/yichang-xinhua-wuyin-tower/stages/C20261109_new_evidence_candidate/model/XinhuaWuyin_C20261109.blend.gz",
+    "webBudget": {
+      "light": {
+        "bytes": 529288,
+        "triangles": 47556,
+        "primitives": 6,
+        "estimatedTextureBytesRGBA8WithMipmaps": 0
+      },
+      "detail": {
+        "bytes": 529288,
+        "triangles": 47556,
+        "primitives": 6,
+        "estimatedTextureBytesRGBA8WithMipmaps": 0
+      }
+    }
+  },
+  "1649144": {
+    "id": "business-1649144",
+    "stage": "中央邻商场塔楼可见面候选",
+    "front": "+Z",
+    "previewOnly": true,
+    "previewDefaultAngle": "front",
+    "subtitle": "长江国际文化广场 · 中央塔楼可见面",
+    "description": "金铜色商城相邻中央高塔的一处可见主立面，以及中央高、两翼低的冠部轮廓。 另一朝向主面尚未空间配准；未包含其他塔楼、商城、侧背面、屋顶和入口。",
+    "caveat": "本次接入的是新建可见范围候选，历史完整原稿仍待恢复。未核实的背衬或技术厚度保留源模型状态，不代表实际墙体、楼体进深或测绘尺寸。占地与地理朝向尚未配准，地图继续显示原导览参考点。",
+    "coverage": {
+      "type": "partial",
+      "identity": "candidate",
+      "title": "长江国际文化广场 · 中央塔楼可见面",
+      "scope": "金铜色商城相邻中央高塔的一处可见主立面，以及中央高、两翼低的冠部轮廓。",
+      "missing": "另一朝向主面尚未空间配准；未包含其他塔楼、商城、侧背面、屋顶和入口。",
+      "isWholeBuildingValidated": false,
+      "isHistoricalOriginalRecovered": false,
+      "unitsAreMeasuredMeters": false,
+      "identityNote": "项目归属有支持，具体办公塔楼号仍待核实；两个主面尚未组合成完整楼体。"
+    },
+    "sourceBounds": {
+      "min": [
+        -22.252500534057617,
+        0,
+        -18
+      ],
+      "max": [
+        22.252500534057617,
+        128,
+        0.45500001311302185
+      ]
+    },
+    "displayHeight": 8,
+    "flatShading": false,
+    "assets": {
+      "light": "/models/preview-1649144/light.glb?v=232fce8b3236",
+      "detail": "/models/preview-1649144/light.glb?v=232fce8b3236"
+    },
+    "modelNotesUrl": "/models/preview-1649144/README.txt",
+    "sourceModelSha256": "211876c71b3e468f7924dc6dd5c386837ec050672530311c21cc150601d90093",
+    "sourceNativeSha256": "211876c71b3e468f7924dc6dd5c386837ec050672530311c21cc150601d90093",
+    "sourceNativeFilename": "ChangjiangCentralTower_C20261109.blend",
+    "sourceModelUrl": "https://github.com/zmc1212/china-landmarks-hubei/blob/440804ded49a2cef615015547349b3adf6aa09d5/landmarks/yichang-changjiang-cultural-plaza/stages/C20261109_central_tower_visible_face_candidate/model/ChangjiangCentralTower_C20261109.blend.gz",
+    "webBudget": {
+      "light": {
+        "bytes": 286300,
+        "triangles": 25492,
+        "primitives": 8,
+        "estimatedTextureBytesRGBA8WithMipmaps": 0
+      },
+      "detail": {
+        "bytes": 286300,
+        "triangles": 25492,
+        "primitives": 8,
+        "estimatedTextureBytesRGBA8WithMipmaps": 0
+      }
+    }
+  },
+  "1649148": {
+    "id": "business-1649148",
+    "stage": "可见主立面v7",
+    "front": "+Z",
+    "previewOnly": true,
+    "previewDefaultAngle": "front",
+    "subtitle": "致远广场 · 连续可见主立面",
+    "description": "连续可见主立面、冠部开口和下部可辨包面、玻璃带。 未包含侧后面、屋顶平面、楼体真实进深和遮挡区域；左下斜边是研究范围的截断。",
+    "caveat": "本次接入的是新建可见范围候选，历史完整原稿仍待恢复。未核实的背衬或技术厚度保留源模型状态，不代表实际墙体、楼体进深或测绘尺寸。占地与地理朝向尚未配准，地图继续显示原导览参考点。",
+    "coverage": {
+      "type": "partial",
+      "identity": "candidate",
+      "title": "致远广场 · 连续可见主立面",
+      "scope": "连续可见主立面、冠部开口和下部可辨包面、玻璃带。",
+      "missing": "未包含侧后面、屋顶平面、楼体真实进深和遮挡区域；左下斜边是研究范围的截断。",
+      "isWholeBuildingValidated": false,
+      "isHistoricalOriginalRecovered": false,
+      "unitsAreMeasuredMeters": false
+    },
+    "sourceBounds": {
+      "min": [
+        -1.2999992370605469,
+        -0.015000343322753906,
+        -0.15000000596046448
+      ],
+      "max": [
+        28.117500381544232,
+        29.03499984741211,
+        0.39000000059604645
+      ]
+    },
+    "displayHeight": 8,
+    "flatShading": false,
+    "assets": {
+      "light": "/models/preview-1649148/light.glb?v=9b68405e6be4",
+      "detail": "/models/preview-1649148/light.glb?v=9b68405e6be4"
+    },
+    "modelNotesUrl": "/models/preview-1649148/README.txt",
+    "sourceModelSha256": "95e2cac2022d506a1dda0d0edfee68af5f9a7e91c27f72428976cf15a12ed311",
+    "sourceNativeSha256": "95e2cac2022d506a1dda0d0edfee68af5f9a7e91c27f72428976cf15a12ed311",
+    "sourceNativeFilename": "Zhiyuan_C20261109_VisibleMainFacade.blend",
+    "sourceModelUrl": "https://github.com/zmc1212/china-landmarks-hubei/blob/440804ded49a2cef615015547349b3adf6aa09d5/landmarks/yichang-zhiyuan-plaza/stages/C20261109_visible_main_facade_v7/model/Zhiyuan_C20261109_VisibleMainFacade.blend",
+    "webBudget": {
+      "light": {
+        "bytes": 437408,
+        "triangles": 40248,
+        "primitives": 6,
+        "estimatedTextureBytesRGBA8WithMipmaps": 0
+      },
+      "detail": {
+        "bytes": 437408,
+        "triangles": 40248,
+        "primitives": 6,
+        "estimatedTextureBytesRGBA8WithMipmaps": 0
+      }
+    }
+  },
+  "1649137": {
+    "id": "business-1649137",
+    "stage": "20261109独立新建候选",
+    "front": "+Z",
+    "previewOnly": true,
+    "previewDefaultAngle": "front",
+    "subtitle": "外滩领馆 · 双翼与中央上段",
+    "description": "左右双翼窗列、主窗带，以及中央上段玻璃和冠架。 中央中下部平台、侧后面、底部入口、真实屋顶和进深尚未完成。",
+    "caveat": "本次接入的是新建可见范围候选，历史完整原稿仍待恢复。未核实的背衬或技术厚度保留源模型状态，不代表实际墙体、楼体进深或测绘尺寸。占地与地理朝向尚未配准，地图继续显示原导览参考点。",
+    "coverage": {
+      "type": "partial",
+      "identity": "candidate",
+      "title": "外滩领馆 · 双翼与中央上段",
+      "scope": "左右双翼窗列、主窗带，以及中央上段玻璃和冠架。",
+      "missing": "中央中下部平台、侧后面、底部入口、真实屋顶和进深尚未完成。",
+      "isWholeBuildingValidated": false,
+      "isHistoricalOriginalRecovered": false,
+      "unitsAreMeasuredMeters": false
+    },
+    "sourceBounds": {
+      "min": [
+        -25.040000915527344,
+        0,
+        -14
+      ],
+      "max": [
+        25.040000915527344,
+        108.5999984741211,
+        0.33000001311302185
+      ]
+    },
+    "displayHeight": 8,
+    "flatShading": false,
+    "assets": {
+      "light": "/models/preview-1649137/light.glb?v=e9bc9c049b45",
+      "detail": "/models/preview-1649137/light.glb?v=e9bc9c049b45"
+    },
+    "modelNotesUrl": "/models/preview-1649137/README.txt",
+    "sourceModelSha256": "9306cfcec2bf6caf5eee04dbc4f67348b12e2cc46282cd2b61febd1c0d3935d1",
+    "sourceNativeSha256": "9306cfcec2bf6caf5eee04dbc4f67348b12e2cc46282cd2b61febd1c0d3935d1",
+    "sourceNativeFilename": "WaitanLingguan_C20261109.blend",
+    "sourceModelUrl": "https://github.com/zmc1212/china-landmarks-hubei/blob/440804ded49a2cef615015547349b3adf6aa09d5/landmarks/yichang-waitan-lingguan/stages/C20261109_visible_facade_candidate/model/WaitanLingguan_C20261109.blend",
+    "webBudget": {
+      "light": {
+        "bytes": 234644,
+        "triangles": 19008,
+        "primitives": 6,
+        "estimatedTextureBytesRGBA8WithMipmaps": 0
+      },
+      "detail": {
+        "bytes": 234644,
+        "triangles": 19008,
+        "primitives": 6,
+        "estimatedTextureBytesRGBA8WithMipmaps": 0
+      }
+    }
+  },
+  "1649146": {
+    "id": "business-1649146",
+    "stage": "20261109独立新建候选",
+    "front": "+Z",
+    "previewOnly": true,
+    "previewDefaultAngle": "front",
+    "subtitle": "长乐大厦 · 相邻双立面",
+    "description": "两个相邻可见立面、窄折角玻璃、上部绿板格，以及裙房可见白色嵌板。 未包含已配准的裙房入口与独立窗片、背面、屋顶细部和真实场地。",
+    "caveat": "本次接入的是新建可见范围候选，历史完整原稿仍待恢复。未核实的背衬或技术厚度保留源模型状态，不代表实际墙体、楼体进深或测绘尺寸。占地与地理朝向尚未配准，地图继续显示原导览参考点。",
+    "coverage": {
+      "type": "partial",
+      "identity": "candidate",
+      "title": "长乐大厦 · 相邻双立面",
+      "scope": "两个相邻可见立面、窄折角玻璃、上部绿板格，以及裙房可见白色嵌板。",
+      "missing": "未包含已配准的裙房入口与独立窗片、背面、屋顶细部和真实场地。",
+      "isWholeBuildingValidated": false,
+      "isHistoricalOriginalRecovered": false,
+      "unitsAreMeasuredMeters": false
+    },
+    "sourceBounds": {
+      "min": [
+        -18.440000534057617,
+        0,
+        -18.100000381469727
+      ],
+      "max": [
+        18.100000381469727,
+        112.2300033569336,
+        18.440000534057617
+      ]
+    },
+    "displayHeight": 8,
+    "flatShading": false,
+    "assets": {
+      "light": "/models/preview-1649146/light.glb?v=e2c818be182b",
+      "detail": "/models/preview-1649146/light.glb?v=e2c818be182b"
+    },
+    "modelNotesUrl": "/models/preview-1649146/README.txt",
+    "sourceModelSha256": "54eb02d65730ee3ca7dd4703d9d5008f8703a01bfb503ad9afac9fea75b90afc",
+    "sourceNativeSha256": "54eb02d65730ee3ca7dd4703d9d5008f8703a01bfb503ad9afac9fea75b90afc",
+    "sourceNativeFilename": "Changle_C20261109.blend",
+    "sourceModelUrl": "https://github.com/zmc1212/china-landmarks-hubei/blob/440804ded49a2cef615015547349b3adf6aa09d5/landmarks/yichang-changle-building/stages/C20261109_new_evidence_candidate/model/Changle_C20261109.blend.gz",
+    "webBudget": {
+      "light": {
+        "bytes": 497436,
+        "triangles": 42640,
+        "primitives": 6,
+        "estimatedTextureBytesRGBA8WithMipmaps": 0
+      },
+      "detail": {
+        "bytes": 497436,
+        "triangles": 42640,
+        "primitives": 6,
+        "estimatedTextureBytesRGBA8WithMipmaps": 0
+      }
+    }
+  },
+  "1649142": {
+    "id": "business-1649142",
+    "stage": "双可见面R2",
+    "front": "+Z",
+    "previewOnly": true,
+    "previewDefaultAngle": "front",
+    "subtitle": "兴发集团总部 · 双可见立面",
+    "description": "一组开放 L 形双立面，以及照片可辨的主横肋和部分细肋。 未知后背、屋顶、入口与裙房未补建；转角和进深仍为归一化展示假设。",
+    "caveat": "本次接入的是新建可见范围候选，历史完整原稿仍待恢复。未核实的背衬或技术厚度保留源模型状态，不代表实际墙体、楼体进深或测绘尺寸。占地与地理朝向尚未配准，地图继续显示原导览参考点。",
+    "coverage": {
+      "type": "partial",
+      "identity": "candidate",
+      "title": "兴发集团总部 · 双可见立面",
+      "scope": "一组开放 L 形双立面，以及照片可辨的主横肋和部分细肋。",
+      "missing": "未知后背、屋顶、入口与裙房未补建；转角和进深仍为归一化展示假设。",
+      "isWholeBuildingValidated": false,
+      "isHistoricalOriginalRecovered": false,
+      "unitsAreMeasuredMeters": false
+    },
+    "sourceBounds": {
+      "min": [
+        -14.34000015258789,
+        -0.01000000536441803,
+        -14.34000015258789
+      ],
+      "max": [
+        0.2800000160932541,
+        63.99999922513962,
+        0.2800000160932541
+      ]
+    },
+    "displayHeight": 8,
+    "flatShading": false,
+    "assets": {
+      "light": "/models/preview-1649142/light.glb?v=a73ff5140b12",
+      "detail": "/models/preview-1649142/light.glb?v=a73ff5140b12"
+    },
+    "modelNotesUrl": "/models/preview-1649142/README.txt",
+    "sourceModelSha256": "66af3db0f73263b5c4980af8d84ba75c1e878ca4387080b00f3cfd03f4ffcca1",
+    "sourceNativeSha256": "66af3db0f73263b5c4980af8d84ba75c1e878ca4387080b00f3cfd03f4ffcca1",
+    "sourceNativeFilename": "XingfaHQ_VisibleTower.blend",
+    "sourceModelUrl": "https://github.com/zmc1212/china-landmarks-hubei/blob/440804ded49a2cef615015547349b3adf6aa09d5/landmarks/yichang-xingfa-headquarters/stages/D20261109_two_visible_facades_r2/model/XingfaHQ_VisibleTower.blend",
+    "webBudget": {
+      "light": {
+        "bytes": 19156,
+        "triangles": 1260,
+        "primitives": 3,
+        "estimatedTextureBytesRGBA8WithMipmaps": 0
+      },
+      "detail": {
+        "bytes": 19156,
+        "triangles": 1260,
+        "primitives": 3,
+        "estimatedTextureBytesRGBA8WithMipmaps": 0
+      }
+    }
+  },
+  "1649134": {
+    "id": "business-1649134",
+    "stage": "中央中下立面R3侧缝修订",
+    "front": "+Z",
+    "previewOnly": true,
+    "previewDefaultAngle": "front",
+    "subtitle": "丽景国际 · 中央中下立面",
+    "description": "中央两条玻璃带、两侧各两个相邻窗列及中下部可见主窗带。 未包含上部拱顶玻璃、复杂冠部、外侧其余窗列、裙房、入口和侧背面。",
+    "caveat": "本次接入的是新建可见范围候选，历史完整原稿仍待恢复。未核实的背衬或技术厚度保留源模型状态，不代表实际墙体、楼体进深或测绘尺寸。占地与地理朝向尚未配准，地图继续显示原导览参考点。",
+    "coverage": {
+      "type": "partial",
+      "identity": "candidate",
+      "title": "丽景国际 · 中央中下立面",
+      "scope": "中央两条玻璃带、两侧各两个相邻窗列及中下部可见主窗带。",
+      "missing": "未包含上部拱顶玻璃、复杂冠部、外侧其余窗列、裙房、入口和侧背面。",
+      "isWholeBuildingValidated": false,
+      "isHistoricalOriginalRecovered": false,
+      "unitsAreMeasuredMeters": false
+    },
+    "sourceBounds": {
+      "min": [
+        -14.399999618530273,
+        -0.046550001949071884,
+        -3
+      ],
+      "max": [
+        14.399999618530273,
+        69.74520111083984,
+        0.3499999940395355
+      ]
+    },
+    "displayHeight": 8,
+    "flatShading": false,
+    "assets": {
+      "light": "/models/preview-1649134/light.glb?v=ba8053a350e1",
+      "detail": "/models/preview-1649134/light.glb?v=ba8053a350e1"
+    },
+    "modelNotesUrl": "/models/preview-1649134/README.txt",
+    "sourceModelSha256": "1ff810454872c6cb63dc3b5ea887b86cdcb1343d823507736749c1bfe312c341",
+    "sourceNativeSha256": "1ff810454872c6cb63dc3b5ea887b86cdcb1343d823507736749c1bfe312c341",
+    "sourceNativeFilename": "LijingGuoji_C20261109(1).blend",
+    "sourceModelUrl": "https://github.com/zmc1212/china-landmarks-hubei/blob/440804ded49a2cef615015547349b3adf6aa09d5/landmarks/yichang-lijing-international/stages/C20261109_central_lower_r3_side_seams/model/LijingGuoji_C20261109.blend",
+    "webBudget": {
+      "light": {
+        "bytes": 93668,
+        "triangles": 7128,
+        "primitives": 5,
+        "estimatedTextureBytesRGBA8WithMipmaps": 0
+      },
+      "detail": {
+        "bytes": 93668,
+        "triangles": 7128,
+        "primitives": 5,
+        "estimatedTextureBytesRGBA8WithMipmaps": 0
+      }
+    }
+  },
+  "1649147": {
+    "id": "business-1649147",
+    "stage": "2025可见轮廓薄壳",
+    "front": "+Z",
+    "previewOnly": true,
+    "previewDefaultAngle": "front",
+    "subtitle": "宜昌之星／时代中心 · 可见轮廓",
+    "description": "2025 年发表实景照片中的塔楼可见轮廓薄壳，以及三道强横带。 未包含完整三维体量、楼底、裙房和背面；未与 2024 年施工框架混合。",
+    "caveat": "本次接入的是新建可见范围候选，历史完整原稿仍待恢复。未核实的背衬或技术厚度保留源模型状态，不代表实际墙体、楼体进深或测绘尺寸。占地与地理朝向尚未配准，地图继续显示原导览参考点。",
+    "coverage": {
+      "type": "partial",
+      "identity": "candidate",
+      "title": "宜昌之星／时代中心 · 可见轮廓",
+      "scope": "2025 年发表实景照片中的塔楼可见轮廓薄壳，以及三道强横带。",
+      "missing": "未包含完整三维体量、楼底、裙房和背面；未与 2024 年施工框架混合。",
+      "isWholeBuildingValidated": false,
+      "isHistoricalOriginalRecovered": false,
+      "unitsAreMeasuredMeters": false,
+      "identityNote": "本模型对应照片中的时代中心塔楼；原导览条目显示住宅地块，办公塔的实际坐标仍待核定。"
+    },
+    "sourceBounds": {
+      "min": [
+        -0.6499999761581421,
+        0,
+        -0.04500000178813934
+      ],
+      "max": [
+        0.6600000262260437,
+        4.170000076293945,
+        0.02199999988079071
+      ]
+    },
+    "displayHeight": 8,
+    "flatShading": false,
+    "assets": {
+      "light": "/models/preview-1649147/light.glb?v=da3734c34fbc",
+      "detail": "/models/preview-1649147/light.glb?v=da3734c34fbc"
+    },
+    "modelNotesUrl": "/models/preview-1649147/README.txt",
+    "sourceModelSha256": "8fb72dfa27458d53250d3cb4ea33dc11a74789dacc122326a0b4265bc40c87b6",
+    "sourceNativeSha256": "8fb72dfa27458d53250d3cb4ea33dc11a74789dacc122326a0b4265bc40c87b6",
+    "sourceNativeFilename": "YichangStar_D20261109_2025VisibleSilhouette.blend",
+    "sourceModelUrl": "https://github.com/zmc1212/china-landmarks-hubei/blob/440804ded49a2cef615015547349b3adf6aa09d5/landmarks/yichang-star/research/D20261109_2025_visible_silhouette/model/YichangStar_D20261109_2025VisibleSilhouette.blend",
+    "webBudget": {
+      "light": {
+        "bytes": 8760,
+        "triangles": 332,
+        "primitives": 5,
+        "estimatedTextureBytesRGBA8WithMipmaps": 0
+      },
+      "detail": {
+        "bytes": 8760,
+        "triangles": 332,
+        "primitives": 5,
+        "estimatedTextureBytesRGBA8WithMipmaps": 0
+      }
+    }
+  },
+  "1649128": {
+    "id": "business-1649128",
+    "stage": "20261109独立新建候选",
+    "front": "+Z",
+    "previewOnly": true,
+    "previewDefaultAngle": "front",
+    "subtitle": "福久源大厦 · 金色主立面",
+    "description": "可见金色塔楼主立面、分段银色竖饰和三段不同高度的冠顶。 未安装独立雨棚和招牌研究件；裙房入口、背面、真实屋顶及进深仍待核实。",
+    "caveat": "本次接入的是新建可见范围候选，历史完整原稿仍待恢复。未核实的背衬或技术厚度保留源模型状态，不代表实际墙体、楼体进深或测绘尺寸。占地与地理朝向尚未配准，地图继续显示原导览参考点。",
+    "coverage": {
+      "type": "partial",
+      "identity": "candidate",
+      "title": "福久源大厦 · 金色主立面",
+      "scope": "可见金色塔楼主立面、分段银色竖饰和三段不同高度的冠顶。",
+      "missing": "未安装独立雨棚和招牌研究件；裙房入口、背面、真实屋顶及进深仍待核实。",
+      "isWholeBuildingValidated": false,
+      "isHistoricalOriginalRecovered": false,
+      "unitsAreMeasuredMeters": false
+    },
+    "sourceBounds": {
+      "min": [
+        -18.02750015258789,
+        0,
+        -8
+      ],
+      "max": [
+        18.02750015258789,
+        108.04499816894531,
+        0.41999998688697815
+      ]
+    },
+    "displayHeight": 8,
+    "flatShading": false,
+    "assets": {
+      "light": "/models/preview-1649128/light.glb?v=8136762f9abb",
+      "detail": "/models/preview-1649128/light.glb?v=8136762f9abb"
+    },
+    "modelNotesUrl": "/models/preview-1649128/README.txt",
+    "sourceModelSha256": "a4fecee3fa751a9cdcff2c77c1885613c873b426d35618beac9c5e1b79f1c3f0",
+    "sourceNativeSha256": "a4fecee3fa751a9cdcff2c77c1885613c873b426d35618beac9c5e1b79f1c3f0",
+    "sourceNativeFilename": "Fujiuyuan_C20261109.blend",
+    "sourceModelUrl": "https://github.com/zmc1212/china-landmarks-hubei/blob/440804ded49a2cef615015547349b3adf6aa09d5/landmarks/yichang-fujiuyuan-building/stages/C20261109_visible_facade_candidate/model/Fujiuyuan_C20261109.blend",
+    "webBudget": {
+      "light": {
+        "bytes": 84980,
+        "triangles": 6580,
+        "primitives": 5,
+        "estimatedTextureBytesRGBA8WithMipmaps": 0
+      },
+      "detail": {
+        "bytes": 84980,
+        "triangles": 6580,
+        "primitives": 5,
+        "estimatedTextureBytesRGBA8WithMipmaps": 0
+      }
+    }
+  },
+  "1649140": {
+    "id": "business-1649140",
+    "stage": "可见冠屏两侧边框候选",
+    "front": "+Z",
+    "previewOnly": true,
+    "previewDefaultAngle": "front",
+    "subtitle": "鑫鼎大厦 · 可见外观与屏幕边框",
+    "description": "已建可见塔身与裙房外观，并补齐入口上方广告屏两侧边框。 未确认背侧、完整屋顶、真实进深、转角角度、入口门扇和精确落位。",
+    "caveat": "本次接入的是新建可见范围候选，历史完整原稿仍待恢复。未核实的背衬或技术厚度保留源模型状态，不代表实际墙体、楼体进深或测绘尺寸。占地与地理朝向尚未配准，地图继续显示原导览参考点。",
+    "coverage": {
+      "type": "partial",
+      "identity": "candidate",
+      "title": "鑫鼎大厦 · 可见外观与屏幕边框",
+      "scope": "已建可见塔身与裙房外观，并补齐入口上方广告屏两侧边框。",
+      "missing": "未确认背侧、完整屋顶、真实进深、转角角度、入口门扇和精确落位。",
+      "isWholeBuildingValidated": false,
+      "isHistoricalOriginalRecovered": false,
+      "unitsAreMeasuredMeters": false
+    },
+    "sourceBounds": {
+      "min": [
+        -31,
+        0,
+        -29
+      ],
+      "max": [
+        31,
+        79.22499999403954,
+        31
+      ]
+    },
+    "displayHeight": 8,
+    "flatShading": false,
+    "assets": {
+      "light": "/models/preview-1649140/light.glb?v=d5258dc82d21",
+      "detail": "/models/preview-1649140/light.glb?v=d5258dc82d21"
+    },
+    "modelNotesUrl": "/models/preview-1649140/README.txt",
+    "sourceModelSha256": "c41c0994ce4596e1b73cedf4f5ac4d6984b5091b372b67390a45645cbc339f87",
+    "sourceNativeSha256": "c41c0994ce4596e1b73cedf4f5ac4d6984b5091b372b67390a45645cbc339f87",
+    "sourceNativeFilename": "Xinding_D20261109_VisibleScreenFrame.blend",
+    "sourceModelUrl": "https://github.com/zmc1212/china-landmarks-hubei/blob/440804ded49a2cef615015547349b3adf6aa09d5/landmarks/yichang-xinding-tower/stages/D20261109_visible_screen_side_frames/model/Xinding_D20261109_VisibleScreenFrame.blend",
+    "webBudget": {
+      "light": {
+        "bytes": 78560,
+        "triangles": 5592,
+        "primitives": 8,
+        "estimatedTextureBytesRGBA8WithMipmaps": 0
+      },
+      "detail": {
+        "bytes": 78560,
+        "triangles": 5592,
+        "primitives": 8,
+        "estimatedTextureBytesRGBA8WithMipmaps": 0
+      }
+    }
+  },
+  "1649143": {
+    "id": "business-1649143",
+    "stage": "20261109独立新建候选",
+    "front": "+Z",
+    "previewOnly": true,
+    "previewDefaultAngle": "front",
+    "subtitle": "旭光商贸大厦 · 可见主立面",
+    "description": "主立面窗组、平直顶冠，以及右侧非对称过渡区和凹槽。 未包含已配准的独立下窗片、真实侧背面、屋顶、底层入口和精确凹凸尺寸。",
+    "caveat": "本次接入的是新建可见范围候选，历史完整原稿仍待恢复。未核实的背衬或技术厚度保留源模型状态，不代表实际墙体、楼体进深或测绘尺寸。占地与地理朝向尚未配准，地图继续显示原导览参考点。",
+    "coverage": {
+      "type": "partial",
+      "identity": "candidate",
+      "title": "旭光商贸大厦 · 可见主立面",
+      "scope": "主立面窗组、平直顶冠，以及右侧非对称过渡区和凹槽。",
+      "missing": "未包含已配准的独立下窗片、真实侧背面、屋顶、底层入口和精确凹凸尺寸。",
+      "isWholeBuildingValidated": false,
+      "isHistoricalOriginalRecovered": false,
+      "unitsAreMeasuredMeters": false
+    },
+    "sourceBounds": {
+      "min": [
+        -36,
+        0,
+        -16
+      ],
+      "max": [
+        37.5,
+        108,
+        1.5
+      ]
+    },
+    "displayHeight": 8,
+    "flatShading": false,
+    "assets": {
+      "light": "/models/preview-1649143/light.glb?v=34faa10b2af9",
+      "detail": "/models/preview-1649143/light.glb?v=34faa10b2af9"
+    },
+    "modelNotesUrl": "/models/preview-1649143/README.txt",
+    "sourceModelSha256": "f5eeca5347d0c1d7a2d27ce69903ab2f5d63b5a776bd75f9b60ba5d126b3613f",
+    "sourceNativeSha256": "f5eeca5347d0c1d7a2d27ce69903ab2f5d63b5a776bd75f9b60ba5d126b3613f",
+    "sourceNativeFilename": "Xuguang_C20261109.blend",
+    "sourceModelUrl": "https://github.com/zmc1212/china-landmarks-hubei/blob/440804ded49a2cef615015547349b3adf6aa09d5/landmarks/yichang-xuguang-commercial-building/stages/C20261109_visible_facade_candidate/model/Xuguang_C20261109.blend.gz",
+    "webBudget": {
+      "light": {
+        "bytes": 424424,
+        "triangles": 35752,
+        "primitives": 7,
+        "estimatedTextureBytesRGBA8WithMipmaps": 0
+      },
+      "detail": {
+        "bytes": 424424,
+        "triangles": 35752,
+        "primitives": 7,
+        "estimatedTextureBytesRGBA8WithMipmaps": 0
+      }
+    }
+  },
+  "1649131": {
+    "id": "business-1649131",
+    "stage": "可见主面R2候选交付包",
+    "front": "+Z",
+    "previewOnly": true,
+    "previewDefaultAngle": "front",
+    "subtitle": "光联大厦 · 可见主立面薄壳",
+    "description": "可见主面窗框、已确认窗下外观面，以及有限冠部前平面构件。 未包含侧后体量、完整屋顶及无法确认的外挑窗叶；局部留空表示尚未建模。",
+    "caveat": "本次接入的是新建可见范围候选，历史完整原稿仍待恢复。未核实的背衬或技术厚度保留源模型状态，不代表实际墙体、楼体进深或测绘尺寸。占地与地理朝向尚未配准，地图继续显示原导览参考点。",
+    "coverage": {
+      "type": "partial",
+      "identity": "candidate",
+      "title": "光联大厦 · 可见主立面薄壳",
+      "scope": "可见主面窗框、已确认窗下外观面，以及有限冠部前平面构件。",
+      "missing": "未包含侧后体量、完整屋顶及无法确认的外挑窗叶；局部留空表示尚未建模。",
+      "isWholeBuildingValidated": false,
+      "isHistoricalOriginalRecovered": false,
+      "unitsAreMeasuredMeters": false,
+      "identityNote": "原导览与外观支持候选归属，楼名与酒店品牌的对应仍待进一步核验。"
+    },
+    "sourceBounds": {
+      "min": [
+        -0.004999999888241291,
+        0.05116739869117737,
+        -0.0637499988079071
+      ],
+      "max": [
+        16.0049991607666,
+        38.989559173583984,
+        0.04500000178813934
+      ]
+    },
+    "displayHeight": 8,
+    "flatShading": false,
+    "assets": {
+      "light": "/models/preview-1649131/light.glb?v=eac76bbc873e",
+      "detail": "/models/preview-1649131/detail.glb?v=5f947433aa3d"
+    },
+    "modelNotesUrl": "/models/preview-1649131/README.txt",
+    "sourceModelSha256": "82ac62bae54fcafaf27aaa77cec0e57f5e08f2cb42746507778df6902b977b88",
+    "sourceNativeSha256": "82ac62bae54fcafaf27aaa77cec0e57f5e08f2cb42746507778df6902b977b88",
+    "sourceNativeFilename": "Guanglian_VisibleFacade.blend",
+    "sourceModelUrl": "https://github.com/zmc1212/china-landmarks-hubei/blob/440804ded49a2cef615015547349b3adf6aa09d5/landmarks/yichang-guanglian-building/stages/D20261109_visible_main_facade_r2/model/Guanglian_VisibleFacade.blend.gz.part000",
+    "webBudget": {
+      "light": {
+        "bytes": 749468,
+        "triangles": 69742,
+        "primitives": 5,
+        "estimatedTextureBytesRGBA8WithMipmaps": 0
+      },
+      "detail": {
+        "bytes": 725280,
+        "triangles": 100348,
+        "primitives": 5,
+        "estimatedTextureBytesRGBA8WithMipmaps": 0
+      }
+    }
+  },
+  "1649127": {
+    "id": "business-1649127",
+    "stage": "身份HOLD研究几何",
+    "front": "+Z",
+    "previewOnly": true,
+    "previewDefaultAngle": "front",
+    "subtitle": "共和景晨条目 · 左塔立面研究",
+    "description": "原导览左塔朝摄影点的一处可见立面，含七个竖向开间及九条宽分带。 未包含右塔、裙房入口、侧后面、冠部与真实屋顶，也未确认完整园区关系。",
+    "caveat": "该左塔是否属于共和景晨仍待独立核验，暂不能排除邻楼。 本次接入的是新建可见范围候选，历史完整原稿仍待恢复。未核实的背衬或技术厚度保留源模型状态，不代表实际墙体、楼体进深或测绘尺寸。占地与地理朝向尚未配准，地图继续显示原导览参考点。",
+    "coverage": {
+      "type": "partial",
+      "identity": "unconfirmed",
+      "title": "共和景晨条目 · 左塔立面研究",
+      "scope": "原导览左塔朝摄影点的一处可见立面，含七个竖向开间及九条宽分带。",
+      "missing": "未包含右塔、裙房入口、侧后面、冠部与真实屋顶，也未确认完整园区关系。",
+      "isWholeBuildingValidated": false,
+      "isHistoricalOriginalRecovered": false,
+      "unitsAreMeasuredMeters": false,
+      "identityNote": "该左塔是否属于共和景晨仍待独立核验，暂不能排除邻楼。"
+    },
+    "sourceBounds": {
+      "min": [
+        -20,
+        0,
+        -9
+      ],
+      "max": [
+        20,
+        105,
+        0.07000000029802322
+      ]
+    },
+    "displayHeight": 8,
+    "flatShading": false,
+    "assets": {
+      "light": "/models/preview-1649127/light.glb?v=11ddf1770db2",
+      "detail": "/models/preview-1649127/light.glb?v=11ddf1770db2"
+    },
+    "modelNotesUrl": "/models/preview-1649127/README.txt",
+    "sourceModelSha256": "2e382226defb2c653709b02aa4c4249ee0cc93cc6cbbf6172c81ca77b0fdca35",
+    "sourceNativeSha256": "2e382226defb2c653709b02aa4c4249ee0cc93cc6cbbf6172c81ca77b0fdca35",
+    "sourceNativeFilename": "GongheJingchen_LeftFacade_C20261109.blend",
+    "sourceModelUrl": "https://github.com/zmc1212/china-landmarks-hubei/blob/440804ded49a2cef615015547349b3adf6aa09d5/landmarks/yichang-gonghe-jingchen/research/C20261109_scene1649127_left_facade_identity_hold/model/GongheJingchen_LeftFacade_C20261109.blend",
+    "webBudget": {
+      "light": {
+        "bytes": 189480,
+        "triangles": 16116,
+        "primitives": 4,
+        "estimatedTextureBytesRGBA8WithMipmaps": 0
+      },
+      "detail": {
+        "bytes": 189480,
+        "triangles": 16116,
+        "primitives": 4,
+        "estimatedTextureBytesRGBA8WithMipmaps": 0
+      }
+    }
+  },
+  "1649130": {
+    "id": "business-1649130",
+    "stage": "20261109独立新建候选",
+    "front": "+Z",
+    "previewOnly": true,
+    "previewDefaultAngle": "front",
+    "subtitle": "共同大厦 · 可见双面与裙房",
+    "description": "长面窗组、短面可见玻璃段、圆角窗带及部分金色裙房。 独立雨棚与入口墩尚未配准安装；背面、屋顶、基部和真实进深仍待核实。",
+    "caveat": "本次接入的是新建可见范围候选，历史完整原稿仍待恢复。未核实的背衬或技术厚度保留源模型状态，不代表实际墙体、楼体进深或测绘尺寸。占地与地理朝向尚未配准，地图继续显示原导览参考点。",
+    "coverage": {
+      "type": "partial",
+      "identity": "candidate",
+      "title": "共同大厦 · 可见双面与裙房",
+      "scope": "长面窗组、短面可见玻璃段、圆角窗带及部分金色裙房。",
+      "missing": "独立雨棚与入口墩尚未配准安装；背面、屋顶、基部和真实进深仍待核实。",
+      "isWholeBuildingValidated": false,
+      "isHistoricalOriginalRecovered": false,
+      "unitsAreMeasuredMeters": false
+    },
+    "sourceBounds": {
+      "min": [
+        -33,
+        0,
+        -14
+      ],
+      "max": [
+        37,
+        103.12000274658203,
+        18.399999618530273
+      ]
+    },
+    "displayHeight": 8,
+    "flatShading": false,
+    "assets": {
+      "light": "/models/preview-1649130/light.glb?v=04aeba882a3b",
+      "detail": "/models/preview-1649130/light.glb?v=04aeba882a3b"
+    },
+    "modelNotesUrl": "/models/preview-1649130/README.txt",
+    "sourceModelSha256": "0da0409ec343eb14506f1f2ad9b9e3b046572b5cebf6ee131291af2d51d065eb",
+    "sourceNativeSha256": "0da0409ec343eb14506f1f2ad9b9e3b046572b5cebf6ee131291af2d51d065eb",
+    "sourceNativeFilename": "Gongtong_C20261109.blend",
+    "sourceModelUrl": "https://github.com/zmc1212/china-landmarks-hubei/blob/440804ded49a2cef615015547349b3adf6aa09d5/landmarks/yichang-gongtong-building/stages/C20261109_new_evidence_candidate/model/Gongtong_C20261109.blend.gz",
+    "webBudget": {
+      "light": {
+        "bytes": 420484,
+        "triangles": 38028,
+        "primitives": 6,
+        "estimatedTextureBytesRGBA8WithMipmaps": 0
+      },
+      "detail": {
+        "bytes": 420484,
+        "triangles": 38028,
+        "primitives": 6,
         "estimatedTextureBytesRGBA8WithMipmaps": 0
       }
     }

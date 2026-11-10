@@ -22,6 +22,13 @@ assert.equal(unknown.state.theme, 'night');
 assert.equal(readSceneLocation('#place=zhenjiang-pavilion&angle=front', places).state.angle, 'detail');
 assert.equal(readSceneLocation('#place=zhenjiang-pavilion&angle=river', places).state.angle, 'river');
 assert.equal(readSceneLocation('#place=meilian-s05&angle=context&close=1', places).state.close, false);
+const previewState = { place:'business-1649141', theme:'night', view:'perspective', angle:'detail', close:false, filter:'preview', query:'兴发广场' };
+assert.deepEqual(readSceneLocation('#'+serializeSceneLocation(previewState,places),places).state,previewState);
+for (const [filter,place] of [['recovery-pending','business-1649141'],['registration-pending','meilian-s05']]) {
+  const restored = readSceneLocation(`#place=${place}&filter=${filter}`,places).state;
+  assert.equal(restored.place,place,'A saved guide link keeps its original selected item');
+  assert.equal(restored.filter,'preview','Legacy model queues migrate to the visible preview filter');
+}
 for (const place of BUSINESS_BUILDINGS.filter(item => item.kind === 'authored')) {
   for (const angle of ['detail','front','facade','entrance','crown']) {
     const inspection = { place: place.id, theme: 'day', view: 'perspective', angle, close: true, filter: 'all', query: '' };

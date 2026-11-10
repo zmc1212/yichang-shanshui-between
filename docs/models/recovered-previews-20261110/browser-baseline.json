@@ -1,0 +1,17 @@
+{
+  "version": 45,
+  "viewport": [
+    1920,
+    863
+  ],
+  "camera": "overview",
+  "theme": "day",
+  "canvases": 1,
+  "drawCalls": 258,
+  "triangles": 1313930,
+  "geometries": 256,
+  "textures": 14,
+  "residentModels": 7,
+  "renderState": "idle",
+  "source": "Connected Chrome DOM-backed renderer diagnostics, 2026-11-10"
+}

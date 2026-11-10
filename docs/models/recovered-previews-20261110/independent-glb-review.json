@@ -1,0 +1,717 @@
+{
+  "schema": "yichang-preview-independent-review/1",
+  "method": "Independent native reopen plus GLB BIN buffer decoding, scene matrices, and actual world vertices; no exporter summary trusted as geometry input.",
+  "axisConvention": "Blender Z-up (X,Y,Z) -> glTF Y-up (X,Z,-Y)",
+  "absoluteBoundsTolerance": 0.0001,
+  "models": [
+    {
+      "sceneId": 1649141,
+      "name": "兴发广场写字楼",
+      "glbPath": "/workspace/scratch/83e368053451/model-recovery-exports/1649141.glb",
+      "failures": [],
+      "status": "PASS",
+      "sourceUnchanged": true,
+      "exactMeshWhitelistMatches": true,
+      "excludedPresentationObjects": [
+        "Display_plinth"
+      ],
+      "holdObjectsRetained": 1,
+      "meshCount": 1871,
+      "triangles": 22452,
+      "nativeExpectedGltfBounds": {
+        "min": [
+          -20.1200008392334,
+          0.0,
+          -10.0
+        ],
+        "max": [
+          20.610000610351562,
+          84.0,
+          0.6100000143051147
+        ]
+      },
+      "actualGltfBounds": {
+        "min": [
+          -20.1200008392334,
+          0.0,
+          -10.0
+        ],
+        "max": [
+          20.610000610351562,
+          84.0,
+          0.6100000143051147
+        ]
+      },
+      "maxSceneBoundsDifference": 0.0,
+      "maxPerObjectBoundsDifference": 0,
+      "perObjectTrianglesAndMaterialNamesMatch": true,
+      "glbBytes": 2126040,
+      "glbSha256": "c4ed72d39a5c262862c5359635900f79812281d284d3ecc5a6ace3e99bbbc6a8",
+      "imageCount": 0,
+      "noExternalDependencies": true,
+      "noDetachedExtraObjects": true
+    },
+    {
+      "sceneId": 1649139,
+      "name": "新华广场武银大厦",
+      "glbPath": "/workspace/scratch/83e368053451/model-recovery-exports/1649139.glb",
+      "failures": [],
+      "status": "PASS",
+      "sourceUnchanged": true,
+      "exactMeshWhitelistMatches": true,
+      "excludedPresentationObjects": [
+        "Display_plinth"
+      ],
+      "holdObjectsRetained": 68,
+      "meshCount": 3951,
+      "triangles": 47556,
+      "nativeExpectedGltfBounds": {
+        "min": [
+          -19.649999618530273,
+          0.0,
+          -10.0
+        ],
+        "max": [
+          19.649999618530273,
+          117.0,
+          10.520849227905273
+        ]
+      },
+      "actualGltfBounds": {
+        "min": [
+          -19.649999618530273,
+          0.0,
+          -10.0
+        ],
+        "max": [
+          19.649999618530273,
+          117.0,
+          10.520849058698078
+        ]
+      },
+      "maxSceneBoundsDifference": 1.6920719581037247e-07,
+      "maxPerObjectBoundsDifference": 3.3775295520399595e-06,
+      "perObjectTrianglesAndMaterialNamesMatch": true,
+      "glbBytes": 4461876,
+      "glbSha256": "963a2f5b1b5eca590598798dc6fcf73b2407bf635f4f6e4acea71fcf6f2121a4",
+      "imageCount": 0,
+      "noExternalDependencies": true,
+      "noDetachedExtraObjects": true
+    },
+    {
+      "sceneId": 1649144,
+      "name": "长江国际文化广场",
+      "glbPath": "/workspace/scratch/83e368053451/model-recovery-exports/1649144.glb",
+      "failures": [],
+      "status": "PASS",
+      "sourceUnchanged": true,
+      "exactMeshWhitelistMatches": true,
+      "excludedPresentationObjects": [
+        "Display_plinth"
+      ],
+      "holdObjectsRetained": 12,
+      "meshCount": 2123,
+      "triangles": 25492,
+      "nativeExpectedGltfBounds": {
+        "min": [
+          -22.252500534057617,
+          0.0,
+          -18.0
+        ],
+        "max": [
+          22.252500534057617,
+          128.0,
+          0.45500001311302185
+        ]
+      },
+      "actualGltfBounds": {
+        "min": [
+          -22.252500534057617,
+          0.0,
+          -18.0
+        ],
+        "max": [
+          22.252500534057617,
+          128.0,
+          0.45500001311302185
+        ]
+      },
+      "maxSceneBoundsDifference": 0.0,
+      "maxPerObjectBoundsDifference": 0,
+      "perObjectTrianglesAndMaterialNamesMatch": true,
+      "glbBytes": 2431864,
+      "glbSha256": "dcd96564b48cb658b6651046675347774cae8afaed39b9543f527d5aad3b2e6b",
+      "imageCount": 0,
+      "noExternalDependencies": true,
+      "noDetachedExtraObjects": true
+    },
+    {
+      "sceneId": 1649148,
+      "name": "致远广场",
+      "glbPath": "/workspace/scratch/83e368053451/model-recovery-exports/1649148.glb",
+      "failures": [],
+      "status": "PASS",
+      "sourceUnchanged": true,
+      "exactMeshWhitelistMatches": true,
+      "excludedPresentationObjects": [],
+      "holdObjectsRetained": 1,
+      "meshCount": 1160,
+      "triangles": 40248,
+      "nativeExpectedGltfBounds": {
+        "min": [
+          -1.2999992370605469,
+          -0.015000343322753906,
+          -0.15000000596046448
+        ],
+        "max": [
+          28.11750030517578,
+          29.03499984741211,
+          0.38999998569488525
+        ]
+      },
+      "actualGltfBounds": {
+        "min": [
+          -1.2999992370605469,
+          -0.015000343322753906,
+          -0.15000000596046448
+        ],
+        "max": [
+          28.117500381544232,
+          29.03499984741211,
+          0.39000000059604645
+        ]
+      },
+      "maxSceneBoundsDifference": 7.636845111846924e-08,
+      "maxPerObjectBoundsDifference": 9.5367431640625e-07,
+      "perObjectTrianglesAndMaterialNamesMatch": true,
+      "glbBytes": 2378484,
+      "glbSha256": "aa9163b897dcd65f5206aea7934cda1dcacbbc0fddc1cf36c2b24419b85e14a5",
+      "imageCount": 0,
+      "noExternalDependencies": true,
+      "noDetachedExtraObjects": true
+    },
+    {
+      "sceneId": 1649137,
+      "name": "外滩领馆",
+      "glbPath": "/workspace/scratch/83e368053451/model-recovery-exports/1649137.glb",
+      "failures": [],
+      "status": "PASS",
+      "sourceUnchanged": true,
+      "exactMeshWhitelistMatches": true,
+      "excludedPresentationObjects": [
+        "Display_plinth"
+      ],
+      "holdObjectsRetained": 2,
+      "meshCount": 1584,
+      "triangles": 19008,
+      "nativeExpectedGltfBounds": {
+        "min": [
+          -25.040000915527344,
+          0.0,
+          -14.0
+        ],
+        "max": [
+          25.040000915527344,
+          108.5999984741211,
+          0.33000001311302185
+        ]
+      },
+      "actualGltfBounds": {
+        "min": [
+          -25.040000915527344,
+          0.0,
+          -14.0
+        ],
+        "max": [
+          25.040000915527344,
+          108.5999984741211,
+          0.33000001311302185
+        ]
+      },
+      "maxSceneBoundsDifference": 0.0,
+      "maxPerObjectBoundsDifference": 0,
+      "perObjectTrianglesAndMaterialNamesMatch": true,
+      "glbBytes": 1793316,
+      "glbSha256": "e823babf977a329d1f8151aedfaeb5053714cc53acf3a7d97b6e83954fa93a51",
+      "imageCount": 0,
+      "noExternalDependencies": true,
+      "noDetachedExtraObjects": true
+    },
+    {
+      "sceneId": 1649146,
+      "name": "长乐大厦",
+      "glbPath": "/workspace/scratch/83e368053451/model-recovery-exports/1649146.glb",
+      "failures": [],
+      "status": "PASS",
+      "sourceUnchanged": true,
+      "exactMeshWhitelistMatches": true,
+      "excludedPresentationObjects": [
+        "Display_plinth"
+      ],
+      "holdObjectsRetained": 1,
+      "meshCount": 3571,
+      "triangles": 42640,
+      "nativeExpectedGltfBounds": {
+        "min": [
+          -18.440000534057617,
+          0.0,
+          -18.100000381469727
+        ],
+        "max": [
+          18.100000381469727,
+          112.2300033569336,
+          18.440000534057617
+        ]
+      },
+      "actualGltfBounds": {
+        "min": [
+          -18.440000534057617,
+          0.0,
+          -18.100000381469727
+        ],
+        "max": [
+          18.100000381469727,
+          112.2300033569336,
+          18.440000534057617
+        ]
+      },
+      "maxSceneBoundsDifference": 0.0,
+      "maxPerObjectBoundsDifference": 0,
+      "perObjectTrianglesAndMaterialNamesMatch": true,
+      "glbBytes": 4018600,
+      "glbSha256": "a97d3ce0839738214df8ecf51141dc1d82aafc3d2a2a18ee025d580edccc6c2e",
+      "imageCount": 0,
+      "noExternalDependencies": true,
+      "noDetachedExtraObjects": true
+    },
+    {
+      "sceneId": 1649142,
+      "name": "兴发集团宜昌总部",
+      "glbPath": "/workspace/scratch/83e368053451/model-recovery-exports/1649142.glb",
+      "failures": [],
+      "status": "PASS",
+      "sourceUnchanged": true,
+      "exactMeshWhitelistMatches": true,
+      "excludedPresentationObjects": [
+        "Display_plinth"
+      ],
+      "holdObjectsRetained": 72,
+      "meshCount": 105,
+      "triangles": 1260,
+      "nativeExpectedGltfBounds": {
+        "min": [
+          -14.34000015258789,
+          -0.01000000536441803,
+          -14.34000015258789
+        ],
+        "max": [
+          0.2800000309944153,
+          64.0,
+          0.2800000309944153
+        ]
+      },
+      "actualGltfBounds": {
+        "min": [
+          -14.34000015258789,
+          -0.01000000536441803,
+          -14.34000015258789
+        ],
+        "max": [
+          0.2800000160932541,
+          63.99999922513962,
+          0.2800000160932541
+        ]
+      },
+      "maxSceneBoundsDifference": 7.748603820800781e-07,
+      "maxPerObjectBoundsDifference": 1.9073486328125e-06,
+      "perObjectTrianglesAndMaterialNamesMatch": true,
+      "glbBytes": 161636,
+      "glbSha256": "227519b90931b483558d9f457c8109a599257b3480037a4795d743361776b26b",
+      "imageCount": 0,
+      "noExternalDependencies": true,
+      "noDetachedExtraObjects": true
+    },
+    {
+      "sceneId": 1649134,
+      "name": "丽景国际综合楼",
+      "glbPath": "/workspace/scratch/83e368053451/model-recovery-exports/1649134.glb",
+      "failures": [],
+      "status": "PASS",
+      "sourceUnchanged": true,
+      "exactMeshWhitelistMatches": true,
+      "excludedPresentationObjects": [
+        "Display_plinth"
+      ],
+      "holdObjectsRetained": 1,
+      "meshCount": 594,
+      "triangles": 7128,
+      "nativeExpectedGltfBounds": {
+        "min": [
+          -14.399999618530273,
+          -0.046550001949071884,
+          -3.0
+        ],
+        "max": [
+          14.399999618530273,
+          69.74520111083984,
+          0.3499999940395355
+        ]
+      },
+      "actualGltfBounds": {
+        "min": [
+          -14.399999618530273,
+          -0.046550001949071884,
+          -3.0
+        ],
+        "max": [
+          14.399999618530273,
+          69.74520111083984,
+          0.3499999940395355
+        ]
+      },
+      "maxSceneBoundsDifference": 0.0,
+      "maxPerObjectBoundsDifference": 0,
+      "perObjectTrianglesAndMaterialNamesMatch": true,
+      "glbBytes": 670280,
+      "glbSha256": "9ce1e4c40447f95738bad46109b1ba84325051d6bb80c8838bc3fafad9902e73",
+      "imageCount": 0,
+      "noExternalDependencies": true,
+      "noDetachedExtraObjects": true
+    },
+    {
+      "sceneId": 1649147,
+      "name": "中建·宜昌之星",
+      "glbPath": "/workspace/scratch/83e368053451/model-recovery-exports/1649147.glb",
+      "failures": [],
+      "status": "PASS",
+      "sourceUnchanged": true,
+      "exactMeshWhitelistMatches": true,
+      "excludedPresentationObjects": [],
+      "holdObjectsRetained": 1,
+      "meshCount": 1,
+      "triangles": 332,
+      "nativeExpectedGltfBounds": {
+        "min": [
+          -0.6499999761581421,
+          0.0,
+          -0.04500000178813934
+        ],
+        "max": [
+          0.6600000262260437,
+          4.170000076293945,
+          0.02199999988079071
+        ]
+      },
+      "actualGltfBounds": {
+        "min": [
+          -0.6499999761581421,
+          0.0,
+          -0.04500000178813934
+        ],
+        "max": [
+          0.6600000262260437,
+          4.170000076293945,
+          0.02199999988079071
+        ]
+      },
+      "maxSceneBoundsDifference": 0.0,
+      "maxPerObjectBoundsDifference": 0,
+      "perObjectTrianglesAndMaterialNamesMatch": true,
+      "glbBytes": 16508,
+      "glbSha256": "415a4c38471e936197c4c77c27aebec99694ca4dc20e5676ce10efd3dcb3ae90",
+      "imageCount": 0,
+      "noExternalDependencies": true,
+      "noDetachedExtraObjects": true
+    },
+    {
+      "sceneId": 1649128,
+      "name": "福久源大厦",
+      "glbPath": "/workspace/scratch/83e368053451/model-recovery-exports/1649128.glb",
+      "failures": [],
+      "status": "PASS",
+      "sourceUnchanged": true,
+      "exactMeshWhitelistMatches": true,
+      "excludedPresentationObjects": [
+        "Display_plinth"
+      ],
+      "holdObjectsRetained": 1,
+      "meshCount": 547,
+      "triangles": 6580,
+      "nativeExpectedGltfBounds": {
+        "min": [
+          -18.02750015258789,
+          0.0,
+          -8.0
+        ],
+        "max": [
+          18.02750015258789,
+          108.04499816894531,
+          0.41999998688697815
+        ]
+      },
+      "actualGltfBounds": {
+        "min": [
+          -18.02750015258789,
+          0.0,
+          -8.0
+        ],
+        "max": [
+          18.02750015258789,
+          108.04499816894531,
+          0.41999998688697815
+        ]
+      },
+      "maxSceneBoundsDifference": 0.0,
+      "maxPerObjectBoundsDifference": 0,
+      "perObjectTrianglesAndMaterialNamesMatch": true,
+      "glbBytes": 629804,
+      "glbSha256": "1209fa19ffe0b79c567705546f6e16d8b2797bc70c004cec66e9251314e6cc3b",
+      "imageCount": 0,
+      "noExternalDependencies": true,
+      "noDetachedExtraObjects": true
+    },
+    {
+      "sceneId": 1649140,
+      "name": "鑫鼎大厦",
+      "glbPath": "/workspace/scratch/83e368053451/model-recovery-exports/1649140.glb",
+      "failures": [],
+      "status": "PASS",
+      "sourceUnchanged": true,
+      "exactMeshWhitelistMatches": true,
+      "excludedPresentationObjects": [
+        "Presentation_plinth"
+      ],
+      "holdObjectsRetained": 7,
+      "meshCount": 463,
+      "triangles": 5592,
+      "nativeExpectedGltfBounds": {
+        "min": [
+          -31.0,
+          0.0,
+          -29.0
+        ],
+        "max": [
+          31.0,
+          79.2249984741211,
+          31.0
+        ]
+      },
+      "actualGltfBounds": {
+        "min": [
+          -31.0,
+          0.0,
+          -29.0
+        ],
+        "max": [
+          31.0,
+          79.22499999403954,
+          31.0
+        ]
+      },
+      "maxSceneBoundsDifference": 1.519918441772461e-06,
+      "maxPerObjectBoundsDifference": 3.051944077014923e-06,
+      "perObjectTrianglesAndMaterialNamesMatch": true,
+      "glbBytes": 713360,
+      "glbSha256": "0578719b1ed13eecf22ee555a9a494ff9f9789db1dd62723a08df5c5a7f2dfc4",
+      "imageCount": 0,
+      "noExternalDependencies": true,
+      "noDetachedExtraObjects": true
+    },
+    {
+      "sceneId": 1649143,
+      "name": "旭光商贸大厦",
+      "glbPath": "/workspace/scratch/83e368053451/model-recovery-exports/1649143.glb",
+      "failures": [],
+      "status": "PASS",
+      "sourceUnchanged": true,
+      "exactMeshWhitelistMatches": true,
+      "excludedPresentationObjects": [
+        "Display_plinth"
+      ],
+      "holdObjectsRetained": 1,
+      "meshCount": 2978,
+      "triangles": 35752,
+      "nativeExpectedGltfBounds": {
+        "min": [
+          -36.0,
+          0.0,
+          -16.0
+        ],
+        "max": [
+          37.5,
+          108.0,
+          1.5
+        ]
+      },
+      "actualGltfBounds": {
+        "min": [
+          -36.0,
+          0.0,
+          -16.0
+        ],
+        "max": [
+          37.5,
+          108.0,
+          1.5
+        ]
+      },
+      "maxSceneBoundsDifference": 0.0,
+      "maxPerObjectBoundsDifference": 0,
+      "perObjectTrianglesAndMaterialNamesMatch": true,
+      "glbBytes": 3412200,
+      "glbSha256": "5bd370062e480094af768455b423cad8d45e9c0ddf429c592bb739ad796d66bd",
+      "imageCount": 0,
+      "noExternalDependencies": true,
+      "noDetachedExtraObjects": true
+    },
+    {
+      "sceneId": 1649131,
+      "name": "光联大厦",
+      "glbPath": "/workspace/scratch/83e368053451/model-recovery-exports/1649131.glb",
+      "failures": [],
+      "status": "PASS",
+      "sourceUnchanged": true,
+      "exactMeshWhitelistMatches": true,
+      "excludedPresentationObjects": [],
+      "holdObjectsRetained": 287,
+      "meshCount": 2264,
+      "triangles": 100348,
+      "nativeExpectedGltfBounds": {
+        "min": [
+          -0.004999999888241291,
+          0.05116739869117737,
+          -0.0637499988079071
+        ],
+        "max": [
+          16.0049991607666,
+          38.989559173583984,
+          0.04500000178813934
+        ]
+      },
+      "actualGltfBounds": {
+        "min": [
+          -0.004999999888241291,
+          0.05116739869117737,
+          -0.0637499988079071
+        ],
+        "max": [
+          16.0049991607666,
+          38.989559173583984,
+          0.04500000178813934
+        ]
+      },
+      "maxSceneBoundsDifference": 0.0,
+      "maxPerObjectBoundsDifference": 0,
+      "perObjectTrianglesAndMaterialNamesMatch": true,
+      "glbBytes": 4500420,
+      "glbSha256": "c032935b42288d3aaf76a32349e31008e060a3e078b1711b957b73e8b852be18",
+      "imageCount": 0,
+      "noExternalDependencies": true,
+      "noDetachedExtraObjects": true
+    },
+    {
+      "sceneId": 1649127,
+      "name": "共和景晨创业中心",
+      "glbPath": "/workspace/scratch/83e368053451/model-recovery-exports/1649127.glb",
+      "failures": [],
+      "status": "PASS",
+      "sourceUnchanged": true,
+      "exactMeshWhitelistMatches": true,
+      "excludedPresentationObjects": [
+        "Display_plinth"
+      ],
+      "holdObjectsRetained": 46,
+      "meshCount": 1343,
+      "triangles": 16116,
+      "nativeExpectedGltfBounds": {
+        "min": [
+          -20.0,
+          0.0,
+          -9.0
+        ],
+        "max": [
+          20.0,
+          105.0,
+          0.07000000029802322
+        ]
+      },
+      "actualGltfBounds": {
+        "min": [
+          -20.0,
+          0.0,
+          -9.0
+        ],
+        "max": [
+          20.0,
+          105.0,
+          0.07000000029802322
+        ]
+      },
+      "maxSceneBoundsDifference": 0.0,
+      "maxPerObjectBoundsDifference": 0,
+      "perObjectTrianglesAndMaterialNamesMatch": true,
+      "glbBytes": 1517152,
+      "glbSha256": "35f83799f0d32b23ff97e6128385e3de9d61d2a6c4c0a16f3d819ff6568b648a",
+      "imageCount": 0,
+      "noExternalDependencies": true,
+      "noDetachedExtraObjects": true
+    },
+    {
+      "sceneId": 1649130,
+      "name": "共同大厦",
+      "glbPath": "/workspace/scratch/83e368053451/model-recovery-exports/1649130.glb",
+      "failures": [],
+      "status": "PASS",
+      "sourceUnchanged": true,
+      "exactMeshWhitelistMatches": true,
+      "excludedPresentationObjects": [
+        "Display_plinth"
+      ],
+      "holdObjectsRetained": 19,
+      "meshCount": 2369,
+      "triangles": 38028,
+      "nativeExpectedGltfBounds": {
+        "min": [
+          -33.0,
+          0.0,
+          -14.0
+        ],
+        "max": [
+          37.0,
+          103.12000274658203,
+          18.399999618530273
+        ]
+      },
+      "actualGltfBounds": {
+        "min": [
+          -33.0,
+          0.0,
+          -14.0
+        ],
+        "max": [
+          37.0,
+          103.12000274658203,
+          18.399999618530273
+        ]
+      },
+      "maxSceneBoundsDifference": 0.0,
+      "maxPerObjectBoundsDifference": 0,
+      "perObjectTrianglesAndMaterialNamesMatch": true,
+      "glbBytes": 3027320,
+      "glbSha256": "b6bec6978c94b588c9e33a6dc2117a24b0e874304bd255ff932b2737d0e0cf19",
+      "imageCount": 0,
+      "noExternalDependencies": true,
+      "noDetachedExtraObjects": true
+    }
+  ],
+  "pipelineReview": {
+    "sourceVisibility": "active native scene: visible_get and not hide_render",
+    "presentationExclusion": "Only Display_plinth / Presentation_plinth, exact names",
+    "sourceMutations": "No native saved; no geometry/material/position changes",
+    "candidateSelection": "15 fixed native candidates from independent Git/Library crosscheck; detached later study stages not selected"
+  },
+  "passedCount": 15,
+  "failedCount": 0,
+  "status": "PASS",
+  "scriptSha256": "83e57c1cf9f16ce0d6b763881ce3247d16166af360977d111ba778ad7d4684b7"
+}

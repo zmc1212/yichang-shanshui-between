@@ -1,0 +1,97 @@
+{
+  "id": "business-1649144",
+  "sourceFilename": "1649144.glb",
+  "sourceSha256": "dcd96564b48cb658b6651046675347774cae8afaed39b9543f527d5aad3b2e6b",
+  "sourceBytes": 2431864,
+  "nativeChanged": false,
+  "removedPresentationNodes": [],
+  "materialPolicy": "Original base colors retained; light drops baked normal maps and regenerates geometric face normals, detail retains source normals and normal maps. Textures are bounded to 512 px light / 1024 px detail WebP. Transmission, volume, and clearcoat removed; opaque material alpha and reduced metalness/increased roughness suit the miniature scene. Source files unchanged.",
+  "geometryPolicy": "Material-aware weld/join. Light simplifies within a bounded error; detail keeps source triangles after explicitly named presentation-node removal. One common source envelope drives both LOD transforms.",
+  "lightSimplification": {
+    "ratio": 0.65,
+    "error": 0.0001,
+    "lockBorder": false
+  },
+  "validationScope": "Binary readback and envelope checks; no claim of surveyed geometry, real-scene acceptance, browser/WebGL visual QA, or device performance measurement.",
+  "tiers": {
+    "light": {
+      "triangles": 25492,
+      "vertices": 50976,
+      "primitives": 8,
+      "indexedPrimitives": 8,
+      "materials": 8,
+      "images": [],
+      "estimatedTextureBytesRGBA8WithMipmaps": 0,
+      "bounds": {
+        "min": [
+          -22.252937406537065,
+          0,
+          -18.000274666585284
+        ],
+        "max": [
+          22.252937406537065,
+          128,
+          0.45555193372587854
+        ]
+      },
+      "bytes": 286300,
+      "sha256": "232fce8b3236a99cfd1c01fba24bc5de317753aa5a24338f553039e87e89a15a",
+      "maxEnvelopeDelta": 0.0005519206128566934,
+      "extensionsRequired": [
+        "EXT_meshopt_compression",
+        "KHR_mesh_quantization"
+      ],
+      "extensionsUsed": [
+        "EXT_meshopt_compression",
+        "KHR_mesh_quantization"
+      ]
+    },
+    "detail": {
+      "triangles": 25492,
+      "vertices": 50976,
+      "primitives": 8,
+      "indexedPrimitives": 8,
+      "materials": 8,
+      "images": [],
+      "estimatedTextureBytesRGBA8WithMipmaps": 0,
+      "bounds": {
+        "min": [
+          -22.252937406537065,
+          0,
+          -18.000274666585284
+        ],
+        "max": [
+          22.252937406537065,
+          128,
+          0.45555193372587854
+        ]
+      },
+      "bytes": 286300,
+      "sha256": "232fce8b3236a99cfd1c01fba24bc5de317753aa5a24338f553039e87e89a15a",
+      "maxEnvelopeDelta": 0.0005519206128566934,
+      "extensionsRequired": [
+        "EXT_meshopt_compression",
+        "KHR_mesh_quantization"
+      ],
+      "extensionsUsed": [
+        "EXT_meshopt_compression",
+        "KHR_mesh_quantization"
+      ]
+    }
+  },
+  "sourceBounds": {
+    "min": [
+      -22.252500534057617,
+      0,
+      -18
+    ],
+    "max": [
+      22.252500534057617,
+      128,
+      0.45500001311302185
+    ]
+  },
+  "sourceTriangles": 25492,
+  "singlePreviewAsset": true,
+  "previewPolicy": "One compressed full-geometry derivative; source triangles and source normals retained. Both quality references share this file."
+}

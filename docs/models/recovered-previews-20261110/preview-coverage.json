@@ -1,0 +1,158 @@
+{
+  "1649127": {
+    "previewTitle": "共和景晨条目 · 左塔立面研究",
+    "coverageType": "identity-review",
+    "scope": "原导览左塔朝摄影点的一处可见立面，含七个竖向开间及九条宽分带。",
+    "missingScope": "未包含右塔、裙房入口、侧后面、冠部与真实屋顶，也未确认完整园区关系。",
+    "identityNote": "该左塔是否属于共和景晨仍待独立核验，暂不能排除邻楼。",
+    "defaultView": "front",
+    "sourceStage": "C20261109_scene1649127_left_facade_identity_hold",
+    "sourceGitPath": "landmarks/yichang-gonghe-jingchen/research/C20261109_scene1649127_left_facade_identity_hold/model/GongheJingchen_LeftFacade_C20261109.blend",
+    "sourceCommit": "440804ded49a2cef615015547349b3adf6aa09d5"
+  },
+  "1649128": {
+    "previewTitle": "福久源大厦 · 金色主立面",
+    "coverageType": "partial",
+    "scope": "可见金色塔楼主立面、分段银色竖饰和三段不同高度的冠顶。",
+    "missingScope": "未安装独立雨棚和招牌研究件；裙房入口、背面、真实屋顶及进深仍待核实。",
+    "defaultView": "front",
+    "sourceStage": "C20261109_visible_facade_candidate",
+    "sourceGitPath": "landmarks/yichang-fujiuyuan-building/stages/C20261109_visible_facade_candidate/model/Fujiuyuan_C20261109.blend",
+    "sourceCommit": "440804ded49a2cef615015547349b3adf6aa09d5"
+  },
+  "1649130": {
+    "previewTitle": "共同大厦 · 可见双面与裙房",
+    "coverageType": "partial",
+    "scope": "长面窗组、短面可见玻璃段、圆角窗带及部分金色裙房。",
+    "missingScope": "独立雨棚与入口墩尚未配准安装；背面、屋顶、基部和真实进深仍待核实。",
+    "defaultView": "front",
+    "sourceStage": "C20261109_new_evidence_candidate",
+    "sourceGitPath": "landmarks/yichang-gongtong-building/stages/C20261109_new_evidence_candidate/model/Gongtong_C20261109.blend.gz",
+    "sourceCommit": "440804ded49a2cef615015547349b3adf6aa09d5"
+  },
+  "1649131": {
+    "previewTitle": "光联大厦 · 可见主立面薄壳",
+    "coverageType": "partial",
+    "scope": "可见主面窗框、已确认窗下外观面，以及有限冠部前平面构件。",
+    "missingScope": "未包含侧后体量、完整屋顶及无法确认的外挑窗叶；局部留空表示尚未建模。",
+    "identityNote": "原导览与外观支持候选归属，楼名与酒店品牌的对应仍待进一步核验。",
+    "defaultView": "front",
+    "sourceStage": "D20261109_visible_main_facade_r2",
+    "sourceGitPath": "landmarks/yichang-guanglian-building/stages/D20261109_visible_main_facade_r2/model/Guanglian_VisibleFacade.blend.gz.part000",
+    "sourceCommit": "440804ded49a2cef615015547349b3adf6aa09d5"
+  },
+  "1649134": {
+    "previewTitle": "丽景国际 · 中央中下立面",
+    "coverageType": "partial",
+    "scope": "中央两条玻璃带、两侧各两个相邻窗列及中下部可见主窗带。",
+    "missingScope": "未包含上部拱顶玻璃、复杂冠部、外侧其余窗列、裙房、入口和侧背面。",
+    "defaultView": "front",
+    "sourceStage": "C20261109_central_lower_r3_side_seams",
+    "sourceGitPath": "landmarks/yichang-lijing-international/stages/C20261109_central_lower_r3_side_seams/model/LijingGuoji_C20261109.blend",
+    "sourceCommit": "440804ded49a2cef615015547349b3adf6aa09d5"
+  },
+  "1649137": {
+    "previewTitle": "外滩领馆 · 双翼与中央上段",
+    "coverageType": "partial",
+    "scope": "左右双翼窗列、主窗带，以及中央上段玻璃和冠架。",
+    "missingScope": "中央中下部平台、侧后面、底部入口、真实屋顶和进深尚未完成。",
+    "defaultView": "front",
+    "sourceStage": "C20261109_visible_facade_candidate",
+    "sourceGitPath": "landmarks/yichang-waitan-lingguan/stages/C20261109_visible_facade_candidate/model/WaitanLingguan_C20261109.blend",
+    "sourceCommit": "440804ded49a2cef615015547349b3adf6aa09d5"
+  },
+  "1649139": {
+    "previewTitle": "新华武银大厦 · 主立面",
+    "coverageType": "partial",
+    "scope": "中央主塔的已观察正立面、冠部前屏及九处可见开窗样本。",
+    "missingScope": "未包含可靠配准的右侧面、裙房、分段雨棚、基部连接、背面和真实屋顶。",
+    "identityNote": "模型对应原导览中央主塔，未纳入右侧新华保险邻塔和背向白色天线楼。",
+    "defaultView": "front",
+    "sourceStage": "C20261109_new_evidence_candidate",
+    "sourceGitPath": "landmarks/yichang-xinhua-wuyin-tower/stages/C20261109_new_evidence_candidate/model/XinhuaWuyin_C20261109.blend.gz",
+    "sourceCommit": "440804ded49a2cef615015547349b3adf6aa09d5"
+  },
+  "1649140": {
+    "previewTitle": "鑫鼎大厦 · 可见外观与屏幕边框",
+    "coverageType": "partial",
+    "scope": "已建可见塔身与裙房外观，并补齐入口上方广告屏两侧边框。",
+    "missingScope": "未确认背侧、完整屋顶、真实进深、转角角度、入口门扇和精确落位。",
+    "defaultView": "front",
+    "sourceStage": "D20261109_visible_screen_side_frames",
+    "sourceGitPath": "landmarks/yichang-xinding-tower/stages/D20261109_visible_screen_side_frames/model/Xinding_D20261109_VisibleScreenFrame.blend",
+    "sourceCommit": "440804ded49a2cef615015547349b3adf6aa09d5"
+  },
+  "1649141": {
+    "previewTitle": "兴发广场 · 右塔可见面",
+    "coverageType": "partial",
+    "scope": "右侧红字塔的已知宽立面，以及相邻窄面靠转角的两列、顶部两条窗带。",
+    "missingScope": "未包含完整窄面、左塔、双塔整体关系、裙房、背面和真实屋顶。",
+    "identityNote": "这是兴发广场右塔的局部候选，不代表整组楼宇。",
+    "defaultView": "front",
+    "sourceStage": "C20261109_right_corner_2x2_patch",
+    "sourceGitPath": "landmarks/yichang-xingfa-plaza/stages/C20261109_right_corner_2x2_patch/model/XingfaPlaza_RightCorner2x2_C20261109.blend",
+    "sourceCommit": "440804ded49a2cef615015547349b3adf6aa09d5"
+  },
+  "1649142": {
+    "previewTitle": "兴发集团总部 · 双可见立面",
+    "coverageType": "partial",
+    "scope": "一组开放 L 形双立面，以及照片可辨的主横肋和部分细肋。",
+    "missingScope": "未知后背、屋顶、入口与裙房未补建；转角和进深仍为归一化展示假设。",
+    "defaultView": "front",
+    "sourceStage": "D20261109_two_visible_facades_r2",
+    "sourceGitPath": "landmarks/yichang-xingfa-headquarters/stages/D20261109_two_visible_facades_r2/model/XingfaHQ_VisibleTower.blend",
+    "sourceCommit": "440804ded49a2cef615015547349b3adf6aa09d5"
+  },
+  "1649143": {
+    "previewTitle": "旭光商贸大厦 · 可见主立面",
+    "coverageType": "partial",
+    "scope": "主立面窗组、平直顶冠，以及右侧非对称过渡区和凹槽。",
+    "missingScope": "未包含已配准的独立下窗片、真实侧背面、屋顶、底层入口和精确凹凸尺寸。",
+    "defaultView": "front",
+    "sourceStage": "C20261109_visible_facade_candidate",
+    "sourceGitPath": "landmarks/yichang-xuguang-commercial-building/stages/C20261109_visible_facade_candidate/model/Xuguang_C20261109.blend.gz",
+    "sourceCommit": "440804ded49a2cef615015547349b3adf6aa09d5"
+  },
+  "1649144": {
+    "previewTitle": "长江国际文化广场 · 中央塔楼可见面",
+    "coverageType": "partial",
+    "scope": "金铜色商城相邻中央高塔的一处可见主立面，以及中央高、两翼低的冠部轮廓。",
+    "missingScope": "另一朝向主面尚未空间配准；未包含其他塔楼、商城、侧背面、屋顶和入口。",
+    "identityNote": "项目归属有支持，具体办公塔楼号仍待核实；两个主面尚未组合成完整楼体。",
+    "defaultView": "front",
+    "sourceStage": "C20261109_central_tower_visible_face_candidate",
+    "sourceGitPath": "landmarks/yichang-changjiang-cultural-plaza/stages/C20261109_central_tower_visible_face_candidate/model/ChangjiangCentralTower_C20261109.blend.gz",
+    "sourceCommit": "440804ded49a2cef615015547349b3adf6aa09d5"
+  },
+  "1649146": {
+    "previewTitle": "长乐大厦 · 相邻双立面",
+    "coverageType": "partial",
+    "scope": "两个相邻可见立面、窄折角玻璃、上部绿板格，以及裙房可见白色嵌板。",
+    "missingScope": "未包含已配准的裙房入口与独立窗片、背面、屋顶细部和真实场地。",
+    "defaultView": "front",
+    "sourceStage": "C20261109_new_evidence_candidate",
+    "sourceGitPath": "landmarks/yichang-changle-building/stages/C20261109_new_evidence_candidate/model/Changle_C20261109.blend.gz",
+    "sourceCommit": "440804ded49a2cef615015547349b3adf6aa09d5"
+  },
+  "1649147": {
+    "previewTitle": "宜昌之星／时代中心 · 可见轮廓",
+    "coverageType": "partial",
+    "scope": "2025 年发表实景照片中的塔楼可见轮廓薄壳，以及三道强横带。",
+    "missingScope": "未包含完整三维体量、楼底、裙房和背面；未与 2024 年施工框架混合。",
+    "identityNote": "本模型对应照片中的时代中心塔楼；原导览条目显示住宅地块，办公塔的实际坐标仍待核定。",
+    "defaultView": "front",
+    "sourceStage": "D20261109_2025_visible_silhouette",
+    "sourceGitPath": "landmarks/yichang-star/research/D20261109_2025_visible_silhouette/model/YichangStar_D20261109_2025VisibleSilhouette.blend",
+    "sourceCommit": "440804ded49a2cef615015547349b3adf6aa09d5"
+  },
+  "1649148": {
+    "previewTitle": "致远广场 · 连续可见主立面",
+    "coverageType": "partial",
+    "scope": "连续可见主立面、冠部开口和下部可辨包面、玻璃带。",
+    "missingScope": "未包含侧后面、屋顶平面、楼体真实进深和遮挡区域；左下斜边是研究范围的截断。",
+    "defaultView": "front",
+    "sourceStage": "C20261109_visible_main_facade_v7",
+    "sourceGitPath": "landmarks/yichang-zhiyuan-plaza/stages/C20261109_visible_main_facade_v7/model/Zhiyuan_C20261109_VisibleMainFacade.blend",
+    "sourceCommit": "440804ded49a2cef615015547349b3adf6aa09d5"
+  }
+}

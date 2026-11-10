@@ -17,7 +17,10 @@ const shouxin={
 export const BUSINESS_BUILDINGS=registry.rows.map(row=>{
   const model=row.sourceSceneId==='1649136'?shouxin:models[row.sourceSceneId];
   const registration=row.sourceSceneId==='1649136'?SHOUXIN_REGISTRATION:registrations[row.sourceSceneId];
-  const available=Boolean(model?.assets?.light&&registration);
+  const available=Boolean(model?.assets?.light&&registration&&!model.previewOnly);
+  const modelStatus=available?'available':model?.assets?.light&&model.coverage
+    ? model.coverage.identity==='unconfirmed'?'identity-review':'partial-ready'
+    :model?'registration-pending':'recovery-pending';
   const name=registry.displayNames[row.sourceSceneId]||row.sourceName;
   const evidence=registry.recoveryEvidence[row.sourceSceneId];
   return {
@@ -27,7 +30,7 @@ export const BUSINESS_BUILDINGS=registry.rows.map(row=>{
     aliases:[...new Set([row.sourceName,...row.aliases])],
     category:'商务楼宇',kind:available?'authored':'business-poi',
     placement:available?'city':'poi',
-    modelStatus:available?'available':model?'registration-pending':'recovery-pending',
+    modelStatus,
     sourcePeriod:row.sourcePeriod,
     sourceUrl:registry.sourceUrl,
     location:`宜昌 · 伍家岗区${row.sourceAddress}`,

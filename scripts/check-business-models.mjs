@@ -82,10 +82,29 @@ assert.equal(new Set(BUSINESS_BUILDINGS.map(row => row.id)).size, 23, 'Catalog I
 assert.equal(byScene.size, 23, 'Scene IDs must not duplicate Jinjiang aliases or compound towers');
 assert.deepEqual(sorted(byScene.keys()), sorted(markers.map(marker => String(marker.obj_id))));
 const availableModels = BUSINESS_BUILDINGS.filter(row => row.assets?.light && row.assets?.detail);
-assert.equal(availableModels.length, 8, 'Seven recovered models plus existing Shouxin remain available');
+assert.equal(availableModels.length, 23, 'All 23 tour projects have an actual model viewing path');
 assert.equal(AUTHORED_MODELS.length, 7, 'Only seven geographically placed models may be city residents');
 assert.equal(BUSINESS_BUILDINGS.filter(row => row.modelStatus === 'registration-pending').length, 1);
-assert.equal(BUSINESS_BUILDINGS.filter(row => row.modelStatus === 'recovery-pending').length, 15);
+assert.equal(BUSINESS_BUILDINGS.filter(row => row.modelStatus === 'recovery-pending').length, 0);
+assert.equal(BUSINESS_BUILDINGS.filter(row => row.modelStatus === 'partial-ready').length, 14);
+assert.equal(BUSINESS_BUILDINGS.filter(row => row.modelStatus === 'identity-review').length, 1);
+const previewRecords = json('docs/models/recovered-previews-20261110/integration-records.json').records;
+assert.equal(previewRecords.length, 15);
+for (const record of previewRecords) {
+  const model = byScene.get(record.sceneId);
+  assert.equal(model.id, `business-${record.sceneId}`, 'Old guide/deep-link identity survives recovery');
+  assert.equal(model.kind, 'business-poi');
+  assert.equal(model.placement, 'poi');
+  assert.equal(model.previewOnly, true);
+  assert.equal(model.coverage.isWholeBuildingValidated, false);
+  assert.equal(model.coverage.isHistoricalOriginalRecovered, false);
+  assert.equal(model.coverage.unitsAreMeasuredMeters, false);
+  assert.equal(resolveAuthoredPlacement(model, city.meta), null, 'Partial geometry must never infer a geographic transform');
+  assert.deepEqual(model.coverage, record.coverage);
+  assert.equal(model.sourceNativeSha256, record.sourceNativeSha256);
+  assert(model.coverage.scope && model.coverage.missing, 'Every preview names what it includes and what it omits');
+}
+assert.equal(byScene.get('1649127').modelStatus, 'identity-review');
 const meilian = byScene.get('1649135');
 assert.equal(meilian.modelStatus, 'registration-pending');
 assert.equal(meilian.placement, 'poi');
@@ -99,7 +118,7 @@ for (const row of BUSINESS_BUILDINGS) {
   pairNear([row.lon,row.lat], gcjToWgs(row.sourceMarker.lonLat), 1e-9, `${row.name} approximate CRS conversion`);
   insideBoard(project([row.lon,row.lat]), `${row.name} tour point`);
 }
-passed.push('23 source-bound unique projects; 8 restored models, 7 city residents, 1 registration pending, 15 recovery pending; GCJ-02 conversion and expanded-board coverage');
+passed.push('23 source-bound projects: 7 city models, 1 group preview, 14 partial previews, 1 identity-review preview; stable guide IDs and no inferred map transforms');
 
 const resolved = AUTHORED_MODELS.map(raw => resolveAuthoredPlacement(raw,city.meta));
 for(const spec of resolved)assert.deepEqual(spec.registration.contextHeight,{innerMeters:400,outerMeters:900,nearFactor:1},
@@ -207,6 +226,9 @@ for(const rawSpec of availableModels) {
     raw.traverse(mesh=>{
       if(!mesh.isMesh)return;
       const p=mesh.geometry.getAttribute('position');
+      for (const value of p.array) assert(Number.isFinite(value), `${rawSpec.name} ${tier} finite vertex positions`);
+      const indices=mesh.geometry.getIndex();
+      if(indices) for (const index of indices.array) assert(index>=0&&index<p.count, `${rawSpec.name} ${tier} valid triangle indices`);
       for(const index of new Set([0,Math.floor(p.count/2),p.count-1]))if(index>=0)sourceSamples.push({mesh,index,p:new Vector3().fromBufferAttribute(p,index).applyMatrix4(mesh.matrixWorld)});
     });
     assert(sourceSamples.length>0,`${rawSpec.name} ${tier} real model geometry is required`);
@@ -238,6 +260,6 @@ for(const rawSpec of availableModels) {
     dispose(anchor);
   }
 }
-passed.push('All 16 actual light/detail GLBs parse with Meshopt; independent original-vertex and original-origin transforms agree after controller recentering; uniform proportions and picking IDs survive');
+passed.push('All 46 light/detail references parse with Meshopt; independent original-vertex and original-origin transforms agree after controller recentering; finite vertices, valid indices, uniform proportions and picking IDs survive');
 
-console.log(JSON.stringify({ok:true,completeIntegrationCheck:!assetsOnly,deferredChecks:assetsOnly?['current city ring versus independently projected source geometry']:[],passed,counts:{projects:BUSINESS_BUILDINGS.length,availableModels:availableModels.length,mapModels:resolved.length,registrationPending:1,recoveryPending:15,replacedSourceBuildings:expectedIndices.length,retainedBackgroundPolygons:plan.retainedBuildings.length},boardCenter:city.meta.center,boardBounds:city.meta.bounds,retainedMallAreaRatio:retainedAreaRatio,tiers,webglVerified:false,surveyVerified:false,devicePerformanceVerified:false},null,2));
+console.log(JSON.stringify({ok:true,completeIntegrationCheck:!assetsOnly,deferredChecks:assetsOnly?['current city ring versus independently projected source geometry']:[],passed,counts:{projects:BUSINESS_BUILDINGS.length,availableModels:availableModels.length,mapModels:resolved.length,registrationPending:1,recoveryPending:0,partialPreviews:14,identityReview:1,replacedSourceBuildings:expectedIndices.length,retainedBackgroundPolygons:plan.retainedBuildings.length},boardCenter:city.meta.center,boardBounds:city.meta.bounds,retainedMallAreaRatio:retainedAreaRatio,tiers,webglVerified:false,surveyVerified:false,devicePerformanceVerified:false},null,2));

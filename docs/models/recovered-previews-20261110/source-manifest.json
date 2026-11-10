@@ -1,0 +1,1217 @@
+{
+  "guides": [
+    {
+      "name": "接续成果与恢复指南_中文(20261109-180740).md",
+      "library_file_id": "libfile_fde3_f-f83ac87d036481918335414e95bd22ba_c853d26840d0819196e3746c99b28092"
+    },
+    {
+      "name": "接续成果与恢复指南_中文(20261109-203641).md",
+      "library_file_id": "libfile_fde3_f-f354c557f2808191b73d526f2b6e1f3a_c853d26840d0819196e3746c99b28092"
+    }
+  ],
+  "sources": [
+    {
+      "sourceSceneId": 1649141,
+      "name": "兴发广场写字楼",
+      "sourceStage": "兴发广场写字楼：右塔共有角2×2短段候选",
+      "nativeFilename": "XingfaPlaza_RightCorner2x2_C20261109.blend",
+      "library_file_id": "libfile_fde3_f-04a373814f548191a0d660431fd48e50_c853d26840d0819196e3746c99b28092",
+      "file_id": "file_000000009e7081fdba1b7eeb4ad455da",
+      "version_id": "0",
+      "libraryPath": "/XingfaPlaza_RightCorner2x2_C20261109.blend",
+      "localPath": "/workspace/scratch/83e368053451/model-recovery-sources/XingfaPlaza_RightCorner2x2_C20261109.blend",
+      "expectedBytes": 10425916,
+      "expectedSha256": "4c493fb14c0d755e7f2e2ca4c265bffb37e5dccf77ae50084047be6b118b5790",
+      "gitCommit": "e26549337053179922fdb42f940ad235c94fb8fb",
+      "gitStagePath": "landmarks/yichang-xingfa-plaza/stages/C20261109_right_corner_2x2_patch",
+      "identityHold": false,
+      "modelStatus": "可见范围候选模型",
+      "sourceLimitations": [
+        "独立新建局部可编辑候选阶段，不是历史恢复或整栋完成",
+        "保留右侧红字塔原宽面1856个mesh，新增同塔右窄面近角2列×最上2窗带，共16个闭合实体。旧核心40×10×84、宽面与材质不变；3横框及共有角短柱在原末端接续。",
+        "不是完整窄面或双塔完成。短段长1.8654690621为低置信归一候选，±1像素敏感性约1.7711–1.9600，非实测深度。旧源1181处同向部分共面交叠保留，新增参与为0，非全模零交叠；短段末端是研究截断，未知侧背顶及Form/Runtime继续HOLD。",
+        "默认状态与恢复：按完整包README恢复；保留旧阶段，不解除整楼HOLD。"
+      ],
+      "isHistoricalOriginalRecovered": false,
+      "isWholeBuildingValidated": false,
+      "defaultCollections": [
+        {
+          "name": "Scene Collection",
+          "path": "/Scene Collection",
+          "exclude": false,
+          "hideViewport": false
+        },
+        {
+          "name": "Collection",
+          "path": "/Scene Collection/Collection",
+          "exclude": false,
+          "hideViewport": false
+        }
+      ],
+      "actualSha256": "4c493fb14c0d755e7f2e2ca4c265bffb37e5dccf77ae50084047be6b118b5790",
+      "actualBytes": 10425916,
+      "libraryIdentityXattrVerified": true,
+      "nativeReadOnlyInspectionPassed": true,
+      "defaultVisibleMeshCount": 1872,
+      "defaultVisibleBounds": {
+        "min": [
+          -29.0,
+          -12.5,
+          -0.8999999761581421
+        ],
+        "max": [
+          29.0,
+          22.5,
+          84.0
+        ]
+      },
+      "exportSelection": {
+        "objectType": "MESH",
+        "useDefaultVisibleState": true,
+        "excludeObjectNames": [
+          "Display_plinth"
+        ],
+        "excludeNonMesh": true,
+        "exportMeshCount": 1871,
+        "exportBounds": {
+          "min": [
+            -20.1200008392334,
+            -0.6100000143051147,
+            0.0
+          ],
+          "max": [
+            20.610000610351562,
+            10.0,
+            84.0
+          ]
+        },
+        "keepUnverifiedBackingWithScopeLabel": true
+      },
+      "detachedResearchObjectsIncluded": false,
+      "visibleScopeType": "可见立面与未核实背衬候选",
+      "modelUnitsAreMeasuredMeters": false
+    },
+    {
+      "sourceSceneId": 1649139,
+      "name": "新华广场武银大厦",
+      "sourceStage": "新华广场武银大厦：20261109独立新建候选",
+      "nativeFilename": "XinhuaWuyin_C20261109.blend",
+      "library_file_id": "libfile_fde3_f-069c981683588191abfc8233e4bced82_c853d26840d0819196e3746c99b28092",
+      "file_id": "file_00000000de7481fd8cdb08ffb28512be",
+      "version_id": "0",
+      "libraryPath": "/XinhuaWuyin_C20261109.blend",
+      "localPath": "/workspace/scratch/83e368053451/model-recovery-sources/XinhuaWuyin_C20261109.blend",
+      "expectedBytes": 21339268,
+      "expectedSha256": "290de20d6de2b0f25c9561268aad7029b38e51bfbf42aef5490595a532c0c859",
+      "gitCommit": "6d9c79afda842c8817550c3dc715d04bae28acc1",
+      "gitStagePath": "landmarks/yichang-xinhua-wuyin-tower/stages/C20261109_new_evidence_candidate",
+      "identityHold": false,
+      "modelStatus": "可见范围候选模型",
+      "sourceLimitations": [
+        "独立新建可编辑几何候选，不是历史恢复或整栋完成",
+        "原名单第10栋，scene1649139。3952网格组件；单中心f/d主立面32条内部银色刃板界定33格，约28主带及下部残段来自锚点和分段节距拟合，并非逐层实测；9处选择性开启窗含分割玻璃孔、退后背衬与铰支。",
+        "冠部仅正面透光屏，精确孔、桁架、屋面HOLD。可见侧面、裙房、雨棚和底部未配准且未建模；后面、真实进深、尺度及整楼Form/Runtime HOLD，无最终GLB。",
+        "默认状态与恢复：首个独立新建候选可见；无历史基线OFF开关。"
+      ],
+      "isHistoricalOriginalRecovered": false,
+      "isWholeBuildingValidated": false,
+      "defaultCollections": [
+        {
+          "name": "Scene Collection",
+          "path": "/Scene Collection",
+          "exclude": false,
+          "hideViewport": false
+        },
+        {
+          "name": "Collection",
+          "path": "/Scene Collection/Collection",
+          "exclude": false,
+          "hideViewport": false
+        }
+      ],
+      "actualSha256": "290de20d6de2b0f25c9561268aad7029b38e51bfbf42aef5490595a532c0c859",
+      "actualBytes": 21339268,
+      "libraryIdentityXattrVerified": true,
+      "nativeReadOnlyInspectionPassed": true,
+      "defaultVisibleMeshCount": 3952,
+      "defaultVisibleBounds": {
+        "min": [
+          -32.0,
+          -23.5,
+          -1.100000023841858
+        ],
+        "max": [
+          32.0,
+          23.5,
+          117.0
+        ]
+      },
+      "exportSelection": {
+        "objectType": "MESH",
+        "useDefaultVisibleState": true,
+        "excludeObjectNames": [
+          "Display_plinth"
+        ],
+        "excludeNonMesh": true,
+        "exportMeshCount": 3951,
+        "exportBounds": {
+          "min": [
+            -19.649999618530273,
+            -10.520849227905273,
+            0.0
+          ],
+          "max": [
+            19.649999618530273,
+            10.0,
+            117.0
+          ]
+        },
+        "keepUnverifiedBackingWithScopeLabel": true
+      },
+      "detachedResearchObjectsIncluded": false,
+      "visibleScopeType": "可见立面与未核实背衬候选",
+      "modelUnitsAreMeasuredMeters": false
+    },
+    {
+      "sourceSceneId": 1649144,
+      "name": "长江国际文化广场",
+      "sourceStage": "长江国际文化广场：中央邻商场塔楼可见面候选",
+      "nativeFilename": "ChangjiangCentralTower_C20261109.blend",
+      "library_file_id": "libfile_fde3_f-d74c14c719348191b74dca725064ac0b_c853d26840d0819196e3746c99b28092",
+      "file_id": "file_00000000d3a081fb85574547b44e44a7",
+      "version_id": "0",
+      "libraryPath": "/ChangjiangCentralTower_C20261109.blend",
+      "localPath": "/workspace/scratch/83e368053451/model-recovery-sources/ChangjiangCentralTower_C20261109.blend",
+      "expectedBytes": 11795188,
+      "expectedSha256": "211876c71b3e468f7924dc6dd5c386837ec050672530311c21cc150601d90093",
+      "gitCommit": "5e8785a44acb3da7ee375a03eb923b3d259bf693",
+      "gitStagePath": "landmarks/yichang-changjiang-cultural-plaza/stages/C20261109_central_tower_visible_face_candidate",
+      "identityHold": false,
+      "modelStatus": "可见范围候选模型",
+      "sourceLimitations": [
+        "独立新建可编辑可见面候选，具体办公楼号HOLD，不是整栋或整个项目完成",
+        "原名单第11条，scene1649144；项目对应成立，中央邻商场塔楼可见面。2124网格组件，11组玻璃、8暗竖带、2宽银色实带；26组横向表达为25完整间距加1近似局部裁切，并非楼层数。中央高、两肩低冠部为近似表面。",
+        "具体办公楼号HOLD；原项目条目可能涵多办公塔，本候选只占同一第11条，不把塔楼和项目算作两个条目。单中心r/b不是两次独立测量；另一中心反面未配准，不用于补几何。未精确相机配准/测量尺度，侧背、屋面、底部为HOLD占位。冠部细缝未建、无真实贯通孔主张；接触检查不代表结构工程认证。无整楼验收或最终GLB。",
+        "默认状态与恢复：首个独立新建可见面候选可见，无历史基线OFF开关；HOLD闭合背衬不是实景白墙。"
+      ],
+      "isHistoricalOriginalRecovered": false,
+      "isWholeBuildingValidated": false,
+      "defaultCollections": [
+        {
+          "name": "Scene Collection",
+          "path": "/Scene Collection",
+          "exclude": false,
+          "hideViewport": false
+        },
+        {
+          "name": "Collection",
+          "path": "/Scene Collection/Collection",
+          "exclude": false,
+          "hideViewport": false
+        }
+      ],
+      "actualSha256": "211876c71b3e468f7924dc6dd5c386837ec050672530311c21cc150601d90093",
+      "actualBytes": 11795188,
+      "libraryIdentityXattrVerified": true,
+      "nativeReadOnlyInspectionPassed": true,
+      "defaultVisibleMeshCount": 2124,
+      "defaultVisibleBounds": {
+        "min": [
+          -35.0,
+          -18.0,
+          -1.100000023841858
+        ],
+        "max": [
+          35.0,
+          36.0,
+          128.0
+        ]
+      },
+      "exportSelection": {
+        "objectType": "MESH",
+        "useDefaultVisibleState": true,
+        "excludeObjectNames": [
+          "Display_plinth"
+        ],
+        "excludeNonMesh": true,
+        "exportMeshCount": 2123,
+        "exportBounds": {
+          "min": [
+            -22.252500534057617,
+            -0.45500001311302185,
+            0.0
+          ],
+          "max": [
+            22.252500534057617,
+            18.0,
+            128.0
+          ]
+        },
+        "keepUnverifiedBackingWithScopeLabel": true
+      },
+      "detachedResearchObjectsIncluded": false,
+      "visibleScopeType": "可见立面与未核实背衬候选",
+      "modelUnitsAreMeasuredMeters": false
+    },
+    {
+      "sourceSceneId": 1649148,
+      "name": "致远广场",
+      "sourceStage": "致远广场：可见主立面v7",
+      "nativeFilename": "Zhiyuan_C20261109_VisibleMainFacade.blend",
+      "library_file_id": "libfile_fde3_f-19a686137f8c81919f5c0b4859862b9b_c853d26840d0819196e3746c99b28092",
+      "file_id": "file_00000000991081f8a6a2234159c072c5",
+      "version_id": "0",
+      "libraryPath": "/Zhiyuan_C20261109_VisibleMainFacade.blend",
+      "localPath": "/workspace/scratch/83e368053451/model-recovery-sources/Zhiyuan_C20261109_VisibleMainFacade.blend",
+      "expectedBytes": 7704528,
+      "expectedSha256": "95e2cac2022d506a1dda0d0edfee68af5f9a7e91c27f72428976cf15a12ed311",
+      "gitCommit": "7ac730fdd772d2b57e7978c895eab854ae06ea1d",
+      "gitStagePath": "landmarks/yichang-zhiyuan-plaza/stages/C20261109_visible_main_facade_v7",
+      "identityHold": false,
+      "modelStatus": "可见范围候选模型",
+      "sourceLimitations": [
+        "独立新建局部可编辑候选阶段，不是历史恢复或整栋完成",
+        "1160 mesh、412洞；26×14=364位置，省略14后350主带=288玻璃+62百叶，另27低位、26冠、9包面。旧25列和1.60比例撤回，当前1.66为条件拟合；0起始C3是第4列。粉包面下3玻璃宽组已修正。",
+        "左底斜切仅为证据裁界；原f有像素但被树挡，越界属于中间画布，不是源图缺失或真楼角。两旧片段59文件保持，屋顶杆塔未整合，不是R05恢复。真实尺度、深度与整楼Form/Runtime仍HOLD。",
+        "默认状态与恢复：按本包README恢复，保留旧阶段；不解除整楼HOLD。"
+      ],
+      "isHistoricalOriginalRecovered": false,
+      "isWholeBuildingValidated": false,
+      "defaultCollections": [
+        {
+          "name": "Scene Collection",
+          "path": "/Scene Collection",
+          "exclude": false,
+          "hideViewport": false
+        },
+        {
+          "name": "Collection",
+          "path": "/Scene Collection/Collection",
+          "exclude": false,
+          "hideViewport": false
+        }
+      ],
+      "actualSha256": "95e2cac2022d506a1dda0d0edfee68af5f9a7e91c27f72428976cf15a12ed311",
+      "actualBytes": 7704528,
+      "libraryIdentityXattrVerified": true,
+      "nativeReadOnlyInspectionPassed": true,
+      "defaultVisibleMeshCount": 1160,
+      "defaultVisibleBounds": {
+        "min": [
+          -1.2999992370605469,
+          -0.38999998569488525,
+          -0.015000343322753906
+        ],
+        "max": [
+          28.11750030517578,
+          0.15000000596046448,
+          29.03499984741211
+        ]
+      },
+      "exportSelection": {
+        "objectType": "MESH",
+        "useDefaultVisibleState": true,
+        "excludeObjectNames": [],
+        "excludeNonMesh": true,
+        "exportMeshCount": 1160,
+        "exportBounds": {
+          "min": [
+            -1.2999992370605469,
+            -0.38999998569488525,
+            -0.015000343322753906
+          ],
+          "max": [
+            28.11750030517578,
+            0.15000000596046448,
+            29.03499984741211
+          ]
+        },
+        "keepUnverifiedBackingWithScopeLabel": true
+      },
+      "detachedResearchObjectsIncluded": false,
+      "visibleScopeType": "可见主立面薄片",
+      "modelUnitsAreMeasuredMeters": false
+    },
+    {
+      "sourceSceneId": 1649137,
+      "name": "外滩领馆",
+      "sourceStage": "外滩领馆：20261109独立新建候选",
+      "nativeFilename": "WaitanLingguan_C20261109.blend",
+      "library_file_id": "libfile_fde3_f-94e03c6a33048191991aa66331f1a294_c853d26840d0819196e3746c99b28092",
+      "file_id": "file_0000000076f081f59b4f55fca049ce06",
+      "version_id": "0",
+      "libraryPath": "/WaitanLingguan_C20261109.blend",
+      "localPath": "/workspace/scratch/83e368053451/model-recovery-sources/WaitanLingguan_C20261109.blend",
+      "expectedBytes": 8933072,
+      "expectedSha256": "9306cfcec2bf6caf5eee04dbc4f67348b12e2cc46282cd2b61febd1c0d3935d1",
+      "gitCommit": "26e66dfcf0fe561dbe1b08fd90234692a5a28307",
+      "gitStagePath": "landmarks/yichang-waitan-lingguan/stages/C20261109_visible_facade_candidate",
+      "identityHold": false,
+      "modelStatus": "可见范围候选模型",
+      "sourceLimitations": [
+        "独立新建可编辑几何候选，不是历史恢复或整栋完成",
+        "原名单第13条，scene1649137；1585网格组件。两翼各4窗列、22主带；最外列顶部3个围框为浅色。中央仅上部4主带玻璃，冠部为有限厚度开放格栅，数量为拟合，冠基以上无背板。",
+        "中央中下部赭色区是未解决占位，不代表真实墙体或已完成凹区。无效立方投影区域已遮罩，不以底部像素拖抹补几何。官方右侧照片未配准；底部、背面、屋面、进深、绝对尺度HOLD。无最终GLB，整楼Form/Runtime HOLD。",
+        "默认状态与恢复：首个独立新建候选可见；无历史基线OFF开关。"
+      ],
+      "isHistoricalOriginalRecovered": false,
+      "isWholeBuildingValidated": false,
+      "defaultCollections": [
+        {
+          "name": "Scene Collection",
+          "path": "/Scene Collection",
+          "exclude": false,
+          "hideViewport": false
+        },
+        {
+          "name": "Collection",
+          "path": "/Scene Collection/Collection",
+          "exclude": false,
+          "hideViewport": false
+        }
+      ],
+      "actualSha256": "9306cfcec2bf6caf5eee04dbc4f67348b12e2cc46282cd2b61febd1c0d3935d1",
+      "actualBytes": 8933072,
+      "libraryIdentityXattrVerified": true,
+      "nativeReadOnlyInspectionPassed": true,
+      "defaultVisibleMeshCount": 1585,
+      "defaultVisibleBounds": {
+        "min": [
+          -33.0,
+          -12.0,
+          -1.0
+        ],
+        "max": [
+          33.0,
+          26.0,
+          108.5999984741211
+        ]
+      },
+      "exportSelection": {
+        "objectType": "MESH",
+        "useDefaultVisibleState": true,
+        "excludeObjectNames": [
+          "Display_plinth"
+        ],
+        "excludeNonMesh": true,
+        "exportMeshCount": 1584,
+        "exportBounds": {
+          "min": [
+            -25.040000915527344,
+            -0.33000001311302185,
+            0.0
+          ],
+          "max": [
+            25.040000915527344,
+            14.0,
+            108.5999984741211
+          ]
+        },
+        "keepUnverifiedBackingWithScopeLabel": true
+      },
+      "detachedResearchObjectsIncluded": false,
+      "visibleScopeType": "可见立面与未核实背衬候选",
+      "modelUnitsAreMeasuredMeters": false
+    },
+    {
+      "sourceSceneId": 1649146,
+      "name": "长乐大厦",
+      "sourceStage": "长乐大厦：20261109独立新建候选",
+      "nativeFilename": "Changle_C20261109.blend",
+      "library_file_id": "libfile_fde3_f-bc965e20f9588191aa521760dd042c69_c853d26840d0819196e3746c99b28092",
+      "file_id": "file_000000008c9081fda4157f5f19554ae5",
+      "version_id": "0",
+      "libraryPath": "/Changle_C20261109.blend",
+      "localPath": "/workspace/scratch/83e368053451/model-recovery-sources/Changle_C20261109.blend",
+      "expectedBytes": 19111060,
+      "expectedSha256": "54eb02d65730ee3ca7dd4703d9d5008f8703a01bfb503ad9afac9fea75b90afc",
+      "gitCommit": "de04eb6d4b8f584f31ab1fce92df89a0162514a0",
+      "gitStagePath": "landmarks/yichang-changle-building/stages/C20261109_new_evidence_candidate",
+      "identityHold": false,
+      "modelStatus": "可见范围候选模型",
+      "sourceLimitations": [
+        "独立新建可编辑几何候选，不是历史恢复或整栋完成",
+        "原名单第14栋，scene1649146。3572网格组件；单中心r/d的两主面，18主肋界定17格，绿冠8带，蓝色区域约39完整节距及边界残段，以40条近似网格带表达；均非楼层数。",
+        "冠部23%是图像解释比例而非实测物理比例。后面、屋面细节、进深、绝对尺度HOLD；施工遮挡底部未配准且未建模。无最终GLB或整楼Form/Runtime放行。",
+        "默认状态与恢复：首个独立新建候选可见；无历史基线OFF开关。"
+      ],
+      "isHistoricalOriginalRecovered": false,
+      "isWholeBuildingValidated": false,
+      "defaultCollections": [
+        {
+          "name": "Scene Collection",
+          "path": "/Scene Collection",
+          "exclude": false,
+          "hideViewport": false
+        },
+        {
+          "name": "Collection",
+          "path": "/Scene Collection/Collection",
+          "exclude": false,
+          "hideViewport": false
+        }
+      ],
+      "actualSha256": "54eb02d65730ee3ca7dd4703d9d5008f8703a01bfb503ad9afac9fea75b90afc",
+      "actualBytes": 19111060,
+      "libraryIdentityXattrVerified": true,
+      "nativeReadOnlyInspectionPassed": true,
+      "defaultVisibleMeshCount": 3572,
+      "defaultVisibleBounds": {
+        "min": [
+          -32.5,
+          -32.5,
+          -1.100000023841858
+        ],
+        "max": [
+          32.5,
+          32.5,
+          112.2300033569336
+        ]
+      },
+      "exportSelection": {
+        "objectType": "MESH",
+        "useDefaultVisibleState": true,
+        "excludeObjectNames": [
+          "Display_plinth"
+        ],
+        "excludeNonMesh": true,
+        "exportMeshCount": 3571,
+        "exportBounds": {
+          "min": [
+            -18.440000534057617,
+            -18.440000534057617,
+            0.0
+          ],
+          "max": [
+            18.100000381469727,
+            18.100000381469727,
+            112.2300033569336
+          ]
+        },
+        "keepUnverifiedBackingWithScopeLabel": true
+      },
+      "detachedResearchObjectsIncluded": false,
+      "visibleScopeType": "可见立面与未核实背衬候选",
+      "modelUnitsAreMeasuredMeters": false
+    },
+    {
+      "sourceSceneId": 1649142,
+      "name": "兴发集团宜昌总部",
+      "sourceStage": "兴发集团宜昌总部：双可见面R2",
+      "nativeFilename": "XingfaHQ_VisibleTower.blend",
+      "library_file_id": "libfile_fde3_f-b7930d022c0c819190152ef7d3d1683b_c853d26840d0819196e3746c99b28092",
+      "file_id": "file_000000007e248230b03c3d045484e6a4",
+      "version_id": "0",
+      "libraryPath": "/XingfaHQ_VisibleTower.blend",
+      "localPath": "/workspace/scratch/83e368053451/model-recovery-sources/XingfaHQ_VisibleTower.blend",
+      "expectedBytes": 1157848,
+      "expectedSha256": "66af3db0f73263b5c4980af8d84ba75c1e878ca4387080b00f3cfd03f4ffcca1",
+      "gitCommit": "743c286ceda059014e4fd84679780b8d4faa6980",
+      "gitStagePath": "landmarks/yichang-xingfa-headquarters/stages/D20261109_two_visible_facades_r2",
+      "identityHold": false,
+      "modelStatus": "可见范围候选模型",
+      "sourceLimitations": [
+        "独立新建局部可编辑候选阶段，不是历史恢复或整栋完成",
+        "106件，两面各14主亮带与13跨，仅可辨上下细线子集，未建不代表不存在。R1右次肋索引镜像已由R2 j=12-i修复，移动21件，52项mapping独立验证。",
+        "90度夹角、宽转角块及开放L背壳均为展示假设；未知背面、顶标、入口未建，实际尺度深度与整楼Form/Runtime仍HOLD。",
+        "默认状态与恢复：按本包README恢复，保留旧阶段；不解除整楼HOLD。"
+      ],
+      "isHistoricalOriginalRecovered": false,
+      "isWholeBuildingValidated": false,
+      "defaultCollections": [
+        {
+          "name": "Scene Collection",
+          "path": "/Scene Collection",
+          "exclude": false,
+          "hideViewport": false
+        },
+        {
+          "name": "Collection",
+          "path": "/Scene Collection/Collection",
+          "exclude": false,
+          "hideViewport": false
+        }
+      ],
+      "actualSha256": "66af3db0f73263b5c4980af8d84ba75c1e878ca4387080b00f3cfd03f4ffcca1",
+      "actualBytes": 1157848,
+      "libraryIdentityXattrVerified": true,
+      "nativeReadOnlyInspectionPassed": true,
+      "defaultVisibleMeshCount": 106,
+      "defaultVisibleBounds": {
+        "min": [
+          -15.100000381469727,
+          -1.5,
+          -0.4399999976158142
+        ],
+        "max": [
+          1.5,
+          15.100000381469727,
+          64.0
+        ]
+      },
+      "exportSelection": {
+        "objectType": "MESH",
+        "useDefaultVisibleState": true,
+        "excludeObjectNames": [
+          "Display_plinth"
+        ],
+        "excludeNonMesh": true,
+        "exportMeshCount": 105,
+        "exportBounds": {
+          "min": [
+            -14.34000015258789,
+            -0.2800000309944153,
+            -0.01000000536441803
+          ],
+          "max": [
+            0.2800000309944153,
+            14.34000015258789,
+            64.0
+          ]
+        },
+        "keepUnverifiedBackingWithScopeLabel": true
+      },
+      "detachedResearchObjectsIncluded": false,
+      "visibleScopeType": "双可见面局部候选",
+      "modelUnitsAreMeasuredMeters": false
+    },
+    {
+      "sourceSceneId": 1649134,
+      "name": "丽景国际综合楼",
+      "sourceStage": "丽景国际：中央中下立面R3侧缝修订",
+      "nativeFilename": "LijingGuoji_C20261109(1).blend",
+      "library_file_id": "libfile_fde3_f-b6c4239afb588191a1b44db5557fab39_c853d26840d0819196e3746c99b28092",
+      "file_id": "file_0000000017b481f9b8457b507c6434a4",
+      "version_id": "0",
+      "libraryPath": "/LijingGuoji_C20261109(1).blend",
+      "localPath": "/workspace/scratch/83e368053451/model-recovery-sources/LijingGuoji_C20261109(1).blend",
+      "expectedBytes": 3726316,
+      "expectedSha256": "1ff810454872c6cb63dc3b5ea887b86cdcb1343d823507736749c1bfe312c341",
+      "gitCommit": "5d30191d8f077bc6bd715dfc53e92898a9ed6a32",
+      "gitStagePath": "landmarks/yichang-lijing-international/stages/C20261109_central_lower_r3_side_seams",
+      "identityHold": false,
+      "modelStatus": "可见范围候选模型",
+      "sourceLimitations": [
+        "独立新建局部可编辑候选阶段，不是历史恢复或整栋完成",
+        "原第16条，scene1649134；在V2上仅将HOLD core两侧各内收约0.001归一化单位；其余594网格保持不变。4处采样外露异材部分共面交叠消除。",
+        "仍有1248处部分共面，427处采样外露全部为同材，不是全部共面清零，也不证明全表面无风险。该极小内收是技术修订，不是实测深度。V2与R3分别保留，同楼不重复计数。整楼Form/Runtime/GLB HOLD，V2的证据、比例、时相及未建部分限制继续适用。",
+        "默认状态与恢复：本阶段候选可见；按完整包说明复现。丽景V2保留历史，R3为本索引优先修订。"
+      ],
+      "isHistoricalOriginalRecovered": false,
+      "isWholeBuildingValidated": false,
+      "defaultCollections": [
+        {
+          "name": "Scene Collection",
+          "path": "/Scene Collection",
+          "exclude": false,
+          "hideViewport": false
+        },
+        {
+          "name": "Collection",
+          "path": "/Scene Collection/Collection",
+          "exclude": false,
+          "hideViewport": false
+        }
+      ],
+      "actualSha256": "1ff810454872c6cb63dc3b5ea887b86cdcb1343d823507736749c1bfe312c341",
+      "actualBytes": 3726316,
+      "libraryIdentityXattrVerified": true,
+      "nativeReadOnlyInspectionPassed": true,
+      "defaultVisibleMeshCount": 595,
+      "defaultVisibleBounds": {
+        "min": [
+          -17.5,
+          -6.0,
+          -1.3300000429153442
+        ],
+        "max": [
+          17.5,
+          9.0,
+          69.74520111083984
+        ]
+      },
+      "exportSelection": {
+        "objectType": "MESH",
+        "useDefaultVisibleState": true,
+        "excludeObjectNames": [
+          "Display_plinth"
+        ],
+        "excludeNonMesh": true,
+        "exportMeshCount": 594,
+        "exportBounds": {
+          "min": [
+            -14.399999618530273,
+            -0.3499999940395355,
+            -0.046550001949071884
+          ],
+          "max": [
+            14.399999618530273,
+            3.0,
+            69.74520111083984
+          ]
+        },
+        "keepUnverifiedBackingWithScopeLabel": true
+      },
+      "detachedResearchObjectsIncluded": false,
+      "visibleScopeType": "可见立面与未核实背衬候选",
+      "modelUnitsAreMeasuredMeters": false
+    },
+    {
+      "sourceSceneId": 1649147,
+      "name": "中建·宜昌之星",
+      "sourceStage": "中建·宜昌之星：2025可见轮廓薄壳",
+      "nativeFilename": "YichangStar_D20261109_2025VisibleSilhouette.blend",
+      "library_file_id": "libfile_fde3_f-403fc4e6af648191976f035e6726b12e_c853d26840d0819196e3746c99b28092",
+      "file_id": "file_00000000456c820e9850d3f1b6ec0539",
+      "version_id": "0",
+      "libraryPath": "/YichangStar_D20261109_2025VisibleSilhouette.blend",
+      "localPath": "/workspace/scratch/83e368053451/model-recovery-sources/YichangStar_D20261109_2025VisibleSilhouette.blend",
+      "expectedBytes": 561016,
+      "expectedSha256": "8fb72dfa27458d53250d3cb4ea33dc11a74789dacc122326a0b4265bc40c87b6",
+      "gitCommit": "da56cd192a05ce37a38f50696047f4213903dda5",
+      "gitStagePath": "landmarks/yichang-star/research/D20261109_2025_visible_silhouette",
+      "identityHold": false,
+      "modelStatus": "可见范围候选模型",
+      "sourceLimitations": [
+        "独立新建局部可编辑候选阶段，不是历史恢复或整栋完成",
+        "1件闭合轮廓薄壳及3条真实浅凸强横带。2025年文章配图的拍摄日期未知；4张说明板已标明未核验2026现状。2024施工框架为另一个保留阶段。",
+        "不是完整塔楼或2026现状；真实尺度、深度、侧背面与整楼Form/Runtime仍HOLD。旧未发布review ZIP不重复计入。",
+        "默认状态与恢复：按本包README恢复，保留旧阶段；不解除整楼HOLD。"
+      ],
+      "isHistoricalOriginalRecovered": false,
+      "isWholeBuildingValidated": false,
+      "defaultCollections": [
+        {
+          "name": "Scene Collection",
+          "path": "/Scene Collection",
+          "exclude": false,
+          "hideViewport": false
+        }
+      ],
+      "actualSha256": "8fb72dfa27458d53250d3cb4ea33dc11a74789dacc122326a0b4265bc40c87b6",
+      "actualBytes": 561016,
+      "libraryIdentityXattrVerified": true,
+      "nativeReadOnlyInspectionPassed": true,
+      "defaultVisibleMeshCount": 1,
+      "defaultVisibleBounds": {
+        "min": [
+          -0.6499999761581421,
+          -0.02199999988079071,
+          0.0
+        ],
+        "max": [
+          0.6600000262260437,
+          0.04500000178813934,
+          4.170000076293945
+        ]
+      },
+      "exportSelection": {
+        "objectType": "MESH",
+        "useDefaultVisibleState": true,
+        "excludeObjectNames": [],
+        "excludeNonMesh": true,
+        "exportMeshCount": 1,
+        "exportBounds": {
+          "min": [
+            -0.6499999761581421,
+            -0.02199999988079071,
+            0.0
+          ],
+          "max": [
+            0.6600000262260437,
+            0.04500000178813934,
+            4.170000076293945
+          ]
+        },
+        "keepUnverifiedBackingWithScopeLabel": true
+      },
+      "detachedResearchObjectsIncluded": false,
+      "visibleScopeType": "2025年文章配图可见轮廓薄壳",
+      "modelUnitsAreMeasuredMeters": false
+    },
+    {
+      "sourceSceneId": 1649128,
+      "name": "福久源大厦",
+      "sourceStage": "福久源大厦：20261109独立新建候选",
+      "nativeFilename": "Fujiuyuan_C20261109.blend",
+      "library_file_id": "libfile_fde3_f-121b0f2825948191b0ff31947f4f2003_c853d26840d0819196e3746c99b28092",
+      "file_id": "file_000000001fc481fba15efbbd8e7c4de4",
+      "version_id": "0",
+      "libraryPath": "/Fujiuyuan_C20261109.blend",
+      "localPath": "/workspace/scratch/83e368053451/model-recovery-sources/Fujiuyuan_C20261109.blend",
+      "expectedBytes": 3488396,
+      "expectedSha256": "a4fecee3fa751a9cdcff2c77c1885613c873b426d35618beac9c5e1b79f1c3f0",
+      "gitCommit": "c5d872a9b039fb86a9e6aaed3e723ba1a09aa7a2",
+      "gitStagePath": "landmarks/yichang-fujiuyuan-building/stages/C20261109_visible_facade_candidate",
+      "identityHold": false,
+      "modelStatus": "可见范围候选模型",
+      "sourceLimitations": [
+        "独立新建可编辑几何候选，不是历史恢复或整栋完成",
+        "原名单第18条，scene1649128；548网格组件。单中心r/d国贸旁金色塔楼，20薄立面列、21拟合共同横向间距不是楼层数；银条四带5/6/5/6交错，冠部三级两阶，宽6/3/11列；4914条BVH射线检验546立面组件支承。",
+        "封闭金色板候选不主张当前开启状态或最高冠部封闭已独立证实。反射和临时顶部框架未照搬。底部及相连商业街面有照片但未配准，背面、真实屋面、进深、绝对尺度及整楼Form/Runtime HOLD，无最终GLB。政府地址仅搜索索引支持，原页超时；银行地址为第三方且保留邻址歧义。",
+        "默认状态与恢复：首个独立新建候选可见；无历史基线OFF开关。"
+      ],
+      "isHistoricalOriginalRecovered": false,
+      "isWholeBuildingValidated": false,
+      "defaultCollections": [
+        {
+          "name": "Scene Collection",
+          "path": "/Scene Collection",
+          "exclude": false,
+          "hideViewport": false
+        },
+        {
+          "name": "Collection",
+          "path": "/Scene Collection/Collection",
+          "exclude": false,
+          "hideViewport": false
+        }
+      ],
+      "actualSha256": "a4fecee3fa751a9cdcff2c77c1885613c873b426d35618beac9c5e1b79f1c3f0",
+      "actualBytes": 3488396,
+      "libraryIdentityXattrVerified": true,
+      "nativeReadOnlyInspectionPassed": true,
+      "defaultVisibleMeshCount": 548,
+      "defaultVisibleBounds": {
+        "min": [
+          -27.0,
+          -10.5,
+          -0.8999999761581421
+        ],
+        "max": [
+          27.0,
+          18.5,
+          108.04499816894531
+        ]
+      },
+      "exportSelection": {
+        "objectType": "MESH",
+        "useDefaultVisibleState": true,
+        "excludeObjectNames": [
+          "Display_plinth"
+        ],
+        "excludeNonMesh": true,
+        "exportMeshCount": 547,
+        "exportBounds": {
+          "min": [
+            -18.02750015258789,
+            -0.41999998688697815,
+            0.0
+          ],
+          "max": [
+            18.02750015258789,
+            8.0,
+            108.04499816894531
+          ]
+        },
+        "keepUnverifiedBackingWithScopeLabel": true
+      },
+      "detachedResearchObjectsIncluded": false,
+      "visibleScopeType": "可见立面与未核实背衬候选",
+      "modelUnitsAreMeasuredMeters": false
+    },
+    {
+      "sourceSceneId": 1649140,
+      "name": "鑫鼎大厦",
+      "sourceStage": "鑫鼎大厦：可见冠屏两侧边框候选",
+      "nativeFilename": "Xinding_D20261109_VisibleScreenFrame.blend",
+      "library_file_id": "libfile_fde3_f-97e7a83e406c8191a060b43e60903671_c853d26840d0819196e3746c99b28092",
+      "file_id": "file_00000000aab481fb9d3ab4c8c8d0200f",
+      "version_id": "0",
+      "libraryPath": "/Xinding_D20261109_VisibleScreenFrame.blend",
+      "localPath": "/workspace/scratch/83e368053451/model-recovery-sources/Xinding_D20261109_VisibleScreenFrame.blend",
+      "expectedBytes": 3059764,
+      "expectedSha256": "c41c0994ce4596e1b73cedf4f5ac4d6984b5091b372b67390a45645cbc339f87",
+      "gitCommit": "3d47549625525810efb59a601830202c2d383e27",
+      "gitStagePath": "landmarks/yichang-xinding-tower/stages/D20261109_visible_screen_side_frames",
+      "identityHold": false,
+      "modelStatus": "可见范围候选模型",
+      "sourceLimitations": [
+        "独立新建局部可编辑候选阶段，不是历史恢复或整栋完成",
+        "旧462组件不变，新增两条闭合外观边框，共464 mesh；仅可见冠屏局部。",
+        "边框为局部外观候选，不代表背面、支承、真实厚度和整栋完成；Form/Runtime继续HOLD。",
+        "默认状态与恢复：按本包README恢复，保留旧阶段；不解除整楼HOLD。"
+      ],
+      "isHistoricalOriginalRecovered": false,
+      "isWholeBuildingValidated": false,
+      "defaultCollections": [
+        {
+          "name": "Scene Collection",
+          "path": "/Scene Collection",
+          "exclude": false,
+          "hideViewport": false
+        },
+        {
+          "name": "Collection",
+          "path": "/Scene Collection/Collection",
+          "exclude": false,
+          "hideViewport": false
+        }
+      ],
+      "actualSha256": "c41c0994ce4596e1b73cedf4f5ac4d6984b5091b372b67390a45645cbc339f87",
+      "actualBytes": 3059764,
+      "libraryIdentityXattrVerified": true,
+      "nativeReadOnlyInspectionPassed": true,
+      "defaultVisibleMeshCount": 464,
+      "defaultVisibleBounds": {
+        "min": [
+          -38.0,
+          -36.5,
+          -1.2000000476837158
+        ],
+        "max": [
+          38.0,
+          36.5,
+          79.2249984741211
+        ]
+      },
+      "exportSelection": {
+        "objectType": "MESH",
+        "useDefaultVisibleState": true,
+        "excludeObjectNames": [
+          "Presentation_plinth"
+        ],
+        "excludeNonMesh": true,
+        "exportMeshCount": 463,
+        "exportBounds": {
+          "min": [
+            -31.0,
+            -31.0,
+            0.0
+          ],
+          "max": [
+            31.0,
+            29.0,
+            79.2249984741211
+          ]
+        },
+        "keepUnverifiedBackingWithScopeLabel": true
+      },
+      "detachedResearchObjectsIncluded": false,
+      "visibleScopeType": "可见立面与未核实背衬候选",
+      "modelUnitsAreMeasuredMeters": false
+    },
+    {
+      "sourceSceneId": 1649143,
+      "name": "旭光商贸大厦",
+      "sourceStage": "旭光商贸大厦：20261109独立新建候选",
+      "nativeFilename": "Xuguang_C20261109.blend",
+      "library_file_id": "libfile_fde3_f-2ccf96e44f508191b068af1692799838_c853d26840d0819196e3746c99b28092",
+      "file_id": "file_000000004ea881f59ff1243936de429a",
+      "version_id": "0",
+      "libraryPath": "/Xuguang_C20261109.blend",
+      "localPath": "/workspace/scratch/83e368053451/model-recovery-sources/Xuguang_C20261109.blend",
+      "expectedBytes": 16261268,
+      "expectedSha256": "f5eeca5347d0c1d7a2d27ce69903ab2f5d63b5a776bd75f9b60ba5d126b3613f",
+      "gitCommit": "a308149ef8d09a7a57241f47dd15df5cb9f8037e",
+      "gitStagePath": "landmarks/yichang-xuguang-commercial-building/stages/C20261109_visible_facade_candidate",
+      "identityHold": false,
+      "modelStatus": "可见范围候选模型",
+      "sourceLimitations": [
+        "独立新建可编辑几何候选，不是历史恢复或整栋完成",
+        "原名单第20条，scene1649143；2979网格组件。单中心f/r观察的单主面，38薄玻璃列按4/6/6/6/6/6/4分组，20主节距不是楼层数；右三组10上/4过渡/6下节距，非对称浅框、蓝色凸盒、两条中央退槽、下部暗背衬凹区与平冠竖向交替浮雕。",
+        "V1浅浮雕已在发布前否决。V2实际退槽至归一化y=1.8，12射线核验相对深度，不是实测尺寸。后面、屋面、真实进深、绝对尺度、入口、阳台栏杆未解决；无开启扇保真或最终GLB，整楼Form/Runtime HOLD。",
+        "默认状态与恢复：首个独立新建候选可见；无历史基线OFF开关。"
+      ],
+      "isHistoricalOriginalRecovered": false,
+      "isWholeBuildingValidated": false,
+      "defaultCollections": [
+        {
+          "name": "Scene Collection",
+          "path": "/Scene Collection",
+          "exclude": false,
+          "hideViewport": false
+        },
+        {
+          "name": "Collection",
+          "path": "/Scene Collection/Collection",
+          "exclude": false,
+          "hideViewport": false
+        }
+      ],
+      "actualSha256": "f5eeca5347d0c1d7a2d27ce69903ab2f5d63b5a776bd75f9b60ba5d126b3613f",
+      "actualBytes": 16261268,
+      "libraryIdentityXattrVerified": true,
+      "nativeReadOnlyInspectionPassed": true,
+      "defaultVisibleMeshCount": 2979,
+      "defaultVisibleBounds": {
+        "min": [
+          -46.0,
+          -16.0,
+          -1.0
+        ],
+        "max": [
+          46.0,
+          32.0,
+          108.0
+        ]
+      },
+      "exportSelection": {
+        "objectType": "MESH",
+        "useDefaultVisibleState": true,
+        "excludeObjectNames": [
+          "Display_plinth"
+        ],
+        "excludeNonMesh": true,
+        "exportMeshCount": 2978,
+        "exportBounds": {
+          "min": [
+            -36.0,
+            -1.5,
+            0.0
+          ],
+          "max": [
+            37.5,
+            16.0,
+            108.0
+          ]
+        },
+        "keepUnverifiedBackingWithScopeLabel": true
+      },
+      "detachedResearchObjectsIncluded": false,
+      "visibleScopeType": "可见立面与未核实背衬候选",
+      "modelUnitsAreMeasuredMeters": false
+    },
+    {
+      "sourceSceneId": 1649131,
+      "name": "光联大厦",
+      "sourceStage": "光联大厦：可见主面R2候选交付包",
+      "nativeFilename": "Guanglian_VisibleFacade.blend",
+      "library_file_id": "libfile_fde3_f-51a298fdc5148191b3ea40704223db71_c853d26840d0819196e3746c99b28092",
+      "file_id": "file_00000000259c821280acdbba7dbd9d8f",
+      "version_id": "0",
+      "libraryPath": "/Guanglian_VisibleFacade.blend",
+      "localPath": "/workspace/scratch/83e368053451/model-recovery-sources/Guanglian_VisibleFacade.blend",
+      "expectedBytes": 14561592,
+      "expectedSha256": "82ac62bae54fcafaf27aaa77cec0e57f5e08f2cb42746507778df6902b977b88",
+      "gitCommit": "59b2c6baf565901473e2ece8764d20b7a1c23ac6",
+      "gitStagePath": "landmarks/yichang-guanglian-building/stages/D20261109_visible_main_facade_r2",
+      "identityHold": false,
+      "modelStatus": "可见范围候选模型",
+      "sourceLimitations": [
+        "独立新建局部可编辑候选阶段，不是历史恢复或整栋完成",
+        "2264 mesh、100348三角面，272窗对应16列×17图像窗带而非实际楼层。重核四横边并修复R1漂移；256中性浅蓝可见表面与8冠低片。947支承、816框孔、共面0，4次fresh拒写、旧99项SHA保留；4张作者图、2张独立图与2张说明板。",
+        "B17施工16下板及开叶117/未知16缺件HOLD，黑缺口不是实景空洞。真实材质、尺度、侧背面与整楼Form/Runtime仍HOLD。R1/R2未发布冻结ZIP保留，仅计FinalDelivery。",
+        "默认状态与恢复：按本包README恢复，保留旧阶段；不解除整楼HOLD。"
+      ],
+      "isHistoricalOriginalRecovered": false,
+      "isWholeBuildingValidated": false,
+      "defaultCollections": [
+        {
+          "name": "Scene Collection",
+          "path": "/Scene Collection",
+          "exclude": false,
+          "hideViewport": false
+        },
+        {
+          "name": "Collection",
+          "path": "/Scene Collection/Collection",
+          "exclude": false,
+          "hideViewport": false
+        }
+      ],
+      "actualSha256": "82ac62bae54fcafaf27aaa77cec0e57f5e08f2cb42746507778df6902b977b88",
+      "actualBytes": 14561592,
+      "libraryIdentityXattrVerified": true,
+      "nativeReadOnlyInspectionPassed": true,
+      "defaultVisibleMeshCount": 2264,
+      "defaultVisibleBounds": {
+        "min": [
+          -0.004999999888241291,
+          -0.04500000178813934,
+          0.05116739869117737
+        ],
+        "max": [
+          16.0049991607666,
+          0.0637499988079071,
+          38.989559173583984
+        ]
+      },
+      "exportSelection": {
+        "objectType": "MESH",
+        "useDefaultVisibleState": true,
+        "excludeObjectNames": [],
+        "excludeNonMesh": true,
+        "exportMeshCount": 2264,
+        "exportBounds": {
+          "min": [
+            -0.004999999888241291,
+            -0.04500000178813934,
+            0.05116739869117737
+          ],
+          "max": [
+            16.0049991607666,
+            0.0637499988079071,
+            38.989559173583984
+          ]
+        },
+        "keepUnverifiedBackingWithScopeLabel": true
+      },
+      "detachedResearchObjectsIncluded": false,
+      "visibleScopeType": "可见主立面薄片",
+      "modelUnitsAreMeasuredMeters": false
+    },
+    {
+      "sourceSceneId": 1649127,
+      "name": "共和景晨创业中心",
+      "sourceStage": "scene1649127 左塔：身份HOLD研究几何",
+      "nativeFilename": "GongheJingchen_LeftFacade_C20261109.blend",
+      "library_file_id": "libfile_fde3_f-d7f02e6a01008191a85a476cfa2f8962_c853d26840d0819196e3746c99b28092",
+      "file_id": "file_00000000390482308432262692b7a9c3",
+      "version_id": "0",
+      "libraryPath": "/GongheJingchen_LeftFacade_C20261109.blend",
+      "localPath": "/workspace/scratch/83e368053451/model-recovery-sources/GongheJingchen_LeftFacade_C20261109.blend",
+      "expectedBytes": 7621116,
+      "expectedSha256": "2e382226defb2c653709b02aa4c4249ee0cc93cc6cbbf6172c81ca77b0fdca35",
+      "gitCommit": "606cd2b39f9a905b977fff244759079c91049631",
+      "gitStagePath": "landmarks/yichang-gonghe-jingchen/research/C20261109_scene1649127_left_facade_identity_hold",
+      "identityHold": true,
+      "modelStatus": "身份待确认的局部研究模型",
+      "sourceLimitations": [
+        "身份HOLD研究几何，不计已确认名单条目",
+        "仅scene1649127左塔朝镜头立面；1344网格，7竖分格、第2/6格通风带、9宽横分带（非楼层数）、上部窄玻璃与实际退窗。",
+        "共和景晨建筑关联仍HOLD，不计原第22条已确认模型；官方地址、巡游映射和环境仅支持关联，缺可读楼名或独立匹配官方外观。冠屏未建；右塔、裙房、侧面未配准。屋面、背面、入口、真实进深、绝对尺度、整楼Form/Runtime/GLB HOLD。",
+        "默认状态与恢复：本阶段局部候选可见，不是历史基线恢复。"
+      ],
+      "isHistoricalOriginalRecovered": false,
+      "isWholeBuildingValidated": false,
+      "defaultCollections": [
+        {
+          "name": "Scene Collection",
+          "path": "/Scene Collection",
+          "exclude": false,
+          "hideViewport": false
+        },
+        {
+          "name": "Collection",
+          "path": "/Scene Collection/Collection",
+          "exclude": false,
+          "hideViewport": false
+        }
+      ],
+      "actualSha256": "2e382226defb2c653709b02aa4c4249ee0cc93cc6cbbf6172c81ca77b0fdca35",
+      "actualBytes": 7621116,
+      "libraryIdentityXattrVerified": true,
+      "nativeReadOnlyInspectionPassed": true,
+      "defaultVisibleMeshCount": 1344,
+      "defaultVisibleBounds": {
+        "min": [
+          -27.5,
+          -11.0,
+          -1.0
+        ],
+        "max": [
+          27.5,
+          19.0,
+          105.0
+        ]
+      },
+      "exportSelection": {
+        "objectType": "MESH",
+        "useDefaultVisibleState": true,
+        "excludeObjectNames": [
+          "Display_plinth"
+        ],
+        "excludeNonMesh": true,
+        "exportMeshCount": 1343,
+        "exportBounds": {
+          "min": [
+            -20.0,
+            -0.07000000029802322,
+            0.0
+          ],
+          "max": [
+            20.0,
+            9.0,
+            105.0
+          ]
+        },
+        "keepUnverifiedBackingWithScopeLabel": true
+      },
+      "detachedResearchObjectsIncluded": false,
+      "visibleScopeType": "可见立面与未核实背衬候选",
+      "modelUnitsAreMeasuredMeters": false
+    },
+    {
+      "sourceSceneId": 1649130,
+      "name": "共同大厦",
+      "sourceStage": "共同大厦：20261109独立新建候选",
+      "nativeFilename": "Gongtong_C20261109.blend",
+      "library_file_id": "libfile_fde3_f-4df1102772b08191ab012a3275404ca5_c853d26840d0819196e3746c99b28092",
+      "file_id": "file_00000000f7b481f5b211c0b1560eb3bf",
+      "version_id": "0",
+      "libraryPath": "/Gongtong_C20261109.blend",
+      "localPath": "/workspace/scratch/83e368053451/model-recovery-sources/Gongtong_C20261109.blend",
+      "expectedBytes": 13105224,
+      "expectedSha256": "0da0409ec343eb14506f1f2ad9b9e3b046572b5cebf6ee131291af2d51d065eb",
+      "gitCommit": "11b0053d2f4adcc2a301834c4db33886edbdd091",
+      "gitStagePath": "landmarks/yichang-gongtong-building/stages/C20261109_new_evidence_candidate",
+      "identityHold": false,
+      "modelStatus": "可见范围候选模型",
+      "sourceLimitations": [
+        "独立新建几何候选，不是历史恢复或整栋完成",
+        "原名单第23栋，scene1649130。2370网格组件；23条暗窗带（含最低短带）、长面8宽组及边界窄组、短面9玻璃段、裙房16可见窗头；数量不是楼层数。",
+        "单全景中心证据，背侧、完整屋面、进深、绝对尺度HOLD；d面入口、前区与阶梯可见，但本轮尚未配准与建模，不是没有照片。未恢复11月7日原生，非整栋Form/Runtime批准。",
+        "默认状态与恢复：首次新建候选默认显示，没有历史基线或OFF回退开关。背侧及顶面中性闭壳HOLD，不代表实景无窗或平屋顶。Space原生直接由Blender打开；Git原生为gzip（760461字节），依该阶段GIT_NATIVE_STORAGE_MAP.json与restore_native.py还原，核对原生SHA。"
+      ],
+      "isHistoricalOriginalRecovered": false,
+      "isWholeBuildingValidated": false,
+      "defaultCollections": [
+        {
+          "name": "Scene Collection",
+          "path": "/Scene Collection",
+          "exclude": false,
+          "hideViewport": false
+        },
+        {
+          "name": "Collection",
+          "path": "/Scene Collection/Collection",
+          "exclude": false,
+          "hideViewport": false
+        }
+      ],
+      "actualSha256": "0da0409ec343eb14506f1f2ad9b9e3b046572b5cebf6ee131291af2d51d065eb",
+      "actualBytes": 13105224,
+      "libraryIdentityXattrVerified": true,
+      "nativeReadOnlyInspectionPassed": true,
+      "defaultVisibleMeshCount": 2370,
+      "defaultVisibleBounds": {
+        "min": [
+          -44.0,
+          -30.5,
+          -1.2999999523162842
+        ],
+        "max": [
+          44.0,
+          30.5,
+          103.12000274658203
+        ]
+      },
+      "exportSelection": {
+        "objectType": "MESH",
+        "useDefaultVisibleState": true,
+        "excludeObjectNames": [
+          "Display_plinth"
+        ],
+        "excludeNonMesh": true,
+        "exportMeshCount": 2369,
+        "exportBounds": {
+          "min": [
+            -33.0,
+            -18.399999618530273,
+            0.0
+          ],
+          "max": [
+            37.0,
+            14.0,
+            103.12000274658203
+          ]
+        },
+        "keepUnverifiedBackingWithScopeLabel": true
+      },
+      "detachedResearchObjectsIncluded": false,
+      "visibleScopeType": "可见立面与未核实背衬候选",
+      "modelUnitsAreMeasuredMeters": false
+    }
+  ]
+}

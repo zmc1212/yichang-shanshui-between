@@ -1,0 +1,488 @@
+{
+  "schemaVersion": 1,
+  "reviewedAt": "2026-11-10",
+  "reviewType": "read-only source and imported-module verification; no browser/WebGL execution by this reviewer",
+  "baseCommit": "5961e11fd5baae486459bbeda4a9245a6c9b4eea",
+  "result": "pass",
+  "sourceAudit": "geographic-boundary-audit-20261110.json",
+  "checks": {
+    "registrationBaselineUnchanged": {
+      "1649149": true,
+      "1649132": true,
+      "1649138": true,
+      "1649129": true,
+      "1649145": true,
+      "1649133": true,
+      "1649136": true
+    },
+    "existingModelDefinitionsUnchanged": {
+      "1649135": true,
+      "1649149": true,
+      "1649132": true,
+      "1649138": true,
+      "1649129": true,
+      "1649145": true,
+      "1649133": true
+    },
+    "protectedSourceFiles": {
+      "public/data/city.json": {
+        "unchangedFromHead": true,
+        "currentSha256": "5de08b00affb5141ee2b221cab96962923489491a30a7101f5c5221f970f8cb2"
+      },
+      "src/scene/createCityScene.js": {
+        "unchangedFromHead": true,
+        "currentSha256": "497402849db404301abf791324e91fbf2fd80fd8f533aed40780b5ab02278d3e"
+      },
+      "src/scene/authoredPlacement.js": {
+        "unchangedFromHead": true,
+        "currentSha256": "81bbb8880c38d01714d11a655a4ae84fb950f2efe6815e31cd9a75bc210abaa4"
+      },
+      "src/scene/authoredModels.js": {
+        "unchangedFromHead": true,
+        "currentSha256": "cba002c3012190fbf0503a19e52e5f88159dcba48f4690b26f80c52c0d7d8af0"
+      },
+      "src/scene/buildingInspection.js": {
+        "unchangedFromHead": true,
+        "currentSha256": "2e039e5fba50ad999d6e3438c5fab13474a358a5b8118069fd04eba49ddcbbca"
+      },
+      "src/data/business-registry.json": {
+        "unchangedFromHead": true,
+        "currentSha256": "7728c34d6020a7615cdf112df4353a04be05e4a00257f9ba9c501160c638631c"
+      }
+    },
+    "newPreviewModels": {
+      "1649141": {
+        "stableOriginalPoiId": true,
+        "previewOnly": true,
+        "hasScope": true,
+        "hasMissingScope": true,
+        "wholeBuildingValidated": false,
+        "measuredMeters": false,
+        "historicalOriginalRecovered": false,
+        "assetsExist": true,
+        "hasDistinctDetail": false
+      },
+      "1649139": {
+        "stableOriginalPoiId": true,
+        "previewOnly": true,
+        "hasScope": true,
+        "hasMissingScope": true,
+        "wholeBuildingValidated": false,
+        "measuredMeters": false,
+        "historicalOriginalRecovered": false,
+        "assetsExist": true,
+        "hasDistinctDetail": false
+      },
+      "1649144": {
+        "stableOriginalPoiId": true,
+        "previewOnly": true,
+        "hasScope": true,
+        "hasMissingScope": true,
+        "wholeBuildingValidated": false,
+        "measuredMeters": false,
+        "historicalOriginalRecovered": false,
+        "assetsExist": true,
+        "hasDistinctDetail": false
+      },
+      "1649148": {
+        "stableOriginalPoiId": true,
+        "previewOnly": true,
+        "hasScope": true,
+        "hasMissingScope": true,
+        "wholeBuildingValidated": false,
+        "measuredMeters": false,
+        "historicalOriginalRecovered": false,
+        "assetsExist": true,
+        "hasDistinctDetail": false
+      },
+      "1649137": {
+        "stableOriginalPoiId": true,
+        "previewOnly": true,
+        "hasScope": true,
+        "hasMissingScope": true,
+        "wholeBuildingValidated": false,
+        "measuredMeters": false,
+        "historicalOriginalRecovered": false,
+        "assetsExist": true,
+        "hasDistinctDetail": false
+      },
+      "1649146": {
+        "stableOriginalPoiId": true,
+        "previewOnly": true,
+        "hasScope": true,
+        "hasMissingScope": true,
+        "wholeBuildingValidated": false,
+        "measuredMeters": false,
+        "historicalOriginalRecovered": false,
+        "assetsExist": true,
+        "hasDistinctDetail": false
+      },
+      "1649142": {
+        "stableOriginalPoiId": true,
+        "previewOnly": true,
+        "hasScope": true,
+        "hasMissingScope": true,
+        "wholeBuildingValidated": false,
+        "measuredMeters": false,
+        "historicalOriginalRecovered": false,
+        "assetsExist": true,
+        "hasDistinctDetail": false
+      },
+      "1649134": {
+        "stableOriginalPoiId": true,
+        "previewOnly": true,
+        "hasScope": true,
+        "hasMissingScope": true,
+        "wholeBuildingValidated": false,
+        "measuredMeters": false,
+        "historicalOriginalRecovered": false,
+        "assetsExist": true,
+        "hasDistinctDetail": false
+      },
+      "1649147": {
+        "stableOriginalPoiId": true,
+        "previewOnly": true,
+        "hasScope": true,
+        "hasMissingScope": true,
+        "wholeBuildingValidated": false,
+        "measuredMeters": false,
+        "historicalOriginalRecovered": false,
+        "assetsExist": true,
+        "hasDistinctDetail": false
+      },
+      "1649128": {
+        "stableOriginalPoiId": true,
+        "previewOnly": true,
+        "hasScope": true,
+        "hasMissingScope": true,
+        "wholeBuildingValidated": false,
+        "measuredMeters": false,
+        "historicalOriginalRecovered": false,
+        "assetsExist": true,
+        "hasDistinctDetail": false
+      },
+      "1649140": {
+        "stableOriginalPoiId": true,
+        "previewOnly": true,
+        "hasScope": true,
+        "hasMissingScope": true,
+        "wholeBuildingValidated": false,
+        "measuredMeters": false,
+        "historicalOriginalRecovered": false,
+        "assetsExist": true,
+        "hasDistinctDetail": false
+      },
+      "1649143": {
+        "stableOriginalPoiId": true,
+        "previewOnly": true,
+        "hasScope": true,
+        "hasMissingScope": true,
+        "wholeBuildingValidated": false,
+        "measuredMeters": false,
+        "historicalOriginalRecovered": false,
+        "assetsExist": true,
+        "hasDistinctDetail": false
+      },
+      "1649131": {
+        "stableOriginalPoiId": true,
+        "previewOnly": true,
+        "hasScope": true,
+        "hasMissingScope": true,
+        "wholeBuildingValidated": false,
+        "measuredMeters": false,
+        "historicalOriginalRecovered": false,
+        "assetsExist": true,
+        "hasDistinctDetail": true
+      },
+      "1649127": {
+        "stableOriginalPoiId": true,
+        "previewOnly": true,
+        "hasScope": true,
+        "hasMissingScope": true,
+        "wholeBuildingValidated": false,
+        "measuredMeters": false,
+        "historicalOriginalRecovered": false,
+        "assetsExist": true,
+        "hasDistinctDetail": false
+      },
+      "1649130": {
+        "stableOriginalPoiId": true,
+        "previewOnly": true,
+        "hasScope": true,
+        "hasMissingScope": true,
+        "wholeBuildingValidated": false,
+        "measuredMeters": false,
+        "historicalOriginalRecovered": false,
+        "assetsExist": true,
+        "hasDistinctDetail": false
+      }
+    },
+    "runtimeCatalog": {
+      "total": 23,
+      "uniqueIds": 23,
+      "statusCounts": {
+        "registration-pending": 1,
+        "available": 7,
+        "partial-ready": 14,
+        "identity-review": 1
+      },
+      "cityCount": 7,
+      "previewCount": 16,
+      "previewPlacementResolutionsAllNull": true,
+      "filters": {
+        "available": 7,
+        "preview": 16,
+        "recovery": 0
+      },
+      "previewRows": [
+        {
+          "sceneId": "1649135",
+          "id": "meilian-s05",
+          "kind": "business-poi",
+          "placement": "poi",
+          "status": "registration-pending",
+          "statusLabel": "独立预览 · 待配准",
+          "actionLabel": "查看候选模型",
+          "scopeLabel": "独立查看 · 地图配准待核准"
+        },
+        {
+          "sceneId": "1649141",
+          "id": "business-1649141",
+          "kind": "business-poi",
+          "placement": "poi",
+          "status": "partial-ready",
+          "statusLabel": "局部模型 · 可预览",
+          "actionLabel": "查看局部模型",
+          "scopeLabel": "已知范围预览 · 非完整楼宇"
+        },
+        {
+          "sceneId": "1649139",
+          "id": "business-1649139",
+          "kind": "business-poi",
+          "placement": "poi",
+          "status": "partial-ready",
+          "statusLabel": "局部模型 · 可预览",
+          "actionLabel": "查看局部模型",
+          "scopeLabel": "已知范围预览 · 非完整楼宇"
+        },
+        {
+          "sceneId": "1649144",
+          "id": "business-1649144",
+          "kind": "business-poi",
+          "placement": "poi",
+          "status": "partial-ready",
+          "statusLabel": "局部模型 · 可预览",
+          "actionLabel": "查看局部模型",
+          "scopeLabel": "已知范围预览 · 非完整楼宇"
+        },
+        {
+          "sceneId": "1649148",
+          "id": "business-1649148",
+          "kind": "business-poi",
+          "placement": "poi",
+          "status": "partial-ready",
+          "statusLabel": "局部模型 · 可预览",
+          "actionLabel": "查看局部模型",
+          "scopeLabel": "已知范围预览 · 非完整楼宇"
+        },
+        {
+          "sceneId": "1649137",
+          "id": "business-1649137",
+          "kind": "business-poi",
+          "placement": "poi",
+          "status": "partial-ready",
+          "statusLabel": "局部模型 · 可预览",
+          "actionLabel": "查看局部模型",
+          "scopeLabel": "已知范围预览 · 非完整楼宇"
+        },
+        {
+          "sceneId": "1649146",
+          "id": "business-1649146",
+          "kind": "business-poi",
+          "placement": "poi",
+          "status": "partial-ready",
+          "statusLabel": "局部模型 · 可预览",
+          "actionLabel": "查看局部模型",
+          "scopeLabel": "已知范围预览 · 非完整楼宇"
+        },
+        {
+          "sceneId": "1649142",
+          "id": "business-1649142",
+          "kind": "business-poi",
+          "placement": "poi",
+          "status": "partial-ready",
+          "statusLabel": "局部模型 · 可预览",
+          "actionLabel": "查看局部模型",
+          "scopeLabel": "已知范围预览 · 非完整楼宇"
+        },
+        {
+          "sceneId": "1649134",
+          "id": "business-1649134",
+          "kind": "business-poi",
+          "placement": "poi",
+          "status": "partial-ready",
+          "statusLabel": "局部模型 · 可预览",
+          "actionLabel": "查看局部模型",
+          "scopeLabel": "已知范围预览 · 非完整楼宇"
+        },
+        {
+          "sceneId": "1649147",
+          "id": "business-1649147",
+          "kind": "business-poi",
+          "placement": "poi",
+          "status": "partial-ready",
+          "statusLabel": "局部模型 · 可预览",
+          "actionLabel": "查看局部模型",
+          "scopeLabel": "已知范围预览 · 非完整楼宇"
+        },
+        {
+          "sceneId": "1649128",
+          "id": "business-1649128",
+          "kind": "business-poi",
+          "placement": "poi",
+          "status": "partial-ready",
+          "statusLabel": "局部模型 · 可预览",
+          "actionLabel": "查看局部模型",
+          "scopeLabel": "已知范围预览 · 非完整楼宇"
+        },
+        {
+          "sceneId": "1649140",
+          "id": "business-1649140",
+          "kind": "business-poi",
+          "placement": "poi",
+          "status": "partial-ready",
+          "statusLabel": "局部模型 · 可预览",
+          "actionLabel": "查看局部模型",
+          "scopeLabel": "已知范围预览 · 非完整楼宇"
+        },
+        {
+          "sceneId": "1649143",
+          "id": "business-1649143",
+          "kind": "business-poi",
+          "placement": "poi",
+          "status": "partial-ready",
+          "statusLabel": "局部模型 · 可预览",
+          "actionLabel": "查看局部模型",
+          "scopeLabel": "已知范围预览 · 非完整楼宇"
+        },
+        {
+          "sceneId": "1649131",
+          "id": "business-1649131",
+          "kind": "business-poi",
+          "placement": "poi",
+          "status": "partial-ready",
+          "statusLabel": "局部模型 · 可预览",
+          "actionLabel": "查看局部模型",
+          "scopeLabel": "已知范围预览 · 非完整楼宇"
+        },
+        {
+          "sceneId": "1649127",
+          "id": "business-1649127",
+          "kind": "business-poi",
+          "placement": "poi",
+          "status": "identity-review",
+          "statusLabel": "研究模型 · 身份待核",
+          "actionLabel": "查看研究模型",
+          "scopeLabel": "局部可见面 · 主体身份待核"
+        },
+        {
+          "sceneId": "1649130",
+          "id": "business-1649130",
+          "kind": "business-poi",
+          "placement": "poi",
+          "status": "partial-ready",
+          "statusLabel": "局部模型 · 可预览",
+          "actionLabel": "查看局部模型",
+          "scopeLabel": "已知范围预览 · 非完整楼宇"
+        }
+      ],
+      "filterRoundTrip": {
+        "input": {
+          "place": "business-1649141",
+          "filter": "preview",
+          "theme": "night"
+        },
+        "normalized": {
+          "place": "business-1649141",
+          "theme": "night",
+          "view": "perspective",
+          "angle": "detail",
+          "close": false,
+          "filter": "preview",
+          "query": ""
+        },
+        "serialized": "place=business-1649141&theme=night&filter=preview",
+        "parsed": {
+          "place": "business-1649141",
+          "theme": "day",
+          "view": "perspective",
+          "angle": "detail",
+          "close": false,
+          "filter": "preview",
+          "query": ""
+        }
+      }
+    }
+  },
+  "staticReview": {
+    "cityPath": "createCityScene uses AUTHORED_MODELS; partial models have kind business-poi and placement poi; resolveAuthoredPlacement rejects all 16 preview rows. No preview is sent into planAuthoredGround.",
+    "previewCamera": "ModelPreview owns its scene and orthographic camera, measures loaded geometry bounds, uses one uniform source-frame scale, and does not read geographic registrations for placement.",
+    "previewScope": "Lists, preview buttons, detail information and model modal use separate partial-ready/identity-review/registration-pending labels. The preview shows coverage.scope and coverage.missing.",
+    "countCopy": "About panel says 可查看模型 23; 7 city +16 preview; 14 partial +1 identity-review +1 visible group. It expressly says viewable geometry is not restored complete building.",
+    "existingInspection": "Existing seven city models, source bounds, registered transforms and inspection subjects are unchanged.",
+    "sourceData": "Original 23 project POI coordinates and city GIS remain byte-identical."
+  },
+  "findings": [
+    {
+      "id": "preview-filter-round-trip",
+      "priority": "P2",
+      "status": "resolved",
+      "file": "src/lib/sceneLocation.js",
+      "recommendedFix": "Accept preview in FILTERS; decide whether legacy registration-pending links should remain their original subset or alias to the new visible preview category.",
+      "initialProblem": "New preview filter is absent from FILTERS, so URL normalization rewrites it to all and serialization omits it. Refresh, shared link and browser navigation cannot restore 模型预览 filter.",
+      "initialReproduction": {
+        "normalizedFilter": "all",
+        "serialized": "place=business-1649141&theme=night",
+        "parsedFilter": "all"
+      },
+      "verifiedFix": {
+        "input": {
+          "place": "business-1649141",
+          "filter": "preview",
+          "theme": "night"
+        },
+        "normalized": {
+          "place": "business-1649141",
+          "theme": "night",
+          "view": "perspective",
+          "angle": "detail",
+          "close": false,
+          "filter": "preview",
+          "query": ""
+        },
+        "serialized": "place=business-1649141&theme=night&filter=preview",
+        "parsed": {
+          "place": "business-1649141",
+          "theme": "day",
+          "view": "perspective",
+          "angle": "detail",
+          "close": false,
+          "filter": "preview",
+          "query": ""
+        }
+      },
+      "verifiedLegacyFilterCompatibility": {
+        "preview": "preview",
+        "legacyRegistration": "preview",
+        "legacyRecoveryNoRemaining": "preview",
+        "recoveryWithRemaining": "recovery-pending"
+      },
+      "currentFileSha256": "8eb0ebe2efd7a4700ace5fdbf145dac7ba7adde5ed1560085b185251ff3992ae"
+    }
+  ],
+  "limitations": [
+    "No new survey or geographic fitting performed.",
+    "No browser interaction, WebGL model appearance, download timing or physical-phone performance evaluated in this review.",
+    "UI visual overflow and model export fidelity are outside this geographic/state review."
+  ]
+}

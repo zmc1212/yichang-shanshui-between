@@ -1,3 +1,5 @@
+import { hasIndependentPreview } from './businessModelStatus.js';
+
 const searchableText = value => String(value || '').toLowerCase().replace(/\s+/g, '');
 
 // Keep navigation, keyboard results and visible numbering in the same order as
@@ -6,8 +8,8 @@ export function buildDirectoryResults(landmarks, { query = '', filter = 'all' } 
   const search = searchableText(query);
   const groupsByCategory = new Map();
   for (const landmark of landmarks) {
-    if (filter !== 'all' && landmark.modelStatus !== filter) continue;
-    const text = [landmark.name, landmark.category, landmark.subtitle, landmark.sourceName, ...(landmark.aliases || [])]
+    if (filter === 'preview' ? !hasIndependentPreview(landmark) : filter !== 'all' && landmark.modelStatus !== filter) continue;
+    const text = [landmark.name, landmark.category, landmark.subtitle, landmark.sourceName, landmark.coverage?.title, ...(landmark.aliases || [])]
       .filter(Boolean).join(' ');
     if (!searchableText(text).includes(search)) continue;
     const category = landmark.category || '城市地标';

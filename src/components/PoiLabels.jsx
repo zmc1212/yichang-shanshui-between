@@ -2,6 +2,7 @@ import React, { forwardRef, useCallback, useEffect, useId, useImperativeHandle, 
 import { ArrowUpRight, Buildings, CaretRight, List, MagnifyingGlassPlus, MapPin, Stack, X } from '@phosphor-icons/react';
 import { layoutPoiLabels, POI_CLUSTER_DIMENSIONS } from '../lib/poiLabelLayout.js';
 import { poiDisplayName, poiDisplayPriority } from '../lib/poiDisplayPolicy.js';
+import { businessStatus } from '../lib/businessModelStatus.js';
 
 const OBSTACLES = '.scene-toolbar,.map-tools-top,.layer-panel,.detail-panel,.authored-note,.map-controls,.scene-attribution,.scene-bottom-caption,.interaction-hint';
 const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
@@ -9,9 +10,7 @@ const circlePath = (x, y, radius) => 'M' + (x - radius) + ',' + y + 'a' + radius
 
 function placeStatus(place) {
   if (!place.business) return place.category || '城市地标';
-  if (place.modelStatus === 'available') return '自建模型 · 阶段候选';
-  if (place.modelStatus === 'registration-pending') return '独立预览 · 位置待核准';
-  return '导览参考点 · 模型待恢复';
+  return businessStatus(place);
 }
 
 function focusable(element) {
@@ -365,7 +364,7 @@ const PoiLabels = forwardRef(function PoiLabels({
       onClick={() => selectMember(place.id)}>
       {place.business ? <Buildings className="poi-kind-icon" size={13}/> : <MapPin className="poi-kind-icon" size={13} weight="duotone"/>}
       <span className="poi-label-title">{poiDisplayName(place)}</span>
-      {selectedId === place.id && place.kind === 'business-poi' && <small className="poi-label-note">{place.modelStatus === 'registration-pending' ? '位置待核准' : '导览参考点'}</small>}
+      {selectedId === place.id && place.kind === 'business-poi' && <small className="poi-label-note">{place.modelStatus === 'identity-review' ? '身份待核' : place.assets?.light ? '可独立预览' : '导览参考点'}</small>}
     </button>)}
     {clusters.map(marker => {
       const representative = placeById.get(marker.representativeId || marker.memberIds[0]);

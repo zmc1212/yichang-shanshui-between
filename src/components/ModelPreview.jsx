@@ -3,6 +3,7 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { ArrowCounterClockwise, Buildings, CircleNotch, MagnifyingGlassPlus, Mouse, WarningCircle } from '@phosphor-icons/react';
 import { createAuthoredStage } from '../scene/authoredModels.js';
+import { previewScopeLabel } from '../lib/businessModelStatus.js';
 
 // A separate viewer for a recoverable candidate whose map registration is not
 // ready. It never owns or alters the city's renderer, camera, or visibility.
@@ -48,6 +49,9 @@ export default function ModelPreview({ model, theme = 'day' }) {
         // Keep drawing while OrbitControls damping is settling, then idle.
         const changed = controls.update();
         renderer.render(previewScene, camera);
+        renderer.domElement.dataset.drawCalls = String(renderer.info.render.calls);
+        renderer.domElement.dataset.triangles = String(renderer.info.render.triangles);
+        renderer.domElement.dataset.renderState = changed ? 'settling' : 'idle';
         if (changed) invalidate();
       } catch {
         failViewer('独立模型视图暂时无法绘制。可以重新打开查看器，或关闭此面板返回城市。');
@@ -69,7 +73,7 @@ export default function ModelPreview({ model, theme = 'day' }) {
       bounds.getSize(size);
       return [size.x, size.y, size.z].every(Number.isFinite) && size.y > 0;
     }
-    function fit(angle = 'detail') {
+    function fit(angle = model.previewDefaultAngle || 'detail') {
       if (disposed || !stage || !measure()) return;
       const radius = Math.max(size.length() / 2, 1);
       const direction = angle === 'front'
@@ -90,7 +94,7 @@ export default function ModelPreview({ model, theme = 'day' }) {
         }
       }
       const projectedSize = projected.getSize(new THREE.Vector3());
-      viewHeight = Math.max(projectedSize.y, projectedSize.x / aspect, 1) * 1.25;
+      viewHeight = Math.max(projectedSize.y, projectedSize.x / aspect, 1) * (model.coverage ? 1.13 : 1.25);
       camera.zoom = 1;
       camera.near = 0.02;
       camera.far = radius * 12 + 80;
@@ -260,29 +264,30 @@ export default function ModelPreview({ model, theme = 'day' }) {
     : status.detailState === 'loading' ? '正在载入近景细节 · 轻量模型仍可查看'
     : status.detailState === 'error' ? '近景细节暂未载入 · 继续显示轻量模型'
     : status.quality === 'detail' ? '近景模型已就绪'
-    : status.quality === 'light' ? '轻量模型已就绪'
-    : '正在载入轻量模型';
+    : status.quality === 'light' ? hasDetail ? '轻量模型已就绪' : '模型已就绪'
+    : hasDetail ? '正在载入轻量模型' : '正在载入模型';
 
   return <div className="candidate-preview">
-    <div className="candidate-preview-heading"><span>独立查看 · {model.stage || '阶段候选'}</span><span>位置与朝向待核准</span></div>
+    <div className="candidate-preview-heading"><span>独立查看 · {model.stage || '阶段候选'}</span><span>{previewScopeLabel(model)}</span></div>
+    {model.coverage&&<div className={`candidate-coverage ${model.coverage.identity==='unconfirmed'?'identity-review':''}`}><strong>{model.coverage.identity==='unconfirmed'?'主体身份待核实':'当前已建范围'}</strong><p>{model.coverage.scope}</p>{model.coverage.identityNote&&<p>{model.coverage.identityNote}</p>}</div>}
     <div className="candidate-preview-stage">
       <div className="candidate-preview-canvas" ref={hostRef}/>
       {(viewerError || loading || status.state === 'error') && <div className="candidate-preview-message" role="status">
         {viewerError || status.state === 'error' ? <WarningCircle size={25}/> : <CircleNotch className="spinner" size={25}/>}
         <strong>{viewerError ? '暂时无法开启三维查看' : status.state === 'error' ? '模型暂未载入' : '正在展开候选模型'}</strong>
-        <p>{viewerError || (status.state === 'error' ? '网页模型下载或读取失败，可以重试。' : '先载入轻量模型，细节由你按需打开。')}</p>
+        <p>{viewerError || (status.state === 'error' ? '网页模型下载或读取失败，可以重试。' : hasDetail ? '先载入轻量模型，细节由你按需打开。' : '正在载入已建范围，保持原模型比例。')}</p>
         {viewerError ? <button onClick={()=>setRestart(value=>value+1)}>重新打开查看器</button> : status.state === 'error' && <button onClick={()=>runtimeRef.current?.stage.retry()}>重新载入模型</button>}
       </div>}
       {ready && <div className="candidate-preview-hint"><Mouse size={13}/><span>拖动旋转 · 滚轮或双指缩放</span></div>}
     </div>
     <div className="candidate-preview-controls">
-      <div className="candidate-quality-controls" role="group" aria-label="候选模型精细度">
+      {hasDetail&&<div className="candidate-quality-controls" role="group" aria-label="候选模型精细度">
         <button className={!detailWanted?'active':''} aria-pressed={!detailWanted} disabled={!ready} onClick={()=>chooseQuality(false)}>轻量模型</button>
         {hasDetail&&<button className={detailWanted?'active':''} aria-pressed={detailWanted} disabled={!ready} onClick={()=>chooseQuality(true)}><MagnifyingGlassPlus size={14}/>近景细节</button>}
-      </div>
-      <div className="candidate-angle-controls"><button disabled={!ready} onClick={()=>runtimeRef.current?.fit('front')}><Buildings size={15}/>正面</button><button disabled={!ready} onClick={()=>runtimeRef.current?.fit('detail')}><ArrowCounterClockwise size={15}/>重置</button></div>
+      </div>}
+      <div className="candidate-angle-controls"><button disabled={!ready} onClick={()=>runtimeRef.current?.fit('front')}><Buildings size={15}/>正面</button><button disabled={!ready} onClick={()=>runtimeRef.current?.fit()}><ArrowCounterClockwise size={15}/>重置</button></div>
     </div>
     <div className="candidate-preview-quality" role="status"><span className={`quality-dot ${ready?'is-ready':''}`}/><span>{qualityLabel}</span>{status.detailState==='error'&&!viewerError&&<button onClick={()=>runtimeRef.current?.stage.retry()}>重试细节</button>}</div>
-    <p className="candidate-preview-note">这里单独查看候选模型的外形与幕墙细节，采用三轴等比缩放。模型的占地、朝向和绝对尺寸尚未可靠配准；原城市沙盘保持原位。</p>
+    {model.coverage?<p className="candidate-preview-note"><strong>尚缺部分：</strong>{model.coverage.missing} 采用三轴等比缩放；模型厚度、尺寸和朝向不作为实测依据。</p>:<p className="candidate-preview-note">这里单独查看候选模型的外形与幕墙细节，采用三轴等比缩放。模型的占地、朝向和绝对尺寸尚未可靠配准；原城市沙盘保持原位。</p>}
   </div>;
 }

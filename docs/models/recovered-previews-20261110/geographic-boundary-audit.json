@@ -1,0 +1,924 @@
+{
+  "schemaVersion": 1,
+  "asOf": "2026-11-10",
+  "purpose": "恢复模型几何的展示边界与地理配准边界只读审查；不建立新地图配准。",
+  "sourceRepository": "zmc1212/china-landmarks-hubei",
+  "sourceCommit": "440804ded49a2cef615015547349b3adf6aa09d5",
+  "sourceRegistry": "src/data/business-registry.json",
+  "sourceRegistrySha256": "7728c34d6020a7615cdf112df4353a04be05e4a00257f9ba9c501160c638631c",
+  "originalTourUrl": "https://df21wknb5.wasee.com/wt/df21wknb5",
+  "originalTourDataSha256": "375e298b8f7db44197c672d5b52419da0f3a629a52f074310a948466a44d4cb0",
+  "sharedBoundaries": [
+    "23 是历史导览项目数，不是 23 栋独立塔楼或已核实的 2026 现状。",
+    "GCJ-02 导览标记已转换为 WGS84；坐标系转换不证明建筑身份、中心或朝向。",
+    "最近 GIS 白膜只可成为候选，不能仅按距离认定同楼或删去邻楼。",
+    "15 项恢复为可查看几何，不增加地图已落位楼体数量。",
+    "归一化高度、宽度、技术支承厚度、展示台及分离构件偏移均不能按米套入城市。",
+    "多个全景 cube 面可来自同一摄影中心，不能直接当独立多视测绘。",
+    "研究件的有限技术检查、网页 GLB 可加载与完整楼体测绘/造型验收是不同结论。"
+  ],
+  "existingCityPlacementBaseline": {
+    "sceneIds": [
+      "1649149",
+      "1649132",
+      "1649138",
+      "1649129",
+      "1649145",
+      "1649136",
+      "1649133"
+    ],
+    "count": 7,
+    "registrationObjectsSha256": {
+      "1649149": "d89196e5b7b11e38a4bcf97a0f51e9b0e4768da259e4f71f2ba3066461e81409",
+      "1649132": "b99674daf3bbb13285cca6cc26db1bcc5dbff6093b6bf3223209bf71e7ddd2db",
+      "1649138": "413407e6d61ae52e6b77d6a3eb4892c43d0dddd7cbc67ddc87d2b5a97c2b7e47",
+      "1649129": "520ba72e93d1e8b31bdd8dcd69a4c213771c1f8a7e77fa514c944e4d7bef714a",
+      "1649145": "4f1956577cdb625467186fc634514150f850897b5202091d9bb674ebde264f7f",
+      "1649133": "7ed2b1eeeadd8c7a54de4e0eaed11f8add7caba7c5131094703dd702aed70055"
+    },
+    "shouxinRegistrationLiteralSha256": "047c7fc2b4f1f961fb3df34599b938a7c0843d1e96315caa42109d1ace1a84a9",
+    "action": "本轮保持以上 7 项现有地理变换及替换轮廓不变；该数量不表示均为实测完整楼体。"
+  },
+  "pendingRecoveredModels": [
+    {
+      "sourceSceneId": "1649141",
+      "name": "兴发广场写字楼",
+      "sourceAddress": "中南路35号",
+      "referencePoint": {
+        "originalCoordinateSystem": "GCJ-02",
+        "originalLonLat": [
+          111.33099,
+          30.679532
+        ],
+        "convertedCoordinateSystem": "WGS84 / EPSG:4326",
+        "convertedLonLat": [
+          111.32522959614468,
+          30.68191051044286
+        ],
+        "meaning": "原导览项目参考标记；未证明是楼体中心、模型原点或拍摄相机位置。",
+        "isVerifiedBuildingCenter": false,
+        "isVerifiedCameraPosition": false
+      },
+      "scopeSummary": "右塔宽面及右侧近角短段；未知侧背支承占位不是真实完整塔楼，不能推成双塔组团。",
+      "scopeEvidence": [
+        {
+          "repositoryPath": "landmarks/yichang-xingfa-plaza/stages/C20261109_right_corner_2x2_patch/docs/README_中文.md",
+          "sha256": "ee61621c15d5c667cff3a80740c2c66bda415736f89cabbf7daa164e65cb3b34",
+          "url": "https://github.com/zmc1212/china-landmarks-hubei/blob/440804ded49a2cef615015547349b3adf6aa09d5/landmarks/yichang-xingfa-plaza/stages/C20261109_right_corner_2x2_patch/docs/README_中文.md"
+        },
+        {
+          "repositoryPath": "landmarks/yichang-xingfa-plaza/stages/D20261109_left_visible_facade_r6/candidate/docs/README_中文.md",
+          "sha256": "262f33720f8b5fc5615e9e077e342c9b1266868de77b810c77fb555a3530e7b4",
+          "url": "https://github.com/zmc1212/china-landmarks-hubei/blob/440804ded49a2cef615015547349b3adf6aa09d5/landmarks/yichang-xingfa-plaza/stages/D20261109_left_visible_facade_r6/candidate/docs/README_中文.md"
+        }
+      ],
+      "geographicRegistration": {
+        "status": "reference-point-only",
+        "verifiedSourceFeatureIds": [],
+        "verifiedBuildingFootprints": [],
+        "modelOriginWgs84": null,
+        "verifiedHeadingDegrees": null,
+        "metersPerModelUnit": null,
+        "metricScaleVerified": false,
+        "mayAutoApplyToCity": false,
+        "reason": "局部或候选几何的归一化比例、技术厚度与 AABB 不构成完整地面占地证据；没有与原 GIS 建筑轮廓逐项核实的主体、原点、朝向和米制比例。"
+      },
+      "displayContract": {
+        "mayOfferStandalonePreview": true,
+        "retainReferencePoi": true,
+        "replaceCityFootprintIds": [],
+        "countAsNewCityPlacement": false,
+        "countAsVerifiedCompleteBuilding": false,
+        "visibleLabel": "局部候选 · 独立查看"
+      },
+      "additionalEvidenceForCityPlacement": [
+        "完整主体/组团范围与楼栋身份",
+        "与来源 GIS 轮廓或测量控制点的对应",
+        "有依据的米制统一缩放与真北朝向",
+        "入口、底部和相邻街道关系"
+      ]
+    },
+    {
+      "sourceSceneId": "1649139",
+      "name": "新华广场武银大厦",
+      "sourceAddress": "城东大道93号",
+      "referencePoint": {
+        "originalCoordinateSystem": "GCJ-02",
+        "originalLonLat": [
+          111.333683,
+          30.676549
+        ],
+        "convertedCoordinateSystem": "WGS84 / EPSG:4326",
+        "convertedLonLat": [
+          111.32791515836917,
+          30.678923751333667
+        ],
+        "meaning": "原导览项目参考标记；未证明是楼体中心、模型原点或拍摄相机位置。",
+        "isVerifiedBuildingCenter": false,
+        "isVerifiedCameraPosition": false
+      },
+      "scopeSummary": "场景中央主塔可见面候选；排除新华保险邻塔与白天线楼。真实基部、右侧和连体裙房未配准，归一背衬与展示台不是真实楼体。",
+      "scopeEvidence": [
+        {
+          "repositoryPath": "landmarks/yichang-xinhua-wuyin-tower/stages/C20261109_new_evidence_candidate/docs/说明与范围.md",
+          "sha256": "4f988226b60a002fdeb1cd77d4d3ff1ddeb5c16b3f8079888725e51b74eed0e4",
+          "url": "https://github.com/zmc1212/china-landmarks-hubei/blob/440804ded49a2cef615015547349b3adf6aa09d5/landmarks/yichang-xinhua-wuyin-tower/stages/C20261109_new_evidence_candidate/docs/说明与范围.md"
+        }
+      ],
+      "geographicRegistration": {
+        "status": "reference-point-only",
+        "verifiedSourceFeatureIds": [],
+        "verifiedBuildingFootprints": [],
+        "modelOriginWgs84": null,
+        "verifiedHeadingDegrees": null,
+        "metersPerModelUnit": null,
+        "metricScaleVerified": false,
+        "mayAutoApplyToCity": false,
+        "reason": "局部或候选几何的归一化比例、技术厚度与 AABB 不构成完整地面占地证据；没有与原 GIS 建筑轮廓逐项核实的主体、原点、朝向和米制比例。"
+      },
+      "displayContract": {
+        "mayOfferStandalonePreview": true,
+        "retainReferencePoi": true,
+        "replaceCityFootprintIds": [],
+        "countAsNewCityPlacement": false,
+        "countAsVerifiedCompleteBuilding": false,
+        "visibleLabel": "局部候选 · 独立查看"
+      },
+      "additionalEvidenceForCityPlacement": [
+        "完整主体/组团范围与楼栋身份",
+        "与来源 GIS 轮廓或测量控制点的对应",
+        "有依据的米制统一缩放与真北朝向",
+        "入口、底部和相邻街道关系"
+      ]
+    },
+    {
+      "sourceSceneId": "1649144",
+      "name": "长江国际文化广场",
+      "sourceAddress": "城东大道112号",
+      "referencePoint": {
+        "originalCoordinateSystem": "GCJ-02",
+        "originalLonLat": [
+          111.331709,
+          30.676657
+        ],
+        "convertedCoordinateSystem": "WGS84 / EPSG:4326",
+        "convertedLonLat": [
+          111.32594679038543,
+          30.679035466631458
+        ],
+        "meaning": "原导览项目参考标记；未证明是楼体中心、模型原点或拍摄相机位置。",
+        "isVerifiedBuildingCenter": false,
+        "isVerifiedCameraPosition": false
+      },
+      "scopeSummary": "中央塔楼可见面及另一主面分隔件是独立候选，具体塔号及两面的空间配准未核实，不能直接拼为整楼。",
+      "scopeEvidence": [
+        {
+          "repositoryPath": "landmarks/yichang-changjiang-cultural-plaza/stages/C20261109_central_tower_visible_face_candidate/GIT_RESTORE_FIRST.md",
+          "sha256": "c4ff31d7af0adf8be596d7f2ad184a706b5304658c951f15868167e7230d4a72",
+          "url": "https://github.com/zmc1212/china-landmarks-hubei/blob/440804ded49a2cef615015547349b3adf6aa09d5/landmarks/yichang-changjiang-cultural-plaza/stages/C20261109_central_tower_visible_face_candidate/GIT_RESTORE_FIRST.md"
+        },
+        {
+          "repositoryPath": "landmarks/yichang-changjiang-cultural-plaza/stages/C20261109_central_tower_visible_face_candidate/docs/README_中文.md",
+          "sha256": "b6e1d2bce622f056815c6272d3a5957353576fdbf515ae9283574f18113d1b34",
+          "url": "https://github.com/zmc1212/china-landmarks-hubei/blob/440804ded49a2cef615015547349b3adf6aa09d5/landmarks/yichang-changjiang-cultural-plaza/stages/C20261109_central_tower_visible_face_candidate/docs/README_中文.md"
+        },
+        {
+          "repositoryPath": "landmarks/yichang-changjiang-cultural-plaza/stages/D20261109_opposite_visible_divisions/docs/README_中文.md",
+          "sha256": "dfe49ff4b643aff08a866fc23458fcc2fd9a60dbf3eefc6524088c05ea1807b9",
+          "url": "https://github.com/zmc1212/china-landmarks-hubei/blob/440804ded49a2cef615015547349b3adf6aa09d5/landmarks/yichang-changjiang-cultural-plaza/stages/D20261109_opposite_visible_divisions/docs/README_中文.md"
+        }
+      ],
+      "geographicRegistration": {
+        "status": "reference-point-only",
+        "verifiedSourceFeatureIds": [],
+        "verifiedBuildingFootprints": [],
+        "modelOriginWgs84": null,
+        "verifiedHeadingDegrees": null,
+        "metersPerModelUnit": null,
+        "metricScaleVerified": false,
+        "mayAutoApplyToCity": false,
+        "reason": "局部或候选几何的归一化比例、技术厚度与 AABB 不构成完整地面占地证据；没有与原 GIS 建筑轮廓逐项核实的主体、原点、朝向和米制比例。"
+      },
+      "displayContract": {
+        "mayOfferStandalonePreview": true,
+        "retainReferencePoi": true,
+        "replaceCityFootprintIds": [],
+        "countAsNewCityPlacement": false,
+        "countAsVerifiedCompleteBuilding": false,
+        "visibleLabel": "局部候选 · 独立查看"
+      },
+      "additionalEvidenceForCityPlacement": [
+        "完整主体/组团范围与楼栋身份",
+        "与来源 GIS 轮廓或测量控制点的对应",
+        "有依据的米制统一缩放与真北朝向",
+        "入口、底部和相邻街道关系"
+      ]
+    },
+    {
+      "sourceSceneId": "1649148",
+      "name": "致远广场",
+      "sourceAddress": "沿江大道189号",
+      "referencePoint": {
+        "originalCoordinateSystem": "GCJ-02",
+        "originalLonLat": [
+          111.330219,
+          30.660624
+        ],
+        "convertedCoordinateSystem": "WGS84 / EPSG:4326",
+        "convertedLonLat": [
+          111.32446243388668,
+          30.663012575245475
+        ],
+        "meaning": "原导览项目参考标记；未证明是楼体中心、模型原点或拍摄相机位置。",
+        "isVerifiedBuildingCenter": false,
+        "isVerifiedCameraPosition": false
+      },
+      "scopeSummary": "连续主立面薄壳候选，真实进深、侧背、水平屋顶与标高未知；斜截底边为证据截断，不是建筑真实造型。",
+      "scopeEvidence": [
+        {
+          "repositoryPath": "landmarks/yichang-zhiyuan-plaza/stages/C20261109_visible_main_facade_v7/docs/README_中文.md",
+          "sha256": "ead5b4312d03c2f05210a616d283ea2d425e6f934bec1610f47226f3ced1a6c7",
+          "url": "https://github.com/zmc1212/china-landmarks-hubei/blob/440804ded49a2cef615015547349b3adf6aa09d5/landmarks/yichang-zhiyuan-plaza/stages/C20261109_visible_main_facade_v7/docs/README_中文.md"
+        }
+      ],
+      "geographicRegistration": {
+        "status": "reference-point-only",
+        "verifiedSourceFeatureIds": [],
+        "verifiedBuildingFootprints": [],
+        "modelOriginWgs84": null,
+        "verifiedHeadingDegrees": null,
+        "metersPerModelUnit": null,
+        "metricScaleVerified": false,
+        "mayAutoApplyToCity": false,
+        "reason": "局部或候选几何的归一化比例、技术厚度与 AABB 不构成完整地面占地证据；没有与原 GIS 建筑轮廓逐项核实的主体、原点、朝向和米制比例。"
+      },
+      "displayContract": {
+        "mayOfferStandalonePreview": true,
+        "retainReferencePoi": true,
+        "replaceCityFootprintIds": [],
+        "countAsNewCityPlacement": false,
+        "countAsVerifiedCompleteBuilding": false,
+        "visibleLabel": "局部候选 · 独立查看"
+      },
+      "additionalEvidenceForCityPlacement": [
+        "完整主体/组团范围与楼栋身份",
+        "与来源 GIS 轮廓或测量控制点的对应",
+        "有依据的米制统一缩放与真北朝向",
+        "入口、底部和相邻街道关系"
+      ]
+    },
+    {
+      "sourceSceneId": "1649137",
+      "name": "外滩领馆",
+      "sourceAddress": "沿江大道188号",
+      "referencePoint": {
+        "originalCoordinateSystem": "GCJ-02",
+        "originalLonLat": [
+          111.327134,
+          30.663956
+        ],
+        "convertedCoordinateSystem": "WGS84 / EPSG:4326",
+        "convertedLonLat": [
+          111.32138594139299,
+          30.666348934458373
+        ],
+        "meaning": "原导览项目参考标记；未证明是楼体中心、模型原点或拍摄相机位置。",
+        "isVerifiedBuildingCenter": false,
+        "isVerifiedCameraPosition": false
+      },
+      "scopeSummary": "双翼窗带与中央上段；中央中下部、底部及侧后面保留未知占位，不代表完整实楼。",
+      "scopeEvidence": [
+        {
+          "repositoryPath": "landmarks/yichang-waitan-lingguan/stages/C20261109_visible_facade_candidate/docs/README_中文.md",
+          "sha256": "1174eb0fc8785e60c421ff96a3972acbaae362bee69f3056ce50b3bd880e59dd",
+          "url": "https://github.com/zmc1212/china-landmarks-hubei/blob/440804ded49a2cef615015547349b3adf6aa09d5/landmarks/yichang-waitan-lingguan/stages/C20261109_visible_facade_candidate/docs/README_中文.md"
+        }
+      ],
+      "geographicRegistration": {
+        "status": "reference-point-only",
+        "verifiedSourceFeatureIds": [],
+        "verifiedBuildingFootprints": [],
+        "modelOriginWgs84": null,
+        "verifiedHeadingDegrees": null,
+        "metersPerModelUnit": null,
+        "metricScaleVerified": false,
+        "mayAutoApplyToCity": false,
+        "reason": "局部或候选几何的归一化比例、技术厚度与 AABB 不构成完整地面占地证据；没有与原 GIS 建筑轮廓逐项核实的主体、原点、朝向和米制比例。"
+      },
+      "displayContract": {
+        "mayOfferStandalonePreview": true,
+        "retainReferencePoi": true,
+        "replaceCityFootprintIds": [],
+        "countAsNewCityPlacement": false,
+        "countAsVerifiedCompleteBuilding": false,
+        "visibleLabel": "局部候选 · 独立查看"
+      },
+      "additionalEvidenceForCityPlacement": [
+        "完整主体/组团范围与楼栋身份",
+        "与来源 GIS 轮廓或测量控制点的对应",
+        "有依据的米制统一缩放与真北朝向",
+        "入口、底部和相邻街道关系"
+      ]
+    },
+    {
+      "sourceSceneId": "1649146",
+      "name": "长乐大厦",
+      "sourceAddress": "沿江大道188-8号",
+      "referencePoint": {
+        "originalCoordinateSystem": "GCJ-02",
+        "originalLonLat": [
+          111.32839,
+          30.662715
+        ],
+        "convertedCoordinateSystem": "WGS84 / EPSG:4326",
+        "convertedLonLat": [
+          111.32263847158941,
+          30.665106113714582
+        ],
+        "meaning": "原导览项目参考标记；未证明是楼体中心、模型原点或拍摄相机位置。",
+        "isVerifiedBuildingCenter": false,
+        "isVerifiedCameraPosition": false
+      },
+      "scopeSummary": "双可见立面候选；背部中性闭合为支承，真实进深、尺度、屋面与底层连接未配准。",
+      "scopeEvidence": [
+        {
+          "repositoryPath": "landmarks/yichang-changle-building/stages/C20261109_new_evidence_candidate/GIT_RESTORE_FIRST.md",
+          "sha256": "fdcc16519cd3818bf55ddb309b16761271fdfbf473a3a6c757269a5202581060",
+          "url": "https://github.com/zmc1212/china-landmarks-hubei/blob/440804ded49a2cef615015547349b3adf6aa09d5/landmarks/yichang-changle-building/stages/C20261109_new_evidence_candidate/GIT_RESTORE_FIRST.md"
+        },
+        {
+          "repositoryPath": "landmarks/yichang-changle-building/stages/C20261109_new_evidence_candidate/docs/README_中文.md",
+          "sha256": "c0812e1caa017d20a0f113179ad3733cc5b6899e6ea71a08f54b5c717fb0d1d2",
+          "url": "https://github.com/zmc1212/china-landmarks-hubei/blob/440804ded49a2cef615015547349b3adf6aa09d5/landmarks/yichang-changle-building/stages/C20261109_new_evidence_candidate/docs/README_中文.md"
+        },
+        {
+          "repositoryPath": "landmarks/yichang-changle-building/stages/C20261109_podium_two_windows_r2/docs/README_中文.md",
+          "sha256": "f04c53724fedd279dc58df676e6769682c5507f0a5fd62d183da71e157ca038b",
+          "url": "https://github.com/zmc1212/china-landmarks-hubei/blob/440804ded49a2cef615015547349b3adf6aa09d5/landmarks/yichang-changle-building/stages/C20261109_podium_two_windows_r2/docs/README_中文.md"
+        }
+      ],
+      "geographicRegistration": {
+        "status": "reference-point-only",
+        "verifiedSourceFeatureIds": [],
+        "verifiedBuildingFootprints": [],
+        "modelOriginWgs84": null,
+        "verifiedHeadingDegrees": null,
+        "metersPerModelUnit": null,
+        "metricScaleVerified": false,
+        "mayAutoApplyToCity": false,
+        "reason": "局部或候选几何的归一化比例、技术厚度与 AABB 不构成完整地面占地证据；没有与原 GIS 建筑轮廓逐项核实的主体、原点、朝向和米制比例。"
+      },
+      "displayContract": {
+        "mayOfferStandalonePreview": true,
+        "retainReferencePoi": true,
+        "replaceCityFootprintIds": [],
+        "countAsNewCityPlacement": false,
+        "countAsVerifiedCompleteBuilding": false,
+        "visibleLabel": "局部候选 · 独立查看"
+      },
+      "additionalEvidenceForCityPlacement": [
+        "完整主体/组团范围与楼栋身份",
+        "与来源 GIS 轮廓或测量控制点的对应",
+        "有依据的米制统一缩放与真北朝向",
+        "入口、底部和相邻街道关系"
+      ]
+    },
+    {
+      "sourceSceneId": "1649142",
+      "name": "兴发集团宜昌总部",
+      "sourceAddress": "夷陵大道346号",
+      "referencePoint": {
+        "originalCoordinateSystem": "GCJ-02",
+        "originalLonLat": [
+          111.331432,
+          30.662181
+        ],
+        "convertedCoordinateSystem": "WGS84 / EPSG:4326",
+        "convertedLonLat": [
+          111.32567183443425,
+          30.664566568685956
+        ],
+        "meaning": "原导览项目参考标记；未证明是楼体中心、模型原点或拍摄相机位置。",
+        "isVerifiedBuildingCenter": false,
+        "isVerifiedCameraPosition": false
+      },
+      "scopeSummary": "开放 L 形双面壳；单构件闭合不等于整楼闭合，90 度夹角、退深及比例均为展示假设。",
+      "scopeEvidence": [
+        {
+          "repositoryPath": "landmarks/yichang-xingfa-headquarters/stages/D20261109_two_visible_facades_r2/docs/README_中文.md",
+          "sha256": "856c5dab090f8c7d2d198281f988f27c5486ec0958e98230b4149d458b0c4584",
+          "url": "https://github.com/zmc1212/china-landmarks-hubei/blob/440804ded49a2cef615015547349b3adf6aa09d5/landmarks/yichang-xingfa-headquarters/stages/D20261109_two_visible_facades_r2/docs/README_中文.md"
+        }
+      ],
+      "geographicRegistration": {
+        "status": "reference-point-only",
+        "verifiedSourceFeatureIds": [],
+        "verifiedBuildingFootprints": [],
+        "modelOriginWgs84": null,
+        "verifiedHeadingDegrees": null,
+        "metersPerModelUnit": null,
+        "metricScaleVerified": false,
+        "mayAutoApplyToCity": false,
+        "reason": "局部或候选几何的归一化比例、技术厚度与 AABB 不构成完整地面占地证据；没有与原 GIS 建筑轮廓逐项核实的主体、原点、朝向和米制比例。"
+      },
+      "displayContract": {
+        "mayOfferStandalonePreview": true,
+        "retainReferencePoi": true,
+        "replaceCityFootprintIds": [],
+        "countAsNewCityPlacement": false,
+        "countAsVerifiedCompleteBuilding": false,
+        "visibleLabel": "局部候选 · 独立查看"
+      },
+      "additionalEvidenceForCityPlacement": [
+        "完整主体/组团范围与楼栋身份",
+        "与来源 GIS 轮廓或测量控制点的对应",
+        "有依据的米制统一缩放与真北朝向",
+        "入口、底部和相邻街道关系"
+      ]
+    },
+    {
+      "sourceSceneId": "1649134",
+      "name": "丽景国际综合楼",
+      "sourceAddress": "伍临路3号",
+      "referencePoint": {
+        "originalCoordinateSystem": "GCJ-02",
+        "originalLonLat": [
+          111.359092,
+          30.64282
+        ],
+        "convertedCoordinateSystem": "WGS84 / EPSG:4326",
+        "convertedLonLat": [
+          111.35325734611246,
+          30.645163385592564
+        ],
+        "meaning": "原导览项目参考标记；未证明是楼体中心、模型原点或拍摄相机位置。",
+        "isVerifiedBuildingCenter": false,
+        "isVerifiedCameraPosition": false
+      },
+      "scopeSummary": "仅中央中下立面，真实冠部、侧面、裙房、入口和基部未建；3号/5号地址差异未消解，背后闭盒是局部支承。",
+      "scopeEvidence": [
+        {
+          "repositoryPath": "landmarks/yichang-lijing-international/stages/C20261109_central_lower_r3_side_seams/docs/README_中文.md",
+          "sha256": "1f9d8943fa9f1f39892acb22a44484eacae75cc9781663f632de64552facca0b",
+          "url": "https://github.com/zmc1212/china-landmarks-hubei/blob/440804ded49a2cef615015547349b3adf6aa09d5/landmarks/yichang-lijing-international/stages/C20261109_central_lower_r3_side_seams/docs/README_中文.md"
+        }
+      ],
+      "geographicRegistration": {
+        "status": "reference-point-only",
+        "verifiedSourceFeatureIds": [],
+        "verifiedBuildingFootprints": [],
+        "modelOriginWgs84": null,
+        "verifiedHeadingDegrees": null,
+        "metersPerModelUnit": null,
+        "metricScaleVerified": false,
+        "mayAutoApplyToCity": false,
+        "reason": "局部或候选几何的归一化比例、技术厚度与 AABB 不构成完整地面占地证据；没有与原 GIS 建筑轮廓逐项核实的主体、原点、朝向和米制比例。"
+      },
+      "displayContract": {
+        "mayOfferStandalonePreview": true,
+        "retainReferencePoi": true,
+        "replaceCityFootprintIds": [],
+        "countAsNewCityPlacement": false,
+        "countAsVerifiedCompleteBuilding": false,
+        "visibleLabel": "局部候选 · 独立查看"
+      },
+      "additionalEvidenceForCityPlacement": [
+        "完整主体/组团范围与楼栋身份",
+        "与来源 GIS 轮廓或测量控制点的对应",
+        "有依据的米制统一缩放与真北朝向",
+        "入口、底部和相邻街道关系"
+      ]
+    },
+    {
+      "sourceSceneId": "1649147",
+      "name": "中建·宜昌之星",
+      "sourceAddress": "沿江大道与白沙路交汇处",
+      "referencePoint": {
+        "originalCoordinateSystem": "GCJ-02",
+        "originalLonLat": [
+          111.351557,
+          30.638703
+        ],
+        "convertedCoordinateSystem": "WGS84 / EPSG:4326",
+        "convertedLonLat": [
+          111.3457424302751,
+          30.641061172586056
+        ],
+        "meaning": "原导览项目参考标记；未证明是楼体中心、模型原点或拍摄相机位置。",
+        "isVerifiedBuildingCenter": false,
+        "isVerifiedCameraPosition": false
+      },
+      "scopeSummary": "2025 发表照片的可见轮廓薄壳，底边是照片截口；原 scene1649147 指向住宅地块，不能把该 POI 当时代中心塔楼中心。",
+      "scopeEvidence": [
+        {
+          "repositoryPath": "landmarks/yichang-star/research/D20261109_2025_visible_silhouette/README_中文.md",
+          "sha256": "0f7d4898ef02e57476e1c0bf82832c100cae35b645f3d0966dec8df177090536",
+          "url": "https://github.com/zmc1212/china-landmarks-hubei/blob/440804ded49a2cef615015547349b3adf6aa09d5/landmarks/yichang-star/research/D20261109_2025_visible_silhouette/README_中文.md"
+        }
+      ],
+      "geographicRegistration": {
+        "status": "reference-point-only",
+        "verifiedSourceFeatureIds": [],
+        "verifiedBuildingFootprints": [],
+        "modelOriginWgs84": null,
+        "verifiedHeadingDegrees": null,
+        "metersPerModelUnit": null,
+        "metricScaleVerified": false,
+        "mayAutoApplyToCity": false,
+        "reason": "局部或候选几何的归一化比例、技术厚度与 AABB 不构成完整地面占地证据；没有与原 GIS 建筑轮廓逐项核实的主体、原点、朝向和米制比例。"
+      },
+      "displayContract": {
+        "mayOfferStandalonePreview": true,
+        "retainReferencePoi": true,
+        "replaceCityFootprintIds": [],
+        "countAsNewCityPlacement": false,
+        "countAsVerifiedCompleteBuilding": false,
+        "visibleLabel": "局部候选 · 独立查看"
+      },
+      "additionalEvidenceForCityPlacement": [
+        "完整主体/组团范围与楼栋身份",
+        "与来源 GIS 轮廓或测量控制点的对应",
+        "有依据的米制统一缩放与真北朝向",
+        "入口、底部和相邻街道关系"
+      ]
+    },
+    {
+      "sourceSceneId": "1649128",
+      "name": "福久源大厦",
+      "sourceAddress": "桔城路6号",
+      "referencePoint": {
+        "originalCoordinateSystem": "GCJ-02",
+        "originalLonLat": [
+          111.361246,
+          30.647377
+        ],
+        "convertedCoordinateSystem": "WGS84 / EPSG:4326",
+        "convertedLonLat": [
+          111.35540554095843,
+          30.649714876702532
+        ],
+        "meaning": "原导览项目参考标记；未证明是楼体中心、模型原点或拍摄相机位置。",
+        "isVerifiedBuildingCenter": false,
+        "isVerifiedCameraPosition": false
+      },
+      "scopeSummary": "可见立面候选及中央雨棚保留于原生；后续招牌是未安装至整楼的独立表面候选，尺度均归一化。",
+      "scopeEvidence": [
+        {
+          "repositoryPath": "landmarks/yichang-fujiuyuan-building/stages/C20261109_visible_facade_candidate/docs/README_中文.md",
+          "sha256": "7d01d5d77d2f1420faa3a538ff46fd44ca4d742f31f0c1b2a7155a6e829dc721",
+          "url": "https://github.com/zmc1212/china-landmarks-hubei/blob/440804ded49a2cef615015547349b3adf6aa09d5/landmarks/yichang-fujiuyuan-building/stages/C20261109_visible_facade_candidate/docs/README_中文.md"
+        },
+        {
+          "repositoryPath": "landmarks/yichang-fujiuyuan-building/stages/E20261109_sign_surface/candidate/README_中文.md",
+          "sha256": "0e131fe3ef448b0f8b4c1435e261b6c7777c586eecd0437ba27f41f1035e1cd2",
+          "url": "https://github.com/zmc1212/china-landmarks-hubei/blob/440804ded49a2cef615015547349b3adf6aa09d5/landmarks/yichang-fujiuyuan-building/stages/E20261109_sign_surface/candidate/README_中文.md"
+        }
+      ],
+      "geographicRegistration": {
+        "status": "reference-point-only",
+        "verifiedSourceFeatureIds": [],
+        "verifiedBuildingFootprints": [],
+        "modelOriginWgs84": null,
+        "verifiedHeadingDegrees": null,
+        "metersPerModelUnit": null,
+        "metricScaleVerified": false,
+        "mayAutoApplyToCity": false,
+        "reason": "局部或候选几何的归一化比例、技术厚度与 AABB 不构成完整地面占地证据；没有与原 GIS 建筑轮廓逐项核实的主体、原点、朝向和米制比例。"
+      },
+      "displayContract": {
+        "mayOfferStandalonePreview": true,
+        "retainReferencePoi": true,
+        "replaceCityFootprintIds": [],
+        "countAsNewCityPlacement": false,
+        "countAsVerifiedCompleteBuilding": false,
+        "visibleLabel": "局部候选 · 独立查看"
+      },
+      "additionalEvidenceForCityPlacement": [
+        "完整主体/组团范围与楼栋身份",
+        "与来源 GIS 轮廓或测量控制点的对应",
+        "有依据的米制统一缩放与真北朝向",
+        "入口、底部和相邻街道关系"
+      ]
+    },
+    {
+      "sourceSceneId": "1649140",
+      "name": "鑫鼎大厦",
+      "sourceAddress": "伍临路33号",
+      "referencePoint": {
+        "originalCoordinateSystem": "GCJ-02",
+        "originalLonLat": [
+          111.370433,
+          30.627722
+        ],
+        "convertedCoordinateSystem": "WGS84 / EPSG:4326",
+        "convertedLonLat": [
+          111.364572628021,
+          30.630054365218708
+        ],
+        "meaning": "原导览项目参考标记；未证明是楼体中心、模型原点或拍摄相机位置。",
+        "isVerifiedBuildingCenter": false,
+        "isVerifiedCameraPosition": false
+      },
+      "scopeSummary": "可见塔身与裙房外观候选及屏幕收口；真实进深、后侧、完整屋顶、转角和基座落位仍未知。",
+      "scopeEvidence": [
+        {
+          "repositoryPath": "landmarks/yichang-xinding-tower/stages/D20261109_visible_screen_side_frames/docs/README_中文.md",
+          "sha256": "0b51f0db0c08aa0acc99d0daac581a3c7959a8af025d64f25eab68003cceabf5",
+          "url": "https://github.com/zmc1212/china-landmarks-hubei/blob/440804ded49a2cef615015547349b3adf6aa09d5/landmarks/yichang-xinding-tower/stages/D20261109_visible_screen_side_frames/docs/README_中文.md"
+        }
+      ],
+      "geographicRegistration": {
+        "status": "reference-point-only",
+        "verifiedSourceFeatureIds": [],
+        "verifiedBuildingFootprints": [],
+        "modelOriginWgs84": null,
+        "verifiedHeadingDegrees": null,
+        "metersPerModelUnit": null,
+        "metricScaleVerified": false,
+        "mayAutoApplyToCity": false,
+        "reason": "局部或候选几何的归一化比例、技术厚度与 AABB 不构成完整地面占地证据；没有与原 GIS 建筑轮廓逐项核实的主体、原点、朝向和米制比例。"
+      },
+      "displayContract": {
+        "mayOfferStandalonePreview": true,
+        "retainReferencePoi": true,
+        "replaceCityFootprintIds": [],
+        "countAsNewCityPlacement": false,
+        "countAsVerifiedCompleteBuilding": false,
+        "visibleLabel": "局部候选 · 独立查看"
+      },
+      "additionalEvidenceForCityPlacement": [
+        "完整主体/组团范围与楼栋身份",
+        "与来源 GIS 轮廓或测量控制点的对应",
+        "有依据的米制统一缩放与真北朝向",
+        "入口、底部和相邻街道关系"
+      ]
+    },
+    {
+      "sourceSceneId": "1649143",
+      "name": "旭光商贸大厦",
+      "sourceAddress": "伍家岗区城东大道85号",
+      "referencePoint": {
+        "originalCoordinateSystem": "GCJ-02",
+        "originalLonLat": [
+          111.327369,
+          30.68079
+        ],
+        "convertedCoordinateSystem": "WGS84 / EPSG:4326",
+        "convertedLonLat": [
+          111.32161881804507,
+          30.683174803986216
+        ],
+        "meaning": "原导览项目参考标记；未证明是楼体中心、模型原点或拍摄相机位置。",
+        "isVerifiedBuildingCenter": false,
+        "isVerifiedCameraPosition": false
+      },
+      "scopeSummary": "同一个平主立面的归一化候选；f/r 拼接不代表建筑转角，棕色支承和展示底座不是真实侧背及场地。",
+      "scopeEvidence": [
+        {
+          "repositoryPath": "landmarks/yichang-xuguang-commercial-building/stages/C20261109_visible_facade_candidate/docs/README_中文.md",
+          "sha256": "44ea6dd9f264a790cba4df08d7b56dcef631ab6faffc4f333255337a1fcfe1fb",
+          "url": "https://github.com/zmc1212/china-landmarks-hubei/blob/440804ded49a2cef615015547349b3adf6aa09d5/landmarks/yichang-xuguang-commercial-building/stages/C20261109_visible_facade_candidate/docs/README_中文.md"
+        }
+      ],
+      "geographicRegistration": {
+        "status": "reference-point-only",
+        "verifiedSourceFeatureIds": [],
+        "verifiedBuildingFootprints": [],
+        "modelOriginWgs84": null,
+        "verifiedHeadingDegrees": null,
+        "metersPerModelUnit": null,
+        "metricScaleVerified": false,
+        "mayAutoApplyToCity": false,
+        "reason": "局部或候选几何的归一化比例、技术厚度与 AABB 不构成完整地面占地证据；没有与原 GIS 建筑轮廓逐项核实的主体、原点、朝向和米制比例。"
+      },
+      "displayContract": {
+        "mayOfferStandalonePreview": true,
+        "retainReferencePoi": true,
+        "replaceCityFootprintIds": [],
+        "countAsNewCityPlacement": false,
+        "countAsVerifiedCompleteBuilding": false,
+        "visibleLabel": "局部候选 · 独立查看"
+      },
+      "additionalEvidenceForCityPlacement": [
+        "完整主体/组团范围与楼栋身份",
+        "与来源 GIS 轮廓或测量控制点的对应",
+        "有依据的米制统一缩放与真北朝向",
+        "入口、底部和相邻街道关系"
+      ]
+    },
+    {
+      "sourceSceneId": "1649131",
+      "name": "光联大厦",
+      "sourceAddress": "城东大137号",
+      "referencePoint": {
+        "originalCoordinateSystem": "GCJ-02",
+        "originalLonLat": [
+          111.362948,
+          30.658862
+        ],
+        "convertedCoordinateSystem": "WGS84 / EPSG:4326",
+        "convertedLonLat": [
+          111.35710234767856,
+          30.66119209488809
+        ],
+        "meaning": "原导览项目参考标记；未证明是楼体中心、模型原点或拍摄相机位置。",
+        "isVerifiedBuildingCenter": false,
+        "isVerifiedCameraPosition": false
+      },
+      "scopeSummary": "可见主立面薄壳，缺件不等于实景空洞；侧后和完整屋面未建，身份为强综合候选。",
+      "scopeEvidence": [
+        {
+          "repositoryPath": "landmarks/yichang-guanglian-building/stages/D20261109_visible_main_facade_r2/docs/README_中文.md",
+          "sha256": "84b4de9caac0eb88413a090e4951ff7e426f414635f3216042c3b491043227ef",
+          "url": "https://github.com/zmc1212/china-landmarks-hubei/blob/440804ded49a2cef615015547349b3adf6aa09d5/landmarks/yichang-guanglian-building/stages/D20261109_visible_main_facade_r2/docs/README_中文.md"
+        }
+      ],
+      "geographicRegistration": {
+        "status": "reference-point-only",
+        "verifiedSourceFeatureIds": [],
+        "verifiedBuildingFootprints": [],
+        "modelOriginWgs84": null,
+        "verifiedHeadingDegrees": null,
+        "metersPerModelUnit": null,
+        "metricScaleVerified": false,
+        "mayAutoApplyToCity": false,
+        "reason": "局部或候选几何的归一化比例、技术厚度与 AABB 不构成完整地面占地证据；没有与原 GIS 建筑轮廓逐项核实的主体、原点、朝向和米制比例。"
+      },
+      "displayContract": {
+        "mayOfferStandalonePreview": true,
+        "retainReferencePoi": true,
+        "replaceCityFootprintIds": [],
+        "countAsNewCityPlacement": false,
+        "countAsVerifiedCompleteBuilding": false,
+        "visibleLabel": "局部候选 · 独立查看"
+      },
+      "additionalEvidenceForCityPlacement": [
+        "完整主体/组团范围与楼栋身份",
+        "与来源 GIS 轮廓或测量控制点的对应",
+        "有依据的米制统一缩放与真北朝向",
+        "入口、底部和相邻街道关系"
+      ]
+    },
+    {
+      "sourceSceneId": "1649127",
+      "name": "共和景晨创业中心",
+      "sourceAddress": "东站路169号",
+      "referencePoint": {
+        "originalCoordinateSystem": "GCJ-02",
+        "originalLonLat": [
+          111.379158,
+          30.65967
+        ],
+        "convertedCoordinateSystem": "WGS84 / EPSG:4326",
+        "convertedLonLat": [
+          111.37327683032962,
+          30.661977464990333
+        ],
+        "meaning": "原导览项目参考标记；未证明是楼体中心、模型原点或拍摄相机位置。",
+        "isVerifiedBuildingCenter": false,
+        "isVerifiedCameraPosition": false
+      },
+      "scopeSummary": "scene1649127 左塔可见立面候选，尚不能独立排除邻楼；身份待核，不代表 A/B 座或整个园区，橙褐色体为支承占位。",
+      "scopeEvidence": [
+        {
+          "repositoryPath": "landmarks/yichang-gonghe-jingchen/research/C20261109_scene1649127_left_facade_identity_hold/docs/README_范围与复现.md",
+          "sha256": "f52f929b79e52d085fcbc61552a650aee9a46d64d63cafb9865785b68ee9f770",
+          "url": "https://github.com/zmc1212/china-landmarks-hubei/blob/440804ded49a2cef615015547349b3adf6aa09d5/landmarks/yichang-gonghe-jingchen/research/C20261109_scene1649127_left_facade_identity_hold/docs/README_范围与复现.md"
+        }
+      ],
+      "geographicRegistration": {
+        "status": "reference-point-only",
+        "verifiedSourceFeatureIds": [],
+        "verifiedBuildingFootprints": [],
+        "modelOriginWgs84": null,
+        "verifiedHeadingDegrees": null,
+        "metersPerModelUnit": null,
+        "metricScaleVerified": false,
+        "mayAutoApplyToCity": false,
+        "reason": "局部或候选几何的归一化比例、技术厚度与 AABB 不构成完整地面占地证据；没有与原 GIS 建筑轮廓逐项核实的主体、原点、朝向和米制比例。"
+      },
+      "displayContract": {
+        "mayOfferStandalonePreview": true,
+        "retainReferencePoi": true,
+        "replaceCityFootprintIds": [],
+        "countAsNewCityPlacement": false,
+        "countAsVerifiedCompleteBuilding": false,
+        "visibleLabel": "局部候选 · 独立查看"
+      },
+      "additionalEvidenceForCityPlacement": [
+        "完整主体/组团范围与楼栋身份",
+        "与来源 GIS 轮廓或测量控制点的对应",
+        "有依据的米制统一缩放与真北朝向",
+        "入口、底部和相邻街道关系"
+      ]
+    },
+    {
+      "sourceSceneId": "1649130",
+      "name": "共同大厦",
+      "sourceAddress": "桔乡路501号",
+      "referencePoint": {
+        "originalCoordinateSystem": "GCJ-02",
+        "originalLonLat": [
+          111.386954,
+          30.6714
+        ],
+        "convertedCoordinateSystem": "WGS84 / EPSG:4326",
+        "convertedLonLat": [
+          111.38105820615677,
+          30.673694335949207
+        ],
+        "meaning": "原导览项目参考标记；未证明是楼体中心、模型原点或拍摄相机位置。",
+        "isVerifiedBuildingCenter": false,
+        "isVerifiedCameraPosition": false
+      },
+      "scopeSummary": "可见外表皮候选；整体进深、背侧、屋面设备、裙房入口及基底未配准，分离构件的展示偏移不能当真实安装位置。",
+      "scopeEvidence": [
+        {
+          "repositoryPath": "landmarks/yichang-gongtong-building/stages/C20261109_new_evidence_candidate/docs/README_中文.md",
+          "sha256": "dc76f4f34559c7229a4e0fcdca93d110607a966633fec75dbf7fa2b7e6d1104b",
+          "url": "https://github.com/zmc1212/china-landmarks-hubei/blob/440804ded49a2cef615015547349b3adf6aa09d5/landmarks/yichang-gongtong-building/stages/C20261109_new_evidence_candidate/docs/README_中文.md"
+        }
+      ],
+      "geographicRegistration": {
+        "status": "reference-point-only",
+        "verifiedSourceFeatureIds": [],
+        "verifiedBuildingFootprints": [],
+        "modelOriginWgs84": null,
+        "verifiedHeadingDegrees": null,
+        "metersPerModelUnit": null,
+        "metricScaleVerified": false,
+        "mayAutoApplyToCity": false,
+        "reason": "局部或候选几何的归一化比例、技术厚度与 AABB 不构成完整地面占地证据；没有与原 GIS 建筑轮廓逐项核实的主体、原点、朝向和米制比例。"
+      },
+      "displayContract": {
+        "mayOfferStandalonePreview": true,
+        "retainReferencePoi": true,
+        "replaceCityFootprintIds": [],
+        "countAsNewCityPlacement": false,
+        "countAsVerifiedCompleteBuilding": false,
+        "visibleLabel": "局部候选 · 独立查看"
+      },
+      "additionalEvidenceForCityPlacement": [
+        "完整主体/组团范围与楼栋身份",
+        "与来源 GIS 轮廓或测量控制点的对应",
+        "有依据的米制统一缩放与真北朝向",
+        "入口、底部和相邻街道关系"
+      ]
+    }
+  ],
+  "meilian": {
+    "sourceSceneId": "1649135",
+    "name": "美联御峰",
+    "assetsAlreadyPresent": true,
+    "reasonPending": "S05 是照片可见组团，原生明确不是完整建筑或单一办公产权楼；后部深度推定，模型 AABB 和单个 +Z 不能代表实际全楼朝向。",
+    "recommendedDisplay": "独立查看 · 可见组团候选 · 占地与朝向待核",
+    "referencePointWgs84": [
+      111.29235941587233,
+      30.6880967795452
+    ],
+    "referencePointIsBuildingCenter": false,
+    "candidateTransformResearchOnly": {
+      "uniformMetersPerModelUnit": 0.8887911709014987,
+      "threeRotationYDegrees": -59.00000220176715,
+      "localOriginWgs84": [
+        111.29221711816436,
+        30.68814912193371
+      ],
+      "localPositiveXBearingDegrees": 149.00000220176716,
+      "localPositiveZBearingDegrees": 239.00000220176716,
+      "silhouetteIoU": 0.6851468152990944,
+      "shiftFromUnconstrainedFitMeters": 3.1100826812223823
+    },
+    "candidateReplacementFeatureIdsResearchOnly": [
+      "d8498ab6-a277-40e8-84db-ca8b2660ed9c"
+    ],
+    "candidateLimitations": [
+      "S05原生说明明确NOT COMPLETE BUILDING / NOT … SINGLE OFFICE PROPERTY。",
+      "核心轮廓无约束拟合IoU0.766但完整模型会压service道路及未证实的小轮廓；安全候选IoU降至0.685，朝向接近优化边界。",
+      "建议独立查看或明确“可见组团候选·占地朝向待核”；不得宣称可靠楼体配准，也不得删周边楼以掩盖冲突。"
+    ],
+    "existingCollisionAudit": {
+      "source": "docs/models/business-buildings-evidence/model-registration-recommendations.json",
+      "asOf": "2026-11-09",
+      "result": {
+        "buildingOverlaps": [],
+        "roadWidthBufferOverlaps": []
+      },
+      "scope": "Planar projected vertex-hull footprint of every retained model node versus ALL 49378 source buildings and OSM road width display buffers excluding footways/paths/cycleways/steps/pedestrian ways. This is a conservative geometry analysis, not a surveyed curb or parcel boundary and not a WebGL visual test.",
+      "rerunThisReview": false,
+      "meaning": "既有几何候选未发现已测范围内冲突，不证明身份、占地或朝向已核实。"
+    },
+    "mayAutoApplyToCity": false,
+    "countAsNewCityPlacement": false,
+    "fieldSurveyVerified": false,
+    "doNotDeleteNearbyUnverifiedFootprintsToHideOverlap": true
+  },
+  "implementationReviewChecklist": [
+    "带 partial/preview 状态的行可以有模型资源，但 placement 仍是 poi/preview 而非 city。",
+    "地图实体加载、基础 GIS 足迹移除及 authored 城市计数只接收现有 7 项城市落位。",
+    "独立预览显示局部/候选标签，不展示米制高度或套用地图街道。",
+    "预览相机按本地模型有效 bounds 取景，不借用 city 注册变换或原导览 POI 作为模型中心。",
+    "美联可以有模型查看按钮，仍保留待配准状态；它不加入已入沙盘数量。",
+    "关闭预览后返回原地图交互与选中 POI；既有模型全貌/幕墙/入口/顶部取景保持。"
+  ]
+}

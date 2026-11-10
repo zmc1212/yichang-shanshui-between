@@ -9,12 +9,7 @@ import RoadLabels from './components/RoadLabels.jsx';
 import { buildDirectoryResults, getDirectoryNavigation, moveDirectoryActiveId, isComposingKeyEvent } from './lib/directoryNavigation.js';
 import { createSceneLocationUrl } from './lib/sceneLocation.js';
 import { useSceneLocation } from './hooks/useSceneLocation.js';
-
-const businessStatus = building => building.modelStatus === 'available'
-  ? '自建模型 · 阶段候选'
-  : building.modelStatus === 'registration-pending'
-    ? building.assets?.light ? '独立预览 · 待配准' : '模型待配准'
-    : '导览点 · 模型待恢复';
+import { businessStatus, hasIndependentPreview, previewActionLabel, previewScopeLabel } from './lib/businessModelStatus.js';
 
 function canReceiveFocus(element) {
   if (!element?.isConnected || element.closest('[inert], [hidden], [aria-hidden="true"]')) return false;
@@ -122,7 +117,7 @@ export default function App(){
   const focusActionLabel = authored ? inspecting ? '回到建筑全貌' : '适配建筑全貌'
     : closeView && view === 'perspective' ? guideOnly ? '拉远看街区' : '回到地标全景'
       : guideOnly ? '看看周边街区' : '靠近看看';
-  const canPreviewCandidate = guideOnly && selected.modelStatus === 'registration-pending' && Boolean(selected.assets?.light);
+  const canPreviewCandidate = hasIndependentPreview(selected);
   const registrationLabel = business ? selected.registration?.label || '位置待核准' : '';
   const sourcePeriod = selected?.sourcePeriod || selected?.period;
   const sourcePeriodLabel = sourcePeriod?.startsWith('2022 tour; historic 2021') ? '2022 年导图 · 含 2021 年历史统计' : sourcePeriod;
@@ -130,7 +125,9 @@ export default function App(){
   const availableCount = BUSINESS_BUILDINGS.filter(l=>l.modelStatus==='available').length;
   const recoveryCount = BUSINESS_BUILDINGS.filter(l=>l.modelStatus==='recovery-pending').length;
   const registrationCount = BUSINESS_BUILDINGS.filter(l=>l.modelStatus==='registration-pending').length;
-  const previewCount = BUSINESS_BUILDINGS.filter(l=>l.modelStatus==='registration-pending'&&l.assets?.light).length;
+  const previewCount = BUSINESS_BUILDINGS.filter(hasIndependentPreview).length;
+  const partialCount = BUSINESS_BUILDINGS.filter(l=>l.modelStatus==='partial-ready').length;
+  const researchCount = BUSINESS_BUILDINGS.filter(l=>l.modelStatus==='identity-review').length;
   const {groups:directoryGroups,items:filtered} = useMemo(
     ()=>buildDirectoryResults(landmarks,{query,filter:directoryFilter}),[landmarks,query,directoryFilter]);
   const directoryNavigation = useMemo(()=>getDirectoryNavigation(filtered,selectedId),[filtered,selectedId]);
@@ -416,11 +413,11 @@ export default function App(){
         <p id="directory-result-status" className="sr-only" role="status" aria-live="polite">{`${filtered.length}项结果${searchFocused&&activeResult?`，预选${activeResult.name}，第${directoryPositions.get(activeResult.id)}项`:''}`}</p>
         <section className="business-summary" aria-label="商务楼宇目录状态">
           <div><span><Buildings size={14}/>商务楼宇</span><strong>{BUSINESS_BUILDINGS.length}<small> 项</small></strong></div>
-          <p><span><b>{availableCount}</b> 沙盘模型</span><span><b>{recoveryCount}</b> 待恢复</span>{registrationCount>0&&<span><b>{registrationCount}</b> 待配准</span>}</p>
-          <small>原导图项目数，含多塔组团</small>
+          <p><span><b>{availableCount}</b> 沙盘模型</span><span><b>{previewCount}</b> 独立预览</span>{recoveryCount>0&&<span><b>{recoveryCount}</b> 待恢复</span>}</p>
+          <small>{partialCount+researchCount>0?`预览含 ${partialCount+researchCount} 项局部或研究模型`:'原导图项目数，含多塔组团'}</small>
         </section>
         <div className="directory-filters" role="group" aria-label="筛选地标与楼宇">
-          {[{id:'all',label:'全部'},{id:'available',label:'沙盘模型'},{id:'recovery-pending',label:'待恢复'},...(registrationCount?[{id:'registration-pending',label:'待配准'}]:[])].map(filter=><button key={filter.id} className={directoryFilter===filter.id?'active':''} aria-pressed={directoryFilter===filter.id} onClick={()=>setDirectoryFilter(filter.id)}>{filter.label}</button>)}
+          {[{id:'all',label:'全部'},{id:'available',label:'沙盘模型'},...(previewCount?[{id:'preview',label:'模型预览'}]:[]),...(recoveryCount?[{id:'recovery-pending',label:'待恢复'}]:[])].map(filter=><button key={filter.id} className={directoryFilter===filter.id?'active':''} aria-pressed={directoryFilter===filter.id} onClick={()=>setDirectoryFilter(filter.id)}>{filter.label}</button>)}
         </div>
         <div className="directory-heading"><span>{directoryFilter==='all'?'探索地标与建筑':'商务楼宇目录'}</span><span>{String(filtered.length).padStart(2,'0')} 项</span></div>
         <nav ref={directoryListRef} id="directory-results" className="landmark-list" aria-label="选择地标与楼宇">
@@ -463,8 +460,8 @@ export default function App(){
           {detailTab==='story'?<div id="landmark-panel" role="tabpanel" aria-labelledby="story-tab" className="detail-story">
             <div className="scene-postcard">{detailImage?<img src={detailImage} alt={guideOnly?`${selected.name}导览参考点周边的沙盘画面`:`${selected.name}的三维沙盘视角`}/>:guideOnly?<div className="postcard-loading"><MapPin size={22}/><span>导览参考位置</span></div>:<div className="postcard-loading"><CircleNotch className="spinner" size={20}/><span>正在靠近这处风景</span></div>}<span>{guideOnly?'导览点周边':'沙盘取景'} · {selected.name}</span></div>
             <p className="landmark-description">{selected.description}</p><div className="detail-location"><MapPin size={14}/><span>{selected.location||'湖北 · 宜昌'}</span></div>
-            {guideOnly&&<p className="business-poi-note">原导览点不等于精确楼体中心。这里先看周边街区，{selected.modelStatus==='registration-pending'?'模型将在位置与朝向核准后接入。':'模型源件仍待恢复与核对。'}</p>}
-            {canPreviewCandidate&&<button className="candidate-preview-button" onClick={()=>setModal('candidate')}><Buildings size={16}/><span>查看候选模型<small>独立查看 · 地图配准待核准</small></span><ArrowUpRight size={16}/></button>}
+            {guideOnly&&<p className="business-poi-note">原导览点不等于精确楼体中心。{selected.coverage?selected.coverage.scope:canPreviewCandidate?'可独立查看候选模型，地图位置与朝向仍待核准。':'模型源件仍待恢复与核对。'}</p>}
+            {canPreviewCandidate&&<button className="candidate-preview-button" onClick={()=>setModal('candidate')}><Buildings size={16}/><span>{previewActionLabel(selected)}<small>{previewScopeLabel(selected)}</small></span><ArrowUpRight size={16}/></button>}
             <button className="detail-focus" aria-pressed={authored?undefined:closeView&&view==='perspective'} onClick={toggleDetailFocus}>{focusActionLabel} {closeView&&view==='perspective'?<ArrowCounterClockwise size={17}/>:<ArrowUpRight size={17}/>}</button>
           </div>:<div id="landmark-panel" role="tabpanel" aria-labelledby="view-tab" className="detail-view">
             <p>换一个角度，发现城市的另一面。</p>
@@ -489,23 +486,23 @@ export default function App(){
       </main>
     </div>
     {modal==='guide'&&<Modal fallbackFocusRef={mobileMenuRef} title="用自己的节奏，认识宜昌。" onClose={closeModal}><div className="guide-steps"><div><Mouse size={26}/><span><strong>转一转，看见山水</strong><p>按住鼠标左键拖动，旋转沙盘；右键拖动可平移。</p></span></div><div><Plus size={26}/><span><strong>近一点，看见细节</strong><p>滚动鼠标滚轮，或使用右下角的加减按钮缩放。</p></span></div><div><CursorClick size={26}/><span><strong>点一处，听一座城</strong><p>点击地标名称或左侧目录，镜头会带你靠近风景。相近地点会合并为数量气泡，点开即可选择其中一处，也可放大这一组。</p></span></div><div><Sun size={26}/><span><strong>从日景，走到夜色</strong><p>切换顶部日夜按钮，也可以开启自动环绕慢慢欣赏。</p></span></div></div><p className="touch-note">触屏：单指旋转，双指缩放与平移。手机介绍可收起，留出更多画面。点击顶部相机可保存画面，楼名旁的链接按钮可复制定位；图层里可暂停江面动态。</p><button className="primary-button" onClick={closeModal}>开始探索 <ArrowUpRight size={17}/></button></Modal>}
-    {modal==='about'&&<Modal fallbackFocusRef={mobileMenuRef} title="关于这座沙盘" onClose={closeModal}><div className="about-content"><p className="about-lead">把宜昌的山水、街巷与楼阁，装进一座可以探索的微缩城市。</p><p>沙盘以公开道路、水系和建筑轮廓为基础，采用统一的色彩与简化造型呈现中心城区。地标、树木、江面船只与部分建筑高度经过展示性处理，适合城市导览与空间探索。</p><div className="about-data"><span>地图与轮廓</span><strong>OpenStreetMap · Overture Maps</strong><span>展示范围</span><strong>{data?.meta?.name||'宜昌中心城区'}</strong><span>商务楼宇</span><strong>{BUSINESS_BUILDINGS.length} 项</strong><span>恢复进度</span><strong>已恢复 {availableCount+registrationCount} 项 · {recoveryCount} 项待恢复</strong><span>模型展示</span><strong>{availableCount} 项沙盘模型 · {previewCount} 项独立预览</strong>{registrationCount>previewCount&&<><span>待配准源件</span><strong>{registrationCount-previewCount} 项尚待网页转换</strong></>}<span>作品</span><strong>宜昌Online · 江山之间</strong></div><p className="data-note">{BUSINESS_REGISTRY_INFO.note} 没有可用网页模型的项目先显示导览参考点，参考点不等于精确楼体中心。独立预览的候选仍待地图配准，阶段候选也不等于通过实景验收。</p><p className="data-note">首信、万达与九州方园周边的铺装、树池与街灯为展示性街道设计；真实入口尺寸、场地边界和设施点位仍待核实。道路名称取自保留的地图资料，按视野择要显示。地标位置为公开资料参考，模型并非测绘或工程成果。</p><a className="source-link" href="/data/sources.txt" target="_blank" rel="noreferrer">查看完整数据来源与说明 <ArrowUpRight size={15}/></a>{BUSINESS_REGISTRY_INFO.sourceUrl&&<a className="source-link" href={BUSINESS_REGISTRY_INFO.sourceUrl} target="_blank" rel="noreferrer">查看原商务楼宇导图 <ArrowUpRight size={15}/></a>}</div><button className="primary-button" onClick={closeModal}>回到山水之间 <ArrowLeft size={17}/></button></Modal>}
+    {modal==='about'&&<Modal fallbackFocusRef={mobileMenuRef} title="关于这座沙盘" onClose={closeModal}><div className="about-content"><p className="about-lead">把宜昌的山水、街巷与楼阁，装进一座可以探索的微缩城市。</p><p>沙盘以公开道路、水系和建筑轮廓为基础，采用统一的色彩与简化造型呈现中心城区。地标、树木、江面船只与部分建筑高度经过展示性处理，适合城市导览与空间探索。</p><div className="about-data"><span>地图与轮廓</span><strong>OpenStreetMap · Overture Maps</strong><span>展示范围</span><strong>{data?.meta?.name||'宜昌中心城区'}</strong><span>商务楼宇</span><strong>{BUSINESS_BUILDINGS.length} 项</strong><span>可查看模型</span><strong>{availableCount+previewCount} 项 · 详见各项模型范围</strong><span>模型展示</span><strong>{availableCount} 项沙盘模型 · {previewCount} 项独立预览</strong>{partialCount>0&&<><span>局部模型</span><strong>{partialCount} 项可见范围候选</strong></>}{researchCount>0&&<><span>研究模型</span><strong>{researchCount} 项主体身份待核</strong></>}{registrationCount>0&&<><span>组团候选</span><strong>{registrationCount} 项占地与朝向待核</strong></>}<span>作品</span><strong>宜昌Online · 江山之间</strong></div><p className="data-note">{BUSINESS_REGISTRY_INFO.note} 独立预览包含已建可见组团、局部立面和研究模型，各项均注明已包含与尚缺的部分。能查看几何不代表完整楼宇已恢复，也不代表已通过实景验收。导览参考点不等于精确楼体中心。</p><p className="data-note">首信、万达与九州方园周边的铺装、树池与街灯为展示性街道设计；真实入口尺寸、场地边界和设施点位仍待核实。道路名称取自保留的地图资料，按视野择要显示。地标位置为公开资料参考，模型并非测绘或工程成果。</p><a className="source-link" href="/data/sources.txt" target="_blank" rel="noreferrer">查看完整数据来源与说明 <ArrowUpRight size={15}/></a>{BUSINESS_REGISTRY_INFO.sourceUrl&&<a className="source-link" href={BUSINESS_REGISTRY_INFO.sourceUrl} target="_blank" rel="noreferrer">查看原商务楼宇导图 <ArrowUpRight size={15}/></a>}</div><button className="primary-button" onClick={closeModal}>回到山水之间 <ArrowLeft size={17}/></button></Modal>}
     {modal==='model'&&business&&<Modal fallbackFocusRef={mobileMenuRef} title={`${selected.name} · ${authored?'模型':'资料'}说明`} onClose={closeModal}><div className="about-content">
       <p className="about-lead">{authored?selected.subtitle||'近一点，看见建筑的细节。':businessStatus(selected)}</p>
       <p>{selected.description}</p>
-      {authored?<p>网页使用原生模型另行导出的副本，保持楼体外形与三轴比例。全景使用轻量模型，近看按需载入细节。</p>:<p>当前显示原导图换算后的导览参考位置，可以查看周边街区。{selected.modelStatus==='registration-pending'?'已恢复的模型仍需核准位置与朝向，可先独立查看候选外观。':'模型源件仍待恢复，目录保留这个项目的记录。'}</p>}
-      <div className="about-data"><span>模型状态</span><strong>{businessStatus(selected)}</strong>{selected.stage&&<><span>当前阶段</span><strong>{selected.stage}</strong></>}<span>{authored?'地图落位':'导览位置'}</span><strong>{registrationLabel}</strong><span>位置说明</span><strong>{selected.location||'位置待核准'}</strong>{selected.sourceName&&<><span>原导图名称</span><strong>{selected.sourceName}</strong></>}{sourcePeriodLabel&&<><span>资料时期</span><strong>{sourcePeriodLabel}</strong></>}{authored&&<><span>模型比例</span><strong>三轴等比缩放 · 非实测模型</strong></>}</div>
+      {authored?<p>网页使用原生模型另行导出的副本，保持楼体外形与三轴比例。全景使用轻量模型，近看按需载入细节。</p>:<p>当前显示原导图换算后的导览参考位置，可以查看周边街区。{selected.coverage?'已找到可查看的局部几何，范围与主体完整性仍待补齐；可从下方打开独立模型。':canPreviewCandidate?'可先独立查看已建可见组团，占地与朝向仍待核准。':'模型源件仍待恢复，目录保留这个项目的记录。'}</p>}
+      <div className="about-data"><span>模型状态</span><strong>{businessStatus(selected)}</strong>{selected.stage&&<><span>当前阶段</span><strong>{selected.stage}</strong></>}{selected.coverage&&<><span>已建范围</span><strong>{selected.coverage.scope}</strong><span>尚缺部分</span><strong>{selected.coverage.missing}</strong></>}<span>{authored?'地图落位':'导览位置'}</span><strong>{registrationLabel}</strong><span>位置说明</span><strong>{selected.location||'位置待核准'}</strong>{selected.sourceName&&<><span>原导图名称</span><strong>{selected.sourceName}</strong></>}{sourcePeriodLabel&&<><span>资料时期</span><strong>{sourcePeriodLabel}</strong></>}{authored&&<><span>模型比例</span><strong>三轴等比缩放 · 非实测模型</strong></>}</div>
       <p className="data-note">{selected.caveat||'位置、尺寸与朝向仍待核准，资料不代表当前经营状态。'}</p>
       <p className="data-note">{authored?'阶段候选不等于已通过实景验收。夜景灯光为展示性处理，模型不属于实测或工程成果。':'导览参考点不等于精确楼体中心，周边普通楼体是城市底图的风格化表达。'}</p>
       {selected.registrationUrl&&<a className="source-link" href={selected.registrationUrl} target="_blank" rel="noreferrer">查看地图配准依据 <ArrowUpRight size={15}/></a>}
       {selected.modelNotesUrl&&<a className="source-link" href={selected.modelNotesUrl} target="_blank" rel="noreferrer">查看模型交接说明 <ArrowUpRight size={15}/></a>}
       {selected.sourceUrl&&<a className="source-link" href={selected.sourceUrl} target="_blank" rel="noreferrer">查看原商务楼宇导图 <ArrowUpRight size={15}/></a>}
-    </div>{canPreviewCandidate&&<button className="candidate-preview-button" onClick={()=>setModal('candidate')}><Buildings size={17}/><span>查看候选模型<small>独立查看 · 地图配准待核准</small></span><ArrowUpRight size={16}/></button>}<button className="primary-button" onClick={closeModal}>{authored?'继续看建筑':'继续看街区'} <ArrowLeft size={17}/></button></Modal>}
+    </div>{canPreviewCandidate&&<button className="candidate-preview-button" onClick={()=>setModal('candidate')}><Buildings size={17}/><span>{previewActionLabel(selected)}<small>{previewScopeLabel(selected)}</small></span><ArrowUpRight size={16}/></button>}<button className="primary-button" onClick={closeModal}>{authored?'继续看建筑':'继续看街区'} <ArrowLeft size={17}/></button></Modal>}
     {modal==='location-link'&&<Modal fallbackFocusRef={mobileMenuRef} title="带走这一处风景" onClose={closeModal}>
       <div className="about-content"><p className="about-lead">选中并复制下方定位链接。</p><p>打开后恢复当前地点、预设观察角度与日夜模式。链接沿用原站的访问权限。</p><input className="location-link-input" aria-label="当前定位链接" readOnly value={locationLink} onFocus={event=>event.target.select()}/></div>
       <button className="primary-button" onClick={closeModal}>回到沙盘 <ArrowLeft size={17}/></button>
     </Modal>}
-    {modal==='candidate'&&canPreviewCandidate&&<Modal fallbackFocusRef={mobileMenuRef} title={`${selected.name} · 候选模型`} className="model-preview-modal" onClose={closeModal}>
+    {modal==='candidate'&&canPreviewCandidate&&<Modal fallbackFocusRef={mobileMenuRef} title={selected.coverage?.title || `${selected.name} · 候选模型`} className="model-preview-modal" onClose={closeModal}>
       <ModelPreview key={selected.id} model={selected} theme={theme}/>
       <div className="candidate-preview-provenance"><p>{selected.caveat}</p>{selected.modelNotesUrl&&<a className="source-link" href={selected.modelNotesUrl} target="_blank" rel="noreferrer">模型交接说明 <ArrowUpRight size={14}/></a>}</div>
       <button className="primary-button" onClick={closeModal}>回到城市导览 <ArrowLeft size={17}/></button>

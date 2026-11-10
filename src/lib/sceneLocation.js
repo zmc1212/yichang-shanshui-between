@@ -5,7 +5,7 @@ export const SCENE_LOCATION_DEFAULTS = Object.freeze({
   filter: 'all', query: '',
 });
 
-const FILTERS = new Set(['all', 'available', 'recovery-pending', 'registration-pending']);
+const FILTERS = new Set(['all', 'available', 'preview', 'recovery-pending']);
 const KEYS = ['place', 'theme', 'view', 'angle', 'close', 'filter', 'q'];
 const RIVER_VIEWS = new Set(['zhenjiang-pavilion', 'tianran-pagoda']);
 
@@ -15,13 +15,19 @@ export function normalizeSceneLocation(value = {}, places = []) {
     : place?.kind === 'business-poi' ? ['detail', 'context']
       : RIVER_VIEWS.has(place?.id) ? ['detail', 'river'] : ['detail'];
   const angle = place && allowedAngles.includes(value.angle) ? value.angle : 'detail';
+  // Existing saved links keep their place selection as recovered items move
+  // into the unified preview directory. A real remaining recovery queue stays
+  // addressable if later catalog entries still need source files.
+  const filter = value.filter === 'registration-pending'
+    || (value.filter === 'recovery-pending' && !places.some(item => item.modelStatus === 'recovery-pending'))
+    ? 'preview' : value.filter;
   return {
     place: place?.id || null,
     theme: value.theme === 'night' ? 'night' : 'day',
     view: value.view === 'top' ? 'top' : 'perspective',
     angle,
     close: Boolean(place && angle !== 'context' && (value.close === true || value.close === '1')),
-    filter: FILTERS.has(value.filter) ? value.filter : 'all',
+    filter: FILTERS.has(filter) ? filter : 'all',
     query: typeof value.query === 'string' ? value.query.slice(0, 120) : '',
   };
 }

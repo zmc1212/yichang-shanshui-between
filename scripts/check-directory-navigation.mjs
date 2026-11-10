@@ -82,10 +82,18 @@ check('real seven-model filter cannot step into a pending model', () => {
   assert.equal(end.outside, false);
 });
 
-check('23 projects retain their distinct recovery/registration statuses', () => {
-  assert.equal(buildDirectoryResults(landmarks, { filter: 'recovery-pending' }).items.length, 15);
+check('23 projects distinguish city, group, partial and identity-review models', () => {
+  assert.equal(buildDirectoryResults(landmarks, { filter: 'recovery-pending' }).items.length, 0);
+  assert.equal(buildDirectoryResults(landmarks, { filter: 'partial-ready' }).items.length, 14);
+  assert.deepEqual(ids(buildDirectoryResults(landmarks, { filter: 'identity-review' }).items), ['business-1649127']);
   assert.deepEqual(ids(buildDirectoryResults(landmarks, { filter: 'registration-pending' }).items), [meilian.id]);
-  assert.equal(available.length + 15 + 1, BUSINESS_BUILDINGS.length);
+  const previews=buildDirectoryResults(landmarks, { filter: 'preview' }).items;
+  assert.equal(previews.length, 16);
+  assert(previews.every(item=>item.kind==='business-poi'&&item.assets.light));
+  assert.equal(available.length + previews.length, BUSINESS_BUILDINGS.length);
+  assert.equal(getDirectoryNavigation(previews, previews.at(-1).id).nextId, meilian.id);
+  assert.equal(getDirectoryNavigation(previews, meilian.id).nextId, 'business-1649141');
+  assert.deepEqual(ids(buildDirectoryResults(landmarks, {filter:'preview',query:'时代中心'}).items), ['business-1649147']);
 });
 
 check('Chinese aliases, spaces and Latin case find the intended building', () => {
