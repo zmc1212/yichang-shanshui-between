@@ -1,0 +1,49 @@
+{
+  "codeCommit": "424e5eea8e6924eec980637d74712dde12f87798",
+  "observedURL": "https://yichang-miniature-city.gaoronghai.chatgpt.site/",
+  "browser": "Chrome extension / real WebGL",
+  "viewport": {
+    "width": 1920,
+    "height": 863
+  },
+  "consoleErrors": [],
+  "consoleWarnings": [],
+  "canvas": {
+    "atmosphereMotion": "false",
+    "authoredModels": "23",
+    "authoredSelection": "false",
+    "businessProjects": "23",
+    "cityVisible": "true",
+    "detailModels": "0",
+    "drawCalls": "135",
+    "engine": "three.js r170",
+    "focusAngle": "riverfront-district",
+    "geometries": "158",
+    "modelAnchor": "",
+    "modelQuality": "light",
+    "renderFrames": "48",
+    "renderState": "active",
+    "residentModels": "23",
+    "sceneMode": "city",
+    "shadowTexelMetres": "0.5941313887300482",
+    "streetDetails": "2",
+    "streetDetailsEnabled": "true",
+    "streetVisibleDrawCalls": "27",
+    "streetVisibleExtensions": "2",
+    "streetVisibleIds": "[\"wanda-soho-s01\",\"yichang-international-s01\",\"international-yanjiang-extension\",\"wanda-yanjiang-extension\"]",
+    "streetVisibleLinks": "0",
+    "streetVisibleSites": "2",
+    "textures": "4",
+    "timeOfDay": "day",
+    "trafficVisible": "true",
+    "triangles": "929230",
+    "urbanPavingCells": "642",
+    "weather": "clear"
+  },
+  "views": [
+    "riverfront day",
+    "Wanda complete building day",
+    "riverfront night",
+    "return to riverfront day"
+  ]
+}
