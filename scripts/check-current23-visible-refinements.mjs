@@ -19,7 +19,8 @@ for(const order of [9,13,14,15,16,17,19,20,22])for(const tier of ['light','detai
   for(const m of materials)if(m.name!==alphaName){assert.equal(m.transparent,false);assert.equal(m.opacity,1);}
  }else{
   // Order16 I-left intentionally shares H-right colors; optimizer deduplicates I materials to H names. Binary hashes/geometry are checked by integration.
-  const added=[...materials].filter(m=>m.name.startsWith(order===14?'H_observed_':[15,16].includes(order)?'H_':order===22?'K_':order===17?'G_':'I_'));assert(added.length>=([13,14].includes(order)?3:1),'Refinement materials survive both tiers');
+  // Star I retains H front materials; optimizer merges identical side colors into H names. Hash/geometry checks validate I assets.
+  const added=[...materials].filter(m=>m.name.startsWith(order===14?'H_observed_':[15,16].includes(order)?'H_':order===22?'K_':order===17?'H_':'I_'));assert(added.length>=([13,14].includes(order)?3:1),'Refinement materials survive both tiers');
   prepareAuthoredModel(object,spec);for(const m of materials){assert.equal(m.transparent,false);assert.equal(m.opacity,1);}
  }
  results.push({order,tier,materials:materials.size,reviewedAlpha:order===9?.25:null});

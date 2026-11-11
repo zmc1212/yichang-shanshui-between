@@ -1505,7 +1505,7 @@
   "1649147": {
     "order": 17,
     "name": "中建宜昌之星",
-    "stage": "宜昌之星G可见前冠格架候选",
+    "stage": "宜昌之星I可见前侧幕墙连续域候选",
     "sourceBounds": {
       "min": [
         -27.5,
@@ -1519,16 +1519,16 @@
       ]
     },
     "assets": {
-      "light": "/models/current23/17/light.glb?v=3cf957cc4d0e",
-      "detail": "/models/current23/17/detail.glb?v=14da8502cc51"
+      "light": "/models/current23/17/light.glb?v=8c85a5aec55d",
+      "detail": "/models/current23/17/detail.glb?v=ee629f0428cc"
     },
     "webBudget": {
       "light": {
-        "bytes": 69028,
-        "triangles": 3776,
-        "primitives": 7,
-        "vertices": 8378,
-        "sha256": "3cf957cc4d0eae2aea2c8abeb321eb9a509da805693a6670c033d05855e10ec1",
+        "bytes": 313016,
+        "triangles": 20984,
+        "primitives": 9,
+        "vertices": 48857,
+        "sha256": "8c85a5aec55dc4184ae6f36974c0cb8b6731619cbdc98deaa153975afd3491a9",
         "bounds": {
           "min": [
             -27.5,
@@ -1543,11 +1543,11 @@
         }
       },
       "detail": {
-        "bytes": 63928,
-        "triangles": 3788,
-        "primitives": 7,
-        "vertices": 7552,
-        "sha256": "14da8502cc517a85e0e1892eda88481b81d625145c34c02a9138657ac412fc61",
+        "bytes": 277800,
+        "triangles": 21768,
+        "primitives": 9,
+        "vertices": 42546,
+        "sha256": "ee629f0428cc0a3995792f254e44209c315f9bf753f1249ba9a4420b26e13fc9",
         "bounds": {
           "min": [
             -27.5,
@@ -1562,8 +1562,8 @@
         }
       }
     },
-    "sourceModelSha256": "38b5a9468488233488b9b154f8a049bf3fe235f190b5b110e4c0c289bcc27f22",
-    "sourceSelectionFile": "assets/17/current/YichangStar_G_FrontCrownCandidate.glb",
+    "sourceModelSha256": "596f009fa3d4b23a440b7791f28389f6b44844e3acf0e19f5f48ccc82c3e4093",
+    "sourceSelectionFile": "assets/17/current/YichangStar_I_ObservedSideBandsCandidate.glb",
     "modelNotesUrl": "/models/current23/17/README.txt",
     "holds": {
       "identity": true,
@@ -1572,12 +1572,12 @@
       "geographic_registration": "HOLD_LATEST_SITE_NOT_VERIFIED",
       "absolute_scale": "HOLD_NO_NEW_SURVEY_OR_SCALE_CERTIFICATION",
       "capture_date": "UNKNOWN_UNLESS_EXPLICIT_SOURCE_DOC_QUALIFICATION",
-      "scope_and_remaining_holds": "G仅修正前冠可见格架与中央不透明遮挡，非全冠挖空；F原件隐藏保留，92以下21面与总包络不变。六级节奏/杆距/冠深均为归一展示；真实后侧/尺度/方向、单栋指定及43/51层口径继续HOLD。"
+      "scope_and_remaining_holds": "I结合官网正视与独立斜视补中央幕墙和展示+X可见侧主横带，修正原错层接头；前三强带和第四弱带区别处理。未知-X撤下旧错位横条降级素面，不属新增复原。G冠与全部旧对象可逆保留，12域外面和总包络不变。真实后侧、窗格精确数量、尺度、方向和原23项单栋绑定继续HOLD。"
     },
-    "sourceVersion": "宜昌之星G",
+    "sourceVersion": "宜昌之星I",
     "sourceRecovery": {
-      "filename": "YichangStar_G_FrontCrownCandidate_Delivery.zip",
-      "library_file_id": "libfile_fde3_f-e4cd08b5e5b88191a93b0c20ccba41dd_c853d26840d0819196e3746c99b28092"
+      "filename": "YichangStar_I_ObservedSideBandsCandidate_Delivery.zip",
+      "library_file_id": "libfile_fde3_f-99195a710d9c8191851ecd8b0cdcd1f8_c853d26840d0819196e3746c99b28092"
     }
   },
   "1649148": {

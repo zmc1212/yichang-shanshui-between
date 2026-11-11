@@ -1,0 +1,48 @@
+{
+  "old_signatures_exact": true,
+  "outside_front_polygons_exact": 12,
+  "degenerate_polygons": [],
+  "same_facing_coplanar_pairs_checked": 9532,
+  "new_positive_area_overlaps": [],
+  "floating_boundary_slivers_below_1e_5_area": [],
+  "inherited_below_boundary_contacts": [
+    [
+      [
+        "I_DISPLAY_unaffected_body_faces",
+        0
+      ],
+      [
+        "Podium_top_schematic",
+        4
+      ],
+      537.5
+    ]
+  ],
+  "scope": "all convex planar visible faces; inherited display-domain contacts classified separately; not a structural/measured survey",
+  "before_visible_bounds": [
+    [
+      -27.5,
+      -20.5,
+      0.0
+    ],
+    [
+      27.5,
+      11.0,
+      105.0999984741211
+    ]
+  ],
+  "after_visible_bounds": [
+    [
+      -27.5,
+      -20.5,
+      0.0
+    ],
+    [
+      27.5,
+      11.0,
+      105.0999984741211
+    ]
+  ],
+  "bounds_unchanged_within_1e_4": true,
+  "opposite_side_old_rhythm_hidden": true
+}
