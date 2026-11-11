@@ -30,37 +30,66 @@ export const CITY_TOURS = Object.freeze([
   },
 ]);
 
-export const EMPTY_TOUR_STATE = Object.freeze({ routeId: null, index: 0, playing: false, complete: false, suspended: false });
+export const DEFAULT_TOUR_DWELL_MS = 5000;
+export const TOUR_MODEL_WAIT_MS = 3000;
+export const TOUR_PACES = Object.freeze([
+  { value: 3000, label: '快览 · 3秒' },
+  { value: DEFAULT_TOUR_DWELL_MS, label: '标准 · 5秒' },
+  { value: 8000, label: '慢看 · 8秒' },
+]);
+export const EMPTY_TOUR_STATE = Object.freeze({ routeId: null, index: 0, playing: false, complete: false, suspended: false,
+  dwellMs: DEFAULT_TOUR_DWELL_MS, modelLoading: false, modelWaitExpired: false });
 
 // A single cancellable timer owns the tour. Pausing, changing route, hiding the
 // page and disposing all cancel that timer so an old stop cannot steal focus.
-export function createCityTourController({ routes = CITY_TOURS, onVisit = () => {}, onChange = () => {}, dwellMs = 14000,
+export function createCityTourController({ routes = CITY_TOURS, onVisit = () => {}, onChange = () => {}, dwellMs = DEFAULT_TOUR_DWELL_MS,
   setTimer = setTimeout, clearTimer = clearTimeout, now = () => performance.now() } = {}) {
-  let state = { ...EMPTY_TOUR_STATE }, timer = null, startedAt = 0, remaining = dwellMs, generation = 0, disposed = false;
+  const validDuration = value => Number.isFinite(value) && value >= 1000 && value <= 60_000;
+  let state = { ...EMPTY_TOUR_STATE, dwellMs: validDuration(dwellMs) ? dwellMs : DEFAULT_TOUR_DWELL_MS };
+  let timer = null, timerPhase = null, startedAt = 0, remaining = state.dwellMs;
+  let modelWaitRemaining = TOUR_MODEL_WAIT_MS, generation = 0, disposed = false;
   const route = () => routes.find(item => item.id === state.routeId);
   const publish = () => { if (!disposed) onChange({ ...state }); };
+  const waitingForModel = () => Boolean(route() && !state.complete && state.modelLoading && !state.modelWaitExpired && modelWaitRemaining > 0);
+  const timeLeft = phase => Math.max(0, (phase === 'model' ? modelWaitRemaining : remaining)
+    - (timer !== null && timerPhase === phase ? Math.max(0, now() - startedAt) : 0));
   function cancel(preserve = false) {
     if (timer !== null) {
+      if (preserve) {
+        if (timerPhase === 'model') modelWaitRemaining = timeLeft('model');
+        else remaining = timeLeft('dwell');
+      }
       clearTimer(timer); timer = null;
-      if (preserve) remaining = Math.max(0, remaining - Math.max(0, now() - startedAt));
+      timerPhase = null;
     }
     generation++;
+  }
+  function resetStop() {
+    remaining = state.dwellMs; modelWaitRemaining = TOUR_MODEL_WAIT_MS;
+    state = { ...state, modelLoading: false, modelWaitExpired: false };
   }
   function schedule() {
     cancel();
     if (disposed || !state.playing || state.suspended || !route()) return;
-    const token = generation; startedAt = now();
+    const token = generation, phase = waitingForModel() ? 'model' : 'dwell';
+    startedAt = now(); timerPhase = phase;
     timer = setTimer(() => {
       if (disposed || token !== generation) return;
-      timer = null; remaining = dwellMs;
+      timer = null; timerPhase = null;
       const current = route();
       if (!current || !state.playing || state.suspended) return;
+      if (phase === 'model') {
+        modelWaitRemaining = 0; state = { ...state, modelWaitExpired: true };
+        publish(); schedule(); return;
+      }
+      remaining = 0;
       if (state.index >= current.stops.length - 1) {
         state = { ...state, playing: false, complete: true }; publish(); return;
       }
       state = { ...state, index: state.index + 1 };
+      resetStop();
       visit(); publish(); schedule();
-    }, Math.max(0, remaining));
+    }, Math.max(0, phase === 'model' ? modelWaitRemaining : remaining));
   }
   function visit() {
     const stop = route()?.stops[state.index];
@@ -68,11 +97,16 @@ export function createCityTourController({ routes = CITY_TOURS, onVisit = () => 
   }
   return {
     getState: () => ({ ...state }),
+    // The control's countdown reads the navigation clock directly. It does not
+    // run a second playback clock or ask the whole scene to rerender every tick.
+    getTiming: () => ({ remainingMs: timeLeft('dwell'), durationMs: state.dwellMs,
+      modelWaitRemainingMs: timeLeft('model'), waitingForModel: waitingForModel() }),
     start(id) {
       const next = routes.find(item => item.id === id);
       if (disposed || !next?.stops.length) return false;
-      cancel(); remaining = dwellMs;
+      cancel();
       state = { ...state, routeId: id, index: 0, playing: true, complete: false };
+      resetStop();
       visit(); publish(); schedule(); return true;
     },
     pause() {
@@ -81,17 +115,30 @@ export function createCityTourController({ routes = CITY_TOURS, onVisit = () => 
     },
     resume() {
       if (disposed || !route() || state.playing) return;
-      if (state.complete) { state = { ...state, index: 0 }; remaining = dwellMs; }
+      if (state.complete) { state = { ...state, index: 0 }; resetStop(); }
       state = { ...state, playing: true, complete: false };
       visit(); publish(); schedule();
     },
     jump(index) {
       const current = route();
       if (disposed || !current || !Number.isInteger(index) || index < 0 || index >= current.stops.length) return false;
-      cancel(); remaining = dwellMs;
-      state = { ...state, index, complete: false }; visit(); publish(); schedule(); return true;
+      cancel(); state = { ...state, index, complete: false }; resetStop();
+      visit(); publish(); schedule(); return true;
     },
     step(direction) { return this.jump(state.index + Math.sign(direction)); },
+    setDwellMs(value) {
+      if (disposed || !validDuration(value) || value === state.dwellMs) return false;
+      cancel(true);
+      const elapsed = state.dwellMs - remaining;
+      state = { ...state, dwellMs: value };
+      remaining = state.complete ? 0 : Math.max(0, value - elapsed);
+      publish(); schedule(); return true;
+    },
+    setModelLoading(id, value) {
+      const loading = Boolean(value);
+      if (disposed || !route() || route().stops[state.index]?.id !== id || loading === state.modelLoading) return;
+      cancel(true); state = { ...state, modelLoading: loading }; publish(); schedule();
+    },
     setSuspended(value) {
       const suspended = Boolean(value);
       if (disposed || suspended === state.suspended) return;
@@ -99,7 +146,8 @@ export function createCityTourController({ routes = CITY_TOURS, onVisit = () => 
     },
     stop() {
       if (disposed) return;
-      cancel(); remaining = dwellMs; state = { ...EMPTY_TOUR_STATE, suspended: state.suspended }; publish();
+      cancel(); state = { ...EMPTY_TOUR_STATE, suspended: state.suspended, dwellMs: state.dwellMs };
+      resetStop(); publish();
     },
     dispose() { cancel(); disposed = true; },
   };

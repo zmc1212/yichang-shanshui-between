@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
-import { CITY_TOURS, createCityTourController } from '../src/lib/cityTour.js';
+import { CITY_TOURS, DEFAULT_TOUR_DWELL_MS, TOUR_MODEL_WAIT_MS, createCityTourController } from '../src/lib/cityTour.js';
 import { BUSINESS_BUILDINGS } from '../src/scene/buildingCatalog.js';
 import { normalizeSceneLocation } from '../src/lib/sceneLocation.js';
 import { resolveAuthoredPlacement, planAuthoredGround } from '../src/scene/authoredPlacement.js';
@@ -47,9 +47,12 @@ function clock() {
   };
 }
 
-function setup() {
+// Existing behavioral checks deliberately retain their original 14-second
+// fixture. Passing {} below exercises the new production default separately.
+function setup(options = { dwellMs: 14000 }) {
   const time = clock(), visits = [], changes = [];
   const controller = createCityTourController({
+    ...options,
     onVisit: (id, options) => visits.push({ at: time.now(), id, options }),
     onChange: state => changes.push(state),
     now: time.now, setTimer: time.setTimer, clearTimer: time.clearTimer,
@@ -283,6 +286,207 @@ check('Starting a new route while suspended preserves suspension and gives the f
   assert.equal(tour.getState().index, 0);
   time.advance(1);
   assert.equal(tour.getState().index, 1);
+  tour.dispose();
+});
+
+check('Production defaults switch after five seconds and finish the last stop without looping', () => {
+  assert.equal(DEFAULT_TOUR_DWELL_MS, 5000);
+  assert.equal(TOUR_MODEL_WAIT_MS, 3000);
+  const { controller: tour, time, visits } = setup({});
+  tour.start('river');
+  assert.equal(tour.getState().dwellMs, 5000);
+  assert.equal(tour.getTiming().durationMs, 5000);
+  assert.equal(tour.getTiming().remainingMs, 5000);
+  assert.equal(visits.length, 1, 'the first camera move remains immediate');
+  time.advance(4999);
+  assert.equal(visits.length, 1);
+  assert.equal(tour.getTiming().remainingMs, 1);
+  time.advance(1);
+  assert.equal(tour.getState().index, 1);
+  assert.equal(visits[1].at, 5000);
+  tour.jump(CITY_TOURS[0].stops.length - 1);
+  time.advance(4999);
+  assert.equal(tour.getState().complete, false);
+  time.advance(1);
+  assert.equal(tour.getState().complete, true);
+  assert.equal(tour.getState().playing, false);
+  assert.equal(time.pendingIds().length, 0);
+  const count = visits.length;
+  time.advance(60_000);
+  assert.equal(visits.length, count);
+  tour.dispose();
+});
+
+check('Countdown samples share the navigation deadline and freeze during user or overlay pauses', () => {
+  const { controller: tour, time } = setup({});
+  tour.start('river');
+  const pending = time.pendingIds();
+  time.advance(1250);
+  for (let index = 0; index < 10; index++) assert.equal(tour.getTiming().remainingMs, 3750);
+  assert.deepEqual(time.pendingIds(), pending, 'reading countdown cannot reset or add a navigation timer');
+  tour.pause();
+  time.advance(90_000);
+  assert.equal(tour.getTiming().remainingMs, 3750);
+  assert.equal(time.pendingIds().length, 0);
+  tour.resume();
+  time.advance(250);
+  tour.setSuspended(true);
+  time.advance(90_000);
+  assert.equal(tour.getTiming().remainingMs, 3500);
+  tour.setSuspended(false);
+  time.advance(3499);
+  assert.equal(tour.getState().index, 0);
+  assert.equal(tour.getTiming().remainingMs, 1);
+  time.advance(1);
+  assert.equal(tour.getState().index, 1);
+  tour.dispose();
+});
+
+check('Changing pace preserves elapsed dwell and cannot leave an already elapsed stop waiting', () => {
+  const { controller: tour, time, visits } = setup({});
+  tour.start('river');
+  const [oldTimer] = time.pendingIds();
+  time.advance(2000);
+  tour.setDwellMs(3000);
+  assert.equal(tour.getState().dwellMs, 3000);
+  assert.equal(tour.getTiming().durationMs, 3000);
+  assert.equal(tour.getTiming().remainingMs, 1000);
+  time.fireQueued(oldTimer);
+  assert.equal(tour.getState().index, 0, 'the old pace callback is invalidated');
+  time.advance(999);
+  assert.equal(visits.length, 1);
+  time.advance(1);
+  assert.equal(tour.getState().index, 1);
+  time.advance(1000);
+  tour.setDwellMs(8000);
+  assert.equal(tour.getTiming().remainingMs, 7000, 'slowing down keeps the already spent second');
+  time.advance(3000);
+  tour.setDwellMs(3000);
+  assert.equal(tour.getTiming().remainingMs, 0, 'speeding up cannot create negative countdown');
+  time.advance(0);
+  assert.equal(tour.getState().index, 2, 'an already spent new duration advances without another full dwell');
+  assert.equal(time.pendingIds().length, 1);
+  tour.dispose();
+});
+
+check('A model that never loads adds at most three seconds before normal countdown resumes', () => {
+  const { controller: tour, time, visits } = setup({});
+  const first = CITY_TOURS.find(route => route.id === 'architecture').stops[0].id;
+  tour.start('architecture');
+  tour.setModelLoading(first, true);
+  assert.equal(tour.getState().modelLoading, true);
+  assert.equal(tour.getTiming().waitingForModel, true);
+  assert.equal(tour.getTiming().modelWaitRemainingMs, 3000);
+  assert.equal(time.pendingIds().length, 1, 'model grace and dwell share one navigation timer');
+  time.advance(2000);
+  tour.setModelLoading(first, true);
+  assert.equal(tour.getTiming().modelWaitRemainingMs, 1000, 'duplicate loading notifications cannot restart grace');
+  assert.equal(tour.getTiming().remainingMs, 5000, 'grace does not spend the view dwell');
+  time.advance(999);
+  assert.equal(tour.getTiming().waitingForModel, true);
+  time.advance(1);
+  assert.equal(tour.getState().modelLoading, true);
+  assert.equal(tour.getState().modelWaitExpired, true);
+  assert.equal(tour.getTiming().waitingForModel, false);
+  assert.equal(tour.getTiming().modelWaitRemainingMs, 0);
+  time.advance(4999);
+  assert.equal(tour.getState().index, 0);
+  time.advance(1);
+  assert.equal(tour.getState().index, 1);
+  assert.equal(visits.at(-1).at, 8000, 'slow network cannot hold this station indefinitely');
+  tour.dispose();
+});
+
+check('A ready model immediately releases grace and repeated loading shares the same visit budget', () => {
+  const { controller: tour, time } = setup({});
+  const first = CITY_TOURS.find(route => route.id === 'architecture').stops[0].id;
+  tour.start('architecture');
+  tour.setModelLoading(first, true);
+  time.advance(1000);
+  tour.setModelLoading(first, false);
+  assert.equal(tour.getTiming().waitingForModel, false);
+  assert.equal(tour.getTiming().remainingMs, 5000);
+  time.advance(1000);
+  assert.equal(tour.getTiming().remainingMs, 4000, 'dwell starts as soon as the model is ready');
+  tour.setModelLoading(first, true);
+  assert.equal(tour.getTiming().modelWaitRemainingMs, 2000, 'a second loading phase receives only unused grace');
+  time.advance(2000);
+  assert.equal(tour.getState().modelWaitExpired, true);
+  tour.setModelLoading(first, false);
+  tour.setModelLoading(first, true);
+  assert.equal(tour.getTiming().waitingForModel, false, 'status toggles cannot replenish an expired budget');
+  time.advance(3999);
+  assert.equal(tour.getState().index, 0);
+  time.advance(1);
+  assert.equal(tour.getState().index, 1);
+  tour.dispose();
+});
+
+check('Loading grace freezes while paused or hidden and a ready model cannot override user pause', () => {
+  const { controller: tour, time } = setup({});
+  const first = CITY_TOURS.find(route => route.id === 'architecture').stops[0].id;
+  tour.start('architecture');
+  tour.setModelLoading(first, true);
+  time.advance(1000);
+  tour.pause();
+  time.advance(60_000);
+  assert.equal(tour.getTiming().modelWaitRemainingMs, 2000);
+  assert.equal(tour.getTiming().remainingMs, 5000);
+  assert.equal(time.pendingIds().length, 0);
+  tour.resume();
+  time.advance(500);
+  tour.setSuspended(true);
+  time.advance(60_000);
+  assert.equal(tour.getTiming().modelWaitRemainingMs, 1500);
+  tour.pause();
+  tour.setModelLoading(first, false);
+  tour.setSuspended(false);
+  assert.equal(tour.getState().playing, false);
+  assert.equal(time.pendingIds().length, 0);
+  time.advance(60_000);
+  assert.equal(tour.getState().index, 0);
+  tour.resume();
+  time.advance(4999);
+  assert.equal(tour.getState().index, 0);
+  time.advance(1);
+  assert.equal(tour.getState().index, 1);
+  tour.dispose();
+});
+
+check('Jumping resets per-visit grace and rejects stale model notifications and cancelled grace callbacks', () => {
+  const { controller: tour, time, visits } = setup({});
+  const route = CITY_TOURS.find(route => route.id === 'architecture');
+  tour.start(route.id);
+  tour.setModelLoading(route.stops[0].id, true);
+  const [oldGrace] = time.pendingIds();
+  time.advance(1000);
+  tour.step(1);
+  assert.equal(tour.getState().index, 1);
+  assert.equal(visits.at(-1).id, route.stops[1].id, 'next station responds immediately during loading');
+  tour.setModelLoading(route.stops[1].id, true);
+  const before = tour.getState(), pending = time.pendingIds();
+  tour.setModelLoading(route.stops[0].id, false);
+  tour.setModelLoading(route.stops[0].id, true);
+  time.fireQueued(oldGrace);
+  assert.deepEqual(tour.getState(), before);
+  assert.deepEqual(time.pendingIds(), pending);
+  assert.equal(tour.getTiming().modelWaitRemainingMs, 3000, 'new station receives its own budget');
+  time.advance(7999);
+  assert.equal(tour.getState().index, 1);
+  time.advance(1);
+  assert.equal(tour.getState().index, 2);
+  tour.jump(0);
+  tour.setModelLoading(route.stops[0].id, true);
+  assert.equal(tour.getTiming().modelWaitRemainingMs, 3000, 'explicit revisit resets that visit budget');
+  const [stoppedGrace] = time.pendingIds();
+  tour.stop();
+  const count = visits.length;
+  time.fireQueued(stoppedGrace);
+  tour.setModelLoading(route.stops[0].id, false);
+  time.advance(60_000);
+  assert.equal(tour.getState().routeId, null);
+  assert.equal(visits.length, count);
+  assert.equal(time.pendingIds().length, 0);
   tour.dispose();
 });
 

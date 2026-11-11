@@ -226,7 +226,8 @@ export default function App(){
   },[capturePostcard]);
 
   const tourWaitingForModel=Boolean(authored&&!modelState?.quality&&modelState?.state!=='error');
-  const tour=useCityTour({onVisit:chooseLandmark,suspended:Boolean(modal||mobileNavOpen||environmentOpen||tourPickerOpen||tourWaitingForModel||!ready||error)});
+  const tour=useCityTour({onVisit:chooseLandmark,modelId:selectedId,modelLoading:tourWaitingForModel,
+    suspended:Boolean(modal||mobileNavOpen||environmentOpen||tourPickerOpen||!ready||error)});
   tourControlsRef.current=tour.controls;
   const closeEnvironment=useCallback(()=>setEnvironmentOpen(false),[]);
   const startTour=id=>{if(!ready||error)return;setTourPickerOpen(false);setLayersOpen(false);setEnvironmentOpen(false);tour.controls.start(id);};
@@ -522,7 +523,7 @@ export default function App(){
           <footer>{authored?'等比微缩 · 尺寸与朝向非实测':guideOnly?'导览参考点 · 楼体位置与尺寸待核准':'建筑与景观为风格化表达'}</footer>
           </div>
         </section>}
-        <CityTourControls tour={tour} waitingForModel={tourWaitingForModel} open={tourPickerOpen} onToggle={()=>{setTourPickerOpen(value=>!value);setEnvironmentOpen(false);setLayersOpen(false);}} onClose={()=>setTourPickerOpen(false)} onStart={startTour} onStop={()=>requestAnimationFrame(()=>canvasHost.current?.parentElement?.querySelector('.reset-button')?.focus({preventScroll:true}))} disabled={!ready||Boolean(error)}/>
+        <CityTourControls tour={tour} open={tourPickerOpen} onToggle={()=>{setTourPickerOpen(value=>!value);setEnvironmentOpen(false);setLayersOpen(false);}} onClose={()=>setTourPickerOpen(false)} onStart={startTour} onStop={()=>requestAnimationFrame(()=>canvasHost.current?.parentElement?.querySelector('.reset-button')?.focus({preventScroll:true}))} disabled={!ready||Boolean(error)}/>
         <div className="interaction-hint"><Mouse size={14}/><span>拖动旋转</span><span className="hint-dot">·</span><span>滚轮缩放</span><span className="hint-dot">·</span><span>点分组展开</span></div>
         <div className="map-controls"><button className={autoRotate?'active':''} onClick={toggleRotate} aria-pressed={autoRotate} title={autoRotate?'暂停环绕':'自动环绕'} aria-label={autoRotate?'暂停环绕':'自动环绕'}>{autoRotate?<Pause size={16}/>:<Play size={16}/>}</button><div className="zoom-controls"><button aria-label="放大沙盘" onClick={()=>scene.current?.zoom(1)}><Plus size={19}/></button><button aria-label="缩小沙盘" onClick={()=>scene.current?.zoom(-1)}><Minus size={19}/></button></div></div>
         <div className="scene-attribution"><button onClick={()=>setModal(business?'model':'about')}>{business?'楼宇资料与说明':'地图数据与来源'}</button><span>© OpenStreetMap contributors</span></div>

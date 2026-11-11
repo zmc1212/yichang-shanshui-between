@@ -44,7 +44,13 @@
 .tour-progress{display:flex;align-items:center;gap:5px;margin-top:6px;height:20px}
 .tour-progress>button{flex:1;height:20px;padding:0;display:flex;align-items:center}
 .tour-progress span{display:block;width:100%;height:3px;border-radius:3px;background:var(--line)}
-.tour-progress .is-visited span{background:#9ead91}.tour-progress .is-current span{background:var(--green);height:4px}
+.tour-progress .is-visited span{background:#9ead91}.tour-progress .is-current span{height:4px;overflow:hidden}
+.tour-progress i{display:none}.tour-progress .is-current i{display:block;width:100%;height:100%;background:var(--green);transform-origin:left;transition:transform .2s linear}
+.tour-timing{font-variant-numeric:tabular-nums}
+.tour-pacing{display:flex;align-items:center;justify-content:space-between;gap:6px;margin-top:8px;padding-top:7px;border-top:1px solid var(--line);min-width:0}
+.tour-next{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:9px;color:var(--muted)}
+.tour-pacing select{flex-shrink:0;width:91px;max-width:55%;min-height:27px;border:1px solid var(--line);border-radius:4px;padding:3px 2px 3px 5px;background:var(--soft);color:var(--text);font:inherit;font-size:10px;cursor:pointer}
+.tour-pacing select:focus-visible{outline:2px solid var(--green);outline-offset:2px}
 .tour-playback{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:1px}
 .tour-play{display:flex;align-items:center;justify-content:center;gap:7px;min-width:128px;min-height:32px;background:var(--green);color:var(--paper);border-radius:4px;font-size:10px;letter-spacing:.4px}
 .tour-play:hover{filter:brightness(1.08)}
@@ -84,7 +90,7 @@
   .tour-dock .tour-current{padding-right:136px;display:block;min-height:34px}.tour-dock .tour-current>span{display:block;font-size:7px}.tour-dock .tour-playback .icon-button{width:27px;height:34px}
   .tour-active .detail-panel{animation:none}
 }
-@media(prefers-reduced-motion:reduce){.environment-panel,.tour-dock,.tour-picker{animation:none} .tour-entry button,.tour-dock button{transition:none}}
+@media(prefers-reduced-motion:reduce){.environment-panel,.tour-dock,.tour-picker{animation:none} .tour-entry button,.tour-dock button,.tour-progress i{transition:none}}
 
 .inspection-presets.has-street{flex-wrap:wrap}
 .inspection-presets.has-street button{padding-left:6px;padding-right:6px}
