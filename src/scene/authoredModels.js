@@ -64,8 +64,12 @@ export function prepareAuthoredModel(object, spec) {
       // New assets retain their authored normals, including Fujiang's curved
       // facade. Shouxin's established export intentionally uses hard edges.
       material.flatShading = Boolean(spec.flatShading) || !child.geometry.getAttribute('normal');
-      material.transparent = false;
-      material.opacity = 1;
+      // Preserve only explicitly reviewed open-air infill. Ordinary facade
+      // glazing retains the established opaque miniature rendering policy.
+      const reviewedAlpha = spec.translucentMaterials?.includes(material.name) && material.transparent && material.opacity > 0 && material.opacity < 1;
+      material.transparent = Boolean(reviewedAlpha);
+      material.opacity = reviewedAlpha ? material.opacity : 1;
+      material.depthWrite = !reviewedAlpha;
       material.userData.authoredGlass = /glass|glaz|玻璃/i.test(material.name);
       if (!preparedMaterials.has(material)) {
         preparedMaterials.add(material);
@@ -85,6 +89,8 @@ export function prepareAuthoredModel(object, spec) {
       material.roughness = Math.max(material.roughness, material.userData.authoredGlass ? 0.48 : 0.6);
       material.needsUpdate = true;
     }
+    const meshMaterials = Array.isArray(child.material) ? child.material : [child.material];
+    if (meshMaterials.length && meshMaterials.every(m => m.transparent && spec.translucentMaterials?.includes(m.name))) child.castShadow = false;
   });
   return wrapper;
 }

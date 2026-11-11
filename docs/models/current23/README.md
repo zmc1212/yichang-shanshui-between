@@ -12,3 +12,11 @@ All 23 project selections come from the unified 2026-11-11 package, with Xingfa 
 - The asset map carries per-project evidence limits. It does not supply geographic placement approval.
 
 The source models and editable native sources remain in Space. Web material preparation follows existing optimizer policy: bounded texture sizes, opaque display glass, reduced transmission/metalness and miniature-compatible roughness.
+
+## 2026-11-11 incremental refinement
+
+Current source selection now advances #9 to Xingfa J (visible front-arc transparent glass infill) and #13 to Waitan I (visible upper podium), preserving all other 21 selections and registrations. Original H/I bases remain immutable in the editable delivery packages. Exact new source hashes and budgets are in web-asset-map.json; web-asset-validation.json is the initial 23-item import snapshot, not a claim of current per-file hashes.
+
+The J open-air glass material alone keeps BLEND alpha 0.25 through optimization and runtime; ordinary building glazing retains the established opaque policy. CPU native and reimported full-GLB previews were inspected. Browser GPU/phone acceptance remains unverified.
+
+Current totals: {"light_bytes": 18982488, "light_triangles": 990156, "detail_bytes": 45854112, "detail_triangles": 3564913}

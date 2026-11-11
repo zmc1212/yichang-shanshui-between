@@ -1,13 +1,24 @@
-兴发广场
-最新默认候选：兴发 I（替换 H）
-网页衍生采用同一源包围盒与等比变换，light/detail互斥。非实测。
-{
-  "identity": false,
-  "identity_note": "沿用项目对应；不等于官方单栋测绘或新身份核验",
-  "identity_binding_level": "inherited_project_correspondence_not_new_survey",
-  "geographic_registration": "HOLD_LATEST_SITE_NOT_VERIFIED",
-  "absolute_scale": "HOLD_NO_NEW_SURVEY_OR_SCALE_CERTIFICATION",
-  "capture_date": "UNKNOWN_UNLESS_EXPLICIT_SOURCE_DOC_QUALIFICATION",
-  "scope_and_remaining_holds": "H保留G双塔/商业主体，新增2020开业公开图支持的前场高架U形红面白底、有限两端接续、粗边栏和两处可见圆柱。圆弧、宽度、高程、杆距、柱脚及F/G高度84/67均归一示意。后屋顶完整回路、屋顶乐园、穹顶、长网架、阶梯、地下口和隐藏连接未建；短接续终止是模型范围而非真实终点。旧G图拍摄日未核，不宣称严格同期或2026现状。"
-}
-默认H完整组合；F左、右两个文件组成另一个整体备选，两F可成对使用但不得与H/G叠放。历史assembly_transforms.json仅供复核，不是当前地图配准。
+# 兴发广场 J：可见前弧透明栏板局部
+
+在完整 I 模型上仅补照片清楚可见的跑道**外侧前弧透明栏板**。I/H 双塔、玻璃盒、跑道、既有栏杆和前场台阶全部保留。新增层 `J_VISIBLE_FRONT_ARC_GLASS_HIDEABLE` 可整体隐藏回到 I；`seed/I_Frozen.blend` 为可编辑回退种子。
+
+## 依据与边界
+
+原图来自 https://club.autohome.com.cn/bbs/thread/50243f6d7d21f8ff/93072057-1.html ，文章发布 2021-01-02，第3图可见白色弧形跑道外缘上方连续透明栏板；透过板材仍能看到人物/背景与反射，而非实心墙。原图SHA256：80340f718492889a4e6da274d51362df953c4c30fc2a6d780fc81d1e9ae06517。实看原图后才新增，非仅依据旧说明。
+
+只补对应外侧前弧，不外推内弧、直边、后屋顶回路；不新增支柱/门位/雨棚。原H前弧的24段示意栏杆间距用于容纳新增板片，**不是照片板片计数**。板高、厚度、透明度、曲线归一化均为展示选择，不是实测或安全设计；真实尺度、时相、完整回路和地理配准继续HOLD。
+
+原图另见楼梯侧绿植，但I台阶与H幕墙简化拓扑并不贴合原图，故没有为了增加细节而强加绿屏或入口。没有修改主体掩盖这项已知近似。
+
+## 材质与网页接入
+
+稳定材质名：`J_OBSERVED_front_arc_transparent_glass_ALPHA_REQUIRED`。本地材质和GLB均保留 alpha=0.25、roughness=0.18，GLB为BLEND。网页优化器/材质准备若强制OPAQUE，会把新增透明板变成灰实墙。应仅对本项目这一精确材质保留透明，不能全局修改其他模型。交付本身未修改站点或发布。
+
+## 文件与复核
+
+- model：完整 J blend / GLB，不是增量补丁；替换第9项I时不能叠放I和J。
+- renders：I/J同镜头前后对比及完整J视图。
+- checks：原I/H所有旧网格世界顶点/面/材质绑定、旧材质节点签名不变；独立GLB导入渲染及alpha检查。
+- scripts/build.py：只从本包seed生成本包model/renders/checks，可重新构建；已关闭当前CPU Blender不支持的降噪。
+
+外部参考照片不随模型包/仓库备份。渲染用地面、相机、灯光不属于GLB模型资产。GLB采用Y向上，原生Blender为Z向上。
