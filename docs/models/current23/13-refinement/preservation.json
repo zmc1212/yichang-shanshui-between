@@ -1,0 +1,45 @@
+{
+  "old_objects": 25,
+  "old_signature_before": "711fcc95a730a0eeefc870742efec8891cc3686b02a57ae2aada6e1249be4f1b",
+  "old_signature_after": "711fcc95a730a0eeefc870742efec8891cc3686b02a57ae2aada6e1249be4f1b",
+  "old_world_geometry_faces_materials_visibility_preserved": true,
+  "old_bounds": {
+    "min": [
+      -25.649999618530273,
+      -9.329999923706055,
+      0.0
+    ],
+    "max": [
+      25.6299991607666,
+      9.25,
+      108.68000030517578
+    ]
+  },
+  "new_bounds": {
+    "min": [
+      -25.649999618530273,
+      -9.329999923706055,
+      0.0
+    ],
+    "max": [
+      25.6299991607666,
+      9.25,
+      108.68000030517578
+    ]
+  },
+  "global_envelope_unchanged": true,
+  "new_objects": 51,
+  "new_vertices": 408,
+  "new_triangles": 612,
+  "native_front": "-Y",
+  "native_left": "-X",
+  "new_z_range": [
+    6.025,
+    11.9
+  ],
+  "unmodified_lower_base_z": [
+    0,
+    6.025
+  ],
+  "source_period": "unknown; not2026certified"
+}

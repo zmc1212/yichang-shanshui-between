@@ -33,6 +33,8 @@ if (!(lightRatio > 0 && lightRatio <= 1) || !(lightError >= 0 && lightError <= .
   throw new Error('Light simplification requires 0 < ratio <= 1 and 0 <= error <= 0.003.');
 }
 const removeNames = args.flatMap((v,i)=>v === '--remove-node' ? [args[i+1]] : []);
+// Opt-in only for independently reviewed open-air glass infill, never all glazing.
+const preserveAlphaNames = args.flatMap((v,i)=>v === '--preserve-alpha-material' ? [args[i+1]] : []);
 const bytes = await fs.readFile(input);
 const sha256 = value => crypto.createHash('sha256').update(value).digest('hex');
 const stats = document => {
@@ -48,7 +50,7 @@ const stats = document => {
     bounds:getBounds(root.listScenes()[0])};
 };
 const manifest={id,sourceFilename:path.basename(input),sourceSha256:sha256(bytes),sourceBytes:bytes.byteLength,
-  nativeChanged:false,removedPresentationNodes:removeNames,
+  nativeChanged:false,removedPresentationNodes:removeNames,preserveAlphaMaterials:preserveAlphaNames,
   materialPolicy:'Original base colors retained; light drops baked normal maps and regenerates geometric face normals, detail retains source normals and normal maps. Textures are bounded to 512 px light / 1024 px detail WebP. Transmission, volume, and clearcoat removed; opaque material alpha and reduced metalness/increased roughness suit the miniature scene. Source files unchanged.',
   geometryPolicy:'Material-aware weld/join. Light simplifies within a bounded error; detail keeps source triangles after explicitly named presentation-node removal. One common source envelope drives both LOD transforms.',
   lightSimplification:{ratio:lightRatio,error:lightError,lockBorder:false},
@@ -63,12 +65,19 @@ for(const tier of ['light','detail']) {
   }
   await document.transform(prune());
   const before=stats(document);manifest.sourceBounds=before.bounds;manifest.sourceTriangles=before.triangles;
+  for(const name of preserveAlphaNames) {
+    const material=document.getRoot().listMaterials().find(m=>m.getName()===name);
+    if(!material || material.getAlphaMode()!=='BLEND' || !(material.getBaseColorFactor()[3]>0 && material.getBaseColorFactor()[3]<1))throw new Error(`Reviewed alpha material missing or not translucent: ${name}`);
+  }
   for(const material of document.getRoot().listMaterials()) {
     for(const extension of ['KHR_materials_transmission','KHR_materials_volume','KHR_materials_clearcoat']) {
       const value=material.getExtension(extension);if(value){material.setExtension(extension,null);value.dispose();}
     }
-    const color=material.getBaseColorFactor();material.setBaseColorFactor([color[0],color[1],color[2],1]);
-    material.setAlphaMode('OPAQUE');
+    const color=material.getBaseColorFactor();
+    if(!preserveAlphaNames.includes(material.getName())) {
+      material.setBaseColorFactor([color[0],color[1],color[2],1]);
+      material.setAlphaMode('OPAQUE');
+    }
     material.setRoughnessFactor(Math.max(material.getRoughnessFactor(), /glass|glaz/i.test(material.getName()) ? .48 : .62));
     material.setMetallicFactor(Math.min(material.getMetallicFactor(),.28));
   }

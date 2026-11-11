@@ -1,0 +1,523 @@
+{
+  "passed": true,
+  "projects": 23,
+  "webAssets": 46,
+  "establishedRegistrations": 7,
+  "approximateRegistrations": 16,
+  "sourceBytesVerified": false,
+  "webAssetHashesVerified": true,
+  "allGeometryDecoded": true,
+  "backgroundRemovalUnchanged": true,
+  "alternativesPlaced": false,
+  "webglVerified": false,
+  "surveyVerified": false,
+  "devicePerformanceVerified": false,
+  "results": [
+    {
+      "order": 1,
+      "id": "meilian-s05",
+      "sourceVerified": false,
+      "approximate": true,
+      "tiers": [
+        {
+          "tier": "light",
+          "bytes": 1397792,
+          "meshes": 27,
+          "samples": 81,
+          "maxTransformError": 3.6687789788066426e-15
+        },
+        {
+          "tier": "detail",
+          "bytes": 8163304,
+          "meshes": 27,
+          "samples": 81,
+          "maxTransformError": 8.899114524108741e-16
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "id": "zhongnan-s09",
+      "sourceVerified": false,
+      "approximate": false,
+      "tiers": [
+        {
+          "tier": "light",
+          "bytes": 3438312,
+          "meshes": 31,
+          "samples": 93,
+          "maxTransformError": 3.978256139440565e-15
+        },
+        {
+          "tier": "detail",
+          "bytes": 10336204,
+          "meshes": 31,
+          "samples": 93,
+          "maxTransformError": 3.972442522218699e-15
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "id": "jinjiang-s03",
+      "sourceVerified": false,
+      "approximate": false,
+      "tiers": [
+        {
+          "tier": "light",
+          "bytes": 695048,
+          "meshes": 14,
+          "samples": 42,
+          "maxTransformError": 7.105427357601002e-15
+        },
+        {
+          "tier": "detail",
+          "bytes": 1126424,
+          "meshes": 14,
+          "samples": 42,
+          "maxTransformError": 7.105427357601002e-15
+        }
+      ]
+    },
+    {
+      "order": 4,
+      "id": "wanda-soho-s01",
+      "sourceVerified": false,
+      "approximate": false,
+      "tiers": [
+        {
+          "tier": "light",
+          "bytes": 1972784,
+          "meshes": 31,
+          "samples": 93,
+          "maxTransformError": 3.972151618002263e-15
+        },
+        {
+          "tier": "detail",
+          "bytes": 6736248,
+          "meshes": 31,
+          "samples": 93,
+          "maxTransformError": 3.973605926116015e-15
+        }
+      ]
+    },
+    {
+      "order": 5,
+      "id": "fujiang-s01",
+      "sourceVerified": false,
+      "approximate": false,
+      "tiers": [
+        {
+          "tier": "light",
+          "bytes": 1671172,
+          "meshes": 18,
+          "samples": 54,
+          "maxTransformError": 3.688882027804963e-15
+        },
+        {
+          "tier": "detail",
+          "bytes": 2634620,
+          "meshes": 18,
+          "samples": 54,
+          "maxTransformError": 7.119291619286993e-15
+        }
+      ]
+    },
+    {
+      "order": 6,
+      "id": "yichang-international-s01",
+      "sourceVerified": false,
+      "approximate": false,
+      "tiers": [
+        {
+          "tier": "light",
+          "bytes": 3407596,
+          "meshes": 21,
+          "samples": 63,
+          "maxTransformError": 3.688882027804963e-15
+        },
+        {
+          "tier": "detail",
+          "bytes": 8378264,
+          "meshes": 21,
+          "samples": 63,
+          "maxTransformError": 3.688882027804963e-15
+        }
+      ]
+    },
+    {
+      "order": 7,
+      "id": "shouxin-wealth-s01",
+      "sourceVerified": false,
+      "approximate": false,
+      "tiers": [
+        {
+          "tier": "light",
+          "bytes": 987872,
+          "meshes": 18,
+          "samples": 54,
+          "maxTransformError": 7.944109290391274e-15
+        },
+        {
+          "tier": "detail",
+          "bytes": 1498684,
+          "meshes": 19,
+          "samples": 57,
+          "maxTransformError": 7.944109290391274e-15
+        }
+      ]
+    },
+    {
+      "order": 8,
+      "id": "jiuzhou-s01",
+      "sourceVerified": false,
+      "approximate": false,
+      "tiers": [
+        {
+          "tier": "light",
+          "bytes": 888812,
+          "meshes": 18,
+          "samples": 54,
+          "maxTransformError": 7.94721185223203e-15
+        },
+        {
+          "tier": "detail",
+          "bytes": 1380216,
+          "meshes": 18,
+          "samples": 54,
+          "maxTransformError": 7.94721185223203e-15
+        }
+      ]
+    },
+    {
+      "order": 9,
+      "id": "business-1649141",
+      "sourceVerified": false,
+      "approximate": true,
+      "tiers": [
+        {
+          "tier": "light",
+          "bytes": 753468,
+          "meshes": 26,
+          "samples": 78,
+          "maxTransformError": 7.94721185223203e-15
+        },
+        {
+          "tier": "detail",
+          "bytes": 852604,
+          "meshes": 26,
+          "samples": 78,
+          "maxTransformError": 7.94721185223203e-15
+        }
+      ]
+    },
+    {
+      "order": 10,
+      "id": "business-1649139",
+      "sourceVerified": false,
+      "approximate": true,
+      "tiers": [
+        {
+          "tier": "light",
+          "bytes": 442652,
+          "meshes": 11,
+          "samples": 33,
+          "maxTransformError": 7.944109290391274e-15
+        },
+        {
+          "tier": "detail",
+          "bytes": 568188,
+          "meshes": 11,
+          "samples": 33,
+          "maxTransformError": 7.944109290391274e-15
+        }
+      ]
+    },
+    {
+      "order": 11,
+      "id": "business-1649144",
+      "sourceVerified": false,
+      "approximate": true,
+      "tiers": [
+        {
+          "tier": "light",
+          "bytes": 157832,
+          "meshes": 8,
+          "samples": 24,
+          "maxTransformError": 4.440892098500626e-16
+        },
+        {
+          "tier": "detail",
+          "bytes": 286444,
+          "meshes": 8,
+          "samples": 24,
+          "maxTransformError": 4.440892098500626e-16
+        }
+      ]
+    },
+    {
+      "order": 12,
+      "id": "business-1649148",
+      "sourceVerified": false,
+      "approximate": true,
+      "tiers": [
+        {
+          "tier": "light",
+          "bytes": 534628,
+          "meshes": 12,
+          "samples": 36,
+          "maxTransformError": 7.944109290391274e-15
+        },
+        {
+          "tier": "detail",
+          "bytes": 466612,
+          "meshes": 12,
+          "samples": 36,
+          "maxTransformError": 7.944109290391274e-15
+        }
+      ]
+    },
+    {
+      "order": 13,
+      "id": "business-1649137",
+      "sourceVerified": false,
+      "approximate": true,
+      "tiers": [
+        {
+          "tier": "light",
+          "bytes": 304464,
+          "meshes": 24,
+          "samples": 72,
+          "maxTransformError": 7.95651227888113e-15
+        },
+        {
+          "tier": "detail",
+          "bytes": 359636,
+          "meshes": 24,
+          "samples": 72,
+          "maxTransformError": 7.95651227888113e-15
+        }
+      ]
+    },
+    {
+      "order": 14,
+      "id": "business-1649146",
+      "sourceVerified": false,
+      "approximate": true,
+      "tiers": [
+        {
+          "tier": "light",
+          "bytes": 500144,
+          "meshes": 13,
+          "samples": 39,
+          "maxTransformError": 7.944109290391274e-15
+        },
+        {
+          "tier": "detail",
+          "bytes": 572156,
+          "meshes": 13,
+          "samples": 39,
+          "maxTransformError": 7.944109290391274e-15
+        }
+      ]
+    },
+    {
+      "order": 15,
+      "id": "business-1649142",
+      "sourceVerified": false,
+      "approximate": true,
+      "tiers": [
+        {
+          "tier": "light",
+          "bytes": 49352,
+          "meshes": 9,
+          "samples": 27,
+          "maxTransformError": 1.0048745063748037e-14
+        },
+        {
+          "tier": "detail",
+          "bytes": 44296,
+          "meshes": 9,
+          "samples": 27,
+          "maxTransformError": 1.0048745063748037e-14
+        }
+      ]
+    },
+    {
+      "order": 16,
+      "id": "business-1649134",
+      "sourceVerified": false,
+      "approximate": true,
+      "tiers": [
+        {
+          "tier": "light",
+          "bytes": 221012,
+          "meshes": 17,
+          "samples": 51,
+          "maxTransformError": 2.009841006845403e-14
+        },
+        {
+          "tier": "detail",
+          "bytes": 252504,
+          "meshes": 17,
+          "samples": 51,
+          "maxTransformError": 2.009841006845403e-14
+        }
+      ]
+    },
+    {
+      "order": 17,
+      "id": "business-1649147",
+      "sourceVerified": false,
+      "approximate": true,
+      "tiers": [
+        {
+          "tier": "light",
+          "bytes": 26400,
+          "meshes": 5,
+          "samples": 15,
+          "maxTransformError": 1.4211098658597047e-14
+        },
+        {
+          "tier": "detail",
+          "bytes": 23472,
+          "meshes": 5,
+          "samples": 15,
+          "maxTransformError": 1.4211098658597047e-14
+        }
+      ]
+    },
+    {
+      "order": 18,
+      "id": "business-1649128",
+      "sourceVerified": false,
+      "approximate": true,
+      "tiers": [
+        {
+          "tier": "light",
+          "bytes": 122732,
+          "meshes": 11,
+          "samples": 33,
+          "maxTransformError": 1.4211288389453755e-14
+        },
+        {
+          "tier": "detail",
+          "bytes": 139516,
+          "meshes": 11,
+          "samples": 33,
+          "maxTransformError": 1.4211288389453755e-14
+        }
+      ]
+    },
+    {
+      "order": 19,
+      "id": "business-1649140",
+      "sourceVerified": false,
+      "approximate": true,
+      "tiers": [
+        {
+          "tier": "light",
+          "bytes": 107296,
+          "meshes": 11,
+          "samples": 33,
+          "maxTransformError": 3.1776437161565096e-14
+        },
+        {
+          "tier": "detail",
+          "bytes": 104768,
+          "meshes": 11,
+          "samples": 33,
+          "maxTransformError": 3.1776437161565096e-14
+        }
+      ]
+    },
+    {
+      "order": 20,
+      "id": "business-1649143",
+      "sourceVerified": false,
+      "approximate": true,
+      "tiers": [
+        {
+          "tier": "light",
+          "bytes": 301776,
+          "meshes": 16,
+          "samples": 48,
+          "maxTransformError": 3.978256139440565e-15
+        },
+        {
+          "tier": "detail",
+          "bytes": 459156,
+          "meshes": 16,
+          "samples": 48,
+          "maxTransformError": 3.978256139440565e-15
+        }
+      ]
+    },
+    {
+      "order": 21,
+      "id": "business-1649131",
+      "sourceVerified": false,
+      "approximate": true,
+      "tiers": [
+        {
+          "tier": "light",
+          "bytes": 420980,
+          "meshes": 11,
+          "samples": 33,
+          "maxTransformError": 2.009726013567693e-14
+        },
+        {
+          "tier": "detail",
+          "bytes": 752368,
+          "meshes": 11,
+          "samples": 33,
+          "maxTransformError": 2.009841006845403e-14
+        }
+      ]
+    },
+    {
+      "order": 22,
+      "id": "business-1649127",
+      "sourceVerified": false,
+      "approximate": true,
+      "tiers": [
+        {
+          "tier": "light",
+          "bytes": 196804,
+          "meshes": 12,
+          "samples": 36,
+          "maxTransformError": 1.5888218580782548e-14
+        },
+        {
+          "tier": "detail",
+          "bytes": 240368,
+          "meshes": 12,
+          "samples": 36,
+          "maxTransformError": 1.5888218580782548e-14
+        }
+      ]
+    },
+    {
+      "order": 23,
+      "id": "business-1649130",
+      "sourceVerified": false,
+      "approximate": true,
+      "tiers": [
+        {
+          "tier": "light",
+          "bytes": 383560,
+          "meshes": 13,
+          "samples": 39,
+          "maxTransformError": 2.92966378759083e-14
+        },
+        {
+          "tier": "detail",
+          "bytes": 478060,
+          "meshes": 13,
+          "samples": 39,
+          "maxTransformError": 2.92966378759083e-14
+        }
+      ]
+    }
+  ]
+}

@@ -1,25 +1,28 @@
 {
-  "id": "current23-09",
-  "sourceFilename": "XingfaPlaza_I_ForecourtStairs.glb",
-  "sourceSha256": "5754c6ae74c710676f8bfa3fb62dd4495799fc27e13f5b1e46d6c2650fd4e295",
-  "sourceBytes": 3927240,
+  "id": "business-1649141",
+  "sourceFilename": "XingfaPlaza_J_VisibleArcGlass.glb",
+  "sourceSha256": "6dabae065cb68becabc38adc0b08fa57fb251c828a448d1d25ed31c91b88c4a2",
+  "sourceBytes": 3943760,
   "nativeChanged": false,
   "removedPresentationNodes": [],
-  "materialPolicy": "Original base colors retained; light drops baked normal maps and regenerates geometric face normals, detail retains source normals and normal maps. Textures are bounded to 512 px light / 1024 px detail WebP. Transmission, volume, and clearcoat removed; opaque material alpha and reduced metalness/increased roughness suit the miniature scene. Source files unchanged.",
+  "preserveAlphaMaterials": [
+    "J_OBSERVED_front_arc_transparent_glass_ALPHA_REQUIRED"
+  ],
+  "materialPolicy": "Original base colors retained; light drops baked normal maps and regenerates geometric face normals, detail retains source normals and normal maps. Textures are bounded to 512 px light / 1024 px detail WebP. Transmission, volume, and clearcoat removed; opaque material alpha and reduced metalness/increased roughness suit the miniature scene. Source files unchanged. Exact named front-arc infill retains source BLEND alpha=.25; all other materials retain established opaque policy.",
   "geometryPolicy": "Material-aware weld/join. Light simplifies within a bounded error; detail keeps source triangles after explicitly named presentation-node removal. One common source envelope drives both LOD transforms.",
   "lightSimplification": {
-    "ratio": 0.16,
+    "ratio": 0.13,
     "error": 0.0008,
     "lockBorder": false
   },
   "validationScope": "Binary readback and envelope checks; no claim of surveyed geometry, real-scene acceptance, browser/WebGL visual QA, or device performance measurement.",
   "tiers": {
     "light": {
-      "triangles": 44718,
-      "vertices": 110671,
-      "primitives": 25,
-      "indexedPrimitives": 25,
-      "materials": 25,
+      "triangles": 44814,
+      "vertices": 110957,
+      "primitives": 26,
+      "indexedPrimitives": 26,
+      "materials": 26,
       "images": [],
       "estimatedTextureBytesRGBA8WithMipmaps": 0,
       "bounds": {
@@ -34,8 +37,8 @@
           43.029998779296875
         ]
       },
-      "bytes": 749636,
-      "sha256": "f48e81e0ca43050404719cd2cc893abca926ed6e37921a3f31e6d8b5cf212a2f",
+      "bytes": 753468,
+      "sha256": "33d27ec0e6a3d153c6340c8dae7c4f4b8bdad339ad5905b4caededec21dcd623",
       "maxEnvelopeDelta": 0.0002492933946074416,
       "extensionsRequired": [
         "EXT_meshopt_compression",
@@ -47,11 +50,11 @@
       ]
     },
     "detail": {
-      "triangles": 72960,
-      "vertices": 139470,
-      "primitives": 25,
-      "indexedPrimitives": 25,
-      "materials": 25,
+      "triangles": 73248,
+      "vertices": 140046,
+      "primitives": 26,
+      "indexedPrimitives": 26,
+      "materials": 26,
       "images": [],
       "estimatedTextureBytesRGBA8WithMipmaps": 0,
       "bounds": {
@@ -66,8 +69,8 @@
           43.029998779296875
         ]
       },
-      "bytes": 846888,
-      "sha256": "413aa454be185c5e2a74d66bda7b0ff63083f70594a9ba0da2fa377296129a7c",
+      "bytes": 852604,
+      "sha256": "a3ee552d92bb7a96d87232bf62d2c53a33a7ebd8842938cfd31aee597bcaa288",
       "maxEnvelopeDelta": 0.0002492933946074416,
       "extensionsRequired": [
         "EXT_meshopt_compression",
@@ -82,7 +85,7 @@
   "sourceBounds": {
     "min": [
       -46,
-      -1.1920929132713809e-8,
+      -1.1920929132713809e-08,
       -66
     ],
     "max": [
@@ -91,5 +94,5 @@
       43.029998779296875
     ]
   },
-  "sourceTriangles": 72960
+  "sourceTriangles": 73248
 }

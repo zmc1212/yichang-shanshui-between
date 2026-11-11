@@ -29,7 +29,7 @@
         "bounds": {
           "min": [
             -20.5,
-            0.00003762158882736344,
+            3.762158882736344e-05,
             -23.500181662980687
           ],
           "max": [
@@ -48,7 +48,7 @@
         "bounds": {
           "min": [
             -20.5,
-            0.00003762158882736344,
+            3.762158882736344e-05,
             -23.500181662980687
           ],
           "max": [
@@ -524,7 +524,7 @@
     "sourceBounds": {
       "min": [
         -35.5,
-        0.00000286102294921875,
+        2.86102294921875e-06,
         -14.5
       ],
       "max": [
@@ -547,7 +547,7 @@
         "bounds": {
           "min": [
             -35.500736951980805,
-            0.00000286102294921875,
+            2.86102294921875e-06,
             -14.500425704605984
           ],
           "max": [
@@ -566,7 +566,7 @@
         "bounds": {
           "min": [
             -35.500736951980805,
-            0.00000286102294921875,
+            2.86102294921875e-06,
             -14.500425704605984
           ],
           "max": [
@@ -742,7 +742,7 @@
   "1649137": {
     "order": 13,
     "name": "外滩领馆",
-    "stage": "外滩H（含G右短面）",
+    "stage": "外滩I可见上段裙房候选",
     "sourceBounds": {
       "min": [
         -25.65000030398369,
@@ -756,20 +756,20 @@
       ]
     },
     "assets": {
-      "light": "/models/current23/13/light.glb?v=d1f90639f6fc",
-      "detail": "/models/current23/13/detail.glb?v=b7962231aa55"
+      "light": "/models/current23/13/light.glb?v=8a08a53242cc",
+      "detail": "/models/current23/13/detail.glb?v=94acd72a6c8e"
     },
     "webBudget": {
       "light": {
-        "bytes": 294716,
-        "triangles": 16112,
-        "primitives": 20,
-        "vertices": 41042,
-        "sha256": "d1f90639f6fc88dc8711882405dd6e159cd4be0d60b8f5a5e9064adae978ebde",
+        "bytes": 304464,
+        "triangles": 16404,
+        "primitives": 24,
+        "vertices": 41830,
+        "sha256": "8a08a53242cc13ab7c9e3a6e64440baa93f69f0deaa57089179bfbf4c674b49f",
         "bounds": {
           "min": [
             -25.65012551065546,
-            0.00006103701895199265,
+            6.103701895199265e-05,
             -9.249817265624882
           ],
           "max": [
@@ -780,15 +780,15 @@
         }
       },
       "detail": {
-        "bytes": 348324,
-        "triangles": 27864,
-        "primitives": 20,
-        "vertices": 55704,
-        "sha256": "b7962231aa5555fac0597a8515d989a6b8c07bf21ab82ae1023e897dc60f45ca",
+        "bytes": 359636,
+        "triangles": 28476,
+        "primitives": 24,
+        "vertices": 56928,
+        "sha256": "94acd72a6c8e1c3e0f66ec5fe687974d0e970d47e1b729f20d8471c703069e15",
         "bounds": {
           "min": [
             -25.65012551065546,
-            0.00006103701895199265,
+            6.103701895199265e-05,
             -9.249817265624882
           ],
           "max": [
@@ -799,8 +799,8 @@
         }
       }
     },
-    "sourceModelSha256": "cc01e7af2d5b7ed6d19cf1b5652c55f2601ec2b47c8e55c30defcdbf7ab1ba25",
-    "sourceSelectionFile": "assets/13/current/WaitanLingguan_H_IndependentLeftFace.glb",
+    "sourceModelSha256": "628f6737618498fdbbd047d19a4756e778ddd9a8ccee542586ab13220506ab7a",
+    "sourceSelectionFile": "WaitanLingguan_I_VisibleUpperPodium.glb",
     "modelNotesUrl": "/models/current23/13/README.txt",
     "holds": {
       "identity": false,
@@ -809,9 +809,9 @@
       "geographic_registration": "HOLD_LATEST_SITE_NOT_VERIFIED",
       "absolute_scale": "HOLD_NO_NEW_SURVEY_OR_SCALE_CERTIFICATION",
       "capture_date": "UNKNOWN_UNLESS_EXPLICIT_SOURCE_DOC_QUALIFICATION",
-      "scope_and_remaining_holds": "H完整保留G右短面及原正面，依据03独立左端共角新增左短面/冠折边，不镜像G。23近似分隔仅显示节奏非楼层实测；中央窄暗域/褐竖带薄片表达，真实凹深未定。沿既有y[-8,9.2]示意深度，z0–12素基部、树后入口/附属低楼不补；未知后冠/屋顶、中央前栏后窗归属/深度、场地尺度及摄年HOLD。00/03不宣称同日。"
+      "scope_and_remaining_holds": "I在H完整保留基础上增加树梢以上可辨上裙房灰框、蓝玻璃域及浅檐，仅归一Z6.025–11.9；下部、树后门区、字牌、邻楼、后面及真实突出深度仍HOLD。照片时期未知，窗格节奏与尺寸非实测。"
     },
-    "sourceVersion": "外滩H（含G右短面）"
+    "sourceVersion": "外滩I可见上段裙房候选"
   },
   "1649138": {
     "order": 4,
@@ -1038,11 +1038,11 @@
   "1649141": {
     "order": 9,
     "name": "兴发广场",
-    "stage": "I 前场台阶候选",
+    "stage": "兴发J前弧透明栏板候选",
     "sourceBounds": {
       "min": [
         -46,
-        -1.1920929132713809e-8,
+        -1.1920929132713809e-08,
         -66
       ],
       "max": [
@@ -1052,16 +1052,16 @@
       ]
     },
     "assets": {
-      "light": "/models/current23/09/light.glb?v=f48e81e0ca43",
-      "detail": "/models/current23/09/detail.glb?v=413aa454be18"
+      "light": "/models/current23/09/light.glb?v=33d27ec0e6a3",
+      "detail": "/models/current23/09/detail.glb?v=a3ee552d92bb"
     },
     "webBudget": {
       "light": {
-        "bytes": 749636,
-        "triangles": 44718,
-        "primitives": 25,
-        "vertices": 110671,
-        "sha256": "f48e81e0ca43050404719cd2cc893abca926ed6e37921a3f31e6d8b5cf212a2f",
+        "bytes": 753468,
+        "triangles": 44814,
+        "primitives": 26,
+        "vertices": 110957,
+        "sha256": "33d27ec0e6a3d153c6340c8dae7c4f4b8bdad339ad5905b4caededec21dcd623",
         "bounds": {
           "min": [
             -46,
@@ -1076,11 +1076,11 @@
         }
       },
       "detail": {
-        "bytes": 846888,
-        "triangles": 72960,
-        "primitives": 25,
-        "vertices": 139470,
-        "sha256": "413aa454be185c5e2a74d66bda7b0ff63083f70594a9ba0da2fa377296129a7c",
+        "bytes": 852604,
+        "triangles": 73248,
+        "primitives": 26,
+        "vertices": 140046,
+        "sha256": "a3ee552d92bb7a96d87232bf62d2c53a33a7ebd8842938cfd31aee597bcaa288",
         "bounds": {
           "min": [
             -46,
@@ -1095,8 +1095,8 @@
         }
       }
     },
-    "sourceModelSha256": "5754c6ae74c710676f8bfa3fb62dd4495799fc27e13f5b1e46d6c2650fd4e295",
-    "sourceSelectionFile": "XingfaPlaza_I_ForecourtStairs.glb",
+    "sourceModelSha256": "6dabae065cb68becabc38adc0b08fa57fb251c828a448d1d25ed31c91b88c4a2",
+    "sourceSelectionFile": "XingfaPlaza_J_VisibleArcGlass.glb",
     "modelNotesUrl": "/models/current23/09/README.txt",
     "holds": {
       "identity": false,
@@ -1105,9 +1105,12 @@
       "geographic_registration": "HOLD_LATEST_SITE_NOT_VERIFIED",
       "absolute_scale": "HOLD_NO_NEW_SURVEY_OR_SCALE_CERTIFICATION",
       "capture_date": "UNKNOWN_UNLESS_EXPLICIT_SOURCE_DOC_QUALIFICATION",
-      "scope_and_remaining_holds": "H保留G双塔/商业主体，新增2020开业公开图支持的前场高架U形红面白底、有限两端接续、粗边栏和两处可见圆柱。圆弧、宽度、高程、杆距、柱脚及F/G高度84/67均归一示意。后屋顶完整回路、屋顶乐园、穹顶、长网架、阶梯、地下口和隐藏连接未建；短接续终止是模型范围而非真实终点。旧G图拍摄日未核，不宣称严格同期或2026现状。"
+      "scope_and_remaining_holds": "J在I完整保留基础上只补原图明确可见跑道前外弧透明板，24间隔继承H展示分段非实测板数。内侧、直线与后回路不补；I台阶与H幕墙关系仍为示意，非现场测绘或2026现状认证。"
     },
-    "sourceVersion": "兴发H组合（默认）；F左右分塔（互斥备选）"
+    "sourceVersion": "兴发J前弧透明栏板候选",
+    "translucentMaterials": [
+      "J_OBSERVED_front_arc_transparent_glass_ALPHA_REQUIRED"
+    ]
   },
   "1649142": {
     "order": 15,
