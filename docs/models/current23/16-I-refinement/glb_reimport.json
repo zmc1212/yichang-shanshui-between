@@ -1,0 +1,10 @@
+{
+  "meshes": 19,
+  "triangles": 23112,
+  "finite": true,
+  "left_field_exists": true,
+  "H_right_field_retained": true,
+  "old_solid_left_surface_excluded": true,
+  "external_images": 0,
+  "independent_import_rendered": true
+}

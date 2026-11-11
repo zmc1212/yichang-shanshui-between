@@ -1,8 +1,8 @@
 {
   "id": "business-1649134",
-  "sourceFilename": "Lijing_H_VisibleRightMidfield.glb",
-  "sourceSha256": "3a9616b80729454aa512a26a7bd75695370b4d89282ba0bbbaeb030c729600b1",
-  "sourceBytes": 1244684,
+  "sourceFilename": "Lijing_I_VisibleLeftMidfield.glb",
+  "sourceSha256": "71e1f78d9dba91f0b7e831b5c504fd07d523a060761a5932703001ac5fa8bc9b",
+  "sourceBytes": 1341988,
   "nativeChanged": false,
   "removedPresentationNodes": [],
   "preserveAlphaMaterials": [],
@@ -16,8 +16,8 @@
   "validationScope": "Binary readback and envelope checks; no claim of surveyed geometry, real-scene acceptance, browser/WebGL visual QA, or device performance measurement.",
   "tiers": {
     "light": {
-      "triangles": 13334,
-      "vertices": 33332,
+      "triangles": 14460,
+      "vertices": 36023,
       "primitives": 19,
       "indexedPrimitives": 19,
       "materials": 19,
@@ -35,8 +35,8 @@
           14.500425704605984
         ]
       },
-      "bytes": 233732,
-      "sha256": "7e64ebaeda407d26be73c644976a7c445329898284ca0e845ebbfcb2e9374bb8",
+      "bytes": 248784,
+      "sha256": "825a0af92a8a6bb9b866950002d007e5f1944ff828bf45df69c0550c35c908fd",
       "maxEnvelopeDelta": 0.000736951980805145,
       "extensionsRequired": [
         "EXT_meshopt_compression",
@@ -48,8 +48,8 @@
       ]
     },
     "detail": {
-      "triangles": 21350,
-      "vertices": 40962,
+      "triangles": 23112,
+      "vertices": 43264,
       "primitives": 19,
       "indexedPrimitives": 19,
       "materials": 19,
@@ -67,8 +67,8 @@
           14.500425704605984
         ]
       },
-      "bytes": 262228,
-      "sha256": "33ffe1ce41aaaac9e78c76c8693320dc472199c1073b2a8a11dc49c545de08f8",
+      "bytes": 273144,
+      "sha256": "58795d6326abde9fc1b5155adab5ac9fd51b3c9195dd2cd0d8cbfe2f4c2da75b",
       "maxEnvelopeDelta": 0.000736951980805145,
       "extensionsRequired": [
         "EXT_meshopt_compression",
@@ -92,5 +92,5 @@
       14.5
     ]
   },
-  "sourceTriangles": 21350
+  "sourceTriangles": 23112
 }

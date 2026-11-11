@@ -1,0 +1,33 @@
+{
+  "old_signatures_match": true,
+  "four_original_world_polygons_material_exact": true,
+  "replacement_front_faces_are_exclusive": true,
+  "tested_rect_pairs": 160461,
+  "all_new_depths_inward": true,
+  "left_domain_only": "z11..70,y-.5..12",
+  "historical_solid_hidden": true,
+  "no_global_legacy_overlap_claim": true,
+  "left_outside_domain_same_plane_material_area": 907.0,
+  "left_outside_expected_area": 907.0,
+  "inherited_coplanar_contacts_exact_copied_old_face": [
+    [
+      [
+        2,
+        -1,
+        10.0
+      ],
+      [
+        "F_KEEP_WEB_F_APPROX_crown_envelope_stone",
+        10
+      ],
+      [
+        "I_DISPLAY_exact_original_four_faces",
+        2
+      ]
+    ]
+  ],
+  "new_involved_same_direction_coplanar_rect_pairs_checked": 111376,
+  "introduced_positive_area_coplanar_conflicts": [],
+  "H_right_field_geometry_signature_and_visible_state_unchanged": true,
+  "older_G_solid_body_remains_hidden": true
+}

@@ -524,7 +524,7 @@
   "1649134": {
     "order": 16,
     "name": "丽景国际综合楼",
-    "stage": "丽景H可见右侧中下窗域候选",
+    "stage": "丽景I可见左侧中下窗域候选",
     "sourceBounds": {
       "min": [
         -35.5,
@@ -538,16 +538,16 @@
       ]
     },
     "assets": {
-      "light": "/models/current23/16/light.glb?v=7e64ebaeda40",
-      "detail": "/models/current23/16/detail.glb?v=33ffe1ce41aa"
+      "light": "/models/current23/16/light.glb?v=825a0af92a8a",
+      "detail": "/models/current23/16/detail.glb?v=58795d6326ab"
     },
     "webBudget": {
       "light": {
-        "bytes": 233732,
-        "triangles": 13334,
+        "bytes": 248784,
+        "triangles": 14460,
         "primitives": 19,
-        "vertices": 33332,
-        "sha256": "7e64ebaeda407d26be73c644976a7c445329898284ca0e845ebbfcb2e9374bb8",
+        "vertices": 36023,
+        "sha256": "825a0af92a8a6bb9b866950002d007e5f1944ff828bf45df69c0550c35c908fd",
         "bounds": {
           "min": [
             -35.500736951980805,
@@ -562,11 +562,11 @@
         }
       },
       "detail": {
-        "bytes": 262228,
-        "triangles": 21350,
+        "bytes": 273144,
+        "triangles": 23112,
         "primitives": 19,
-        "vertices": 40962,
-        "sha256": "33ffe1ce41aaaac9e78c76c8693320dc472199c1073b2a8a11dc49c545de08f8",
+        "vertices": 43264,
+        "sha256": "58795d6326abde9fc1b5155adab5ac9fd51b3c9195dd2cd0d8cbfe2f4c2da75b",
         "bounds": {
           "min": [
             -35.500736951980805,
@@ -581,8 +581,8 @@
         }
       }
     },
-    "sourceModelSha256": "3a9616b80729454aa512a26a7bd75695370b4d89282ba0bbbaeb030c729600b1",
-    "sourceSelectionFile": "assets/16/current/Lijing_H_VisibleRightMidfield.glb",
+    "sourceModelSha256": "71e1f78d9dba91f0b7e831b5c504fd07d523a060761a5932703001ac5fa8bc9b",
+    "sourceSelectionFile": "assets/16/current/Lijing_I_VisibleLeftMidfield.glb",
     "modelNotesUrl": "/models/current23/16/README.txt",
     "holds": {
       "identity": false,
@@ -591,12 +591,12 @@
       "geographic_registration": "HOLD_LATEST_SITE_NOT_VERIFIED",
       "absolute_scale": "HOLD_NO_NEW_SURVEY_OR_SCALE_CERTIFICATION",
       "capture_date": "UNKNOWN_UNLESS_EXPLICIT_SOURCE_DOC_QUALIFICATION",
-      "scope_and_remaining_holds": "H仅补右侧+X中下窗域，保留前宽石墙；三个粗湾和4.1节奏非测量。原G保留互斥，其他5面精确保留，总包络不变。上域/顶檐绕角、侧后冠、左侧、基部遮挡及真实尺度方向仍HOLD。"
+      "scope_and_remaining_holds": "I依据两张独立白天左视补-X中下三粗窗域，近前宽石墙保留；H右面签名和可见性不变。不是镜像推断。三域由跨高度原像素复核，4.1节奏非实测。上段窄窗/绕角檐、背冠、遮挡基部与真实尺度方向继续HOLD。"
     },
-    "sourceVersion": "丽景H",
+    "sourceVersion": "丽景I",
     "sourceRecovery": {
-      "filename": "Lijing_H_VisibleRightMidfield_Delivery.zip",
-      "library_file_id": "libfile_fde3_f-1e7e37f8ba1c8191ae4083e5884f023b_c853d26840d0819196e3746c99b28092"
+      "filename": "Lijing_I_VisibleLeftMidfield_Delivery.zip",
+      "library_file_id": "libfile_fde3_f-f7da27772640819188952c1f323ecc4d_c853d26840d0819196e3746c99b28092"
     }
   },
   "1649135": {
