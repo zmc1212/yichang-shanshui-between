@@ -1,0 +1,68 @@
+{
+  "tiles": [
+    {
+      "row": 7,
+      "col": 3,
+      "url": "https://resource.720think.com/v/Data/upload/think720/201609/926204010/tiles/202204/1455267/l/l3/7/l3_l_7_3.jpg",
+      "sha256": "0cefae114aff71c324fd9ade9cd34f7db4bd717a36236a6413ddefc79c44757b"
+    },
+    {
+      "row": 7,
+      "col": 4,
+      "url": "https://resource.720think.com/v/Data/upload/think720/201609/926204010/tiles/202204/1455267/l/l3/7/l3_l_7_4.jpg",
+      "sha256": "66b982bfad1c2bbb1f430a917ac769f18e6430ac2b6dcb6eb01a97c84637fcb1"
+    },
+    {
+      "row": 7,
+      "col": 5,
+      "url": "https://resource.720think.com/v/Data/upload/think720/201609/926204010/tiles/202204/1455267/l/l3/7/l3_l_7_5.jpg",
+      "sha256": "c463c71d6fe34742f3fe3c1219b5298597462283f9722a268486b7e28a5af892"
+    },
+    {
+      "row": 8,
+      "col": 3,
+      "url": "https://resource.720think.com/v/Data/upload/think720/201609/926204010/tiles/202204/1455267/l/l3/8/l3_l_8_3.jpg",
+      "sha256": "2b23286117ce8b84f184959c13347cb187ee236fb9c79972d096dd7f75db82be"
+    },
+    {
+      "row": 8,
+      "col": 4,
+      "url": "https://resource.720think.com/v/Data/upload/think720/201609/926204010/tiles/202204/1455267/l/l3/8/l3_l_8_4.jpg",
+      "sha256": "28afc9153d913b5ab6ec00b0f8caad26e6517bb4d498c5d69f59eee0ca0e0b57"
+    },
+    {
+      "row": 8,
+      "col": 5,
+      "url": "https://resource.720think.com/v/Data/upload/think720/201609/926204010/tiles/202204/1455267/l/l3/8/l3_l_8_5.jpg",
+      "sha256": "e8cae6a8e2f334d053b2c0199841343819a647fe62a807713a04e319b0b09b6b"
+    },
+    {
+      "row": 9,
+      "col": 3,
+      "url": "https://resource.720think.com/v/Data/upload/think720/201609/926204010/tiles/202204/1455267/l/l3/9/l3_l_9_3.jpg",
+      "sha256": "f464725a5b1f858f96c4c29be40a49eff8bf8ab83e2d5cfc2c6e1dc977eff5e6"
+    },
+    {
+      "row": 9,
+      "col": 4,
+      "url": "https://resource.720think.com/v/Data/upload/think720/201609/926204010/tiles/202204/1455267/l/l3/9/l3_l_9_4.jpg",
+      "sha256": "8d7dcfe5f6c33909f8ea7dd170cac38ea085f62a346e796b5388398ce88816ce"
+    },
+    {
+      "row": 9,
+      "col": 5,
+      "url": "https://resource.720think.com/v/Data/upload/think720/201609/926204010/tiles/202204/1455267/l/l3/9/l3_l_9_5.jpg",
+      "sha256": "db8301e0be695906d9e0cbc0dc7eabf4e096ef29e1634137e07b288542a29cd5"
+    }
+  ],
+  "crop_original_pixel_bounds": [
+    1024,
+    3072,
+    2560,
+    4352
+  ],
+  "photo_not_in_package": true,
+  "primary_source": "scene1649127/media1455267 l native tiles; same historical view as I",
+  "secondary": "news1 public frontal image only relative level check, not dimension survey",
+  "excluded": "Trip night single-tower marketing image 15_full: unverified composite/visualization, not geometry evidence"
+}

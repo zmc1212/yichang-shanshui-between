@@ -1,0 +1,10 @@
+{
+  "meshes": 85,
+  "triangles": 19632,
+  "finite": true,
+  "new_midband_exists": true,
+  "I_thin_canopy_retained": true,
+  "J_excluded": true,
+  "external_images": 0,
+  "independent_import_rendered": true
+}

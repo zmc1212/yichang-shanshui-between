@@ -1,0 +1,29 @@
+{
+  "original_world_signatures": {
+    "Gonghe_HOLD_ochre_not_actual_building": "f53090ab3d8f1471381250346f4e8764fc495ed8b3002b7abb3d867c33b73431",
+    "I_CANOPY_FRAME_APPROX": "2b9d4e94daec67cbb7e64d659c4d0c829864010750801d7f7da830eefa9b2e8c",
+    "I_CANOPY_GLASS_APPEARANCE": "85fb42fd29b5675f92ef597a17f4f41f86ead3584c022914cd47d94666ada17c",
+    "I_SIDE_SCREEN_FRAME_APPROX": "3c5ad7b2b7212af725c17dde988398bc02c647f20c7950481eb9230f86c6d457",
+    "KEEP_G_KEEP_G_CROWN_G_CROWN_FRAME_APPROX": "6bedc79bb8e0f694665990da574887a9c94dbfa6b14f5bfdbd70fd8215114ab8",
+    "KEEP_G_KEEP_G_CROWN_G_EDGE_PIER_APPROX": "0f2706a8c4c8aa54e7c18e7cf31b08888fdd30be5371c41014655afca72c8a23",
+    "KEEP_G_KEEP_Gonghe_Bluegray_closed_glazing_approx": "7c942ab42a42f0ba9ba36f9d86e42bd9f0e866e47125843c26145fa3680e11c2",
+    "KEEP_G_KEEP_Gonghe_Dark_metal_approx": "be26d63c5863aa97682404866f3cb882c9937b200417f3e5baec2fa89dfbd978",
+    "KEEP_G_KEEP_Gonghe_Pale_stone_approx": "442224a40fd4b64a29c81f1c2025b2dfc44f9225f530619327ad038d303e2c8c",
+    "KEEP_H_assumed_back_roof_depth": "e6b31ab5920e0b43e8400f3881a3caba386a056d9ea8e663f72685436d463707",
+    "KEEP_H_coarse_glazing_approx": "b3f7c77bb3bce19469ffd12dd85eadf47eca92f714949b327f764dd03b436c80",
+    "KEEP_H_foot_pinkstone_approx": "4c1e978e23fc98f155a6d95737c04d77a06dbeeeb09063d09ebb6cb0c8769151",
+    "KEEP_H_side_cream_approx": "11f5b0e99add4da2230f7f80ee16f88905f28d89010f806e362e57c3fa4161a0"
+  },
+  "all_original_world_geometry_material_signatures_unchanged": true,
+  "hidden_in_K": [
+    "KEEP_H_coarse_glazing_approx"
+  ],
+  "side_glass_vertices_exact": true,
+  "side_polygons_exact": 12,
+  "front_lower_boundary": 8.2,
+  "modified_display_component": "first8 front-box vertices, top lowered to8.2; upperdomain replaced",
+  "I_thin_canopy_retained": true,
+  "J_not_loaded": true,
+  "top_foot_30_to_30_8_unchanged": true,
+  "K_new_scope": "front seven bays8.2..29.2, no side changes; middle band21.2..22.0 normalized"
+}

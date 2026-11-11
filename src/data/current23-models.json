@@ -2,7 +2,7 @@
   "1649127": {
     "order": 22,
     "name": "共和景晨创业中心",
-    "stage": "共和I左塔外观候选（组团对应；正式A/B待核）",
+    "stage": "共和K原薄棚时相正面中域补齐（正式A/B待核）",
     "sourceBounds": {
       "min": [
         -20.5,
@@ -16,16 +16,16 @@
       ]
     },
     "assets": {
-      "light": "/models/current23/22/light.glb?v=be4e943232e2",
-      "detail": "/models/current23/22/detail.glb?v=b14cbab3e638"
+      "light": "/models/current23/22/light.glb?v=686f195cf08f",
+      "detail": "/models/current23/22/detail.glb?v=e111695ba1c3"
     },
     "webBudget": {
       "light": {
-        "bytes": 196804,
-        "triangles": 9612,
-        "primitives": 12,
-        "vertices": 25664,
-        "sha256": "be4e943232e2bf7e6b939c0fd4028e6cae81e41473fa7599a9778ec2e3413ff8",
+        "bytes": 210036,
+        "triangles": 10488,
+        "primitives": 14,
+        "vertices": 27708,
+        "sha256": "686f195cf08f75ab6c673959fb65ac1a3a5de059ee4619f5fa667486f4d9c70c",
         "bounds": {
           "min": [
             -20.5,
@@ -40,11 +40,11 @@
         }
       },
       "detail": {
-        "bytes": 240368,
-        "triangles": 18756,
-        "primitives": 12,
-        "vertices": 37512,
-        "sha256": "b14cbab3e6387a4ec9ddf2b9e2f75dddedc4581486cd3912dfa9e928f268e601",
+        "bytes": 251944,
+        "triangles": 19632,
+        "primitives": 14,
+        "vertices": 39264,
+        "sha256": "e111695ba1c362642a3f23818036edc4dde2aadd911b925dafddee9afa841a90",
         "bounds": {
           "min": [
             -20.5,
@@ -59,8 +59,8 @@
         }
       }
     },
-    "sourceModelSha256": "e8e17dd3b8bcdc354eed965328a04624650dac315edddb54ee8d5f20a7ef4d3d",
-    "sourceSelectionFile": "assets/22/current/Gonghe_I_SideCrownCanopy_IdentityHOLD.glb",
+    "sourceModelSha256": "e57e556d7a3ece7bb091ca0ec82612d874707b7fc0ddbe6682b3d45e2186ee08",
+    "sourceSelectionFile": "assets/22/current/Gonghe_K_IperiodFrontMidfield.glb",
     "modelNotesUrl": "/models/current23/22/README.txt",
     "holds": {
       "identity": true,
@@ -69,9 +69,13 @@
       "geographic_registration": "HOLD_LATEST_SITE_NOT_VERIFIED",
       "absolute_scale": "HOLD_NO_NEW_SURVEY_OR_SCALE_CERTIFICATION",
       "capture_date": "UNKNOWN_UNLESS_EXPLICIT_SOURCE_DOC_QUALIFICATION",
-      "scope_and_remaining_holds": "原scene1649127/media1455267明标共和景晨创业中心/东站路169号；原双塔全景与雅阁璞邸实景的塔冠、裙房、连接厅、铁路及弯路对应，左塔酒店外观有支持。未见独立A/B栋号牌，A/B正式归属仍HOLD，不能由宴会厅A栋地址推定左A右B。尺度、深度和改造时相仍待核。 正侧冠/粗侧/塔脚/薄棚为可见轮廓候选，底界裁切与远背未知。"
+      "scope_and_remaining_holds": "K依据原I同源高清全景补正面中横带、五个玻璃湾分层及第2/6服务竖带；保留原薄棚，未混入J厚棚。旧网格签名、塔身与整体包络保持。真实尺度/方向/外围翼部映射仍待核，J整体比例未闭合。"
     },
-    "sourceVersion": "共和I左塔外观候选（组团对应；正式A/B待核）"
+    "sourceVersion": "共和K",
+    "sourceRecovery": {
+      "filename": "Gonghe_K_IperiodFrontMidfield_Delivery.zip",
+      "library_file_id": "libfile_fde3_f-692f14ffdea081918a0567ec4b44afee_c853d26840d0819196e3746c99b28092"
+    }
   },
   "1649128": {
     "order": 18,

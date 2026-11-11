@@ -1,11 +1,11 @@
 {
-  "order":22,
-  "status":"research_only_not_default_not_integrated",
-  "stage":"Gonghe J operation entrance candidate",
-  "full_glb_sha256":"bf9a8c191dfa66c73a9ae2ea3259abd1f863345244f7b34563ff0b8f09257408",
-  "library_file_id":"libfile_fde3_f-8a81af4d1b288191839e26491fef593f_c853d26840d0819196e3746c99b28092",
-  "filename":"Gonghe_J_OperationEntryCandidate_Delivery.zip",
-  "known_residual":"I inherited middle base z8.2..30 is oversized relative to entrance. The resulting entrance is vertically compressed; whole base needs re-registration. Not merely unknown surveyed dimensions.",
-  "new_view":"https://aw-d.tripcdn.com/images/1mc1112000bkc1bm687C2.jpg",
-  "new_view_usage":"independent oblique camera view establishes canopy projection, two supports, rear glazing and steps; no external photo in package"
+  "order": 22,
+  "status": "research_only_not_default_not_integrated",
+  "stage": "Gonghe J operation entrance candidate",
+  "full_glb_sha256": "bf9a8c191dfa66c73a9ae2ea3259abd1f863345244f7b34563ff0b8f09257408",
+  "library_file_id": "libfile_fde3_f-8a81af4d1b288191839e26491fef593f_c853d26840d0819196e3746c99b28092",
+  "filename": "Gonghe_J_OperationEntryCandidate_Delivery.zip",
+  "known_residual": "Whole frontage and outer-wing mapping remain unresolved. Reassessment against whole-photo anchors does not prove canopy height is too low; earlier definite vertical-compression conclusion is withdrawn. J remains separate and not integrated.",
+  "new_view": "https://aw-d.tripcdn.com/images/1mc1112000bkc1bm687C2.jpg",
+  "new_view_usage": "independent oblique camera view establishes canopy projection, two supports, rear glazing and steps; no external photo in package"
 }
