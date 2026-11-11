@@ -1,8 +1,8 @@
 {
   "id": "business-1649142",
-  "sourceFilename": "XingfaHQ_G_VisibleLandwardField.glb",
-  "sourceSha256": "20966e55f8ef4a46238b953575606084964cdbc40abe0a890e85e8663e90b438",
-  "sourceBytes": 313656,
+  "sourceFilename": "XingfaHQ_H_FullLandwardField.glb",
+  "sourceSha256": "532925745fb91cf93f440ee6ddb8dbbcd031dbad902856ab97a6dbcdacc6924b",
+  "sourceBytes": 350304,
   "nativeChanged": false,
   "removedPresentationNodes": [],
   "preserveAlphaMaterials": [],
@@ -16,8 +16,8 @@
   "validationScope": "Binary readback and envelope checks; no claim of surveyed geometry, real-scene acceptance, browser/WebGL visual QA, or device performance measurement.",
   "tiers": {
     "light": {
-      "triangles": 3204,
-      "vertices": 7468,
+      "triangles": 3504,
+      "vertices": 8160,
       "primitives": 12,
       "indexedPrimitives": 12,
       "materials": 12,
@@ -35,8 +35,8 @@
           7.399958462895525
         ]
       },
-      "bytes": 63288,
-      "sha256": "084ab7b766312e37dac2166cafc74d8a456b931dad72065aa44f5135d55f8f6e",
+      "bytes": 67752,
+      "sha256": "4243c782801979dbdc1925b6fee7a5004965d680f43ceacdd9c79fba6b6b62a3",
       "maxEnvelopeDelta": 0.0000913313275034966,
       "extensionsRequired": [
         "EXT_meshopt_compression",
@@ -48,8 +48,8 @@
       ]
     },
     "detail": {
-      "triangles": 3204,
-      "vertices": 6400,
+      "triangles": 3504,
+      "vertices": 6992,
       "primitives": 12,
       "indexedPrimitives": 12,
       "materials": 12,
@@ -67,8 +67,8 @@
           7.399958462895525
         ]
       },
-      "bytes": 57288,
-      "sha256": "778552387c2c082b41d4f51c50f1cf4bc4825ad555851938a6419edec0cd6cb1",
+      "bytes": 61168,
+      "sha256": "cea98146880dca28a211ed4d25adff845412eb72a5803eb528d93d6d8fbd4d8b",
       "maxEnvelopeDelta": 0.0000913313275034966,
       "extensionsRequired": [
         "EXT_meshopt_compression",
@@ -92,5 +92,5 @@
       7.399999976158142
     ]
   },
-  "sourceTriangles": 3204
+  "sourceTriangles": 3504
 }

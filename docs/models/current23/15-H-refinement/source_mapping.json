@@ -1,0 +1,62 @@
+{
+  "stage": "H",
+  "base": "G published V72",
+  "image": {
+    "url": "https://dimg04.tripcdn.com/images/1mc5912000dim1zy0BE21.jpg",
+    "gallery": "https://hk.trip.com/hotels/yichang-hotel-detail-113067476/grand-mercure-yichang-waitan/photo.html",
+    "sha256": "97c59e177db165062becd56e265749fef926f77ee895e5df7ae0b1690150829d",
+    "size": [
+      360,
+      480
+    ],
+    "photograph_date": "unknown",
+    "category": "platform hotel exterior; uploader not independently authenticated",
+    "not_embedded": true
+  },
+  "binding": "Tower +Y face above long podium; adjacent +X face shares long street-side hotel canopy. Same relational binding as G ho03/04, now full elevation in independent elevated view.",
+  "limits": [
+    "360px image cannot validate true bay count",
+    "13 ribs/12 fields inherited proxy",
+    "normalized heights not survey",
+    "roof depth/equipment and unseen opposite face HOLD"
+  ],
+  "fit": {
+    "coordinates_pixel_approx": {
+      "left": {
+        "x": 165,
+        "crown_bottom_y": 55,
+        "lower_band_center_y": 234,
+        "upper_band_center_y": 152
+      },
+      "right": {
+        "x": 216,
+        "crown_bottom_y": 39,
+        "lower_band_center_y": 226,
+        "upper_band_center_y": 143
+      }
+    },
+    "formula": "upperZ=25.7+(lowerY-upperY)/(lowerY-crownBottomY)*(62.1-25.7)",
+    "inherited_anchors": [
+      25.7,
+      62.1
+    ],
+    "left_estimate": 42.37486033519553,
+    "right_estimate": 41.856149732620324,
+    "conservative_fit_range": [
+      40.7,
+      43.2
+    ],
+    "display_band": [
+      41.3,
+      42.7
+    ],
+    "caution": "Weak affine relative fit only; not projective calibration or measured floor level. Lower G band retained as display anchor; image pixel endpoints +/-2px and perspective uncertainty."
+  },
+  "mutual_exclusion": {
+    "retained_old_collection": "G_VISIBLE_LANDWARD_LOWER_MID_HIDEABLE",
+    "old_collection_hide_render": true,
+    "old_collection_hide_viewport": true,
+    "new_collection": "H_FULL_LANDWARD_FIELD_HIDEABLE"
+  },
+  "new_domain": "Same G x/y; ribs and fields z9.2..62.1; crown FACE only62.1..64. F unaffected."
+}

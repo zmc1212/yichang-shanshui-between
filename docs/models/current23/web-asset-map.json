@@ -1119,7 +1119,7 @@
   "1649142": {
     "order": 15,
     "name": "兴发集团宜昌总部",
-    "stage": "兴发总部G陆侧下中段观察候选",
+    "stage": "兴发总部H陆侧可见立面候选",
     "sourceBounds": {
       "min": [
         -7.300000190734863,
@@ -1133,16 +1133,16 @@
       ]
     },
     "assets": {
-      "light": "/models/current23/15/light.glb?v=084ab7b76631",
-      "detail": "/models/current23/15/detail.glb?v=778552387c2c"
+      "light": "/models/current23/15/light.glb?v=4243c7828019",
+      "detail": "/models/current23/15/detail.glb?v=cea98146880d"
     },
     "webBudget": {
       "light": {
-        "bytes": 63288,
-        "triangles": 3204,
+        "bytes": 67752,
+        "triangles": 3504,
         "primitives": 12,
-        "vertices": 7468,
-        "sha256": "084ab7b766312e37dac2166cafc74d8a456b931dad72065aa44f5135d55f8f6e",
+        "vertices": 8160,
+        "sha256": "4243c782801979dbdc1925b6fee7a5004965d680f43ceacdd9c79fba6b6b62a3",
         "bounds": {
           "min": [
             -7.300046417912315,
@@ -1157,11 +1157,11 @@
         }
       },
       "detail": {
-        "bytes": 57288,
-        "triangles": 3204,
+        "bytes": 61168,
+        "triangles": 3504,
         "primitives": 12,
-        "vertices": 6400,
-        "sha256": "778552387c2c082b41d4f51c50f1cf4bc4825ad555851938a6419edec0cd6cb1",
+        "vertices": 6992,
+        "sha256": "cea98146880dca28a211ed4d25adff845412eb72a5803eb528d93d6d8fbd4d8b",
         "bounds": {
           "min": [
             -7.300046417912315,
@@ -1176,8 +1176,8 @@
         }
       }
     },
-    "sourceModelSha256": "20966e55f8ef4a46238b953575606084964cdbc40abe0a890e85e8663e90b438",
-    "sourceSelectionFile": "assets/15/current/XingfaHQ_G_VisibleLandwardField.glb",
+    "sourceModelSha256": "532925745fb91cf93f440ee6ddb8dbbcd031dbad902856ab97a6dbcdacc6924b",
+    "sourceSelectionFile": "assets/15/current/XingfaHQ_H_FullLandwardField.glb",
     "modelNotesUrl": "/models/current23/15/README.txt",
     "holds": {
       "identity": false,
@@ -1186,12 +1186,12 @@
       "geographic_registration": "HOLD_LATEST_SITE_NOT_VERIFIED",
       "absolute_scale": "HOLD_NO_NEW_SURVEY_OR_SCALE_CERTIFICATION",
       "capture_date": "UNKNOWN_UNLESS_EXPLICIT_SOURCE_DOC_QUALIFICATION",
-      "scope_and_remaining_holds": "G补+Y陆侧下中段竖肋/玻璃及下道暗带；z9.2..44为保守归一显示范围非测绘或已标定照片裁界。F全旧网格/材质/变换和总边界不改，上域44..64仍灰HOLD并非真实无窗墙。真实尺度/方向/冠顶/后部深度仍待核。"
+      "scope_and_remaining_holds": "H依据新独立完整高机位补齐陆侧冠下上域与第二暗带。原G保留隐藏，与H互斥；F及G几何材质变换与总边界不改。360x480图只证整体关系，13肋/12玻璃示意非实测窗数；真实尺度/方向/屋顶设备仍待核。"
     },
-    "sourceVersion": "总部G",
+    "sourceVersion": "总部H",
     "sourceRecovery": {
-      "filename": "XingfaHQ_G20261112_VisibleLandwardField.zip",
-      "library_file_id": "libfile_fde3_f-4fc31ff5b4288191b41441ad0be49878_c853d26840d0819196e3746c99b28092"
+      "filename": "XingfaHQ_H20261112_FullLandwardField.zip",
+      "library_file_id": "libfile_fde3_f-2d06b15592fc81919dc4e099a9d071fd_c853d26840d0819196e3746c99b28092"
     }
   },
   "1649143": {

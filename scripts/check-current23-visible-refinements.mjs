@@ -18,7 +18,7 @@ for(const order of [9,13,14,15,19,20])for(const tier of ['light','detail']){
   object.traverse(o=>{if(o.isMesh&&o.material===glass[0])assert.equal(o.castShadow,false,'Transparent infill must not cast opaque slab shadows');});
   for(const m of materials)if(m.name!==alphaName){assert.equal(m.transparent,false);assert.equal(m.opacity,1);}
  }else{
-  const added=[...materials].filter(m=>m.name.startsWith(order===14?'H_observed_':order===15?'G_':'I_'));assert(added.length>=([13,14].includes(order)?3:1),'Refinement materials survive both tiers');
+  const added=[...materials].filter(m=>m.name.startsWith(order===14?'H_observed_':order===15?'H_':'I_'));assert(added.length>=([13,14].includes(order)?3:1),'Refinement materials survive both tiers');
   prepareAuthoredModel(object,spec);for(const m of materials){assert.equal(m.transparent,false);assert.equal(m.opacity,1);}
  }
  results.push({order,tier,materials:materials.size,reviewedAlpha:order===9?.25:null});
