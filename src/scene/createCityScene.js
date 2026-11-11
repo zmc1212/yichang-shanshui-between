@@ -16,6 +16,11 @@ import { buildRoadLabelAnchors, projectRoadLabelAnchors } from './roadLabelAncho
 import { DEFAULT_ENVIRONMENT, normalizeEnvironment, environmentProfile, terrainColorFactors, addRiverSurface, createRainEffect } from './atmosphere.js';
 import { createCityTraffic } from './cityTraffic.js';
 import { planStreetObservations } from './streetObservation.js';
+import { createUrbanBuildingAppearance } from './urbanBuildingAppearance.js';
+import { createUrbanTerrainAppearance } from './urbanTerrainAppearance.js';
+import { planUrbanStreetGround, createUrbanStreetGround } from './urbanStreetGround.js';
+import { createFocusedSunShadow } from './focusedSunShadow.js';
+import { planRiverfrontDistrictView } from './riverfrontDistrictView.js';
 
 /* Coordinates in city.json are in a local metric frame: x east, z south.
    The miniature uses the actual polygon and line data; only its materials,
@@ -196,7 +201,9 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
   sun.shadow.camera.near = 1; sun.shadow.camera.far = extent * 4;
   sun.shadow.normalBias = 0.08; sun.shadow.bias = -0.0001;
   sun.shadow.radius = 3;
-  scene.add(sun);
+  scene.add(sun, sun.target);
+  const sunOffset = sun.position.clone();
+  const focusedSunShadow = createFocusedSunShadow({ sun, renderer, extent });
   const fill = new THREE.DirectionalLight('#dceeff', DAY_LIGHT.fill);
   fill.position.set(extent, extent * 0.5, -extent); scene.add(fill);
 
@@ -246,11 +253,13 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
   }
   const waterfrontPlan = planWaterfront({ data, landmarks, modelBounds, inWater, heightAt: surfaceHeight });
   const streetPlan = planStreetDetails({ data, authoredModels, authoredGround, waterfrontPlan, inWater, heightAt: surfaceHeight });
+  const urbanStreetPlan = planUrbanStreetGround({ data, models: authoredModels, heightAt: surfaceHeight, inWater, existingStreetPlan: streetPlan, unitsPerMeter: data.meta?.unitsPerMeter });
+  const urbanTerrain = createUrbanTerrainAppearance({ data, inWater, inPark });
   const baseThickness = 9.4;
   const soilMaterial = makeMaterial(DAY.soil, NIGHT.soil);
   const rimMaterial = makeMaterial(DAY.rim, NIGHT.rim);
   const lowSoilMaterial = makeMaterial(DAY.soilLow, NIGHT.soilLow);
-  const landMaterial = makeMaterial(DAY.land, NIGHT.land, { vertexColors: true });
+  const landMaterial = urbanTerrain.applyToMaterial(makeMaterial(DAY.land, NIGHT.land, { vertexColors: true }));
   function box(parent, name, w, h, d, y, material) {
     const mesh = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), material);
     mesh.name = name; mesh.position.y = y; mesh.castShadow = true; mesh.receiveShadow = true; parent.add(mesh); return mesh;
@@ -351,9 +360,8 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
 
   const buildingIndex = makeGridIndex(4);
   const buildingGeometries = DAY.buildings.map(() => []);
-  // Keep the porcelain-like white roofs bright. Directional light and the
-  // lower ambient fill still shade their walls and cast readable shadows.
-  const buildingMaterials = DAY.buildings.map((color, i) => makeMaterial(color, NIGHT.buildings[i], { toneMapped: false }));
+  const urbanAppearance = createUrbanBuildingAppearance({ unitsPerMeter: data.meta?.unitsPerMeter });
+  const buildingMaterials = DAY.buildings.map((color, i) => urbanAppearance.applyToMaterial(makeMaterial(color, NIGHT.buildings[i], { toneMapped: true })));
   let buildingCount = 0;
   const roofEdges = [];
   const originalBuildingCount = (data.buildings || []).length;
@@ -374,6 +382,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     try {
       const g = new THREE.ExtrudeGeometry(shape, { depth: height, bevelEnabled: false, curveSegments: 1, steps: 1 });
       g.rotateX(-Math.PI / 2); g.translate(0, base, 0);
+      urbanAppearance.prepareGeometry(g, { base, height, sourceHeight: Number(building.height) || .24, sourceId: building.sourceFeatureId || `${cx}:${cz}` });
       const bucket = Math.abs(Math.floor(cx * 17 + cz * 29 + index)) % buildingMaterials.length;
       buildingGeometries[bucket].push(g); buildingCount++;
       if (height > 1.35 && index % 2 === 0) for (let j = 0; j < ring.length; j++) {
@@ -401,7 +410,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     const chance = park ? 0.82 : h > 1.8 ? 0.55 : pattern > 0.75 ? 0.1 : 0.018;
     if (treeRandom() > chance) continue;
     const cell = `${Math.round(x / 0.9)},${Math.round(z / 0.9)}`;
-    if (treeCells.has(cell) || waterfrontPlan.reserveTree(x, z) || authoredGround.reserveTree(x, z) || streetPlan.reserveTree(x, z)) continue;
+    if (treeCells.has(cell) || waterfrontPlan.reserveTree(x, z) || authoredGround.reserveTree(x, z) || streetPlan.reserveTree(x, z) || urbanStreetPlan.reserveTree(x, z)) continue;
     if (landmarks.some(l => l.kind !== 'park' && l.kind !== 'bridge' && Math.hypot(x - l.x, z - l.z) < (l.modelScale || 1) * 3.1)) continue;
     if (buildingIndex.get(x, z).some(b => x >= b.bounds.minX - 0.5 && x <= b.bounds.maxX + 0.5 && z >= b.bounds.minZ - 0.5 && z <= b.bounds.maxZ + 0.5)) continue;
     if (roadIndex.get(x, z).some(r => pointSegmentDistanceSq(x, z, r.a, r.b) < (r.width * 0.5 + 0.45) ** 2)) continue;
@@ -477,6 +486,8 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
   layers.waterfront.add(waterfront.group); layers.boats.add(waterfront.boatGroup);
   const streetDetails = createStreetDetails(streetPlan, { heightAt: surfaceHeight, makeMaterial });
   layers.streetDetails.add(streetDetails.group);
+  const urbanStreetGround = createUrbanStreetGround(urbanStreetPlan, { heightAt: surfaceHeight, makeMaterial });
+  layers.streetDetails.add(urbanStreetGround.group);
   let streetDetailsEnabled = true;
   const rain = createRainEffect({ width, depth, heightAt: surfaceHeight });
   scene.add(rain.group);
@@ -527,6 +538,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
   let lastTrafficFrame = 0;
   let currentFocusOptions = { angle: 'detail', close: false };
   let managedFocus = false;
+  let districtManaged = false;
   let authoredSelection = false;
   let authoredStarted = false;
   renderer.domElement.dataset.renderFrames = '0';
@@ -547,11 +559,15 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     if (renderScheduler.getState() === 'idle') lastTime = 0;
     renderScheduler.invalidate();
   }
-  function renderScene() {
+  function renderScene({ time = performance.now(), settled = !tween } = {}) {
     camera.updateMatrixWorld();
     lodFrustum.setFromProjectionMatrix(lodProjection.multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse));
     streetDetails.update({ pixelsPerUnit: heightPx / (2 * baseHalfHeight) * camera.zoom, frustum: lodFrustum,
       enabled: streetDetailsEnabled, treesEnabled: layers.trees.visible });
+    urbanStreetGround.update({ pixelsPerUnit: heightPx / (2 * baseHalfHeight) * camera.zoom, frustum: lodFrustum,
+      enabled: streetDetailsEnabled, treesEnabled: layers.trees.visible });
+    focusedSunShadow.update({ target: controls.target, camera, visibleHeight: 2 * baseHalfHeight / camera.zoom,
+      aspect: widthPx / heightPx, sunOffset, settled, time });
     traffic.update(0, { pixelsPerUnit: heightPx / (2 * baseHalfHeight) * camera.zoom, frustum: lodFrustum,
       enabled: trafficEnabled, motionEnabled: motionEnabled && !renderScheduler.isPaused() });
     if (rain.group.visible) rain.setViewport({ target: controls.target, visibleHeight: baseHalfHeight * 2 / camera.zoom, aspect: widthPx / heightPx });
@@ -866,6 +882,11 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     const shift = right.multiplyScalar((maxX + minX) / 2).add(up.multiplyScalar((maxY + minY) / 2));
     return { position: position.add(shift), target: target.add(shift), zoom: 1, halfHeight };
   }
+  function calculateDistrictState(view = currentView) {
+    return planRiverfrontDistrictView({ models: authoredModels, roads: data.roads, water: data.water,
+      aspect: widthPx / heightPx, baseHalfHeight, view, heightAt: surfaceHeight,
+      unitsPerMeter: data.meta?.unitsPerMeter, cameraDistance });
+  }
   function focusZoomLimit() {
     // Allow a few floors or roof details to fill the view after a manual zoom.
     // A city-wide 1.8-unit floor made small registered buildings hit the limit
@@ -897,6 +918,9 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     if (selectedId && managedFocus) {
       const frame = calculateFocusState(landmarkMap.get(selectedId));
       tween = null; camera.position.copy(frame.position); controls.target.copy(frame.target); camera.zoom = frame.zoom;
+    } else if (districtManaged && !selectedId) {
+      const frame = calculateDistrictState();
+      if (frame) { tween = null; camera.position.copy(frame.position); controls.target.copy(frame.target); camera.zoom = frame.zoom; }
     } else if (!userMoved && !selectedId) {
       camera.position.copy(defaultState.position); controls.target.copy(defaultState.target); camera.zoom = 1;
     } else if (previousHalfHeight) camera.zoom *= baseHalfHeight / previousHalfHeight;
@@ -912,7 +936,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
   }
   const onChange = () => { requestRender(); };
   const onStart = () => {
-    tween = null; userMoved = true; managedFocus = false; controls.autoRotate = false;
+    tween = null; userMoved = true; managedFocus = false; districtManaged = false; controls.autoRotate = false;
     onInteraction?.({ type: 'orbit' });
     requestRender();
   };
@@ -1006,7 +1030,8 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     shorelineMaterial.color.set(profile.shore);
     hemi.color.set(profile.ambient); hemi.groundColor.set(profile.ground); hemi.intensity = profile.hemisphere;
     sun.color.set(profile.sunColor); sun.intensity = profile.sun;
-    sun.position.set(...profile.sunPosition.map(value => value * extent));
+    sunOffset.set(...profile.sunPosition.map(value => value * extent));
+    sun.position.copy(sunOffset).add(sun.target.position);
     fill.intensity = profile.fill;
     renderer.toneMappingExposure = profile.exposure;
     floorShadowMaterial.color.set(profile.shadowColor); floorShadowMaterial.opacity = profile.shadowOpacity;
@@ -1028,6 +1053,9 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     for (const item of landmarkMap.values()) if (item.spec.kind !== 'authored') LandmarkFactory.updateLandmarkTheme?.(item.group, night);
     waterfront.setTheme(profile.lamps);
     streetDetails.setTheme(profile.lamps);
+    urbanStreetGround.setTheme(profile.lamps);
+    urbanAppearance.setEnvironment(currentEnvironment);
+    urbanTerrain.setEnvironment(currentEnvironment);
     traffic.setTheme(profile.lamps);
     for (const { controller } of authoredEntries.values()) controller.setTheme(night);
     riverSurface.setEnvironment(currentEnvironment);
@@ -1114,9 +1142,10 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     } else if (!traffic.shouldAnimate()) lastTrafficFrame = time;
     // The clear overview remains static. Opted-in local water/boats or rain
     // advance at most 30 fps, sharing the same visibility-aware frame queue.
-    const renderNow = labelsDirty || animating || controls.autoRotate || boatsMoved || atmosphereMoved || trafficMoved || frameNumber < 3;
+    const shadowSettled = focusedSunShadow.getStats().deferred && !tween && !controlsMoving;
+    const renderNow = shadowSettled || labelsDirty || animating || controls.autoRotate || boatsMoved || atmosphereMoved || trafficMoved || frameNumber < 3;
     if (renderNow) {
-      renderScene();
+      renderScene({ time, settled: !tween && !controlsMoving });
       renderer.domElement.dataset.modelQuality = selectedAuthored()?.controller.getStats().quality || (residentStats().some(record=>record.quality) ? 'light' : 'loading');
       renderer.domElement.dataset.residentModels = String(residentStats().filter(record=>record.quality).length);
       renderer.domElement.dataset.detailModels = String(residentStats().filter(record=>record.quality==='detail').length);
@@ -1124,7 +1153,9 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
       renderer.domElement.dataset.authoredModels = String(authoredModels.length);
       renderer.domElement.dataset.modelAnchor = selectedAuthored() ? JSON.stringify(selectedAuthored().controller.group.position.toArray()) : '';
       renderer.domElement.dataset.cityVisible = String(city.visible);
-      renderer.domElement.dataset.focusAngle = selectedId ? currentFocusOptions.angle : 'overview';
+      renderer.domElement.dataset.focusAngle = selectedId ? currentFocusOptions.angle : districtManaged ? 'riverfront-district' : 'overview';
+      renderer.domElement.dataset.shadowTexelMetres = String(focusedSunShadow.getStats().texelWorld / (data.meta?.unitsPerMeter || .02));
+      renderer.domElement.dataset.urbanPavingCells = String(urbanStreetPlan.cells.length);
       renderer.domElement.dataset.drawCalls = String(renderer.info.render.calls);
       renderer.domElement.dataset.triangles = String(renderer.info.render.triangles);
       renderer.domElement.dataset.geometries = String(renderer.info.memory.geometries);
@@ -1166,7 +1197,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
   return {
     focus(id, options = {}) {
       const item = landmarkMap.get(id); if (!item) return;
-      selectedId = id; userMoved = true; managedFocus = true; currentView = 'perspective';
+      selectedId = id; userMoved = true; managedFocus = true; districtManaged = false; currentView = 'perspective';
       const validAngle = ['river', 'front', 'facade', 'entrance', 'crown', 'context'].includes(options.angle)
         || (options.angle === 'frontage' && streetPlan.sites.some(street => street.id === id && street.frontageView))
         || (options.angle === 'street' && streetObservations.has(id))
@@ -1180,13 +1211,29 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
       transition(frame.target, frame.position, frame.zoom);
       showSelection(item); requestRender();
     },
+    focusDistrict({ immediate = false } = {}) {
+      if (disposed) return false;
+      const frame = calculateDistrictState('perspective');
+      if (!frame) return false;
+      selectedId = null; userMoved = true; managedFocus = false; districtManaged = true;
+      currentView = 'perspective'; currentFocusOptions = { angle: 'detail', close: false };
+      selectedRing.visible = false; motionRunning = false; controls.screenSpacePanning = false; controls.autoRotate = false;
+      setAuthoredSelection(false);
+      for (const id of frame.ids) authoredEntries.get(id)?.controller.select(id, { detail: false, priority: true });
+      if (immediate) {
+        tween = null; camera.position.copy(frame.position); controls.target.copy(frame.target); camera.zoom = frame.zoom;
+        camera.updateProjectionMatrix(); controls.update();
+      } else transition(frame.target, frame.position, frame.zoom, 900);
+      requestRender();
+      return true;
+    },
     focusCluster(ids) {
       if (disposed || !Array.isArray(ids)) return false;
       const items = [...new Set(ids)].map(id => landmarkMap.get(id)).filter(Boolean);
       if (!items.length) return false;
       const frame = calculateClusterState(items);
       if (!frame) return false;
-      controls.autoRotate = false; managedFocus = false; userMoved = true;
+      controls.autoRotate = false; managedFocus = false; districtManaged = false; userMoved = true;
       controls.screenSpacePanning = false;
       // Drain residual orbit damping without moving the visible camera. The
       // cluster transition must retain the direction the user was looking at.
@@ -1209,7 +1256,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     reset() {
       controls.screenSpacePanning = false;
       setAuthoredSelection(false);
-      selectedId = null; userMoved = false; managedFocus = false; currentView = 'perspective'; selectedRing.visible = false; motionRunning = false;
+      selectedId = null; userMoved = false; managedFocus = false; districtManaged = false; currentView = 'perspective'; selectedRing.visible = false; motionRunning = false;
       currentFocusOptions = { angle: 'detail', close: false };
       defaultState = calculateDefaultState('perspective'); baseHalfHeight = defaultState.halfHeight; setFrustum();
       transition(defaultState.target, defaultState.position, 1);
@@ -1241,6 +1288,9 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
         managedFocus = true;
         const frame = calculateFocusState(landmarkMap.get(selectedId));
         transition(frame.target, frame.position, frame.zoom, 950);
+      } else if (districtManaged) {
+        const frame = calculateDistrictState(next);
+        if (frame) transition(frame.target, frame.position, frame.zoom, 950);
       } else if (userMoved) {
         const target = controls.target.clone(); transition(target, target.clone().add(getOffset(next)), camera.zoom, 950);
       } else {
@@ -1252,7 +1302,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     },
     setAutoRotate(enabled) {
       // UI also calls false after reset; that must not cancel its transition.
-      if (enabled) { tween = null; userMoved = true; managedFocus = false; }
+      if (enabled) { tween = null; userMoved = true; managedFocus = false; districtManaged = false; }
       controls.autoRotate = Boolean(enabled); requestRender();
     },
     setLayer(name, enabled) {
@@ -1268,7 +1318,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
       requestRender();
     },
     zoom(delta) {
-      tween = null; userMoved = true; managedFocus = false; controls.autoRotate = false; onInteraction?.({ type: 'zoom' });
+      tween = null; userMoved = true; managedFocus = false; districtManaged = false; controls.autoRotate = false; onInteraction?.({ type: 'zoom' });
       camera.zoom = THREE.MathUtils.clamp(camera.zoom * Math.pow(1.27, Number(delta) || 0), controls.minZoom, controls.maxZoom);
       camera.updateProjectionMatrix(); requestRender();
     },
@@ -1296,7 +1346,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
           endpoints: spec.endpoints, mainSpanEndpoints: spec.mainSpanEndpoints,
         };
       });
-      return { streetObservationIds: streetObservationPlan.stats.availableIds, streetObservations: streetObservationPlan.views.map(({ id, roadName, sourceRoadIndex, sourceSegmentIndex, gapMeters, policy }) => ({ id, roadName, sourceRoadIndex, sourceSegmentIndex, gapMeters, policy })), traffic: traffic.getStats(), environment: { ...currentEnvironment, source: 'visual-presets', animated: atmosphereRunning, river: riverSurface.getStats(), rain: rain.getStats() }, roadNetwork: roadNetwork.stats, roadLabels: roadLabelPlan.stats, streetDetails: streetDetails.getStats(), alignments, authoredSelection, authoredModels: selectedAuthored()?.controller.getStats() || {}, authoredResidents: residentStats(), authoredReplacedBuildings: [...authoredGround.omittedBuildingIndices], authoredRetainedBackground: authoredGround.retainedBuildings.map(building => building.retainedFromSourceFeatureId), ...waterfront.stats, motionEnabled, motionRunning, motionReduced: reducedMotion, motionFpsLimit: 30, renderState: renderScheduler.getState(), renderFrames: renderedFrames, suspended: viewSuspended, hidden: Boolean(document.hidden), focusAngle: currentFocusOptions.angle, focusClose: currentFocusOptions.close, landmarkOffsets: waterfrontPlan.sites.map(s => ({ id: s.id, source: s.original, model: s.center, distance: s.shift })), buildings: buildingCount, roads: (data.roads || []).length, waterPolygons: waterPolygons.length, parks: parkPolygons.length, trees: treeSpecs.length, landmarks: landmarks.length + BUSINESS_BUILDINGS.length, businessProjects: BUSINESS_BUILDINGS.length, pendingModels: pendingBusiness.length, drawCalls: renderer.info.render.calls, triangles: renderer.info.render.triangles, theme: currentTheme, view: currentView, cameraZoom: camera.zoom, terrain: terrainValid ? 'source-grid' : hills.length ? 'illustrative-hills' : 'flat', heightExaggeration: BUILDING_HEIGHT_EXAGGERATION, bridgeSpans: landmarks.filter(l => l.kind === 'bridge').map(l => ({ id: l.id, endpoints: l.endpoints, mainSpanEndpoints: l.mainSpanEndpoints, source: l.spanSource || 'landmark-spec' })), renderer: 'Three.js / WebGL', projection: 'orthographic' };
+      return { districtView: districtManaged, urbanBuildings: urbanAppearance.getStats(), urbanTerrain: urbanTerrain.getStats(), urbanStreetGround: urbanStreetGround.getStats(), sunlight: focusedSunShadow.getStats(), streetObservationIds: streetObservationPlan.stats.availableIds, streetObservations: streetObservationPlan.views.map(({ id, roadName, sourceRoadIndex, sourceSegmentIndex, gapMeters, policy }) => ({ id, roadName, sourceRoadIndex, sourceSegmentIndex, gapMeters, policy })), traffic: traffic.getStats(), environment: { ...currentEnvironment, source: 'visual-presets', animated: atmosphereRunning, river: riverSurface.getStats(), rain: rain.getStats() }, roadNetwork: roadNetwork.stats, roadLabels: roadLabelPlan.stats, streetDetails: streetDetails.getStats(), alignments, authoredSelection, authoredModels: selectedAuthored()?.controller.getStats() || {}, authoredResidents: residentStats(), authoredReplacedBuildings: [...authoredGround.omittedBuildingIndices], authoredRetainedBackground: authoredGround.retainedBuildings.map(building => building.retainedFromSourceFeatureId), ...waterfront.stats, motionEnabled, motionRunning, motionReduced: reducedMotion, motionFpsLimit: 30, renderState: renderScheduler.getState(), renderFrames: renderedFrames, suspended: viewSuspended, hidden: Boolean(document.hidden), focusAngle: currentFocusOptions.angle, focusClose: currentFocusOptions.close, landmarkOffsets: waterfrontPlan.sites.map(s => ({ id: s.id, source: s.original, model: s.center, distance: s.shift })), buildings: buildingCount, roads: (data.roads || []).length, waterPolygons: waterPolygons.length, parks: parkPolygons.length, trees: treeSpecs.length, landmarks: landmarks.length + BUSINESS_BUILDINGS.length, businessProjects: BUSINESS_BUILDINGS.length, pendingModels: pendingBusiness.length, drawCalls: renderer.info.render.calls, triangles: renderer.info.render.triangles, theme: currentTheme, view: currentView, cameraZoom: camera.zoom, terrain: terrainValid ? 'source-grid' : hills.length ? 'illustrative-hills' : 'flat', heightExaggeration: BUILDING_HEIGHT_EXAGGERATION, bridgeSpans: landmarks.filter(l => l.kind === 'bridge').map(l => ({ id: l.id, endpoints: l.endpoints, mainSpanEndpoints: l.mainSpanEndpoints, source: l.spanSource || 'landmark-spec' })), renderer: 'Three.js / WebGL', projection: 'orthographic' };
     },
     retryModel() { selectedAuthored()?.controller.retry(); requestRender(); },
     refitSelection() {
@@ -1307,6 +1357,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     dispose() {
       if (disposed) return; disposed = true;
       renderScheduler.dispose(); resizeObserver.disconnect(); rain.dispose(); traffic.dispose();
+      urbanStreetGround.dispose(); urbanAppearance.dispose(); urbanTerrain.dispose();
       document.removeEventListener('visibilitychange', handleVisibility); motionMedia?.removeEventListener?.('change', handleMotionPreference);
       controls.removeEventListener('change', onChange); controls.removeEventListener('start', onStart); controls.dispose();
       renderer.domElement.removeEventListener('pointerdown', handlePointerDown); renderer.domElement.removeEventListener('pointerup', handlePointerUp); renderer.domElement.removeEventListener('webglcontextlost', handleContextLost);

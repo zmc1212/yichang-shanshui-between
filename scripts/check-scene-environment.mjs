@@ -183,6 +183,26 @@ try {
   engine.reset(); settle(); assert.equal(engine.getStats().traffic.visible, false);
   engine.setMotion(true); settle(); assert.equal(callbacks.size, 0);
   checks.push(`actual default-enabled traffic appears in ${trafficFocus}, moves only in the visible near view, pauses/resumes across motion/hidden/overlay/layer controls, and overview returns to zero callbacks`);
+  engine.setMotion(false); settle();
+  assert.equal(engine.focusDistrict({ immediate: true }), true); settle();
+  assert.equal(engine.getStats().districtView, true);
+  assert.equal(renderer.domElement.dataset.focusAngle, 'riverfront-district');
+  assert.equal(engine.getStats().sunlight.mode, 'focused');
+  assert.ok(engine.getStats().sunlight.texelWorld < data.meta.width * 1.56 / 2048 / 4, 'district shadows resolve at least four times finer than the full board');
+  assert.ok(engine.getStats().urbanBuildings.preparedBuildings > 0 || engine.getStats().buildings > 15000);
+  assert.equal(engine.getStats().urbanTerrain.textures, 1);
+  assert.ok(engine.getStats().urbanTerrain.treatedPixels > 0);
+  assert.ok(engine.getStats().urbanStreetGround.urbanStreetVisibleDrawCalls > 0);
+  engine.setLayer('streetDetails', false); settle();
+  assert.equal(engine.getStats().urbanStreetGround.urbanStreetVisibleDrawCalls, 0);
+  engine.setLayer('streetDetails', true); engine.setView('top'); settle();
+  assert.equal(engine.getStats().districtView, true); assert.equal(engine.getStats().view, 'top');
+  engine.setView('perspective'); settle();
+  assertSameCity(); assert.equal(callbacks.size, 0);
+  engine.reset(); settle(); assert.equal(engine.getStats().districtView, false);
+  assert.equal(renderer.domElement.dataset.focusAngle, 'overview');
+  assert.equal(engine.getStats().urbanStreetGround.urbanStreetVisibleDrawCalls, 0);
+  checks.push('actual riverfront camera preserves residents, supports immediate/plan views, reveals bounded street detail and sharper sunlight, respects layers and resets to the idle full board');
   engine.dispose(); assert.equal(callbacks.size, 0); assert.equal(renderer.disposed, true);
   checks.push('disposal cancels the actual frame queue and renderer after atmospheric and traffic motion');
 } finally {

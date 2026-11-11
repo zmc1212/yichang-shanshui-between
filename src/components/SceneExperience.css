@@ -95,3 +95,5 @@
 .inspection-presets.has-street{flex-wrap:wrap}
 .inspection-presets.has-street button{padding-left:6px;padding-right:6px}
 .inspection-actions:has(.has-street){align-items:flex-start}
+
+@media(max-width:1100px){.scene-toolbar .district-button span{display:none}.scene-toolbar .district-button{padding:0 8px;min-width:30px}}
