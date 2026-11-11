@@ -964,7 +964,7 @@
   "1649140": {
     "order": 19,
     "name": "鑫鼎",
-    "stage": "鑫鼎H",
+    "stage": "鑫鼎I可见前冠大面候选",
     "sourceBounds": {
       "min": [
         -31,
@@ -978,16 +978,16 @@
       ]
     },
     "assets": {
-      "light": "/models/current23/19/light.glb?v=690ca3bcc336",
-      "detail": "/models/current23/19/detail.glb?v=e29cd975998c"
+      "light": "/models/current23/19/light.glb?v=95a323029ad6",
+      "detail": "/models/current23/19/detail.glb?v=0975033110f9"
     },
     "webBudget": {
       "light": {
-        "bytes": 107296,
-        "triangles": 5968,
-        "primitives": 11,
-        "vertices": 14027,
-        "sha256": "690ca3bcc3369ac02013b89b8dc3dc58e16571969d256d4bc6cbe8c1a1b83511",
+        "bytes": 112884,
+        "triangles": 6208,
+        "primitives": 12,
+        "vertices": 14563,
+        "sha256": "95a323029ad6e626ef94c7c3772d03a79305963e2b13a9fb6991fe060d9622d9",
         "bounds": {
           "min": [
             -31,
@@ -1002,11 +1002,11 @@
         }
       },
       "detail": {
-        "bytes": 104768,
-        "triangles": 6972,
-        "primitives": 11,
-        "vertices": 13916,
-        "sha256": "e29cd975998ca6d492af69752586a01f315942a6f2204adbf8699afc7b40ba91",
+        "bytes": 109616,
+        "triangles": 7212,
+        "primitives": 12,
+        "vertices": 14356,
+        "sha256": "0975033110f91242c2c5463e229897f9fd47620072ce56422360c3181647065c",
         "bounds": {
           "min": [
             -31,
@@ -1021,8 +1021,8 @@
         }
       }
     },
-    "sourceModelSha256": "a5da92740752611bb870b3076ae24af536395d67708617b497279a0f6fa55456",
-    "sourceSelectionFile": "assets/19/current/Xinding_H_PodiumEntrance.glb",
+    "sourceModelSha256": "dc183e1f555ff91d04247ca37ac423806b146c684a1cc375733b085a55f0e8ce",
+    "sourceSelectionFile": "assets/19/current/Xinding_I_VisibleFrontCrown.glb",
     "modelNotesUrl": "/models/current23/19/README.txt",
     "holds": {
       "identity": false,
@@ -1031,9 +1031,13 @@
       "geographic_registration": "HOLD_LATEST_SITE_NOT_VERIFIED",
       "absolute_scale": "HOLD_NO_NEW_SURVEY_OR_SCALE_CERTIFICATION",
       "capture_date": "UNKNOWN_UNLESS_EXPLICIT_SOURCE_DOC_QUALIFICATION",
-      "scope_and_remaining_holds": "H重登记斜切入口前脸：两侧窄窗、屏框、下玻璃与短转折。原生旧低位保留隐藏、新旧互斥；塔身/冠保持。未知屏内容/门机构/深度待核。"
+      "scope_and_remaining_holds": "I补可见中央实心前冠及左右各三竖玻璃外观槽，保留H全部网格/材质/变换与总边界。沿继承三折坐标归一表达；真实尺度/深度、屋顶/设备/背部仍HOLD。下窗域/塔身/裙房未改。"
     },
-    "sourceVersion": "鑫鼎H"
+    "sourceVersion": "鑫鼎I",
+    "sourceRecovery": {
+      "filename": "Xinding_I20261112_VisibleFrontCrown.zip",
+      "library_file_id": "libfile_fde3_f-5a8881fac898819196fbec3147965247_c853d26840d0819196e3746c99b28092"
+    }
   },
   "1649141": {
     "order": 9,
