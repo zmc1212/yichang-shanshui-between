@@ -4,7 +4,7 @@ import { layoutPoiLabels, POI_CLUSTER_DIMENSIONS } from '../lib/poiLabelLayout.j
 import { poiDisplayName, poiDisplayPriority } from '../lib/poiDisplayPolicy.js';
 import { businessStatus } from '../lib/businessModelStatus.js';
 
-const OBSTACLES = '.scene-toolbar,.map-tools-top,.layer-panel,.detail-panel,.authored-note,.map-controls,.scene-attribution,.scene-bottom-caption,.interaction-hint';
+const OBSTACLES = '.environment-panel,.tour-entry,.tour-dock,.tour-picker,.scene-toolbar,.map-tools-top,.layer-panel,.detail-panel,.authored-note,.map-controls,.scene-attribution,.scene-bottom-caption,.interaction-hint';
 const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
 const circlePath = (x, y, radius) => 'M' + (x - radius) + ',' + y + 'a' + radius + ',' + radius + ' 0 1,0 ' + (radius * 2) + ',0a' + radius + ',' + radius + ' 0 1,0 ' + (-radius * 2) + ',0';
 

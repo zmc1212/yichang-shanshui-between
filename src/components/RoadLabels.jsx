@@ -2,7 +2,7 @@ import React, { forwardRef, useCallback, useEffect, useImperativeHandle, useLayo
 import { layoutRoadLabels, roadNameSize } from '../lib/roadLabelLayout.js';
 import './RoadLabels.css';
 
-const OBSTACLES = '.scene-toolbar,.map-tools-top,.layer-panel,.detail-panel,.authored-note,.map-controls,.compass,.scene-attribution,.scene-bottom-caption,.interaction-hint,.poi-group-popover,.poi-cluster-popup';
+const OBSTACLES = '.environment-panel,.tour-entry,.tour-dock,.tour-picker,.scene-toolbar,.map-tools-top,.layer-panel,.detail-panel,.authored-note,.map-controls,.compass,.scene-attribution,.scene-bottom-caption,.interaction-hint,.poi-group-popover,.poi-cluster-popup';
 const SLOT_COUNT = 6;
 
 // A small passive text layer, updated only by camera/UI invalidation. It is

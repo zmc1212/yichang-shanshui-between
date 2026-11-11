@@ -1,17 +1,17 @@
 // Stable, shareable location presets. A link never contains free camera
 // coordinates or claims that a candidate building has survey accuracy.
 export const SCENE_LOCATION_DEFAULTS = Object.freeze({
-  place: null, theme: 'day', view: 'perspective', angle: 'detail', close: false,
+  place: null, theme: 'day', weather: 'clear', view: 'perspective', angle: 'detail', close: false,
   filter: 'all', query: '',
 });
 
 const FILTERS = new Set(['all', 'available', 'preview', 'recovery-pending']);
-const KEYS = ['place', 'theme', 'view', 'angle', 'close', 'filter', 'q'];
+const KEYS = ['place', 'theme', 'weather', 'view', 'angle', 'close', 'filter', 'q'];
 const RIVER_VIEWS = new Set(['zhenjiang-pavilion', 'tianran-pagoda']);
 
 export function normalizeSceneLocation(value = {}, places = []) {
   const place = places.find(item => item.id === value.place);
-  const allowedAngles = place?.kind === 'authored' ? ['detail', 'front', 'facade', 'entrance', 'crown', 'context']
+  const allowedAngles = place?.kind === 'authored' ? (place.inspectionPresets === false ? ['detail', 'front', 'context', 'street'] : ['detail', 'front', 'facade', 'entrance', 'crown', 'context', 'street'])
     : place?.kind === 'business-poi' ? ['detail', 'context']
       : RIVER_VIEWS.has(place?.id) ? ['detail', 'river'] : ['detail'];
   if (place?.kind === 'authored' && place.id === 'yichang-international-s01') allowedAngles.push('frontage');
@@ -25,7 +25,8 @@ export function normalizeSceneLocation(value = {}, places = []) {
     ? 'preview' : value.filter;
   return {
     place: place?.id || null,
-    theme: value.theme === 'night' ? 'night' : 'day',
+    theme: ['day', 'sunset', 'night'].includes(value.theme) ? value.theme : 'day',
+    weather: ['clear', 'overcast', 'mist', 'rain'].includes(value.weather) ? value.weather : 'clear',
     view: value.view === 'top' ? 'top' : 'perspective',
     angle,
     close: Boolean(place && angle !== 'context' && (value.close === true || value.close === '1')),
@@ -41,7 +42,7 @@ export function readSceneLocation(hash, places) {
   const requestedPlace = params.get('place');
   const recognized = KEYS.some(key => params.has(key));
   const state = normalizeSceneLocation({
-    place: requestedPlace, theme: params.get('theme'), view: params.get('view'),
+    place: requestedPlace, theme: params.get('theme'), weather: params.get('weather'), view: params.get('view'),
     angle: params.get('angle'), close: params.get('close'),
     filter: params.get('filter'), query: params.get('q') || '',
   }, places);
@@ -53,6 +54,7 @@ export function serializeSceneLocation(value, places) {
   const params = new URLSearchParams();
   if (state.place) params.set('place', state.place);
   if (state.theme !== 'day') params.set('theme', state.theme);
+  if (state.weather !== 'clear') params.set('weather', state.weather);
   if (state.view !== 'perspective') params.set('view', state.view);
   if (state.angle !== 'detail') params.set('angle', state.angle);
   if (state.close) params.set('close', '1');

@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { MapTrifold, MagnifyingGlass, Sun, MoonStars, ArrowCounterClockwise, Stack, X, CaretLeft, CaretRight, CaretDown, CaretUp, Plus, Minus, Play, Pause, Buildings, Tree, MapPin, CursorClick, List, Compass, ArrowUpRight, CircleNotch, WarningCircle, ArrowLeft, Check, NavigationArrow, Mouse, Camera, Waves, LinkSimple } from '@phosphor-icons/react';
+import { MapTrifold, MagnifyingGlass, Sun, MoonStars, ArrowCounterClockwise, Stack, X, CaretLeft, CaretRight, CaretDown, CaretUp, Plus, Minus, Play, Pause, Buildings, Tree, MapPin, CursorClick, List, Compass, ArrowUpRight, CircleNotch, WarningCircle, ArrowLeft, Check, NavigationArrow, Mouse, Camera, Waves, LinkSimple, Car, Path } from '@phosphor-icons/react';
 import { createCityScene } from './scene/createCityScene.js';
 import { AUTHORED_MODELS } from './scene/authoredModels.js';
 import { BUSINESS_BUILDINGS, BUSINESS_REGISTRY_INFO } from './scene/buildingCatalog.js';
@@ -10,6 +10,10 @@ import { buildDirectoryResults, getDirectoryNavigation, moveDirectoryActiveId, i
 import { createSceneLocationUrl } from './lib/sceneLocation.js';
 import { useSceneLocation } from './hooks/useSceneLocation.js';
 import { businessStatus, hasIndependentPreview, previewActionLabel, previewScopeLabel } from './lib/businessModelStatus.js';
+import EnvironmentControls from './components/EnvironmentControls.jsx';
+import CityTourControls from './components/CityTourControls.jsx';
+import { useCityTour } from './hooks/useCityTour.js';
+import './components/SceneExperience.css';
 
 function canReceiveFocus(element) {
   if (!element?.isConnected || element.closest('[inert], [hidden], [aria-hidden="true"]')) return false;
@@ -64,6 +68,7 @@ export default function App(){
   const scene = useRef(null);
   const frontageIdsRef = useRef([]);
   const streetViewIdsRef = useRef([]);
+  const streetObservationIdsRef = useRef([]);
   const poiLabelsRef = useRef(null);
   const roadLabelsRef = useRef(null);
   const projectingLabels = useRef(false);
@@ -82,6 +87,7 @@ export default function App(){
   const suppressSearchSubmitRef = useRef(false);
   const compositionEndTimerRef = useRef(null);
   const modalRef = useRef(null);
+  const tourControlsRef = useRef(null);
   const [data,setData]=useState(null);
   const [ready,setReady]=useState(false);
   const [error,setError]=useState('');
@@ -91,10 +97,13 @@ export default function App(){
   const [directoryFilter,setDirectoryFilter]=useState('all');
   const [selectedId,setSelectedId]=useState(null);
   const [theme,setTheme]=useState('day');
+  const [weather,setWeather]=useState('clear');
+  const [environmentOpen,setEnvironmentOpen]=useState(false);
+  const [tourPickerOpen,setTourPickerOpen]=useState(false);
   const [view,setView]=useState('perspective');
   const [autoRotate,setAutoRotate]=useState(false);
   const [layersOpen,setLayersOpen]=useState(false);
-  const [layers,setLayers]=useState({buildings:true,trees:true,labels:true,streetDetails:true,roadNames:true});
+  const [layers,setLayers]=useState({buildings:true,trees:true,labels:true,streetDetails:true,roadNames:true,traffic:true});
   const [modal,setModal]=useState(null);
   const [mobileNav,setMobileNav]=useState(false);
   const [detailCollapsed,setDetailCollapsed]=useState(false);
@@ -113,7 +122,7 @@ export default function App(){
   const selected = landmarks.find(l=>l.id===selectedId);
   const authored = selected?.kind === 'authored';
   const buildingView = authored && view === 'perspective' && cameraAngle !== 'context';
-  const inspecting = buildingView && closeView && ['facade','entrance','crown','frontage','streetscape'].includes(cameraAngle);
+  const inspecting = buildingView && closeView && ['facade','entrance','crown','frontage','streetscape','street'].includes(cameraAngle);
   const business = Boolean(selected?.business);
   const guideOnly = business && !authored;
   const focusActionLabel = authored ? inspecting ? '回到建筑全貌' : '适配建筑全貌'
@@ -192,11 +201,14 @@ export default function App(){
   },[]);
 
   const chooseLandmark = useCallback((id,options={})=>{
+    if(!options.fromTour)tourControlsRef.current?.pause();
+    setTourPickerOpen(false);setEnvironmentOpen(false);
     cancelAnimationFrame(poiZoomFrame.current);
     poiLabelsRef.current?.dismiss();
     const nextView=options.view==='top'?'top':'perspective';
     const unavailable=(options.angle==='frontage'&&!frontageIdsRef.current.includes(id))
-      ||(options.angle==='streetscape'&&!streetViewIdsRef.current.includes(id));
+      ||(options.angle==='streetscape'&&!streetViewIdsRef.current.includes(id))
+      ||(options.angle==='street'&&!streetObservationIdsRef.current.includes(id));
     const nextAngle=unavailable?'detail':options.angle||'detail';
     const nextBuilding=BUSINESS_BUILDINGS.find(place=>place.id===id);
     const nextClose=nextAngle!=='context'&&Boolean(options.close??(nextBuilding?.kind==='authored'));
@@ -205,7 +217,7 @@ export default function App(){
     // on a phone rotation would discard loaded models and the user's view.
     setDetailCollapsed(window.matchMedia('(max-width: 700px)').matches&&!nextGuideOnly);
     selectedRef.current=id;
-    setSelectedId(id);setView(nextView);setDetailTab(nextView==='top'||nextAngle==='front'||nextAngle==='river'?'view':'story');setDetailImage('');setMobileNav(false);setAutoRotate(false);
+    setSelectedId(id);setView(nextView);setDetailTab(nextView==='top'||nextAngle==='front'||nextAngle==='river'||nextAngle==='street'?'view':'story');setDetailImage('');setMobileNav(false);setAutoRotate(false);
     setCloseView(nextClose);setCameraAngle(nextAngle);
     scene.current?.setAutoRotate(false);
     scene.current?.focus(id,{angle:nextAngle,close:nextClose});
@@ -213,7 +225,14 @@ export default function App(){
     capturePostcard();
   },[capturePostcard]);
 
+  const tourWaitingForModel=Boolean(authored&&!modelState?.quality&&modelState?.state!=='error');
+  const tour=useCityTour({onVisit:chooseLandmark,suspended:Boolean(modal||mobileNavOpen||environmentOpen||tourPickerOpen||tourWaitingForModel||!ready||error)});
+  tourControlsRef.current=tour.controls;
+  const closeEnvironment=useCallback(()=>setEnvironmentOpen(false),[]);
+  const startTour=id=>{if(!ready||error)return;setTourPickerOpen(false);setLayersOpen(false);setEnvironmentOpen(false);tour.controls.start(id);};
+
   const closeDetails=useCallback(()=>{
+    tourControlsRef.current?.stop();
     cancelAnimationFrame(poiZoomFrame.current);
     poiLabelsRef.current?.dismiss();
     clearTimeout(captureTimer.current);
@@ -233,7 +252,7 @@ export default function App(){
           setModelStates(previous=>({...previous,[state.id]:state}));
           if(state.state==='ready'&&selectedRef.current===state.id)capturePostcard(1250);
         },
-        onInteraction:()=>{if(alive){setAutoRotate(false);poiLabelsRef.current?.dismiss();}},
+        onInteraction:event=>{if(alive){setAutoRotate(false);poiLabelsRef.current?.dismiss();if(['orbit','zoom','cluster'].includes(event?.type))tourControlsRef.current?.pause();}},
         onReady:()=>{if(alive)setReady(true);},onError:e=>{if(alive)setError(typeof e==='string'?e:'三维场景暂时无法启动，请刷新重试。');},
         onCameraChange:payload=>{
           projectingLabels.current=true;
@@ -247,12 +266,13 @@ export default function App(){
       scene.current=engine;
       frontageIdsRef.current=engine.getStats().streetDetails.streetSiteSummaries.filter(site=>site.frontageConnected).map(site=>site.id);
       streetViewIdsRef.current=engine.getStats().streetDetails.streetViewSiteIds||[];
+      streetObservationIdsRef.current=engine.getStats().streetObservationIds||[];
     }catch(e){setError(/WebGL|context/i.test(e.message||'')?'当前浏览器无法启动三维沙盘，请在支持三维加速的浏览器中打开。':e.message||'当前浏览器无法启动三维场景');}
     return()=>{alive=false;clearTimeout(captureTimer.current);scene.current?.dispose();scene.current=null;};
   },[data,chooseLandmark]);
 
-  useEffect(()=>{scene.current?.setTheme(theme);},[theme,ready]);
-  useEffect(()=>{if(ready&&selectedId)capturePostcard(1400);},[theme,ready,selectedId,capturePostcard]);
+  useEffect(()=>{scene.current?.setEnvironment({timeOfDay:theme,weather});},[theme,weather,ready]);
+  useEffect(()=>{if(ready&&selectedId)capturePostcard(1400);},[theme,weather,ready,selectedId,capturePostcard]);
   useEffect(()=>{scene.current?.setView(view);},[view]);
   useEffect(()=>{scene.current?.setMotion(motionEnabled);},[motionEnabled,ready]);
   useEffect(()=>{
@@ -279,12 +299,14 @@ export default function App(){
     // Measure the rendered sheet, including collapse/expand and ordinary
     // landmarks. The engine keeps its managedFocus guard after manual orbit.
     let frame=0;
-    const refit=()=>{cancelAnimationFrame(frame);frame=requestAnimationFrame(()=>scene.current?.refitSelection());};
+    const refit=()=>{panel.parentElement?.style.setProperty('--detail-panel-height',`${panel.getBoundingClientRect().height}px`);cancelAnimationFrame(frame);frame=requestAnimationFrame(()=>scene.current?.refitSelection());};
     refit();
     const observer=new ResizeObserver(refit);
     observer.observe(panel);
+    const tourPanel=panel.parentElement?.querySelector('.tour-dock');
+    if(tourPanel)observer.observe(tourPanel);
     return()=>{cancelAnimationFrame(frame);observer.disconnect();};
-  },[selectedId,detailTab,detailCollapsed,compact,ready,buildingView,inspecting,cameraAngle]);
+  },[selectedId,detailTab,detailCollapsed,compact,ready,buildingView,inspecting,cameraAngle,tour.routeId]);
   useEffect(()=>{if(!toast)return;const t=setTimeout(()=>setToast(''),2600);return()=>clearTimeout(t);},[toast]);
   useEffect(()=>{
     const key=e=>{
@@ -298,22 +320,27 @@ export default function App(){
       }else if(e.key==='Escape'&&!typing){
         if(poiLabelsRef.current?.dismiss({restoreFocus:true})){e.preventDefault();}
         else if(mobileNavOpen){e.preventDefault();setMobileNav(false);}
+        else if(environmentOpen){e.preventDefault();setEnvironmentOpen(false);}
+        else if(tourPickerOpen){e.preventDefault();setTourPickerOpen(false);}
         else if(layersOpen){e.preventDefault();setLayersOpen(false);}
         else closeDetails();
       }
     };
     window.addEventListener('keydown',key);return()=>window.removeEventListener('keydown',key);
-  },[modal,layersOpen,mobileNav,mobileNavOpen,compact,closeDetails]);
-  const reset=()=>{closeDetails();scene.current?.reset();setView('perspective');setAutoRotate(false);scene.current?.setAutoRotate(false);};
+  },[modal,layersOpen,environmentOpen,tourPickerOpen,mobileNav,mobileNavOpen,compact,closeDetails]);
+  const reset=()=>{closeDetails();setTourPickerOpen(false);setEnvironmentOpen(false);scene.current?.reset();setView('perspective');setAutoRotate(false);scene.current?.setAutoRotate(false);};
   const frameSelected=({angle=cameraAngle,close=closeView}={})=>{
     if(!selectedId)return;
+    tour.controls.pause();
     if(angle==='frontage'&&!frontageIdsRef.current.includes(selectedId))angle='detail';
     if(angle==='streetscape'&&!streetViewIdsRef.current.includes(selectedId))angle='detail';
+    if(angle==='street'&&!streetObservationIdsRef.current.includes(selectedId))angle='detail';
     if(compact&&close&&!guideOnly)setDetailCollapsed(true);
     setView('perspective');setCameraAngle(angle);setCloseView(close);setAutoRotate(false);
     scene.current?.setAutoRotate(false);scene.current?.focus(selectedId,{angle,close});capturePostcard();
   };
   const changeView=(next)=>{
+    tour.controls.pause();
     setView(next);setAutoRotate(false);scene.current?.setAutoRotate(false);
     if(selectedId)capturePostcard();
   };
@@ -365,8 +392,9 @@ export default function App(){
     clearTimeout(compositionEndTimerRef.current);
     compositionEndTimerRef.current=setTimeout(()=>{suppressSearchSubmitRef.current=false;},0);
   };
-  const toggleRotate=()=>{scene.current?.setAutoRotate(!autoRotate);setAutoRotate(!autoRotate);};
+  const toggleRotate=()=>{tour.controls.pause();scene.current?.setAutoRotate(!autoRotate);setAutoRotate(!autoRotate);};
   const openPoiGroup=useCallback(()=>{
+    tourControlsRef.current?.pause();
     setAutoRotate(false);scene.current?.setAutoRotate(false);setLayersOpen(false);
   },[]);
   const zoomPoiGroup=useCallback(ids=>{
@@ -382,17 +410,18 @@ export default function App(){
   const toggleLayer=(name)=>{const next=!layers[name];setLayers({...layers,[name]:next});if(name!=='labels')scene.current?.setLayer(name,next);};
   const closeModal=useCallback(()=>setModal(null),[]);
   const saveView=()=>{
-    try {const image=scene.current?.getImage();if(!image)throw new Error();const a=document.createElement('a');a.href=image;a.download=`宜昌-江山之间-${selected?.name||'城市全景'}-${theme==='night'?'夜景':'日景'}.png`;document.body.appendChild(a);a.click();a.remove();setToast('正在保存这张宜昌风景');}
+    try {const image=scene.current?.getImage();if(!image)throw new Error();const a=document.createElement('a');a.href=image;a.download=`宜昌-江山之间-${selected?.name||'城市全景'}-${theme==='night'?'夜景':theme==='sunset'?'日落':'日景'}.png`;document.body.appendChild(a);a.click();a.remove();setToast('正在保存这张宜昌风景');}
     catch{setToast('暂时无法保存画面，请稍后重试');}
   };
 
-  const locationState={place:selectedId,theme,view,angle:cameraAngle,close:closeView,filter:directoryFilter,query};
+  const locationState={place:selectedId,theme,weather,view,angle:cameraAngle,close:closeView,filter:directoryFilter,query};
   const restoreLocation=(next,{invalidPlace=false}={})=>{
     if(next.angle==='frontage'&&!frontageIdsRef.current.includes(next.place))next={...next,angle:'detail'};
     if(next.angle==='streetscape'&&!streetViewIdsRef.current.includes(next.place))next={...next,angle:'detail'};
+    if(next.angle==='street'&&!streetObservationIdsRef.current.includes(next.place))next={...next,angle:'detail'};
     clearTimeout(captureTimer.current);
-    setModal(null);setLayersOpen(false);setMobileNav(false);
-    setQuery(next.query);setDirectoryFilter(next.filter);setTheme(next.theme);
+    tour.controls.stop();setModal(null);setLayersOpen(false);setEnvironmentOpen(false);setTourPickerOpen(false);setMobileNav(false);
+    setQuery(next.query);setDirectoryFilter(next.filter);setTheme(next.theme);setWeather(next.weather||'clear');
     if(next.place)chooseLandmark(next.place,{angle:next.angle,close:next.close,view:next.view});
     else {reset();setView(next.view);scene.current?.setView(next.view);}
     if(invalidPlace)setToast('链接中的地点暂不可用，已回到城市全景');
@@ -438,31 +467,32 @@ export default function App(){
         </nav>
         <div className="sidebar-bottom"><div className="sidebar-note"><MapPin size={14}/><span>宜昌中心城区 · 风格化沙盘</span></div><button onClick={()=>setModal('about')} className="about-link">关于这座沙盘 <ArrowUpRight size={13}/></button><div className="edition"><span>YICHANG ONLINE</span><span>VOL. 01</span></div></div>
       </aside>
-      <main className={`main-scene ${selected?'detail-open':''} ${authored?'authored-open':''} ${business?'business-open':''} ${buildingView?'building-view':''}`} inert={mobileNavOpen} aria-hidden={mobileNavOpen?true:undefined} aria-label={authored?'宜昌城市沙盘与自建建筑':business?'宜昌城市沙盘与楼宇导览点':'宜昌城市三维微缩沙盘'}>
+      <main className={`main-scene ${selected?'detail-open':''} ${authored?'authored-open':''} ${business?'business-open':''} ${buildingView?'building-view':''} ${tour.route?'tour-active':''} ${environmentOpen?'environment-open':''}`} inert={mobileNavOpen} aria-hidden={mobileNavOpen?true:undefined} aria-label={authored?'宜昌城市沙盘与自建建筑':business?'宜昌城市沙盘与楼宇导览点':'宜昌城市三维微缩沙盘'}>
         <div className="canvas-host" ref={canvasHost}/>
-        <RoadLabels ref={roadLabelsRef} visible={layers.roadNames&&ready} compact={compact} getPoiObstacles={getPoiObstacles} layoutKey={`${selectedId||''}:${detailTab}:${detailCollapsed}:${layersOpen}:${ready}`}/>
-        <PoiLabels ref={poiLabelsRef} places={landmarks} selectedId={selectedId} visible={layers.labels&&ready} compact={compact} searchIds={poiSearchIds} searchTargetId={poiSearchTarget} onSelect={chooseLandmark} onZoomGroup={zoomPoiGroup} onOpenGroup={openPoiGroup} onLayout={refreshRoadLabels} layoutKey={`${selectedId||''}:${detailTab}:${detailCollapsed}:${layersOpen}:${ready}`}/>
+        <RoadLabels ref={roadLabelsRef} visible={layers.roadNames&&ready} compact={compact} getPoiObstacles={getPoiObstacles} layoutKey={`${selectedId||''}:${detailTab}:${detailCollapsed}:${layersOpen}:${environmentOpen}:${tourPickerOpen}:${tour.routeId||''}:${ready}`}/>
+        <PoiLabels ref={poiLabelsRef} places={landmarks} selectedId={selectedId} visible={layers.labels&&ready} compact={compact} searchIds={poiSearchIds} searchTargetId={poiSearchTarget} onSelect={chooseLandmark} onZoomGroup={zoomPoiGroup} onOpenGroup={openPoiGroup} onLayout={refreshRoadLabels} layoutKey={`${selectedId||''}:${detailTab}:${detailCollapsed}:${layersOpen}:${environmentOpen}:${tourPickerOpen}:${tour.routeId||''}:${ready}`}/>
         {(!ready||error)&&<div className="scene-loading" role="status">{error?<><WarningCircle size={32}/><h2>这座城还在路上</h2><p>{error}</p><button onClick={()=>window.location.reload()}>重新打开沙盘</button></>:<><MapTrifold size={44} weight="duotone"/><span className="eyebrow">YICHANG · 江山之间</span><h2>让山水，慢慢展开。</h2><p>{data?'正在安放楼阁、街巷与树木':'正在读取宜昌城市轮廓'}</p><CircleNotch className="spinner" size={22}/></>}</div>}
         <div className="scene-toolbar" aria-label="沙盘显示设置"><div className="view-segment"><button className={view==='perspective'?'active':''} onClick={()=>changeView('perspective')} aria-pressed={view==='perspective'}><Buildings size={16}/><span>{authored&&cameraAngle!=='context'?'建筑视角':'城市沙盘'}</span></button><button className={view==='top'?'active':''} onClick={()=>changeView('top')} aria-pressed={view==='top'}><MapTrifold size={16}/><span>{authored&&cameraAngle!=='context'?'俯瞰建筑':'俯瞰地图'}</span></button></div><span className="toolbar-divider"/><button className="toolbar-button reset-button" onClick={reset} title="回到全景"><ArrowCounterClockwise size={16}/><span>回到全景</span></button><span className="toolbar-divider day-divider"/><div className="day-segment"><button className={theme==='day'?'active':''} onClick={()=>setTheme('day')} aria-pressed={theme==='day'} title="日景"><Sun size={17}/><span>日景</span></button><button className={theme==='night'?'active':''} onClick={()=>setTheme('night')} aria-pressed={theme==='night'} title="夜景"><MoonStars size={16}/><span>夜景</span></button></div></div>
         {business&&<div className={`authored-note ${buildingView?'is-inspecting':''}`}><span className="eyebrow">{authored?`自建建筑 · ${selected.stage||'阶段待核准'}`:businessStatus(selected)}</span><p><span>{registrationLabel}</span>{authored&&<button onClick={()=>frameSelected({angle:cameraAngle==='context'?'detail':'context',close:cameraAngle==='context'})}>{cameraAngle==='context'?'靠近建筑':'连同沙盘看'} <ArrowUpRight size={12}/></button>}</p>
           {buildingView&&<div className="inspection-controls">
-            <div className="inspection-actions"><div role="group" aria-label="建筑观察位置" className={`inspection-presets ${frontageIdsRef.current.includes(selectedId)?'has-frontage':''}`}>
+            <div className="inspection-actions"><div role="group" aria-label="建筑观察位置" className={`inspection-presets ${frontageIdsRef.current.includes(selectedId)?'has-frontage':''} ${streetObservationIdsRef.current.includes(selectedId)?'has-street':''}`}>
               <button aria-label="查看建筑全貌" aria-pressed={!inspecting} onClick={()=>frameSelected({angle:'detail',close:true})}>全貌</button>
               {selected.inspectionPresets!==false&&<><button aria-label="细看幕墙" aria-pressed={inspecting&&cameraAngle==='facade'} onClick={()=>frameSelected({angle:'facade',close:true})}>幕墙</button>
               <button aria-label="细看入口" aria-pressed={inspecting&&cameraAngle==='entrance'} onClick={()=>frameSelected({angle:'entrance',close:true})}>入口</button>
               <button aria-label="细看顶部" aria-pressed={inspecting&&cameraAngle==='crown'} onClick={()=>frameSelected({angle:'crown',close:true})}>顶部</button></>}
+              {streetObservationIdsRef.current.includes(selectedId)&&<button aria-label="查看街区视角" aria-pressed={inspecting&&cameraAngle==='street'} onClick={()=>frameSelected({angle:'street',close:true})}>街区</button>}
               {frontageIdsRef.current.includes(selectedId)&&<button aria-label="查看前场与街道" aria-pressed={inspecting&&cameraAngle==='frontage'} onClick={()=>frameSelected({angle:'frontage',close:true})}>前场</button>}
             </div><div role="group" aria-label="建筑缩放" className="inspection-zoom"><button aria-label="缩小建筑" onClick={()=>scene.current?.zoom(-1)}><Minus size={15}/></button><button aria-label="放大建筑" onClick={()=>scene.current?.zoom(1)}><Plus size={15}/></button></div></div>
-            <small className="inspection-help">{inspecting?cameraAngle==='streetscape'?'沿江街景':'局部细看':'完整入镜'} · {compact?'双指平移与缩放':'右键平移 · 滚轮缩放'}</small>
+            <small className="inspection-help">{inspecting?cameraAngle==='street'?'建筑与邻近道路':cameraAngle==='streetscape'?'沿江街景':'局部细看':'完整入镜'} · {compact?'双指平移与缩放':'右键平移 · 滚轮缩放'}</small>
           </div>}
         </div>}
         {authored&&ready&&(!modelState||modelState.state==='loading'||modelState.state==='error')&&<div className="model-load-state" role="status">{modelState?.state==='error'?<><WarningCircle size={24}/><strong>模型暂未载入</strong><p>可以重试，也可以继续探索其他地标。</p><button onClick={()=>scene.current?.retryModel()}>重新载入</button></>:<><CircleNotch className="spinner" size={24}/><strong>正在展开建筑细节</strong><p>正在载入这座自建建筑。</p></>}</div>}
-        <div className="map-tools-top"><button className={`layer-toggle ${layersOpen?'active':''}`} onClick={()=>setLayersOpen(!layersOpen)} aria-expanded={layersOpen} aria-label="图层"><Stack size={17}/><span>图层</span></button>{layersOpen&&<section className="layer-panel" aria-label="图层设置"><header><strong>看见城市的层次</strong><button className="icon-button" onClick={()=>setLayersOpen(false)} aria-label="关闭图层设置"><X size={15}/></button></header>{[{id:'buildings',label:'城市建筑',Icon:Buildings},{id:'trees',label:'山林与树木',Icon:Tree},{id:'streetDetails',label:'街道细节',Icon:MapTrifold},{id:'roadNames',label:'道路名称',Icon:MapTrifold},{id:'labels',label:'地标名称',Icon:MapPin}].map(({id,label,Icon})=><label key={id}><Icon size={17}/><span>{label}</span><input type="checkbox" checked={layers[id]} onChange={()=>toggleLayer(id)}/></label>)}<label className="motion-setting"><Waves size={17}/><span>江面动态</span><input type="checkbox" checked={motionEnabled} onChange={e=>setMotionEnabled(e.target.checked)}/></label><p className="layer-note">道路名称自动避让地标；街道细节随缩放展开。</p></section>}</div>
+        <div className="map-tools-top"><EnvironmentControls timeOfDay={theme} weather={weather} onTimeChange={setTheme} onWeatherChange={setWeather} open={environmentOpen} onToggle={()=>{setEnvironmentOpen(value=>!value);setLayersOpen(false);setTourPickerOpen(false);}} onClose={closeEnvironment} disabled={!ready||Boolean(error)}/><button className={`layer-toggle ${layersOpen?'active':''}`} onClick={()=>{setLayersOpen(!layersOpen);setEnvironmentOpen(false);setTourPickerOpen(false);}} aria-expanded={layersOpen} aria-label="图层"><Stack size={17}/><span>图层</span></button>{layersOpen&&<section className="layer-panel" aria-label="图层设置"><header><strong>看见城市的层次</strong><button className="icon-button" onClick={()=>setLayersOpen(false)} aria-label="关闭图层设置"><X size={15}/></button></header>{[{id:'buildings',label:'城市建筑',Icon:Buildings},{id:'trees',label:'山林与树木',Icon:Tree},{id:'streetDetails',label:'街道细节',Icon:MapTrifold},{id:'traffic',label:'道路车流',Icon:Car},{id:'roadNames',label:'道路名称',Icon:MapTrifold},{id:'labels',label:'地标名称',Icon:MapPin}].map(({id,label,Icon})=><label key={id}><Icon size={17}/><span>{label}</span><input type="checkbox" checked={layers[id]} onChange={()=>toggleLayer(id)}/></label>)}<label className="motion-setting"><Waves size={17}/><span>场景动态</span><input type="checkbox" checked={motionEnabled} onChange={e=>setMotionEnabled(e.target.checked)}/></label><p className="layer-note">街道与车流随缩放展开；场景动态控制江面、车辆与雨。</p></section>}</div>
         <div className="compass"><span>N</span><div ref={compassRef}><NavigationArrow size={22} weight="fill"/></div></div>
         {selected&&<section ref={detailPanelRef} className={`detail-panel ${compact&&detailCollapsed?'is-collapsed':''}`} aria-label={`${selected.name}介绍`}>
           <div className="detail-header">
             <div className="detail-top"><span>{selected.category} / {authored?(selected.stage||'阶段待核准'):business?'导览参考点':'城市手记'}</span><div className="detail-navigation"><span className="detail-result-count" aria-label={directoryNavigation.position?`当前结果第${directoryNavigation.position}项，共${directoryNavigation.total}项`:`当前地点不在${directoryNavigation.total}项结果中`}>{directoryNavigation.position||'—'}<span> / {directoryNavigation.total}</span></span><button className="icon-button" disabled={!directoryNavigation.canStep} onClick={()=>stepLandmark(-1)} aria-label="当前结果中的上一项" title="当前结果中的上一项"><CaretLeft size={15}/></button><button className="icon-button" disabled={!directoryNavigation.canStep} onClick={()=>stepLandmark(1)} aria-label="当前结果中的下一项" title="当前结果中的下一项"><CaretRight size={15}/></button><span className="detail-navigation-divider"/><button className="icon-button" onClick={closeDetails} aria-label="关闭地标介绍"><X size={18}/></button></div></div>
-            <div className="detail-title"><span>{directoryNavigation.position?String(directoryNavigation.position).padStart(2,'0'):'—'}</span><h2>{selected.name}</h2><button className="icon-button location-link-button" aria-label="复制定位链接" title="复制楼宇、预设视角与日夜状态" disabled={!ready} onClick={copyLocation}><LinkSimple size={17}/></button></div>
+            <div className="detail-title"><span>{directoryNavigation.position?String(directoryNavigation.position).padStart(2,'0'):'—'}</span><h2>{selected.name}</h2><button className="icon-button location-link-button" aria-label="复制定位链接" title="复制楼宇、预设视角、光线与天气" disabled={!ready} onClick={copyLocation}><LinkSimple size={17}/></button></div>
             {directoryNavigation.outside&&<p className="directory-outside-note" role="status"><span>当前地点不在结果中</span>{directoryNavigation.total===1?<button onClick={()=>chooseLandmark(filtered[0].id)}>查看唯一结果</button>:directoryNavigation.total===0?<button onClick={()=>{setQuery('');setDirectoryFilter('all');}}>查看全部</button>:<span>用前后按钮进入结果</span>}</p>}
             <p className="detail-subtitle" hidden={compact&&detailCollapsed}>{selected.subtitle||'在山水之间，与宜昌相遇。'}</p>
             {compact&&<div className="detail-mobile-actions"><button className="detail-collapse-toggle" aria-expanded={!detailCollapsed} aria-controls="detail-content" onClick={()=>setDetailCollapsed(value=>!value)}>{detailCollapsed?<CaretUp size={14}/>:<CaretDown size={14}/>}<span>{detailCollapsed?'展开介绍':'收起介绍'}</span></button><button className="detail-quick-focus" aria-pressed={authored?undefined:closeView&&view==='perspective'} onClick={toggleDetailFocus}><span>{focusActionLabel}</span><ArrowUpRight size={14}/></button></div>}
@@ -479,6 +509,7 @@ export default function App(){
             <p>换一个角度，发现城市的另一面。</p>
             {canPreviewCandidate&&<button onClick={()=>setModal('candidate')}><Buildings size={20}/><span><strong>查看候选模型</strong><small>单独旋转查看，城市沙盘保持原位</small></span><ArrowUpRight size={16}/></button>}
             {authored&&<button className={cameraAngle==='context'&&view==='perspective'?'active':''} onClick={()=>frameSelected({angle:'context',close:false})}><MapTrifold size={20}/><span><strong>连同沙盘看</strong><small>建筑与城市，一起入镜</small></span><ArrowUpRight size={16}/></button>}
+            {streetObservationIdsRef.current.includes(selectedId)&&<button aria-label="观察建筑与邻近街道" className={cameraAngle==='street'&&view==='perspective'?'active':''} onClick={()=>frameSelected({angle:'street',close:true})}><Path size={20}/><span><strong>街区视角</strong><small>把建筑主体与邻近道路一起看</small></span><ArrowUpRight size={16}/></button>}
             {streetViewIdsRef.current.includes(selectedId)&&<button aria-label="查看沿江街景" className={cameraAngle==='streetscape'&&view==='perspective'?'active':''} onClick={()=>frameSelected({angle:'streetscape',close:true})}><MapTrifold size={20}/><span><strong>沿江街景</strong><small>万达路口两侧的人行空间</small></span><ArrowUpRight size={16}/></button>}
             <button className={cameraAngle==='detail'&&closeView&&view==='perspective'?'active':''} onClick={()=>frameSelected({angle:'detail',close:true})}><Buildings size={20}/><span><strong>{authored?'建筑全貌':guideOnly?'周边街区':'地标近景'}</strong><small>{authored?'完整展示楼体，自动适配画面':guideOnly?'观察导览参考点附近的城市轮廓':'看见建筑与层次'}</small></span><ArrowUpRight size={16}/></button>
             {authored&&<button className={cameraAngle==='front'&&!closeView&&view==='perspective'?'active':''} onClick={()=>frameSelected({angle:'front',close:false})}><Buildings size={20}/><span><strong>正立面</strong><small>完整查看建筑正立面</small></span><ArrowUpRight size={16}/></button>}
@@ -491,15 +522,15 @@ export default function App(){
           <footer>{authored?'等比微缩 · 尺寸与朝向非实测':guideOnly?'导览参考点 · 楼体位置与尺寸待核准':'建筑与景观为风格化表达'}</footer>
           </div>
         </section>}
-        <div className="scene-bottom-caption"><span className="eyebrow">{authored?'YICHANG / 建筑细读':'YICHANG / 长江之畔'}</span><p>{selected?selected.name:'把一座城，放在眼前。'}</p></div>
+        <CityTourControls tour={tour} waitingForModel={tourWaitingForModel} open={tourPickerOpen} onToggle={()=>{setTourPickerOpen(value=>!value);setEnvironmentOpen(false);setLayersOpen(false);}} onClose={()=>setTourPickerOpen(false)} onStart={startTour} onStop={()=>requestAnimationFrame(()=>canvasHost.current?.parentElement?.querySelector('.reset-button')?.focus({preventScroll:true}))} disabled={!ready||Boolean(error)}/>
         <div className="interaction-hint"><Mouse size={14}/><span>拖动旋转</span><span className="hint-dot">·</span><span>滚轮缩放</span><span className="hint-dot">·</span><span>点分组展开</span></div>
         <div className="map-controls"><button className={autoRotate?'active':''} onClick={toggleRotate} aria-pressed={autoRotate} title={autoRotate?'暂停环绕':'自动环绕'} aria-label={autoRotate?'暂停环绕':'自动环绕'}>{autoRotate?<Pause size={16}/>:<Play size={16}/>}</button><div className="zoom-controls"><button aria-label="放大沙盘" onClick={()=>scene.current?.zoom(1)}><Plus size={19}/></button><button aria-label="缩小沙盘" onClick={()=>scene.current?.zoom(-1)}><Minus size={19}/></button></div></div>
         <div className="scene-attribution"><button onClick={()=>setModal(business?'model':'about')}>{business?'楼宇资料与说明':'地图数据与来源'}</button><span>© OpenStreetMap contributors</span></div>
         {toast&&<div className="toast" role="status"><Check size={17}/>{toast}</div>}
       </main>
     </div>
-    {modal==='guide'&&<Modal fallbackFocusRef={mobileMenuRef} title="用自己的节奏，认识宜昌。" onClose={closeModal}><div className="guide-steps"><div><Mouse size={26}/><span><strong>转一转，看见山水</strong><p>按住鼠标左键拖动，旋转沙盘；右键拖动可平移。</p></span></div><div><Plus size={26}/><span><strong>近一点，看见细节</strong><p>滚动鼠标滚轮，或使用右下角的加减按钮缩放。</p></span></div><div><CursorClick size={26}/><span><strong>点一处，听一座城</strong><p>点击地标名称或左侧目录，镜头会带你靠近风景。相近地点会合并为数量气泡，点开即可选择其中一处，也可放大这一组。</p></span></div><div><Sun size={26}/><span><strong>从日景，走到夜色</strong><p>切换顶部日夜按钮，也可以开启自动环绕慢慢欣赏。</p></span></div></div><p className="touch-note">触屏：单指旋转，双指缩放与平移。手机介绍可收起，留出更多画面。点击顶部相机可保存画面，楼名旁的链接按钮可复制定位；图层里可暂停江面动态。</p><button className="primary-button" onClick={closeModal}>开始探索 <ArrowUpRight size={17}/></button></Modal>}
-    {modal==='about'&&<Modal fallbackFocusRef={mobileMenuRef} title="关于这座沙盘" onClose={closeModal}><div className="about-content"><p className="about-lead">把宜昌的山水、街巷与楼阁，装进一座可以探索的微缩城市。</p><p>沙盘以公开道路、水系和建筑轮廓为基础，采用统一的色彩与简化造型呈现中心城区。地标、树木、江面船只与部分建筑高度经过展示性处理，适合城市导览与空间探索。</p><div className="about-data"><span>地图与轮廓</span><strong>OpenStreetMap · Overture Maps</strong><span>展示范围</span><strong>{data?.meta?.name||'宜昌中心城区'}</strong><span>商务楼宇</span><strong>{BUSINESS_BUILDINGS.length} 项</strong><span>可查看模型</span><strong>{availableCount+previewCount} 项 · 详见各项模型范围</strong><span>模型展示</span><strong>{availableCount} 项沙盘模型 · {previewCount} 项独立预览</strong>{partialCount>0&&<><span>局部模型</span><strong>{partialCount} 项可见范围候选</strong></>}{researchCount>0&&<><span>研究模型</span><strong>{researchCount} 项主体身份待核</strong></>}{registrationCount>0&&<><span>组团候选</span><strong>{registrationCount} 项占地与朝向待核</strong></>}<span>作品</span><strong>宜昌Online · 江山之间</strong></div><p className="data-note">{BUSINESS_REGISTRY_INFO.note} 23 项均使用当前默认模型进入沙盘，不同时加载互斥研究版本。其中 16 项采用原导图参考点附近的近似落位和示意朝向，不能视为精准城市复原；点击模型说明可查看各项未决范围。导览参考点不等于精确楼体中心。</p><p className="data-note">首信、万达、九州方园、锦江银座、福江铭座与中南冶金周边的街道样板、首信—九州沿街补齐段，以及国际广场前场至沿江人行道的衔接，均为展示性设计。国际广场保留模型原有的通道与圆环装饰。万达和国际广场两侧的沿江人行道分别延伸到万达路口前，保留街口开口；两段不表示已经过街连通。新增路径不代表已核实的真实入口或公共通行范围。场地边界、尺寸和设施点位仍待核实。道路名称取自保留的地图资料，按视野择要显示。地标位置为公开资料参考，模型并非测绘或工程成果。</p><a className="source-link" href="/data/sources.txt" target="_blank" rel="noreferrer">查看完整数据来源与说明 <ArrowUpRight size={15}/></a>{BUSINESS_REGISTRY_INFO.sourceUrl&&<a className="source-link" href={BUSINESS_REGISTRY_INFO.sourceUrl} target="_blank" rel="noreferrer">查看原商务楼宇导图 <ArrowUpRight size={15}/></a>}</div><button className="primary-button" onClick={closeModal}>回到山水之间 <ArrowLeft size={17}/></button></Modal>}
+    {modal==='guide'&&<Modal fallbackFocusRef={mobileMenuRef} title="用自己的节奏，认识宜昌。" onClose={closeModal}><div className="guide-steps"><div><Mouse size={26}/><span><strong>转一转，看见山水</strong><p>按住鼠标左键拖动，旋转沙盘；右键拖动可平移。</p></span></div><div><Plus size={26}/><span><strong>近一点，看见细节</strong><p>滚动鼠标滚轮，或使用右下角的加减按钮缩放。</p></span></div><div><CursorClick size={26}/><span><strong>点一处，听一座城</strong><p>点击地标名称或左侧目录，镜头会带你靠近风景。相近地点会合并为数量气泡，点开即可选择其中一处，也可放大这一组。</p></span></div><div><Sun size={26}/><span><strong>从日落，走到江城夜色</strong><p>打开右上角“时光与天气”，切换晴昼、日落、夜景和晴朗、多云、江雾、小雨。</p></span></div><div><Path size={26}/><span><strong>跟着路线，慢慢看</strong><p>左下角提供沿江、建筑、街巷三条导览。可以暂停、前后切站；拖动沙盘后导览自动暂停。</p></span></div></div><p className="touch-note">触屏：单指旋转，双指缩放与平移。手机介绍可收起，留出更多画面。点击顶部相机可保存画面，楼名旁的链接按钮可复制定位；图层里可关闭车流、暂停场景动态。</p><button className="primary-button" onClick={closeModal}>开始探索 <ArrowUpRight size={17}/></button></Modal>}
+    {modal==='about'&&<Modal fallbackFocusRef={mobileMenuRef} title="关于这座沙盘" onClose={closeModal}><div className="about-content"><p className="about-lead">把宜昌的山水、街巷与楼阁，装进一座可以探索的微缩城市。</p><p>沙盘以公开道路、水系和建筑轮廓为基础，采用统一的色彩与简化造型呈现中心城区。地标、树木、江面船只与部分建筑高度经过展示性处理，适合城市导览与空间探索。</p><div className="about-data"><span>地图与轮廓</span><strong>OpenStreetMap · Overture Maps</strong><span>展示范围</span><strong>{data?.meta?.name||'宜昌中心城区'}</strong><span>商务楼宇</span><strong>{BUSINESS_BUILDINGS.length} 项</strong><span>可查看模型</span><strong>{availableCount+previewCount} 项 · 详见各项模型范围</strong><span>模型展示</span><strong>{availableCount} 项沙盘模型 · {previewCount} 项独立预览</strong>{partialCount>0&&<><span>局部模型</span><strong>{partialCount} 项可见范围候选</strong></>}{researchCount>0&&<><span>研究模型</span><strong>{researchCount} 项主体身份待核</strong></>}{registrationCount>0&&<><span>组团候选</span><strong>{registrationCount} 项占地与朝向待核</strong></>}<span>作品</span><strong>宜昌Online · 江山之间</strong></div><p className="data-note">{BUSINESS_REGISTRY_INFO.note} 23 项均使用当前默认模型进入沙盘，不同时加载互斥研究版本。其中 16 项采用原导图参考点附近的近似落位和示意朝向，不能视为精准城市复原；点击模型说明可查看各项未决范围。导览参考点不等于精确楼体中心。</p><p className="data-note">首信、万达、九州方园、锦江银座、福江铭座与中南冶金周边的街道样板，以及首信—九州沿街补齐段，均为展示性设计。街区视角展示建筑与邻近道路的空间关系；国际广场旧前场衔接方案仍待重新校准，当前没有启用。展示路径不代表已核实的真实入口或公共通行范围。场地边界、尺寸和设施点位仍待核实。道路名称取自保留的地图资料，按视野择要显示。地标位置为公开资料参考，模型并非测绘或工程成果。</p><p className="data-note">天气、日落光照、江面波纹与道路车流用于场景氛围模拟，不对应实时天气或路况。路线导览在既有观察视角之间切换，不是实际步行导航。山体仍为风格化表达。</p><a className="source-link" href="/data/sources.txt" target="_blank" rel="noreferrer">查看完整数据来源与说明 <ArrowUpRight size={15}/></a>{BUSINESS_REGISTRY_INFO.sourceUrl&&<a className="source-link" href={BUSINESS_REGISTRY_INFO.sourceUrl} target="_blank" rel="noreferrer">查看原商务楼宇导图 <ArrowUpRight size={15}/></a>}</div><button className="primary-button" onClick={closeModal}>回到山水之间 <ArrowLeft size={17}/></button></Modal>}
     {modal==='model'&&business&&<Modal fallbackFocusRef={mobileMenuRef} title={`${selected.name} · ${authored?'模型':'资料'}说明`} onClose={closeModal}><div className="about-content">
       <p className="about-lead">{authored?selected.subtitle||'近一点，看见建筑的细节。':businessStatus(selected)}</p>
       <p>{selected.description}</p>
@@ -512,7 +543,7 @@ export default function App(){
       {selected.sourceUrl&&<a className="source-link" href={selected.sourceUrl} target="_blank" rel="noreferrer">查看原商务楼宇导图 <ArrowUpRight size={15}/></a>}
     </div>{canPreviewCandidate&&<button className="candidate-preview-button" onClick={()=>setModal('candidate')}><Buildings size={17}/><span>{previewActionLabel(selected)}<small>{previewScopeLabel(selected)}</small></span><ArrowUpRight size={16}/></button>}<button className="primary-button" onClick={closeModal}>{authored?'继续看建筑':'继续看街区'} <ArrowLeft size={17}/></button></Modal>}
     {modal==='location-link'&&<Modal fallbackFocusRef={mobileMenuRef} title="带走这一处风景" onClose={closeModal}>
-      <div className="about-content"><p className="about-lead">选中并复制下方定位链接。</p><p>打开后恢复当前地点、预设观察角度与日夜模式。链接沿用原站的访问权限。</p><input className="location-link-input" aria-label="当前定位链接" readOnly value={locationLink} onFocus={event=>event.target.select()}/></div>
+      <div className="about-content"><p className="about-lead">选中并复制下方定位链接。</p><p>打开后恢复当前地点、预设观察角度、光线与天气。链接沿用原站的访问权限。</p><input className="location-link-input" aria-label="当前定位链接" readOnly value={locationLink} onFocus={event=>event.target.select()}/></div>
       <button className="primary-button" onClick={closeModal}>回到沙盘 <ArrowLeft size={17}/></button>
     </Modal>}
     {modal==='candidate'&&canPreviewCandidate&&<Modal fallbackFocusRef={mobileMenuRef} title={selected.coverage?.title || `${selected.name} · 候选模型`} className="model-preview-modal" onClose={closeModal}>

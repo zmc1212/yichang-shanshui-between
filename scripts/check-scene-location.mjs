@@ -5,7 +5,7 @@ import { readSceneLocation, serializeSceneLocation, createSceneLocationUrl } fro
 
 const city = JSON.parse(await readFile(new URL('../public/data/city.json', import.meta.url), 'utf8'));
 const places = [...city.landmarks, ...BUSINESS_BUILDINGS];
-const target = { place: 'wanda-soho-s01', theme: 'night', view: 'top', angle: 'front', close: true, filter: 'available', query: '万达 SOHO' };
+const target = { place: 'wanda-soho-s01', theme: 'night', weather: 'clear', view: 'top', angle: 'front', close: true, filter: 'available', query: '万达 SOHO' };
 const encoded = serializeSceneLocation(target, places);
 assert.deepEqual(readSceneLocation('#' + encoded, places).state, target);
 const shared = new URL(createSceneLocationUrl(target, places, 'https://example.test/city?temporary_secret=not-for-sharing#old'));
@@ -22,7 +22,7 @@ assert.equal(unknown.state.theme, 'night');
 assert.equal(readSceneLocation('#place=zhenjiang-pavilion&angle=front', places).state.angle, 'detail');
 assert.equal(readSceneLocation('#place=zhenjiang-pavilion&angle=river', places).state.angle, 'river');
 assert.equal(readSceneLocation('#place=meilian-s05&angle=context&close=1', places).state.close, false);
-const previewState = { place:'business-1649141', theme:'night', view:'perspective', angle:'detail', close:false, filter:'preview', query:'兴发广场' };
+const previewState = { place:'business-1649141', theme:'night', weather:'clear', view:'perspective', angle:'detail', close:false, filter:'preview', query:'兴发广场' };
 assert.deepEqual(readSceneLocation('#'+serializeSceneLocation(previewState,places),places).state,previewState);
 for (const [filter,place] of [['recovery-pending','business-1649141'],['registration-pending','meilian-s05']]) {
   const restored = readSceneLocation(`#place=${place}&filter=${filter}`,places).state;
@@ -30,8 +30,8 @@ for (const [filter,place] of [['recovery-pending','business-1649141'],['registra
   assert.equal(restored.filter,'preview','Legacy model queues migrate to the visible preview filter');
 }
 for (const place of BUSINESS_BUILDINGS.filter(item => item.kind === 'authored')) {
-  for (const angle of ['detail','front','facade','entrance','crown']) {
-    const inspection = { place: place.id, theme: 'day', view: 'perspective', angle, close: true, filter: 'all', query: '' };
+  for (const angle of (place.inspectionPresets===false?['detail','front']:['detail','front','facade','entrance','crown'])) {
+    const inspection = { place: place.id, theme: 'day', weather: 'clear', view: 'perspective', angle, close: true, filter: 'all', query: '' };
     const hash = serializeSceneLocation(inspection, places);
     assert.deepEqual(readSceneLocation('#' + hash, places).state, inspection, `${place.id}: ${angle} preset survives a shared link`);
     const whole = { ...inspection, angle: 'detail', close: false };
@@ -47,7 +47,7 @@ for (const id of ['meilian-s05','business-1649141','zhenjiang-pavilion','yiling-
   }
 }
 assert.equal(readSceneLocation('#place=shouxin-wealth-s01&angle=unknown&close=1', places).state.angle, 'detail');
-const frontage = { place:'yichang-international-s01', theme:'day', view:'perspective', angle:'frontage', close:true, filter:'all', query:'宜昌国际' };
+const frontage = { place:'yichang-international-s01', theme:'day', weather:'clear', view:'perspective', angle:'frontage', close:true, filter:'all', query:'宜昌国际' };
 assert.deepEqual(readSceneLocation('#'+serializeSceneLocation(frontage,places),places).state,frontage,'The frontage view survives reload and a copied location link');
 for(const place of ['shouxin-wealth-s01','zhenjiang-pavilion','business-1649141']) assert.equal(readSceneLocation(`#place=${place}&angle=frontage&close=1`,places).state.angle,'detail','Frontage view is limited to its actual supported building');
 for(const place of ['wanda-soho-s01','yichang-international-s01']) {
@@ -62,7 +62,21 @@ assert.equal(readSceneLocation('#place=%E0%A4%A', places).invalidPlace, true);
 assert.equal(readSceneLocation('#q=' + 'a'.repeat(200), places).state.query.length, 120);
 assert.equal(readSceneLocation('#q=' + 'a'.repeat(2050), places).recognized, false);
 for (const item of places) {
-  const state = { place: item.id, theme: 'day', view: 'perspective', angle: 'detail', close: false, filter: 'all', query: '' };
+  const state = { place: item.id, theme: 'day', weather: 'clear', view: 'perspective', angle: 'detail', close: false, filter: 'all', query: '' };
   assert.deepEqual(readSceneLocation('#' + serializeSceneLocation(state, places), places).state, state);
 }
+
+for(const theme of ['day','sunset','night']) for(const weather of ['clear','overcast','mist','rain']) {
+  const environment={...target,theme,weather};
+  assert.deepEqual(readSceneLocation('#'+serializeSceneLocation(environment,places),places).state,environment,'Light and weather survive copy/reload without altering location');
+}
+assert.equal(readSceneLocation('#theme=sunset&weather=rain',places).state.theme,'sunset');
+assert.equal(readSceneLocation('#theme=invalid&weather=invalid',places).state.weather,'clear');
+assert.equal(readSceneLocation('#theme=night',places).state.weather,'clear','Old links retain clear weather');
+for(const place of BUSINESS_BUILDINGS) {
+  const street={...target,place:place.id,view:'perspective',angle:'street',theme:'sunset',weather:'mist'};
+  assert.deepEqual(readSceneLocation('#'+serializeSceneLocation(street,places),places).state,street,'Street observation links keep model and environment');
+}
+assert.equal(readSceneLocation('#place=zhenjiang-pavilion&angle=street',places).state.angle,'detail','Street observations apply only to authored building models');
+
 console.log(JSON.stringify({ ok: true, stableIds: places.length, checked: ['Chinese query and view round-trip', 'authored facade/entrance/crown inspection links and whole-view recovery', 'International frontage and both Yanjiang streetscape links preserve selection', 'old close links remain valid', 'transient query excluded from copied URL', 'unknown and malformed IDs', 'per-building view restrictions', 'bounded query and fragment input'] }, null, 2));
