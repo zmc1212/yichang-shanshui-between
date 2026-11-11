@@ -193,6 +193,11 @@ try {
   assert.equal(engine.getStats().urbanTerrain.textures, 1);
   assert.ok(engine.getStats().urbanTerrain.treatedPixels > 0);
   assert.ok(engine.getStats().urbanStreetGround.urbanStreetVisibleDrawCalls > 0);
+  renderer.shadowMap.needsUpdate = false;
+  engine.setLayer('trees', false); settle();
+  assert.equal(renderer.shadowMap.needsUpdate, true, 'hidden roadside tree casters invalidate the cached shadow map');
+  assert.equal(engine.getStats().urbanStreetGround.urbanStreetTreesVisible, false);
+  engine.setLayer('trees', true); settle();
   engine.setLayer('streetDetails', false); settle();
   assert.equal(engine.getStats().urbanStreetGround.urbanStreetVisibleDrawCalls, 0);
   engine.setLayer('streetDetails', true); engine.setView('top'); settle();

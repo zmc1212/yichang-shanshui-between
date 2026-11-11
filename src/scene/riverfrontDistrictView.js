@@ -156,7 +156,7 @@ export function planRiverfrontDistrictView({ models = [], roads = [], water = []
   const target = bounds.getCenter(new THREE.Vector3());
   // The overview's southeast azimuth is retained with a lower ~35 degree
   // elevation, making the facades legible while keeping the river in view.
-  const direction = (view === 'top' ? new THREE.Vector3(0, 1, .0001) : new THREE.Vector3(.62, .72, .84)).normalize();
+  const direction = (view === 'top' ? new THREE.Vector3(0, 1, .0001) : new THREE.Vector3(-.92, .72, .38)).normalize();
   const right = new THREE.Vector3(direction.z, 0, -direction.x).normalize();
   const up = new THREE.Vector3().crossVectors(direction, right).normalize();
   let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity, minDepth = Infinity, maxDepth = -Infinity;

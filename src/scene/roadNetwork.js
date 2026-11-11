@@ -3,9 +3,9 @@ import * as THREE from 'three';
 // Source centrelines and their exported widths are immutable inputs. These
 // colours describe visual hierarchy, not lane counts or surveyed road surfaces.
 export const ROAD_STYLES = Object.freeze({
-  major: Object.freeze({ day: '#737d7c', night: '#4f625f', rank: 3, edgeDay: '#e4deca', edgeNight: '#627467' }),
-  secondary: Object.freeze({ day: '#858e89', night: '#52645f', rank: 2, edgeDay: '#e8e1ce', edgeNight: '#596f61' }),
-  local: Object.freeze({ day: '#9a9f94', night: '#5e7063', rank: 1, edgeDay: '#d2cdbb', edgeNight: '#516859' }),
+  major: Object.freeze({ day: '#596565', night: '#4f625f', rank: 3, edgeDay: '#e4deca', edgeNight: '#627467' }),
+  secondary: Object.freeze({ day: '#6d7974', night: '#52645f', rank: 2, edgeDay: '#e8e1ce', edgeNight: '#596f61' }),
+  local: Object.freeze({ day: '#879084', night: '#5e7063', rank: 1, edgeDay: '#d2cdbb', edgeNight: '#516859' }),
   pedestrian: Object.freeze({ day: '#eee3ce', night: '#9c9d83', rank: 0, edgeDay: '#d2c9b1', edgeNight: '#617361' }),
 });
 

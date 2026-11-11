@@ -5,7 +5,7 @@ import * as THREE from 'three';
 // The attribute survives the existing six geometry batches; no window meshes,
 // textures, material groups, animation loop or additional draw calls are used.
 const ATTRIBUTE = 'urbanBuilding';
-const VERSION = 'yichang-urban-facades-v1';
+const VERSION = 'yichang-urban-facades-v2';
 const DEFAULT_UNITS_PER_METER = .02;
 
 function stableSeed(value) {
@@ -84,7 +84,7 @@ float urbanBaseShade = mix(.76, 1.0, smoothstep(0.0, urbanFloor * .36, vUrbanSur
 diffuseColor.rgb *= mix(1.0, urbanBaseShade, urbanWall);
 float urbanCornice = smoothstep(urbanHeight - urbanFloor * .13, urbanHeight - urbanFloor * .025, vUrbanSurface.y) * urbanWall;
 diffuseColor.rgb = mix(diffuseColor.rgb, diffuse * 1.025, urbanCornice * .48);
-diffuseColor.rgb *= mix(vec3(1.0), uUrbanRoofShade, urbanRoof);
+diffuseColor.rgb *= mix(vec3(1.0), uUrbanRoofShade * (.91 + .12 * urbanSeed), urbanRoof);
 vec2 urbanRoofUv = vUrbanRoofPosition / (uUrbanUnits * 5.5) + urbanSeed;
 vec2 urbanRoofCell = fract(urbanRoofUv);
 vec2 urbanRoofDerivative = max(fwidth(urbanRoofUv), vec2(.0001));
@@ -92,7 +92,7 @@ float urbanRoofDetail = 1.0 - smoothstep(.25, .7, max(urbanRoofDerivative.x, urb
 float urbanRoofJoint = 1.0 - smoothstep(.015, .045 + max(urbanRoofDerivative.x, urbanRoofDerivative.y) * .5,
   min(min(urbanRoofCell.x, 1.0 - urbanRoofCell.x), min(urbanRoofCell.y, 1.0 - urbanRoofCell.y)));
 diffuseColor.rgb *= 1.0 - urbanRoof * urbanRoofDetail * urbanRoofJoint * .055;
-float urbanOccupied = step(.73, fract(floor(urbanUv.x) * .618033 + floor(urbanUv.y) * .381966 + urbanSeed * 17.17));`;
+float urbanOccupied = step(.82, fract(sin(dot(floor(urbanUv) + urbanSeed * 71.0, vec2(12.9898, 78.233))) * 43758.5453));`;
 
 export function createUrbanBuildingAppearance({ unitsPerMeter = DEFAULT_UNITS_PER_METER } = {}) {
   const units = Number.isFinite(unitsPerMeter) && unitsPerMeter > 0 ? unitsPerMeter : DEFAULT_UNITS_PER_METER;
@@ -100,7 +100,7 @@ export function createUrbanBuildingAppearance({ unitsPerMeter = DEFAULT_UNITS_PE
     uUrbanUnits: { value: units },
     uUrbanLampStrength: { value: 0 },
     uUrbanGlass: { value: new THREE.Color('#71858b') },
-    uUrbanRoofShade: { value: new THREE.Vector3(.83, .86, .85) },
+    uUrbanRoofShade: { value: new THREE.Vector3(.57, .63, .64) },
   };
   const materials = new Set();
   let preparedBuildings = 0, preparedVertices = 0, disposed = false;
@@ -145,8 +145,8 @@ export function createUrbanBuildingAppearance({ unitsPerMeter = DEFAULT_UNITS_PE
       const time = typeof value === 'string' ? value : value.timeOfDay;
       const night = time === 'night', sunset = time === 'sunset';
       uniforms.uUrbanGlass.value.set(night ? '#405960' : sunset ? '#858b89' : '#71858b');
-      uniforms.uUrbanRoofShade.value.set(...(night ? [.78, .84, .86] : sunset ? [.87, .83, .77] : [.83, .86, .85]));
-      uniforms.uUrbanLampStrength.value = night ? .34 : sunset ? .075 : 0;
+      uniforms.uUrbanRoofShade.value.set(...(night ? [.64, .72, .76] : sunset ? [.65, .61, .55] : [.57, .63, .64]));
+      uniforms.uUrbanLampStrength.value = night ? .24 : sunset ? .055 : 0;
     },
     getStats() {
       return { shader: VERSION, preparedBuildings, preparedVertices, attributeBytes: preparedVertices * 16,

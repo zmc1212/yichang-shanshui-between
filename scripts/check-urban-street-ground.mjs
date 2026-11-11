@@ -150,7 +150,7 @@ assert(resourceStats.urbanStreetGeometryBytes < 3_000_000, 'geometry stays under
 assert(resourceStats.urbanStreetTriangles < 70_000, 'rendered triangle budget includes every instance');
 controller.group.traverse(object => {
   if (!object.isMesh) return;
-  assert.equal(object.castShadow, false, 'LOD meshes never leave cached shadow ghosts');
+  assert.equal(object.castShadow, /tree trunks|tree crowns/.test(object.name), 'only tree instances cast shadows; their LOD changes invalidate the cached sun map in the scene');
   for (const attribute of Object.values(object.geometry.attributes)) assert([...attribute.array].every(Number.isFinite), `${object.name}: finite GPU attributes`);
   if (object.instanceMatrix) assert([...object.instanceMatrix.array].every(Number.isFinite), `${object.name}: finite transforms`);
 });
