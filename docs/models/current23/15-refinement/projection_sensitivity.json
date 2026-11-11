@@ -1,0 +1,51 @@
+{
+  "method": "uncalibrated weak-perspective sensitivity, NOT a metric camera fit",
+  "assumptions": [
+    "near-equal orthogonal tower face widths inherited from normalized F",
+    "vertical local weak perspective approximated",
+    "roof adjacency anchors bracket connector/podium height, not solved exact same-height tiepoints"
+  ],
+  "rough_image_readings": {
+    "ho03_rear_side_width_pixels": [
+      293,
+      187
+    ],
+    "ho04_rear_side_width_pixels": [
+      260,
+      185
+    ],
+    "normalized_inherited_face_width": 13.87,
+    "ho04_roof_reference_pixel_y_bracket": [
+      1120,
+      1220
+    ]
+  },
+  "sensitivity_ranges": {
+    "pixels_per_normalized_height": [
+      21,
+      26
+    ],
+    "roof_normalized_height": [
+      6.6,
+      9
+    ]
+  },
+  "projected_pixel_y_extrema": {
+    "9.2": [
+      1052.4,
+      1215.8
+    ],
+    "44": [
+      147.60000000000002,
+      485
+    ]
+  },
+  "all_extrema_inside_image": true,
+  "not_claimed": [
+    "exact matching floors",
+    "measured bay width",
+    "real capture dates",
+    "real building height",
+    "calibrated crop boundary"
+  ]
+}

@@ -1,0 +1,5 @@
+{
+  "same_facing_positive_area_coplanar_overlap": [],
+  "faces_tested": 300,
+  "tolerance": 1e-05
+}

@@ -1119,7 +1119,7 @@
   "1649142": {
     "order": 15,
     "name": "兴发集团宜昌总部",
-    "stage": "总部F整体，替代E网页优化版",
+    "stage": "兴发总部G陆侧下中段观察候选",
     "sourceBounds": {
       "min": [
         -7.300000190734863,
@@ -1133,16 +1133,16 @@
       ]
     },
     "assets": {
-      "light": "/models/current23/15/light.glb?v=beb2618890ea",
-      "detail": "/models/current23/15/detail.glb?v=8cf1475c1ad8"
+      "light": "/models/current23/15/light.glb?v=084ab7b76631",
+      "detail": "/models/current23/15/detail.glb?v=778552387c2c"
     },
     "webBudget": {
       "light": {
-        "bytes": 49352,
-        "triangles": 2604,
-        "primitives": 9,
-        "vertices": 6076,
-        "sha256": "beb2618890eadd48304f6b305fb05db22f2c82e7865ac7330869d0d91d0f027d",
+        "bytes": 63288,
+        "triangles": 3204,
+        "primitives": 12,
+        "vertices": 7468,
+        "sha256": "084ab7b766312e37dac2166cafc74d8a456b931dad72065aa44f5135d55f8f6e",
         "bounds": {
           "min": [
             -7.300046417912315,
@@ -1157,11 +1157,11 @@
         }
       },
       "detail": {
-        "bytes": 44296,
-        "triangles": 2604,
-        "primitives": 9,
-        "vertices": 5208,
-        "sha256": "8cf1475c1ad803d44a6f8b4b0b2055270f50ea2d1a6ebcbb566253233881ac76",
+        "bytes": 57288,
+        "triangles": 3204,
+        "primitives": 12,
+        "vertices": 6400,
+        "sha256": "778552387c2c082b41d4f51c50f1cf4bc4825ad555851938a6419edec0cd6cb1",
         "bounds": {
           "min": [
             -7.300046417912315,
@@ -1176,8 +1176,8 @@
         }
       }
     },
-    "sourceModelSha256": "d4384af6a66b006efd520795100d6719d41f29e668dc18dd5bfe027588cd96de",
-    "sourceSelectionFile": "assets/15/current/XingfaHQ_F_PodiumEntry.glb",
+    "sourceModelSha256": "20966e55f8ef4a46238b953575606084964cdbc40abe0a890e85e8663e90b438",
+    "sourceSelectionFile": "assets/15/current/XingfaHQ_G_VisibleLandwardField.glb",
     "modelNotesUrl": "/models/current23/15/README.txt",
     "holds": {
       "identity": false,
@@ -1186,9 +1186,13 @@
       "geographic_registration": "HOLD_LATEST_SITE_NOT_VERIFIED",
       "absolute_scale": "HOLD_NO_NEW_SURVEY_OR_SCALE_CERTIFICATION",
       "capture_date": "UNKNOWN_UNLESS_EXPLICIT_SOURCE_DOC_QUALIFICATION",
-      "scope_and_remaining_holds": "保留E104网格，增加背离旧临江面的低裙房、街侧入口连接体及长棚。来源雅高官方多视点与2023-11-20开业稿，摄影日未核，不称2026现状。裙房扩至y33.8、高9、棚至x12.4均归一示意；不补主塔背窗、设备、未知台阶。181/198米口径未选择，锚接/实测高程/地理配准仍HOLD。"
+      "scope_and_remaining_holds": "G补+Y陆侧下中段竖肋/玻璃及下道暗带；z9.2..44为保守归一显示范围非测绘或已标定照片裁界。F全旧网格/材质/变换和总边界不改，上域44..64仍灰HOLD并非真实无窗墙。真实尺度/方向/冠顶/后部深度仍待核。"
     },
-    "sourceVersion": "总部F整体，替代E网页优化版"
+    "sourceVersion": "总部G",
+    "sourceRecovery": {
+      "filename": "XingfaHQ_G20261112_VisibleLandwardField.zip",
+      "library_file_id": "libfile_fde3_f-4fc31ff5b4288191b41441ad0be49878_c853d26840d0819196e3746c99b28092"
+    }
   },
   "1649143": {
     "order": 20,

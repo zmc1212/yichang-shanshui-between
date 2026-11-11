@@ -1,0 +1,50 @@
+{
+  "official_page": "https://all.accor.com/hotel/B8X4/index.en.shtml",
+  "images": [
+    {
+      "url": "https://www.ahstatic.com/photos/b8x4_ho_00_p_2048x1536.jpg",
+      "sha256": "ee0f1f6ea10c2b6999fb69d2cd810514bc73a641be6420d38a7abee8c6d439fd",
+      "role": "context/other face, not source to fill landward crown",
+      "capture_date": "unknown"
+    },
+    {
+      "url": "https://www.ahstatic.com/photos/b8x4_ho_01_p_2048x1536.jpg",
+      "sha256": "71e3e75b56ba743bf8a31ad1136c30f3ea047d1eed8d8c3529af2599508ad256",
+      "role": "context/other face, not source to fill landward crown",
+      "capture_date": "unknown"
+    },
+    {
+      "url": "https://www.ahstatic.com/photos/b8x4_ho_03_p_2048x1536.jpg",
+      "sha256": "e66517fdad8a75cf7ed39c0e33b753f87d0b2ed70973ecf100ce0205f1d07e88",
+      "role": "landward field evidence",
+      "capture_date": "unknown"
+    },
+    {
+      "url": "https://www.ahstatic.com/photos/b8x4_ho_04_p_2048x1536.jpg",
+      "sha256": "a181871d7a60564909fd53fa0c0cf9f514099647ca572a3c93fb16e56bd77d97",
+      "role": "landward field evidence",
+      "capture_date": "unknown"
+    },
+    {
+      "url": "https://www.ahstatic.com/photos/b8x4_ho_05_p_2048x1536.jpg",
+      "sha256": "f28cd69e5bc837fe5e001abf20907f41a77a3d42a2f4b86161c7e4219333608a",
+      "role": "context/other face, not source to fill landward crown",
+      "capture_date": "unknown"
+    },
+    {
+      "url": "https://www.ahstatic.com/photos/b8x4_ho_06_p_2048x1536.jpg",
+      "sha256": "43e3ac101dc52168bcf6353b5c5998744a2ca98ca1a3da4f13c94dd5aae2e81f",
+      "role": "context/other face, not source to fill landward crown",
+      "capture_date": "unknown"
+    },
+    {
+      "url": "https://www.ahstatic.com/photos/b8x4_ho_07_p_2048x1536.jpg",
+      "sha256": "b29622b14bf155148b873edb66b510218abda26d2617bdbb4c519c74f165ceac",
+      "role": "context/other face, not source to fill landward crown",
+      "capture_date": "unknown"
+    }
+  ],
+  "base_F_full_GLB_sha256": "d4384af6a66b006efd520795100d6719d41f29e668dc18dd5bfe027588cd96de",
+  "base_native_zip_library_id": "libfile_fde3_f-0c38f4953c9c8191ad2bbec1baa86df5_c853d26840d0819196e3746c99b28092",
+  "no_reference_images_packaged": true
+}
