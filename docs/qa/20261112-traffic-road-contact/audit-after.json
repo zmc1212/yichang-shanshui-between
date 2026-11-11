@@ -1,0 +1,1838 @@
+{
+  "baseline": "Working source after road height subdivision and exact rendered-surface car pose fix",
+  "methodology": {
+    "oracle": "Independent XZ barycentric interpolation from actual createRoadNetwork Float32 surface position/index buffers, never new roadSurface.sample output.",
+    "road_ownership": "Each vehicle is compared with its own source road. Separate global same-grade surface:0 checks exclude bridge:2 overhead ribbons.",
+    "terrain": "Recreated the scene PlaneGeometry(meta.width, meta.depth, 120, 120), rotateX(-PI/2), and exact illustrative-hills surfaceHeight at its vertices; triangle interpolation used for occlusion checks.",
+    "xz_samples": "At most one source metre between route samples. Both directions where legal. Complete footprint extends to lamp extremity +/-0.5245 car length and +/-0.5 car width.",
+    "physical_units": "Distances converted using city meta.unitsPerMeter=0.02. These are internal model-equivalent metres, not surveyed road elevations.",
+    "limitations": "CPU geometry audit; no WebGL rasterization, shadows or visual browser assessment. Authored model exclusion uses complete registered XZ bounding footprints, not every GLB triangle."
+  },
+  "checksums": {
+    "cityTraffic.js": "62d28cee5772f17953775dd09f12b5e914d3d77e0315006b5815689c6e306075",
+    "roadNetwork.js": "ef145e0c866a1858638d94f58b9f3351c400ecf482e6b9e5c2b80b57393f1578"
+  },
+  "network": {
+    "sourceRoads": 3600,
+    "renderedRoads": 3600,
+    "classCounts": {
+      "major": 1081,
+      "secondary": 560,
+      "local": 1959,
+      "pedestrian": 0
+    },
+    "sharedVertexJunctions": 1123,
+    "junctionPolicy": "shared-source-vertices-and-compatible-structure-layer-only",
+    "unknownBridgeLayers": 2,
+    "unknownBridgeClasses": 0,
+    "invalidRoads": 0,
+    "sourceWidthsPreserved": true,
+    "roadContactPolicy": "exact-rendered-triangles; source-segment-xz-preserved; surface-height-subdivision",
+    "surfaceHeightSampleMeters": 25,
+    "addedSurfaceSections": 2977,
+    "meshes": 5,
+    "vertices": 248688,
+    "triangles": 129846
+  },
+  "roadGeometrySummary": {
+    "routeCount": 18,
+    "missingCenters": 0,
+    "missingFootprint": 0,
+    "waterFootprint": 0,
+    "minPivotGapM": 0.04594569361394685,
+    "maxPivotGapM": 0.061010096289382254,
+    "routePositionSamples": 13363,
+    "completeFootprintCorners": 53452,
+    "groundOccludedRouteSamples": 0,
+    "maxSameGradeOverlayModelMeters": 0.036661714591612604,
+    "minRoadTerrainClearanceModelMeters": 4.746963017605993,
+    "authoredModelFootprintOverlaps": 0,
+    "legacyPivotGapMeaning": "minPivotGapM/maxPivotGapM here quantify legacy terrain-following pivot against repaired roads; actual new car pose is audited below."
+  },
+  "roadGeometryRoutes": [
+    {
+      "id": "traffic-807-5",
+      "name": "夷陵大道",
+      "osmId": "way/279499262",
+      "sourceRoadIndex": 807,
+      "sourceSegmentIndex": 5,
+      "a": [
+        -23.861,
+        1.632
+      ],
+      "b": [
+        -31.235,
+        -14.029
+      ],
+      "lengthMeters": 865.5096721007801,
+      "widthMeters": 6.4,
+      "laneOffsetMeters": 0,
+      "grade": {
+        "bridge": false,
+        "tunnel": false,
+        "layer": null,
+        "joinable": true,
+        "key": "surface:0",
+        "evidence": "surface-default"
+      },
+      "oneway": "yes",
+      "tests": 853,
+      "missingCenter": 0,
+      "missingFootprint": 0,
+      "waterFootprint": 0,
+      "minPivotGapM": 0.046864151284230215,
+      "maxPivotGapM": 0.049852232860557455,
+      "minBodyBottomGapM": 0.049493416818424674,
+      "maxBodyBottomGapM": 0.18719411053244317,
+      "maxHeadingError": 1.6653345369377348e-16,
+      "overlaidSamples": 14,
+      "maxRoadOverlayM": 0.768172246455856,
+      "worstOverlay": {
+        "x": -24.50889298339523,
+        "z": 0.255996201118426,
+        "sourceY": 0.28851751452821905,
+        "topY": 0.3038809594573362,
+        "topRole": "roads major surface",
+        "sources": [
+          {
+            "index": 248,
+            "name": "夷陵长江大桥",
+            "osmId": "way/1534475467",
+            "y": 0.3038809594573362,
+            "grade": {
+              "bridge": true,
+              "tunnel": false,
+              "layer": 2,
+              "joinable": true,
+              "key": "bridge:2",
+              "evidence": "source-layer"
+            }
+          },
+          {
+            "index": 807,
+            "name": "夷陵大道",
+            "osmId": "way/279499262",
+            "y": 0.28851751452821905,
+            "grade": {
+              "bridge": false,
+              "tunnel": false,
+              "layer": null,
+              "joinable": true,
+              "key": "surface:0",
+              "evidence": "surface-default"
+            }
+          }
+        ]
+      },
+      "maxSameGradeOverlayM": 0.01440090744370126,
+      "worstSameGrade": {
+        "x": -24.52590687851968,
+        "z": 0.21986186269369035,
+        "sourceY": 0.2881387556489502,
+        "topY": 0.2884267737978242
+      },
+      "minGroundClearanceM": 5.416117223223902,
+      "groundOccludedSamples": 0,
+      "maxGroundOcclusionM": 0,
+      "worstGround": null,
+      "authoredFootprintOverlap": [],
+      "worst": {
+        "gapM": 0.049852232860557455,
+        "distanceMeters": 833.9865224175576,
+        "direction": 1,
+        "point": [
+          -31.02521481605934,
+          -13.583455415555376
+        ],
+        "pivotY": 0.14735924953902071,
+        "surfaceY": 0.14636220488180957,
+        "terrainY": 0.025959249539020707,
+        "scale": 1
+      }
+    },
+    {
+      "id": "traffic-806-0",
+      "name": "夷陵大道",
+      "osmId": "way/397144798",
+      "sourceRoadIndex": 806,
+      "sourceSegmentIndex": 0,
+      "a": [
+        -31.349,
+        -13.966
+      ],
+      "b": [
+        -24.101,
+        1.354
+      ],
+      "lengthMeters": 847.4017701185195,
+      "widthMeters": 6.4,
+      "laneOffsetMeters": 0,
+      "grade": {
+        "bridge": false,
+        "tunnel": false,
+        "layer": null,
+        "joinable": true,
+        "key": "surface:0",
+        "evidence": "surface-default"
+      },
+      "oneway": "yes",
+      "tests": 835,
+      "missingCenter": 0,
+      "missingFootprint": 0,
+      "waterFootprint": 0,
+      "minPivotGapM": 0.04679869836515249,
+      "maxPivotGapM": 0.04982418324335214,
+      "minBodyBottomGapM": 0.04859604314736976,
+      "maxBodyBottomGapM": 0.188341296738892,
+      "maxHeadingError": 1.1102230246251565e-16,
+      "overlaidSamples": 15,
+      "maxRoadOverlayM": 0.8549461438591005,
+      "worstOverlay": {
+        "x": -24.576287563587087,
+        "z": 0.34939107696548355,
+        "sourceY": 0.29305303287467,
+        "topY": 0.310151955751852,
+        "topRole": "roads major surface",
+        "sources": [
+          {
+            "index": 248,
+            "name": "夷陵长江大桥",
+            "osmId": "way/1534475467",
+            "y": 0.310151955751852,
+            "grade": {
+              "bridge": true,
+              "tunnel": false,
+              "layer": 2,
+              "joinable": true,
+              "key": "bridge:2",
+              "evidence": "source-layer"
+            }
+          },
+          {
+            "index": 806,
+            "name": "夷陵大道",
+            "osmId": "way/397144798",
+            "y": 0.29305303287467,
+            "grade": {
+              "bridge": false,
+              "tunnel": false,
+              "layer": null,
+              "joinable": true,
+              "key": "surface:0",
+              "evidence": "surface-default"
+            }
+          }
+        ]
+      },
+      "maxSameGradeOverlayM": 0.020955610299150385,
+      "worstSameGrade": {
+        "x": -24.61898196950455,
+        "z": 0.2591484860913802,
+        "sourceY": 0.29210263654386015,
+        "topY": 0.29252174874984316
+      },
+      "minGroundClearanceM": 5.422381530954192,
+      "groundOccludedSamples": 0,
+      "maxGroundOcclusionM": 0,
+      "worstGround": null,
+      "authoredFootprintOverlap": [],
+      "worst": {
+        "gapM": 0.04982418324335214,
+        "distanceMeters": 18.219439885823927,
+        "direction": 1,
+        "point": [
+          -31.13414831250944,
+          -13.511870881297545
+        ],
+        "pivotY": 0.14824499349874454,
+        "surfaceY": 0.1472485098338775,
+        "terrainY": 0.026844993498744533,
+        "scale": 1
+      }
+    },
+    {
+      "id": "traffic-773-5",
+      "name": "夷陵大道",
+      "osmId": "way/724326288",
+      "sourceRoadIndex": 773,
+      "sourceSegmentIndex": 5,
+      "a": [
+        18.033,
+        39.737
+      ],
+      "b": [
+        29.197,
+        49.165
+      ],
+      "lengthMeters": 730.6197369357056,
+      "widthMeters": 6.4,
+      "laneOffsetMeters": 0,
+      "grade": {
+        "bridge": false,
+        "tunnel": false,
+        "layer": null,
+        "joinable": true,
+        "key": "surface:0",
+        "evidence": "surface-default"
+      },
+      "oneway": "yes",
+      "tests": 718,
+      "missingCenter": 0,
+      "missingFootprint": 0,
+      "waterFootprint": 0,
+      "minPivotGapM": 0.04999967539071615,
+      "maxPivotGapM": 0.05000016036582275,
+      "minBodyBottomGapM": 0.05015246207084045,
+      "maxBodyBottomGapM": 0.12750015367375966,
+      "maxHeadingError": 0,
+      "overlaidSamples": 0,
+      "maxRoadOverlayM": 0,
+      "worstOverlay": null,
+      "maxSameGradeOverlayM": 0.009999814310136107,
+      "worstSameGrade": {
+        "x": 23.878149795970437,
+        "z": 44.673230049839596,
+        "sourceY": 0.12040000373763914,
+        "topY": 0.12060000002384186
+      },
+      "minGroundClearanceM": 6.019999839586126,
+      "groundOccludedSamples": 0,
+      "maxGroundOcclusionM": 0,
+      "worstGround": null,
+      "authoredFootprintOverlap": [],
+      "worst": {
+        "gapM": 0.05000016036582275,
+        "distanceMeters": 716.0709698010236,
+        "direction": 1,
+        "point": [
+          29.080125472835256,
+          49.06629944087162
+        ],
+        "pivotY": 0.12140000000161315,
+        "surfaceY": 0.1203999967942967,
+        "terrainY": 1.6131587502311304e-12,
+        "scale": 0.017092983111968184
+      }
+    },
+    {
+      "id": "traffic-774-16",
+      "name": "夷陵大道",
+      "osmId": "way/228087263",
+      "sourceRoadIndex": 774,
+      "sourceSegmentIndex": 16,
+      "a": [
+        29.397,
+        49.139
+      ],
+      "b": [
+        18.144,
+        39.623
+      ],
+      "lengthMeters": 736.8586448566647,
+      "widthMeters": 6.4,
+      "laneOffsetMeters": 0,
+      "grade": {
+        "bridge": false,
+        "tunnel": false,
+        "layer": null,
+        "joinable": true,
+        "key": "surface:0",
+        "evidence": "surface-default"
+      },
+      "oneway": "yes",
+      "tests": 725,
+      "missingCenter": 0,
+      "missingFootprint": 0,
+      "waterFootprint": 0,
+      "minPivotGapM": 0.049999670491467085,
+      "maxPivotGapM": 0.050000160927039794,
+      "minBodyBottomGapM": 0.05015238444712883,
+      "maxBodyBottomGapM": 0.12750015329254655,
+      "maxHeadingError": 1.1102230246251565e-16,
+      "overlaidSamples": 0,
+      "maxRoadOverlayM": 0,
+      "worstOverlay": null,
+      "maxSameGradeOverlayM": 0.009999811118122787,
+      "worstSameGrade": {
+        "x": 23.98753736918217,
+        "z": 44.56453573315005,
+        "sourceY": 0.1204000038014794,
+        "topY": 0.12060000002384186
+      },
+      "minGroundClearanceM": 6.019999839058978,
+      "groundOccludedSamples": 0,
+      "maxGroundOcclusionM": 0,
+      "worstGround": null,
+      "authoredFootprintOverlap": [],
+      "worst": {
+        "gapM": 0.050000160927039794,
+        "distanceMeters": 0.24933056719195337,
+        "direction": 1,
+        "point": [
+          29.28781838499939,
+          49.046671532182906
+        ],
+        "pivotY": 0.12140000000141674,
+        "surfaceY": 0.12039999678287594,
+        "terrainY": 1.4167460732472133e-12,
+        "scale": 0.0019641745145962744
+      }
+    },
+    {
+      "id": "traffic-810-0",
+      "name": "夷陵大道",
+      "osmId": "way/1543968655",
+      "sourceRoadIndex": 810,
+      "sourceSegmentIndex": 0,
+      "a": [
+        5.047,
+        24.437
+      ],
+      "b": [
+        -2.891,
+        18.252
+      ],
+      "lengthMeters": 503.1552171050202,
+      "widthMeters": 6.4,
+      "laneOffsetMeters": 0,
+      "grade": {
+        "bridge": false,
+        "tunnel": false,
+        "layer": null,
+        "joinable": true,
+        "key": "surface:0",
+        "evidence": "surface-default"
+      },
+      "oneway": "yes",
+      "tests": 491,
+      "missingCenter": 0,
+      "missingFootprint": 0,
+      "waterFootprint": 0,
+      "minPivotGapM": 0.049898970835767636,
+      "maxPivotGapM": 0.04999959360578107,
+      "minBodyBottomGapM": 0.05014545698266912,
+      "maxBodyBottomGapM": 0.1286753386968341,
+      "maxHeadingError": 1.1102230246251565e-16,
+      "overlaidSamples": 0,
+      "maxRoadOverlayM": 0,
+      "worstOverlay": null,
+      "maxSameGradeOverlayM": 0.012086548252056295,
+      "worstSameGrade": {
+        "x": 1.522191554763142,
+        "z": 21.690597854145885,
+        "sourceY": 0.12063783118085686,
+        "topY": 0.12087956214589798
+      },
+      "minGroundClearanceM": 6.015216566188963,
+      "groundOccludedSamples": 0,
+      "maxGroundOcclusionM": 0,
+      "worstGround": null,
+      "authoredFootprintOverlap": [],
+      "worst": {
+        "gapM": 0.04999959360578107,
+        "distanceMeters": 88.95102469780662,
+        "direction": 1,
+        "point": [
+          3.534811696698797,
+          23.258758042842285
+        ],
+        "pivotY": 0.12149538355089519,
+        "surfaceY": 0.12049539167877957,
+        "terrainY": 9.538355089518917e-05,
+        "scale": 1
+      }
+    },
+    {
+      "id": "traffic-804-6",
+      "name": "夷陵大道",
+      "osmId": "way/400584369",
+      "sourceRoadIndex": 804,
+      "sourceSegmentIndex": 6,
+      "a": [
+        -40.009,
+        -30.809
+      ],
+      "b": [
+        -40.872,
+        -42.442
+      ],
+      "lengthMeters": 583.2483561914254,
+      "widthMeters": 6.4,
+      "laneOffsetMeters": 0,
+      "grade": {
+        "bridge": false,
+        "tunnel": false,
+        "layer": null,
+        "joinable": true,
+        "key": "surface:0",
+        "evidence": "surface-default"
+      },
+      "oneway": "yes",
+      "tests": 571,
+      "missingCenter": 0,
+      "missingFootprint": 0,
+      "waterFootprint": 0,
+      "minPivotGapM": 0.04616180669625922,
+      "maxPivotGapM": 0.049898365220146096,
+      "minBodyBottomGapM": 0.04979135981027574,
+      "maxBodyBottomGapM": 0.12731246737660296,
+      "maxHeadingError": 1.1102230246251565e-16,
+      "overlaidSamples": 0,
+      "maxRoadOverlayM": 0,
+      "worstOverlay": null,
+      "maxSameGradeOverlayM": 0.006136088020036734,
+      "worstSameGrade": {
+        "x": -40.33831308564285,
+        "z": -35.248048812611,
+        "sourceY": 0.12049907647329722,
+        "topY": 0.12062179823369795
+      },
+      "minGroundClearanceM": 6.019571601985493,
+      "groundOccludedSamples": 0,
+      "maxGroundOcclusionM": 0,
+      "worstGround": null,
+      "authoredFootprintOverlap": [],
+      "worst": {
+        "gapM": 0.049898365220146096,
+        "distanceMeters": 568.70039425247,
+        "direction": 1,
+        "point": [
+          -40.860683738096725,
+          -42.289459936592316
+        ],
+        "pivotY": 0.12140077285568211,
+        "surfaceY": 0.12040280555127919,
+        "terrainY": 7.728556821200897e-07,
+        "scale": 0.017057240034602884
+      }
+    },
+    {
+      "id": "traffic-811-5",
+      "name": "夷陵大道",
+      "osmId": "way/1543968656",
+      "sourceRoadIndex": 811,
+      "sourceSegmentIndex": 5,
+      "a": [
+        -2.353,
+        18.797
+      ],
+      "b": [
+        4.939,
+        24.553
+      ],
+      "lengthMeters": 464.5018837421437,
+      "widthMeters": 6.4,
+      "laneOffsetMeters": 0,
+      "grade": {
+        "bridge": false,
+        "tunnel": false,
+        "layer": null,
+        "joinable": true,
+        "key": "surface:0",
+        "evidence": "surface-default"
+      },
+      "oneway": "yes",
+      "tests": 452,
+      "missingCenter": 0,
+      "missingFootprint": 0,
+      "waterFootprint": 0,
+      "minPivotGapM": 0.049909975950304664,
+      "maxPivotGapM": 0.04999957635969943,
+      "minBodyBottomGapM": 0.05006502415026079,
+      "maxBodyBottomGapM": 0.12846449729693454,
+      "maxHeadingError": 0,
+      "overlaidSamples": 0,
+      "maxRoadOverlayM": 0,
+      "worstOverlay": null,
+      "maxSameGradeOverlayM": 0.012151002626659135,
+      "worstSameGrade": {
+        "x": 1.4377944286599216,
+        "z": 21.78929466968822,
+        "sourceY": 0.12064517611720418,
+        "topY": 0.12088819616973737
+      },
+      "minGroundClearanceM": 6.015267854516446,
+      "groundOccludedSamples": 0,
+      "maxGroundOcclusionM": 0,
+      "worstGround": null,
+      "authoredFootprintOverlap": [],
+      "worst": {
+        "gapM": 0.04999957635969943,
+        "distanceMeters": 433.00286065271223,
+        "direction": 1,
+        "point": [
+          4.552831326316621,
+          24.248174590548338
+        ],
+        "pivotY": 0.12145823793952126,
+        "surfaceY": 0.12045824641232727,
+        "terrainY": 5.8237939521262456e-05,
+        "scale": 1
+      }
+    },
+    {
+      "id": "traffic-798-1",
+      "name": "夷陵大道",
+      "osmId": "way/792176968",
+      "sourceRoadIndex": 798,
+      "sourceSegmentIndex": 1,
+      "a": [
+        -41.202,
+        -46.89
+      ],
+      "b": [
+        -41.539,
+        -57.875
+      ],
+      "lengthMeters": 549.5084030294713,
+      "widthMeters": 9.6,
+      "laneOffsetMeters": 0,
+      "grade": {
+        "bridge": false,
+        "tunnel": false,
+        "layer": null,
+        "joinable": true,
+        "key": "surface:0",
+        "evidence": "surface-default"
+      },
+      "oneway": "yes",
+      "tests": 537,
+      "missingCenter": 0,
+      "missingFootprint": 0,
+      "waterFootprint": 0,
+      "minPivotGapM": 0.049998327712989094,
+      "maxPivotGapM": 0.050000126278634816,
+      "minBodyBottomGapM": 0.05015222658455512,
+      "maxBodyBottomGapM": 0.12750008681873815,
+      "maxHeadingError": 1.457167719820518e-16,
+      "overlaidSamples": 0,
+      "maxRoadOverlayM": 0,
+      "worstOverlay": null,
+      "maxSameGradeOverlayM": 0.009999555433710255,
+      "worstSameGrade": {
+        "x": -41.214949755723836,
+        "z": -47.31211592470724,
+        "sourceY": 0.12040006111681714,
+        "topY": 0.12060005222549135
+      },
+      "minGroundClearanceM": 6.019999308760779,
+      "groundOccludedSamples": 0,
+      "maxGroundOcclusionM": 0,
+      "worstGround": null,
+      "authoredFootprintOverlap": [],
+      "worst": {
+        "gapM": 0.050000126278634816,
+        "distanceMeters": 534.9602069358548,
+        "direction": 1,
+        "point": [
+          -41.53430954928198,
+          -57.722108008494146
+        ],
+        "pivotY": 0.12140000009716242,
+        "surfaceY": 0.12039999757158973,
+        "terrainY": 9.716243420429973e-11,
+        "scale": 0.017067630654987433
+      }
+    },
+    {
+      "id": "traffic-826-0",
+      "name": "西陵二路",
+      "osmId": "way/515738722",
+      "sourceRoadIndex": 826,
+      "sourceSegmentIndex": 0,
+      "a": [
+        45.216,
+        -98.774
+      ],
+      "b": [
+        50.797,
+        -109.799
+      ],
+      "lengthMeters": 617.8555373224393,
+      "widthMeters": 7.7,
+      "laneOffsetMeters": 0,
+      "grade": {
+        "bridge": false,
+        "tunnel": false,
+        "layer": null,
+        "joinable": true,
+        "key": "surface:0",
+        "evidence": "surface-default"
+      },
+      "oneway": "yes",
+      "tests": 606,
+      "missingCenter": 0,
+      "missingFootprint": 0,
+      "waterFootprint": 0,
+      "minPivotGapM": 0.050000168085097274,
+      "maxPivotGapM": 0.05000016808509866,
+      "minBodyBottomGapM": 0.05015223098939828,
+      "maxBodyBottomGapM": 0.12750016808509915,
+      "maxHeadingError": 0,
+      "overlaidSamples": 0,
+      "maxRoadOverlayM": 0,
+      "worstOverlay": null,
+      "maxSameGradeOverlayM": 0,
+      "worstSameGrade": null,
+      "minGroundClearanceM": 6.0199998319149,
+      "groundOccludedSamples": 0,
+      "maxGroundOcclusionM": 0,
+      "worstGround": null,
+      "authoredFootprintOverlap": [],
+      "worst": {
+        "gapM": 0.05000016808509866,
+        "distanceMeters": 18.191441511773128,
+        "direction": 1,
+        "point": [
+          45.44264737405133,
+          -99.2217311053424
+        ],
+        "pivotY": 0.1214,
+        "surfaceY": 0.12039999663829802,
+        "terrainY": 2.147427792899633e-41,
+        "scale": 1
+      }
+    },
+    {
+      "id": "traffic-827-1",
+      "name": "西陵二路",
+      "osmId": "way/1149480201",
+      "sourceRoadIndex": 827,
+      "sourceSegmentIndex": 1,
+      "a": [
+        50.539,
+        -109.964
+      ],
+      "b": [
+        45.067,
+        -99.023
+      ],
+      "lengthMeters": 611.6540382438426,
+      "widthMeters": 7.7,
+      "laneOffsetMeters": 0,
+      "grade": {
+        "bridge": false,
+        "tunnel": false,
+        "layer": null,
+        "joinable": true,
+        "key": "surface:0",
+        "evidence": "surface-default"
+      },
+      "oneway": "yes",
+      "tests": 599,
+      "missingCenter": 0,
+      "missingFootprint": 0,
+      "waterFootprint": 0,
+      "minPivotGapM": 0.050000168085097274,
+      "maxPivotGapM": 0.05000016808509866,
+      "minBodyBottomGapM": 0.05015262306020396,
+      "maxBodyBottomGapM": 0.12750016808509915,
+      "maxHeadingError": 5.551115123125783e-17,
+      "overlaidSamples": 0,
+      "maxRoadOverlayM": 0,
+      "worstOverlay": null,
+      "maxSameGradeOverlayM": 0.010000169277191162,
+      "worstSameGrade": {
+        "x": 45.68010207950027,
+        "z": -100.2488680284745,
+        "sourceY": 0.12039999663829803,
+        "topY": 0.12060000002384186
+      },
+      "minGroundClearanceM": 6.0199998319149,
+      "groundOccludedSamples": 0,
+      "maxGroundOcclusionM": 0,
+      "worstGround": null,
+      "authoredFootprintOverlap": [],
+      "worst": {
+        "gapM": 0.05000016808509866,
+        "distanceMeters": 7.236129845188412,
+        "direction": 1,
+        "point": [
+          50.412534878090625,
+          -109.71113909012966
+        ],
+        "pivotY": 0.1214,
+        "surfaceY": 0.12039999663829802,
+        "terrainY": 6.01204561882432e-48,
+        "scale": 0.8427157218901096
+      }
+    },
+    {
+      "id": "traffic-452-0",
+      "name": "沿江大道",
+      "osmId": "way/724326275",
+      "sourceRoadIndex": 452,
+      "sourceSegmentIndex": 0,
+      "a": [
+        -17.665,
+        12.468
+      ],
+      "b": [
+        -38.006,
+        -0.931
+      ],
+      "lengthMeters": 1217.8767199515719,
+      "widthMeters": 9.6,
+      "laneOffsetMeters": 0,
+      "grade": {
+        "bridge": false,
+        "tunnel": false,
+        "layer": null,
+        "joinable": true,
+        "key": "surface:0",
+        "evidence": "surface-default"
+      },
+      "oneway": "yes",
+      "tests": 1206,
+      "missingCenter": 0,
+      "missingFootprint": 0,
+      "waterFootprint": 0,
+      "minPivotGapM": 0.04594569361394685,
+      "maxPivotGapM": 0.06087659366261211,
+      "minBodyBottomGapM": -0.08692203955419364,
+      "maxBodyBottomGapM": 0.34847675141122525,
+      "maxHeadingError": 3.3306690738754696e-16,
+      "overlaidSamples": 0,
+      "maxRoadOverlayM": 0,
+      "worstOverlay": null,
+      "maxSameGradeOverlayM": 0.036661714591612604,
+      "worstSameGrade": {
+        "x": -28.273228808998205,
+        "z": 5.480159785076103,
+        "sourceY": 0.7454019374492146,
+        "topY": 0.7461351717410468
+      },
+      "minGroundClearanceM": 4.750937033129709,
+      "groundOccludedSamples": 0,
+      "maxGroundOcclusionM": 0,
+      "worstGround": null,
+      "authoredFootprintOverlap": [],
+      "worst": {
+        "gapM": 0.06087659366261211,
+        "distanceMeters": 776.0104731197009,
+        "direction": 1,
+        "point": [
+          -30.74118552258811,
+          3.8544701923623172
+        ],
+        "pivotY": 0.8653094795674218,
+        "surfaceY": 0.8640919476941695,
+        "terrainY": 0.7437094795674217,
+        "scale": 1
+      }
+    },
+    {
+      "id": "traffic-451-6",
+      "name": "沿江大道",
+      "osmId": "way/397144818",
+      "sourceRoadIndex": 451,
+      "sourceSegmentIndex": 6,
+      "a": [
+        -38.059,
+        -0.828
+      ],
+      "b": [
+        -17.713,
+        12.69
+      ],
+      "lengthMeters": 1221.3681263239184,
+      "widthMeters": 9.6,
+      "laneOffsetMeters": 0,
+      "grade": {
+        "bridge": false,
+        "tunnel": false,
+        "layer": null,
+        "joinable": true,
+        "key": "surface:0",
+        "evidence": "surface-default"
+      },
+      "oneway": "yes",
+      "tests": 1209,
+      "missingCenter": 0,
+      "missingFootprint": 0,
+      "waterFootprint": 0,
+      "minPivotGapM": 0.04625441745318426,
+      "maxPivotGapM": 0.061010096289382254,
+      "minBodyBottomGapM": -0.09122439635915192,
+      "maxBodyBottomGapM": 0.3526936646368717,
+      "maxHeadingError": 1.1102230246251565e-16,
+      "overlaidSamples": 0,
+      "maxRoadOverlayM": 0,
+      "worstOverlay": null,
+      "maxSameGradeOverlayM": 0.015892142257334374,
+      "worstSameGrade": {
+        "x": -28.72209160839268,
+        "z": 5.375495902769474,
+        "sourceY": 0.7824895280900047,
+        "topY": 0.7828073709351514
+      },
+      "minGroundClearanceM": 4.746963017605993,
+      "groundOccludedSamples": 0,
+      "maxGroundOcclusionM": 0,
+      "worstGround": null,
+      "authoredFootprintOverlap": [],
+      "worst": {
+        "gapM": 0.061010096289382254,
+        "distanceMeters": 404.77004399732664,
+        "direction": 1,
+        "point": [
+          -31.201248815368004,
+          3.7283295249117905
+        ],
+        "pivotY": 0.8999619912982038,
+        "surfaceY": 0.8987417893724161,
+        "terrainY": 0.7783619912982037,
+        "scale": 1
+      }
+    },
+    {
+      "id": "traffic-1007-2",
+      "name": "东山村路",
+      "osmId": "way/814049697",
+      "sourceRoadIndex": 1007,
+      "sourceSegmentIndex": 2,
+      "a": [
+        -6.687,
+        -26.548
+      ],
+      "b": [
+        -4.323,
+        -21.396
+      ],
+      "lengthMeters": 283.42371107583773,
+      "widthMeters": 11,
+      "laneOffsetMeters": 2.53,
+      "grade": {
+        "bridge": false,
+        "tunnel": false,
+        "layer": null,
+        "joinable": true,
+        "key": "surface:0",
+        "evidence": "surface-default"
+      },
+      "tests": 542,
+      "missingCenter": 0,
+      "missingFootprint": 0,
+      "waterFootprint": 0,
+      "minPivotGapM": 0.04998827978116363,
+      "maxPivotGapM": 0.049998957999445454,
+      "minBodyBottomGapM": 0.050150312186164614,
+      "maxBodyBottomGapM": 0.12749978792263306,
+      "maxHeadingError": 1.6653345369377348e-16,
+      "overlaidSamples": 0,
+      "maxRoadOverlayM": 0,
+      "worstOverlay": null,
+      "maxSameGradeOverlayM": 0,
+      "worstSameGrade": null,
+      "minGroundClearanceM": 6.019971812472585,
+      "groundOccludedSamples": 0,
+      "maxGroundOcclusionM": 0,
+      "worstGround": null,
+      "authoredFootprintOverlap": [],
+      "worst": {
+        "gapM": 0.049998957999445454,
+        "distanceMeters": 0.24873036077106805,
+        "direction": 1,
+        "point": [
+          -6.673363037311905,
+          -26.396949903816488
+        ],
+        "pivotY": 0.12140127460186087,
+        "surfaceY": 0.12040129544187196,
+        "terrainY": 1.2746018608776566e-06,
+        "scale": 0.0019548116800701706
+      }
+    },
+    {
+      "id": "traffic-791-8",
+      "name": "胜利四路",
+      "osmId": "way/1053223321",
+      "sourceRoadIndex": 791,
+      "sourceSegmentIndex": 8,
+      "a": [
+        -23.119,
+        -14.329
+      ],
+      "b": [
+        -17.604,
+        -15.447
+      ],
+      "lengthMeters": 281.3589744436811,
+      "widthMeters": 7.7,
+      "laneOffsetMeters": 0,
+      "grade": {
+        "bridge": false,
+        "tunnel": false,
+        "layer": null,
+        "joinable": true,
+        "key": "surface:0",
+        "evidence": "surface-default"
+      },
+      "oneway": "yes",
+      "tests": 269,
+      "missingCenter": 0,
+      "missingFootprint": 0,
+      "waterFootprint": 0,
+      "minPivotGapM": 0.04978837399279429,
+      "maxPivotGapM": 0.04998855613906339,
+      "minBodyBottomGapM": 0.04993079394379346,
+      "maxBodyBottomGapM": 0.1317189820901496,
+      "maxHeadingError": 2.7755575615628914e-17,
+      "overlaidSamples": 0,
+      "maxRoadOverlayM": 0,
+      "worstOverlay": null,
+      "maxSameGradeOverlayM": 0.0002786915331884354,
+      "worstSameGrade": {
+        "x": -18.06581179484987,
+        "z": -15.353381579937958,
+        "sourceY": 0.12180301895348228,
+        "topY": 0.12180859278414605
+      },
+      "minGroundClearanceM": 6.00672246475836,
+      "groundOccludedSamples": 0,
+      "maxGroundOcclusionM": 0,
+      "worstGround": null,
+      "authoredFootprintOverlap": [],
+      "worst": {
+        "gapM": 0.04998855613906339,
+        "distanceMeters": 250.8987037301805,
+        "direction": 1,
+        "point": [
+          -18.06581179484987,
+          -15.353381579937958
+        ],
+        "pivotY": 0.12280279007626355,
+        "surfaceY": 0.12180301895348228,
+        "terrainY": 0.0014027900762635557,
+        "scale": 1
+      }
+    },
+    {
+      "id": "traffic-453-3",
+      "name": "城东大道",
+      "osmId": "way/368940662",
+      "sourceRoadIndex": 453,
+      "sourceSegmentIndex": 3,
+      "a": [
+        47.909,
+        29.212
+      ],
+      "b": [
+        35.008,
+        23.395
+      ],
+      "lengthMeters": 707.5897292923348,
+      "widthMeters": 9.9,
+      "laneOffsetMeters": 0,
+      "grade": {
+        "bridge": false,
+        "tunnel": false,
+        "layer": null,
+        "joinable": true,
+        "key": "surface:0",
+        "evidence": "surface-default"
+      },
+      "oneway": "yes",
+      "tests": 695,
+      "missingCenter": 0,
+      "missingFootprint": 0,
+      "waterFootprint": 0,
+      "minPivotGapM": 0.04999999880791056,
+      "maxPivotGapM": 0.04999999888852871,
+      "minBodyBottomGapM": 0.05015250578972452,
+      "maxBodyBottomGapM": 0.12749999887949684,
+      "maxHeadingError": 1.1102230246251565e-16,
+      "overlaidSamples": 0,
+      "maxRoadOverlayM": 0,
+      "worstOverlay": null,
+      "maxSameGradeOverlayM": 0,
+      "worstSameGrade": null,
+      "minGroundClearanceM": 6.030000001086845,
+      "groundOccludedSamples": 0,
+      "maxGroundOcclusionM": 0,
+      "worstGround": null,
+      "authoredFootprintOverlap": [],
+      "worst": {
+        "gapM": 0.04999999888852871,
+        "distanceMeters": 693.041035339861,
+        "direction": 1,
+        "point": [
+          35.14745341007077,
+          23.45787888430212
+        ],
+        "pivotY": 0.12160000000161243,
+        "surfaceY": 0.12060000002384186,
+        "terrainY": 1.6124393233059569e-12,
+        "scale": 0.01708973305848448
+      }
+    },
+    {
+      "id": "traffic-485-7",
+      "name": "胜利三路",
+      "osmId": "way/263220614",
+      "sourceRoadIndex": 485,
+      "sourceSegmentIndex": 7,
+      "a": [
+        -4.222,
+        -2.1
+      ],
+      "b": [
+        5.751,
+        -8.1
+      ],
+      "lengthMeters": 581.937988534861,
+      "widthMeters": 9.9,
+      "laneOffsetMeters": 0,
+      "grade": {
+        "bridge": false,
+        "tunnel": false,
+        "layer": null,
+        "joinable": true,
+        "key": "surface:0",
+        "evidence": "surface-default"
+      },
+      "oneway": "yes",
+      "tests": 570,
+      "missingCenter": 0,
+      "missingFootprint": 0,
+      "waterFootprint": 0,
+      "minPivotGapM": 0.04990489388893432,
+      "maxPivotGapM": 0.05000005945706501,
+      "minBodyBottomGapM": 0.050073289959402106,
+      "maxBodyBottomGapM": 0.12786086204063796,
+      "maxHeadingError": 0,
+      "overlaidSamples": 0,
+      "maxRoadOverlayM": 0,
+      "worstOverlay": null,
+      "maxSameGradeOverlayM": 6.185053344487379e-07,
+      "worstSameGrade": {
+        "x": 4.93667634585604,
+        "z": -7.610083031699212,
+        "sourceY": 0.12060374531499093,
+        "topY": 0.12060375768509762
+      },
+      "minGroundClearanceM": 6.027439930304233,
+      "groundOccludedSamples": 0,
+      "maxGroundOcclusionM": 0,
+      "worstGround": null,
+      "authoredFootprintOverlap": [],
+      "worst": {
+        "gapM": 0.05000005945706501,
+        "distanceMeters": 381.0013089779835,
+        "direction": 1,
+        "point": [
+          2.4256838265486156,
+          -6.099408699417597
+        ],
+        "pivotY": 0.12161519459026499,
+        "surfaceY": 0.12061519340112369,
+        "terrainY": 1.519459026499026e-05,
+        "scale": 1
+      }
+    },
+    {
+      "id": "traffic-468-1",
+      "name": "发展大道",
+      "osmId": "way/143581080",
+      "sourceRoadIndex": 468,
+      "sourceSegmentIndex": 1,
+      "a": [
+        25.109,
+        -60.32
+      ],
+      "b": [
+        8.159,
+        -41.843
+      ],
+      "lengthMeters": 1253.6965631682972,
+      "widthMeters": 6.4,
+      "laneOffsetMeters": 0,
+      "grade": {
+        "bridge": false,
+        "tunnel": false,
+        "layer": null,
+        "joinable": true,
+        "key": "surface:0",
+        "evidence": "surface-default"
+      },
+      "oneway": "yes",
+      "tests": 1241,
+      "missingCenter": 0,
+      "missingFootprint": 0,
+      "waterFootprint": 0,
+      "minPivotGapM": 0.0499999988079064,
+      "maxPivotGapM": 0.04999999894884921,
+      "minBodyBottomGapM": 0.050152764015404944,
+      "maxBodyBottomGapM": 0.12749999893222758,
+      "maxHeadingError": 0,
+      "overlaidSamples": 0,
+      "maxRoadOverlayM": 0,
+      "worstOverlay": null,
+      "maxSameGradeOverlayM": 0,
+      "worstSameGrade": null,
+      "minGroundClearanceM": 6.030000001004365,
+      "groundOccludedSamples": 0,
+      "maxGroundOcclusionM": 0,
+      "worstGround": null,
+      "authoredFootprintOverlap": [],
+      "worst": {
+        "gapM": 0.04999999894884921,
+        "distanceMeters": 1239.1472300318135,
+        "direction": 1,
+        "point": [
+          8.262419121079613,
+          -41.95573599411139
+        ],
+        "pivotY": 0.12160000000281884,
+        "surfaceY": 0.12060000002384186,
+        "terrainY": 2.8188471773363388e-12,
+        "scale": 0.017118129323827443
+      }
+    },
+    {
+      "id": "traffic-467-2",
+      "name": "发展大道",
+      "osmId": "way/469935078",
+      "sourceRoadIndex": 467,
+      "sourceSegmentIndex": 2,
+      "a": [
+        8.339,
+        -41.805
+      ],
+      "b": [
+        25.331,
+        -60.304
+      ],
+      "lengthMeters": 1255.9270132057834,
+      "widthMeters": 6.4,
+      "laneOffsetMeters": 0,
+      "grade": {
+        "bridge": false,
+        "tunnel": false,
+        "layer": null,
+        "joinable": true,
+        "key": "surface:0",
+        "evidence": "surface-default"
+      },
+      "oneway": "yes",
+      "tests": 1244,
+      "missingCenter": 0,
+      "missingFootprint": 0,
+      "waterFootprint": 0,
+      "minPivotGapM": 0.0499999988079064,
+      "maxPivotGapM": 0.04999999894087226,
+      "minBodyBottomGapM": 0.05015257734136691,
+      "maxBodyBottomGapM": 0.12749999892355882,
+      "maxHeadingError": 1.1102230246251565e-16,
+      "overlaidSamples": 0,
+      "maxRoadOverlayM": 0,
+      "worstOverlay": null,
+      "maxSameGradeOverlayM": 0,
+      "worstSameGrade": null,
+      "minGroundClearanceM": 6.030000001004469,
+      "groundOccludedSamples": 0,
+      "maxGroundOcclusionM": 0,
+      "worstGround": null,
+      "authoredFootprintOverlap": [],
+      "worst": {
+        "gapM": 0.04999999894087226,
+        "distanceMeters": 0.24962359590148384,
+        "direction": 1,
+        "point": [
+          8.435730465117922,
+          -41.910309373482605
+        ],
+        "pivotY": 0.1216000000026593,
+        "surfaceY": 0.12060000002384186,
+        "terrainY": 2.659298371770253e-12,
+        "scale": 0.0019687535547722687
+      }
+    }
+  ],
+  "actualVehicleMatrices": {
+    "mode": "actual InstancedMesh matrix transformed body bottom and complete lamp envelope; own source road triangle barycentric interpolation",
+    "units": 0.02,
+    "simulationSeconds": 146.28,
+    "frames": 2438,
+    "vehicleCount": 36,
+    "routeCount": 18,
+    "summary": {
+      "sampledMatrices": 87804,
+      "actualBodyCorners": 351216,
+      "fullFootprintCorners": 351216,
+      "uncoveredCenters": 0,
+      "uncoveredActualBodyCorners": 0,
+      "uncoveredFullFootprint": 0,
+      "minBodyClearanceM": 0.05000098104575926,
+      "maxBodyClearanceM": 0.13285945484147188,
+      "minFootprintClearanceM": 0.0499890827155236,
+      "maxFootprintClearanceM": 0.054761371094114164,
+      "minTerrainClearanceM": 4.7940497003211675,
+      "maxHeadingErrorRad": 5.575503985246929e-08,
+      "maxTiltDegrees": 8.426870648440604,
+      "maxUnplaced": 0,
+      "nonFiniteMatrices": 0,
+      "waterFootprint": 0
+    },
+    "routes": [
+      {
+        "id": "traffic-807-5",
+        "name": "夷陵大道",
+        "sourceRoadIndex": 807,
+        "sourceSegmentIndex": 5,
+        "sampledMatrices": 4878,
+        "hiddenNearEndpoint": 0,
+        "uncoveredCenter": 0,
+        "uncoveredActualBodyCorners": 0,
+        "uncoveredFullFootprint": 0,
+        "minBodyClearanceM": 0.05000996595579399,
+        "maxBodyClearanceM": 0.12878719359892543,
+        "minFootprintClearanceM": 0.04999775141394103,
+        "maxFootprintClearanceM": 0.05128653570235786,
+        "minTerrainClearanceM": 5.4659855077838975,
+        "waterFootprint": 0,
+        "maxHeadingErrorRad": 2.9802322387695312e-08,
+        "maxTiltDegrees": 2.4694214389278155,
+        "nonFiniteMatrices": 0,
+        "worstBody": {
+          "frame": 699,
+          "vehicleIndex": 1,
+          "position": [
+            -23.920322717610766,
+            0.3015814007165628,
+            1.5060031598229229
+          ],
+          "roadY": 0.30058120139744693,
+          "gapM": 0.05000996595579399
+        }
+      },
+      {
+        "id": "traffic-806-0",
+        "name": "夷陵大道",
+        "sourceRoadIndex": 806,
+        "sourceSegmentIndex": 0,
+        "sampledMatrices": 4878,
+        "hiddenNearEndpoint": 1,
+        "uncoveredCenter": 0,
+        "uncoveredActualBodyCorners": 0,
+        "uncoveredFullFootprint": 0,
+        "minBodyClearanceM": 0.05004686949342807,
+        "maxBodyClearanceM": 0.1288210502506229,
+        "minFootprintClearanceM": 0.04999783534450075,
+        "maxFootprintClearanceM": 0.05131858969203984,
+        "minTerrainClearanceM": 5.471703027572028,
+        "waterFootprint": 0,
+        "maxHeadingErrorRad": 3.6500241499888574e-08,
+        "maxTiltDegrees": 2.484650758951281,
+        "nonFiniteMatrices": 0,
+        "worstBody": {
+          "frame": 958,
+          "vehicleIndex": 2,
+          "position": [
+            -31.288778825088407,
+            0.1465021217997694,
+            -13.838740075512874
+          ],
+          "roadY": 0.14550118440990084,
+          "gapM": 0.05004686949342807
+        }
+      },
+      {
+        "id": "traffic-773-5",
+        "name": "夷陵大道",
+        "sourceRoadIndex": 773,
+        "sourceSegmentIndex": 5,
+        "sampledMatrices": 4878,
+        "hiddenNearEndpoint": 0,
+        "uncoveredCenter": 0,
+        "uncoveredActualBodyCorners": 0,
+        "uncoveredFullFootprint": 0,
+        "minBodyClearanceM": 0.050001141643345876,
+        "maxBodyClearanceM": 0.12750018836882593,
+        "minFootprintClearanceM": 0.049999813736051335,
+        "maxFootprintClearanceM": 0.050000186142964975,
+        "minTerrainClearanceM": 6.069999927293304,
+        "waterFootprint": 0,
+        "maxHeadingErrorRad": 4.2146848510894035e-08,
+        "maxTiltDegrees": 0,
+        "nonFiniteMatrices": 0,
+        "worstBody": {
+          "frame": 1022,
+          "vehicleIndex": 5,
+          "position": [
+            29.09125297135378,
+            0.1214000196123126,
+            49.0756944405605
+          ],
+          "roadY": 0.12039999677944568,
+          "gapM": 0.050001141643345876
+        }
+      },
+      {
+        "id": "traffic-774-16",
+        "name": "夷陵大道",
+        "sourceRoadIndex": 774,
+        "sourceSegmentIndex": 16,
+        "sampledMatrices": 4878,
+        "hiddenNearEndpoint": 0,
+        "uncoveredCenter": 0,
+        "uncoveredActualBodyCorners": 0,
+        "uncoveredFullFootprint": 0,
+        "minBodyClearanceM": 0.050017590876279966,
+        "maxBodyClearanceM": 0.1275001884647367,
+        "minFootprintClearanceM": 0.04999981376862389,
+        "maxFootprintClearanceM": 0.050000186238875755,
+        "minTerrainClearanceM": 6.069999927571741,
+        "waterFootprint": 0,
+        "maxHeadingErrorRad": 5.575503985246929e-08,
+        "maxTiltDegrees": 0,
+        "nonFiniteMatrices": 0,
+        "worstBody": {
+          "frame": 323,
+          "vehicleIndex": 7,
+          "position": [
+            29.29033163131244,
+            0.12140034859707029,
+            49.04880180638755
+          ],
+          "roadY": 0.12039999677954469,
+          "gapM": 0.050017590876279966
+        }
+      },
+      {
+        "id": "traffic-810-0",
+        "name": "夷陵大道",
+        "sourceRoadIndex": 810,
+        "sourceSegmentIndex": 0,
+        "sampledMatrices": 4878,
+        "hiddenNearEndpoint": 0,
+        "uncoveredCenter": 0,
+        "uncoveredActualBodyCorners": 0,
+        "uncoveredFullFootprint": 0,
+        "minBodyClearanceM": 0.05000132013985789,
+        "maxBodyClearanceM": 0.12753758972372034,
+        "minFootprintClearanceM": 0.049999813769604357,
+        "maxFootprintClearanceM": 0.050037558174526736,
+        "minTerrainClearanceM": 6.065215965709335,
+        "waterFootprint": 0,
+        "maxHeadingErrorRad": 3.6500241499888574e-08,
+        "maxTiltDegrees": 0.029901616668918277,
+        "nonFiniteMatrices": 0,
+        "worstBody": {
+          "frame": 994,
+          "vehicleIndex": 9,
+          "position": [
+            4.937763155713627,
+            0.12144903004513011,
+            24.351886997241216
+          ],
+          "roadY": 0.12044900364233295,
+          "gapM": 0.05000132013985789
+        }
+      },
+      {
+        "id": "traffic-804-6",
+        "name": "夷陵大道",
+        "sourceRoadIndex": 804,
+        "sourceSegmentIndex": 6,
+        "sampledMatrices": 4878,
+        "hiddenNearEndpoint": 1,
+        "uncoveredCenter": 0,
+        "uncoveredActualBodyCorners": 0,
+        "uncoveredFullFootprint": 0,
+        "minBodyClearanceM": 0.05000368458493859,
+        "maxBodyClearanceM": 0.12750671227069119,
+        "minFootprintClearanceM": 0.049999813701313844,
+        "maxFootprintClearanceM": 0.050006723400043696,
+        "minTerrainClearanceM": 6.069554160999,
+        "waterFootprint": 0,
+        "maxHeadingErrorRad": 1.4901161193847656e-08,
+        "maxTiltDegrees": 0.0010923662627980286,
+        "nonFiniteMatrices": 0,
+        "worstBody": {
+          "frame": 599,
+          "vehicleIndex": 11,
+          "position": [
+            -40.01926880830182,
+            0.12155743944028292,
+            -30.947404419490226
+          ],
+          "roadY": 0.12055736574858415,
+          "gapM": 0.05000368458493859
+        }
+      },
+      {
+        "id": "traffic-811-5",
+        "name": "夷陵大道",
+        "sourceRoadIndex": 811,
+        "sourceSegmentIndex": 5,
+        "sampledMatrices": 4878,
+        "hiddenNearEndpoint": 1,
+        "uncoveredCenter": 0,
+        "uncoveredActualBodyCorners": 0,
+        "uncoveredFullFootprint": 0,
+        "minBodyClearanceM": 0.05000489635675065,
+        "maxBodyClearanceM": 0.12753168953684446,
+        "minFootprintClearanceM": 0.04999981390840305,
+        "maxFootprintClearanceM": 0.050031672905966745,
+        "minTerrainClearanceM": 6.065262998280721,
+        "waterFootprint": 0,
+        "maxHeadingErrorRad": 4.2146848510894035e-08,
+        "maxTiltDegrees": 0.024586922275138066,
+        "nonFiniteMatrices": 0,
+        "worstBody": {
+          "frame": 2344,
+          "vehicleIndex": 13,
+          "position": [
+            -2.24398100792531,
+            0.12252401839293817,
+            18.883053868290627
+          ],
+          "roadY": 0.12152392046580315,
+          "gapM": 0.05000489635675065
+        }
+      },
+      {
+        "id": "traffic-798-1",
+        "name": "夷陵大道",
+        "sourceRoadIndex": 798,
+        "sourceSegmentIndex": 1,
+        "sampledMatrices": 4878,
+        "hiddenNearEndpoint": 0,
+        "uncoveredCenter": 0,
+        "uncoveredActualBodyCorners": 0,
+        "uncoveredFullFootprint": 0,
+        "minBodyClearanceM": 0.050018552416048606,
+        "maxBodyClearanceM": 0.12750018845987185,
+        "minFootprintClearanceM": 0.049999813736804205,
+        "maxFootprintClearanceM": 0.05000018623400951,
+        "minTerrainClearanceM": 6.06999927675969,
+        "waterFootprint": 0,
+        "maxHeadingErrorRad": 2.1073424255447017e-08,
+        "maxTiltDegrees": 0,
+        "nonFiniteMatrices": 0,
+        "worstBody": {
+          "frame": 1588,
+          "vehicleIndex": 14,
+          "position": [
+            -41.534708876712735,
+            0.12140036853922913,
+            -57.73532547098578
+          ],
+          "roadY": 0.12039999749090816,
+          "gapM": 0.050018552416048606
+        }
+      },
+      {
+        "id": "traffic-826-0",
+        "name": "西陵二路",
+        "sourceRoadIndex": 826,
+        "sourceSegmentIndex": 0,
+        "sampledMatrices": 4878,
+        "hiddenNearEndpoint": 0,
+        "uncoveredCenter": 0,
+        "uncoveredActualBodyCorners": 0,
+        "uncoveredFullFootprint": 0,
+        "minBodyClearanceM": 0.0500124254727681,
+        "maxBodyClearanceM": 0.12750010355375915,
+        "minFootprintClearanceM": 0.050000101327894036,
+        "maxFootprintClearanceM": 0.0500001013278982,
+        "minTerrainClearanceM": 6.069999933242796,
+        "waterFootprint": 0,
+        "maxHeadingErrorRad": 3.6500241499888574e-08,
+        "maxTiltDegrees": 0,
+        "nonFiniteMatrices": 0,
+        "worstBody": {
+          "frame": 1958,
+          "vehicleIndex": 17,
+          "position": [
+            50.73402949249464,
+            0.1214002451477534,
+            -109.67461642021269
+          ],
+          "roadY": 0.12039999663829803,
+          "gapM": 0.0500124254727681
+        }
+      },
+      {
+        "id": "traffic-827-1",
+        "name": "西陵二路",
+        "sourceRoadIndex": 827,
+        "sourceSegmentIndex": 1,
+        "sampledMatrices": 4878,
+        "hiddenNearEndpoint": 0,
+        "uncoveredCenter": 0,
+        "uncoveredActualBodyCorners": 0,
+        "uncoveredFullFootprint": 0,
+        "minBodyClearanceM": 0.050045595240223034,
+        "maxBodyClearanceM": 0.12750010355375915,
+        "minFootprintClearanceM": 0.050000101327894036,
+        "maxFootprintClearanceM": 0.0500001013278982,
+        "minTerrainClearanceM": 6.069999933242796,
+        "waterFootprint": 0,
+        "maxHeadingErrorRad": 2.9802322387695312e-08,
+        "maxTiltDegrees": 0,
+        "nonFiniteMatrices": 0,
+        "worstBody": {
+          "frame": 2134,
+          "vehicleIndex": 18,
+          "position": [
+            45.12996590165048,
+            0.1214009085431025,
+            -99.1488686490316
+          ],
+          "roadY": 0.12039999663829803,
+          "gapM": 0.050045595240223034
+        }
+      },
+      {
+        "id": "traffic-452-0",
+        "name": "沿江大道",
+        "sourceRoadIndex": 452,
+        "sourceSegmentIndex": 0,
+        "sampledMatrices": 4878,
+        "hiddenNearEndpoint": 0,
+        "uncoveredCenter": 0,
+        "uncoveredActualBodyCorners": 0,
+        "uncoveredFullFootprint": 0,
+        "minBodyClearanceM": 0.05004905160672646,
+        "maxBodyClearanceM": 0.13276299445174056,
+        "minFootprintClearanceM": 0.0499890827155236,
+        "maxFootprintClearanceM": 0.054695174162483484,
+        "minTerrainClearanceM": 4.800100618727443,
+        "waterFootprint": 0,
+        "maxHeadingErrorRad": 3.942476676500724e-08,
+        "maxTiltDegrees": 8.296696321881825,
+        "nonFiniteMatrices": 0,
+        "worstBody": {
+          "frame": 1181,
+          "vehicleIndex": 21,
+          "position": [
+            -37.88843746292867,
+            0.9262663294451664,
+            -0.8535465336664555
+          ],
+          "roadY": 0.9252653484130319,
+          "gapM": 0.05004905160672646
+        }
+      },
+      {
+        "id": "traffic-451-6",
+        "name": "沿江大道",
+        "sourceRoadIndex": 451,
+        "sourceSegmentIndex": 6,
+        "sampledMatrices": 4878,
+        "hiddenNearEndpoint": 0,
+        "uncoveredCenter": 0,
+        "uncoveredActualBodyCorners": 0,
+        "uncoveredFullFootprint": 0,
+        "minBodyClearanceM": 0.050013659700237634,
+        "maxBodyClearanceM": 0.13285945484147188,
+        "minFootprintClearanceM": 0.049989819845475125,
+        "maxFootprintClearanceM": 0.054761371094114164,
+        "minTerrainClearanceM": 4.7940497003211675,
+        "waterFootprint": 0,
+        "maxHeadingErrorRad": 3.942476676500724e-08,
+        "maxTiltDegrees": 8.426870648440604,
+        "nonFiniteMatrices": 0,
+        "worstBody": {
+          "frame": 1488,
+          "vehicleIndex": 22,
+          "position": [
+            -37.94278968749105,
+            0.9427703506368036,
+            -0.7507930119075661
+          ],
+          "roadY": 0.9417700774427988,
+          "gapM": 0.050013659700237634
+        }
+      },
+      {
+        "id": "traffic-1007-2",
+        "name": "东山村路",
+        "sourceRoadIndex": 1007,
+        "sourceSegmentIndex": 2,
+        "sampledMatrices": 4878,
+        "hiddenNearEndpoint": 1,
+        "uncoveredCenter": 0,
+        "uncoveredActualBodyCorners": 0,
+        "uncoveredFullFootprint": 0,
+        "minBodyClearanceM": 0.05000443025292012,
+        "maxBodyClearanceM": 0.12750070652776946,
+        "minFootprintClearanceM": 0.04999981381764926,
+        "maxFootprintClearanceM": 0.050000707223767094,
+        "minTerrainClearanceM": 6.069971653957701,
+        "waterFootprint": 0,
+        "maxHeadingErrorRad": 3.942476676500724e-08,
+        "maxTiltDegrees": 9.160080115762737e-05,
+        "nonFiniteMatrices": 0,
+        "worstBody": {
+          "frame": 509,
+          "vehicleIndex": 25,
+          "position": [
+            -6.583099251423785,
+            0.12140132757371469,
+            -26.442891026508427
+          ],
+          "roadY": 0.12040123896865629,
+          "gapM": 0.05000443025292012
+        }
+      },
+      {
+        "id": "traffic-791-8",
+        "name": "胜利四路",
+        "sourceRoadIndex": 791,
+        "sourceSegmentIndex": 8,
+        "sampledMatrices": 4878,
+        "hiddenNearEndpoint": 0,
+        "uncoveredCenter": 0,
+        "uncoveredActualBodyCorners": 0,
+        "uncoveredFullFootprint": 0,
+        "minBodyClearanceM": 0.05000098104575926,
+        "maxBodyClearanceM": 0.1276318340545049,
+        "minFootprintClearanceM": 0.04999957254301565,
+        "maxFootprintClearanceM": 0.050131605709843874,
+        "minTerrainClearanceM": 6.056719218659758,
+        "waterFootprint": 0,
+        "maxHeadingErrorRad": 2.580956827951785e-08,
+        "maxTiltDegrees": 0.10981202914882959,
+        "nonFiniteMatrices": 0,
+        "worstBody": {
+          "frame": 593,
+          "vehicleIndex": 26,
+          "position": [
+            -17.739626420452918,
+            0.1226726137293084,
+            -15.419505743927736
+          ],
+          "roadY": 0.12167259410839322,
+          "gapM": 0.05000098104575926
+        }
+      },
+      {
+        "id": "traffic-453-3",
+        "name": "城东大道",
+        "sourceRoadIndex": 453,
+        "sourceSegmentIndex": 3,
+        "sampledMatrices": 4878,
+        "hiddenNearEndpoint": 0,
+        "uncoveredCenter": 0,
+        "uncoveredActualBodyCorners": 0,
+        "uncoveredFullFootprint": 0,
+        "minBodyClearanceM": 0.05000334727673569,
+        "maxBodyClearanceM": 0.12750010355375915,
+        "minFootprintClearanceM": 0.050000101327894036,
+        "maxFootprintClearanceM": 0.050000101327898894,
+        "minTerrainClearanceM": 6.080000102414279,
+        "waterFootprint": 0,
+        "maxHeadingErrorRad": 2.9802322387695312e-08,
+        "maxTiltDegrees": 0,
+        "nonFiniteMatrices": 0,
+        "worstBody": {
+          "frame": 1323,
+          "vehicleIndex": 29,
+          "position": [
+            47.78254079691954,
+            0.12160006696937657,
+            29.154981223184407
+          ],
+          "roadY": 0.12060000002384186,
+          "gapM": 0.05000334727673569
+        }
+      },
+      {
+        "id": "traffic-485-7",
+        "name": "胜利三路",
+        "sourceRoadIndex": 485,
+        "sourceSegmentIndex": 7,
+        "sampledMatrices": 4878,
+        "hiddenNearEndpoint": 1,
+        "uncoveredCenter": 0,
+        "uncoveredActualBodyCorners": 0,
+        "uncoveredFullFootprint": 0,
+        "minBodyClearanceM": 0.05000101580757907,
+        "maxBodyClearanceM": 0.127503179180391,
+        "minFootprintClearanceM": 0.04999981386476712,
+        "maxFootprintClearanceM": 0.05000300662334964,
+        "minTerrainClearanceM": 6.077434718437557,
+        "waterFootprint": 0,
+        "maxHeadingErrorRad": 4.2146848510894035e-08,
+        "maxTiltDegrees": 0.009134723906805744,
+        "nonFiniteMatrices": 0,
+        "worstBody": {
+          "frame": 1226,
+          "vehicleIndex": 30,
+          "position": [
+            -4.103435101255953,
+            0.12201240128224518,
+            -2.171331801128108
+          ],
+          "roadY": 0.1210123809660936,
+          "gapM": 0.05000101580757907
+        }
+      },
+      {
+        "id": "traffic-468-1",
+        "name": "发展大道",
+        "sourceRoadIndex": 468,
+        "sourceSegmentIndex": 1,
+        "sampledMatrices": 4878,
+        "hiddenNearEndpoint": 1,
+        "uncoveredCenter": 0,
+        "uncoveredActualBodyCorners": 0,
+        "uncoveredFullFootprint": 0,
+        "minBodyClearanceM": 0.0500062503164686,
+        "maxBodyClearanceM": 0.12750010355375915,
+        "minFootprintClearanceM": 0.05000010132789334,
+        "maxFootprintClearanceM": 0.0500001013278982,
+        "minTerrainClearanceM": 6.08000010233188,
+        "waterFootprint": 0,
+        "maxHeadingErrorRad": 4.942156062059701e-08,
+        "maxTiltDegrees": 0,
+        "nonFiniteMatrices": 0,
+        "worstBody": {
+          "frame": 1747,
+          "vehicleIndex": 32,
+          "position": [
+            25.01504302205881,
+            0.12160012503017123,
+            -60.21757674365816
+          ],
+          "roadY": 0.12060000002384186,
+          "gapM": 0.0500062503164686
+        }
+      },
+      {
+        "id": "traffic-467-2",
+        "name": "发展大道",
+        "sourceRoadIndex": 467,
+        "sourceSegmentIndex": 2,
+        "sampledMatrices": 4878,
+        "hiddenNearEndpoint": 0,
+        "uncoveredCenter": 0,
+        "uncoveredActualBodyCorners": 0,
+        "uncoveredFullFootprint": 0,
+        "minBodyClearanceM": 0.050017939385037236,
+        "maxBodyClearanceM": 0.12750010355375915,
+        "minFootprintClearanceM": 0.05000010132789334,
+        "maxFootprintClearanceM": 0.050000101327898894,
+        "minTerrainClearanceM": 6.080000102332191,
+        "waterFootprint": 0,
+        "maxHeadingErrorRad": 4.712160915387242e-08,
+        "maxTiltDegrees": 0,
+        "nonFiniteMatrices": 0,
+        "worstBody": {
+          "frame": 2013,
+          "vehicleIndex": 35,
+          "position": [
+            25.236487495985116,
+            0.1216003588115426,
+            -60.20111363004942
+          ],
+          "roadY": 0.12060000002384186,
+          "gapM": 0.050017939385037236
+        }
+      }
+    ]
+  }
+}

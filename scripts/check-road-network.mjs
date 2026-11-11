@@ -91,6 +91,48 @@ check('known grade junction radius never exceeds the widest source half-width', 
   assert.equal(junction.role, 'major');
 });
 
+check('traffic contact samples agree with the rendered Float32 road triangles', () => {
+  const roads = [{ points: [[-4, 0], [4, 0]], width: 0.2, highway: 'primary' }];
+  const heightAt = (x, z) => 0.4 * Math.max(0, 1 - (x / 4) ** 2) + z * 0.1;
+  const network = createRoadNetwork({ roads, heightAt, makeMaterial: () => new THREE.MeshBasicMaterial() });
+  const road = network.group.children.find(mesh => mesh.name === 'roads major surface');
+  const contact = network.roadSurface.getSegment(0, 0), ray = new THREE.Raycaster();
+  assert(contact && network.stats.addedSurfaceSections > 0);
+  network.group.updateMatrixWorld(true);
+  for (let step = 1; step < 80; step++) for (const z of [-0.07, 0, 0.07]) {
+    const x = -4 + step * 0.1;
+    ray.set(new THREE.Vector3(x, 10, z), new THREE.Vector3(0, -1, 0));
+    const hit = ray.intersectObject(road)[0], sample = contact.sample(x, z);
+    assert(hit && sample, `Missing road contact at ${x},${z}`);
+    assert(Math.abs(hit.point.y - sample.height) < 1e-8);
+    assert(sample.normal.y > 0);
+    // Samples on a diagonal can belong to either adjacent triangle; both
+    // surfaces must meet, but only nonseam samples have a unique normal.
+    assert(contact.bounds.containsPoint(new THREE.Vector3(x, sample.height, z)));
+  }
+  assert.equal(contact.sample(0, 0.2), null);
+  assert.equal(contact.sample(4.1, 0), null);
+  for (const mesh of network.group.children) { mesh.geometry.dispose(); mesh.material.dispose(); }
+});
+
+check('road contact keeps original segment indices through duplicate and invalid points', () => {
+  const roads = [
+    { points: [[0, 0], null, [4, 0], [4, 0], [8, 0]], width: 0.2, highway: 'primary' },
+    { points: [[0, 2], [4, 2], [4, 6], [0, 2]], width: 0.2, highway: 'primary' },
+    { points: [[0, 8], [4, 8]], width: 0.2, highway: 'primary', bridge: 'yes', layer: 1 },
+    { points: [[0, 10], [4, 10]], width: 0.2, highway: 'primary', layer: 'unknown' },
+  ];
+  const network = createRoadNetwork({ roads, makeMaterial: () => new THREE.MeshBasicMaterial() });
+  for (const index of [0, 1, 2]) assert.equal(network.roadSurface.getSegment(0, index), null);
+  assert(network.roadSurface.getSegment(0, 3)?.sample(6, 0));
+  assert.equal(network.roadSurface.getSegment(0, 3)?.sample(2, 0), null);
+  for (const index of [0, 1, 2]) assert(network.roadSurface.getSegment(1, index));
+  assert(network.roadSurface.getSegment(1, 2)?.sample(2, 4));
+  assert.equal(network.roadSurface.getSegment(2, 0), null);
+  assert.equal(network.roadSurface.getSegment(3, 0), null);
+  for (const mesh of network.group.children) { mesh.geometry.dispose(); mesh.material.dispose(); }
+});
+
 check('full source network is static, bounded in draw calls, and leaves inputs untouched', () => {
   const data = JSON.parse(fs.readFileSync(new URL('../public/data/city.json', import.meta.url), 'utf8'));
   const before = JSON.stringify(data.roads);

@@ -339,10 +339,10 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
   // Source widths/centre-lines remain fixed. Rounded joins and a restrained
   // hierarchy distinguish the street network from the porcelain buildings.
   const roadIndex = makeGridIndex(5);
-  const roadNetwork = createRoadNetwork({ roads: data.roads || [], heightAt: surfaceHeight, inWater, makeMaterial });
+  const roadNetwork = createRoadNetwork({ roads: data.roads || [], heightAt: surfaceHeight, inWater, makeMaterial, worldUnitsPerMeter: data.meta?.unitsPerMeter });
   const streetObservationPlan = planStreetObservations({ models: authoredModels, roads: data.roads || [], heightAt: surfaceHeight, inWater, unitsPerMeter: data.meta?.unitsPerMeter });
   const streetObservations = new Map(streetObservationPlan.views.map(view => [view.id, view]));
-  const traffic = createCityTraffic({ roads: data.roads || [], heightAt: surfaceHeight, inWater, extent, worldUnitsPerMeter: data.meta?.unitsPerMeter });
+  const traffic = createCityTraffic({ roads: data.roads || [], roadSurface: roadNetwork.roadSurface, inWater, extent, worldUnitsPerMeter: data.meta?.unitsPerMeter });
   let trafficEnabled = true;
   layers.traffic.add(traffic.group);
   const roadLabelPlan = buildRoadLabelAnchors(data.roads || []);

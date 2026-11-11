@@ -2,10 +2,23 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import * as THREE from 'three';
 import { planTrafficRoutes, sampleTrafficRoute, createCityTraffic } from '../src/scene/cityTraffic.js';
+import { createRoadNetwork } from '../src/scene/roadNetwork.js';
 
 let passed = 0;
 const check = (name, run) => { run(); passed++; console.log(`PASS ${name}`); };
 const road = (overrides = {}) => ({ points: [[-4, 0], [4, 0]], width: 0.2, highway: 'primary', name: '沿江大道', ...overrides });
+function trafficFixture(options) {
+  const network = createRoadNetwork({ ...options, makeMaterial: () => new THREE.MeshBasicMaterial() });
+  const controller = createCityTraffic({ ...options, roadSurface: network.roadSurface });
+  const disposeTraffic = controller.dispose.bind(controller);
+  let disposed = false;
+  controller.dispose = () => {
+    if (disposed) return;
+    disposed = true; disposeTraffic();
+    network.group.traverse(object => { object.geometry?.dispose(); object.material?.dispose(); });
+  };
+  return controller;
+}
 
 check('all car corners remain inside their existing source segment ribbon', () => {
   const { routes } = planTrafficRoutes({ roads: [road(), road({ points: [[-4, 2], [4, 6]], oneway: '-1' })] });
@@ -66,7 +79,7 @@ check('malformed and duplicate source points are never bridged together', () => 
 });
 
 check('traffic stops when offscreen, disabled, or motion is reduced; matrices stay finite', () => {
-  const controller = createCityTraffic({ roads: [road()], heightAt: x => 1 + x * 0.01 });
+  const controller = trafficFixture({ roads: [road()], heightAt: x => 1 + x * 0.01 });
   assert.equal(controller.group.children.length, 4);
   assert.equal(controller.shouldAnimate(), false);
   assert.equal(controller.update(0.03, { pixelsPerUnit: 4, motionEnabled: true }), false);
@@ -125,7 +138,7 @@ check('the complete city source remains unchanged and produces at most 36 vehicl
     }
   }
   assert.equal(JSON.stringify(data.roads), before);
-  const controller = createCityTraffic({ roads: data.roads, inWater, worldUnitsPerMeter: data.meta.unitsPerMeter });
+  const controller = trafficFixture({ roads: data.roads, inWater, worldUnitsPerMeter: data.meta.unitsPerMeter });
   const firstMatrix = new THREE.Matrix4();
   controller.group.children[0].getMatrixAt(0, firstMatrix);
   assert(firstMatrix.elements.every(Number.isFinite));
