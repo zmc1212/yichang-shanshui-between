@@ -1,0 +1,21 @@
+{
+  "old_signatures_exact": true,
+  "below92_polygons_exact": 21,
+  "degenerate_polygons": [],
+  "same_facing_coplanar_pairs_checked": 78,
+  "new_positive_area_overlaps": [],
+  "inherited_below_boundary_contacts": [
+    [
+      [
+        "G_DISPLAY_F_below_crown_unchanged",
+        0
+      ],
+      [
+        "Podium_top_schematic",
+        4
+      ],
+      537.5
+    ]
+  ],
+  "scope": "all convex planar visible faces; inherited display-domain contacts classified separately; not a structural/measured survey"
+}

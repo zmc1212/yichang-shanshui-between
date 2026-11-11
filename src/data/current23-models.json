@@ -524,7 +524,7 @@
   "1649134": {
     "order": 16,
     "name": "丽景国际综合楼",
-    "stage": "丽景G",
+    "stage": "丽景H可见右侧中下窗域候选",
     "sourceBounds": {
       "min": [
         -35.5,
@@ -538,16 +538,16 @@
       ]
     },
     "assets": {
-      "light": "/models/current23/16/light.glb?v=fddc9eac228d",
-      "detail": "/models/current23/16/detail.glb?v=50276e2fda43"
+      "light": "/models/current23/16/light.glb?v=7e64ebaeda40",
+      "detail": "/models/current23/16/detail.glb?v=33ffe1ce41aa"
     },
     "webBudget": {
       "light": {
-        "bytes": 221012,
-        "triangles": 12236,
-        "primitives": 17,
-        "vertices": 30835,
-        "sha256": "fddc9eac228d0b916d0bd7e50fe4cc0a3472f21052361fd381c98c27b451f3ca",
+        "bytes": 233732,
+        "triangles": 13334,
+        "primitives": 19,
+        "vertices": 33332,
+        "sha256": "7e64ebaeda407d26be73c644976a7c445329898284ca0e845ebbfcb2e9374bb8",
         "bounds": {
           "min": [
             -35.500736951980805,
@@ -562,11 +562,11 @@
         }
       },
       "detail": {
-        "bytes": 252504,
-        "triangles": 19588,
-        "primitives": 17,
-        "vertices": 38660,
-        "sha256": "50276e2fda43a2e2814534e19015950e5c13e830d07149ff2add0d2db1b422d1",
+        "bytes": 262228,
+        "triangles": 21350,
+        "primitives": 19,
+        "vertices": 40962,
+        "sha256": "33ffe1ce41aaaac9e78c76c8693320dc472199c1073b2a8a11dc49c545de08f8",
         "bounds": {
           "min": [
             -35.500736951980805,
@@ -581,8 +581,8 @@
         }
       }
     },
-    "sourceModelSha256": "4e2e5833e8bcff6ccee32a4ee342f3e6b61d60d29b7e2371dd94d08513c16f55",
-    "sourceSelectionFile": "assets/16/current/LijingGuoji_G_CrownFrontDetail.glb",
+    "sourceModelSha256": "3a9616b80729454aa512a26a7bd75695370b4d89282ba0bbbaeb030c729600b1",
+    "sourceSelectionFile": "assets/16/current/Lijing_H_VisibleRightMidfield.glb",
     "modelNotesUrl": "/models/current23/16/README.txt",
     "holds": {
       "identity": false,
@@ -591,9 +591,13 @@
       "geographic_registration": "HOLD_LATEST_SITE_NOT_VERIFIED",
       "absolute_scale": "HOLD_NO_NEW_SURVEY_OR_SCALE_CERTIFICATION",
       "capture_date": "UNKNOWN_UNLESS_EXPLICIT_SOURCE_DOC_QUALIFICATION",
-      "scope_and_remaining_holds": "G冠前脸六区重登记窗域/竖墩/檐口；主身背侧旧坡顶保留，未拼旧D。窗下未知段仍可能显露示意包络，真实深度、屋顶结构、未知基部待核。"
+      "scope_and_remaining_holds": "H仅补右侧+X中下窗域，保留前宽石墙；三个粗湾和4.1节奏非测量。原G保留互斥，其他5面精确保留，总包络不变。上域/顶檐绕角、侧后冠、左侧、基部遮挡及真实尺度方向仍HOLD。"
     },
-    "sourceVersion": "丽景G"
+    "sourceVersion": "丽景H",
+    "sourceRecovery": {
+      "filename": "Lijing_H_VisibleRightMidfield_Delivery.zip",
+      "library_file_id": "libfile_fde3_f-1e7e37f8ba1c8191ae4083e5884f023b_c853d26840d0819196e3746c99b28092"
+    }
   },
   "1649135": {
     "order": 1,
@@ -1501,7 +1505,7 @@
   "1649147": {
     "order": 17,
     "name": "中建宜昌之星",
-    "stage": "YichangStar_F_SandboxBody_web_optimized",
+    "stage": "宜昌之星G可见前冠格架候选",
     "sourceBounds": {
       "min": [
         -27.5,
@@ -1515,51 +1519,51 @@
       ]
     },
     "assets": {
-      "light": "/models/current23/17/light.glb?v=4446e66c7ed4",
-      "detail": "/models/current23/17/detail.glb?v=6a2214f1ec6a"
+      "light": "/models/current23/17/light.glb?v=3cf957cc4d0e",
+      "detail": "/models/current23/17/detail.glb?v=14da8502cc51"
     },
     "webBudget": {
       "light": {
-        "bytes": 26400,
-        "triangles": 1468,
-        "primitives": 5,
-        "vertices": 3342,
-        "sha256": "4446e66c7ed4cb0cf0934b9ddae1e0ed0a3a3d08bb98ddf8466ddbc0a62f1bc0",
+        "bytes": 69028,
+        "triangles": 3776,
+        "primitives": 7,
+        "vertices": 8378,
+        "sha256": "3cf957cc4d0eae2aea2c8abeb321eb9a509da805693a6670c033d05855e10ec1",
         "bounds": {
           "min": [
             -27.5,
             0,
-            -11.000704809879148
+            -11.000302400267964
           ],
           "max": [
             27.5,
-            105.0999984741211,
+            105.10002177582453,
             20.500274666585284
           ]
         }
       },
       "detail": {
-        "bytes": 23472,
-        "triangles": 1480,
-        "primitives": 5,
-        "vertices": 2880,
-        "sha256": "6a2214f1ec6af740b9e6d4203d83426372924e02cca334884ef09252db3868d7",
+        "bytes": 63928,
+        "triangles": 3788,
+        "primitives": 7,
+        "vertices": 7552,
+        "sha256": "14da8502cc517a85e0e1892eda88481b81d625145c34c02a9138657ac412fc61",
         "bounds": {
           "min": [
             -27.5,
             0,
-            -11.000704809879148
+            -11.000302400267964
           ],
           "max": [
             27.5,
-            105.0999984741211,
+            105.10002177582453,
             20.500274666585284
           ]
         }
       }
     },
-    "sourceModelSha256": "cc9541ccb8431fd6c79b28da9d9bdb4d0242501dd91e54240a15e5307235da9f",
-    "sourceSelectionFile": "assets/17/current/YichangStar_F_SandboxBody_web_optimized.glb",
+    "sourceModelSha256": "38b5a9468488233488b9b154f8a049bf3fe235f190b5b110e4c0c289bcc27f22",
+    "sourceSelectionFile": "assets/17/current/YichangStar_G_FrontCrownCandidate.glb",
     "modelNotesUrl": "/models/current23/17/README.txt",
     "holds": {
       "identity": true,
@@ -1568,9 +1572,13 @@
       "geographic_registration": "HOLD_LATEST_SITE_NOT_VERIFIED",
       "absolute_scale": "HOLD_NO_NEW_SURVEY_OR_SCALE_CERTIFICATION",
       "capture_date": "UNKNOWN_UNLESS_EXPLICIT_SOURCE_DOC_QUALIFICATION",
-      "scope_and_remaining_holds": "原全景与时代中心所在临江组团地块的周边关系已目视对应；原名单只标综合项目，未指定主楼/附楼。F为主塔项目代表候选，不能称原名单明确指定主塔。单栋绑定、真实尺度、隐藏面、竣工时相及43/51层口径仍HOLD。"
+      "scope_and_remaining_holds": "G仅修正前冠可见格架与中央不透明遮挡，非全冠挖空；F原件隐藏保留，92以下21面与总包络不变。六级节奏/杆距/冠深均为归一展示；真实后侧/尺度/方向、单栋指定及43/51层口径继续HOLD。"
     },
-    "sourceVersion": "YichangStar_F_SandboxBody_web_optimized"
+    "sourceVersion": "宜昌之星G",
+    "sourceRecovery": {
+      "filename": "YichangStar_G_FrontCrownCandidate_Delivery.zip",
+      "library_file_id": "libfile_fde3_f-e4cd08b5e5b88191a93b0c20ccba41dd_c853d26840d0819196e3746c99b28092"
+    }
   },
   "1649148": {
     "order": 12,

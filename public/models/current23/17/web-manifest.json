@@ -1,42 +1,43 @@
 {
-  "id": "current23-17",
-  "sourceFilename": "YichangStar_F_SandboxBody_web_optimized.glb",
-  "sourceSha256": "cc9541ccb8431fd6c79b28da9d9bdb4d0242501dd91e54240a15e5307235da9f",
-  "sourceBytes": 117192,
+  "id": "business-1649147",
+  "sourceFilename": "YichangStar_G_FrontCrownCandidate.glb",
+  "sourceSha256": "38b5a9468488233488b9b154f8a049bf3fe235f190b5b110e4c0c289bcc27f22",
+  "sourceBytes": 396160,
   "nativeChanged": false,
   "removedPresentationNodes": [],
+  "preserveAlphaMaterials": [],
   "materialPolicy": "Original base colors retained; light drops baked normal maps and regenerates geometric face normals, detail retains source normals and normal maps. Textures are bounded to 512 px light / 1024 px detail WebP. Transmission, volume, and clearcoat removed; opaque material alpha and reduced metalness/increased roughness suit the miniature scene. Source files unchanged.",
   "geometryPolicy": "Material-aware weld/join. Light simplifies within a bounded error; detail keeps source triangles after explicitly named presentation-node removal. One common source envelope drives both LOD transforms.",
   "lightSimplification": {
-    "ratio": 0.16,
+    "ratio": 0.13,
     "error": 0.0008,
     "lockBorder": false
   },
   "validationScope": "Binary readback and envelope checks; no claim of surveyed geometry, real-scene acceptance, browser/WebGL visual QA, or device performance measurement.",
   "tiers": {
     "light": {
-      "triangles": 1468,
-      "vertices": 3342,
-      "primitives": 5,
-      "indexedPrimitives": 5,
-      "materials": 5,
+      "triangles": 3776,
+      "vertices": 8378,
+      "primitives": 7,
+      "indexedPrimitives": 7,
+      "materials": 7,
       "images": [],
       "estimatedTextureBytesRGBA8WithMipmaps": 0,
       "bounds": {
         "min": [
           -27.5,
           0,
-          -11.000704809879148
+          -11.000302400267964
         ],
         "max": [
           27.5,
-          105.0999984741211,
+          105.10002177582453,
           20.500274666585284
         ]
       },
-      "bytes": 26400,
-      "sha256": "4446e66c7ed4cb0cf0934b9ddae1e0ed0a3a3d08bb98ddf8466ddbc0a62f1bc0",
-      "maxEnvelopeDelta": 0.000704809879147561,
+      "bytes": 69028,
+      "sha256": "3cf957cc4d0eae2aea2c8abeb321eb9a509da805693a6670c033d05855e10ec1",
+      "maxEnvelopeDelta": 0.00030240026796413133,
       "extensionsRequired": [
         "EXT_meshopt_compression",
         "KHR_mesh_quantization"
@@ -47,28 +48,28 @@
       ]
     },
     "detail": {
-      "triangles": 1480,
-      "vertices": 2880,
-      "primitives": 5,
-      "indexedPrimitives": 5,
-      "materials": 5,
+      "triangles": 3788,
+      "vertices": 7552,
+      "primitives": 7,
+      "indexedPrimitives": 7,
+      "materials": 7,
       "images": [],
       "estimatedTextureBytesRGBA8WithMipmaps": 0,
       "bounds": {
         "min": [
           -27.5,
           0,
-          -11.000704809879148
+          -11.000302400267964
         ],
         "max": [
           27.5,
-          105.0999984741211,
+          105.10002177582453,
           20.500274666585284
         ]
       },
-      "bytes": 23472,
-      "sha256": "6a2214f1ec6af740b9e6d4203d83426372924e02cca334884ef09252db3868d7",
-      "maxEnvelopeDelta": 0.000704809879147561,
+      "bytes": 63928,
+      "sha256": "14da8502cc517a85e0e1892eda88481b81d625145c34c02a9138657ac412fc61",
+      "maxEnvelopeDelta": 0.00030240026796413133,
       "extensionsRequired": [
         "EXT_meshopt_compression",
         "KHR_mesh_quantization"
@@ -91,5 +92,5 @@
       20.5
     ]
   },
-  "sourceTriangles": 1480
+  "sourceTriangles": 3788
 }

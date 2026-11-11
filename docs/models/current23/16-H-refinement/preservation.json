@@ -1,0 +1,72 @@
+{
+  "original_world_signatures": {
+    "F_KEEP_WEB_blue": "3481e3416eb93d3851add04cb5bdb7ca270e37b6b6a95e70cb6f394211868ddc",
+    "F_KEEP_WEB_bluegray": "8b2ecce2d8242bd4f9ce37985b9e147692560b12629b46dd04b4106962d69d10",
+    "F_KEEP_WEB_brown": "b8912ea0f22e089b3da32957119d1b26feda627da18ceb9ed7d06c96d2f80d63",
+    "F_KEEP_WEB_cyan": "9973a457d3397a35774e64d63155209fb1f0b57904c45e1bf2bbec5ff78bd2d2",
+    "F_KEEP_WEB_F_APPROX_crown_envelope_stone": "4b43d3ede7c2645933242919603f594b633d0d9a77e6fcf70cbf55336924ba3a",
+    "F_KEEP_WEB_F_ASSUMED_back_and_body": "6ee160cd3d70d438f0696081bd2dfd35cf215636e43a57d7a081b061dd046aa1",
+    "F_KEEP_WEB_F_ASSUMED_blue_gray_roof_planes": "6095f44e5f9c68e07a5e4235604388cae02e2a9c800a05d380dccfcfa7ec4fb0",
+    "F_KEEP_WEB_F_UNKNOWN_lower_mass": "4bae589e230fd750c3c296594bd05a7179d2ad3883ebdd53c2def6ef27c95e33",
+    "F_KEEP_WEB_frame": "8c14d94552452e713e8434ebd1d7b3b0415f21fbd4a67fe4659bc7cb87625af0",
+    "F_KEEP_WEB_ordinary_glass": "09ff14df15bc7b30af9c7e89555c688454b099d70a3a60897bfcf0068e8a4e12",
+    "F_KEEP_WEB_rim": "2861d77b605a0ab9c76489c4a3fb0dbf4b03ee529150660f3de13a6025c7adb5",
+    "F_KEEP_WEB_stone": "16a7bb73103bd621922fce5dc508c9c1855ef6f4e409fcc06af3a1c868dc6eb0",
+    "F_KEEP_WEB_stone_return": "2413eac01855b14c50ddcbf470152f88a16ad30911c2b8471a006d3d56bb0f90",
+    "G_CROWN_PIER_APPROX": "fba6fad283e75bb546d20868d0a68510188daf899706ad6c4c74b3ae2d3b1ba8",
+    "G_THIN_FIXED_BORDER": "0218e15c4a16127b48406695f3a4555725ad21c398b79a4bc54671eec9057902",
+    "G_VISIBLE_BLUE_SUBFIELD": "d72be38cd5b475cabc8df66a887c2864fe57e3990ec54fc25cc044c1e18a4693",
+    "G_VISIBLE_BROWN_SPANDREL": "7cacffbb8b38a717df352a596a27874b57f24116a7596f52d75bd41ae65682c2"
+  },
+  "all_original_signatures_retained": true,
+  "hidden_original": [
+    "F_KEEP_WEB_F_ASSUMED_back_and_body"
+  ],
+  "exact_unchanged_five_polygons": 5,
+  "right_face_partition_area": 1644.5,
+  "source_right_face_area": 1644.5,
+  "new_coplanar_positive_area_conflicts": [],
+  "original_bbox": [
+    [
+      -35.5,
+      -14.5,
+      2.86102294921875e-06
+    ],
+    [
+      35.5,
+      14.5,
+      110.44999694824219
+    ]
+  ],
+  "H_bbox": [
+    [
+      -35.5,
+      -14.5,
+      2.86102294921875e-06
+    ],
+    [
+      35.5,
+      14.5,
+      110.44999694824219
+    ]
+  ],
+  "scope": {
+    "x": 29.649999618530273,
+    "y_glazing": [
+      0.35,
+      11.65
+    ],
+    "z": [
+      11,
+      70
+    ],
+    "depths_inward": [
+      0,
+      0.075,
+      0.1
+    ],
+    "column_count_schematic": 3,
+    "floor_period_inherited_approx": 4.1
+  },
+  "no_claim_of_scene_wide_intersection_free": true
+}
