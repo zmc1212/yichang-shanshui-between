@@ -1,0 +1,34 @@
+{
+  "identity": "roster19 Xinding scene1649140/media1455280",
+  "same_camera_faces_not_independent_views": true,
+  "sources": [
+    {
+      "url": "https://resource.720think.com/v/Data/upload/think720/201609/926204010/tiles/202204/1455280/vr/pano_f.jpg",
+      "sha256": "2e31488518f10472614210d91f3fd1079b73a1127a86a961fcdecafe13da28c7",
+      "use": "read-only exterior evidence; not embedded/distributed"
+    },
+    {
+      "url": "https://resource.720think.com/v/Data/upload/think720/201609/926204010/tiles/202204/1455280/f/l3/4/l3_f_4_6.jpg",
+      "sha256": "722d97edda33bf6a76dab4934151cf11813c4a010e51687fd3bb9b77c5ad4732",
+      "use": "read-only exterior evidence; not embedded/distributed"
+    },
+    {
+      "url": "https://resource.720think.com/v/Data/upload/think720/201609/926204010/tiles/202204/1455280/f/l3/4/l3_f_4_7.jpg",
+      "sha256": "fa6c30f44cafc937e905d4aa58ed5e3ec2c4eec6f82f39bf140d9d2e810eaf4e",
+      "use": "read-only exterior evidence; not embedded/distributed"
+    },
+    {
+      "url": "https://resource.720think.com/v/Data/upload/think720/201609/926204010/tiles/202204/1455280/f/l3/4/l3_f_4_8.jpg",
+      "sha256": "be491891809617a2c26a140b61b6c3ad366929993b2ad511d776ccc1ce8e9683",
+      "use": "read-only exterior evidence; not embedded/distributed"
+    }
+  ],
+  "base_native_library_zip": "libfile_fde3_f-25d8af2a1098819181bbaffc6ed54882_c853d26840d0819196e3746c99b28092",
+  "unknown": [
+    "actual dimensions",
+    "setback depth",
+    "roof closure",
+    "equipment",
+    "rear"
+  ]
+}

@@ -28,3 +28,7 @@ Current totals: {"light_bytes": 18982488, "light_triangles": 990156, "detail_byt
 ## Changle H incremental refinement
 
 #14 advances G to H only in six observed near-corner upper-podium bays. Other 22 selections and all registration files stay unchanged. Current totals: {"light_bytes": 18985536, "light_triangles": 990126, "detail_bytes": 45868384, "detail_triangles": 3565549}
+
+## 后续精修：鑫鼎 I
+第19项采用可见中央实心前冠和两侧玻璃外观槽的可逆补齐版本，新增240三角，旧H全部网格/材质/变换与总边界不改。图证与域界检查见 `19-refinement/` 和 `../../iterations/20261112-xinding-visible-crown.md`。真实进深/尺度、屋顶/后部仍HOLD。
+当前全部轻量档18,991,124字节/990,366三角；精细档45,873,232字节/3,565,789三角。初始web-asset-validation.json仍是历史导入快照，现行哈希以资产清单与逐次集成测试为准。

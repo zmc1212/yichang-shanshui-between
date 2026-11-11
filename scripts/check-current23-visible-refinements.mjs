@@ -6,7 +6,7 @@ import {AUTHORED_MODELS,prepareAuthoredModel} from '../src/scene/authoredModels.
 const alphaName='J_OBSERVED_front_arc_transparent_glass_ALPHA_REQUIRED';
 const loader=new GLTFLoader().setMeshoptDecoder(MeshoptDecoder);
 const results=[];
-for(const order of [9,13,14,20])for(const tier of ['light','detail']){
+for(const order of [9,13,14,19,20])for(const tier of ['light','detail']){
  const spec=AUTHORED_MODELS.find(s=>s.order===order);
  const bytes=fs.readFileSync(new URL('../public'+spec.assets[tier].split('?')[0],import.meta.url));
  const object=(await loader.parseAsync(bytes.buffer.slice(bytes.byteOffset,bytes.byteOffset+bytes.byteLength),'')).scene;

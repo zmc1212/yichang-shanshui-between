@@ -1,0 +1,22 @@
+{
+  "all_old_meshes_unchanged": true,
+  "count": 16,
+  "sha256_by_object": {
+    "H_ochre_joint": "f9da391b12fa6b3d7e48a2097bfc56315de457ec57a971158eaab849a0fb83a3",
+    "H_podium_bluegray": "c347a7814f803e94b0b82c01668ec2bb18024173e76d910bdd4f63ef233c3a7e",
+    "H_podium_frame": "0d2573fe0bd19c4d4761cdcfd440e0c085bc3a8962f53b0f033abc3b3e71bdd9",
+    "H_podium_gold_appearance": "5a4dfb3b02fd1022a5b6a1850778557cd2c1119661ae31af3cd14885c80db8b5",
+    "H_screen_light_frame": "30322ac42ff5204fe9414afb0d5f7c59f9d307e1526e20a51cb0964adff45b2a",
+    "HOLD_roof_geometry": "aa309ad9cc11d282e9b72ce860872eb07ad3fc5edf42400e4e8e7cdb804b1e40",
+    "HOLD_unobserved_neutral": "fe292f13dc6f66c8f1bba3d3249d8ce6b97238b00131ba1f69b51dfc9d6601bf",
+    "KEEP_TOWER_Xinding_Observed_blue_glass": "589a4fa2314ebf9b6ad66c5d41126f5980d8c32fb897b4ea594a5b4c43383766",
+    "KEEP_TOWER_Xinding_Observed_light_cladding": "d3457b472590fdf05151d4f2e02bd1ed353754d4b89433c7716c0c5e2fcde54a",
+    "Observed_pale_crown_backing_uncertain": "eeb29659bfeb4edda686ab5b4fafd06cf5ecc253f93591196359049aa0e0b956",
+    "OLD_PODIUM_Xinding_Frame_silver": "e48a2674d1db4446336eeae02ed10c525309bb314f79ccef1f655d7fc1d43186",
+    "OLD_PODIUM_Xinding_Observed_blue_glass": "32cff85381b12bc0871644bb54d44c26f4252c57b4c5e28ecc250973a2f1096d",
+    "OLD_PODIUM_Xinding_Observed_light_cladding": "87424d2cc71424b8e44a78f5a6beb7fafdd2d3462376c4998dd69423fcbea20c",
+    "OLD_PODIUM_Xinding_Observed_podium_ochre": "48d05efa6c2fe61f93ae5b3d60a3913a55afd43c5e7c216892e21ccd11ad74e1",
+    "RENDER_ONLY_ground": "a061eb04b1c9572e9cbf64e277e57d1e4713f28bf5d7489e7fffb3fc1eb92cf2",
+    "Visible_terrace_simplified": "086315e4d6affbeb6b33d40d807c72a1987ee18499f35f8956ea4c7eb7b66fa2"
+  }
+}

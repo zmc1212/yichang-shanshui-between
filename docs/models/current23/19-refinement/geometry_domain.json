@@ -1,0 +1,186 @@
+{
+  "old_new_visible_model_bounds_equal": true,
+  "bounds": [
+    [
+      -31.0,
+      31.270000457763672
+    ],
+    [
+      -31.270000457763672,
+      29.0
+    ],
+    [
+      0.0,
+      79.2249984741211
+    ]
+  ],
+  "new_min_z": 74.18000030517578,
+  "new_min_x_minus_y": 29.79769515991211,
+  "all_HOLD_faces_strictly_separated": true,
+  "face_checks": [
+    {
+      "mesh": "HOLD_unobserved_neutral",
+      "face": 0,
+      "separated_by": "height",
+      "gap": 65.18000030517578
+    },
+    {
+      "mesh": "HOLD_unobserved_neutral",
+      "face": 1,
+      "separated_by": "height",
+      "gap": 1.1800003051757812
+    },
+    {
+      "mesh": "HOLD_unobserved_neutral",
+      "face": 2,
+      "separated_by": "height",
+      "gap": 1.1800003051757812
+    },
+    {
+      "mesh": "HOLD_unobserved_neutral",
+      "face": 3,
+      "separated_by": "height",
+      "gap": 1.1800003051757812
+    },
+    {
+      "mesh": "HOLD_unobserved_neutral",
+      "face": 4,
+      "separated_by": "height",
+      "gap": 1.1800003051757812
+    },
+    {
+      "mesh": "HOLD_unobserved_neutral",
+      "face": 5,
+      "separated_by": "height",
+      "gap": 1.1800003051757812
+    },
+    {
+      "mesh": "HOLD_unobserved_neutral",
+      "face": 6,
+      "separated_by": "height",
+      "gap": 1.1800003051757812
+    },
+    {
+      "mesh": "HOLD_unobserved_neutral",
+      "face": 7,
+      "separated_by": "height",
+      "gap": 1.1800003051757812
+    },
+    {
+      "mesh": "HOLD_unobserved_neutral",
+      "face": 8,
+      "separated_by": "height",
+      "gap": 1.1800003051757812
+    },
+    {
+      "mesh": "HOLD_unobserved_neutral",
+      "face": 9,
+      "separated_by": "height",
+      "gap": 1.1800003051757812
+    },
+    {
+      "mesh": "HOLD_unobserved_neutral",
+      "face": 10,
+      "separated_by": "x_minus_y",
+      "gap": 6.22090990638592
+    },
+    {
+      "mesh": "HOLD_unobserved_neutral",
+      "face": 11,
+      "separated_by": "x_minus_y",
+      "gap": 6.22090990638592
+    },
+    {
+      "mesh": "HOLD_unobserved_neutral",
+      "face": 12,
+      "separated_by": "x_minus_y",
+      "gap": 6.22090990638592
+    },
+    {
+      "mesh": "HOLD_unobserved_neutral",
+      "face": 13,
+      "separated_by": "x_minus_y",
+      "gap": 6.22090990638592
+    },
+    {
+      "mesh": "HOLD_unobserved_neutral",
+      "face": 14,
+      "separated_by": "x_minus_y",
+      "gap": 6.22090990638592
+    },
+    {
+      "mesh": "HOLD_unobserved_neutral",
+      "face": 15,
+      "separated_by": "x_minus_y",
+      "gap": 21.070152311303417
+    },
+    {
+      "mesh": "HOLD_unobserved_neutral",
+      "face": 16,
+      "separated_by": "x_minus_y",
+      "gap": 21.070152311303417
+    },
+    {
+      "mesh": "HOLD_roof_geometry",
+      "face": 0,
+      "separated_by": "x_minus_y",
+      "gap": 6.22090990638592
+    },
+    {
+      "mesh": "HOLD_roof_geometry",
+      "face": 1,
+      "separated_by": "x_minus_y",
+      "gap": 6.22090990638592
+    },
+    {
+      "mesh": "HOLD_roof_geometry",
+      "face": 2,
+      "separated_by": "x_minus_y",
+      "gap": 6.22090990638592
+    },
+    {
+      "mesh": "HOLD_roof_geometry",
+      "face": 3,
+      "separated_by": "x_minus_y",
+      "gap": 6.22090990638592
+    },
+    {
+      "mesh": "HOLD_roof_geometry",
+      "face": 4,
+      "separated_by": "x_minus_y",
+      "gap": 6.22090990638592
+    },
+    {
+      "mesh": "HOLD_roof_geometry",
+      "face": 5,
+      "separated_by": "x_minus_y",
+      "gap": 6.22090990638592
+    },
+    {
+      "mesh": "HOLD_roof_geometry",
+      "face": 6,
+      "separated_by": "x_minus_y",
+      "gap": 21.070152311303417
+    },
+    {
+      "mesh": "HOLD_roof_geometry",
+      "face": 7,
+      "separated_by": "x_minus_y",
+      "gap": 21.070152311303417
+    }
+  ],
+  "new_domain": [
+    [
+      7.956464767456055,
+      21.998769760131836
+    ],
+    [
+      -21.998769760131836,
+      -7.956464767456055
+    ],
+    [
+      74.18000030517578,
+      78.81999969482422
+    ]
+  ]
+}
