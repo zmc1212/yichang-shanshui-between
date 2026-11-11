@@ -17,6 +17,10 @@ const RAMP_END = 25.35;
 const OUTER_END = 30.1;
 const RAMP_ZONE = [[32.9,PASSAGE_FRONT],[33.9,PASSAGE_FRONT],[33.9,RAMP_END],[32.9,RAMP_END]];
 const UNDERLAY_ZONE = [[32.9,RAMP_END],[36.8,RAMP_END],[36.8,OUTER_END],[32.9,OUTER_END]];
+// Current23 has a solid apron ending before the decorative rings. Its edge
+// is measured from BOTH decoded LOD triangle sets, not from the overall AABB.
+const CURRENT_PROFILE = {"SOURCE_SHA": "ec72dd6bdda9de345fccb6ba7da08eb76aadf3361a4ec9a67741145053c06c01", "ASSETS": {"light": "/models/current23/06/light.glb?v=c04302941156", "detail": "/models/current23/06/detail.glb?v=d065a63b258d"}, "SOURCE_BOUNDS": {"min": [-47, -0.41999998688697815, -19.5], "max": [47, 100.06999969482422, 29.799999237060547]}, "PASSAGE_FRONT": 27.500717184972686, "PASSAGE_TOP": -0.09975645499281255, "RAMP_END": 27.7};
+const LEGACY_PROFILE = {SOURCE_SHA,ASSETS,SOURCE_BOUNDS,PASSAGE_FRONT,PASSAGE_TOP,RAMP_END};
 const EPS = 1e-9;
 const mix = (a,b,t) => a+(b-a)*t;
 const clamp = (v,a,b) => Math.max(a,Math.min(b,v));
@@ -45,6 +49,10 @@ export function planInternationalStreetSite({data,authoredModels,authoredGround,
   const empty=reason=>({sites:[],stats:{streetFrontageConnections:0,streetFrontageConnected:false},reserveTree:()=>false,reason});
   const model=authoredModels.find(m=>m.id===ID);
   if(!model)return empty('missing-international-model');
+  const current=model.sourceModelSha256===CURRENT_PROFILE.SOURCE_SHA;
+  const {SOURCE_SHA,ASSETS,SOURCE_BOUNDS,PASSAGE_FRONT,PASSAGE_TOP,RAMP_END}=current?CURRENT_PROFILE:LEGACY_PROFILE;
+  const RAMP_ZONE=[[32.9,PASSAGE_FRONT],[33.9,PASSAGE_FRONT],[33.9,RAMP_END],[32.9,RAMP_END]];
+  const UNDERLAY_ZONE=[[32.9,RAMP_END],[36.8,RAMP_END],[36.8,OUTER_END],[32.9,OUTER_END]];
   if(model.sourceModelSha256!==SOURCE_SHA||Object.keys(ASSETS).some(k=>model.assets?.[k]!==ASSETS[k])||JSON.stringify(model.sourceBounds)!==JSON.stringify(SOURCE_BOUNDS))return empty('unreviewed-source-geometry');
   const units=Number(data.meta.unitsPerMeter)||.02,scale=model.uniformScale;
   if(!Number.isFinite(scale)||scale<=0||!Number.isFinite(model.yaw))return empty('invalid-source-frame');
@@ -125,14 +133,14 @@ export function planInternationalStreetSite({data,authoredModels,authoredGround,
     if(!safe(points,.006,zone,cellSurface))return false;
     site.paving.push({points,role,surface:cellSurface,...(zone?{clearedModelId:ID,sourceClearanceZone:zone}:{}),sourcePoints:nativePoints.map(p=>[...p])});return true;
   };
-  // Four shallow slabs leave the actual passage's front edge at its retained
-  // height, between the inner and outer inlay rings. They reach the underlay
-  // height before the first decorative ring is encountered.
+  // Four shallow slabs leave the reviewed source edge at its retained height.
+  // Current23 uses the NEW solid apron edge; legacy uses the old passage.
+  // The remaining paving never overlays the current solid apron interior.
   for(let i=0;i<4;i++){
     const z0=mix(PASSAGE_FRONT,RAMP_END,i/4),z1=mix(PASSAGE_FRONT,RAMP_END,(i+1)/4);
     if(!addCell([[32.9,z0],[33.9,z0],[33.9,z1],[32.9,z1]],'connection','source-ramp',departureSurface))return empty('source-ramp-conflict');
   }
-  const underlaySections=[[[32.9,RAMP_END],[33.9,RAMP_END]],[[32.9,27.7],[36.8,27.7]],[[32.9,OUTER_END],[36.8,OUTER_END]]];
+  const underlaySections=current?[[[32.9,RAMP_END],[33.9,RAMP_END]],[[32.9,OUTER_END],[36.8,OUTER_END]]]:[[[32.9,RAMP_END],[33.9,RAMP_END]],[[32.9,27.7],[36.8,27.7]],[[32.9,OUTER_END],[36.8,OUTER_END]]];
   for(let i=1;i<underlaySections.length;i++)if(!addCell([underlaySections[i-1][0],underlaySections[i-1][1],underlaySections[i][1],underlaySections[i][0]],'connection','retained-inlay-underlay',underlaySurface))return empty('inlay-underlay-conflict');
   // The remaining rise occurs outside the complete native source envelope.
   // A short perpendicular join would be steep because the existing road and
@@ -197,16 +205,26 @@ export function planInternationalStreetSite({data,authoredModels,authoredGround,
       grade:(roadSurface(...toWorld([60,30.8]))-underlayHeight)/((60-36.8)*scale)},
     sidewalk:{nativeX:[22,62.4],widthMetres:3.6,roadSourceId:road.osmId,roadWidth:road.width,joinedWorldEdge:[outerPoint(60),outerPoint(61.4)]},
     start:[...start],end:[...end],notes:'展示连接，保留原薄环；组团候选定位与相对布局待核，不代表现场入口、实测道路或无障碍通道。'};
+  if(current){
+    site.connectionEvidence.method='current23-existing-apron-edge-to-same-side-source-road';
+    site.connectionEvidence.passage={material:'Light stone paving',topSourceY:PASSAGE_TOP,
+      joinedSourceEdge:[[32.9,PASSAGE_TOP,PASSAGE_FRONT],[33.9,PASSAGE_TOP,PASSAGE_FRONT]],worldTopHeight:passageHeight};
+    site.connectionEvidence.intendedRegions=site.connectionEvidence.intendedRegions.filter(r=>!['inlay-underlay-taper','inlay-underlay-exit'].includes(r.name));
+    site.connectionEvidence.intendedRegions.splice(1,0,{name:'post-apron-inlay-underlay',nativePolygon:[[32.9,RAMP_END],[33.9,RAMP_END],[36.8,OUTER_END],[32.9,OUTER_END]],heightRule:'source-flat',sourceY:UNDERLAY_Y});
+    site.connectionEvidence.retainedInlayUnderlay={nativePolygon:[[32.9,RAMP_END],[33.9,RAMP_END],[36.8,OUTER_END],[32.9,OUTER_END]],sourceY:UNDERLAY_Y,method:'bounded-post-apron-display-paving',retainedGeometryChanged:false,filledCircleAssumed:false};
+    site.connectionEvidence.notes='展示连接，仅从当前模型既有铺装的实际外缘接出，未推定建筑门口。保留原模型与配准；现场入口、绝对尺度及无障碍适用性仍未核验。';
+    site.connectionEvidence.geometryValidation='scripts/check-current23-international-frontage.mjs';
+  }
   const viewCenter=toWorld([44,29.6]),viewNativeDirection=[.8,1.6,1.7];
   // Fit the long ground subject itself instead of a square around its anchor.
   // These points affect only inspection framing, never the accepted geometry.
   const framePoints=site.paving.flatMap(cell=>cell.points.map(([x,z])=>[x,cell.surface(x,z),z]));
   framePoints.push(...site.lamps.map(lamp=>[lamp.x,lamp.y+6*units,lamp.z]));
   const sourceFramePoint=(x,y,z)=>{const p=toWorld([x,z]);return[p[0],sourceY(y),p[1]];};
-  for(const x of [32.80037608530704,37.20000076293945])for(const z of [17,PASSAGE_FRONT])framePoints.push(sourceFramePoint(x,PASSAGE_TOP,z));
+  for(const x of [32.80037608530704,37.20000076293945])for(const z of [current?26:17,PASSAGE_FRONT])framePoints.push(sourceFramePoint(x,PASSAGE_TOP,z));
   // The union of both retained LODs' decorative-ring bounds, at their actual
   // low heights, keeps all three original rings visible without framing towers.
-  for(const x of [32.20024671515856,45.79999923706055])for(const y of [-.10555536251796079,-.08958575252055755])for(const z of [16.19949069868115,29.80038156096331])framePoints.push(sourceFramePoint(x,y,z));
+  if(!current)for(const x of [32.20024671515856,45.79999923706055])for(const y of [-.10555536251796079,-.08958575252055755])for(const z of [16.19949069868115,29.80038156096331])framePoints.push(sourceFramePoint(x,y,z));
   site.frontageView={center:[viewCenter[0],mix(underlayHeight,roadSurface(...viewCenter),.5),viewCenter[1]],span:1.45,
     direction:[c*viewNativeDirection[0]+s*viewNativeDirection[2],viewNativeDirection[1],-s*viewNativeDirection[0]+c*viewNativeDirection[2]],framePoints};
   return{sites:[site],stats:{streetFrontageConnections:1,streetFrontageConnected:true,streetFrontagePavingCells:site.paving.length,streetFrontageSourceRampGrade:site.connectionEvidence.sourceRamp.grade,streetFrontageExternalRampGrade:site.connectionEvidence.externalRamp.grade},reserveTree(x,z){

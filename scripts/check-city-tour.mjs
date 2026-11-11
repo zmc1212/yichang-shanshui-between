@@ -533,11 +533,19 @@ check('Street itinerary frames current source roads and complete models without 
   const plan = planStreetDetails(input);
   const observations = planStreetObservations({ models, roads: city.roads,
     heightAt: input.heightAt, inWater, unitsPerMeter: city.meta.unitsPerMeter });
-  // The new source geometry invalidated the old internal passage. A separate
-  // observation camera must never be used as a reason to waive that guard.
-  assert.equal(planInternationalStreetSite(input).reason, 'unreviewed-source-geometry');
-  assert.equal(plan.stats.streetFrontageConnections, 0);
-  assert.equal(plan.streetViews.length, 0, 'the unsupported old streetscape surfaces remain disabled');
+  // Current23 has its own triangle-verified apron-edge profile. The independent
+  // observation camera is still not permission to accept unreviewed geometry.
+  const frontage = planInternationalStreetSite(input);
+  assert.equal(frontage.sites[0]?.connectionEvidence.method, 'current23-existing-apron-edge-to-same-side-source-road');
+  assert.equal(plan.stats.streetFrontageConnections, 1);
+  assert.equal(plan.streetViews.length, 1, 'only the reviewed International frontage is restored');
+  const international = models.find(model => model.id === 'yichang-international-s01');
+  for (const mutation of [{sourceModelSha256: 'unreviewed'},
+    {assets: {...international.assets, light: '/unreviewed.glb'}},
+    {sourceBounds: {...international.sourceBounds, min: [-999, ...international.sourceBounds.min.slice(1)]}}]) {
+    const changed = {...input, authoredModels: models.map(model => model.id === international.id ? {...model, ...mutation} : model)};
+    assert.equal(planInternationalStreetSite(changed).reason, 'unreviewed-source-geometry');
+  }
   const streetStops = CITY_TOURS.find(route => route.id === 'streets').stops;
   assert.equal(streetStops.filter(stop => stop.angle === 'street').length, 2);
   for (const stop of streetStops) {

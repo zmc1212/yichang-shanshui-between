@@ -1,0 +1,26 @@
+{
+  "scope": "Actual decoded current23 LODs + emitted Float32 renderer geometry; no GPU/field/accessibility certification",
+  "pavingCells": 41,
+  "renderedTriangles": 82,
+  "maximumRenderedSlope": 0.15187201728524824,
+  "reports": [
+    {
+      "tier": "light",
+      "sha256": "c04302941156f3ed1c654176afd7c988b3fb3431a025dbf8e5afdfa927999d58",
+      "triangles": 169528,
+      "checked": 3,
+      "intersections": 0,
+      "minimumNonnegativeGap": 4.622674104615143e-8,
+      "departureSupportArea": 0.050000000000001
+    },
+    {
+      "tier": "detail",
+      "sha256": "d065a63b258d8fdc2240c7812da276ffe02cde939200e8cbb6763b1e33202519",
+      "triangles": 739940,
+      "checked": 6,
+      "intersections": 0,
+      "minimumNonnegativeGap": 4.622674104615143e-8,
+      "departureSupportArea": 0.050000000000000606
+    }
+  ]
+}
