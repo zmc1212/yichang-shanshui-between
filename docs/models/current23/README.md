@@ -24,3 +24,7 @@ Current totals: {"light_bytes": 18982488, "light_triangles": 990156, "detail_byt
 ## Xuguang I incremental refinement
 
 #20 advances H to I: bounded upper-endwall pale panel seams and reversible same-union source frame de-overlap repair. Other 22 selections and all geographic registrations remain unchanged. Current totals: {"light_bytes": 18975096, "light_triangles": 989674, "detail_bytes": 45858996, "detail_triangles": 3565189}
+
+## Changle H incremental refinement
+
+#14 advances G to H only in six observed near-corner upper-podium bays. Other 22 selections and all registration files stay unchanged. Current totals: {"light_bytes": 18985536, "light_triangles": 990126, "detail_bytes": 45868384, "detail_triangles": 3565549}

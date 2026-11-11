@@ -1411,7 +1411,7 @@
   "1649146": {
     "order": 14,
     "name": "长乐大厦",
-    "stage": "长乐G运营低基部完整候选",
+    "stage": "长乐H近角六跨上裙房运营外观候选",
     "sourceBounds": {
       "min": [
         -20.489999771118164,
@@ -1425,35 +1425,35 @@
       ]
     },
     "assets": {
-      "light": "/models/current23/14/light.glb?v=4141aa7dd5a7",
-      "detail": "/models/current23/14/detail.glb?v=bec58a1d82ee"
+      "light": "/models/current23/14/light.glb?v=83c149cd087e",
+      "detail": "/models/current23/14/detail.glb?v=cff5304cf38c"
     },
     "webBudget": {
       "light": {
-        "bytes": 500144,
-        "triangles": 30596,
-        "primitives": 13,
-        "vertices": 76593,
-        "sha256": "4141aa7dd5a77e7cf06026db4d4a68b1a13f52d27acbc8852cb4e945db4cea4b",
+        "bytes": 510584,
+        "triangles": 31048,
+        "primitives": 17,
+        "vertices": 77507,
+        "sha256": "83c149cd087e31393d36e4ab88295b003df1e193de08301ccaa429b07fe01694",
         "bounds": {
           "min": [
             -20.489999771118164,
             -0.00019224795939498662,
-            -18.369999502087012
+            -18.369998931884766
           ],
           "max": [
-            18.369999885559082,
+            18.370176033892914,
             112.2300033569336,
             20.49022613266353
           ]
         }
       },
       "detail": {
-        "bytes": 572156,
-        "triangles": 47974,
-        "primitives": 13,
-        "vertices": 96050,
-        "sha256": "bec58a1d82ee42c749372503ea47f91e3b7695020e374508aaae1353669914bd",
+        "bytes": 581544,
+        "triangles": 48334,
+        "primitives": 17,
+        "vertices": 96674,
+        "sha256": "cff5304cf38ca87953776c4d632d990df1df0134eb653cf5c4f5bb7ad1e2f257",
         "bounds": {
           "min": [
             -20.489999771118164,
@@ -1468,8 +1468,8 @@
         }
       }
     },
-    "sourceModelSha256": "246992c6281da235e1f999330d7814ff318e9e47da89de070afe848c1abcac06",
-    "sourceSelectionFile": "assets/14/current/Changle_G_StreetBase.glb",
+    "sourceModelSha256": "1fa7453ed3f7b2871d356ce3b11fbbb65b9aa2a023a03b19f9508ffc81739649",
+    "sourceSelectionFile": "Changle_H_UpperPodiumOperation.glb",
     "modelNotesUrl": "/models/current23/14/README.txt",
     "holds": {
       "identity": false,
@@ -1478,9 +1478,13 @@
       "geographic_registration": "HOLD_LATEST_SITE_NOT_VERIFIED",
       "absolute_scale": "HOLD_NO_NEW_SURVEY_OR_SCALE_CERTIFICATION",
       "capture_date": "UNKNOWN_UNLESS_EXPLICIT_SOURCE_DOC_QUALIFICATION",
-      "scope_and_remaining_holds": "G以F整栋为基底补两向低部柱/玻璃大域/转角玻璃和局部挑檐。照片低部压入旧z0–4.5显示域，非真实比例/层高；上裙房仍F旧阶段代理，未完整适配运营阶段。原10网格完整保留，展示副本裁切封口；上域核等仅覆盖完整在z4.9以上的原世界定向多边形。两末端窗沿旧F可见域，树后不补；背顶/隐藏侧/尺度/地理配准HOLD。原点及塔高112.2300033569336保持，新檐扩大平面包络。"
+      "scope_and_remaining_holds": "H仅将前/左近角各三跨上裙房重登记白芯板、蓝玻璃顶帽/窄侧边及深框。原G三合并网格隐藏保留，展示副本域外1356完整定向世界多边形及材质精确保留，低部/塔身/原点总高不变。其余十跨旧代理、G低部高度压缩与分跨比例HOLD继续；不是裙房整体完成。照片摄年、真实深度/尺寸、树后及背面未知，不加字牌/入口。"
     },
-    "sourceVersion": "长乐G运营低基部完整候选"
+    "sourceVersion": "长乐H近角六跨上裙房运营外观候选",
+    "sourceRecovery": {
+      "filename": "Changle_H_UpperPodiumOperation_Delivery.zip",
+      "library_file_id": "libfile_fde3_f-e56904b057ac8191bc9b38d926ead0ff_c853d26840d0819196e3746c99b28092"
+    }
   },
   "1649147": {
     "order": 17,

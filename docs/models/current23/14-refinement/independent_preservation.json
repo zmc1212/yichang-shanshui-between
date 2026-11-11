@@ -1,0 +1,35 @@
+{
+  "all_original_mesh_geometry_materials_exact": 24,
+  "only_original_visibility_changes": [
+    "G_upper_preserved_Changle_Observed_white_stone",
+    "G_upper_preserved_F_green_perimeter_and_visible_glass_proxy",
+    "F_fine_stone_joints_APPROX_DENSITY"
+  ],
+  "unmodified_original_visibility_preserved": 21,
+  "replacement_checks": [
+    {
+      "original": "G_upper_preserved_Changle_Observed_white_stone",
+      "outside_oriented_world_polygons_exact": 96,
+      "removed_polygons": 36,
+      "removed_faces_absent_from_visible_copy": true,
+      "every_removed_face_within_six_bay_prisms": true
+    },
+    {
+      "original": "G_upper_preserved_F_green_perimeter_and_visible_glass_proxy",
+      "outside_oriented_world_polygons_exact": 60,
+      "removed_polygons": 36,
+      "removed_faces_absent_from_visible_copy": true,
+      "every_removed_face_within_six_bay_prisms": true
+    },
+    {
+      "original": "F_fine_stone_joints_APPROX_DENSITY",
+      "outside_oriented_world_polygons_exact": 1200,
+      "removed_polygons": 396,
+      "removed_faces_absent_from_visible_copy": true,
+      "every_removed_face_within_six_bay_prisms": true
+    }
+  ],
+  "G_lower_columns_glass_canopy_hangers_unchanged": true,
+  "no_tower_translation_or_scale_change": true,
+  "remaining_ten_legacy_upper_bays_preserved": true
+}
