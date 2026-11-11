@@ -562,10 +562,11 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
   function renderScene({ time = performance.now(), settled = !tween } = {}) {
     camera.updateMatrixWorld();
     lodFrustum.setFromProjectionMatrix(lodProjection.multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse));
-    streetDetails.update({ pixelsPerUnit: heightPx / (2 * baseHalfHeight) * camera.zoom, frustum: lodFrustum,
+    const streetVisibilityChanged = streetDetails.update({ pixelsPerUnit: heightPx / (2 * baseHalfHeight) * camera.zoom, frustum: lodFrustum,
       enabled: streetDetailsEnabled, treesEnabled: layers.trees.visible });
-    urbanStreetGround.update({ pixelsPerUnit: heightPx / (2 * baseHalfHeight) * camera.zoom, frustum: lodFrustum,
+    const urbanVisibilityChanged = urbanStreetGround.update({ pixelsPerUnit: heightPx / (2 * baseHalfHeight) * camera.zoom, frustum: lodFrustum,
       enabled: streetDetailsEnabled, treesEnabled: layers.trees.visible });
+    if (streetVisibilityChanged || urbanVisibilityChanged) renderer.shadowMap.needsUpdate = true;
     focusedSunShadow.update({ target: controls.target, camera, visibleHeight: 2 * baseHalfHeight / camera.zoom,
       aspect: widthPx / heightPx, sunOffset, settled, time });
     traffic.update(0, { pixelsPerUnit: heightPx / (2 * baseHalfHeight) * camera.zoom, frustum: lodFrustum,

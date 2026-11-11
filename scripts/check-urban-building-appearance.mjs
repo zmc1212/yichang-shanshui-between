@@ -78,8 +78,8 @@ assert(shader.fragmentShader.includes('fwidth(urbanUv)'), 'window filtering is b
 assert(shader.fragmentShader.indexOf('float urbanWindows') < shader.fragmentShader.indexOf('totalEmissiveRadiance += vec3(1.0, .72, .38)'), 'night emission uses a previously declared facade mask');
 assert.equal(shader.uniforms.uUrbanUnits.value, .02);
 appearance.setEnvironment({ timeOfDay: 'night', weather: 'mist' });
-assert.equal(shader.uniforms.uUrbanLampStrength.value, .34);
-appearance.setEnvironment({ timeOfDay: 'sunset' }); assert.equal(shader.uniforms.uUrbanLampStrength.value, .075);
+assert.equal(shader.uniforms.uUrbanLampStrength.value, .24);
+appearance.setEnvironment({ timeOfDay: 'sunset' }); assert.equal(shader.uniforms.uUrbanLampStrength.value, .055);
 appearance.setEnvironment({ timeOfDay: 'day' }); assert.equal(shader.uniforms.uUrbanLampStrength.value, 0);
 assert.equal(appearance.getStats().additionalDrawCalls, 0); assert.equal(appearance.getStats().textures, 0);
 assert.equal(appearance.getStats().materials, 1);

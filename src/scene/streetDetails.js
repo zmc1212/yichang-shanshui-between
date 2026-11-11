@@ -400,7 +400,7 @@ function combine(parts) {
 function box(w,h,d,x=0,y=0,z=0){const g=new THREE.BoxGeometry(w,h,d);g.translate(x,y,z);return g;}
 function instances(name,geometry,material,items,parent,transform) {
   if(!items.length){geometry.dispose();return null;}
-  const mesh=new THREE.InstancedMesh(geometry,material,items.length),dummy=new THREE.Object3D();mesh.name=name;mesh.castShadow=false;mesh.receiveShadow=true;
+  const mesh=new THREE.InstancedMesh(geometry,material,items.length),dummy=new THREE.Object3D();mesh.name=name;mesh.castShadow=/tree trunks|tree crowns/.test(name);mesh.receiveShadow=true;
   items.forEach((item,i)=>{dummy.position.set(item.x,item.y,item.z);dummy.rotation.set(0,item.angle||0,0);dummy.scale.set(1,1,1);transform?.(dummy,item,i);dummy.updateMatrix();mesh.setMatrixAt(i,dummy.matrix);});
   mesh.instanceMatrix.needsUpdate=true;mesh.computeBoundingSphere();parent.add(mesh);return mesh;
 }

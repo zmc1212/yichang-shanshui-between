@@ -302,7 +302,7 @@ export function createUrbanStreetGround(plan, { heightAt = () => 0, makeMaterial
     if (!items.length) { geometry.dispose(); return null; }
     const value = new THREE.InstancedMesh(geometry, mat, items.length), dummy = new THREE.Object3D(), color = new THREE.Color();
     for (let i = 0; i < items.length; i++) { const item = items[i]; dummy.position.set(item.x, item.y, item.z); dummy.rotation.set(0, -item.angle, 0); dummy.scale.setScalar(1); dummy.updateMatrix(); value.setMatrixAt(i, dummy.matrix); if (vary) { color.setHSL(.22 + (i % 5) * .008, .19 + (i % 3) * .02, .77 + (i % 4) * .035); value.setColorAt(i, color); } }
-    value.name = name; value.instanceMatrix.needsUpdate = true; if (value.instanceColor) value.instanceColor.needsUpdate = true; value.receiveShadow = true; value.castShadow = false; value.computeBoundingSphere(); parent.add(value); return value;
+    value.name = name; value.instanceMatrix.needsUpdate = true; if (value.instanceColor) value.instanceColor.needsUpdate = true; value.receiveShadow = true; value.castShadow = /tree trunks|tree crowns/.test(name); value.computeBoundingSphere(); parent.add(value); return value;
   }
   if (plan.cells.length) mesh('continuous stone paving strips', surfaceGeometry(plan.cells, heightAt, URBAN_STREET_LIMITS.pavingLift), materials.paving, pavingGroup);
   if (plan.curbs.length) mesh('thin roadside curbs', curbsGeometry(plan.curbs, heightAt, URBAN_STREET_LIMITS.pavingLift, URBAN_STREET_LIMITS.curbHeightMetres * unit), materials.curb, pavingGroup);
