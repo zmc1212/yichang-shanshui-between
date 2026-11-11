@@ -1,8 +1,8 @@
 {
-  "id": "business-1649134",
-  "sourceFilename": "Lijing_I_VisibleLeftMidfield.glb",
-  "sourceSha256": "71e1f78d9dba91f0b7e831b5c504fd07d523a060761a5932703001ac5fa8bc9b",
-  "sourceBytes": 1341988,
+  "id": "1649134",
+  "sourceFilename": "Lijing_J_UpperSideFieldsCandidate.glb",
+  "sourceSha256": "58f8d605ec74bf5d39d2825eb7662b10f1862e19cea2dcf25a3c154266a74c9b",
+  "sourceBytes": 1393852,
   "nativeChanged": false,
   "removedPresentationNodes": [],
   "preserveAlphaMaterials": [],
@@ -16,11 +16,11 @@
   "validationScope": "Binary readback and envelope checks; no claim of surveyed geometry, real-scene acceptance, browser/WebGL visual QA, or device performance measurement.",
   "tiers": {
     "light": {
-      "triangles": 14460,
-      "vertices": 36023,
-      "primitives": 19,
-      "indexedPrimitives": 19,
-      "materials": 19,
+      "triangles": 14740,
+      "vertices": 36695,
+      "primitives": 20,
+      "indexedPrimitives": 20,
+      "materials": 20,
       "images": [],
       "estimatedTextureBytesRGBA8WithMipmaps": 0,
       "bounds": {
@@ -35,8 +35,8 @@
           14.500425704605984
         ]
       },
-      "bytes": 248784,
-      "sha256": "825a0af92a8a6bb9b866950002d007e5f1944ff828bf45df69c0550c35c908fd",
+      "bytes": 254780,
+      "sha256": "fb5668035e05b0e0701d3c2f87da7707f494951aacb1b1e926563a465ac46947",
       "maxEnvelopeDelta": 0.000736951980805145,
       "extensionsRequired": [
         "EXT_meshopt_compression",
@@ -48,11 +48,11 @@
       ]
     },
     "detail": {
-      "triangles": 23112,
-      "vertices": 43264,
-      "primitives": 19,
-      "indexedPrimitives": 19,
-      "materials": 19,
+      "triangles": 23943,
+      "vertices": 44325,
+      "primitives": 20,
+      "indexedPrimitives": 20,
+      "materials": 20,
       "images": [],
       "estimatedTextureBytesRGBA8WithMipmaps": 0,
       "bounds": {
@@ -67,8 +67,8 @@
           14.500425704605984
         ]
       },
-      "bytes": 273144,
-      "sha256": "58795d6326abde9fc1b5155adab5ac9fd51b3c9195dd2cd0d8cbfe2f4c2da75b",
+      "bytes": 281108,
+      "sha256": "e552b09d24b7e5ebfd2f79f565aba06753d42b6834934f9eca5c96f4426d6557",
       "maxEnvelopeDelta": 0.000736951980805145,
       "extensionsRequired": [
         "EXT_meshopt_compression",
@@ -92,5 +92,5 @@
       14.5
     ]
   },
-  "sourceTriangles": 23112
+  "sourceTriangles": 23943
 }

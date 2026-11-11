@@ -1,0 +1,29 @@
+{
+  "gallery": "https://mfang.58.com/yc/xinfang/xq100636292/huxingtu/",
+  "references": [
+    {
+      "source_image_id": "e9b12a9108c711541cd8e603ff7a7ced",
+      "research_name": "ajk_0_large.jpg",
+      "sha256": "5ab6b7dede33fa64641f5ecb7764df65babb37f52301619f000bff2bf92dd229",
+      "dimensions": [
+        675,
+        900
+      ],
+      "included": false,
+      "role": "independent left-view photo; date/author unknown"
+    },
+    {
+      "source_image_id": "6775d6a358a136a25183cb63bfde5bca",
+      "research_name": "ajk_1_large.jpg",
+      "sha256": "264c4404da2e6e222772f8959317c89ef14226d041b29a88d5daf4a93525c3aa",
+      "dimensions": [
+        675,
+        900
+      ],
+      "included": false,
+      "role": "independent left-view photo; date/author unknown"
+    }
+  ],
+  "right_H_photo_not_used_as_left_geometry_evidence": true,
+  "no_photos_in_package": true
+}

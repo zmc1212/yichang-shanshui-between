@@ -1,0 +1,31 @@
+{
+  "page": "https://tw.trip.com/hotels/yichang-hotel-detail-122202624/my-hotel/photo.html",
+  "right_image": "https://aw-d.tripcdn.com/images/1mc3o12000he7x3cqCE84.jpg",
+  "daylight_gallery": "https://mfang.58.com/yc/xinfang/xq100636292/huxingtu/",
+  "daylight_ids": [
+    "e9b12a9108c711541cd8e603ff7a7ced",
+    "6775d6a358a136a25183cb63bfde5bca"
+  ],
+  "files": [
+    {
+      "local_research_name": "lijing_07.jpg",
+      "sha256": "3a13be48ec6587e7bce4444db1b748f798d74ff0a902e73ff7f595467d16bd4f",
+      "included": false,
+      "role": "right-side direct reference"
+    },
+    {
+      "local_research_name": "ajk_0_large.jpg",
+      "sha256": "5ab6b7dede33fa64641f5ecb7764df65babb37f52301619f000bff2bf92dd229",
+      "included": false,
+      "role": "left-side daylight corroboration of shared front anchors only"
+    },
+    {
+      "local_research_name": "ajk_1_large.jpg",
+      "sha256": "264c4404da2e6e222772f8959317c89ef14226d041b29a88d5daf4a93525c3aa",
+      "included": false,
+      "role": "left-side daylight corroboration of shared front anchors only"
+    }
+  ],
+  "capture_dates_unknown": true,
+  "no_reference_photos_in_delivery": true
+}
