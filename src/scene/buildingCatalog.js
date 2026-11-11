@@ -1,6 +1,7 @@
 import registry from '../data/business-registry.json' with { type: 'json' };
 import models from '../data/business-models.json' with { type: 'json' };
-import registrations from '../data/business-registrations.json' with { type: 'json' };
+import registrations from '../data/current23-registrations.json' with { type: 'json' };
+import currentModels from '../data/current23-models.json' with { type: 'json' };
 import { SHOUXIN_REGISTRATION } from './authoredPlacement.js';
 
 const shouxin={
@@ -14,33 +15,36 @@ const shouxin={
   modelNotesUrl:'/models/shouxin-s01/README.txt',registrationUrl:'/models/shouxin-s01/REGISTRATION.txt',
 };
 
+// The source registry remains exactly 23 projects. Only the selected default
+// is placed; alternative study/time-period models must never be stacked here.
 export const BUSINESS_BUILDINGS=registry.rows.map(row=>{
-  const model=row.sourceSceneId==='1649136'?shouxin:models[row.sourceSceneId];
-  const registration=row.sourceSceneId==='1649136'?SHOUXIN_REGISTRATION:registrations[row.sourceSceneId];
-  const available=Boolean(model?.assets?.light&&registration&&!model.previewOnly);
-  const modelStatus=available?'available':model?.assets?.light&&model.coverage
-    ? model.coverage.identity==='unconfirmed'?'identity-review':'partial-ready'
-    :model?'registration-pending':'recovery-pending';
+  const previous=row.sourceSceneId==='1649136'?shouxin:models[row.sourceSceneId];
+  const current=currentModels[row.sourceSceneId];
+  const registration=registrations[row.sourceSceneId];
+  if(!current?.assets?.light||!registration)throw new Error(`缺少沙盘接入资料 ${row.sourceSceneId}`);
   const name=registry.displayNames[row.sourceSceneId]||row.sourceName;
-  const evidence=registry.recoveryEvidence[row.sourceSceneId];
+  const approximate=Boolean(registration.approximate);
+  const holdText=[current.holds?.identity_note,current.holds?.scope_and_remaining_holds].filter(Boolean).join(' ');
+  const shortStages={1:'S05',2:'S09',3:'E',4:'S01',5:'E',6:'运营入口 r3',7:'S01',8:'E',9:'I',10:'H',11:'F',12:'F',13:'H',14:'G',15:'F',16:'G',17:'F',18:'H',19:'H',20:'H',21:'F',22:'I',23:'G'};
   return {
-    id:model?.id||`business-${row.sourceSceneId}`,name,business:true,
+    ...(previous||{}), ...current,
+    id:previous?.id||`business-${row.sourceSceneId}`,name,business:true,
     sourceName:row.sourceName,sourceSceneId:row.sourceSceneId,
     sourceMarkerId:row.sourceMarkerId,order:row.order,
     aliases:[...new Set([row.sourceName,...row.aliases])],
-    category:'商务楼宇',kind:available?'authored':'business-poi',
-    placement:available?'city':'poi',
-    modelStatus,
-    sourcePeriod:row.sourcePeriod,
-    sourceUrl:registry.sourceUrl,
+    category:'商务楼宇',kind:'authored',placement:'city',previewOnly:false,
+    modelStatus:'available',approximatePlacement:approximate,
+    stage:`${shortStages[current.order]} · ${approximate?'近似落位':'外观候选'}`,
+    sourcePeriod:row.sourcePeriod,sourceUrl:registry.sourceUrl,
     location:`宜昌 · 伍家岗区${row.sourceAddress}`,
-    lon:row.convertedMarkerWgs84[0],lat:row.convertedMarkerWgs84[1],
+    lon:registration.anchorLonLat[0],lat:registration.anchorLonLat[1],
     sourceMarker:{coordinateSystem:'GCJ-02',lonLat:row.sourceMarkerLonLat,sceneId:row.sourceSceneId},
-    registration:registration||{label:'导览参考位置 · 楼体轮廓待核准',coordinateSystem:'WGS84',anchorLonLat:row.convertedMarkerWgs84},
-    subtitle:model?.subtitle||'沿着城市导图，认识伍家岗的楼宇。',
-    description:model?.description||`${name}是原伍家岗商务楼宇导图中的一处楼宇项目。这里先保留导览参考位置，方便在江岸与街区中查找。恢复可用模型后，将继续校准楼体轮廓和朝向。`,
-    caveat:model?.caveat||`${evidence||'当前尚未恢复到可直接使用的原生模型或网页文件。'}导览点已经转换到沙盘坐标系，但不等于精确楼体中心；原导图反映历史资料，不代表当前经营状态。`,
-    ...(model||{}),
+    registration,
+    subtitle:previous?.subtitle||'让建筑回到街区，在沙盘中查看完整候选。',
+    description:previous?.description||`${name}已接入沙盘，采用最新默认外观候选。位置与展示比例的核实边界见模型说明。`,
+    caveat:`${approximate?'原导图参考点附近展示，位置、朝向及高度为展示候选，并非已核准的真实楼心或测绘尺寸。':'保留原地图配准；新模型采用同一等比变换，新增裙房和入口仍需实景复核。'} ${holdText}`,
+    coverage:{title:'最新默认外观候选',scope:current.stage,missing:holdText||'真实尺寸、隐藏面及拍摄时期待核',identity:current.holds?.identity?'unconfirmed':'matched'},
+    inspectionPresets:!approximate,
   };
 });
 

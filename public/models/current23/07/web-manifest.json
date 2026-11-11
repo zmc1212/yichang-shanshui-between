@@ -1,0 +1,58 @@
+{
+  "id": "current23-07",
+  "sourcePolicy": "Exact retained current light/detail pair; source native unchanged",
+  "sourceBounds": {
+    "min": [
+      -20.43000030517578,
+      0,
+      -14.0649995803833
+    ],
+    "max": [
+      20.43000030517578,
+      97.94000244140625,
+      14.065000534057617
+    ]
+  },
+  "tiers": {
+    "light": {
+      "bytes": 987872,
+      "triangles": 74072,
+      "primitives": 18,
+      "vertices": 43231,
+      "sha256": "1028fc22f1183409992724a2e341ee2d556124dab7e7885e3daa264f50ef6064",
+      "bounds": {
+        "min": [
+          -20.43000030517578,
+          0,
+          -14.0649995803833
+        ],
+        "max": [
+          20.43000030517578,
+          97.94000244140625,
+          14.065000534057617
+        ]
+      }
+    },
+    "detail": {
+      "bytes": 1498684,
+      "triangles": 117844,
+      "primitives": 19,
+      "vertices": 63839,
+      "sha256": "d038cc3053db606d991763ef733d24299278d3466ab7fb25a3c1f86fd1f18674",
+      "bounds": {
+        "min": [
+          -20.43000030517578,
+          0,
+          -14.0649995803833
+        ],
+        "max": [
+          20.43000030517578,
+          97.94000244140625,
+          14.065000534057617
+        ]
+      }
+    }
+  },
+  "sourceModelSha256": "1028fc22f1183409992724a2e341ee2d556124dab7e7885e3daa264f50ef6064",
+  "validationScope": "Decoded positions, indices, world bounds, dependency checks; no independent visual QA."
+}

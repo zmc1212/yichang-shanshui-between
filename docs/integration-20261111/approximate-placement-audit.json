@@ -1,0 +1,2260 @@
+{
+  "schemaVersion": 1,
+  "projectId": "appgprj_6af0b8d6dbec81919ea6c30c51e88270",
+  "basedOnSourceCommit": "b85eb6d8fa96c5b2d11dc7caf3713bcf56c17914",
+  "warning": "These are display anchors, not verified footprints or centres. Nearby map features are hypotheses, never automatic identity or deletion permission. Keep existing seven registrations untouched.",
+  "count": 16,
+  "records": [
+    {
+      "order": 1,
+      "sourceSceneId": "1649135",
+      "name": "美联御峰写字楼",
+      "anchorLonLat": [
+        111.29235941587233,
+        30.6880967795452
+      ],
+      "sourceAddress": "沿江大道130号",
+      "method": "original-tour-poi-converted-to-wgs84-display-only",
+      "confidence": "approximate-poi-not-building-centre",
+      "coordinateSystem": "WGS84",
+      "replaceSourceFeatureIds": [],
+      "suppressBackgroundReplacement": true,
+      "label": "原导图附近展示 · 方位/尺寸待核",
+      "orientationPolicy": "do-not-infer-front-from-nearest-footprint",
+      "scalePolicy": "uniform-display-only-not-survey",
+      "nearbyMapCandidates": [
+        {
+          "sourceFeatureId": "d8498ab6-a277-40e8-84db-ca8b2660ed9c",
+          "containsMarker": true,
+          "boundaryDistanceMeters": 0.0,
+          "vertexMeanWgs84": [
+            111.29235164798057,
+            30.68822245863155
+          ],
+          "areaSquareMeters": 2183.8,
+          "mapHeightMeters": 12.0,
+          "longestEdgeYawRadians": 2.5296451390816777,
+          "longestEdgeBearingDeg": 305.0620098648357,
+          "ringWgs84": [
+            [
+              111.29252113820486,
+              30.687932078215958
+            ],
+            [
+              111.29272692910895,
+              30.688184055653153
+            ],
+            [
+              111.29218215775627,
+              30.688512839047142
+            ],
+            [
+              111.29197636685218,
+              30.688260861609947
+            ]
+          ]
+        },
+        {
+          "sourceFeatureId": "678b9d23-4785-4d23-bdfe-ee0826584d10",
+          "containsMarker": false,
+          "boundaryDistanceMeters": 60.94,
+          "vertexMeanWgs84": [
+            111.2927755041193,
+            30.68870283272973
+          ],
+          "areaSquareMeters": 2190.7,
+          "mapHeightMeters": 12.0,
+          "longestEdgeYawRadians": -0.6110470122785244,
+          "longestEdgeBearingDeg": 125.01041488763803,
+          "ringWgs84": [
+            [
+              111.29294525549957,
+              30.68841222773532
+            ],
+            [
+              111.29315104640366,
+              30.688664205172515
+            ],
+            [
+              111.29260627505097,
+              30.688993886881786
+            ],
+            [
+              111.29239943952301,
+              30.68874101112931
+            ]
+          ]
+        },
+        {
+          "sourceFeatureId": "cb5fb8bd-f969-4669-8f32-d9e6f16bff95",
+          "containsMarker": false,
+          "boundaryDistanceMeters": 70.23,
+          "vertexMeanWgs84": [
+            111.29312806467833,
+            30.687727679406134
+          ],
+          "areaSquareMeters": 573.4,
+          "mapHeightMeters": 12.0,
+          "longestEdgeYawRadians": -0.6084853228330683,
+          "longestEdgeBearingDeg": 124.86364089399018,
+          "ringWgs84": [
+            [
+              111.2930732219247,
+              30.68784089921462
+            ],
+            [
+              111.29305703025459,
+              30.687822034593655
+            ],
+            [
+              111.29303613777701,
+              30.687827873643002
+            ],
+            [
+              111.29295413480254,
+              30.68772726233118
+            ],
+            [
+              111.29301211142781,
+              30.687692228035097
+            ],
+            [
+              111.29299435282186,
+              30.68767111762592
+            ],
+            [
+              111.29315104640366,
+              30.68757724367873
+            ],
+            [
+              111.29318238512002,
+              30.687614972920663
+            ],
+            [
+              111.29321320152444,
+              30.687596108299697
+            ],
+            [
+              111.29330094993024,
+              30.68770390613379
+            ],
+            [
+              111.29326595503031,
+              30.68772501654297
+            ],
+            [
+              111.29328423594818,
+              30.68774702526743
+            ],
+            [
+              111.29314321172457,
+              30.68783191606178
+            ],
+            [
+              111.2931249308067,
+              30.687809907337318
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "order": 9,
+      "sourceSceneId": "1649141",
+      "name": "兴发广场写字楼",
+      "anchorLonLat": [
+        111.32522959614468,
+        30.68191051044286
+      ],
+      "sourceAddress": "中南路35号",
+      "method": "original-tour-poi-converted-to-wgs84-display-only",
+      "confidence": "approximate-poi-not-building-centre",
+      "coordinateSystem": "WGS84",
+      "replaceSourceFeatureIds": [],
+      "suppressBackgroundReplacement": true,
+      "label": "原导图附近展示 · 方位/尺寸待核",
+      "orientationPolicy": "do-not-infer-front-from-nearest-footprint",
+      "scalePolicy": "uniform-display-only-not-survey",
+      "nearbyMapCandidates": [
+        {
+          "sourceFeatureId": "a77f7fde-01ed-4777-89ad-78a2d88d015c",
+          "containsMarker": true,
+          "boundaryDistanceMeters": 0.0,
+          "vertexMeanWgs84": [
+            111.32532089163483,
+            30.681793159998403
+          ],
+          "areaSquareMeters": 439.0,
+          "mapHeightMeters": 12.0,
+          "longestEdgeYawRadians": 2.705418023386051,
+          "longestEdgeBearingDeg": 294.9909654413538,
+          "ringWgs84": [
+            [
+              111.3254821554461,
+              30.681730109494396
+            ],
+            [
+              111.32551976190572,
+              30.681800178086558
+            ],
+            [
+              111.32520376318244,
+              30.681926840541617
+            ],
+            [
+              111.32516093360343,
+              30.68184823795426
+            ],
+            [
+              111.3252309234033,
+              30.68181994102281
+            ],
+            [
+              111.32519906237499,
+              30.68176289800227
+            ],
+            [
+              111.32536776913139,
+              30.6816959735136
+            ],
+            [
+              111.32540276403132,
+              30.6817611013717
+            ]
+          ]
+        },
+        {
+          "sourceFeatureId": "fc455256-d3b1-4943-9c68-201eb77deabd",
+          "containsMarker": false,
+          "boundaryDistanceMeters": 32.41,
+          "vertexMeanWgs84": [
+            111.3256576522577,
+            30.68166200596692
+          ],
+          "areaSquareMeters": 438.2,
+          "mapHeightMeters": 12.0,
+          "longestEdgeYawRadians": 2.7067767578705153,
+          "longestEdgeBearingDeg": 294.9131156899151,
+          "ringWgs84": [
+            [
+              111.32581904664694,
+              30.68159805714763
+            ],
+            [
+              111.32585665310657,
+              30.681669024055076
+            ],
+            [
+              111.32554065438329,
+              30.681795237352496
+            ],
+            [
+              111.32549782480427,
+              30.681717083922777
+            ],
+            [
+              111.32556676998026,
+              30.68168923614897
+            ],
+            [
+              111.32553595357584,
+              30.68163219312843
+            ],
+            [
+              111.32570466033224,
+              30.681565268639762
+            ],
+            [
+              111.32573965523217,
+              30.681629947340216
+            ]
+          ]
+        },
+        {
+          "sourceFeatureId": "165ee583-8ac2-413a-9692-717b2a7a9092",
+          "containsMarker": false,
+          "boundaryDistanceMeters": 46.25,
+          "vertexMeanWgs84": [
+            111.32561599788053,
+            30.682288580877593
+          ],
+          "areaSquareMeters": 440.3,
+          "mapHeightMeters": 12.0,
+          "longestEdgeYawRadians": 2.706776757870506,
+          "longestEdgeBearingDeg": 294.9131156899157,
+          "ringWgs84": [
+            [
+              111.32577673937986,
+              30.682225081215947
+            ],
+            [
+              111.32581486815143,
+              30.68229604812339
+            ],
+            [
+              111.32549886942815,
+              30.68242226142081
+            ],
+            [
+              111.32545603984913,
+              30.682344107991092
+            ],
+            [
+              111.325526029649,
+              30.682316260217284
+            ],
+            [
+              111.32549469093264,
+              30.682257869723816
+            ],
+            [
+              111.32566287537709,
+              30.68219094523515
+            ],
+            [
+              111.32569787027703,
+              30.68225607309325
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "order": 10,
+      "sourceSceneId": "1649139",
+      "name": "新华广场武银大厦",
+      "anchorLonLat": [
+        111.32791515836917,
+        30.678923751333667
+      ],
+      "sourceAddress": "城东大道93号",
+      "method": "original-tour-poi-converted-to-wgs84-display-only",
+      "confidence": "approximate-poi-not-building-centre",
+      "coordinateSystem": "WGS84",
+      "replaceSourceFeatureIds": [],
+      "suppressBackgroundReplacement": true,
+      "label": "原导图附近展示 · 方位/尺寸待核",
+      "orientationPolicy": "do-not-infer-front-from-nearest-footprint",
+      "scalePolicy": "uniform-display-only-not-survey",
+      "nearbyMapCandidates": [
+        {
+          "sourceFeatureId": "5c4bb2f4-a668-4578-a986-cebec237fdb4",
+          "containsMarker": false,
+          "boundaryDistanceMeters": 12.8,
+          "vertexMeanWgs84": [
+            111.32852991090088,
+            30.67908996087437
+          ],
+          "areaSquareMeters": 4550.9,
+          "mapHeightMeters": 30.0,
+          "longestEdgeYawRadians": -0.4119524147076126,
+          "longestEdgeBearingDeg": 113.60313472296923,
+          "ringWgs84": [
+            [
+              111.32835434880029,
+              30.67920808933423
+            ],
+            [
+              111.32815691488723,
+              30.679291183498012
+            ],
+            [
+              111.32801327910393,
+              30.679001925976525
+            ],
+            [
+              111.32909028632275,
+              30.67859723494103
+            ],
+            [
+              111.32926682775823,
+              30.678939942221923
+            ],
+            [
+              111.32850111845522,
+              30.67923593710804
+            ],
+            [
+              111.32848231522541,
+              30.679202250284884
+            ],
+            [
+              111.32837419665398,
+              30.67924312363031
+            ]
+          ]
+        },
+        {
+          "sourceFeatureId": "6519d5ab-62a4-43a3-9a61-a894e91c824e",
+          "containsMarker": false,
+          "boundaryDistanceMeters": 13.66,
+          "vertexMeanWgs84": [
+            111.32835199839656,
+            30.67911526342154
+          ],
+          "areaSquareMeters": 1890.2,
+          "mapHeightMeters": 130.0,
+          "longestEdgeYawRadians": -0.406774077950898,
+          "longestEdgeBearingDeg": 113.30643788191202,
+          "ringWgs84": [
+            [
+              111.32837524127785,
+              30.67924222531503
+            ],
+            [
+              111.32835434880029,
+              30.67920808933423
+            ],
+            [
+              111.32815900413499,
+              30.679288039394518
+            ],
+            [
+              111.32802111378301,
+              30.679005968395305
+            ],
+            [
+              111.32852305555667,
+              30.678820017131493
+            ],
+            [
+              111.32867922682652,
+              30.67912724095866
+            ]
+          ]
+        },
+        {
+          "sourceFeatureId": "1e992c14-d4d4-40ad-8a1f-89651262a7b2",
+          "containsMarker": false,
+          "boundaryDistanceMeters": 22.58,
+          "vertexMeanWgs84": [
+            111.32766855322399,
+            30.679295899653255
+          ],
+          "areaSquareMeters": 847.8,
+          "mapHeightMeters": 12.0,
+          "longestEdgeYawRadians": -0.3957050105907448,
+          "longestEdgeBearingDeg": 112.67222703902922,
+          "ringWgs84": [
+            [
+              111.32766541935236,
+              30.679331158528157
+            ],
+            [
+              111.32769832500453,
+              30.679401227120316
+            ],
+            [
+              111.32754319835855,
+              30.67945602435265
+            ],
+            [
+              111.32743299053936,
+              30.679230996373978
+            ],
+            [
+              111.32779808658493,
+              30.679099842342495
+            ],
+            [
+              111.32787329950419,
+              30.679256149201933
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "order": 11,
+      "sourceSceneId": "1649144",
+      "name": "长江国际文化广场",
+      "anchorLonLat": [
+        111.32594679038543,
+        30.679035466631458
+      ],
+      "sourceAddress": "城东大道112号",
+      "method": "original-tour-poi-converted-to-wgs84-display-only",
+      "confidence": "approximate-poi-not-building-centre",
+      "coordinateSystem": "WGS84",
+      "replaceSourceFeatureIds": [],
+      "suppressBackgroundReplacement": true,
+      "label": "原导图附近展示 · 方位/尺寸待核",
+      "orientationPolicy": "do-not-infer-front-from-nearest-footprint",
+      "scalePolicy": "uniform-display-only-not-survey",
+      "nearbyMapCandidates": [
+        {
+          "sourceFeatureId": "c85333eb-52af-44e1-a246-7fd0db5d3670",
+          "containsMarker": false,
+          "boundaryDistanceMeters": 16.12,
+          "vertexMeanWgs84": [
+            111.32640749131332,
+            30.67841363311719
+          ],
+          "areaSquareMeters": 10610.4,
+          "mapHeightMeters": 40.0,
+          "longestEdgeYawRadians": -1.1784137296490942,
+          "longestEdgeBearingDeg": 157.51813322916348,
+          "ringWgs84": [
+            [
+              111.32580807809622,
+              30.678851907324077
+            ],
+            [
+              111.3257041380203,
+              30.678771058948506
+            ],
+            [
+              111.32570883882775,
+              30.678709973509186
+            ],
+            [
+              111.3260086458809,
+              30.67808699185965
+            ],
+            [
+              111.32629278357588,
+              30.677966168453935
+            ],
+            [
+              111.32675189577053,
+              30.67786016725041
+            ],
+            [
+              111.32700469474914,
+              30.677874091137316
+            ],
+            [
+              111.32717862462492,
+              30.678034889573173
+            ],
+            [
+              111.32731129185751,
+              30.678312019838323
+            ],
+            [
+              111.32717078994584,
+              30.678444970500372
+            ],
+            [
+              111.3264405978547,
+              30.678687964784725
+            ],
+            [
+              111.32601491362418,
+              30.67888289920138
+            ],
+            [
+              111.3259020942453,
+              30.67889412814243
+            ]
+          ]
+        },
+        {
+          "sourceFeatureId": "6f68a793-71b6-4724-9bbe-de388501e95b",
+          "containsMarker": false,
+          "boundaryDistanceMeters": 64.39,
+          "vertexMeanWgs84": [
+            111.32554154231359,
+            30.678253853923675
+          ],
+          "areaSquareMeters": 1647.8,
+          "mapHeightMeters": 12.0,
+          "longestEdgeYawRadians": 1.9742153600947085,
+          "longestEdgeBearingDeg": 336.8857920166732,
+          "ringWgs84": [
+            [
+              111.32557408234742,
+              30.678544234339267
+            ],
+            [
+              111.3254941686207,
+              30.67850111520563
+            ],
+            [
+              111.32539075085671,
+              30.678304833316048
+            ],
+            [
+              111.32533904197473,
+              30.678157060451813
+            ],
+            [
+              111.32533590810309,
+              30.678081152810304
+            ],
+            [
+              111.32550200329979,
+              30.678007940114647
+            ],
+            [
+              111.3256618307532,
+              30.678007940114647
+            ],
+            [
+              111.3257480122232,
+              30.67816110287059
+            ],
+            [
+              111.32575793615004,
+              30.67823925630031
+            ],
+            [
+              111.32561168880704,
+              30.6785339037135
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "order": 12,
+      "sourceSceneId": "1649148",
+      "name": "致远广场",
+      "anchorLonLat": [
+        111.32446243388668,
+        30.663012575245475
+      ],
+      "sourceAddress": "沿江大道189号",
+      "method": "original-tour-poi-converted-to-wgs84-display-only",
+      "confidence": "approximate-poi-not-building-centre",
+      "coordinateSystem": "WGS84",
+      "replaceSourceFeatureIds": [],
+      "suppressBackgroundReplacement": true,
+      "label": "原导图附近展示 · 方位/尺寸待核",
+      "orientationPolicy": "do-not-infer-front-from-nearest-footprint",
+      "scalePolicy": "uniform-display-only-not-survey",
+      "nearbyMapCandidates": [
+        {
+          "sourceFeatureId": "b23117b9-a6a4-40f7-9cc0-307a23eaaf98",
+          "containsMarker": true,
+          "boundaryDistanceMeters": 0.0,
+          "vertexMeanWgs84": [
+            111.3245167924043,
+            30.66304447784825
+          ],
+          "areaSquareMeters": 962.1,
+          "mapHeightMeters": 75.0,
+          "longestEdgeYawRadians": -0.9017025877884494,
+          "longestEdgeBearingDeg": 141.66375265630273,
+          "ringWgs84": [
+            [
+              111.32476397652957,
+              30.662904116085105
+            ],
+            [
+              111.324416116778,
+              30.663284103450287
+            ],
+            [
+              111.32426882481111,
+              30.663184839611393
+            ],
+            [
+              111.32461825149849,
+              30.662804852246207
+            ]
+          ]
+        },
+        {
+          "sourceFeatureId": "231a3850-279b-4a05-94a7-bb6360f037d9",
+          "containsMarker": false,
+          "boundaryDistanceMeters": 48.62,
+          "vertexMeanWgs84": [
+            111.32497799384669,
+            30.662497852997863
+          ],
+          "areaSquareMeters": 960.1,
+          "mapHeightMeters": 70.0,
+          "longestEdgeYawRadians": 2.237286153434075,
+          "longestEdgeBearingDeg": 321.81294584516917,
+          "ringWgs84": [
+            [
+              111.32522517797196,
+              30.662357042077076
+            ],
+            [
+              111.32487679590845,
+              30.662737927757544
+            ],
+            [
+              111.32473107087739,
+              30.662638214761003
+            ],
+            [
+              111.32507893062896,
+              30.66225822739582
+            ]
+          ]
+        },
+        {
+          "sourceFeatureId": "bf394f9d-1b77-4a5a-b273-810a1f591262",
+          "containsMarker": false,
+          "boundaryDistanceMeters": 54.49,
+          "vertexMeanWgs84": [
+            111.32454356089117,
+            30.663768070809606
+          ],
+          "areaSquareMeters": 1840.0,
+          "mapHeightMeters": 198.0,
+          "longestEdgeYawRadians": -2.5590057345909343,
+          "longestEdgeBearingDeg": 236.62022834183543,
+          "ringWgs84": [
+            [
+              111.324854858807,
+              30.663717091417233
+            ],
+            [
+              111.32461198375523,
+              30.664034196712528
+            ],
+            [
+              111.32423226297536,
+              30.66381905020198
+            ],
+            [
+              111.32447513802713,
+              30.663501944906685
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "order": 13,
+      "sourceSceneId": "1649137",
+      "name": "外滩领馆",
+      "anchorLonLat": [
+        111.32138594139299,
+        30.666348934458373
+      ],
+      "sourceAddress": "沿江大道188号",
+      "method": "original-tour-poi-converted-to-wgs84-display-only",
+      "confidence": "approximate-poi-not-building-centre",
+      "coordinateSystem": "WGS84",
+      "replaceSourceFeatureIds": [],
+      "suppressBackgroundReplacement": true,
+      "label": "原导图附近展示 · 方位/尺寸待核",
+      "orientationPolicy": "do-not-infer-front-from-nearest-footprint",
+      "scalePolicy": "uniform-display-only-not-survey",
+      "nearbyMapCandidates": [
+        {
+          "sourceFeatureId": "775dde1a-9750-4308-942c-a1d1907d0652",
+          "containsMarker": true,
+          "boundaryDistanceMeters": 0.0,
+          "vertexMeanWgs84": [
+            111.32141425948487,
+            30.666307608117812
+          ],
+          "areaSquareMeters": 1082.7,
+          "mapHeightMeters": 96.0,
+          "longestEdgeYawRadians": 2.3869855769381982,
+          "longestEdgeBearingDeg": 313.2358006828414,
+          "ringWgs84": [
+            [
+              111.32153556643277,
+              30.666080109772107
+            ],
+            [
+              111.32168599227128,
+              30.666217102852936
+            ],
+            [
+              111.321292691381,
+              30.666535106463517
+            ],
+            [
+              111.32114278785443,
+              30.666398113382687
+            ]
+          ]
+        },
+        {
+          "sourceFeatureId": "c7a7fd7d-3090-4134-bf73-822a9707d4f3",
+          "containsMarker": false,
+          "boundaryDistanceMeters": 36.46,
+          "vertexMeanWgs84": [
+            111.32184908417433,
+            30.666177464691025
+          ],
+          "areaSquareMeters": 202.9,
+          "mapHeightMeters": 28.8,
+          "longestEdgeYawRadians": 2.54559022070234,
+          "longestEdgeBearingDeg": 304.14842398398014,
+          "ringWgs84": [
+            [
+              111.3219199880201,
+              30.66608684713674
+            ],
+            [
+              111.32197274152597,
+              30.66615422078305
+            ],
+            [
+              111.3217779191726,
+              30.66626785766649
+            ],
+            [
+              111.32172568797867,
+              30.666200933177823
+            ]
+          ]
+        },
+        {
+          "sourceFeatureId": "e89c0949-989f-409f-924b-3e178421d674",
+          "containsMarker": false,
+          "boundaryDistanceMeters": 46.28,
+          "vertexMeanWgs84": [
+            111.32209052286828,
+            30.66584965981904
+          ],
+          "areaSquareMeters": 2189.2,
+          "mapHeightMeters": 20.0,
+          "longestEdgeYawRadians": -3.1008744310296588,
+          "longestEdgeBearingDeg": 267.6670176980299,
+          "ringWgs84": [
+            [
+              111.32257705643973,
+              30.665984888351993
+            ],
+            [
+              111.32201295954529,
+              30.66596512541574
+            ],
+            [
+              111.32180664632926,
+              30.66612816963981
+            ],
+            [
+              111.32165674280269,
+              30.665988032455488
+            ],
+            [
+              111.32176799524576,
+              30.66589999755764
+            ],
+            [
+              111.32172882185031,
+              30.665864064946277
+            ],
+            [
+              111.3218855154321,
+              30.665739199121784
+            ],
+            [
+              111.32199467862742,
+              30.665736953333575
+            ],
+            [
+              111.32199363400353,
+              30.66567901199775
+            ],
+            [
+              111.32225949078064,
+              30.665674071263687
+            ],
+            [
+              111.32226105771646,
+              30.665736953333575
+            ],
+            [
+              111.3223070211671,
+              30.66573605501829
+            ],
+            [
+              111.32243342065642,
+              30.665878887148466
+            ],
+            [
+              111.32258227955911,
+              30.665883827882528
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "order": 14,
+      "sourceSceneId": "1649146",
+      "name": "长乐大厦",
+      "anchorLonLat": [
+        111.32263847158941,
+        30.665106113714582
+      ],
+      "sourceAddress": "沿江大道188-8号",
+      "method": "original-tour-poi-converted-to-wgs84-display-only",
+      "confidence": "approximate-poi-not-building-centre",
+      "coordinateSystem": "WGS84",
+      "replaceSourceFeatureIds": [],
+      "suppressBackgroundReplacement": true,
+      "label": "原导图附近展示 · 方位/尺寸待核",
+      "orientationPolicy": "do-not-infer-front-from-nearest-footprint",
+      "scalePolicy": "uniform-display-only-not-survey",
+      "nearbyMapCandidates": [
+        {
+          "sourceFeatureId": "6a65ed76-ad55-422c-b68f-a212b3571343",
+          "containsMarker": false,
+          "boundaryDistanceMeters": 8.98,
+          "vertexMeanWgs84": [
+            111.32296471636107,
+            30.665136699060728
+          ],
+          "areaSquareMeters": 1167.3,
+          "mapHeightMeters": 122.0,
+          "longestEdgeYawRadians": -0.910638505211777,
+          "longestEdgeBearingDeg": 142.17574301073682,
+          "ringWgs84": [
+            [
+              111.32309936837902,
+              30.66529093979501
+            ],
+            [
+              111.32301736540455,
+              30.665381220481063
+            ],
+            [
+              111.3227003220574,
+              30.665169218074013
+            ],
+            [
+              111.3229541656599,
+              30.664888045390082
+            ],
+            [
+              111.32305236030449,
+              30.664954071563464
+            ]
+          ]
+        },
+        {
+          "sourceFeatureId": "e89c0949-989f-409f-924b-3e178421d674",
+          "containsMarker": false,
+          "boundaryDistanceMeters": 72.89,
+          "vertexMeanWgs84": [
+            111.32209052286828,
+            30.66584965981904
+          ],
+          "areaSquareMeters": 2189.2,
+          "mapHeightMeters": 20.0,
+          "longestEdgeYawRadians": -3.1008744310296588,
+          "longestEdgeBearingDeg": 267.6670176980299,
+          "ringWgs84": [
+            [
+              111.32257705643973,
+              30.665984888351993
+            ],
+            [
+              111.32201295954529,
+              30.66596512541574
+            ],
+            [
+              111.32180664632926,
+              30.66612816963981
+            ],
+            [
+              111.32165674280269,
+              30.665988032455488
+            ],
+            [
+              111.32176799524576,
+              30.66589999755764
+            ],
+            [
+              111.32172882185031,
+              30.665864064946277
+            ],
+            [
+              111.3218855154321,
+              30.665739199121784
+            ],
+            [
+              111.32199467862742,
+              30.665736953333575
+            ],
+            [
+              111.32199363400353,
+              30.66567901199775
+            ],
+            [
+              111.32225949078064,
+              30.665674071263687
+            ],
+            [
+              111.32226105771646,
+              30.665736953333575
+            ],
+            [
+              111.3223070211671,
+              30.66573605501829
+            ],
+            [
+              111.32243342065642,
+              30.665878887148466
+            ],
+            [
+              111.32258227955911,
+              30.665883827882528
+            ]
+          ]
+        },
+        {
+          "sourceFeatureId": "8ec84e38-af14-479a-be6a-0a2bbab61d2d",
+          "containsMarker": false,
+          "boundaryDistanceMeters": 77.59,
+          "vertexMeanWgs84": [
+            111.32361436795117,
+            30.664821570059058
+          ],
+          "areaSquareMeters": 617.3,
+          "mapHeightMeters": 90.0,
+          "longestEdgeYawRadians": -0.20170794327584257,
+          "longestEdgeBearingDeg": 101.55701384397003,
+          "ringWgs84": [
+            [
+              111.32380814568064,
+              30.664718263801383
+            ],
+            [
+              111.32383896208506,
+              30.664851214463432
+            ],
+            [
+              111.32342111253364,
+              30.664924876316732
+            ],
+            [
+              111.32338925150533,
+              30.664791925654683
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "order": 15,
+      "sourceSceneId": "1649142",
+      "name": "兴发集团宜昌总部",
+      "anchorLonLat": [
+        111.32567183443425,
+        30.664566568685956
+      ],
+      "sourceAddress": "夷陵大道346号",
+      "method": "original-tour-poi-converted-to-wgs84-display-only",
+      "confidence": "approximate-poi-not-building-centre",
+      "coordinateSystem": "WGS84",
+      "replaceSourceFeatureIds": [],
+      "suppressBackgroundReplacement": true,
+      "label": "原导图附近展示 · 方位/尺寸待核",
+      "orientationPolicy": "do-not-infer-front-from-nearest-footprint",
+      "scalePolicy": "uniform-display-only-not-survey",
+      "nearbyMapCandidates": [
+        {
+          "sourceFeatureId": "cb86b304-1d1b-44b3-bf51-75d2edb32b99",
+          "containsMarker": false,
+          "boundaryDistanceMeters": 26.92,
+          "vertexMeanWgs84": [
+            111.32517973683323,
+            30.664267646396986
+          ],
+          "areaSquareMeters": 3242.1,
+          "mapHeightMeters": 22.9,
+          "longestEdgeYawRadians": -2.438470587239432,
+          "longestEdgeBearingDeg": 229.71407311560685,
+          "ringWgs84": [
+            [
+              111.32524398120178,
+              30.664627084800046
+            ],
+            [
+              111.32475718647434,
+              30.66427225026282
+            ],
+            [
+              111.32511601477664,
+              30.663907983415108
+            ],
+            [
+              111.32560176488019,
+              30.664263267109977
+            ]
+          ]
+        },
+        {
+          "sourceFeatureId": "f868e1b1-2194-4550-bb39-f352938058f2",
+          "containsMarker": false,
+          "boundaryDistanceMeters": 34.47,
+          "vertexMeanWgs84": [
+            111.32592533712659,
+            30.664857951828065
+          ],
+          "areaSquareMeters": 217.4,
+          "mapHeightMeters": 20.4,
+          "longestEdgeYawRadians": 2.2017539931299557,
+          "longestEdgeBearingDeg": 323.8487886675775,
+          "ringWgs84": [
+            [
+              111.32603998459726,
+              30.664787883235903
+            ],
+            [
+              111.32588276870354,
+              30.66497293618443
+            ],
+            [
+              111.32581068965591,
+              30.664928020420227
+            ],
+            [
+              111.32596790554963,
+              30.664742967471696
+            ]
+          ]
+        },
+        {
+          "sourceFeatureId": "4af5a8a7-4767-448a-aee6-4d9dcf30153e",
+          "containsMarker": false,
+          "boundaryDistanceMeters": 36.16,
+          "vertexMeanWgs84": [
+            111.32621635192876,
+            30.664838188891814
+          ],
+          "areaSquareMeters": 260.2,
+          "mapHeightMeters": 20.1,
+          "longestEdgeYawRadians": 0.517892982070393,
+          "longestEdgeBearingDeg": 60.326917887922036,
+          "ringWgs84": [
+            [
+              111.32638105429362,
+              30.664963054716306
+            ],
+            [
+              111.32622697227153,
+              30.664887147074797
+            ],
+            [
+              111.32624890937298,
+              30.664853909409285
+            ],
+            [
+              111.32599767733018,
+              30.664730840215363
+            ],
+            [
+              111.32601961443163,
+              30.66469805170749
+            ],
+            [
+              111.32642388387265,
+              30.66489613022764
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "order": 16,
+      "sourceSceneId": "1649134",
+      "name": "丽景国际综合楼",
+      "anchorLonLat": [
+        111.35325734611246,
+        30.645163385592564
+      ],
+      "sourceAddress": "伍临路3号",
+      "method": "original-tour-poi-converted-to-wgs84-display-only",
+      "confidence": "approximate-poi-not-building-centre",
+      "coordinateSystem": "WGS84",
+      "replaceSourceFeatureIds": [],
+      "suppressBackgroundReplacement": true,
+      "label": "原导图附近展示 · 方位/尺寸待核",
+      "orientationPolicy": "do-not-infer-front-from-nearest-footprint",
+      "scalePolicy": "uniform-display-only-not-survey",
+      "nearbyMapCandidates": [
+        {
+          "sourceFeatureId": "aae46deb-8c41-43fb-bd8d-0c3ae9dc21b3",
+          "containsMarker": true,
+          "boundaryDistanceMeters": 0.0,
+          "vertexMeanWgs84": [
+            111.35327740314528,
+            30.645138943194826
+          ],
+          "areaSquareMeters": 872.1,
+          "mapHeightMeters": 12.0,
+          "longestEdgeYawRadians": -2.402920094459061,
+          "longestEdgeBearingDeg": 227.6771799196813,
+          "ringWgs84": [
+            [
+              111.35324094577193,
+              30.64500024331496
+            ],
+            [
+              111.3535370966415,
+              30.645228864554767
+            ],
+            [
+              111.35338928236268,
+              30.645363162689744
+            ],
+            [
+              111.35305604734542,
+              30.645102202099707
+            ],
+            [
+              111.35316364360492,
+              30.64500024331496
+            ]
+          ]
+        },
+        {
+          "sourceFeatureId": "116c6cde-9647-4660-a322-59a2d62b02c8",
+          "containsMarker": false,
+          "boundaryDistanceMeters": 43.02,
+          "vertexMeanWgs84": [
+            111.35354649825642,
+            30.644689313937246
+          ],
+          "areaSquareMeters": 350.3,
+          "mapHeightMeters": 31.1,
+          "longestEdgeYawRadians": 2.089192956452508,
+          "longestEdgeBearingDeg": 330.29806100681253,
+          "ringWgs84": [
+            [
+              111.35350889179679,
+              30.644842139824956
+            ],
+            [
+              111.35341278639996,
+              30.644794079957254
+            ],
+            [
+              111.35358410471605,
+              30.644537161785998
+            ],
+            [
+              111.35368021011287,
+              30.64458387418077
+            ]
+          ]
+        },
+        {
+          "sourceFeatureId": "f8309abf-0907-4474-ad5a-c778c31bd194",
+          "containsMarker": false,
+          "boundaryDistanceMeters": 43.05,
+          "vertexMeanWgs84": [
+            111.35370763148968,
+            30.645487803935417
+          ],
+          "areaSquareMeters": 189.8,
+          "mapHeightMeters": 15.6,
+          "longestEdgeYawRadians": 0.5057649178329415,
+          "longestEdgeBearingDeg": 61.0218047823916,
+          "ringWgs84": [
+            [
+              111.35361022031302,
+              30.64540313771989
+            ],
+            [
+              111.35384317143793,
+              30.645514079657477
+            ],
+            [
+              111.35380504266637,
+              30.645572020993303
+            ],
+            [
+              111.35357209154144,
+              30.645461977370996
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "order": 17,
+      "sourceSceneId": "1649147",
+      "name": "中建·宜昌之星",
+      "anchorLonLat": [
+        111.3457424302751,
+        30.641061172586056
+      ],
+      "sourceAddress": "沿江大道与白沙路交汇处",
+      "method": "original-tour-poi-converted-to-wgs84-display-only",
+      "confidence": "approximate-poi-not-building-centre",
+      "coordinateSystem": "WGS84",
+      "replaceSourceFeatureIds": [],
+      "suppressBackgroundReplacement": true,
+      "label": "原导图附近展示 · 方位/尺寸待核",
+      "orientationPolicy": "do-not-infer-front-from-nearest-footprint",
+      "scalePolicy": "uniform-display-only-not-survey",
+      "nearbyMapCandidates": [
+        {
+          "sourceFeatureId": "cf96562d-ad02-4834-a626-f77c87c374bc",
+          "containsMarker": false,
+          "boundaryDistanceMeters": 118.32,
+          "vertexMeanWgs84": [
+            111.3456376508716,
+            30.642215166495763
+          ],
+          "areaSquareMeters": 537.0,
+          "mapHeightMeters": 50.2,
+          "longestEdgeYawRadians": 2.7575485553871895,
+          "longestEdgeBearingDeg": 292.0041059739169,
+          "ringWgs84": [
+            [
+              111.34551386294198,
+              30.642360094694933
+            ],
+            [
+              111.3454318599675,
+              30.64218492321453
+            ],
+            [
+              111.34562093688953,
+              30.642118897041147
+            ],
+            [
+              111.34566219953274,
+              30.64220693193899
+            ],
+            [
+              111.34577815278327,
+              30.642166058593563
+            ],
+            [
+              111.34581889311453,
+              30.642254093491406
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "order": 18,
+      "sourceSceneId": "1649128",
+      "name": "福久源大厦",
+      "anchorLonLat": [
+        111.35540554095843,
+        30.649714876702532
+      ],
+      "sourceAddress": "桔城路6号",
+      "method": "original-tour-poi-converted-to-wgs84-display-only",
+      "confidence": "approximate-poi-not-building-centre",
+      "coordinateSystem": "WGS84",
+      "replaceSourceFeatureIds": [],
+      "suppressBackgroundReplacement": true,
+      "label": "原导图附近展示 · 方位/尺寸待核",
+      "orientationPolicy": "do-not-infer-front-from-nearest-footprint",
+      "scalePolicy": "uniform-display-only-not-survey",
+      "nearbyMapCandidates": [
+        {
+          "sourceFeatureId": "69502f4d-f424-484d-9c05-935187363e06",
+          "containsMarker": false,
+          "boundaryDistanceMeters": 32.36,
+          "vertexMeanWgs84": [
+            111.35526182289625,
+            30.649289519133575
+          ],
+          "areaSquareMeters": 297.5,
+          "mapHeightMeters": 18.8,
+          "longestEdgeYawRadians": -1.7960118239891674,
+          "longestEdgeBearingDeg": 192.90389747017213,
+          "ringWgs84": [
+            [
+              111.35521894108604,
+              30.64925915607697
+            ],
+            [
+              111.35522520882931,
+              30.649286105535495
+            ],
+            [
+              111.35528684163815,
+              30.649273079963873
+            ],
+            [
+              111.35529989943663,
+              30.649326080565636
+            ],
+            [
+              111.35533123815298,
+              30.64931979235865
+            ],
+            [
+              111.35535892068577,
+              30.649425793562173
+            ],
+            [
+              111.35523722200392,
+              30.649450048074847
+            ],
+            [
+              111.35515991983691,
+              30.649159892238075
+            ],
+            [
+              111.35523617738004,
+              30.64914507003589
+            ],
+            [
+              111.35526385991282,
+              30.64925017292413
+            ]
+          ]
+        },
+        {
+          "sourceFeatureId": "140dd554-85a8-4d9e-81fb-490bb0ac62d9",
+          "containsMarker": false,
+          "boundaryDistanceMeters": 42.09,
+          "vertexMeanWgs84": [
+            111.3548966746195,
+            30.64946046853214
+          ],
+          "areaSquareMeters": 522.5,
+          "mapHeightMeters": 23.2,
+          "longestEdgeYawRadians": -1.9885808381939947,
+          "longestEdgeBearingDeg": 203.93728924910354,
+          "ringWgs84": [
+            [
+              111.35487787138969,
+              30.64961623640241
+            ],
+            [
+              111.35473110173474,
+              30.649331919614983
+            ],
+            [
+              111.35487421520611,
+              30.649276224067368
+            ],
+            [
+              111.35500009238348,
+              30.649509336883597
+            ],
+            [
+              111.35500009238348,
+              30.64956862569235
+            ]
+          ]
+        },
+        {
+          "sourceFeatureId": "4d946b8c-a1fe-453d-93a1-eea4ca552676",
+          "containsMarker": false,
+          "boundaryDistanceMeters": 47.68,
+          "vertexMeanWgs84": [
+            111.35604224398556,
+            30.650411544867282
+          ],
+          "areaSquareMeters": 5042.2,
+          "mapHeightMeters": 11.4,
+          "longestEdgeYawRadians": -2.0382780890657757,
+          "longestEdgeBearingDeg": 206.78473197745944,
+          "ringWgs84": [
+            [
+              111.35594077618615,
+              30.650157022203448
+            ],
+            [
+              111.35602486840838,
+              30.650120191276798
+            ],
+            [
+              111.3559971858756,
+              30.6500721314091
+            ],
+            [
+              111.35603897083074,
+              30.650052817630492
+            ],
+            [
+              111.35631475153468,
+              30.65052398399701
+            ],
+            [
+              111.35629124749742,
+              30.650588213539827
+            ],
+            [
+              111.35635392493013,
+              30.650606179845507
+            ],
+            [
+              111.35630587223172,
+              30.65073284230057
+            ],
+            [
+              111.35637899590321,
+              30.650753952709746
+            ],
+            [
+              111.35633512170033,
+              30.650872081169606
+            ],
+            [
+              111.35597211490251,
+              30.651031082974896
+            ],
+            [
+              111.35553285056156,
+              30.650282786343226
+            ],
+            [
+              111.35559813955398,
+              30.650109860651032
+            ],
+            [
+              111.35576580168649,
+              30.650157920518733
+            ],
+            [
+              111.35578303798049,
+              30.65011210643924
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "order": 19,
+      "sourceSceneId": "1649140",
+      "name": "鑫鼎大厦",
+      "anchorLonLat": [
+        111.364572628021,
+        30.630054365218708
+      ],
+      "sourceAddress": "伍临路33号",
+      "method": "original-tour-poi-converted-to-wgs84-display-only",
+      "confidence": "approximate-poi-not-building-centre",
+      "coordinateSystem": "WGS84",
+      "replaceSourceFeatureIds": [],
+      "suppressBackgroundReplacement": true,
+      "label": "原导图附近展示 · 方位/尺寸待核",
+      "orientationPolicy": "do-not-infer-front-from-nearest-footprint",
+      "scalePolicy": "uniform-display-only-not-survey",
+      "nearbyMapCandidates": [
+        {
+          "sourceFeatureId": "60ea23e5-0a4e-4156-a8a3-4f16caabeb4f",
+          "containsMarker": true,
+          "boundaryDistanceMeters": 0.0,
+          "vertexMeanWgs84": [
+            111.3646212524093,
+            30.63017325011214
+          ],
+          "areaSquareMeters": 2049.6,
+          "mapHeightMeters": 12.0,
+          "longestEdgeYawRadians": -0.9967485439969258,
+          "longestEdgeBearingDeg": 147.10948480683373,
+          "ringWgs84": [
+            [
+              111.36426016075526,
+              30.630505027890408
+            ],
+            [
+              111.3641118241645,
+              30.63042687446069
+            ],
+            [
+              111.3644387914385,
+              30.629992089863176
+            ],
+            [
+              111.36447796483395,
+              30.629975021872777
+            ],
+            [
+              111.36475687940953,
+              30.62994313168019
+            ],
+            [
+              111.36519979993405,
+              30.630209931319573
+            ],
+            [
+              111.36510108297753,
+              30.63032222073009
+            ],
+            [
+              111.36468375573803,
+              30.6300841671798
+            ],
+            [
+              111.36456101243229,
+              30.630100786012555
+            ]
+          ]
+        },
+        {
+          "sourceFeatureId": "c0b33cd6-4c5a-461a-99b3-37977d25e0e7",
+          "containsMarker": false,
+          "boundaryDistanceMeters": 2.55,
+          "vertexMeanWgs84": [
+            111.36461559402996,
+            30.630098764803165
+          ],
+          "areaSquareMeters": 3292.2,
+          "mapHeightMeters": 12.0,
+          "longestEdgeYawRadians": -1.0941146965839346,
+          "longestEdgeBearingDeg": 152.6881544174961,
+          "ringWgs84": [
+            [
+              111.36439178336396,
+              30.630191066698607
+            ],
+            [
+              111.36416823385395,
+              30.630523892511373
+            ],
+            [
+              111.36399012548264,
+              30.63043091687947
+            ],
+            [
+              111.36431082501338,
+              30.62989686844306
+            ],
+            [
+              111.3643432083536,
+              30.62988204624087
+            ],
+            [
+              111.3648070213557,
+              30.629817816698058
+            ],
+            [
+              111.36483574851236,
+              30.629829045639106
+            ],
+            [
+              111.36529486070701,
+              30.63017579533878
+            ],
+            [
+              111.36518987600721,
+              30.63030290695148
+            ],
+            [
+              111.36483313695267,
+              30.630081921391586
+            ],
+            [
+              111.36470412590366,
+              30.63001499690292
+            ],
+            [
+              111.36451818285327,
+              30.630037903942664
+            ]
+          ]
+        },
+        {
+          "sourceFeatureId": "8d67af62-741b-4314-9237-c6f1af91c249",
+          "containsMarker": false,
+          "boundaryDistanceMeters": 80.58,
+          "vertexMeanWgs84": [
+            111.36377323544986,
+            30.630819213661027
+          ],
+          "areaSquareMeters": 1404.1,
+          "mapHeightMeters": 32.7,
+          "longestEdgeYawRadians": -0.9836333536125722,
+          "longestEdgeBearingDeg": 146.35803975029967,
+          "ringWgs84": [
+            [
+              111.364055936787,
+              30.63062585129612
+            ],
+            [
+              111.36367517138325,
+              30.631119026387104
+            ],
+            [
+              111.3634897506448,
+              30.631013025183577
+            ],
+            [
+              111.36387208298436,
+              30.63051895177731
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "order": 20,
+      "sourceSceneId": "1649143",
+      "name": "旭光商贸大厦",
+      "anchorLonLat": [
+        111.32161881804507,
+        30.683174803986216
+      ],
+      "sourceAddress": "伍家岗区城东大道85号",
+      "method": "original-tour-poi-converted-to-wgs84-display-only",
+      "confidence": "approximate-poi-not-building-centre",
+      "coordinateSystem": "WGS84",
+      "replaceSourceFeatureIds": [],
+      "suppressBackgroundReplacement": true,
+      "label": "原导图附近展示 · 方位/尺寸待核",
+      "orientationPolicy": "do-not-infer-front-from-nearest-footprint",
+      "scalePolicy": "uniform-display-only-not-survey",
+      "nearbyMapCandidates": [
+        {
+          "sourceFeatureId": "a5b6851e-a457-4da5-b81b-32e6d8c803eb",
+          "containsMarker": true,
+          "boundaryDistanceMeters": 0.0,
+          "vertexMeanWgs84": [
+            111.32163898419675,
+            30.683120476975393
+          ],
+          "areaSquareMeters": 2282.4,
+          "mapHeightMeters": 12.0,
+          "longestEdgeYawRadians": -0.7390098026822292,
+          "longestEdgeBearingDeg": 132.3421427124875,
+          "ringWgs84": [
+            [
+              111.32176486137412,
+              30.683312941025015
+            ],
+            [
+              111.32160190004906,
+              30.68315887995379
+            ],
+            [
+              111.32130365993173,
+              30.6833928910853
+            ],
+            [
+              111.32113965398278,
+              30.683238830014076
+            ],
+            [
+              111.3217047955011,
+              30.682795960579003
+            ],
+            [
+              111.32184686434859,
+              30.68293025871398
+            ],
+            [
+              111.32178261998006,
+              30.68298011521225
+            ],
+            [
+              111.32196751840657,
+              30.683153939219725
+            ]
+          ]
+        },
+        {
+          "sourceFeatureId": "a4e8d0a2-8f46-474b-b7c7-fee733b77af1",
+          "containsMarker": false,
+          "boundaryDistanceMeters": 28.06,
+          "vertexMeanWgs84": [
+            111.3214854244866,
+            30.683528199824973
+          ],
+          "areaSquareMeters": 434.1,
+          "mapHeightMeters": 18.5,
+          "longestEdgeYawRadians": 0.8455311585942161,
+          "longestEdgeBearingDeg": 41.55463316574475,
+          "ringWgs84": [
+            [
+              111.32149900459702,
+              30.68366283482818
+            ],
+            [
+              111.32133186477644,
+              30.683502036392323
+            ],
+            [
+              111.32147184437618,
+              30.6833928910853
+            ],
+            [
+              111.32163898419675,
+              30.683555036994086
+            ]
+          ]
+        },
+        {
+          "sourceFeatureId": "c3c9eab5-b71c-4e2e-aa4f-5839dd59dd35",
+          "containsMarker": false,
+          "boundaryDistanceMeters": 58.64,
+          "vertexMeanWgs84": [
+            111.32176172750249,
+            30.683819029398208
+          ],
+          "areaSquareMeters": 546.0,
+          "mapHeightMeters": 12.0,
+          "longestEdgeYawRadians": 2.457696321198301,
+          "longestEdgeBearingDeg": 309.1843734705086,
+          "ringWgs84": [
+            [
+              111.32169591619814,
+              30.68396826202478
+            ],
+            [
+              111.32157891832374,
+              30.68384384535793
+            ],
+            [
+              111.32182753880684,
+              30.68367002135045
+            ],
+            [
+              111.32194453668124,
+              30.683793988859662
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "order": 21,
+      "sourceSceneId": "1649131",
+      "name": "光联大厦",
+      "anchorLonLat": [
+        111.35710234767856,
+        30.66119209488809
+      ],
+      "sourceAddress": "城东大137号",
+      "method": "original-tour-poi-converted-to-wgs84-display-only",
+      "confidence": "approximate-poi-not-building-centre",
+      "coordinateSystem": "WGS84",
+      "replaceSourceFeatureIds": [],
+      "suppressBackgroundReplacement": true,
+      "label": "原导图附近展示 · 方位/尺寸待核",
+      "orientationPolicy": "do-not-infer-front-from-nearest-footprint",
+      "scalePolicy": "uniform-display-only-not-survey",
+      "nearbyMapCandidates": [
+        {
+          "sourceFeatureId": "9b14a158-9e43-423b-bb94-de10b4e18bcc",
+          "containsMarker": false,
+          "boundaryDistanceMeters": 3.79,
+          "vertexMeanWgs84": [
+            111.35707993852576,
+            30.661360024401112
+          ],
+          "areaSquareMeters": 931.2,
+          "mapHeightMeters": 12.0,
+          "longestEdgeYawRadians": 2.846392635225277,
+          "longestEdgeBearingDeg": 286.91371516447117,
+          "ringWgs84": [
+            [
+              111.3572120834464,
+              30.661199113675845
+            ],
+            [
+              111.35729304179699,
+              30.661430879019147
+            ],
+            [
+              111.35694779360512,
+              30.661521159705202
+            ],
+            [
+              111.35686683525452,
+              30.66128894520426
+            ]
+          ]
+        },
+        {
+          "sourceFeatureId": "4cae26ed-16f3-49cd-a1f5-17cb3a9086cf",
+          "containsMarker": false,
+          "boundaryDistanceMeters": 27.95,
+          "vertexMeanWgs84": [
+            111.35783311234222,
+            30.661230386276674
+          ],
+          "areaSquareMeters": 2029.8,
+          "mapHeightMeters": 12.0,
+          "longestEdgeYawRadians": -0.30261895134734823,
+          "longestEdgeBearingDeg": 107.33878871287789,
+          "ringWgs84": [
+            [
+              111.35761583057547,
+              30.6612498684894
+            ],
+            [
+              111.35768999887085,
+              30.661456031847102
+            ],
+            [
+              111.35751815824283,
+              30.661501845926594
+            ],
+            [
+              111.35738914719381,
+              30.661145214758797
+            ],
+            [
+              111.35817209279082,
+              30.660935008982314
+            ],
+            [
+              111.35825775194887,
+              30.661172164217323
+            ],
+            [
+              111.35802584544783,
+              30.661234147971925
+            ],
+            [
+              111.35799607366728,
+              30.661148808019934
+            ]
+          ]
+        },
+        {
+          "sourceFeatureId": "068cb8e8-9941-4805-b214-e340ce5bec06",
+          "containsMarker": false,
+          "boundaryDistanceMeters": 46.26,
+          "vertexMeanWgs84": [
+            111.35717734970244,
+            30.66172575101116
+          ],
+          "areaSquareMeters": 806.9,
+          "mapHeightMeters": 24.6,
+          "longestEdgeYawRadians": 2.8584968682903074,
+          "longestEdgeBearingDeg": 286.22019369560223,
+          "ringWgs84": [
+            [
+              111.35705591217655,
+              30.66187599424243
+            ],
+            [
+              111.35698278850505,
+              30.66165411036725
+            ],
+            [
+              111.35729878722832,
+              30.661575956937533
+            ],
+            [
+              111.35737191089981,
+              30.66179694249743
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "order": 22,
+      "sourceSceneId": "1649127",
+      "name": "共和景晨创业中心",
+      "anchorLonLat": [
+        111.37327683032962,
+        30.661977464990333
+      ],
+      "sourceAddress": "东站路169号",
+      "method": "original-tour-poi-converted-to-wgs84-display-only",
+      "confidence": "approximate-poi-not-building-centre",
+      "coordinateSystem": "WGS84",
+      "replaceSourceFeatureIds": [],
+      "suppressBackgroundReplacement": true,
+      "label": "原导图附近展示 · 方位/尺寸待核",
+      "orientationPolicy": "do-not-infer-front-from-nearest-footprint",
+      "scalePolicy": "uniform-display-only-not-survey",
+      "nearbyMapCandidates": [
+        {
+          "sourceFeatureId": "058f099c-f9fb-4f10-9ef3-7e48579ca8ae",
+          "containsMarker": false,
+          "boundaryDistanceMeters": 34.02,
+          "vertexMeanWgs84": [
+            111.3727840304486,
+            30.662118763947962
+          ],
+          "areaSquareMeters": 816.7,
+          "mapHeightMeters": 12.0,
+          "longestEdgeYawRadians": 2.8318897090473407,
+          "longestEdgeBearingDeg": 287.7446716250567,
+          "ringWgs84": [
+            [
+              111.37289815560734,
+              30.66196402914027
+            ],
+            [
+              111.37298224782957,
+              30.662186811330734
+            ],
+            [
+              111.37266886066598,
+              30.66227304959801
+            ],
+            [
+              111.37258685769152,
+              30.662051165722833
+            ]
+          ]
+        },
+        {
+          "sourceFeatureId": "99aa212d-f1ff-42c8-8170-482b8aec69ed",
+          "containsMarker": false,
+          "boundaryDistanceMeters": 36.28,
+          "vertexMeanWgs84": [
+            111.3727479909248,
+            30.661842082840455
+          ],
+          "areaSquareMeters": 647.1,
+          "mapHeightMeters": 12.0,
+          "longestEdgeYawRadians": 1.246778202588625,
+          "longestEdgeBearingDeg": 18.564871002765074,
+          "ringWgs84": [
+            [
+              111.37289815560734,
+              30.66196402914027
+            ],
+            [
+              111.37271377949277,
+              30.662016131426753
+            ],
+            [
+              111.37259782624224,
+              30.66172103485592
+            ],
+            [
+              111.37278220235682,
+              30.66166713593887
+            ]
+          ]
+        },
+        {
+          "sourceFeatureId": "5eed393e-e190-4e51-b97b-f9b82f112c68",
+          "containsMarker": false,
+          "boundaryDistanceMeters": 48.84,
+          "vertexMeanWgs84": [
+            111.37282947158732,
+            30.66152991827922
+          ],
+          "areaSquareMeters": 807.6,
+          "mapHeightMeters": 12.0,
+          "longestEdgeYawRadians": 2.808113927117585,
+          "longestEdgeBearingDeg": 289.1069235842551,
+          "ringWgs84": [
+            [
+              111.37293785131473,
+              30.661373835998607
+            ],
+            [
+              111.37302716665634,
+              30.6615948215585
+            ],
+            [
+              111.37272109185992,
+              30.66168600055984
+            ],
+            [
+              111.3726317765183,
+              30.661465014999944
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "order": 23,
+      "sourceSceneId": "1649130",
+      "name": "共同大厦",
+      "anchorLonLat": [
+        111.38105820615677,
+        30.673694335949207
+      ],
+      "sourceAddress": "桔乡路501号",
+      "method": "original-tour-poi-converted-to-wgs84-display-only",
+      "confidence": "approximate-poi-not-building-centre",
+      "coordinateSystem": "WGS84",
+      "replaceSourceFeatureIds": [],
+      "suppressBackgroundReplacement": true,
+      "label": "原导图附近展示 · 方位/尺寸待核",
+      "orientationPolicy": "do-not-infer-front-from-nearest-footprint",
+      "scalePolicy": "uniform-display-only-not-survey",
+      "nearbyMapCandidates": [
+        {
+          "sourceFeatureId": "29ee3807-231d-47e5-a6b4-c8c30262a8cb",
+          "containsMarker": false,
+          "boundaryDistanceMeters": 11.93,
+          "vertexMeanWgs84": [
+            111.38052243003723,
+            30.673434392424376
+          ],
+          "areaSquareMeters": 4484.0,
+          "mapHeightMeters": 26.2,
+          "longestEdgeYawRadians": -0.41950073452776565,
+          "longestEdgeBearingDeg": 114.03562159107895,
+          "ringWgs84": [
+            [
+              111.3807808873952,
+              30.673683001179253
+            ],
+            [
+              111.3805150306181,
+              30.67316287662975
+            ],
+            [
+              111.38047220103907,
+              30.67317994462015
+            ],
+            [
+              111.38049100426889,
+              30.673216775546795
+            ],
+            [
+              111.38033274375128,
+              30.673276962670833
+            ],
+            [
+              111.38051816448973,
+              30.673635839626836
+            ],
+            [
+              111.38046018786447,
+              30.6736578483513
+            ],
+            [
+              111.38051711986586,
+              30.673770137761814
+            ],
+            [
+              111.3803170743931,
+              30.673846045403323
+            ],
+            [
+              111.38001204422055,
+              30.673253157315802
+            ],
+            [
+              111.38077096346835,
+              30.672962103163748
+            ],
+            [
+              111.38108173907223,
+              30.673568016822887
+            ]
+          ]
+        },
+        {
+          "sourceFeatureId": "93627c1b-1c62-40c2-9c68-bd5b75b1845c",
+          "containsMarker": false,
+          "boundaryDistanceMeters": 37.81,
+          "vertexMeanWgs84": [
+            111.3813564751523,
+            30.67302875815783
+          ],
+          "areaSquareMeters": 2091.2,
+          "mapHeightMeters": 23.7,
+          "longestEdgeYawRadians": -1.9709634526150146,
+          "longestEdgeBearingDeg": 202.92788740937337,
+          "ringWgs84": [
+            [
+              111.38126924905843,
+              30.672933806232297
+            ],
+            [
+              111.38138415768509,
+              30.672892034571586
+            ],
+            [
+              111.38150690099081,
+              30.67314086790529
+            ],
+            [
+              111.38157898003844,
+              30.673114816762048
+            ],
+            [
+              111.38168292011436,
+              30.673325920853816
+            ],
+            [
+              111.38133714961054,
+              30.673453930781804
+            ],
+            [
+              111.38104308798873,
+              30.67285610196022
+            ],
+            [
+              111.38123112028687,
+              30.672786931683344
+            ],
+            [
+              111.38128021760916,
+              30.672886195522242
+            ],
+            [
+              111.38125096814056,
+              30.67289697530565
+            ]
+          ]
+        },
+        {
+          "sourceFeatureId": "e194c247-ab12-4181-b61d-8bb4fd24415a",
+          "containsMarker": false,
+          "boundaryDistanceMeters": 52.72,
+          "vertexMeanWgs84": [
+            111.38177522009563,
+            30.674223979476427
+          ],
+          "areaSquareMeters": 2963.7,
+          "mapHeightMeters": 15.5,
+          "longestEdgeYawRadians": -0.914748410683703,
+          "longestEdgeBearingDeg": 142.41122324847595,
+          "ringWgs84": [
+            [
+              111.381884010211,
+              30.67412721808725
+            ],
+            [
+              111.3818401360081,
+              30.674098022840518
+            ],
+            [
+              111.38173201743666,
+              30.67421884624623
+            ],
+            [
+              111.38178424863058,
+              30.674253880542313
+            ],
+            [
+              111.38182498896185,
+              30.674208964778106
+            ],
+            [
+              111.38187722015579,
+              30.674243999074186
+            ],
+            [
+              111.38184274756779,
+              30.674282177473764
+            ],
+            [
+              111.38188714408263,
+              30.674310923562853
+            ],
+            [
+              111.38162285424134,
+              30.674606020133687
+            ],
+            [
+              111.38119403613918,
+              30.67431900840041
+            ],
+            [
+              111.38158002466233,
+              30.673887817064035
+            ],
+            [
+              111.3820010080854,
+              30.67416898974796
+            ],
+            [
+              111.3819398975885,
+              30.674236812551914
+            ],
+            [
+              111.38184274756779,
+              30.674173032166742
+            ]
+          ]
+        }
+      ]
+    }
+  ]
+}

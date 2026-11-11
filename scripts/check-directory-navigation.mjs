@@ -71,29 +71,29 @@ const meilian = byScene.get('1649135');
 const jinjiang = byScene.get('1649132');
 const wanda = byScene.get('1649138');
 
-check('real seven-model filter cannot step into a pending model', () => {
-  assert.deepEqual(available.map(item => item.sourceSceneId), ['1649149', '1649132', '1649138', '1649129', '1649145', '1649136', '1649133']);
-  const end = getDirectoryNavigation(available, jiuzhou.id);
-  assert.equal(end.position, 7);
-  assert.equal(end.total, 7);
-  assert.equal(end.nextId, zhongnan.id);
-  assert.equal(getDirectoryNavigation(available, zhongnan.id).previousId, jiuzhou.id);
+check('all 23 city candidates cycle in original directory order', () => {
+  assert.deepEqual(available.map(item => item.sourceSceneId), [
+    '1649135','1649149','1649132','1649138','1649129','1649145','1649136','1649133',
+    '1649141','1649139','1649144','1649148','1649137','1649146','1649142','1649134',
+    '1649147','1649128','1649140','1649143','1649131','1649127','1649130',
+  ]);
+  const end = getDirectoryNavigation(available, available.at(-1).id);
+  assert.equal(end.position, 23);
+  assert.equal(end.total, 23);
+  assert.equal(end.nextId, meilian.id);
+  assert.equal(getDirectoryNavigation(available, meilian.id).previousId, available.at(-1).id);
   assert.equal(end.canStep, true);
   assert.equal(end.outside, false);
 });
 
-check('23 projects distinguish city, group, partial and identity-review models', () => {
-  assert.equal(buildDirectoryResults(landmarks, { filter: 'recovery-pending' }).items.length, 0);
-  assert.equal(buildDirectoryResults(landmarks, { filter: 'partial-ready' }).items.length, 14);
-  assert.deepEqual(ids(buildDirectoryResults(landmarks, { filter: 'identity-review' }).items), ['business-1649127']);
-  assert.deepEqual(ids(buildDirectoryResults(landmarks, { filter: 'registration-pending' }).items), [meilian.id]);
-  const previews=buildDirectoryResults(landmarks, { filter: 'preview' }).items;
-  assert.equal(previews.length, 16);
-  assert(previews.every(item=>item.kind==='business-poi'&&item.assets.light));
-  assert.equal(available.length + previews.length, BUSINESS_BUILDINGS.length);
-  assert.equal(getDirectoryNavigation(previews, previews.at(-1).id).nextId, meilian.id);
-  assert.equal(getDirectoryNavigation(previews, meilian.id).nextId, 'business-1649141');
-  assert.deepEqual(ids(buildDirectoryResults(landmarks, {filter:'preview',query:'时代中心'}).items), ['business-1649147']);
+check('all current candidates are in-city while unresolved placement remains explicit', () => {
+  for (const filter of ['recovery-pending','partial-ready','identity-review','registration-pending','preview']) {
+    assert.equal(buildDirectoryResults(landmarks, {filter}).items.length, 0);
+  }
+  assert.equal(available.length, BUSINESS_BUILDINGS.length);
+  assert(available.every(item=>item.kind==='authored'&&item.placement==='city'&&item.assets.light));
+  assert.equal(available.filter(item=>item.approximatePlacement).length, 16);
+  assert.deepEqual(ids(buildDirectoryResults(landmarks, {filter:'available',query:'时代中心'}).items), ['business-1649147']);
 });
 
 check('Chinese aliases, spaces and Latin case find the intended building', () => {
@@ -133,13 +133,13 @@ check('one result disables both stepping controls but remains searchable', () =>
 });
 
 check('selection outside results is explicit and enters the visible endpoints', () => {
-  const state = getDirectoryNavigation(available, meilian.id);
+  const state = getDirectoryNavigation(available, 'zhenjiang-pavilion');
   assert.equal(state.index, -1);
   assert.equal(state.position, 0);
   assert.equal(state.outside, true);
   assert.equal(state.canStep, true);
-  assert.equal(state.nextId, zhongnan.id);
-  assert.equal(state.previousId, jiuzhou.id);
+  assert.equal(state.nextId, meilian.id);
+  assert.equal(state.previousId, available.at(-1).id);
   assert.equal(getDirectoryNavigation(available, null).outside, false);
 });
 
@@ -154,8 +154,8 @@ check('active keyboard result enters, advances and wraps in rendered order', () 
 });
 
 check('stale keyboard result cannot select an item excluded by a new filter', () => {
-  assert.equal(moveDirectoryActiveId(available, meilian.id, 1), zhongnan.id);
-  assert.equal(moveDirectoryActiveId(available, meilian.id, -1), jiuzhou.id);
+  assert.equal(moveDirectoryActiveId(available, 'zhenjiang-pavilion', 1), meilian.id);
+  assert.equal(moveDirectoryActiveId(available, 'zhenjiang-pavilion', -1), available.at(-1).id);
 });
 
 check('composition event variants are guarded before Enter or shortcuts', () => {

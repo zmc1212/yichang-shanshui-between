@@ -1,0 +1,3481 @@
+{
+  "1649127": {
+    "label": "原导图附近展示 · 方位/尺寸待核",
+    "method": "tour-marker-illustrative-display",
+    "coordinateSystem": "WGS84",
+    "anchorLonLat": [
+      111.37327683032962,
+      30.661977464990333
+    ],
+    "modelOriginLonLat": [
+      111.37327683032962,
+      30.661977464990333
+    ],
+    "sourceMarker": {
+      "coordinateSystem": "GCJ-02",
+      "lonLat": [
+        111.379158,
+        30.65967
+      ],
+      "sceneId": "1649127"
+    },
+    "scaleMetersPerSourceUnit": 0.7649353808314345,
+    "yawRadians": 0,
+    "frontBearingDeg": 180,
+    "orientationMethod": "illustrative-yaw-zero-not-observed-facade-bearing",
+    "scaleMethod": "uniform-illustrative-display-height-and-plan-cap-not-survey",
+    "displaySizePolicy": {
+      "maxHeightMetersEquivalent": 100,
+      "maxPlanDimensionMetersEquivalent": 100,
+      "appliedUniformScale": 0.7649353808314345,
+      "sourceSize": [
+        41.64999961853027,
+        130.72999694602512,
+        29.785000026226044
+      ],
+      "displaySizeMetersEquivalent": [
+        31.859558319829556,
+        100,
+        22.783600338125506
+      ],
+      "reason": "仅为让16个待配准候选在城市沙盘中具有可辨且有限的展示包络，统一将高度和最大平面边长均限制在100m等效展示单位；不是实高或实宽，不根据默认GIS高度、楼层数或最近多边形推断。"
+    },
+    "approximate": true,
+    "suppressBackgroundReplacement": true,
+    "contextHeight": {
+      "innerMeters": 100,
+      "outerMeters": 200,
+      "nearFactor": 1
+    },
+    "uncertainty": "原导图参考点用于候选显示，非已核实楼心；yaw=0为统一展示方向，非建筑正面方位。真实尺寸、精确位置、朝向、接地、时相和隐藏部分仍待核。源模型原点显示在参考点，包围盒中心可因非对称裙房而偏移；不据此删除附近GIS楼体。"
+  },
+  "1649128": {
+    "label": "原导图附近展示 · 方位/尺寸待核",
+    "method": "tour-marker-illustrative-display",
+    "coordinateSystem": "WGS84",
+    "anchorLonLat": [
+      111.35540554095843,
+      30.649714876702532
+    ],
+    "modelOriginLonLat": [
+      111.35540554095843,
+      30.649714876702532
+    ],
+    "sourceMarker": {
+      "coordinateSystem": "GCJ-02",
+      "lonLat": [
+        111.361246,
+        30.647377
+      ],
+      "sceneId": "1649128"
+    },
+    "scaleMetersPerSourceUnit": 0.8471345804663454,
+    "yawRadians": 0,
+    "frontBearingDeg": 180,
+    "orientationMethod": "illustrative-yaw-zero-not-observed-facade-bearing",
+    "scaleMethod": "uniform-illustrative-display-height-and-plan-cap-not-survey",
+    "displaySizePolicy": {
+      "maxHeightMetersEquivalent": 100,
+      "maxPlanDimensionMetersEquivalent": 100,
+      "appliedUniformScale": 0.8471345804663454,
+      "sourceSize": [
+        39,
+        118.04499816894531,
+        36.5
+      ],
+      "displaySizeMetersEquivalent": [
+        33.03824863818747,
+        100,
+        30.920412187021608
+      ],
+      "reason": "仅为让16个待配准候选在城市沙盘中具有可辨且有限的展示包络，统一将高度和最大平面边长均限制在100m等效展示单位；不是实高或实宽，不根据默认GIS高度、楼层数或最近多边形推断。"
+    },
+    "approximate": true,
+    "suppressBackgroundReplacement": true,
+    "contextHeight": {
+      "innerMeters": 100,
+      "outerMeters": 200,
+      "nearFactor": 1
+    },
+    "uncertainty": "原导图参考点用于候选显示，非已核实楼心；yaw=0为统一展示方向，非建筑正面方位。真实尺寸、精确位置、朝向、接地、时相和隐藏部分仍待核。源模型原点显示在参考点，包围盒中心可因非对称裙房而偏移；不据此删除附近GIS楼体。"
+  },
+  "1649129": {
+    "label": "弧形立面候选定位·后侧深度待核 · 非实测",
+    "method": "front-arc-candidate",
+    "coordinateSystem": "WGS84",
+    "modelOriginLonLat": [
+      111.3093345,
+      30.6774695
+    ],
+    "anchorLonLat": [
+      111.3093345,
+      30.6774695
+    ],
+    "scaleMetersPerSourceUnit": 1.7810239083169832,
+    "yawRadians": -0.24510587877641515,
+    "frontBearingDeg": 194.04353238773376,
+    "replaceSourceFeatureIds": [
+      "5490a156-bcdc-4091-8769-12566bbe415a",
+      "6e6462fd-0796-4d9f-b232-02eddcd5cce4"
+    ],
+    "footprintsLonLat": [
+      [
+        [
+          111.309138,
+          30.677601
+        ],
+        [
+          111.309265,
+          30.677545
+        ],
+        [
+          111.309394,
+          30.677516
+        ],
+        [
+          111.309527,
+          30.677495
+        ],
+        [
+          111.309699,
+          30.677508
+        ],
+        [
+          111.309718,
+          30.677387
+        ],
+        [
+          111.309686,
+          30.677375
+        ],
+        [
+          111.309514,
+          30.677356
+        ],
+        [
+          111.309328,
+          30.67737
+        ],
+        [
+          111.309128,
+          30.677434
+        ],
+        [
+          111.309022,
+          30.677498
+        ],
+        [
+          111.308951,
+          30.677552
+        ],
+        [
+          111.309037,
+          30.677665
+        ],
+        [
+          111.309138,
+          30.677601
+        ]
+      ],
+      [
+        [
+          111.309687,
+          30.677652
+        ],
+        [
+          111.309818,
+          30.677601
+        ],
+        [
+          111.309847,
+          30.67756
+        ],
+        [
+          111.309838,
+          30.677492
+        ],
+        [
+          111.309794,
+          30.677416
+        ],
+        [
+          111.309686,
+          30.677375
+        ],
+        [
+          111.309514,
+          30.677356
+        ],
+        [
+          111.309328,
+          30.67737
+        ],
+        [
+          111.309128,
+          30.677434
+        ],
+        [
+          111.309022,
+          30.677498
+        ],
+        [
+          111.308882,
+          30.677604
+        ],
+        [
+          111.309089,
+          30.677859
+        ],
+        [
+          111.309424,
+          30.677738
+        ],
+        [
+          111.309687,
+          30.677652
+        ]
+      ]
+    ],
+    "sourceSnapshotCommit": "38c01bf002511c01294feacd8aa85e54e6342724",
+    "contextHeight": {
+      "innerMeters": 400,
+      "outerMeters": 900,
+      "nearFactor": 1
+    },
+    "uncertainty": "两个端点能拟合弦端点但不能独立验证曲率、后部深度、顶部尺寸。；原生后侧深度是CLOSURE_HOLD；全模型在源裙房建筑轮廓外约1413㎡，虽与邻楼和机动车道无相交，仍应显示“弧形立面候选定位·后侧深度待核”。；不能把2点零计算残差作为地理精度或现场验收证明。",
+    "sourceFootprintRecords": [
+      {
+        "sourceFeatureId": "5490a156-bcdc-4091-8769-12566bbe415a",
+        "sourceFile": "buildings/b_05_02.geojson",
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                111.309138,
+                30.677601
+              ],
+              [
+                111.309265,
+                30.677545
+              ],
+              [
+                111.309394,
+                30.677516
+              ],
+              [
+                111.309527,
+                30.677495
+              ],
+              [
+                111.309699,
+                30.677508
+              ],
+              [
+                111.309718,
+                30.677387
+              ],
+              [
+                111.309686,
+                30.677375
+              ],
+              [
+                111.309514,
+                30.677356
+              ],
+              [
+                111.309328,
+                30.67737
+              ],
+              [
+                111.309128,
+                30.677434
+              ],
+              [
+                111.309022,
+                30.677498
+              ],
+              [
+                111.308951,
+                30.677552
+              ],
+              [
+                111.309037,
+                30.677665
+              ],
+              [
+                111.309138,
+                30.677601
+              ]
+            ]
+          ]
+        },
+        "ringsLonLat": [
+          [
+            [
+              111.309138,
+              30.677601
+            ],
+            [
+              111.309265,
+              30.677545
+            ],
+            [
+              111.309394,
+              30.677516
+            ],
+            [
+              111.309527,
+              30.677495
+            ],
+            [
+              111.309699,
+              30.677508
+            ],
+            [
+              111.309718,
+              30.677387
+            ],
+            [
+              111.309686,
+              30.677375
+            ],
+            [
+              111.309514,
+              30.677356
+            ],
+            [
+              111.309328,
+              30.67737
+            ],
+            [
+              111.309128,
+              30.677434
+            ],
+            [
+              111.309022,
+              30.677498
+            ],
+            [
+              111.308951,
+              30.677552
+            ],
+            [
+              111.309037,
+              30.677665
+            ],
+            [
+              111.309138,
+              30.677601
+            ]
+          ]
+        ],
+        "sourceProperties": {
+          "heightMeters": 170,
+          "heightSource": "tag",
+          "areaMeters2": 1171.3,
+          "sourceDataset": "osm"
+        }
+      },
+      {
+        "sourceFeatureId": "6e6462fd-0796-4d9f-b232-02eddcd5cce4",
+        "sourceFile": "buildings/b_05_02.geojson",
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                111.309687,
+                30.677652
+              ],
+              [
+                111.309818,
+                30.677601
+              ],
+              [
+                111.309847,
+                30.67756
+              ],
+              [
+                111.309838,
+                30.677492
+              ],
+              [
+                111.309794,
+                30.677416
+              ],
+              [
+                111.309686,
+                30.677375
+              ],
+              [
+                111.309514,
+                30.677356
+              ],
+              [
+                111.309328,
+                30.67737
+              ],
+              [
+                111.309128,
+                30.677434
+              ],
+              [
+                111.309022,
+                30.677498
+              ],
+              [
+                111.308882,
+                30.677604
+              ],
+              [
+                111.309089,
+                30.677859
+              ],
+              [
+                111.309424,
+                30.677738
+              ],
+              [
+                111.309687,
+                30.677652
+              ]
+            ]
+          ]
+        },
+        "ringsLonLat": [
+          [
+            [
+              111.309687,
+              30.677652
+            ],
+            [
+              111.309818,
+              30.677601
+            ],
+            [
+              111.309847,
+              30.67756
+            ],
+            [
+              111.309838,
+              30.677492
+            ],
+            [
+              111.309794,
+              30.677416
+            ],
+            [
+              111.309686,
+              30.677375
+            ],
+            [
+              111.309514,
+              30.677356
+            ],
+            [
+              111.309328,
+              30.67737
+            ],
+            [
+              111.309128,
+              30.677434
+            ],
+            [
+              111.309022,
+              30.677498
+            ],
+            [
+              111.308882,
+              30.677604
+            ],
+            [
+              111.309089,
+              30.677859
+            ],
+            [
+              111.309424,
+              30.677738
+            ],
+            [
+              111.309687,
+              30.677652
+            ]
+          ]
+        ],
+        "sourceProperties": {
+          "heightMeters": 12,
+          "heightSource": "default",
+          "areaMeters2": 3151,
+          "sourceDataset": "osm"
+        }
+      }
+    ]
+  },
+  "1649130": {
+    "label": "原导图附近展示 · 方位/尺寸待核",
+    "method": "tour-marker-illustrative-display",
+    "coordinateSystem": "WGS84",
+    "anchorLonLat": [
+      111.38105820615677,
+      30.673694335949207
+    ],
+    "modelOriginLonLat": [
+      111.38105820615677,
+      30.673694335949207
+    ],
+    "sourceMarker": {
+      "coordinateSystem": "GCJ-02",
+      "lonLat": [
+        111.386954,
+        30.6714
+      ],
+      "sceneId": "1649130"
+    },
+    "scaleMetersPerSourceUnit": 0.908100231618491,
+    "yawRadians": 0,
+    "frontBearingDeg": 180,
+    "orientationMethod": "illustrative-yaw-zero-not-observed-facade-bearing",
+    "scaleMethod": "uniform-illustrative-display-height-and-plan-cap-not-survey",
+    "displaySizePolicy": {
+      "maxHeightMetersEquivalent": 100,
+      "maxPlanDimensionMetersEquivalent": 100,
+      "appliedUniformScale": 0.908100231618491,
+      "sourceSize": [
+        70,
+        110.12000274658203,
+        41.86000061035156
+      ],
+      "displaySizeMetersEquivalent": [
+        63.567016213294366,
+        100,
+        38.013076249810425
+      ],
+      "reason": "仅为让16个待配准候选在城市沙盘中具有可辨且有限的展示包络，统一将高度和最大平面边长均限制在100m等效展示单位；不是实高或实宽，不根据默认GIS高度、楼层数或最近多边形推断。"
+    },
+    "approximate": true,
+    "suppressBackgroundReplacement": true,
+    "contextHeight": {
+      "innerMeters": 100,
+      "outerMeters": 200,
+      "nearFactor": 1
+    },
+    "uncertainty": "原导图参考点用于候选显示，非已核实楼心；yaw=0为统一展示方向，非建筑正面方位。真实尺寸、精确位置、朝向、接地、时相和隐藏部分仍待核。源模型原点显示在参考点，包围盒中心可因非对称裙房而偏移；不据此删除附近GIS楼体。"
+  },
+  "1649131": {
+    "label": "原导图附近展示 · 方位/尺寸待核",
+    "method": "tour-marker-illustrative-display",
+    "coordinateSystem": "WGS84",
+    "anchorLonLat": [
+      111.35710234767856,
+      30.66119209488809
+    ],
+    "modelOriginLonLat": [
+      111.35710234767856,
+      30.66119209488809
+    ],
+    "sourceMarker": {
+      "coordinateSystem": "GCJ-02",
+      "lonLat": [
+        111.362948,
+        30.658862
+      ],
+      "sceneId": "1649131"
+    },
+    "scaleMetersPerSourceUnit": 2.222737938244033,
+    "yawRadians": 0,
+    "frontBearingDeg": 180,
+    "orientationMethod": "illustrative-yaw-zero-not-observed-facade-bearing",
+    "scaleMethod": "uniform-illustrative-display-height-and-plan-cap-not-survey",
+    "displaySizePolicy": {
+      "maxHeightMetersEquivalent": 100,
+      "maxPlanDimensionMetersEquivalent": 100,
+      "appliedUniformScale": 2.222737938244033,
+      "sourceSize": [
+        20.820000648498535,
+        44.989559173583984,
+        12.935000237077475
+      ],
+      "displaySizeMetersEquivalent": [
+        46.27740531568307,
+        99.99999999999999,
+        28.751115758147666
+      ],
+      "reason": "仅为让16个待配准候选在城市沙盘中具有可辨且有限的展示包络，统一将高度和最大平面边长均限制在100m等效展示单位；不是实高或实宽，不根据默认GIS高度、楼层数或最近多边形推断。"
+    },
+    "approximate": true,
+    "suppressBackgroundReplacement": true,
+    "contextHeight": {
+      "innerMeters": 100,
+      "outerMeters": 200,
+      "nearFactor": 1
+    },
+    "uncertainty": "原导图参考点用于候选显示，非已核实楼心；yaw=0为统一展示方向，非建筑正面方位。真实尺寸、精确位置、朝向、接地、时相和隐藏部分仍待核。源模型原点显示在参考点，包围盒中心可因非对称裙房而偏移；不据此删除附近GIS楼体。"
+  },
+  "1649132": {
+    "label": "塔楼与裙房配准候选 · 非实测",
+    "method": "footprint-candidate",
+    "coordinateSystem": "WGS84",
+    "modelOriginLonLat": [
+      111.29157252910032,
+      30.688798507854592
+    ],
+    "anchorLonLat": [
+      111.29157252910032,
+      30.688798507854592
+    ],
+    "scaleMetersPerSourceUnit": 1.7004419665125114,
+    "yawRadians": -0.5589087796821554,
+    "frontBearingDeg": 212.02311420859468,
+    "replaceSourceFeatureIds": [
+      "ff7985c2-8e75-4589-8a23-816772be6a0d",
+      "31be43a4-9179-4d08-8a8c-3d840b3d31da"
+    ],
+    "footprintsLonLat": [
+      [
+        [
+          111.291888,
+          30.688801
+        ],
+        [
+          111.291796,
+          30.688676
+        ],
+        [
+          111.291346,
+          30.688917
+        ],
+        [
+          111.291438,
+          30.689043
+        ],
+        [
+          111.291888,
+          30.688801
+        ]
+      ],
+      [
+        [
+          111.291649,
+          30.688474
+        ],
+        [
+          111.291356,
+          30.688631
+        ],
+        [
+          111.291503,
+          30.688832
+        ],
+        [
+          111.291346,
+          30.688917
+        ],
+        [
+          111.291438,
+          30.689043
+        ],
+        [
+          111.291888,
+          30.688801
+        ],
+        [
+          111.291649,
+          30.688474
+        ]
+      ]
+    ],
+    "sourceSnapshotCommit": "38c01bf002511c01294feacd8aa85e54e6342724",
+    "contextHeight": {
+      "innerMeters": 400,
+      "outerMeters": 900,
+      "nearFactor": 1
+    },
+    "uncertainty": "使用S03默认00，不是S04研究版。；源地图两轮廓均为默认12m高度，不能从它们推实高。；模型原底部/景观造型保留；等比例后显示高度不是实测楼高。",
+    "sourceFootprintRecords": [
+      {
+        "sourceFeatureId": "ff7985c2-8e75-4589-8a23-816772be6a0d",
+        "sourceFile": "buildings/b_04_03_1.geojson",
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                111.291888,
+                30.688801
+              ],
+              [
+                111.291796,
+                30.688676
+              ],
+              [
+                111.291346,
+                30.688917
+              ],
+              [
+                111.291438,
+                30.689043
+              ],
+              [
+                111.291888,
+                30.688801
+              ]
+            ]
+          ]
+        },
+        "ringsLonLat": [
+          [
+            [
+              111.291888,
+              30.688801
+            ],
+            [
+              111.291796,
+              30.688676
+            ],
+            [
+              111.291346,
+              30.688917
+            ],
+            [
+              111.291438,
+              30.689043
+            ],
+            [
+              111.291888,
+              30.688801
+            ]
+          ]
+        ],
+        "sourceProperties": {
+          "heightMeters": 12,
+          "heightSource": "default",
+          "areaMeters2": 839.4,
+          "sourceDataset": "osm"
+        }
+      },
+      {
+        "sourceFeatureId": "31be43a4-9179-4d08-8a8c-3d840b3d31da",
+        "sourceFile": "buildings/b_04_03_1.geojson",
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                111.291649,
+                30.688474
+              ],
+              [
+                111.291356,
+                30.688631
+              ],
+              [
+                111.291503,
+                30.688832
+              ],
+              [
+                111.291346,
+                30.688917
+              ],
+              [
+                111.291438,
+                30.689043
+              ],
+              [
+                111.291888,
+                30.688801
+              ],
+              [
+                111.291649,
+                30.688474
+              ]
+            ]
+          ]
+        },
+        "ringsLonLat": [
+          [
+            [
+              111.291649,
+              30.688474
+            ],
+            [
+              111.291356,
+              30.688631
+            ],
+            [
+              111.291503,
+              30.688832
+            ],
+            [
+              111.291346,
+              30.688917
+            ],
+            [
+              111.291438,
+              30.689043
+            ],
+            [
+              111.291888,
+              30.688801
+            ],
+            [
+              111.291649,
+              30.688474
+            ]
+          ]
+        ],
+        "sourceProperties": {
+          "heightMeters": 12,
+          "heightSource": "default",
+          "areaMeters2": 1716.1,
+          "sourceDataset": "osm"
+        }
+      }
+    ]
+  },
+  "1649133": {
+    "label": "塔芯轮廓配准候选 · 非实测",
+    "method": "footprint-candidate",
+    "coordinateSystem": "WGS84",
+    "modelOriginLonLat": [
+      111.3180935,
+      30.669095
+    ],
+    "anchorLonLat": [
+      111.3180935,
+      30.669095
+    ],
+    "scaleMetersPerSourceUnit": 1.2830762724578204,
+    "yawRadians": -0.72086595416435,
+    "frontBearingDeg": 221.3025767682883,
+    "replaceSourceFeatureIds": [
+      "ae815edb-2941-40aa-89d4-1a21d8172eae"
+    ],
+    "footprintsLonLat": [
+      [
+        [
+          111.318265,
+          30.668827
+        ],
+        [
+          111.317762,
+          30.669207
+        ],
+        [
+          111.317922,
+          30.669363
+        ],
+        [
+          111.318425,
+          30.668983
+        ],
+        [
+          111.318265,
+          30.668827
+        ]
+      ]
+    ],
+    "sourceSnapshotCommit": "38c01bf002511c01294feacd8aa85e54e6342724",
+    "contextHeight": {
+      "innerMeters": 400,
+      "outerMeters": 900,
+      "nearFactor": 1
+    },
+    "uncertainty": "100单位总高不是100m；等比后的128.35m仅显示高度。；前场罩棚/入口不能当塔芯深度；本次以50×18塔芯拟合，再独立检查整个前场不压路/邻楼。",
+    "sourceFootprintRecords": [
+      {
+        "sourceFeatureId": "ae815edb-2941-40aa-89d4-1a21d8172eae",
+        "sourceFile": "buildings/b_05_02.geojson",
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                111.318265,
+                30.668827
+              ],
+              [
+                111.317762,
+                30.669207
+              ],
+              [
+                111.317922,
+                30.669363
+              ],
+              [
+                111.318425,
+                30.668983
+              ],
+              [
+                111.318265,
+                30.668827
+              ]
+            ]
+          ]
+        },
+        "ringsLonLat": [
+          [
+            [
+              111.318265,
+              30.668827
+            ],
+            [
+              111.317762,
+              30.669207
+            ],
+            [
+              111.317922,
+              30.669363
+            ],
+            [
+              111.318425,
+              30.668983
+            ],
+            [
+              111.318265,
+              30.668827
+            ]
+          ]
+        ],
+        "sourceProperties": {
+          "heightMeters": 90,
+          "heightSource": "tag",
+          "areaMeters2": 1485.8,
+          "sourceDataset": "osm"
+        }
+      }
+    ]
+  },
+  "1649134": {
+    "label": "原导图附近展示 · 方位/尺寸待核",
+    "method": "tour-marker-illustrative-display",
+    "coordinateSystem": "WGS84",
+    "anchorLonLat": [
+      111.35325734611246,
+      30.645163385592564
+    ],
+    "modelOriginLonLat": [
+      111.35325734611246,
+      30.645163385592564
+    ],
+    "sourceMarker": {
+      "coordinateSystem": "GCJ-02",
+      "lonLat": [
+        111.359092,
+        30.64282
+      ],
+      "sceneId": "1649134"
+    },
+    "scaleMetersPerSourceUnit": 0.9053871014337296,
+    "yawRadians": 0,
+    "frontBearingDeg": 180,
+    "orientationMethod": "illustrative-yaw-zero-not-observed-facade-bearing",
+    "scaleMethod": "uniform-illustrative-display-height-and-plan-cap-not-survey",
+    "displaySizePolicy": {
+      "maxHeightMetersEquivalent": 100,
+      "maxPlanDimensionMetersEquivalent": 100,
+      "appliedUniformScale": 0.9053871014337296,
+      "sourceSize": [
+        71,
+        110.44999408721924,
+        29
+      ],
+      "displaySizeMetersEquivalent": [
+        64.2824842017948,
+        100,
+        26.25622594157816
+      ],
+      "reason": "仅为让16个待配准候选在城市沙盘中具有可辨且有限的展示包络，统一将高度和最大平面边长均限制在100m等效展示单位；不是实高或实宽，不根据默认GIS高度、楼层数或最近多边形推断。"
+    },
+    "approximate": true,
+    "suppressBackgroundReplacement": true,
+    "contextHeight": {
+      "innerMeters": 100,
+      "outerMeters": 200,
+      "nearFactor": 1
+    },
+    "uncertainty": "原导图参考点用于候选显示，非已核实楼心；yaw=0为统一展示方向，非建筑正面方位。真实尺寸、精确位置、朝向、接地、时相和隐藏部分仍待核。源模型原点显示在参考点，包围盒中心可因非对称裙房而偏移；不据此删除附近GIS楼体。"
+  },
+  "1649135": {
+    "label": "原导图附近展示 · 方位/尺寸待核",
+    "method": "tour-marker-illustrative-display",
+    "coordinateSystem": "WGS84",
+    "anchorLonLat": [
+      111.29235941587233,
+      30.6880967795452
+    ],
+    "modelOriginLonLat": [
+      111.29235941587233,
+      30.6880967795452
+    ],
+    "sourceMarker": {
+      "coordinateSystem": "GCJ-02",
+      "lonLat": [
+        111.298032,
+        30.685664
+      ],
+      "sceneId": "1649135"
+    },
+    "scaleMetersPerSourceUnit": 0.9971084145058005,
+    "yawRadians": 0,
+    "frontBearingDeg": 180,
+    "orientationMethod": "illustrative-yaw-zero-not-observed-facade-bearing",
+    "scaleMethod": "uniform-illustrative-display-height-and-plan-cap-not-survey",
+    "displaySizePolicy": {
+      "maxHeightMetersEquivalent": 100,
+      "maxPlanDimensionMetersEquivalent": 100,
+      "appliedUniformScale": 0.9971084145058005,
+      "sourceSize": [
+        68.26500225067139,
+        100.28999710083008,
+        57.34000015258789
+      ],
+      "displaySizeMetersEquivalent": [
+        68.06760816040185,
+        100,
+        57.17419663990927
+      ],
+      "reason": "仅为让16个待配准候选在城市沙盘中具有可辨且有限的展示包络，统一将高度和最大平面边长均限制在100m等效展示单位；不是实高或实宽，不根据默认GIS高度、楼层数或最近多边形推断。"
+    },
+    "approximate": true,
+    "suppressBackgroundReplacement": true,
+    "contextHeight": {
+      "innerMeters": 100,
+      "outerMeters": 200,
+      "nearFactor": 1
+    },
+    "uncertainty": "原导图参考点用于候选显示，非已核实楼心；yaw=0为统一展示方向，非建筑正面方位。真实尺寸、精确位置、朝向、接地、时相和隐藏部分仍待核。源模型原点显示在参考点，包围盒中心可因非对称裙房而偏移；不据此删除附近GIS楼体。"
+  },
+  "1649136": {
+    "label": "已按地图轮廓落位 · 非实测配准",
+    "method": "tour-gcj02-poi-and-source-footprint-match",
+    "coordinateSystem": "WGS84",
+    "anchorLonLat": [
+      111.3168215,
+      30.669877
+    ],
+    "sourceMarker": {
+      "coordinateSystem": "GCJ-02",
+      "lonLat": [
+        111.322369,
+        30.667704
+      ],
+      "sceneId": "1649136"
+    },
+    "convertedMarkerApproxLonLat": [
+      111.3166341065,
+      30.6701041776
+    ],
+    "sourceFeatureId": "809fc574-f994-4778-9992-3c3435682f32",
+    "sourceSnapshotCommit": "38c01bf002511c01294feacd8aa85e54e6342724",
+    "sourceFile": "dist/data/gis-yichang/buildings/b_05_02.geojson",
+    "footprintLonLat": [
+      [
+        111.316902,
+        30.669673
+      ],
+      [
+        111.316576,
+        30.669921
+      ],
+      [
+        111.316741,
+        30.670081
+      ],
+      [
+        111.317067,
+        30.669833
+      ]
+    ],
+    "frontBearingDeg": 221.5001184,
+    "orientationMethod": "footprint-long-axis-and-documented-river-facing-positive-z",
+    "footprintInsetMeters": 0.25,
+    "sourceHeightMeters": 96,
+    "sourceHeightMethod": "map-tag-not-survey",
+    "scaleMethod": "one-scalar-inscribed-in-mapped-footprint",
+    "contextHeight": {
+      "innerMeters": 400,
+      "outerMeters": 900,
+      "nearFactor": 1
+    },
+    "uncertainty": "楼体身份由原导图、门牌与底图匹配；轮廓细节、绝对尺寸与精确真北方位仍待实测复核。"
+  },
+  "1649137": {
+    "label": "原导图附近展示 · 方位/尺寸待核",
+    "method": "tour-marker-illustrative-display",
+    "coordinateSystem": "WGS84",
+    "anchorLonLat": [
+      111.32138594139299,
+      30.666348934458373
+    ],
+    "modelOriginLonLat": [
+      111.32138594139299,
+      30.666348934458373
+    ],
+    "sourceMarker": {
+      "coordinateSystem": "GCJ-02",
+      "lonLat": [
+        111.327134,
+        30.663956
+      ],
+      "sceneId": "1649137"
+    },
+    "scaleMetersPerSourceUnit": 0.9201325126445651,
+    "yawRadians": 0,
+    "frontBearingDeg": 180,
+    "orientationMethod": "illustrative-yaw-zero-not-observed-facade-bearing",
+    "scaleMethod": "uniform-illustrative-display-height-and-plan-cap-not-survey",
+    "displaySizePolicy": {
+      "maxHeightMetersEquivalent": 100,
+      "maxPlanDimensionMetersEquivalent": 100,
+      "appliedUniformScale": 0.9201325126445651,
+      "sourceSize": [
+        51.28000037372112,
+        108.67999839782715,
+        18.580000013113022
+      ],
+      "displaySizeMetersEquivalent": [
+        47.18439559228625,
+        100,
+        17.096062097001738
+      ],
+      "reason": "仅为让16个待配准候选在城市沙盘中具有可辨且有限的展示包络，统一将高度和最大平面边长均限制在100m等效展示单位；不是实高或实宽，不根据默认GIS高度、楼层数或最近多边形推断。"
+    },
+    "approximate": true,
+    "suppressBackgroundReplacement": true,
+    "contextHeight": {
+      "innerMeters": 100,
+      "outerMeters": 200,
+      "nearFactor": 1
+    },
+    "uncertainty": "原导图参考点用于候选显示，非已核实楼心；yaw=0为统一展示方向，非建筑正面方位。真实尺寸、精确位置、朝向、接地、时相和隐藏部分仍待核。源模型原点显示在参考点，包围盒中心可因非对称裙房而偏移；不据此删除附近GIS楼体。"
+  },
+  "1649138": {
+    "label": "三塔轮廓配准候选 · 非实测",
+    "method": "footprint-candidate",
+    "coordinateSystem": "WGS84",
+    "modelOriginLonLat": [
+      111.30171992818497,
+      30.682775235409252
+    ],
+    "anchorLonLat": [
+      111.30171992818497,
+      30.682775235409252
+    ],
+    "scaleMetersPerSourceUnit": 1.0624293926229358,
+    "yawRadians": -0.7351880930687615,
+    "frontBearingDeg": 222.1231748811112,
+    "replaceSourceFeatureIds": [
+      "07a71726-720b-4fd4-a814-fb14bda5bd7e",
+      "82fffa3c-3b89-4b72-a3de-3c6cd02a1c2e",
+      "200bff33-082f-43da-99e0-51f8fe4f2607",
+      "bb15e7cf-9138-4cad-bb0c-a6c219e81197"
+    ],
+    "footprintsLonLat": [
+      [
+        [
+          111.301489,
+          30.683268
+        ],
+        [
+          111.301247,
+          30.683018
+        ],
+        [
+          111.300952,
+          30.683238
+        ],
+        [
+          111.301196,
+          30.683483
+        ],
+        [
+          111.301489,
+          30.683268
+        ]
+      ],
+      [
+        [
+          111.302055,
+          30.68283
+        ],
+        [
+          111.301806,
+          30.682584
+        ],
+        [
+          111.301522,
+          30.682808
+        ],
+        [
+          111.301766,
+          30.683047
+        ],
+        [
+          111.302055,
+          30.68283
+        ]
+      ],
+      [
+        [
+          111.302578,
+          30.682421
+        ],
+        [
+          111.302338,
+          30.682167
+        ],
+        [
+          111.302036,
+          30.682399
+        ],
+        [
+          111.302277,
+          30.682642
+        ],
+        [
+          111.302578,
+          30.682421
+        ]
+      ],
+      [
+        [
+          111.303624,
+          30.68247
+        ],
+        [
+          111.30373,
+          30.682594
+        ],
+        [
+          111.304041,
+          30.682379
+        ],
+        [
+          111.303237,
+          30.681512
+        ],
+        [
+          111.302763,
+          30.681844
+        ],
+        [
+          111.302423,
+          30.682101
+        ],
+        [
+          111.302036,
+          30.682399
+        ],
+        [
+          111.301364,
+          30.68293
+        ],
+        [
+          111.300704,
+          30.683423
+        ],
+        [
+          111.301259,
+          30.683979
+        ],
+        [
+          111.302776,
+          30.682868
+        ],
+        [
+          111.303624,
+          30.68247
+        ]
+      ]
+    ],
+    "sourceSnapshotCommit": "38c01bf002511c01294feacd8aa85e54e6342724",
+    "contextHeight": {
+      "innerMeters": 400,
+      "outerMeters": 900,
+      "nearFactor": 1
+    },
+    "uncertainty": "共享商场源轮廓大于现有模型可见前段；不得把可见模型宣称为整个商业体完整重建。；只排除Presentation_base_non_geographic；保留Forecourt_continuous_steps。；不将三塔A/B/C编号强行锁定为NW/MID/SE。",
+    "retainedBackgroundFeatures": [
+      {
+        "sourceFeatureId": "bb15e7cf-9138-4cad-bb0c-a6c219e81197",
+        "derivedSourceFeatureId": "bb15e7cf-9138-4cad-bb0c-a6c219e81197:retained-after-authored-wanda",
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                111.302763,
+                30.681844
+              ],
+              [
+                111.303237,
+                30.681512
+              ],
+              [
+                111.304041,
+                30.682379
+              ],
+              [
+                111.30373,
+                30.682594
+              ],
+              [
+                111.303624,
+                30.68247
+              ],
+              [
+                111.302776,
+                30.682868
+              ],
+              [
+                111.301259,
+                30.683979
+              ],
+              [
+                111.300704,
+                30.683423
+              ],
+              [
+                111.3008689970917,
+                30.683299752172413
+              ],
+              [
+                111.30087322805356,
+                30.6833037759904
+              ],
+              [
+                111.30087340905304,
+                30.68330393200538
+              ],
+              [
+                111.3008736069619,
+                30.68330407201126
+              ],
+              [
+                111.30087381987414,
+                30.68330419465971
+              ],
+              [
+                111.30087404573933,
+                30.683304298769553
+              ],
+              [
+                111.30087428238225,
+                30.68330438333816
+              ],
+              [
+                111.3008745275239,
+                30.683304447551084
+              ],
+              [
+                111.30087477880343,
+                30.683304490789926
+              ],
+              [
+                111.30087503380089,
+                30.683304512638266
+              ],
+              [
+                111.3008752900605,
+                30.683304512885698
+              ],
+              [
+                111.30087554511437,
+                30.68330449152983
+              ],
+              [
+                111.30087579650616,
+                30.683304448776344
+              ],
+              [
+                111.30087604181483,
+                30.68330438503697
+              ],
+              [
+                111.30087627867795,
+                30.683304300925553
+              ],
+              [
+                111.30087650481437,
+                30.683304197252134
+              ],
+              [
+                111.3008767180463,
+                30.683304075015148
+              ],
+              [
+                111.30087691632018,
+                30.6833039353918
+              ],
+              [
+                111.30088609119662,
+                30.683296799822198
+              ],
+              [
+                111.30124965278051,
+                30.68364256177531
+              ],
+              [
+                111.30124983377999,
+                30.683642717790292
+              ],
+              [
+                111.30125003168884,
+                30.683642857796173
+              ],
+              [
+                111.30125024460108,
+                30.68364298044462
+              ],
+              [
+                111.30125047046627,
+                30.683643084554465
+              ],
+              [
+                111.30125070710919,
+                30.683643169123073
+              ],
+              [
+                111.30125095225084,
+                30.683643233336
+              ],
+              [
+                111.30125120353037,
+                30.683643276574838
+              ],
+              [
+                111.30125145852783,
+                30.68364329842318
+              ],
+              [
+                111.30125171478745,
+                30.68364329867061
+              ],
+              [
+                111.3012519698413,
+                30.683643277314747
+              ],
+              [
+                111.3012522212331,
+                30.683643234561256
+              ],
+              [
+                111.30125246654177,
+                30.68364317082188
+              ],
+              [
+                111.30125270340488,
+                30.683643086710465
+              ],
+              [
+                111.30125292954132,
+                30.683642983037046
+              ],
+              [
+                111.30125314277323,
+                30.68364286080006
+              ],
+              [
+                111.30125334104711,
+                30.68364272117671
+              ],
+              [
+                111.30125379815631,
+                30.683642365669535
+              ],
+              [
+                111.3012538500374,
+                30.683642352189096
+              ],
+              [
+                111.30125408690051,
+                30.68364226807768
+              ],
+              [
+                111.30125431303694,
+                30.68364216440426
+              ],
+              [
+                111.30125452626886,
+                30.683642042167275
+              ],
+              [
+                111.30125472454274,
+                30.683641902543926
+              ],
+              [
+                111.30185385893174,
+                30.683175938216326
+              ],
+              [
+                111.3018540359397,
+                30.683176001473306
+              ],
+              [
+                111.30185428108135,
+                30.683176065686233
+              ],
+              [
+                111.30185453236088,
+                30.683176108925075
+              ],
+              [
+                111.30185478735834,
+                30.683176130773415
+              ],
+              [
+                111.30185504361795,
+                30.683176131020844
+              ],
+              [
+                111.30185529867181,
+                30.68317610966498
+              ],
+              [
+                111.3018555500636,
+                30.68317606691149
+              ],
+              [
+                111.30185579537228,
+                30.683176003172115
+              ],
+              [
+                111.30185603223539,
+                30.6831759190607
+              ],
+              [
+                111.30185625837183,
+                30.683175815387283
+              ],
+              [
+                111.30185647160374,
+                30.683175693150293
+              ],
+              [
+                111.30185666987762,
+                30.683175553526947
+              ],
+              [
+                111.30259734988718,
+                30.68259950503273
+              ],
+              [
+                111.30259753129353,
+                30.682599349367667
+              ],
+              [
+                111.30259769408529,
+                30.682599179160036
+              ],
+              [
+                111.30259783669473,
+                30.682598996049023
+              ],
+              [
+                111.3025979577484,
+                30.68259880179809
+              ],
+              [
+                111.30259805608051,
+                30.682598598277977
+              ],
+              [
+                111.30259813074406,
+                30.682598387448696
+              ],
+              [
+                111.30259818102,
+                30.68259817134065
+              ],
+              [
+                111.30259820642415,
+                30.682597952035078
+              ],
+              [
+                111.30259820671185,
+                30.682597731644005
+              ],
+              [
+                111.30259818188033,
+                30.682597512289927
+              ],
+              [
+                111.30259813216873,
+                30.682597296085337
+              ],
+              [
+                111.30259807673255,
+                30.68259713827843
+              ],
+              [
+                111.3029667466122,
+                30.682310412936456
+              ],
+              [
+                111.30296692801855,
+                30.682310257271393
+              ],
+              [
+                111.30296709081033,
+                30.68231008706376
+              ],
+              [
+                111.30296723341975,
+                30.68230990395275
+              ],
+              [
+                111.30296735447344,
+                30.682309709701816
+              ],
+              [
+                111.30296737527,
+                30.682309666658718
+              ],
+              [
+                111.30296783237918,
+                30.68230931115154
+              ],
+              [
+                111.30296801378553,
+                30.682309155486475
+              ],
+              [
+                111.30296817657731,
+                30.682308985278844
+              ],
+              [
+                111.30296831918673,
+                30.68230880216783
+              ],
+              [
+                111.3029684402404,
+                30.682308607916898
+              ],
+              [
+                111.30296853857251,
+                30.682308404396785
+              ],
+              [
+                111.30296861323608,
+                30.682308193567504
+              ],
+              [
+                111.30296866351202,
+                30.68230797745946
+              ],
+              [
+                111.30296868891617,
+                30.682307758153886
+              ],
+              [
+                111.30296868920387,
+                30.682307537762814
+              ],
+              [
+                111.30296866437234,
+                30.682307318408736
+              ],
+              [
+                111.30296861466074,
+                30.682307102204145
+              ],
+              [
+                111.30296854054781,
+                30.682306891231217
+              ],
+              [
+                111.3029684427473,
+                30.68230668752173
+              ],
+              [
+                111.30296832220108,
+                30.682306493037522
+              ],
+              [
+                111.30296818007008,
+                30.68230630965158
+              ],
+              [
+                111.30296801772309,
+                30.68230613913001
+              ],
+              [
+                111.30260648512882,
+                30.681962306829103
+              ],
+              [
+                111.302763,
+                30.681844
+              ]
+            ]
+          ]
+        },
+        "properties": {
+          "heightMeters": 12,
+          "heightSource": "default",
+          "areaMeters2": 29457.7,
+          "sourceDataset": "osm"
+        },
+        "cutMarginMeters": 0.25,
+        "retainedAreaMeters2": 17863.908379495613,
+        "kind": "original-GIS-polygon-difference",
+        "reason": "Remove only the covered portion; retained mall is original GIS background, not an invented model or a complete calibrated mall."
+      }
+    ],
+    "sourceFootprintRecords": [
+      {
+        "sourceFeatureId": "07a71726-720b-4fd4-a814-fb14bda5bd7e",
+        "sourceFile": "buildings/b_05_03_0.geojson",
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                111.301489,
+                30.683268
+              ],
+              [
+                111.301247,
+                30.683018
+              ],
+              [
+                111.300952,
+                30.683238
+              ],
+              [
+                111.301196,
+                30.683483
+              ],
+              [
+                111.301489,
+                30.683268
+              ]
+            ]
+          ]
+        },
+        "ringsLonLat": [
+          [
+            [
+              111.301489,
+              30.683268
+            ],
+            [
+              111.301247,
+              30.683018
+            ],
+            [
+              111.300952,
+              30.683238
+            ],
+            [
+              111.301196,
+              30.683483
+            ],
+            [
+              111.301489,
+              30.683268
+            ]
+          ]
+        ],
+        "sourceProperties": {
+          "heightMeters": 120,
+          "heightSource": "tag",
+          "areaMeters2": 1339.6,
+          "buildingClass": "commercial",
+          "sourceDataset": "osm"
+        }
+      },
+      {
+        "sourceFeatureId": "82fffa3c-3b89-4b72-a3de-3c6cd02a1c2e",
+        "sourceFile": "buildings/b_05_03_0.geojson",
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                111.302055,
+                30.68283
+              ],
+              [
+                111.301806,
+                30.682584
+              ],
+              [
+                111.301522,
+                30.682808
+              ],
+              [
+                111.301766,
+                30.683047
+              ],
+              [
+                111.302055,
+                30.68283
+              ]
+            ]
+          ]
+        },
+        "ringsLonLat": [
+          [
+            [
+              111.302055,
+              30.68283
+            ],
+            [
+              111.301806,
+              30.682584
+            ],
+            [
+              111.301522,
+              30.682808
+            ],
+            [
+              111.301766,
+              30.683047
+            ],
+            [
+              111.302055,
+              30.68283
+            ]
+          ]
+        ],
+        "sourceProperties": {
+          "heightMeters": 120,
+          "heightSource": "tag",
+          "areaMeters2": 1321.8,
+          "buildingClass": "commercial",
+          "sourceDataset": "osm"
+        }
+      },
+      {
+        "sourceFeatureId": "200bff33-082f-43da-99e0-51f8fe4f2607",
+        "sourceFile": "buildings/b_05_03_0.geojson",
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                111.302578,
+                30.682421
+              ],
+              [
+                111.302338,
+                30.682167
+              ],
+              [
+                111.302036,
+                30.682399
+              ],
+              [
+                111.302277,
+                30.682642
+              ],
+              [
+                111.302578,
+                30.682421
+              ]
+            ]
+          ]
+        },
+        "ringsLonLat": [
+          [
+            [
+              111.302578,
+              30.682421
+            ],
+            [
+              111.302338,
+              30.682167
+            ],
+            [
+              111.302036,
+              30.682399
+            ],
+            [
+              111.302277,
+              30.682642
+            ],
+            [
+              111.302578,
+              30.682421
+            ]
+          ]
+        ],
+        "sourceProperties": {
+          "heightMeters": 120,
+          "heightSource": "tag",
+          "areaMeters2": 1381.5,
+          "buildingClass": "commercial",
+          "sourceDataset": "osm"
+        }
+      },
+      {
+        "sourceFeatureId": "bb15e7cf-9138-4cad-bb0c-a6c219e81197",
+        "sourceFile": "buildings/b_05_03_0.geojson",
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                111.303624,
+                30.68247
+              ],
+              [
+                111.30373,
+                30.682594
+              ],
+              [
+                111.304041,
+                30.682379
+              ],
+              [
+                111.303237,
+                30.681512
+              ],
+              [
+                111.302763,
+                30.681844
+              ],
+              [
+                111.302423,
+                30.682101
+              ],
+              [
+                111.302036,
+                30.682399
+              ],
+              [
+                111.301364,
+                30.68293
+              ],
+              [
+                111.300704,
+                30.683423
+              ],
+              [
+                111.301259,
+                30.683979
+              ],
+              [
+                111.302776,
+                30.682868
+              ],
+              [
+                111.303624,
+                30.68247
+              ]
+            ]
+          ]
+        },
+        "ringsLonLat": [
+          [
+            [
+              111.303624,
+              30.68247
+            ],
+            [
+              111.30373,
+              30.682594
+            ],
+            [
+              111.304041,
+              30.682379
+            ],
+            [
+              111.303237,
+              30.681512
+            ],
+            [
+              111.302763,
+              30.681844
+            ],
+            [
+              111.302423,
+              30.682101
+            ],
+            [
+              111.302036,
+              30.682399
+            ],
+            [
+              111.301364,
+              30.68293
+            ],
+            [
+              111.300704,
+              30.683423
+            ],
+            [
+              111.301259,
+              30.683979
+            ],
+            [
+              111.302776,
+              30.682868
+            ],
+            [
+              111.303624,
+              30.68247
+            ]
+          ]
+        ],
+        "sourceProperties": {
+          "heightMeters": 12,
+          "heightSource": "default",
+          "areaMeters2": 29457.7,
+          "sourceDataset": "osm"
+        }
+      }
+    ]
+  },
+  "1649139": {
+    "label": "原导图附近展示 · 方位/尺寸待核",
+    "method": "tour-marker-illustrative-display",
+    "coordinateSystem": "WGS84",
+    "anchorLonLat": [
+      111.32791515836917,
+      30.678923751333667
+    ],
+    "modelOriginLonLat": [
+      111.32791515836917,
+      30.678923751333667
+    ],
+    "sourceMarker": {
+      "coordinateSystem": "GCJ-02",
+      "lonLat": [
+        111.333683,
+        30.676549
+      ],
+      "sceneId": "1649139"
+    },
+    "scaleMetersPerSourceUnit": 0.853057866730535,
+    "yawRadians": 0,
+    "frontBearingDeg": 180,
+    "orientationMethod": "illustrative-yaw-zero-not-observed-facade-bearing",
+    "scaleMethod": "uniform-illustrative-display-height-and-plan-cap-not-survey",
+    "displaySizePolicy": {
+      "maxHeightMetersEquivalent": 100,
+      "maxPlanDimensionMetersEquivalent": 100,
+      "appliedUniformScale": 0.853057866730535,
+      "sourceSize": [
+        40.0622501373291,
+        117.225341796875,
+        23.895000457763672
+      ],
+      "displaySizeMetersEquivalent": [
+        34.17541763857504,
+        100,
+        20.383818116025033
+      ],
+      "reason": "仅为让16个待配准候选在城市沙盘中具有可辨且有限的展示包络，统一将高度和最大平面边长均限制在100m等效展示单位；不是实高或实宽，不根据默认GIS高度、楼层数或最近多边形推断。"
+    },
+    "approximate": true,
+    "suppressBackgroundReplacement": true,
+    "contextHeight": {
+      "innerMeters": 100,
+      "outerMeters": 200,
+      "nearFactor": 1
+    },
+    "uncertainty": "原导图参考点用于候选显示，非已核实楼心；yaw=0为统一展示方向，非建筑正面方位。真实尺寸、精确位置、朝向、接地、时相和隐藏部分仍待核。源模型原点显示在参考点，包围盒中心可因非对称裙房而偏移；不据此删除附近GIS楼体。"
+  },
+  "1649140": {
+    "label": "原导图附近展示 · 方位/尺寸待核",
+    "method": "tour-marker-illustrative-display",
+    "coordinateSystem": "WGS84",
+    "anchorLonLat": [
+      111.364572628021,
+      30.630054365218708
+    ],
+    "modelOriginLonLat": [
+      111.364572628021,
+      30.630054365218708
+    ],
+    "sourceMarker": {
+      "coordinateSystem": "GCJ-02",
+      "lonLat": [
+        111.370433,
+        30.627722
+      ],
+      "sceneId": "1649140"
+    },
+    "scaleMetersPerSourceUnit": 1.262227856434293,
+    "yawRadians": 0,
+    "frontBearingDeg": 180,
+    "orientationMethod": "illustrative-yaw-zero-not-observed-facade-bearing",
+    "scaleMethod": "uniform-illustrative-display-height-and-plan-cap-not-survey",
+    "displaySizePolicy": {
+      "maxHeightMetersEquivalent": 100,
+      "maxPlanDimensionMetersEquivalent": 100,
+      "appliedUniformScale": 1.262227856434293,
+      "sourceSize": [
+        62.27000045776367,
+        79.2249984741211,
+        60.27000045776367
+      ],
+      "displaySizeMetersEquivalent": [
+        78.59892919796549,
+        100,
+        76.0744734850969
+      ],
+      "reason": "仅为让16个待配准候选在城市沙盘中具有可辨且有限的展示包络，统一将高度和最大平面边长均限制在100m等效展示单位；不是实高或实宽，不根据默认GIS高度、楼层数或最近多边形推断。"
+    },
+    "approximate": true,
+    "suppressBackgroundReplacement": true,
+    "contextHeight": {
+      "innerMeters": 100,
+      "outerMeters": 200,
+      "nearFactor": 1
+    },
+    "uncertainty": "原导图参考点用于候选显示，非已核实楼心；yaw=0为统一展示方向，非建筑正面方位。真实尺寸、精确位置、朝向、接地、时相和隐藏部分仍待核。源模型原点显示在参考点，包围盒中心可因非对称裙房而偏移；不据此删除附近GIS楼体。"
+  },
+  "1649141": {
+    "label": "原导图附近展示 · 方位/尺寸待核",
+    "method": "tour-marker-illustrative-display",
+    "coordinateSystem": "WGS84",
+    "anchorLonLat": [
+      111.32522959614468,
+      30.68191051044286
+    ],
+    "modelOriginLonLat": [
+      111.32522959614468,
+      30.68191051044286
+    ],
+    "sourceMarker": {
+      "coordinateSystem": "GCJ-02",
+      "lonLat": [
+        111.33099,
+        30.679532
+      ],
+      "sceneId": "1649141"
+    },
+    "scaleMetersPerSourceUnit": 0.9171787684087223,
+    "yawRadians": 0,
+    "frontBearingDeg": 180,
+    "orientationMethod": "illustrative-yaw-zero-not-observed-facade-bearing",
+    "scaleMethod": "uniform-illustrative-display-height-and-plan-cap-not-survey",
+    "displaySizePolicy": {
+      "maxHeightMetersEquivalent": 100,
+      "maxPlanDimensionMetersEquivalent": 100,
+      "appliedUniformScale": 0.9171787684087223,
+      "sourceSize": [
+        106.18967819213867,
+        94.00000001192093,
+        109.02999877929688
+      ],
+      "displaySizeMetersEquivalent": [
+        97.3949182619843,
+        86.21480424135352,
+        100
+      ],
+      "reason": "仅为让16个待配准候选在城市沙盘中具有可辨且有限的展示包络，统一将高度和最大平面边长均限制在100m等效展示单位；不是实高或实宽，不根据默认GIS高度、楼层数或最近多边形推断。"
+    },
+    "approximate": true,
+    "suppressBackgroundReplacement": true,
+    "contextHeight": {
+      "innerMeters": 100,
+      "outerMeters": 200,
+      "nearFactor": 1
+    },
+    "uncertainty": "原导图参考点用于候选显示，非已核实楼心；yaw=0为统一展示方向，非建筑正面方位。真实尺寸、精确位置、朝向、接地、时相和隐藏部分仍待核。源模型原点显示在参考点，包围盒中心可因非对称裙房而偏移；不据此删除附近GIS楼体。"
+  },
+  "1649142": {
+    "label": "原导图附近展示 · 方位/尺寸待核",
+    "method": "tour-marker-illustrative-display",
+    "coordinateSystem": "WGS84",
+    "anchorLonLat": [
+      111.32567183443425,
+      30.664566568685956
+    ],
+    "modelOriginLonLat": [
+      111.32567183443425,
+      30.664566568685956
+    ],
+    "sourceMarker": {
+      "coordinateSystem": "GCJ-02",
+      "lonLat": [
+        111.331432,
+        30.662181
+      ],
+      "sceneId": "1649142"
+    },
+    "scaleMetersPerSourceUnit": 1.5622558973850869,
+    "yawRadians": 0,
+    "frontBearingDeg": 180,
+    "orientationMethod": "illustrative-yaw-zero-not-observed-facade-bearing",
+    "scaleMethod": "uniform-illustrative-display-height-and-plan-cap-not-survey",
+    "displaySizePolicy": {
+      "maxHeightMetersEquivalent": 100,
+      "maxPlanDimensionMetersEquivalent": 100,
+      "appliedUniformScale": 1.5622558973850869,
+      "sourceSize": [
+        20.40000057220459,
+        64.01000000536442,
+        41.499998450279236
+      ],
+      "displaySizeMetersEquivalent": [
+        31.870021200585768,
+        100,
+        64.8336173204207
+      ],
+      "reason": "仅为让16个待配准候选在城市沙盘中具有可辨且有限的展示包络，统一将高度和最大平面边长均限制在100m等效展示单位；不是实高或实宽，不根据默认GIS高度、楼层数或最近多边形推断。"
+    },
+    "approximate": true,
+    "suppressBackgroundReplacement": true,
+    "contextHeight": {
+      "innerMeters": 100,
+      "outerMeters": 200,
+      "nearFactor": 1
+    },
+    "uncertainty": "原导图参考点用于候选显示，非已核实楼心；yaw=0为统一展示方向，非建筑正面方位。真实尺寸、精确位置、朝向、接地、时相和隐藏部分仍待核。源模型原点显示在参考点，包围盒中心可因非对称裙房而偏移；不据此删除附近GIS楼体。"
+  },
+  "1649143": {
+    "label": "原导图附近展示 · 方位/尺寸待核",
+    "method": "tour-marker-illustrative-display",
+    "coordinateSystem": "WGS84",
+    "anchorLonLat": [
+      111.32161881804507,
+      30.683174803986216
+    ],
+    "modelOriginLonLat": [
+      111.32161881804507,
+      30.683174803986216
+    ],
+    "sourceMarker": {
+      "coordinateSystem": "GCJ-02",
+      "lonLat": [
+        111.327369,
+        30.68079
+      ],
+      "sceneId": "1649143"
+    },
+    "scaleMetersPerSourceUnit": 0.9259259259259259,
+    "yawRadians": 0,
+    "frontBearingDeg": 180,
+    "orientationMethod": "illustrative-yaw-zero-not-observed-facade-bearing",
+    "scaleMethod": "uniform-illustrative-display-height-and-plan-cap-not-survey",
+    "displaySizePolicy": {
+      "maxHeightMetersEquivalent": 100,
+      "maxPlanDimensionMetersEquivalent": 100,
+      "appliedUniformScale": 0.9259259259259259,
+      "sourceSize": [
+        73.61000061035156,
+        108,
+        36.85999917984009
+      ],
+      "displaySizeMetersEquivalent": [
+        68.15740797254774,
+        100,
+        34.129628870222305
+      ],
+      "reason": "仅为让16个待配准候选在城市沙盘中具有可辨且有限的展示包络，统一将高度和最大平面边长均限制在100m等效展示单位；不是实高或实宽，不根据默认GIS高度、楼层数或最近多边形推断。"
+    },
+    "approximate": true,
+    "suppressBackgroundReplacement": true,
+    "contextHeight": {
+      "innerMeters": 100,
+      "outerMeters": 200,
+      "nearFactor": 1
+    },
+    "uncertainty": "原导图参考点用于候选显示，非已核实楼心；yaw=0为统一展示方向，非建筑正面方位。真实尺寸、精确位置、朝向、接地、时相和隐藏部分仍待核。源模型原点显示在参考点，包围盒中心可因非对称裙房而偏移；不据此删除附近GIS楼体。"
+  },
+  "1649144": {
+    "label": "原导图附近展示 · 方位/尺寸待核",
+    "method": "tour-marker-illustrative-display",
+    "coordinateSystem": "WGS84",
+    "anchorLonLat": [
+      111.32594679038543,
+      30.679035466631458
+    ],
+    "modelOriginLonLat": [
+      111.32594679038543,
+      30.679035466631458
+    ],
+    "sourceMarker": {
+      "coordinateSystem": "GCJ-02",
+      "lonLat": [
+        111.331709,
+        30.676657
+      ],
+      "sceneId": "1649144"
+    },
+    "scaleMetersPerSourceUnit": 0.78125,
+    "yawRadians": 0,
+    "frontBearingDeg": 180,
+    "orientationMethod": "illustrative-yaw-zero-not-observed-facade-bearing",
+    "scaleMethod": "uniform-illustrative-display-height-and-plan-cap-not-survey",
+    "displaySizePolicy": {
+      "maxHeightMetersEquivalent": 100,
+      "maxPlanDimensionMetersEquivalent": 100,
+      "appliedUniformScale": 0.78125,
+      "sourceSize": [
+        44.505001068115234,
+        128,
+        18.455000013113022
+      ],
+      "displaySizeMetersEquivalent": [
+        34.76953208446503,
+        100,
+        14.417968760244548
+      ],
+      "reason": "仅为让16个待配准候选在城市沙盘中具有可辨且有限的展示包络，统一将高度和最大平面边长均限制在100m等效展示单位；不是实高或实宽，不根据默认GIS高度、楼层数或最近多边形推断。"
+    },
+    "approximate": true,
+    "suppressBackgroundReplacement": true,
+    "contextHeight": {
+      "innerMeters": 100,
+      "outerMeters": 200,
+      "nearFactor": 1
+    },
+    "uncertainty": "原导图参考点用于候选显示，非已核实楼心；yaw=0为统一展示方向，非建筑正面方位。真实尺寸、精确位置、朝向、接地、时相和隐藏部分仍待核。源模型原点显示在参考点，包围盒中心可因非对称裙房而偏移；不据此删除附近GIS楼体。"
+  },
+  "1649145": {
+    "label": "组团候选定位·相对布局待核 · 非实测",
+    "method": "compound-candidate",
+    "coordinateSystem": "WGS84",
+    "modelOriginLonLat": [
+      111.30446322466914,
+      30.680874210469348
+    ],
+    "anchorLonLat": [
+      111.30446322466914,
+      30.680874210469348
+    ],
+    "scaleMetersPerSourceUnit": 1.4061155235192744,
+    "yawRadians": -0.6658676676733161,
+    "frontBearingDeg": 218.15140707190068,
+    "replaceSourceFeatureIds": [
+      "d6d52628-7bcb-4a1a-89be-f0a610dd73c1",
+      "81af0591-a194-46a2-ac7a-edcbbb974357",
+      "afa5302e-bdfe-425a-890a-5d60693f32e4",
+      "8dd77dbf-8907-4a23-941e-13f3664c1576"
+    ],
+    "footprintsLonLat": [
+      [
+        [
+          111.304392,
+          30.681267
+        ],
+        [
+          111.304605,
+          30.68112
+        ],
+        [
+          111.304587,
+          30.6811
+        ],
+        [
+          111.305015,
+          30.680806
+        ],
+        [
+          111.304989,
+          30.680777
+        ],
+        [
+          111.305275,
+          30.680583
+        ],
+        [
+          111.305039,
+          30.680301
+        ],
+        [
+          111.305026,
+          30.6803
+        ],
+        [
+          111.304963,
+          30.680336
+        ],
+        [
+          111.304932,
+          30.680337
+        ],
+        [
+          111.304873,
+          30.680321
+        ],
+        [
+          111.304823,
+          30.680283
+        ],
+        [
+          111.304808,
+          30.680279
+        ],
+        [
+          111.30479,
+          30.680284
+        ],
+        [
+          111.304007,
+          30.680813
+        ],
+        [
+          111.304008,
+          30.680837
+        ],
+        [
+          111.304071,
+          30.680896
+        ],
+        [
+          111.30409,
+          30.680946
+        ],
+        [
+          111.304079,
+          30.680993
+        ],
+        [
+          111.304053,
+          30.68103
+        ],
+        [
+          111.303646,
+          30.681318
+        ],
+        [
+          111.303647,
+          30.681336
+        ],
+        [
+          111.303823,
+          30.681525
+        ],
+        [
+          111.303781,
+          30.681557
+        ],
+        [
+          111.303921,
+          30.681716
+        ],
+        [
+          111.304464,
+          30.681348
+        ],
+        [
+          111.304392,
+          30.681267
+        ]
+      ],
+      [
+        [
+          111.304128,
+          30.681326
+        ],
+        [
+          111.304145,
+          30.681307
+        ],
+        [
+          111.304143,
+          30.681284
+        ],
+        [
+          111.303973,
+          30.681109
+        ],
+        [
+          111.303936,
+          30.681089
+        ],
+        [
+          111.303912,
+          30.681091
+        ],
+        [
+          111.30364,
+          30.681285
+        ],
+        [
+          111.303629,
+          30.681302
+        ],
+        [
+          111.303627,
+          30.681321
+        ],
+        [
+          111.303638,
+          30.681345
+        ],
+        [
+          111.303801,
+          30.681522
+        ],
+        [
+          111.303823,
+          30.68153
+        ],
+        [
+          111.303846,
+          30.681524
+        ],
+        [
+          111.304128,
+          30.681326
+        ]
+      ],
+      [
+        [
+          111.304701,
+          30.680795
+        ],
+        [
+          111.304463,
+          30.680962
+        ],
+        [
+          111.304591,
+          30.681097
+        ],
+        [
+          111.304829,
+          30.68093
+        ],
+        [
+          111.304701,
+          30.680795
+        ]
+      ],
+      [
+        [
+          111.305098,
+          30.680473
+        ],
+        [
+          111.30486,
+          30.680638
+        ],
+        [
+          111.304988,
+          30.680775
+        ],
+        [
+          111.305227,
+          30.680611
+        ],
+        [
+          111.305098,
+          30.680473
+        ]
+      ]
+    ],
+    "sourceSnapshotCommit": "38c01bf002511c01294feacd8aa85e54e6342724",
+    "contextHeight": {
+      "innerMeters": 400,
+      "outerMeters": 900,
+      "nearFactor": 1
+    },
+    "uncertainty": "模型办公→中住宅→SE住宅中心距27.02/30.5，源地图83.47/52.26m，相对布局矛盾；办公/住宅宽度比也不一致。；三中心整体最小二乘scale2.3300产生RMS9.87m且压港沙路与沿江大道，拒用。；当前scale1.4061的保守完整组团不压源邻楼或机动车道，但塔中心误差30.07/16.00/24.32m，应标“组团候选定位·相对布局待核”。；OFFICE/RESIDENTIAL MID/RIGHT可语义分离，但共享院落、塔基与桥廊不能无缝随三塔分别搬动；未自行重做裙房。；只去SITE local paving/SITE paving joints。4种有照片形态依据的前场铺装/花池/通用绿化保留，已另查全部源背景楼和道路均无相交。",
+    "sourceFootprintRecords": [
+      {
+        "sourceFeatureId": "d6d52628-7bcb-4a1a-89be-f0a610dd73c1",
+        "sourceFile": "buildings/b_05_03_0.geojson",
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                111.304392,
+                30.681267
+              ],
+              [
+                111.304605,
+                30.68112
+              ],
+              [
+                111.304587,
+                30.6811
+              ],
+              [
+                111.305015,
+                30.680806
+              ],
+              [
+                111.304989,
+                30.680777
+              ],
+              [
+                111.305275,
+                30.680583
+              ],
+              [
+                111.305039,
+                30.680301
+              ],
+              [
+                111.305026,
+                30.6803
+              ],
+              [
+                111.304963,
+                30.680336
+              ],
+              [
+                111.304932,
+                30.680337
+              ],
+              [
+                111.304873,
+                30.680321
+              ],
+              [
+                111.304823,
+                30.680283
+              ],
+              [
+                111.304808,
+                30.680279
+              ],
+              [
+                111.30479,
+                30.680284
+              ],
+              [
+                111.304007,
+                30.680813
+              ],
+              [
+                111.304008,
+                30.680837
+              ],
+              [
+                111.304071,
+                30.680896
+              ],
+              [
+                111.30409,
+                30.680946
+              ],
+              [
+                111.304079,
+                30.680993
+              ],
+              [
+                111.304053,
+                30.68103
+              ],
+              [
+                111.303646,
+                30.681318
+              ],
+              [
+                111.303647,
+                30.681336
+              ],
+              [
+                111.303823,
+                30.681525
+              ],
+              [
+                111.303781,
+                30.681557
+              ],
+              [
+                111.303921,
+                30.681716
+              ],
+              [
+                111.304464,
+                30.681348
+              ],
+              [
+                111.304392,
+                30.681267
+              ]
+            ]
+          ]
+        },
+        "ringsLonLat": [
+          [
+            [
+              111.304392,
+              30.681267
+            ],
+            [
+              111.304605,
+              30.68112
+            ],
+            [
+              111.304587,
+              30.6811
+            ],
+            [
+              111.305015,
+              30.680806
+            ],
+            [
+              111.304989,
+              30.680777
+            ],
+            [
+              111.305275,
+              30.680583
+            ],
+            [
+              111.305039,
+              30.680301
+            ],
+            [
+              111.305026,
+              30.6803
+            ],
+            [
+              111.304963,
+              30.680336
+            ],
+            [
+              111.304932,
+              30.680337
+            ],
+            [
+              111.304873,
+              30.680321
+            ],
+            [
+              111.304823,
+              30.680283
+            ],
+            [
+              111.304808,
+              30.680279
+            ],
+            [
+              111.30479,
+              30.680284
+            ],
+            [
+              111.304007,
+              30.680813
+            ],
+            [
+              111.304008,
+              30.680837
+            ],
+            [
+              111.304071,
+              30.680896
+            ],
+            [
+              111.30409,
+              30.680946
+            ],
+            [
+              111.304079,
+              30.680993
+            ],
+            [
+              111.304053,
+              30.68103
+            ],
+            [
+              111.303646,
+              30.681318
+            ],
+            [
+              111.303647,
+              30.681336
+            ],
+            [
+              111.303823,
+              30.681525
+            ],
+            [
+              111.303781,
+              30.681557
+            ],
+            [
+              111.303921,
+              30.681716
+            ],
+            [
+              111.304464,
+              30.681348
+            ],
+            [
+              111.304392,
+              30.681267
+            ]
+          ]
+        ],
+        "sourceProperties": {
+          "heightMeters": 12,
+          "heightSource": "default",
+          "areaMeters2": 9768.7,
+          "buildingClass": "retail",
+          "sourceDataset": "osm"
+        }
+      },
+      {
+        "sourceFeatureId": "81af0591-a194-46a2-ac7a-edcbbb974357",
+        "sourceFile": "buildings/b_05_03_0.geojson",
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                111.304128,
+                30.681326
+              ],
+              [
+                111.304145,
+                30.681307
+              ],
+              [
+                111.304143,
+                30.681284
+              ],
+              [
+                111.303973,
+                30.681109
+              ],
+              [
+                111.303936,
+                30.681089
+              ],
+              [
+                111.303912,
+                30.681091
+              ],
+              [
+                111.30364,
+                30.681285
+              ],
+              [
+                111.303629,
+                30.681302
+              ],
+              [
+                111.303627,
+                30.681321
+              ],
+              [
+                111.303638,
+                30.681345
+              ],
+              [
+                111.303801,
+                30.681522
+              ],
+              [
+                111.303823,
+                30.68153
+              ],
+              [
+                111.303846,
+                30.681524
+              ],
+              [
+                111.304128,
+                30.681326
+              ]
+            ]
+          ]
+        },
+        "ringsLonLat": [
+          [
+            [
+              111.304128,
+              30.681326
+            ],
+            [
+              111.304145,
+              30.681307
+            ],
+            [
+              111.304143,
+              30.681284
+            ],
+            [
+              111.303973,
+              30.681109
+            ],
+            [
+              111.303936,
+              30.681089
+            ],
+            [
+              111.303912,
+              30.681091
+            ],
+            [
+              111.30364,
+              30.681285
+            ],
+            [
+              111.303629,
+              30.681302
+            ],
+            [
+              111.303627,
+              30.681321
+            ],
+            [
+              111.303638,
+              30.681345
+            ],
+            [
+              111.303801,
+              30.681522
+            ],
+            [
+              111.303823,
+              30.68153
+            ],
+            [
+              111.303846,
+              30.681524
+            ],
+            [
+              111.304128,
+              30.681326
+            ]
+          ]
+        ],
+        "sourceProperties": {
+          "heightMeters": 230,
+          "heightSource": "tag",
+          "areaMeters2": 1366.7,
+          "name": "宜昌IFC",
+          "buildingClass": "commercial",
+          "sourceDataset": "osm"
+        }
+      },
+      {
+        "sourceFeatureId": "afa5302e-bdfe-425a-890a-5d60693f32e4",
+        "sourceFile": "buildings/b_05_03_0.geojson",
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                111.304701,
+                30.680795
+              ],
+              [
+                111.304463,
+                30.680962
+              ],
+              [
+                111.304591,
+                30.681097
+              ],
+              [
+                111.304829,
+                30.68093
+              ],
+              [
+                111.304701,
+                30.680795
+              ]
+            ]
+          ]
+        },
+        "ringsLonLat": [
+          [
+            [
+              111.304701,
+              30.680795
+            ],
+            [
+              111.304463,
+              30.680962
+            ],
+            [
+              111.304591,
+              30.681097
+            ],
+            [
+              111.304829,
+              30.68093
+            ],
+            [
+              111.304701,
+              30.680795
+            ]
+          ]
+        ],
+        "sourceProperties": {
+          "heightMeters": 170,
+          "heightSource": "tag",
+          "areaMeters2": 571,
+          "buildingClass": "residential",
+          "sourceDataset": "osm"
+        }
+      },
+      {
+        "sourceFeatureId": "8dd77dbf-8907-4a23-941e-13f3664c1576",
+        "sourceFile": "buildings/b_05_03_0.geojson",
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                111.305098,
+                30.680473
+              ],
+              [
+                111.30486,
+                30.680638
+              ],
+              [
+                111.304988,
+                30.680775
+              ],
+              [
+                111.305227,
+                30.680611
+              ],
+              [
+                111.305098,
+                30.680473
+              ]
+            ]
+          ]
+        },
+        "ringsLonLat": [
+          [
+            [
+              111.305098,
+              30.680473
+            ],
+            [
+              111.30486,
+              30.680638
+            ],
+            [
+              111.304988,
+              30.680775
+            ],
+            [
+              111.305227,
+              30.680611
+            ],
+            [
+              111.305098,
+              30.680473
+            ]
+          ]
+        ],
+        "sourceProperties": {
+          "heightMeters": 170,
+          "heightSource": "tag",
+          "areaMeters2": 575.6,
+          "buildingClass": "residential",
+          "sourceDataset": "osm"
+        }
+      }
+    ]
+  },
+  "1649146": {
+    "label": "原导图附近展示 · 方位/尺寸待核",
+    "method": "tour-marker-illustrative-display",
+    "coordinateSystem": "WGS84",
+    "anchorLonLat": [
+      111.32263847158941,
+      30.665106113714582
+    ],
+    "modelOriginLonLat": [
+      111.32263847158941,
+      30.665106113714582
+    ],
+    "sourceMarker": {
+      "coordinateSystem": "GCJ-02",
+      "lonLat": [
+        111.32839,
+        30.662715
+      ],
+      "sceneId": "1649146"
+    },
+    "scaleMetersPerSourceUnit": 0.8910273278880908,
+    "yawRadians": 0,
+    "frontBearingDeg": 180,
+    "orientationMethod": "illustrative-yaw-zero-not-observed-facade-bearing",
+    "scaleMethod": "uniform-illustrative-display-height-and-plan-cap-not-survey",
+    "displaySizePolicy": {
+      "maxHeightMetersEquivalent": 100,
+      "maxPlanDimensionMetersEquivalent": 100,
+      "appliedUniformScale": 0.8910273278880908,
+      "sourceSize": [
+        38.859999656677246,
+        112.2300033569336,
+        38.85999870300293
+      ],
+      "displaySizeMetersEquivalent": [
+        34.62532165582125,
+        100,
+        34.62532080607137
+      ],
+      "reason": "仅为让16个待配准候选在城市沙盘中具有可辨且有限的展示包络，统一将高度和最大平面边长均限制在100m等效展示单位；不是实高或实宽，不根据默认GIS高度、楼层数或最近多边形推断。"
+    },
+    "approximate": true,
+    "suppressBackgroundReplacement": true,
+    "contextHeight": {
+      "innerMeters": 100,
+      "outerMeters": 200,
+      "nearFactor": 1
+    },
+    "uncertainty": "原导图参考点用于候选显示，非已核实楼心；yaw=0为统一展示方向，非建筑正面方位。真实尺寸、精确位置、朝向、接地、时相和隐藏部分仍待核。源模型原点显示在参考点，包围盒中心可因非对称裙房而偏移；不据此删除附近GIS楼体。"
+  },
+  "1649147": {
+    "label": "原导图附近展示 · 方位/尺寸待核",
+    "method": "tour-marker-illustrative-display",
+    "coordinateSystem": "WGS84",
+    "anchorLonLat": [
+      111.3457424302751,
+      30.641061172586056
+    ],
+    "modelOriginLonLat": [
+      111.3457424302751,
+      30.641061172586056
+    ],
+    "sourceMarker": {
+      "coordinateSystem": "GCJ-02",
+      "lonLat": [
+        111.351557,
+        30.638703
+      ],
+      "sceneId": "1649147"
+    },
+    "scaleMetersPerSourceUnit": 0.9514747997320202,
+    "yawRadians": 0,
+    "frontBearingDeg": 180,
+    "orientationMethod": "illustrative-yaw-zero-not-observed-facade-bearing",
+    "scaleMethod": "uniform-illustrative-display-height-and-plan-cap-not-survey",
+    "displaySizePolicy": {
+      "maxHeightMetersEquivalent": 100,
+      "maxPlanDimensionMetersEquivalent": 100,
+      "appliedUniformScale": 0.9514747997320202,
+      "sourceSize": [
+        55,
+        105.0999984741211,
+        31.5
+      ],
+      "displaySizeMetersEquivalent": [
+        52.33111398526111,
+        100,
+        29.971456191558637
+      ],
+      "reason": "仅为让16个待配准候选在城市沙盘中具有可辨且有限的展示包络，统一将高度和最大平面边长均限制在100m等效展示单位；不是实高或实宽，不根据默认GIS高度、楼层数或最近多边形推断。"
+    },
+    "approximate": true,
+    "suppressBackgroundReplacement": true,
+    "contextHeight": {
+      "innerMeters": 100,
+      "outerMeters": 200,
+      "nearFactor": 1
+    },
+    "uncertainty": "原导图参考点用于候选显示，非已核实楼心；yaw=0为统一展示方向，非建筑正面方位。真实尺寸、精确位置、朝向、接地、时相和隐藏部分仍待核。源模型原点显示在参考点，包围盒中心可因非对称裙房而偏移；不据此删除附近GIS楼体。"
+  },
+  "1649148": {
+    "label": "原导图附近展示 · 方位/尺寸待核",
+    "method": "tour-marker-illustrative-display",
+    "coordinateSystem": "WGS84",
+    "anchorLonLat": [
+      111.32446243388668,
+      30.663012575245475
+    ],
+    "modelOriginLonLat": [
+      111.32446243388668,
+      30.663012575245475
+    ],
+    "sourceMarker": {
+      "coordinateSystem": "GCJ-02",
+      "lonLat": [
+        111.330219,
+        30.660624
+      ],
+      "sceneId": "1649148"
+    },
+    "scaleMetersPerSourceUnit": 3.323915568329822,
+    "yawRadians": 0,
+    "frontBearingDeg": 180,
+    "orientationMethod": "illustrative-yaw-zero-not-observed-facade-bearing",
+    "scaleMethod": "uniform-illustrative-display-height-and-plan-cap-not-survey",
+    "displaySizePolicy": {
+      "maxHeightMetersEquivalent": 100,
+      "maxPlanDimensionMetersEquivalent": 100,
+      "appliedUniformScale": 3.323915568329822,
+      "sourceSize": [
+        30.085000038146973,
+        29.044999837875366,
+        11.77000007033348
+      ],
+      "displaySizeMetersEquivalent": [
+        100,
+        96.54312714325108,
+        39.12248647302455
+      ],
+      "reason": "仅为让16个待配准候选在城市沙盘中具有可辨且有限的展示包络，统一将高度和最大平面边长均限制在100m等效展示单位；不是实高或实宽，不根据默认GIS高度、楼层数或最近多边形推断。"
+    },
+    "approximate": true,
+    "suppressBackgroundReplacement": true,
+    "contextHeight": {
+      "innerMeters": 100,
+      "outerMeters": 200,
+      "nearFactor": 1
+    },
+    "uncertainty": "原导图参考点用于候选显示，非已核实楼心；yaw=0为统一展示方向，非建筑正面方位。真实尺寸、精确位置、朝向、接地、时相和隐藏部分仍待核。源模型原点显示在参考点，包围盒中心可因非对称裙房而偏移；不据此删除附近GIS楼体。"
+  },
+  "1649149": {
+    "label": "街角轮廓配准候选 · 非实测",
+    "method": "footprint-candidate",
+    "coordinateSystem": "WGS84",
+    "modelOriginLonLat": [
+      111.29913385281101,
+      30.686007336520234
+    ],
+    "anchorLonLat": [
+      111.29913385281101,
+      30.686007336520234
+    ],
+    "scaleMetersPerSourceUnit": 0.8579827111894202,
+    "yawRadians": 1.6868399031691987,
+    "frontBearingDeg": 83.35119283414845,
+    "replaceSourceFeatureIds": [
+      "a282237a-14a0-4246-bd2b-8386a86a1502",
+      "4b2539b2-ca4f-489a-96e3-9df54396e0ae"
+    ],
+    "footprintsLonLat": [
+      [
+        [
+          111.299143,
+          30.685875
+        ],
+        [
+          111.299063,
+          30.685786
+        ],
+        [
+          111.298618,
+          30.686111
+        ],
+        [
+          111.298808,
+          30.686331
+        ],
+        [
+          111.29912,
+          30.686113
+        ],
+        [
+          111.299143,
+          30.685875
+        ]
+      ],
+      [
+        [
+          111.298956,
+          30.68587
+        ],
+        [
+          111.298991,
+          30.685915
+        ],
+        [
+          111.29898,
+          30.68601
+        ],
+        [
+          111.298748,
+          30.686178
+        ],
+        [
+          111.298843,
+          30.686291
+        ],
+        [
+          111.299105,
+          30.686109
+        ],
+        [
+          111.299132,
+          30.685868
+        ],
+        [
+          111.299063,
+          30.685791
+        ],
+        [
+          111.298956,
+          30.68587
+        ]
+      ]
+    ],
+    "sourceSnapshotCommit": "38c01bf002511c01294feacd8aa85e54e6342724",
+    "contextHeight": {
+      "innerMeters": 400,
+      "outerMeters": 900,
+      "nearFactor": 1
+    },
+    "uncertainty": "使用S09基准原高度、hotel OFF；不是隐藏高度研究方案。；源轮廓高度12m是默认值，不用于宣称真实楼高。；看不见的后立面及后部轮廓为源模型中保留的推定封闭面。",
+    "sourceFootprintRecords": [
+      {
+        "sourceFeatureId": "a282237a-14a0-4246-bd2b-8386a86a1502",
+        "sourceFile": "buildings/b_04_03_1.geojson",
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                111.299143,
+                30.685875
+              ],
+              [
+                111.299063,
+                30.685786
+              ],
+              [
+                111.298618,
+                30.686111
+              ],
+              [
+                111.298808,
+                30.686331
+              ],
+              [
+                111.29912,
+                30.686113
+              ],
+              [
+                111.299143,
+                30.685875
+              ]
+            ]
+          ]
+        },
+        "ringsLonLat": [
+          [
+            [
+              111.299143,
+              30.685875
+            ],
+            [
+              111.299063,
+              30.685786
+            ],
+            [
+              111.298618,
+              30.686111
+            ],
+            [
+              111.298808,
+              30.686331
+            ],
+            [
+              111.29912,
+              30.686113
+            ],
+            [
+              111.299143,
+              30.685875
+            ]
+          ]
+        ],
+        "sourceProperties": {
+          "heightMeters": 12,
+          "heightSource": "default",
+          "areaMeters2": 1572.2,
+          "sourceDataset": "osm"
+        }
+      },
+      {
+        "sourceFeatureId": "4b2539b2-ca4f-489a-96e3-9df54396e0ae",
+        "sourceFile": "buildings/b_04_03_1.geojson",
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [
+                111.298956,
+                30.68587
+              ],
+              [
+                111.298991,
+                30.685915
+              ],
+              [
+                111.29898,
+                30.68601
+              ],
+              [
+                111.298748,
+                30.686178
+              ],
+              [
+                111.298843,
+                30.686291
+              ],
+              [
+                111.299105,
+                30.686109
+              ],
+              [
+                111.299132,
+                30.685868
+              ],
+              [
+                111.299063,
+                30.685791
+              ],
+              [
+                111.298956,
+                30.68587
+              ]
+            ]
+          ]
+        },
+        "ringsLonLat": [
+          [
+            [
+              111.298956,
+              30.68587
+            ],
+            [
+              111.298991,
+              30.685915
+            ],
+            [
+              111.29898,
+              30.68601
+            ],
+            [
+              111.298748,
+              30.686178
+            ],
+            [
+              111.298843,
+              30.686291
+            ],
+            [
+              111.299105,
+              30.686109
+            ],
+            [
+              111.299132,
+              30.685868
+            ],
+            [
+              111.299063,
+              30.685791
+            ],
+            [
+              111.298956,
+              30.68587
+            ]
+          ]
+        ],
+        "sourceProperties": {
+          "heightMeters": 12,
+          "heightSource": "default",
+          "areaMeters2": 842.8,
+          "sourceDataset": "osm"
+        }
+      }
+    ]
+  }
+}

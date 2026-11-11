@@ -1,0 +1,1507 @@
+{
+  "projects": 23,
+  "files": 46,
+  "totalLightBytes": 18968908,
+  "totalLightTriangles": 989768,
+  "totalDetailBytes": 45837084,
+  "totalDetailTriangles": 3564013,
+  "sourceBytesModified": false,
+  "visualQA": false,
+  "checks": [
+    {
+      "order": 1,
+      "scene_id": 1649135,
+      "name": "美联御峰写字楼",
+      "sourceBounds": {
+        "min": [
+          -36.964999198913574,
+          -0.20000076293945312,
+          -49.489999771118164
+        ],
+        "max": [
+          31.300003051757812,
+          100.08999633789062,
+          7.850000381469727
+        ]
+      },
+      "tiers": {
+        "light": {
+          "bytes": 1397792,
+          "triangles": 71382,
+          "primitives": 27,
+          "vertices": 199410,
+          "sha256": "8ded608af1a893069c2c6dc119bfafbd50e4a3a477c2434558ab0ebf38c514af",
+          "bounds": {
+            "min": [
+              -36.95403363587753,
+              -0.20000076293945312,
+              -49.48286718365678
+            ],
+            "max": [
+              31.29960372331039,
+              100.08999633789062,
+              7.850188198061076
+            ]
+          }
+        },
+        "detail": {
+          "bytes": 8163304,
+          "triangles": 529328,
+          "primitives": 27,
+          "vertices": 997857,
+          "sha256": "68101a0bd037113042b5c2d8b04411592ccfebd26a288ef5822c130cbb0e6685",
+          "bounds": {
+            "min": [
+              -36.965438155625584,
+              -0.20000076293945312,
+              -49.48958808691002
+            ],
+            "max": [
+              31.300442008469822,
+              100.08999633789062,
+              7.849588697261577
+            ]
+          }
+        }
+      },
+      "checks": [
+        "decoded-meshopt-when-present",
+        "finite-positions",
+        "index-range",
+        "valid-world-bounds",
+        "no-external-model-dependencies"
+      ],
+      "visualQA": false
+    },
+    {
+      "order": 2,
+      "scene_id": 1649149,
+      "name": "中南冶金",
+      "sourceBounds": {
+        "min": [
+          -29.16375160217285,
+          0,
+          -58.900001525878906
+        ],
+        "max": [
+          49.78280258178711,
+          106.55999755859375,
+          2.8828067779541016
+        ]
+      },
+      "tiers": {
+        "light": {
+          "bytes": 3438312,
+          "triangles": 141262,
+          "primitives": 31,
+          "vertices": 397437,
+          "sha256": "57a940813352ad91b759fa602ed989004a47f556a9cb2f161046db6b03eb39cc",
+          "bounds": {
+            "min": [
+              -29.16368909335738,
+              0,
+              -58.900472030083165
+            ],
+            "max": [
+              49.78280544281006,
+              106.55978065029355,
+              2.8828067779541016
+            ]
+          }
+        },
+        "detail": {
+          "bytes": 10336204,
+          "triangles": 696156,
+          "primitives": 31,
+          "vertices": 1454818,
+          "sha256": "3c346ca93c0a3ce3eee4ccae495315737c49601083e124ccb529058eef8072c2",
+          "bounds": {
+            "min": [
+              -29.16368909335738,
+              0,
+              -58.900472030083165
+            ],
+            "max": [
+              49.78280544281006,
+              106.56004067711802,
+              2.8828067779541016
+            ]
+          }
+        }
+      },
+      "checks": [
+        "decoded-meshopt-when-present",
+        "finite-positions",
+        "index-range",
+        "valid-world-bounds",
+        "no-external-model-dependencies"
+      ],
+      "visualQA": false
+    },
+    {
+      "order": 3,
+      "scene_id": 1649132,
+      "name": "金江银座",
+      "sourceBounds": {
+        "min": [
+          -15.100000381469727,
+          0,
+          -9.475000381469727
+        ],
+        "max": [
+          15.774999618530273,
+          72.11499786376953,
+          21.549999237060547
+        ]
+      },
+      "tiers": {
+        "light": {
+          "bytes": 695048,
+          "triangles": 44782,
+          "primitives": 14,
+          "vertices": 102824,
+          "sha256": "3083962d179dd5e6e8fcef4811a3af484feae0539da93a274dbce013db141d4c",
+          "bounds": {
+            "min": [
+              -15.099927687816313,
+              0,
+              -9.475238483651182
+            ],
+            "max": [
+              15.774927520923308,
+              72.11503880404419,
+              21.54989671748173
+            ]
+          }
+        },
+        "detail": {
+          "bytes": 1126424,
+          "triangles": 125729,
+          "primitives": 14,
+          "vertices": 187076,
+          "sha256": "17dbc2dae65e7d8e8edd1a2aff0eca1b7ccd08d02ade03a04cf366ced59aa56b",
+          "bounds": {
+            "min": [
+              -15.100390879554599,
+              0,
+              -9.475315647149758
+            ],
+            "max": [
+              15.775390712661594,
+              72.1153340363075,
+              21.54989671748173
+            ]
+          }
+        }
+      },
+      "checks": [
+        "decoded-meshopt-when-present",
+        "finite-positions",
+        "index-range",
+        "valid-world-bounds",
+        "no-external-model-dependencies"
+      ],
+      "visualQA": false
+    },
+    {
+      "order": 4,
+      "scene_id": 1649138,
+      "name": "万达SOHO",
+      "sourceBounds": {
+        "min": [
+          -93.5,
+          -0.009999999776482582,
+          -39.13999938964844
+        ],
+        "max": [
+          117.5,
+          100.88999938964844,
+          19.899999618530273
+        ]
+      },
+      "tiers": {
+        "light": {
+          "bytes": 1972784,
+          "triangles": 97574,
+          "primitives": 31,
+          "vertices": 284549,
+          "sha256": "eab60310735cb2a687d0051565ef7065b2a29983fe80f32a3e642daeca1c977e",
+          "bounds": {
+            "min": [
+              -93.5,
+              -0.011293240326509135,
+              -39.14077503626539
+            ],
+            "max": [
+              117.5,
+              100.87438590123044,
+              19.900387585070344
+            ]
+          }
+        },
+        "detail": {
+          "bytes": 6736248,
+          "triangles": 510864,
+          "primitives": 31,
+          "vertices": 1021644,
+          "sha256": "726955bb50af546eae330168cef5cc1d757b04360f2b648bb348765cee9b3eea",
+          "bounds": {
+            "min": [
+              -93.5,
+              -0.009196876802867848,
+              -39.14077503626539
+            ],
+            "max": [
+              117.5,
+              100.88919627598804,
+              19.900387585070344
+            ]
+          }
+        }
+      },
+      "checks": [
+        "decoded-meshopt-when-present",
+        "finite-positions",
+        "index-range",
+        "valid-world-bounds",
+        "no-external-model-dependencies"
+      ],
+      "visualQA": false
+    },
+    {
+      "order": 5,
+      "scene_id": 1649129,
+      "name": "福江铭座",
+      "sourceBounds": {
+        "min": [
+          -24.256608963012695,
+          -0.125,
+          -21.674999237060547
+        ],
+        "max": [
+          24.256608963012695,
+          100,
+          12.180000305175781
+        ]
+      },
+      "tiers": {
+        "light": {
+          "bytes": 1671172,
+          "triangles": 76624,
+          "primitives": 18,
+          "vertices": 214679,
+          "sha256": "386b339e277b7f50960204b90aa1fdd7fc50134f5f807feea2d7679049e07473",
+          "bounds": {
+            "min": [
+              -24.256608963012695,
+              -0.12472658852660334,
+              -21.675019074080062
+            ],
+            "max": [
+              24.256608963012695,
+              100,
+              12.180437975182958
+            ]
+          }
+        },
+        "detail": {
+          "bytes": 2634620,
+          "triangles": 215204,
+          "primitives": 18,
+          "vertices": 404562,
+          "sha256": "7cb2f42e1ae50a059f0a12f9bdf0276b25300b4599199cca29364e24b035e13e",
+          "bounds": {
+            "min": [
+              -24.256608963012695,
+              -0.12472658852660334,
+              -21.675019074080062
+            ],
+            "max": [
+              24.256608963012695,
+              100,
+              12.180437975182958
+            ]
+          }
+        }
+      },
+      "checks": [
+        "decoded-meshopt-when-present",
+        "finite-positions",
+        "index-range",
+        "valid-world-bounds",
+        "no-external-model-dependencies"
+      ],
+      "visualQA": false
+    },
+    {
+      "order": 6,
+      "scene_id": 1649145,
+      "name": "宜昌国际广场",
+      "sourceBounds": {
+        "min": [
+          -47,
+          -0.41999998688697815,
+          -19.5
+        ],
+        "max": [
+          47,
+          100.06999969482422,
+          29.799999237060547
+        ]
+      },
+      "tiers": {
+        "light": {
+          "bytes": 3407596,
+          "triangles": 169528,
+          "primitives": 21,
+          "vertices": 485663,
+          "sha256": "c04302941156f3ed1c654176afd7c988b3fb3431a025dbf8e5afdfa927999d58",
+          "bounds": {
+            "min": [
+              -47,
+              -0.41962095281073913,
+              -19.500717184972686
+            ],
+            "max": [
+              47,
+              100.06999969482422,
+              29.79954862620435
+            ]
+          }
+        },
+        "detail": {
+          "bytes": 8378264,
+          "triangles": 739940,
+          "primitives": 21,
+          "vertices": 1453948,
+          "sha256": "d065a63b258d8fdc2240c7812da276ffe02cde939200e8cbb6763b1e33202519",
+          "bounds": {
+            "min": [
+              -47,
+              -0.41962095281073913,
+              -19.500717184972686
+            ],
+            "max": [
+              47,
+              100.06999969482422,
+              29.79978539209019
+            ]
+          }
+        }
+      },
+      "checks": [
+        "decoded-meshopt-when-present",
+        "finite-positions",
+        "index-range",
+        "valid-world-bounds",
+        "no-external-model-dependencies"
+      ],
+      "visualQA": false
+    },
+    {
+      "order": 7,
+      "scene_id": 1649136,
+      "name": "首信财富",
+      "sourceBounds": {
+        "min": [
+          -20.43000030517578,
+          0,
+          -14.0649995803833
+        ],
+        "max": [
+          20.43000030517578,
+          97.94000244140625,
+          14.065000534057617
+        ]
+      },
+      "tiers": {
+        "light": {
+          "bytes": 987872,
+          "triangles": 74072,
+          "primitives": 18,
+          "vertices": 43231,
+          "sha256": "1028fc22f1183409992724a2e341ee2d556124dab7e7885e3daa264f50ef6064",
+          "bounds": {
+            "min": [
+              -20.43000030517578,
+              0,
+              -14.0649995803833
+            ],
+            "max": [
+              20.43000030517578,
+              97.94000244140625,
+              14.065000534057617
+            ]
+          }
+        },
+        "detail": {
+          "bytes": 1498684,
+          "triangles": 117844,
+          "primitives": 19,
+          "vertices": 63839,
+          "sha256": "d038cc3053db606d991763ef733d24299278d3466ab7fb25a3c1f86fd1f18674",
+          "bounds": {
+            "min": [
+              -20.43000030517578,
+              0,
+              -14.0649995803833
+            ],
+            "max": [
+              20.43000030517578,
+              97.94000244140625,
+              14.065000534057617
+            ]
+          }
+        }
+      },
+      "checks": [
+        "decoded-meshopt-when-present",
+        "finite-positions",
+        "index-range",
+        "valid-world-bounds",
+        "no-external-model-dependencies"
+      ],
+      "visualQA": false
+    },
+    {
+      "order": 8,
+      "scene_id": 1649133,
+      "name": "九州方园",
+      "sourceBounds": {
+        "min": [
+          -28.700000762939453,
+          -0.03999999910593033,
+          -9.032500267028809
+        ],
+        "max": [
+          25.309999465942383,
+          100.03250122070312,
+          25.049999237060547
+        ]
+      },
+      "tiers": {
+        "light": {
+          "bytes": 888812,
+          "triangles": 48400,
+          "primitives": 18,
+          "vertices": 128955,
+          "sha256": "cfb133176fea8421d92eb1f0d5d769e314c287dd76055fa0e79b6a831dc386d4",
+          "bounds": {
+            "min": [
+              -28.700000762939453,
+              -0.03999999910593033,
+              -9.033205586868558
+            ],
+            "max": [
+              25.310626736696772,
+              100.03250122070312,
+              25.050351609082796
+            ]
+          }
+        },
+        "detail": {
+          "bytes": 1380216,
+          "triangles": 122340,
+          "primitives": 18,
+          "vertices": 238922,
+          "sha256": "721e6eaa394fcaaa02d6496282d85db6ed5e3c653576cab54c13349b69da82dc",
+          "bounds": {
+            "min": [
+              -28.700000762939453,
+              -0.03999999910593033,
+              -9.033205586868558
+            ],
+            "max": [
+              25.310626736696772,
+              100.03250122070312,
+              25.050351609082796
+            ]
+          }
+        }
+      },
+      "checks": [
+        "decoded-meshopt-when-present",
+        "finite-positions",
+        "index-range",
+        "valid-world-bounds",
+        "no-external-model-dependencies"
+      ],
+      "visualQA": false
+    },
+    {
+      "order": 9,
+      "scene_id": 1649141,
+      "name": "兴发广场",
+      "sourceBounds": {
+        "min": [
+          -46,
+          -1.1920929132713809e-8,
+          -66
+        ],
+        "max": [
+          60.18967819213867,
+          94,
+          43.029998779296875
+        ]
+      },
+      "tiers": {
+        "light": {
+          "bytes": 749636,
+          "triangles": 44718,
+          "primitives": 25,
+          "vertices": 110671,
+          "sha256": "f48e81e0ca43050404719cd2cc893abca926ed6e37921a3f31e6d8b5cf212a2f",
+          "bounds": {
+            "min": [
+              -46,
+              -0.0002493053155365743,
+              -65.99993896298105
+            ],
+            "max": [
+              60.18967819213867,
+              94,
+              43.029998779296875
+            ]
+          }
+        },
+        "detail": {
+          "bytes": 846888,
+          "triangles": 72960,
+          "primitives": 25,
+          "vertices": 139470,
+          "sha256": "413aa454be185c5e2a74d66bda7b0ff63083f70594a9ba0da2fa377296129a7c",
+          "bounds": {
+            "min": [
+              -46,
+              -0.0002493053155365743,
+              -65.99993896298105
+            ],
+            "max": [
+              60.18967819213867,
+              94,
+              43.029998779296875
+            ]
+          }
+        }
+      },
+      "checks": [
+        "decoded-meshopt-when-present",
+        "finite-positions",
+        "index-range",
+        "valid-world-bounds",
+        "no-external-model-dependencies"
+      ],
+      "visualQA": false
+    },
+    {
+      "order": 10,
+      "scene_id": 1649139,
+      "name": "新华广场武银大厦",
+      "sourceBounds": {
+        "min": [
+          -19.649999618530273,
+          0,
+          -10
+        ],
+        "max": [
+          20.412250518798828,
+          117.225341796875,
+          13.895000457763672
+        ]
+      },
+      "tiers": {
+        "light": {
+          "bytes": 442652,
+          "triangles": 25596,
+          "primitives": 11,
+          "vertices": 66622,
+          "sha256": "f9f2a1a33ed844b62a952ca9ae001903d2f1bece2d48d237b255b642153b9f0e",
+          "bounds": {
+            "min": [
+              -19.650074770348215,
+              0,
+              -9.999323200749481
+            ],
+            "max": [
+              20.412476016934725,
+              117.225341796875,
+              13.895187822635236
+            ]
+          }
+        },
+        "detail": {
+          "bytes": 568188,
+          "triangles": 49736,
+          "primitives": 11,
+          "vertices": 99128,
+          "sha256": "06a57b192a17a81a80fea01a549a637488578e378a2fc9c4daad670a4bcc5257",
+          "bounds": {
+            "min": [
+              -19.650074770348215,
+              0,
+              -9.999323200749481
+            ],
+            "max": [
+              20.412476016934725,
+              117.225341796875,
+              13.895187822635236
+            ]
+          }
+        }
+      },
+      "checks": [
+        "decoded-meshopt-when-present",
+        "finite-positions",
+        "index-range",
+        "valid-world-bounds",
+        "no-external-model-dependencies"
+      ],
+      "visualQA": false
+    },
+    {
+      "order": 11,
+      "scene_id": 1649144,
+      "name": "长江国际文化广场",
+      "sourceBounds": {
+        "min": [
+          -22.252500534057617,
+          0,
+          -18
+        ],
+        "max": [
+          22.252500534057617,
+          128,
+          0.45500001311302185
+        ]
+      },
+      "tiers": {
+        "light": {
+          "bytes": 157832,
+          "triangles": 10192,
+          "primitives": 8,
+          "vertices": 25649,
+          "sha256": "e7634e8b4e0a74dd26d5b916c0aafd5e3a6abec4132e95c809dbcd9630bff836",
+          "bounds": {
+            "min": [
+              -22.252937406537065,
+              0,
+              -18.000274666585284
+            ],
+            "max": [
+              22.252937406537065,
+              128,
+              0.45555193372587854
+            ]
+          }
+        },
+        "detail": {
+          "bytes": 286444,
+          "triangles": 25492,
+          "primitives": 8,
+          "vertices": 50976,
+          "sha256": "62a1ec8997621e80e0b3073a422a89dd010427dd6f81025ef3e7a93c228ff1e2",
+          "bounds": {
+            "min": [
+              -22.252937406537065,
+              0,
+              -18.000274666585284
+            ],
+            "max": [
+              22.252937406537065,
+              128,
+              0.45555193372587854
+            ]
+          }
+        }
+      },
+      "checks": [
+        "decoded-meshopt-when-present",
+        "finite-positions",
+        "index-range",
+        "valid-world-bounds",
+        "no-external-model-dependencies"
+      ],
+      "visualQA": false
+    },
+    {
+      "order": 12,
+      "scene_id": 1649148,
+      "name": "致远广场",
+      "sourceBounds": {
+        "min": [
+          -14.704999923706055,
+          -0.009999990463256836,
+          -5.150000184774399
+        ],
+        "max": [
+          15.380000114440918,
+          29.03499984741211,
+          6.619999885559082
+        ]
+      },
+      "tiers": {
+        "light": {
+          "bytes": 534628,
+          "triangles": 38374,
+          "primitives": 12,
+          "vertices": 79564,
+          "sha256": "f7140e760e75735d55f31a5e4bb815550dad0c662f22edaff9988f78f7dc6a25",
+          "bounds": {
+            "min": [
+              -14.70500279892483,
+              -0.0100302323978676,
+              -5.149798889263951
+            ],
+            "max": [
+              15.380000114440918,
+              29.03499984741211,
+              6.620059579358887
+            ]
+          }
+        },
+        "detail": {
+          "bytes": 466612,
+          "triangles": 41684,
+          "primitives": 12,
+          "vertices": 70216,
+          "sha256": "9736df762da7f1c9f350112203d62f3e69ae98f1d925658434e04aeeb117a9a9",
+          "bounds": {
+            "min": [
+              -14.70500279892483,
+              -0.0100302323978676,
+              -5.149798889263951
+            ],
+            "max": [
+              15.380000114440918,
+              29.03499984741211,
+              6.620059579358887
+            ]
+          }
+        }
+      },
+      "checks": [
+        "decoded-meshopt-when-present",
+        "finite-positions",
+        "index-range",
+        "valid-world-bounds",
+        "no-external-model-dependencies"
+      ],
+      "visualQA": false
+    },
+    {
+      "order": 13,
+      "scene_id": 1649137,
+      "name": "外滩领馆",
+      "sourceBounds": {
+        "min": [
+          -25.65000030398369,
+          0,
+          -9.25
+        ],
+        "max": [
+          25.630000069737434,
+          108.67999839782715,
+          9.330000013113022
+        ]
+      },
+      "tiers": {
+        "light": {
+          "bytes": 294716,
+          "triangles": 16112,
+          "primitives": 20,
+          "vertices": 41042,
+          "sha256": "d1f90639f6fc88dc8711882405dd6e159cd4be0d60b8f5a5e9064adae978ebde",
+          "bounds": {
+            "min": [
+              -25.65012551065546,
+              0.00006103701895199265,
+              -9.249817265624882
+            ],
+            "max": [
+              25.63012596186262,
+              108.67996008219902,
+              9.329784624011372
+            ]
+          }
+        },
+        "detail": {
+          "bytes": 348324,
+          "triangles": 27864,
+          "primitives": 20,
+          "vertices": 55704,
+          "sha256": "b7962231aa5555fac0597a8515d989a6b8c07bf21ab82ae1023e897dc60f45ca",
+          "bounds": {
+            "min": [
+              -25.65012551065546,
+              0.00006103701895199265,
+              -9.249817265624882
+            ],
+            "max": [
+              25.63012596186262,
+              108.67996008219902,
+              9.329784624011372
+            ]
+          }
+        }
+      },
+      "checks": [
+        "decoded-meshopt-when-present",
+        "finite-positions",
+        "index-range",
+        "valid-world-bounds",
+        "no-external-model-dependencies"
+      ],
+      "visualQA": false
+    },
+    {
+      "order": 14,
+      "scene_id": 1649146,
+      "name": "长乐大厦",
+      "sourceBounds": {
+        "min": [
+          -20.489999771118164,
+          0,
+          -18.369998931884766
+        ],
+        "max": [
+          18.369999885559082,
+          112.2300033569336,
+          20.489999771118164
+        ]
+      },
+      "tiers": {
+        "light": {
+          "bytes": 500144,
+          "triangles": 30596,
+          "primitives": 13,
+          "vertices": 76593,
+          "sha256": "4141aa7dd5a77e7cf06026db4d4a68b1a13f52d27acbc8852cb4e945db4cea4b",
+          "bounds": {
+            "min": [
+              -20.489999771118164,
+              -0.00019224795939498662,
+              -18.369999502087012
+            ],
+            "max": [
+              18.369999885559082,
+              112.2300033569336,
+              20.49022613266353
+            ]
+          }
+        },
+        "detail": {
+          "bytes": 572156,
+          "triangles": 47974,
+          "primitives": 13,
+          "vertices": 96050,
+          "sha256": "bec58a1d82ee42c749372503ea47f91e3b7695020e374508aaae1353669914bd",
+          "bounds": {
+            "min": [
+              -20.489999771118164,
+              -0.00019224795939498662,
+              -18.369999502087012
+            ],
+            "max": [
+              18.369999885559082,
+              112.2300033569336,
+              20.49022613266353
+            ]
+          }
+        }
+      },
+      "checks": [
+        "decoded-meshopt-when-present",
+        "finite-positions",
+        "index-range",
+        "valid-world-bounds",
+        "no-external-model-dependencies"
+      ],
+      "visualQA": false
+    },
+    {
+      "order": 15,
+      "scene_id": 1649142,
+      "name": "兴发集团宜昌总部",
+      "sourceBounds": {
+        "min": [
+          -7.300000190734863,
+          -0.01000000536441803,
+          -34.099998474121094
+        ],
+        "max": [
+          13.100000381469727,
+          64,
+          7.399999976158142
+        ]
+      },
+      "tiers": {
+        "light": {
+          "bytes": 49352,
+          "triangles": 2604,
+          "primitives": 9,
+          "vertices": 6076,
+          "sha256": "beb2618890eadd48304f6b305fb05db22f2c82e7865ac7330869d0d91d0f027d",
+          "bounds": {
+            "min": [
+              -7.300046417912315,
+              -0.010000228881835938,
+              -34.099998474121094
+            ],
+            "max": [
+              13.099909050142223,
+              64,
+              7.399958462895525
+            ]
+          }
+        },
+        "detail": {
+          "bytes": 44296,
+          "triangles": 2604,
+          "primitives": 9,
+          "vertices": 5208,
+          "sha256": "8cf1475c1ad803d44a6f8b4b0b2055270f50ea2d1a6ebcbb566253233881ac76",
+          "bounds": {
+            "min": [
+              -7.300046417912315,
+              -0.010000228881835938,
+              -34.099998474121094
+            ],
+            "max": [
+              13.099909050142223,
+              64,
+              7.399958462895525
+            ]
+          }
+        }
+      },
+      "checks": [
+        "decoded-meshopt-when-present",
+        "finite-positions",
+        "index-range",
+        "valid-world-bounds",
+        "no-external-model-dependencies"
+      ],
+      "visualQA": false
+    },
+    {
+      "order": 16,
+      "scene_id": 1649134,
+      "name": "丽景国际综合楼",
+      "sourceBounds": {
+        "min": [
+          -35.5,
+          0.00000286102294921875,
+          -14.5
+        ],
+        "max": [
+          35.5,
+          110.44999694824219,
+          14.5
+        ]
+      },
+      "tiers": {
+        "light": {
+          "bytes": 221012,
+          "triangles": 12236,
+          "primitives": 17,
+          "vertices": 30835,
+          "sha256": "fddc9eac228d0b916d0bd7e50fe4cc0a3472f21052361fd381c98c27b451f3ca",
+          "bounds": {
+            "min": [
+              -35.500736951980805,
+              0.00000286102294921875,
+              -14.500425704605984
+            ],
+            "max": [
+              35.500736951980805,
+              110.44985882059446,
+              14.500425704605984
+            ]
+          }
+        },
+        "detail": {
+          "bytes": 252504,
+          "triangles": 19588,
+          "primitives": 17,
+          "vertices": 38660,
+          "sha256": "50276e2fda43a2e2814534e19015950e5c13e830d07149ff2add0d2db1b422d1",
+          "bounds": {
+            "min": [
+              -35.500736951980805,
+              0.00000286102294921875,
+              -14.500425704605984
+            ],
+            "max": [
+              35.500736951980805,
+              110.44985882059446,
+              14.500425704605984
+            ]
+          }
+        }
+      },
+      "checks": [
+        "decoded-meshopt-when-present",
+        "finite-positions",
+        "index-range",
+        "valid-world-bounds",
+        "no-external-model-dependencies"
+      ],
+      "visualQA": false
+    },
+    {
+      "order": 17,
+      "scene_id": 1649147,
+      "name": "中建宜昌之星",
+      "sourceBounds": {
+        "min": [
+          -27.5,
+          0,
+          -11
+        ],
+        "max": [
+          27.5,
+          105.0999984741211,
+          20.5
+        ]
+      },
+      "tiers": {
+        "light": {
+          "bytes": 26400,
+          "triangles": 1468,
+          "primitives": 5,
+          "vertices": 3342,
+          "sha256": "4446e66c7ed4cb0cf0934b9ddae1e0ed0a3a3d08bb98ddf8466ddbc0a62f1bc0",
+          "bounds": {
+            "min": [
+              -27.5,
+              0,
+              -11.000704809879148
+            ],
+            "max": [
+              27.5,
+              105.0999984741211,
+              20.500274666585284
+            ]
+          }
+        },
+        "detail": {
+          "bytes": 23472,
+          "triangles": 1480,
+          "primitives": 5,
+          "vertices": 2880,
+          "sha256": "6a2214f1ec6af740b9e6d4203d83426372924e02cca334884ef09252db3868d7",
+          "bounds": {
+            "min": [
+              -27.5,
+              0,
+              -11.000704809879148
+            ],
+            "max": [
+              27.5,
+              105.0999984741211,
+              20.500274666585284
+            ]
+          }
+        }
+      },
+      "checks": [
+        "decoded-meshopt-when-present",
+        "finite-positions",
+        "index-range",
+        "valid-world-bounds",
+        "no-external-model-dependencies"
+      ],
+      "visualQA": false
+    },
+    {
+      "order": 18,
+      "scene_id": 1649128,
+      "name": "福久源",
+      "sourceBounds": {
+        "min": [
+          -19.5,
+          0,
+          -9
+        ],
+        "max": [
+          19.5,
+          118.04499816894531,
+          27.5
+        ]
+      },
+      "tiers": {
+        "light": {
+          "bytes": 122732,
+          "triangles": 6992,
+          "primitives": 11,
+          "vertices": 16589,
+          "sha256": "6111444046a6b40698bdd538469d16096e728705c8539658064326781ec74c27",
+          "bounds": {
+            "min": [
+              -19.5,
+              -0.00022785883418130481,
+              -8.999938962981048
+            ],
+            "max": [
+              19.5,
+              118.04499816894531,
+              27.49995044557839
+            ]
+          }
+        },
+        "detail": {
+          "bytes": 139516,
+          "triangles": 8922,
+          "primitives": 11,
+          "vertices": 17732,
+          "sha256": "b07c7567c36354b70720a2fd8cb142d3fee716372d5f687b01c38916d472d5a2",
+          "bounds": {
+            "min": [
+              -19.5,
+              -0.00022785883418130481,
+              -8.999938962981048
+            ],
+            "max": [
+              19.5,
+              118.04499816894531,
+              27.49995044557839
+            ]
+          }
+        }
+      },
+      "checks": [
+        "decoded-meshopt-when-present",
+        "finite-positions",
+        "index-range",
+        "valid-world-bounds",
+        "no-external-model-dependencies"
+      ],
+      "visualQA": false
+    },
+    {
+      "order": 19,
+      "scene_id": 1649140,
+      "name": "鑫鼎",
+      "sourceBounds": {
+        "min": [
+          -31,
+          0,
+          -29
+        ],
+        "max": [
+          31.270000457763672,
+          79.2249984741211,
+          31.270000457763672
+        ]
+      },
+      "tiers": {
+        "light": {
+          "bytes": 107296,
+          "triangles": 5968,
+          "primitives": 11,
+          "vertices": 14027,
+          "sha256": "690ca3bcc3369ac02013b89b8dc3dc58e16571969d256d4bc6cbe8c1a1b83511",
+          "bounds": {
+            "min": [
+              -31,
+              0.0003592820498896643,
+              -29
+            ],
+            "max": [
+              31.270000457763672,
+              79.2249984741211,
+              31.270034339516208
+            ]
+          }
+        },
+        "detail": {
+          "bytes": 104768,
+          "triangles": 6972,
+          "primitives": 11,
+          "vertices": 13916,
+          "sha256": "e29cd975998ca6d492af69752586a01f315942a6f2204adbf8699afc7b40ba91",
+          "bounds": {
+            "min": [
+              -31,
+              0.0003592820498896643,
+              -29
+            ],
+            "max": [
+              31.270000457763672,
+              79.2249984741211,
+              31.270034339516208
+            ]
+          }
+        }
+      },
+      "checks": [
+        "decoded-meshopt-when-present",
+        "finite-positions",
+        "index-range",
+        "valid-world-bounds",
+        "no-external-model-dependencies"
+      ],
+      "visualQA": false
+    },
+    {
+      "order": 20,
+      "scene_id": 1649143,
+      "name": "旭光商贸",
+      "sourceBounds": {
+        "min": [
+          -36,
+          0,
+          -32.13999938964844
+        ],
+        "max": [
+          37.61000061035156,
+          108,
+          4.71999979019165
+        ]
+      },
+      "tiers": {
+        "light": {
+          "bytes": 301776,
+          "triangles": 17018,
+          "primitives": 16,
+          "vertices": 43191,
+          "sha256": "314dddcd6dc83bc0cedca993828f15ecfb3430ddc979c00450b222e0fdd89c0b",
+          "bounds": {
+            "min": [
+              -36,
+              -0.00032470848182875045,
+              -32.14029839784875
+            ],
+            "max": [
+              37.60984275552552,
+              108,
+              4.7198460913448095
+            ]
+          }
+        },
+        "detail": {
+          "bytes": 459156,
+          "triangles": 38764,
+          "primitives": 16,
+          "vertices": 77508,
+          "sha256": "f19818198de0a3d926bfa69f19090d635ac415d9c12162c1cfa3780d3a4c274a",
+          "bounds": {
+            "min": [
+              -36,
+              -0.00032470848182875045,
+              -32.14029839784875
+            ],
+            "max": [
+              37.60984275552552,
+              108,
+              4.7198460913448095
+            ]
+          }
+        }
+      },
+      "checks": [
+        "decoded-meshopt-when-present",
+        "finite-positions",
+        "index-range",
+        "valid-world-bounds",
+        "no-external-model-dependencies"
+      ],
+      "visualQA": false
+    },
+    {
+      "order": 21,
+      "scene_id": 1649131,
+      "name": "光联",
+      "sourceBounds": {
+        "min": [
+          -10.300000190734863,
+          -6,
+          -5.860000189393759
+        ],
+        "max": [
+          10.520000457763672,
+          38.989559173583984,
+          7.075000047683716
+        ]
+      },
+      "tiers": {
+        "light": {
+          "bytes": 420980,
+          "triangles": 21952,
+          "primitives": 11,
+          "vertices": 57021,
+          "sha256": "82f6bb437eb1320a8ed0b14dae65354447b9a58e872e8dd1006f1deb0955908c",
+          "bounds": {
+            "min": [
+              -10.299776031950083,
+              -6,
+              -5.860212047704384
+            ],
+            "max": [
+              10.519775345304575,
+              38.989559173583984,
+              7.075212006577179
+            ]
+          }
+        },
+        "detail": {
+          "bytes": 752368,
+          "triangles": 101980,
+          "primitives": 11,
+          "vertices": 136738,
+          "sha256": "c6b105c23b103ab69ee4dc2dd7991c4682468c08083aa693336786e17043c0cb",
+          "bounds": {
+            "min": [
+              -10.299776031950083,
+              -6,
+              -5.860212047704384
+            ],
+            "max": [
+              10.519775345304575,
+              38.989559173583984,
+              7.075212006577179
+            ]
+          }
+        }
+      },
+      "checks": [
+        "decoded-meshopt-when-present",
+        "finite-positions",
+        "index-range",
+        "valid-world-bounds",
+        "no-external-model-dependencies"
+      ],
+      "visualQA": false
+    },
+    {
+      "order": 22,
+      "scene_id": 1649127,
+      "name": "共和景晨创业中心",
+      "sourceBounds": {
+        "min": [
+          -20.5,
+          0,
+          -23.5
+        ],
+        "max": [
+          21.149999618530273,
+          130.72999694602512,
+          6.285000026226044
+        ]
+      },
+      "tiers": {
+        "light": {
+          "bytes": 196804,
+          "triangles": 9612,
+          "primitives": 12,
+          "vertices": 25664,
+          "sha256": "be4e943232e2bf7e6b939c0fd4028e6cae81e41473fa7599a9778ec2e3413ff8",
+          "bounds": {
+            "min": [
+              -20.5,
+              0.00003762158882736344,
+              -23.500181662980687
+            ],
+            "max": [
+              21.149999618530273,
+              130.73006898122114,
+              6.284955099716072
+            ]
+          }
+        },
+        "detail": {
+          "bytes": 240368,
+          "triangles": 18756,
+          "primitives": 12,
+          "vertices": 37512,
+          "sha256": "b14cbab3e6387a4ec9ddf2b9e2f75dddedc4581486cd3912dfa9e928f268e601",
+          "bounds": {
+            "min": [
+              -20.5,
+              0.00003762158882736344,
+              -23.500181662980687
+            ],
+            "max": [
+              21.149999618530273,
+              130.73006898122114,
+              6.284955099716072
+            ]
+          }
+        }
+      },
+      "checks": [
+        "decoded-meshopt-when-present",
+        "finite-positions",
+        "index-range",
+        "valid-world-bounds",
+        "no-external-model-dependencies"
+      ],
+      "visualQA": false
+    },
+    {
+      "order": 23,
+      "scene_id": 1649130,
+      "name": "共同大厦",
+      "sourceBounds": {
+        "min": [
+          -33,
+          -7,
+          -14
+        ],
+        "max": [
+          37,
+          103.12000274658203,
+          27.860000610351562
+        ]
+      },
+      "tiers": {
+        "light": {
+          "bytes": 383560,
+          "triangles": 22706,
+          "primitives": 13,
+          "vertices": 55336,
+          "sha256": "7dcce3993e42c7814b00d249bada6746809571d11a305e7955e6eb7f34bc7061",
+          "bounds": {
+            "min": [
+              -33,
+              -6.999802440334859,
+              -14.000148739577408
+            ],
+            "max": [
+              37,
+              103.12000274658203,
+              27.860214500637966
+            ]
+          }
+        },
+        "detail": {
+          "bytes": 478060,
+          "triangles": 41832,
+          "primitives": 13,
+          "vertices": 78680,
+          "sha256": "4a7c3d85baecba1b135c45eee4295ef7ad25b559d19fe00d6864931f6d5383a2",
+          "bounds": {
+            "min": [
+              -33,
+              -6.999802440334859,
+              -14.000148739577408
+            ],
+            "max": [
+              37,
+              103.12000274658203,
+              27.860214500637966
+            ]
+          }
+        }
+      },
+      "checks": [
+        "decoded-meshopt-when-present",
+        "finite-positions",
+        "index-range",
+        "valid-world-bounds",
+        "no-external-model-dependencies"
+      ],
+      "visualQA": false
+    }
+  ]
+}

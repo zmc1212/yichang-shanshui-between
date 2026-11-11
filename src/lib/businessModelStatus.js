@@ -5,6 +5,7 @@ export function hasIndependentPreview(building) {
 }
 
 export function businessStatus(building) {
+  if (building?.modelStatus === 'available' && building.approximatePlacement) return '已入沙盘 · 落位待核';
   if (building?.modelStatus === 'available') return '自建模型 · 阶段候选';
   if (building?.modelStatus === 'partial-ready') return '局部模型 · 可预览';
   if (building?.modelStatus === 'identity-review') return '研究模型 · 身份待核';

@@ -1,0 +1,1704 @@
+{
+  "1649127": {
+    "order": 22,
+    "name": "共和景晨创业中心",
+    "stage": "共和I左塔外观候选（组团对应；正式A/B待核）",
+    "sourceBounds": {
+      "min": [
+        -20.5,
+        0,
+        -23.5
+      ],
+      "max": [
+        21.149999618530273,
+        130.72999694602512,
+        6.285000026226044
+      ]
+    },
+    "assets": {
+      "light": "/models/current23/22/light.glb?v=be4e943232e2",
+      "detail": "/models/current23/22/detail.glb?v=b14cbab3e638"
+    },
+    "webBudget": {
+      "light": {
+        "bytes": 196804,
+        "triangles": 9612,
+        "primitives": 12,
+        "vertices": 25664,
+        "sha256": "be4e943232e2bf7e6b939c0fd4028e6cae81e41473fa7599a9778ec2e3413ff8",
+        "bounds": {
+          "min": [
+            -20.5,
+            0.00003762158882736344,
+            -23.500181662980687
+          ],
+          "max": [
+            21.149999618530273,
+            130.73006898122114,
+            6.284955099716072
+          ]
+        }
+      },
+      "detail": {
+        "bytes": 240368,
+        "triangles": 18756,
+        "primitives": 12,
+        "vertices": 37512,
+        "sha256": "b14cbab3e6387a4ec9ddf2b9e2f75dddedc4581486cd3912dfa9e928f268e601",
+        "bounds": {
+          "min": [
+            -20.5,
+            0.00003762158882736344,
+            -23.500181662980687
+          ],
+          "max": [
+            21.149999618530273,
+            130.73006898122114,
+            6.284955099716072
+          ]
+        }
+      }
+    },
+    "sourceModelSha256": "e8e17dd3b8bcdc354eed965328a04624650dac315edddb54ee8d5f20a7ef4d3d",
+    "sourceSelectionFile": "assets/22/current/Gonghe_I_SideCrownCanopy_IdentityHOLD.glb",
+    "modelNotesUrl": "/models/current23/22/README.txt",
+    "holds": {
+      "identity": true,
+      "identity_note": "原scene1649127/media1455267明标共和景晨创业中心/东站路169号；原双塔全景与雅阁璞邸实景的塔冠、裙房、连接厅、铁路及弯路对应，左塔酒店外观有支持。未见独立A/B栋号牌，A/B正式归属仍HOLD，不能由宴会厅A栋地址推定左A右B。尺度、深度和改造时相仍待核。",
+      "identity_binding_level": "original_tour_group_and_left_hotel_tower_appearance_matched_AB_unassigned",
+      "geographic_registration": "HOLD_LATEST_SITE_NOT_VERIFIED",
+      "absolute_scale": "HOLD_NO_NEW_SURVEY_OR_SCALE_CERTIFICATION",
+      "capture_date": "UNKNOWN_UNLESS_EXPLICIT_SOURCE_DOC_QUALIFICATION",
+      "scope_and_remaining_holds": "原scene1649127/media1455267明标共和景晨创业中心/东站路169号；原双塔全景与雅阁璞邸实景的塔冠、裙房、连接厅、铁路及弯路对应，左塔酒店外观有支持。未见独立A/B栋号牌，A/B正式归属仍HOLD，不能由宴会厅A栋地址推定左A右B。尺度、深度和改造时相仍待核。 正侧冠/粗侧/塔脚/薄棚为可见轮廓候选，底界裁切与远背未知。"
+    },
+    "sourceVersion": "共和I左塔外观候选（组团对应；正式A/B待核）"
+  },
+  "1649128": {
+    "order": 18,
+    "name": "福久源",
+    "stage": "福久源H",
+    "sourceBounds": {
+      "min": [
+        -19.5,
+        0,
+        -9
+      ],
+      "max": [
+        19.5,
+        118.04499816894531,
+        27.5
+      ]
+    },
+    "assets": {
+      "light": "/models/current23/18/light.glb?v=6111444046a6",
+      "detail": "/models/current23/18/detail.glb?v=b07c7567c363"
+    },
+    "webBudget": {
+      "light": {
+        "bytes": 122732,
+        "triangles": 6992,
+        "primitives": 11,
+        "vertices": 16589,
+        "sha256": "6111444046a6b40698bdd538469d16096e728705c8539658064326781ec74c27",
+        "bounds": {
+          "min": [
+            -19.5,
+            -0.00022785883418130481,
+            -8.999938962981048
+          ],
+          "max": [
+            19.5,
+            118.04499816894531,
+            27.49995044557839
+          ]
+        }
+      },
+      "detail": {
+        "bytes": 139516,
+        "triangles": 8922,
+        "primitives": 11,
+        "vertices": 17732,
+        "sha256": "b07c7567c36354b70720a2fd8cb142d3fee716372d5f687b01c38916d472d5a2",
+        "bounds": {
+          "min": [
+            -19.5,
+            -0.00022785883418130481,
+            -8.999938962981048
+          ],
+          "max": [
+            19.5,
+            118.04499816894531,
+            27.49995044557839
+          ]
+        }
+      }
+    },
+    "sourceModelSha256": "be8524988106fe3dfa09374731008d07620f09a29e006e3f77cd4ece799a3433",
+    "sourceSelectionFile": "assets/18/current/Fujiuyuan_H_FacadeEdgesCandidate.glb",
+    "modelNotesUrl": "/models/current23/18/README.txt",
+    "holds": {
+      "identity": false,
+      "identity_note": "沿用项目对应；不等于官方单栋测绘或新身份核验",
+      "identity_binding_level": "inherited_project_correspondence_not_new_survey",
+      "geographic_registration": "HOLD_LATEST_SITE_NOT_VERIFIED",
+      "absolute_scale": "HOLD_NO_NEW_SURVEY_OR_SCALE_CERTIFICATION",
+      "capture_date": "UNKNOWN_UNLESS_EXPLICIT_SOURCE_DOC_QUALIFICATION",
+      "scope_and_remaining_holds": "H含G整幅银行裙房/三棚/自绘牌面和45组窗缘。塔身相较F上移10展示单位，须重查变换；门区、未知玻璃、侧背屋顶及深度待核，不含邻国贸。"
+    },
+    "sourceVersion": "福久源H"
+  },
+  "1649129": {
+    "order": 5,
+    "name": "福江铭座",
+    "stage": "福江E完整GLB，替代旧detail/light；旧light不再等效LOD",
+    "sourceBounds": {
+      "min": [
+        -24.256608963012695,
+        -0.125,
+        -21.674999237060547
+      ],
+      "max": [
+        24.256608963012695,
+        100,
+        12.180000305175781
+      ]
+    },
+    "assets": {
+      "light": "/models/current23/05/light.glb?v=386b339e277b",
+      "detail": "/models/current23/05/detail.glb?v=7cb2f42e1ae5"
+    },
+    "webBudget": {
+      "light": {
+        "bytes": 1671172,
+        "triangles": 76624,
+        "primitives": 18,
+        "vertices": 214679,
+        "sha256": "386b339e277b7f50960204b90aa1fdd7fc50134f5f807feea2d7679049e07473",
+        "bounds": {
+          "min": [
+            -24.256608963012695,
+            -0.12472658852660334,
+            -21.675019074080062
+          ],
+          "max": [
+            24.256608963012695,
+            100,
+            12.180437975182958
+          ]
+        }
+      },
+      "detail": {
+        "bytes": 2634620,
+        "triangles": 215204,
+        "primitives": 18,
+        "vertices": 404562,
+        "sha256": "7cb2f42e1ae50a059f0a12f9bdf0276b25300b4599199cca29364e24b035e13e",
+        "bounds": {
+          "min": [
+            -24.256608963012695,
+            -0.12472658852660334,
+            -21.675019074080062
+          ],
+          "max": [
+            24.256608963012695,
+            100,
+            12.180437975182958
+          ]
+        }
+      }
+    },
+    "sourceModelSha256": "ab54f7eeb539a10ae98188eb6ee62719f4da3bb6c5aeae07f60c43260fab3abd",
+    "sourceSelectionFile": "assets/05/current/Fujiang_E_FourColumnEnd.glb",
+    "modelNotesUrl": "/models/current23/05/README.txt",
+    "holds": {
+      "identity": false,
+      "identity_note": "沿用项目对应；不等于官方单栋测绘或新身份核验",
+      "identity_binding_level": "inherited_project_correspondence_not_new_survey",
+      "geographic_registration": "HOLD_LATEST_SITE_NOT_VERIFIED",
+      "absolute_scale": "HOLD_NO_NEW_SURVEY_OR_SCALE_CERTIFICATION",
+      "capture_date": "UNKNOWN_UNLESS_EXPLICIT_SOURCE_DOC_QUALIFICATION",
+      "scope_and_remaining_holds": "原S01完整网格保留，隐藏旧两端墙对象；新两对象在既有窗域四列等分显示，非实测列宽。保持原38行中性节奏不等于38层；尺寸、密肋、冠、裙房不变。摄年未知，不称2026现状；D独立端面方位及真实性/年代HOLD仍存。"
+    },
+    "sourceVersion": "福江E完整GLB，替代旧detail/light；旧light不再等效LOD"
+  },
+  "1649130": {
+    "order": 23,
+    "name": "共同大厦",
+    "stage": "共同G",
+    "sourceBounds": {
+      "min": [
+        -33,
+        -7,
+        -14
+      ],
+      "max": [
+        37,
+        103.12000274658203,
+        27.860000610351562
+      ]
+    },
+    "assets": {
+      "light": "/models/current23/23/light.glb?v=7dcce3993e42",
+      "detail": "/models/current23/23/detail.glb?v=4a7c3d85baec"
+    },
+    "webBudget": {
+      "light": {
+        "bytes": 383560,
+        "triangles": 22706,
+        "primitives": 13,
+        "vertices": 55336,
+        "sha256": "7dcce3993e42c7814b00d249bada6746809571d11a305e7955e6eb7f34bc7061",
+        "bounds": {
+          "min": [
+            -33,
+            -6.999802440334859,
+            -14.000148739577408
+          ],
+          "max": [
+            37,
+            103.12000274658203,
+            27.860214500637966
+          ]
+        }
+      },
+      "detail": {
+        "bytes": 478060,
+        "triangles": 41832,
+        "primitives": 13,
+        "vertices": 78680,
+        "sha256": "4a7c3d85baecba1b135c45eee4295ef7ad25b559d19fe00d6864931f6d5383a2",
+        "bounds": {
+          "min": [
+            -33,
+            -6.999802440334859,
+            -14.000148739577408
+          ],
+          "max": [
+            37,
+            103.12000274658203,
+            27.860214500637966
+          ]
+        }
+      }
+    },
+    "sourceModelSha256": "6e21514fcb13a6c1e14cf22e3bbc80ace29fc27ef519ea7ece34446be760408d",
+    "sourceSelectionFile": "assets/23/current/Gongtong_G_IndependentEntrance.glb",
+    "modelNotesUrl": "/models/current23/23/README.txt",
+    "holds": {
+      "identity": false,
+      "identity_note": "沿用项目对应；不等于官方单栋测绘或新身份核验",
+      "identity_binding_level": "inherited_project_correspondence_not_new_survey",
+      "geographic_registration": "HOLD_LATEST_SITE_NOT_VERIFIED",
+      "absolute_scale": "HOLD_NO_NEW_SURVEY_OR_SCALE_CERTIFICATION",
+      "capture_date": "UNKNOWN_UNLESS_EXPLICIT_SOURCE_DOC_QUALIFICATION",
+      "scope_and_remaining_holds": "G按独立日夜公开相册补三根连续方柱、上透屏/横带/下玻璃及铜色厚棚整体。旧F/E源保留；F/G裙房整层互斥，塔身不改。透屏只表达整体区域不猜花纹，入口仅浅弧框面非真实门机构；摄年未知。原归一尺度、z=-7底界、侧背屋顶仍HOLD。"
+    },
+    "sourceVersion": "共同G"
+  },
+  "1649131": {
+    "order": 21,
+    "name": "光联",
+    "stage": "光联F r3可逆整体强候选（原导图标签与塔体外观已复核）",
+    "sourceBounds": {
+      "min": [
+        -10.300000190734863,
+        -6,
+        -5.860000189393759
+      ],
+      "max": [
+        10.520000457763672,
+        38.989559173583984,
+        7.075000047683716
+      ]
+    },
+    "assets": {
+      "light": "/models/current23/21/light.glb?v=82f6bb437eb1",
+      "detail": "/models/current23/21/detail.glb?v=c6b105c23b10"
+    },
+    "webBudget": {
+      "light": {
+        "bytes": 420980,
+        "triangles": 21952,
+        "primitives": 11,
+        "vertices": 57021,
+        "sha256": "82f6bb437eb1320a8ed0b14dae65354447b9a58e872e8dd1006f1deb0955908c",
+        "bounds": {
+          "min": [
+            -10.299776031950083,
+            -6,
+            -5.860212047704384
+          ],
+          "max": [
+            10.519775345304575,
+            38.989559173583984,
+            7.075212006577179
+          ]
+        }
+      },
+      "detail": {
+        "bytes": 752368,
+        "triangles": 101980,
+        "primitives": 11,
+        "vertices": 136738,
+        "sha256": "c6b105c23b103ab69ee4dc2dd7991c4682468c08083aa693336786e17043c0cb",
+        "bounds": {
+          "min": [
+            -10.299776031950083,
+            -6,
+            -5.860212047704384
+          ],
+          "max": [
+            10.519775345304575,
+            38.989559173583984,
+            7.075212006577179
+          ]
+        }
+      }
+    },
+    "sourceModelSha256": "5f582f211cb7f25e3d262470c6772aa085efc79557adfde46a021ec8143ecb49",
+    "sourceSelectionFile": "assets/21/current/Guanglian_F_OperatingSidePodium_IdentityHOLD.glb",
+    "modelNotesUrl": "/models/current23/21/README.txt",
+    "holds": {
+      "identity": false,
+      "identity_note": "已实际恢复原scene1649131/media1455271，元数据明标光联大厦/城东大道137号，原全景冠顶、宽幕墙及邻接特征与酒店实景塔体已复核对应。不再笼统标身份未绑定；不是官方测绘/产权认证。真实深度、尺度、接地、隐藏面、朝向及拍摄改造时相仍HOLD。",
+      "identity_binding_level": "original_tour_label_and_tower_appearance_matched",
+      "geographic_registration": "HOLD_LATEST_SITE_NOT_VERIFIED",
+      "absolute_scale": "HOLD_NO_NEW_SURVEY_OR_SCALE_CERTIFICATION",
+      "capture_date": "UNKNOWN_UNLESS_EXPLICIT_SOURCE_DOC_QUALIFICATION",
+      "scope_and_remaining_holds": "F保留E原6建筑节点/材质，新增右短面和裙房前/右大域。丽枫白天01为主，00辅助，两图近同角不作双目；全季与华住同图去重。短面17道粗节奏非楼层数；裙房下伸z-6，尺寸深度高程为相对展示非测绘。新增3层可分别隐藏回E，背左顶底/遮挡区域独立假设。原D缺叶/B17遮挡/16未知缺件不填。旧施工期正面与运营补层不宣称同一时期，摄年/尺度/朝向/真实背顶/官方测绘/产权未认证；原导图标签与实景塔体已匹配。"
+    },
+    "sourceVersion": "光联F r3可逆整体强候选（原导图标签与塔体外观已复核）"
+  },
+  "1649132": {
+    "order": 3,
+    "name": "金江银座",
+    "stage": "金江E整栋冠格候选",
+    "sourceBounds": {
+      "min": [
+        -15.100000381469727,
+        0,
+        -9.475000381469727
+      ],
+      "max": [
+        15.774999618530273,
+        72.11499786376953,
+        21.549999237060547
+      ]
+    },
+    "assets": {
+      "light": "/models/current23/03/light.glb?v=3083962d179d",
+      "detail": "/models/current23/03/detail.glb?v=17dbc2dae65e"
+    },
+    "webBudget": {
+      "light": {
+        "bytes": 695048,
+        "triangles": 44782,
+        "primitives": 14,
+        "vertices": 102824,
+        "sha256": "3083962d179dd5e6e8fcef4811a3af484feae0539da93a274dbce013db141d4c",
+        "bounds": {
+          "min": [
+            -15.099927687816313,
+            0,
+            -9.475238483651182
+          ],
+          "max": [
+            15.774927520923308,
+            72.11503880404419,
+            21.54989671748173
+          ]
+        }
+      },
+      "detail": {
+        "bytes": 1126424,
+        "triangles": 125729,
+        "primitives": 14,
+        "vertices": 187076,
+        "sha256": "17dbc2dae65e7d8e8edd1a2aff0eca1b7ccd08d02ade03a04cf366ced59aa56b",
+        "bounds": {
+          "min": [
+            -15.100390879554599,
+            0,
+            -9.475315647149758
+          ],
+          "max": [
+            15.775390712661594,
+            72.1153340363075,
+            21.54989671748173
+          ]
+        }
+      }
+    },
+    "sourceModelSha256": "6d800c66701cb3886c7bb5b846ed2251d179f2858214643173ea129711f51f0d",
+    "sourceSelectionFile": "assets/03/current/Jinjiang_E_CrownGridCandidate.glb",
+    "modelNotesUrl": "/models/current23/03/README.txt",
+    "holds": {
+      "identity": false,
+      "identity_note": "沿用项目对应；不等于官方单栋测绘或新身份核验",
+      "identity_binding_level": "inherited_project_correspondence_not_new_survey",
+      "geographic_registration": "HOLD_LATEST_SITE_NOT_VERIFIED",
+      "absolute_scale": "HOLD_NO_NEW_SURVEY_OR_SCALE_CERTIFICATION",
+      "capture_date": "UNKNOWN_UNLESS_EXPLICIT_SOURCE_DOC_QUALIFICATION",
+      "scope_and_remaining_holds": "继承S03整栋与尺度，仅改三个冠宽场内部格。研究层可见性不同于S03默认00；不沿用旧light冒充相同LOD。原生旧冠格隐藏保留互斥；真实开角/背面/深度未知。整栋远景增益有限，不是重新建楼。"
+    },
+    "sourceVersion": "金江E整栋冠格候选"
+  },
+  "1649133": {
+    "order": 8,
+    "name": "九州方园",
+    "stage": "九州E运营入口外观选项（含D端面条带）；D旧棚为互斥历史备选",
+    "sourceBounds": {
+      "min": [
+        -28.700000762939453,
+        -0.03999999910593033,
+        -9.032500267028809
+      ],
+      "max": [
+        25.309999465942383,
+        100.03250122070312,
+        25.049999237060547
+      ]
+    },
+    "assets": {
+      "light": "/models/current23/08/light.glb?v=cfb133176fea",
+      "detail": "/models/current23/08/detail.glb?v=721e6eaa394f"
+    },
+    "webBudget": {
+      "light": {
+        "bytes": 888812,
+        "triangles": 48400,
+        "primitives": 18,
+        "vertices": 128955,
+        "sha256": "cfb133176fea8421d92eb1f0d5d769e314c287dd76055fa0e79b6a831dc386d4",
+        "bounds": {
+          "min": [
+            -28.700000762939453,
+            -0.03999999910593033,
+            -9.033205586868558
+          ],
+          "max": [
+            25.310626736696772,
+            100.03250122070312,
+            25.050351609082796
+          ]
+        }
+      },
+      "detail": {
+        "bytes": 1380216,
+        "triangles": 122340,
+        "primitives": 18,
+        "vertices": 238922,
+        "sha256": "721e6eaa394fcaaa02d6496282d85db6ed5e3c653576cab54c13349b69da82dc",
+        "bounds": {
+          "min": [
+            -28.700000762939453,
+            -0.03999999910593033,
+            -9.033205586868558
+          ],
+          "max": [
+            25.310626736696772,
+            100.03250122070312,
+            25.050351609082796
+          ]
+        }
+      }
+    },
+    "sourceModelSha256": "e2b2358ea5753465a82db4f2f4d43ead607bc2e5b40b680ef4c70a947a9ce084",
+    "sourceSelectionFile": "assets/08/current/Jiuzhou_E_EntryOperation.glb",
+    "modelNotesUrl": "/models/current23/08/README.txt",
+    "holds": {
+      "identity": false,
+      "identity_note": "沿用项目对应；不等于官方单栋测绘或新身份核验",
+      "identity_binding_level": "inherited_project_correspondence_not_new_survey",
+      "geographic_registration": "HOLD_LATEST_SITE_NOT_VERIFIED",
+      "absolute_scale": "HOLD_NO_NEW_SURVEY_OR_SCALE_CERTIFICATION",
+      "capture_date": "UNKNOWN_UNLESS_EXPLICIT_SOURCE_DOC_QUALIFICATION",
+      "scope_and_remaining_holds": "完整保留D楼体与端面；旧浅棚/三杆/门斗五对象冻结隐藏，新深框/粗梁格及门框材质为运营外观选项，玻璃格和门斗几何沿用。旧原像素瓦片8/8哈希复核确有浅棚斜拉来源，不认定改造年份或2026现状。新6跨粗节奏/截面和归一尺寸非测绘；隐藏杆不等于不存在，棚后锚固/结构未知。右窄端z12以下底界HOLD不变。"
+    },
+    "sourceVersion": "九州E运营入口外观选项（含D端面条带）；D旧棚为互斥历史备选"
+  },
+  "1649134": {
+    "order": 16,
+    "name": "丽景国际综合楼",
+    "stage": "丽景G",
+    "sourceBounds": {
+      "min": [
+        -35.5,
+        0.00000286102294921875,
+        -14.5
+      ],
+      "max": [
+        35.5,
+        110.44999694824219,
+        14.5
+      ]
+    },
+    "assets": {
+      "light": "/models/current23/16/light.glb?v=fddc9eac228d",
+      "detail": "/models/current23/16/detail.glb?v=50276e2fda43"
+    },
+    "webBudget": {
+      "light": {
+        "bytes": 221012,
+        "triangles": 12236,
+        "primitives": 17,
+        "vertices": 30835,
+        "sha256": "fddc9eac228d0b916d0bd7e50fe4cc0a3472f21052361fd381c98c27b451f3ca",
+        "bounds": {
+          "min": [
+            -35.500736951980805,
+            0.00000286102294921875,
+            -14.500425704605984
+          ],
+          "max": [
+            35.500736951980805,
+            110.44985882059446,
+            14.500425704605984
+          ]
+        }
+      },
+      "detail": {
+        "bytes": 252504,
+        "triangles": 19588,
+        "primitives": 17,
+        "vertices": 38660,
+        "sha256": "50276e2fda43a2e2814534e19015950e5c13e830d07149ff2add0d2db1b422d1",
+        "bounds": {
+          "min": [
+            -35.500736951980805,
+            0.00000286102294921875,
+            -14.500425704605984
+          ],
+          "max": [
+            35.500736951980805,
+            110.44985882059446,
+            14.500425704605984
+          ]
+        }
+      }
+    },
+    "sourceModelSha256": "4e2e5833e8bcff6ccee32a4ee342f3e6b61d60d29b7e2371dd94d08513c16f55",
+    "sourceSelectionFile": "assets/16/current/LijingGuoji_G_CrownFrontDetail.glb",
+    "modelNotesUrl": "/models/current23/16/README.txt",
+    "holds": {
+      "identity": false,
+      "identity_note": "沿用项目对应；不等于官方单栋测绘或新身份核验",
+      "identity_binding_level": "inherited_project_correspondence_not_new_survey",
+      "geographic_registration": "HOLD_LATEST_SITE_NOT_VERIFIED",
+      "absolute_scale": "HOLD_NO_NEW_SURVEY_OR_SCALE_CERTIFICATION",
+      "capture_date": "UNKNOWN_UNLESS_EXPLICIT_SOURCE_DOC_QUALIFICATION",
+      "scope_and_remaining_holds": "G冠前脸六区重登记窗域/竖墩/檐口；主身背侧旧坡顶保留，未拼旧D。窗下未知段仍可能显露示意包络，真实深度、屋顶结构、未知基部待核。"
+    },
+    "sourceVersion": "丽景G"
+  },
+  "1649135": {
+    "order": 1,
+    "name": "美联御峰写字楼",
+    "stage": "detail/light",
+    "sourceBounds": {
+      "min": [
+        -36.964999198913574,
+        -0.20000076293945312,
+        -49.489999771118164
+      ],
+      "max": [
+        31.300003051757812,
+        100.08999633789062,
+        7.850000381469727
+      ]
+    },
+    "assets": {
+      "light": "/models/current23/01/light.glb?v=8ded608af1a8",
+      "detail": "/models/current23/01/detail.glb?v=68101a0bd037"
+    },
+    "webBudget": {
+      "light": {
+        "bytes": 1397792,
+        "triangles": 71382,
+        "primitives": 27,
+        "vertices": 199410,
+        "sha256": "8ded608af1a893069c2c6dc119bfafbd50e4a3a477c2434558ab0ebf38c514af",
+        "bounds": {
+          "min": [
+            -36.95403363587753,
+            -0.20000076293945312,
+            -49.48286718365678
+          ],
+          "max": [
+            31.29960372331039,
+            100.08999633789062,
+            7.850188198061076
+          ]
+        }
+      },
+      "detail": {
+        "bytes": 8163304,
+        "triangles": 529328,
+        "primitives": 27,
+        "vertices": 997857,
+        "sha256": "68101a0bd037113042b5c2d8b04411592ccfebd26a288ef5822c130cbb0e6685",
+        "bounds": {
+          "min": [
+            -36.965438155625584,
+            -0.20000076293945312,
+            -49.48958808691002
+          ],
+          "max": [
+            31.300442008469822,
+            100.08999633789062,
+            7.849588697261577
+          ]
+        }
+      }
+    },
+    "sourceModelSha256": "8ded608af1a893069c2c6dc119bfafbd50e4a3a477c2434558ab0ebf38c514af",
+    "sourceSelectionFile": "assets/01/current/light.glb",
+    "modelNotesUrl": "/models/current23/01/README.txt",
+    "holds": {
+      "identity": false,
+      "identity_note": "沿用项目对应；不等于官方单栋测绘或新身份核验",
+      "identity_binding_level": "inherited_project_correspondence_not_new_survey",
+      "geographic_registration": "HOLD_LATEST_SITE_NOT_VERIFIED",
+      "absolute_scale": "HOLD_NO_NEW_SURVEY_OR_SCALE_CERTIFICATION",
+      "capture_date": "UNKNOWN_UNLESS_EXPLICIT_SOURCE_DOC_QUALIFICATION",
+      "scope_and_remaining_holds": "原站点候选，保留light/detail共同sourceBounds、缩放与位置登记，不重新归一化冒充米制。"
+    },
+    "sourceVersion": "detail/light"
+  },
+  "1649136": {
+    "order": 7,
+    "name": "首信财富",
+    "stage": "detail/light",
+    "sourceBounds": {
+      "min": [
+        -20.43000030517578,
+        0,
+        -14.0649995803833
+      ],
+      "max": [
+        20.43000030517578,
+        97.94000244140625,
+        14.065000534057617
+      ]
+    },
+    "assets": {
+      "light": "/models/current23/07/light.glb?v=1028fc22f118",
+      "detail": "/models/current23/07/detail.glb?v=d038cc3053db"
+    },
+    "webBudget": {
+      "light": {
+        "bytes": 987872,
+        "triangles": 74072,
+        "primitives": 18,
+        "vertices": 43231,
+        "sha256": "1028fc22f1183409992724a2e341ee2d556124dab7e7885e3daa264f50ef6064",
+        "bounds": {
+          "min": [
+            -20.43000030517578,
+            0,
+            -14.0649995803833
+          ],
+          "max": [
+            20.43000030517578,
+            97.94000244140625,
+            14.065000534057617
+          ]
+        }
+      },
+      "detail": {
+        "bytes": 1498684,
+        "triangles": 117844,
+        "primitives": 19,
+        "vertices": 63839,
+        "sha256": "d038cc3053db606d991763ef733d24299278d3466ab7fb25a3c1f86fd1f18674",
+        "bounds": {
+          "min": [
+            -20.43000030517578,
+            0,
+            -14.0649995803833
+          ],
+          "max": [
+            20.43000030517578,
+            97.94000244140625,
+            14.065000534057617
+          ]
+        }
+      }
+    },
+    "sourceModelSha256": "1028fc22f1183409992724a2e341ee2d556124dab7e7885e3daa264f50ef6064",
+    "sourceSelectionFile": "assets/07/current/light.glb",
+    "modelNotesUrl": "/models/current23/07/README.txt",
+    "holds": {
+      "identity": false,
+      "identity_note": "沿用项目对应；不等于官方单栋测绘或新身份核验",
+      "identity_binding_level": "inherited_project_correspondence_not_new_survey",
+      "geographic_registration": "HOLD_LATEST_SITE_NOT_VERIFIED",
+      "absolute_scale": "HOLD_NO_NEW_SURVEY_OR_SCALE_CERTIFICATION",
+      "capture_date": "UNKNOWN_UNLESS_EXPLICIT_SOURCE_DOC_QUALIFICATION",
+      "scope_and_remaining_holds": "原站点候选，保留light/detail共同sourceBounds、缩放与位置登记，不重新归一化冒充米制。"
+    },
+    "sourceVersion": "detail/light"
+  },
+  "1649137": {
+    "order": 13,
+    "name": "外滩领馆",
+    "stage": "外滩H（含G右短面）",
+    "sourceBounds": {
+      "min": [
+        -25.65000030398369,
+        0,
+        -9.25
+      ],
+      "max": [
+        25.630000069737434,
+        108.67999839782715,
+        9.330000013113022
+      ]
+    },
+    "assets": {
+      "light": "/models/current23/13/light.glb?v=d1f90639f6fc",
+      "detail": "/models/current23/13/detail.glb?v=b7962231aa55"
+    },
+    "webBudget": {
+      "light": {
+        "bytes": 294716,
+        "triangles": 16112,
+        "primitives": 20,
+        "vertices": 41042,
+        "sha256": "d1f90639f6fc88dc8711882405dd6e159cd4be0d60b8f5a5e9064adae978ebde",
+        "bounds": {
+          "min": [
+            -25.65012551065546,
+            0.00006103701895199265,
+            -9.249817265624882
+          ],
+          "max": [
+            25.63012596186262,
+            108.67996008219902,
+            9.329784624011372
+          ]
+        }
+      },
+      "detail": {
+        "bytes": 348324,
+        "triangles": 27864,
+        "primitives": 20,
+        "vertices": 55704,
+        "sha256": "b7962231aa5555fac0597a8515d989a6b8c07bf21ab82ae1023e897dc60f45ca",
+        "bounds": {
+          "min": [
+            -25.65012551065546,
+            0.00006103701895199265,
+            -9.249817265624882
+          ],
+          "max": [
+            25.63012596186262,
+            108.67996008219902,
+            9.329784624011372
+          ]
+        }
+      }
+    },
+    "sourceModelSha256": "cc01e7af2d5b7ed6d19cf1b5652c55f2601ec2b47c8e55c30defcdbf7ab1ba25",
+    "sourceSelectionFile": "assets/13/current/WaitanLingguan_H_IndependentLeftFace.glb",
+    "modelNotesUrl": "/models/current23/13/README.txt",
+    "holds": {
+      "identity": false,
+      "identity_note": "沿用项目对应；不等于官方单栋测绘或新身份核验",
+      "identity_binding_level": "inherited_project_correspondence_not_new_survey",
+      "geographic_registration": "HOLD_LATEST_SITE_NOT_VERIFIED",
+      "absolute_scale": "HOLD_NO_NEW_SURVEY_OR_SCALE_CERTIFICATION",
+      "capture_date": "UNKNOWN_UNLESS_EXPLICIT_SOURCE_DOC_QUALIFICATION",
+      "scope_and_remaining_holds": "H完整保留G右短面及原正面，依据03独立左端共角新增左短面/冠折边，不镜像G。23近似分隔仅显示节奏非楼层实测；中央窄暗域/褐竖带薄片表达，真实凹深未定。沿既有y[-8,9.2]示意深度，z0–12素基部、树后入口/附属低楼不补；未知后冠/屋顶、中央前栏后窗归属/深度、场地尺度及摄年HOLD。00/03不宣称同日。"
+    },
+    "sourceVersion": "外滩H（含G右短面）"
+  },
+  "1649138": {
+    "order": 4,
+    "name": "万达SOHO",
+    "stage": "detail/light",
+    "sourceBounds": {
+      "min": [
+        -93.5,
+        -0.009999999776482582,
+        -39.13999938964844
+      ],
+      "max": [
+        117.5,
+        100.88999938964844,
+        19.899999618530273
+      ]
+    },
+    "assets": {
+      "light": "/models/current23/04/light.glb?v=eab60310735c",
+      "detail": "/models/current23/04/detail.glb?v=726955bb50af"
+    },
+    "webBudget": {
+      "light": {
+        "bytes": 1972784,
+        "triangles": 97574,
+        "primitives": 31,
+        "vertices": 284549,
+        "sha256": "eab60310735cb2a687d0051565ef7065b2a29983fe80f32a3e642daeca1c977e",
+        "bounds": {
+          "min": [
+            -93.5,
+            -0.011293240326509135,
+            -39.14077503626539
+          ],
+          "max": [
+            117.5,
+            100.87438590123044,
+            19.900387585070344
+          ]
+        }
+      },
+      "detail": {
+        "bytes": 6736248,
+        "triangles": 510864,
+        "primitives": 31,
+        "vertices": 1021644,
+        "sha256": "726955bb50af546eae330168cef5cc1d757b04360f2b648bb348765cee9b3eea",
+        "bounds": {
+          "min": [
+            -93.5,
+            -0.009196876802867848,
+            -39.14077503626539
+          ],
+          "max": [
+            117.5,
+            100.88919627598804,
+            19.900387585070344
+          ]
+        }
+      }
+    },
+    "sourceModelSha256": "eab60310735cb2a687d0051565ef7065b2a29983fe80f32a3e642daeca1c977e",
+    "sourceSelectionFile": "assets/04/current/light.glb",
+    "modelNotesUrl": "/models/current23/04/README.txt",
+    "holds": {
+      "identity": false,
+      "identity_note": "沿用项目对应；不等于官方单栋测绘或新身份核验",
+      "identity_binding_level": "inherited_project_correspondence_not_new_survey",
+      "geographic_registration": "HOLD_LATEST_SITE_NOT_VERIFIED",
+      "absolute_scale": "HOLD_NO_NEW_SURVEY_OR_SCALE_CERTIFICATION",
+      "capture_date": "UNKNOWN_UNLESS_EXPLICIT_SOURCE_DOC_QUALIFICATION",
+      "scope_and_remaining_holds": "原站点候选，保留light/detail共同sourceBounds、缩放与位置登记，不重新归一化冒充米制。"
+    },
+    "sourceVersion": "detail/light"
+  },
+  "1649139": {
+    "order": 10,
+    "name": "新华广场武银大厦",
+    "stage": "新华武银H",
+    "sourceBounds": {
+      "min": [
+        -19.649999618530273,
+        0,
+        -10
+      ],
+      "max": [
+        20.412250518798828,
+        117.225341796875,
+        13.895000457763672
+      ]
+    },
+    "assets": {
+      "light": "/models/current23/10/light.glb?v=f9f2a1a33ed8",
+      "detail": "/models/current23/10/detail.glb?v=06a57b192a17"
+    },
+    "webBudget": {
+      "light": {
+        "bytes": 442652,
+        "triangles": 25596,
+        "primitives": 11,
+        "vertices": 66622,
+        "sha256": "f9f2a1a33ed844b62a952ca9ae001903d2f1bece2d48d237b255b642153b9f0e",
+        "bounds": {
+          "min": [
+            -19.650074770348215,
+            0,
+            -9.999323200749481
+          ],
+          "max": [
+            20.412476016934725,
+            117.225341796875,
+            13.895187822635236
+          ]
+        }
+      },
+      "detail": {
+        "bytes": 568188,
+        "triangles": 49736,
+        "primitives": 11,
+        "vertices": 99128,
+        "sha256": "06a57b192a17a81a80fea01a549a637488578e378a2fc9c4daad670a4bcc5257",
+        "bounds": {
+          "min": [
+            -19.650074770348215,
+            0,
+            -9.999323200749481
+          ],
+          "max": [
+            20.412476016934725,
+            117.225341796875,
+            13.895187822635236
+          ]
+        }
+      }
+    },
+    "sourceModelSha256": "b9e475e7986a1d72f330844e4a82dc40ef4a4ed9142bb344c56b82e80da164eb",
+    "sourceSelectionFile": "assets/10/current/XinhuaWuyin_H_StreetBaseCanopy.glb",
+    "modelNotesUrl": "/models/current23/10/README.txt",
+    "holds": {
+      "identity": false,
+      "identity_note": "沿用项目对应；不等于官方单栋测绘或新身份核验",
+      "identity_binding_level": "inherited_project_correspondence_not_new_survey",
+      "geographic_registration": "HOLD_LATEST_SITE_NOT_VERIFIED",
+      "absolute_scale": "HOLD_NO_NEW_SURVEY_OR_SCALE_CERTIFICATION",
+      "capture_date": "UNKNOWN_UNLESS_EXPLICIT_SOURCE_DOC_QUALIFICATION",
+      "scope_and_remaining_holds": "H保留G主塔；新增主塔前单连续棚、白柱、玻璃带。旧低位素条隐藏互斥。右相连裙房棚未装；原z0裁界未延伸；棚深/柱比例示意，隐蔽锚点、斜杆及门机构未知。"
+    },
+    "sourceVersion": "新华武银H"
+  },
+  "1649140": {
+    "order": 19,
+    "name": "鑫鼎",
+    "stage": "鑫鼎H",
+    "sourceBounds": {
+      "min": [
+        -31,
+        0,
+        -29
+      ],
+      "max": [
+        31.270000457763672,
+        79.2249984741211,
+        31.270000457763672
+      ]
+    },
+    "assets": {
+      "light": "/models/current23/19/light.glb?v=690ca3bcc336",
+      "detail": "/models/current23/19/detail.glb?v=e29cd975998c"
+    },
+    "webBudget": {
+      "light": {
+        "bytes": 107296,
+        "triangles": 5968,
+        "primitives": 11,
+        "vertices": 14027,
+        "sha256": "690ca3bcc3369ac02013b89b8dc3dc58e16571969d256d4bc6cbe8c1a1b83511",
+        "bounds": {
+          "min": [
+            -31,
+            0.0003592820498896643,
+            -29
+          ],
+          "max": [
+            31.270000457763672,
+            79.2249984741211,
+            31.270034339516208
+          ]
+        }
+      },
+      "detail": {
+        "bytes": 104768,
+        "triangles": 6972,
+        "primitives": 11,
+        "vertices": 13916,
+        "sha256": "e29cd975998ca6d492af69752586a01f315942a6f2204adbf8699afc7b40ba91",
+        "bounds": {
+          "min": [
+            -31,
+            0.0003592820498896643,
+            -29
+          ],
+          "max": [
+            31.270000457763672,
+            79.2249984741211,
+            31.270034339516208
+          ]
+        }
+      }
+    },
+    "sourceModelSha256": "a5da92740752611bb870b3076ae24af536395d67708617b497279a0f6fa55456",
+    "sourceSelectionFile": "assets/19/current/Xinding_H_PodiumEntrance.glb",
+    "modelNotesUrl": "/models/current23/19/README.txt",
+    "holds": {
+      "identity": false,
+      "identity_note": "沿用项目对应；不等于官方单栋测绘或新身份核验",
+      "identity_binding_level": "inherited_project_correspondence_not_new_survey",
+      "geographic_registration": "HOLD_LATEST_SITE_NOT_VERIFIED",
+      "absolute_scale": "HOLD_NO_NEW_SURVEY_OR_SCALE_CERTIFICATION",
+      "capture_date": "UNKNOWN_UNLESS_EXPLICIT_SOURCE_DOC_QUALIFICATION",
+      "scope_and_remaining_holds": "H重登记斜切入口前脸：两侧窄窗、屏框、下玻璃与短转折。原生旧低位保留隐藏、新旧互斥；塔身/冠保持。未知屏内容/门机构/深度待核。"
+    },
+    "sourceVersion": "鑫鼎H"
+  },
+  "1649141": {
+    "order": 9,
+    "name": "兴发广场",
+    "stage": "I 前场台阶候选",
+    "sourceBounds": {
+      "min": [
+        -46,
+        -1.1920929132713809e-8,
+        -66
+      ],
+      "max": [
+        60.18967819213867,
+        94,
+        43.029998779296875
+      ]
+    },
+    "assets": {
+      "light": "/models/current23/09/light.glb?v=f48e81e0ca43",
+      "detail": "/models/current23/09/detail.glb?v=413aa454be18"
+    },
+    "webBudget": {
+      "light": {
+        "bytes": 749636,
+        "triangles": 44718,
+        "primitives": 25,
+        "vertices": 110671,
+        "sha256": "f48e81e0ca43050404719cd2cc893abca926ed6e37921a3f31e6d8b5cf212a2f",
+        "bounds": {
+          "min": [
+            -46,
+            -0.0002493053155365743,
+            -65.99993896298105
+          ],
+          "max": [
+            60.18967819213867,
+            94,
+            43.029998779296875
+          ]
+        }
+      },
+      "detail": {
+        "bytes": 846888,
+        "triangles": 72960,
+        "primitives": 25,
+        "vertices": 139470,
+        "sha256": "413aa454be185c5e2a74d66bda7b0ff63083f70594a9ba0da2fa377296129a7c",
+        "bounds": {
+          "min": [
+            -46,
+            -0.0002493053155365743,
+            -65.99993896298105
+          ],
+          "max": [
+            60.18967819213867,
+            94,
+            43.029998779296875
+          ]
+        }
+      }
+    },
+    "sourceModelSha256": "5754c6ae74c710676f8bfa3fb62dd4495799fc27e13f5b1e46d6c2650fd4e295",
+    "sourceSelectionFile": "XingfaPlaza_I_ForecourtStairs.glb",
+    "modelNotesUrl": "/models/current23/09/README.txt",
+    "holds": {
+      "identity": false,
+      "identity_note": "沿用项目对应；不等于官方单栋测绘或新身份核验",
+      "identity_binding_level": "inherited_project_correspondence_not_new_survey",
+      "geographic_registration": "HOLD_LATEST_SITE_NOT_VERIFIED",
+      "absolute_scale": "HOLD_NO_NEW_SURVEY_OR_SCALE_CERTIFICATION",
+      "capture_date": "UNKNOWN_UNLESS_EXPLICIT_SOURCE_DOC_QUALIFICATION",
+      "scope_and_remaining_holds": "H保留G双塔/商业主体，新增2020开业公开图支持的前场高架U形红面白底、有限两端接续、粗边栏和两处可见圆柱。圆弧、宽度、高程、杆距、柱脚及F/G高度84/67均归一示意。后屋顶完整回路、屋顶乐园、穹顶、长网架、阶梯、地下口和隐藏连接未建；短接续终止是模型范围而非真实终点。旧G图拍摄日未核，不宣称严格同期或2026现状。"
+    },
+    "sourceVersion": "兴发H组合（默认）；F左右分塔（互斥备选）"
+  },
+  "1649142": {
+    "order": 15,
+    "name": "兴发集团宜昌总部",
+    "stage": "总部F整体，替代E网页优化版",
+    "sourceBounds": {
+      "min": [
+        -7.300000190734863,
+        -0.01000000536441803,
+        -34.099998474121094
+      ],
+      "max": [
+        13.100000381469727,
+        64,
+        7.399999976158142
+      ]
+    },
+    "assets": {
+      "light": "/models/current23/15/light.glb?v=beb2618890ea",
+      "detail": "/models/current23/15/detail.glb?v=8cf1475c1ad8"
+    },
+    "webBudget": {
+      "light": {
+        "bytes": 49352,
+        "triangles": 2604,
+        "primitives": 9,
+        "vertices": 6076,
+        "sha256": "beb2618890eadd48304f6b305fb05db22f2c82e7865ac7330869d0d91d0f027d",
+        "bounds": {
+          "min": [
+            -7.300046417912315,
+            -0.010000228881835938,
+            -34.099998474121094
+          ],
+          "max": [
+            13.099909050142223,
+            64,
+            7.399958462895525
+          ]
+        }
+      },
+      "detail": {
+        "bytes": 44296,
+        "triangles": 2604,
+        "primitives": 9,
+        "vertices": 5208,
+        "sha256": "8cf1475c1ad803d44a6f8b4b0b2055270f50ea2d1a6ebcbb566253233881ac76",
+        "bounds": {
+          "min": [
+            -7.300046417912315,
+            -0.010000228881835938,
+            -34.099998474121094
+          ],
+          "max": [
+            13.099909050142223,
+            64,
+            7.399958462895525
+          ]
+        }
+      }
+    },
+    "sourceModelSha256": "d4384af6a66b006efd520795100d6719d41f29e668dc18dd5bfe027588cd96de",
+    "sourceSelectionFile": "assets/15/current/XingfaHQ_F_PodiumEntry.glb",
+    "modelNotesUrl": "/models/current23/15/README.txt",
+    "holds": {
+      "identity": false,
+      "identity_note": "沿用项目对应；不等于官方单栋测绘或新身份核验",
+      "identity_binding_level": "inherited_project_correspondence_not_new_survey",
+      "geographic_registration": "HOLD_LATEST_SITE_NOT_VERIFIED",
+      "absolute_scale": "HOLD_NO_NEW_SURVEY_OR_SCALE_CERTIFICATION",
+      "capture_date": "UNKNOWN_UNLESS_EXPLICIT_SOURCE_DOC_QUALIFICATION",
+      "scope_and_remaining_holds": "保留E104网格，增加背离旧临江面的低裙房、街侧入口连接体及长棚。来源雅高官方多视点与2023-11-20开业稿，摄影日未核，不称2026现状。裙房扩至y33.8、高9、棚至x12.4均归一示意；不补主塔背窗、设备、未知台阶。181/198米口径未选择，锚接/实测高程/地理配准仍HOLD。"
+    },
+    "sourceVersion": "总部F整体，替代E网页优化版"
+  },
+  "1649143": {
+    "order": 20,
+    "name": "旭光商贸",
+    "stage": "旭光H",
+    "sourceBounds": {
+      "min": [
+        -36,
+        0,
+        -32.13999938964844
+      ],
+      "max": [
+        37.61000061035156,
+        108,
+        4.71999979019165
+      ]
+    },
+    "assets": {
+      "light": "/models/current23/20/light.glb?v=314dddcd6dc8",
+      "detail": "/models/current23/20/detail.glb?v=f19818198de0"
+    },
+    "webBudget": {
+      "light": {
+        "bytes": 301776,
+        "triangles": 17018,
+        "primitives": 16,
+        "vertices": 43191,
+        "sha256": "314dddcd6dc83bc0cedca993828f15ecfb3430ddc979c00450b222e0fdd89c0b",
+        "bounds": {
+          "min": [
+            -36,
+            -0.00032470848182875045,
+            -32.14029839784875
+          ],
+          "max": [
+            37.60984275552552,
+            108,
+            4.7198460913448095
+          ]
+        }
+      },
+      "detail": {
+        "bytes": 459156,
+        "triangles": 38764,
+        "primitives": 16,
+        "vertices": 77508,
+        "sha256": "f19818198de0a3d926bfa69f19090d635ac415d9c12162c1cfa3780d3a4c274a",
+        "bounds": {
+          "min": [
+            -36,
+            -0.00032470848182875045,
+            -32.14029839784875
+          ],
+          "max": [
+            37.60984275552552,
+            108,
+            4.7198460913448095
+          ]
+        }
+      }
+    },
+    "sourceModelSha256": "837fb3a5b8a8e8290ebe75f4c49d533fcc4ff59ddda48186edd5e0de3980b575",
+    "sourceSelectionFile": "assets/20/current/Xuguang_H_RightWingShell.glb",
+    "modelNotesUrl": "/models/current23/20/README.txt",
+    "holds": {
+      "identity": false,
+      "identity_note": "沿用项目对应；不等于官方单栋测绘或新身份核验",
+      "identity_binding_level": "inherited_project_correspondence_not_new_survey",
+      "geographic_registration": "HOLD_LATEST_SITE_NOT_VERIFIED",
+      "absolute_scale": "HOLD_NO_NEW_SURVEY_OR_SCALE_CERTIFICATION",
+      "capture_date": "UNKNOWN_UNLESS_EXPLICIT_SOURCE_DOC_QUALIFICATION",
+      "scope_and_remaining_holds": "H追加右可见低翼/蓝带后延和包角薄壳，原G塔身/前面/基部/隐藏状态不改。上塔深16宽72高108保持；后延至y32是显示约定非实测深翻倍。仅x约34.8–37.6,y16–32,z0–50.4最小侧壳，不填成72宽未知整翼。内侧/后端/上下封口均HOLD示意，不是实景后墙屋面。窗列/横条为密度简化，树后低门店牌未建，摄年未知。"
+    },
+    "sourceVersion": "旭光H"
+  },
+  "1649144": {
+    "order": 11,
+    "name": "长江国际文化广场",
+    "stage": "默认F不变；G为E观察角独立运营整体备选（互斥，不拼接）",
+    "sourceBounds": {
+      "min": [
+        -22.252500534057617,
+        0,
+        -18
+      ],
+      "max": [
+        22.252500534057617,
+        128,
+        0.45500001311302185
+      ]
+    },
+    "assets": {
+      "light": "/models/current23/11/light.glb?v=e7634e8b4e0a",
+      "detail": "/models/current23/11/detail.glb?v=62a1ec899762"
+    },
+    "webBudget": {
+      "light": {
+        "bytes": 157832,
+        "triangles": 10192,
+        "primitives": 8,
+        "vertices": 25649,
+        "sha256": "e7634e8b4e0a74dd26d5b916c0aafd5e3a6abec4132e95c809dbcd9630bff836",
+        "bounds": {
+          "min": [
+            -22.252937406537065,
+            0,
+            -18.000274666585284
+          ],
+          "max": [
+            22.252937406537065,
+            128,
+            0.45555193372587854
+          ]
+        }
+      },
+      "detail": {
+        "bytes": 286444,
+        "triangles": 25492,
+        "primitives": 8,
+        "vertices": 50976,
+        "sha256": "62a1ec8997621e80e0b3073a422a89dd010427dd6f81025ef3e7a93c228ff1e2",
+        "bounds": {
+          "min": [
+            -22.252937406537065,
+            0,
+            -18.000274666585284
+          ],
+          "max": [
+            22.252937406537065,
+            128,
+            0.45555193372587854
+          ]
+        }
+      }
+    },
+    "sourceModelSha256": "b2af8af825a87d3312ea7a7dd934202abf0de14a943f23805bd8966455d48366",
+    "sourceSelectionFile": "assets/11/current/Changjiang_F_WholeBody.glb",
+    "modelNotesUrl": "/models/current23/11/README.txt",
+    "holds": {
+      "identity": true,
+      "identity_note": "中央邻商场塔楼候选；具体塔号待核，不拼对向E，不代表整个综合体。",
+      "identity_binding_level": "inherited_project_correspondence_not_new_survey",
+      "geographic_registration": "HOLD_LATEST_SITE_NOT_VERIFIED",
+      "absolute_scale": "HOLD_NO_NEW_SURVEY_OR_SCALE_CERTIFICATION",
+      "capture_date": "UNKNOWN_UNLESS_EXPLICIT_SOURCE_DOC_QUALIFICATION",
+      "scope_and_remaining_holds": "中央邻商场塔楼候选；具体塔号待核，不拼对向E，不代表整个综合体。 G新增E观察角运营整体备选，宽36/高180/深10独立归一，显示底-90，不能套E/F变换；九窗域/冠/右短面为粗视觉节奏。树下入口与基部未建，背顶/深度示意；1号楼文字链增强但scene唯一塔号与F/E配准HOLD未解。"
+    },
+    "sourceVersion": "默认F不变；G为E观察角独立运营整体备选（互斥，不拼接）"
+  },
+  "1649145": {
+    "order": 6,
+    "name": "宜昌国际广场",
+    "stage": "宜昌国际运营入口候选r3",
+    "sourceBounds": {
+      "min": [
+        -47,
+        -0.41999998688697815,
+        -19.5
+      ],
+      "max": [
+        47,
+        100.06999969482422,
+        29.799999237060547
+      ]
+    },
+    "assets": {
+      "light": "/models/current23/06/light.glb?v=c04302941156",
+      "detail": "/models/current23/06/detail.glb?v=d065a63b258d"
+    },
+    "webBudget": {
+      "light": {
+        "bytes": 3407596,
+        "triangles": 169528,
+        "primitives": 21,
+        "vertices": 485663,
+        "sha256": "c04302941156f3ed1c654176afd7c988b3fb3431a025dbf8e5afdfa927999d58",
+        "bounds": {
+          "min": [
+            -47,
+            -0.41962095281073913,
+            -19.500717184972686
+          ],
+          "max": [
+            47,
+            100.06999969482422,
+            29.79954862620435
+          ]
+        }
+      },
+      "detail": {
+        "bytes": 8378264,
+        "triangles": 739940,
+        "primitives": 21,
+        "vertices": 1453948,
+        "sha256": "d065a63b258d8fdc2240c7812da276ffe02cde939200e8cbb6763b1e33202519",
+        "bounds": {
+          "min": [
+            -47,
+            -0.41962095281073913,
+            -19.500717184972686
+          ],
+          "max": [
+            47,
+            100.06999969482422,
+            29.79978539209019
+          ]
+        }
+      }
+    },
+    "sourceModelSha256": "ec72dd6bdda9de345fccb6ba7da08eb76aadf3361a4ec9a67741145053c06c01",
+    "sourceSelectionFile": "assets/06/current/Guoji_OperatingEntry.glb",
+    "modelNotesUrl": "/models/current23/06/README.txt",
+    "holds": {
+      "identity": false,
+      "identity_note": "沿用项目对应；不等于官方单栋测绘或新身份核验",
+      "identity_binding_level": "inherited_project_correspondence_not_new_survey",
+      "geographic_registration": "HOLD_LATEST_SITE_NOT_VERIFIED",
+      "absolute_scale": "HOLD_NO_NEW_SURVEY_OR_SCALE_CERTIFICATION",
+      "capture_date": "UNKNOWN_UNLESS_EXPLICIT_SOURCE_DOC_QUALIFICATION",
+      "scope_and_remaining_holds": "仅办公塔窄面运营入口外观：金属圆角挑檐/底板主要梁/横带/门头粗框。旧三语义棚节点隐藏保留互斥，原楼体/两住宅/裙房/住宅冠角OFF不改；不认定旧柱已拆。旧14.8×5.6偏置足迹用于避开右裙房互穿，非测绘或精确配准；门/棚进深厚度后沿及隐藏支承仍HOLD。照片摄年未知，非2026现状认证。"
+    },
+    "sourceVersion": "宜昌国际运营入口候选r3"
+  },
+  "1649146": {
+    "order": 14,
+    "name": "长乐大厦",
+    "stage": "长乐G运营低基部完整候选",
+    "sourceBounds": {
+      "min": [
+        -20.489999771118164,
+        0,
+        -18.369998931884766
+      ],
+      "max": [
+        18.369999885559082,
+        112.2300033569336,
+        20.489999771118164
+      ]
+    },
+    "assets": {
+      "light": "/models/current23/14/light.glb?v=4141aa7dd5a7",
+      "detail": "/models/current23/14/detail.glb?v=bec58a1d82ee"
+    },
+    "webBudget": {
+      "light": {
+        "bytes": 500144,
+        "triangles": 30596,
+        "primitives": 13,
+        "vertices": 76593,
+        "sha256": "4141aa7dd5a77e7cf06026db4d4a68b1a13f52d27acbc8852cb4e945db4cea4b",
+        "bounds": {
+          "min": [
+            -20.489999771118164,
+            -0.00019224795939498662,
+            -18.369999502087012
+          ],
+          "max": [
+            18.369999885559082,
+            112.2300033569336,
+            20.49022613266353
+          ]
+        }
+      },
+      "detail": {
+        "bytes": 572156,
+        "triangles": 47974,
+        "primitives": 13,
+        "vertices": 96050,
+        "sha256": "bec58a1d82ee42c749372503ea47f91e3b7695020e374508aaae1353669914bd",
+        "bounds": {
+          "min": [
+            -20.489999771118164,
+            -0.00019224795939498662,
+            -18.369999502087012
+          ],
+          "max": [
+            18.369999885559082,
+            112.2300033569336,
+            20.49022613266353
+          ]
+        }
+      }
+    },
+    "sourceModelSha256": "246992c6281da235e1f999330d7814ff318e9e47da89de070afe848c1abcac06",
+    "sourceSelectionFile": "assets/14/current/Changle_G_StreetBase.glb",
+    "modelNotesUrl": "/models/current23/14/README.txt",
+    "holds": {
+      "identity": false,
+      "identity_note": "沿用项目对应；不等于官方单栋测绘或新身份核验",
+      "identity_binding_level": "inherited_project_correspondence_not_new_survey",
+      "geographic_registration": "HOLD_LATEST_SITE_NOT_VERIFIED",
+      "absolute_scale": "HOLD_NO_NEW_SURVEY_OR_SCALE_CERTIFICATION",
+      "capture_date": "UNKNOWN_UNLESS_EXPLICIT_SOURCE_DOC_QUALIFICATION",
+      "scope_and_remaining_holds": "G以F整栋为基底补两向低部柱/玻璃大域/转角玻璃和局部挑檐。照片低部压入旧z0–4.5显示域，非真实比例/层高；上裙房仍F旧阶段代理，未完整适配运营阶段。原10网格完整保留，展示副本裁切封口；上域核等仅覆盖完整在z4.9以上的原世界定向多边形。两末端窗沿旧F可见域，树后不补；背顶/隐藏侧/尺度/地理配准HOLD。原点及塔高112.2300033569336保持，新檐扩大平面包络。"
+    },
+    "sourceVersion": "长乐G运营低基部完整候选"
+  },
+  "1649147": {
+    "order": 17,
+    "name": "中建宜昌之星",
+    "stage": "YichangStar_F_SandboxBody_web_optimized",
+    "sourceBounds": {
+      "min": [
+        -27.5,
+        0,
+        -11
+      ],
+      "max": [
+        27.5,
+        105.0999984741211,
+        20.5
+      ]
+    },
+    "assets": {
+      "light": "/models/current23/17/light.glb?v=4446e66c7ed4",
+      "detail": "/models/current23/17/detail.glb?v=6a2214f1ec6a"
+    },
+    "webBudget": {
+      "light": {
+        "bytes": 26400,
+        "triangles": 1468,
+        "primitives": 5,
+        "vertices": 3342,
+        "sha256": "4446e66c7ed4cb0cf0934b9ddae1e0ed0a3a3d08bb98ddf8466ddbc0a62f1bc0",
+        "bounds": {
+          "min": [
+            -27.5,
+            0,
+            -11.000704809879148
+          ],
+          "max": [
+            27.5,
+            105.0999984741211,
+            20.500274666585284
+          ]
+        }
+      },
+      "detail": {
+        "bytes": 23472,
+        "triangles": 1480,
+        "primitives": 5,
+        "vertices": 2880,
+        "sha256": "6a2214f1ec6af740b9e6d4203d83426372924e02cca334884ef09252db3868d7",
+        "bounds": {
+          "min": [
+            -27.5,
+            0,
+            -11.000704809879148
+          ],
+          "max": [
+            27.5,
+            105.0999984741211,
+            20.500274666585284
+          ]
+        }
+      }
+    },
+    "sourceModelSha256": "cc9541ccb8431fd6c79b28da9d9bdb4d0242501dd91e54240a15e5307235da9f",
+    "sourceSelectionFile": "assets/17/current/YichangStar_F_SandboxBody_web_optimized.glb",
+    "modelNotesUrl": "/models/current23/17/README.txt",
+    "holds": {
+      "identity": true,
+      "identity_note": "原全景与时代中心所在临江组团地块的周边关系已目视对应；原名单只标综合项目，未指定主楼/附楼。F为主塔项目代表候选，不能称原名单明确指定主塔。单栋绑定、真实尺度、隐藏面、竣工时相及43/51层口径仍HOLD。",
+      "identity_binding_level": "project_group_matched_single_building_target_not_selected",
+      "geographic_registration": "HOLD_LATEST_SITE_NOT_VERIFIED",
+      "absolute_scale": "HOLD_NO_NEW_SURVEY_OR_SCALE_CERTIFICATION",
+      "capture_date": "UNKNOWN_UNLESS_EXPLICIT_SOURCE_DOC_QUALIFICATION",
+      "scope_and_remaining_holds": "原全景与时代中心所在临江组团地块的周边关系已目视对应；原名单只标综合项目，未指定主楼/附楼。F为主塔项目代表候选，不能称原名单明确指定主塔。单栋绑定、真实尺度、隐藏面、竣工时相及43/51层口径仍HOLD。"
+    },
+    "sourceVersion": "YichangStar_F_SandboxBody_web_optimized"
+  },
+  "1649148": {
+    "order": 12,
+    "name": "致远广场",
+    "stage": "致远F入口摄影时相候选",
+    "sourceBounds": {
+      "min": [
+        -14.704999923706055,
+        -0.009999990463256836,
+        -5.150000184774399
+      ],
+      "max": [
+        15.380000114440918,
+        29.03499984741211,
+        6.619999885559082
+      ]
+    },
+    "assets": {
+      "light": "/models/current23/12/light.glb?v=f7140e760e75",
+      "detail": "/models/current23/12/detail.glb?v=9736df762da7"
+    },
+    "webBudget": {
+      "light": {
+        "bytes": 534628,
+        "triangles": 38374,
+        "primitives": 12,
+        "vertices": 79564,
+        "sha256": "f7140e760e75735d55f31a5e4bb815550dad0c662f22edaff9988f78f7dc6a25",
+        "bounds": {
+          "min": [
+            -14.70500279892483,
+            -0.0100302323978676,
+            -5.149798889263951
+          ],
+          "max": [
+            15.380000114440918,
+            29.03499984741211,
+            6.620059579358887
+          ]
+        }
+      },
+      "detail": {
+        "bytes": 466612,
+        "triangles": 41684,
+        "primitives": 12,
+        "vertices": 70216,
+        "sha256": "9736df762da7f1c9f350112203d62f3e69ae98f1d925658434e04aeeb117a9a9",
+        "bounds": {
+          "min": [
+            -14.70500279892483,
+            -0.0100302323978676,
+            -5.149798889263951
+          ],
+          "max": [
+            15.380000114440918,
+            29.03499984741211,
+            6.620059579358887
+          ]
+        }
+      }
+    },
+    "sourceModelSha256": "0e9b0392abd4af7add248a0caf225d6a8004d1d5676853530e1ea5a6871b67fc",
+    "sourceSelectionFile": "assets/12/current/Zhiyuan_F_EntryPeriodCandidate.glb",
+    "modelNotesUrl": "/models/current23/12/README.txt",
+    "holds": {
+      "identity": false,
+      "identity_note": "沿用项目对应；不等于官方单栋测绘或新身份核验",
+      "identity_binding_level": "inherited_project_correspondence_not_new_survey",
+      "geographic_registration": "HOLD_LATEST_SITE_NOT_VERIFIED",
+      "absolute_scale": "HOLD_NO_NEW_SURVEY_OR_SCALE_CERTIFICATION",
+      "capture_date": "UNKNOWN_UNLESS_EXPLICIT_SOURCE_DOC_QUALIFICATION",
+      "scope_and_remaining_holds": "F补主面右端粉板下部两层入口及有限右折2.2展示单位。原1161网格几何/材质名/变换冻结，16旧对象互斥隐藏；副本局部换灰、玻璃框在z3.45裁切并技术封口，跨界面已改变不称全多边形等价。旧上部塔身代理保留，非整塔当前时相；背缘/后门/内部连接/树后HOLD。不建门机/通路/文字。摄年未知，2024改造/2025开业不等于照片日期。"
+    },
+    "sourceVersion": "致远F入口摄影时相候选"
+  },
+  "1649149": {
+    "order": 2,
+    "name": "中南冶金",
+    "stage": "detail/light",
+    "sourceBounds": {
+      "min": [
+        -29.16375160217285,
+        0,
+        -58.900001525878906
+      ],
+      "max": [
+        49.78280258178711,
+        106.55999755859375,
+        2.8828067779541016
+      ]
+    },
+    "assets": {
+      "light": "/models/current23/02/light.glb?v=57a940813352",
+      "detail": "/models/current23/02/detail.glb?v=3c346ca93c0a"
+    },
+    "webBudget": {
+      "light": {
+        "bytes": 3438312,
+        "triangles": 141262,
+        "primitives": 31,
+        "vertices": 397437,
+        "sha256": "57a940813352ad91b759fa602ed989004a47f556a9cb2f161046db6b03eb39cc",
+        "bounds": {
+          "min": [
+            -29.16368909335738,
+            0,
+            -58.900472030083165
+          ],
+          "max": [
+            49.78280544281006,
+            106.55978065029355,
+            2.8828067779541016
+          ]
+        }
+      },
+      "detail": {
+        "bytes": 10336204,
+        "triangles": 696156,
+        "primitives": 31,
+        "vertices": 1454818,
+        "sha256": "3c346ca93c0a3ce3eee4ccae495315737c49601083e124ccb529058eef8072c2",
+        "bounds": {
+          "min": [
+            -29.16368909335738,
+            0,
+            -58.900472030083165
+          ],
+          "max": [
+            49.78280544281006,
+            106.56004067711802,
+            2.8828067779541016
+          ]
+        }
+      }
+    },
+    "sourceModelSha256": "57a940813352ad91b759fa602ed989004a47f556a9cb2f161046db6b03eb39cc",
+    "sourceSelectionFile": "assets/02/current/light.glb",
+    "modelNotesUrl": "/models/current23/02/README.txt",
+    "holds": {
+      "identity": false,
+      "identity_note": "沿用项目对应；不等于官方单栋测绘或新身份核验",
+      "identity_binding_level": "inherited_project_correspondence_not_new_survey",
+      "geographic_registration": "HOLD_LATEST_SITE_NOT_VERIFIED",
+      "absolute_scale": "HOLD_NO_NEW_SURVEY_OR_SCALE_CERTIFICATION",
+      "capture_date": "UNKNOWN_UNLESS_EXPLICIT_SOURCE_DOC_QUALIFICATION",
+      "scope_and_remaining_holds": "原站点候选，保留light/detail共同sourceBounds、缩放与位置登记，不重新归一化冒充米制。"
+    },
+    "sourceVersion": "detail/light"
+  }
+}

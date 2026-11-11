@@ -119,6 +119,7 @@ export function planAuthoredGround(models, data, farHeightFactor) {
   for (let i=0;i<(data.buildings||[]).length;i++) {
     const building=data.buildings[i];
     if (models.some(model=>{
+      if(model.registration.suppressBackgroundReplacement)return false;
       const ids=model.registration.replaceSourceFeatureIds||[model.registration.sourceFeatureId].filter(Boolean);
       return ids.length&&building.sourceFeatureId ? ids.includes(building.sourceFeatureId) : footprintsOverlap(model.footprint,building.ring);
     })) omittedBuildingIndices.add(i);
