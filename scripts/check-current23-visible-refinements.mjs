@@ -6,7 +6,7 @@ import {AUTHORED_MODELS,prepareAuthoredModel} from '../src/scene/authoredModels.
 const alphaName='J_OBSERVED_front_arc_transparent_glass_ALPHA_REQUIRED';
 const loader=new GLTFLoader().setMeshoptDecoder(MeshoptDecoder);
 const results=[];
-for(const order of [9,13])for(const tier of ['light','detail']){
+for(const order of [9,13,20])for(const tier of ['light','detail']){
  const spec=AUTHORED_MODELS.find(s=>s.order===order);
  const bytes=fs.readFileSync(new URL('../public'+spec.assets[tier].split('?')[0],import.meta.url));
  const object=(await loader.parseAsync(bytes.buffer.slice(bytes.byteOffset,bytes.byteOffset+bytes.byteLength),'')).scene;
@@ -18,10 +18,10 @@ for(const order of [9,13])for(const tier of ['light','detail']){
   object.traverse(o=>{if(o.isMesh&&o.material===glass[0])assert.equal(o.castShadow,false,'Transparent infill must not cast opaque slab shadows');});
   for(const m of materials)if(m.name!==alphaName){assert.equal(m.transparent,false);assert.equal(m.opacity,1);}
  }else{
-  const added=[...materials].filter(m=>m.name.startsWith('I_'));assert(added.length>=3,'Podium glass, grey frame and subdivisions survive both tiers');
+  const added=[...materials].filter(m=>m.name.startsWith('I_'));assert(added.length>=(order===13?3:1),'Refinement materials survive both tiers');
   prepareAuthoredModel(object,spec);for(const m of materials){assert.equal(m.transparent,false);assert.equal(m.opacity,1);}
  }
  results.push({order,tier,materials:materials.size,reviewedAlpha:order===9?.25:null});
  object.traverse(o=>{o.geometry?.dispose();});materials.forEach(m=>m.dispose());
 }
-console.log(JSON.stringify({passed:true,scope:'Two refined models and exact runtime alpha opt-in; no GPU/survey claim',results},null,2));
+console.log(JSON.stringify({passed:true,scope:'Refined models and exact runtime alpha opt-in; no GPU/survey claim',results},null,2));

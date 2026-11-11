@@ -20,3 +20,7 @@ Current source selection now advances #9 to Xingfa J (visible front-arc transpar
 The J open-air glass material alone keeps BLEND alpha 0.25 through optimization and runtime; ordinary building glazing retains the established opaque policy. CPU native and reimported full-GLB previews were inspected. Browser GPU/phone acceptance remains unverified.
 
 Current totals: {"light_bytes": 18982488, "light_triangles": 990156, "detail_bytes": 45854112, "detail_triangles": 3564913}
+
+## Xuguang I incremental refinement
+
+#20 advances H to I: bounded upper-endwall pale panel seams and reversible same-union source frame de-overlap repair. Other 22 selections and all geographic registrations remain unchanged. Current totals: {"light_bytes": 18975096, "light_triangles": 989674, "detail_bytes": 45858996, "detail_triangles": 3565189}

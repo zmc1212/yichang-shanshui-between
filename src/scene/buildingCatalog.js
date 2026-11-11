@@ -25,7 +25,7 @@ export const BUSINESS_BUILDINGS=registry.rows.map(row=>{
   const name=registry.displayNames[row.sourceSceneId]||row.sourceName;
   const approximate=Boolean(registration.approximate);
   const holdText=[current.holds?.identity_note,current.holds?.scope_and_remaining_holds].filter(Boolean).join(' ');
-  const shortStages={1:'S05',2:'S09',3:'E',4:'S01',5:'E',6:'运营入口 r3',7:'S01',8:'E',9:'J',10:'H',11:'F',12:'F',13:'I',14:'G',15:'F',16:'G',17:'F',18:'H',19:'H',20:'H',21:'F',22:'I',23:'G'};
+  const shortStages={1:'S05',2:'S09',3:'E',4:'S01',5:'E',6:'运营入口 r3',7:'S01',8:'E',9:'J',10:'H',11:'F',12:'F',13:'I',14:'G',15:'F',16:'G',17:'F',18:'H',19:'H',20:'I',21:'F',22:'I',23:'G'};
   return {
     ...(previous||{}), ...current,
     id:previous?.id||`business-${row.sourceSceneId}`,name,business:true,

@@ -1,0 +1,75 @@
+{
+  "source": "Frozen original H, before I additions",
+  "mesh": "H_visible_right_end_white_planes_and_ribs",
+  "actual_original_coplanar_corner_overlaps": [
+    {
+      "faces": [
+        9,
+        21
+      ],
+      "x": 36.32500076293945,
+      "y": [
+        0.3499999940395355,
+        0.699999988079071
+      ],
+      "z": [
+        54.0,
+        54.5
+      ],
+      "area": 0.17499999701976776
+    },
+    {
+      "faces": [
+        9,
+        27
+      ],
+      "x": 36.32500076293945,
+      "y": [
+        0.3499999940395355,
+        0.699999988079071
+      ],
+      "z": [
+        107.5,
+        108.0
+      ],
+      "area": 0.17499999701976776
+    },
+    {
+      "faces": [
+        15,
+        21
+      ],
+      "x": 36.32500076293945,
+      "y": [
+        15.300000190734863,
+        15.649999618530273
+      ],
+      "z": [
+        54.0,
+        54.5
+      ],
+      "area": 0.17499971389770508
+    },
+    {
+      "faces": [
+        15,
+        27
+      ],
+      "x": 36.32500076293945,
+      "y": [
+        15.300000190734863,
+        15.649999618530273
+      ],
+      "z": [
+        107.5,
+        108.0
+      ],
+      "area": 0.17499971389770508
+    }
+  ],
+  "I_geometry_does_not_reach_corners": true,
+  "render_observation": "H_before already has right top and right bottom black patches; I native and independent GLB import show four. Adding bounded geometry can change traversal of coincident source faces.",
+  "status": "HISTORICAL_PRE_REPAIR_DIAGNOSTIC; resolved in final technical replacement, see frame_repair.json and final_preservation.json",
+  "minimal_optional_repair": "Preserve original H frozen. For a separately approved render derivative, trim upper/lower frame horizontal bars at Y=.7 and15.3 so they meet rather than overlap vertical bars. Same outer silhouette/material/bounds. Requires explicit waiver of exact H topology preservation.",
+  "final_visual_review": "Final native and independently reimported GLB images inspected: four original black corner artifacts absent."
+}
