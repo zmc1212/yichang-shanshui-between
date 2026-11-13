@@ -1,0 +1,198 @@
+{
+  "schemaVersion": 1,
+  "cityCode": "420500",
+  "title": "镇江阁滨江样板区绿化表现",
+  "sourceRelease": "2026-10-21.0",
+  "bounds": [
+    111.24,
+    30.68,
+    111.32,
+    30.73
+  ],
+  "focus": [
+    111.270905,
+    30.703432
+  ],
+  "createdAt": "2026-11-04T09:36:20.942567+00:00",
+  "greenspace": {
+    "file": "greenspace.geojson",
+    "count": 83,
+    "classes": {
+      "forest": 29,
+      "park": 54
+    },
+    "sources": {
+      "OpenStreetMap": 54,
+      "ESA WorldCover": 29
+    },
+    "simplificationMetres": 1.5,
+    "bytes": 102017,
+    "sha256": "0d88a2b1a1b2dfb6eee652ba99c050ae3f5b065d28dd1c1d9d0d3718cb5f745d"
+  },
+  "vegetation": {
+    "file": "vegetation.json",
+    "count": 2599,
+    "candidateCount": 15665,
+    "radiusMetres": 1800,
+    "maximumCount": 2600,
+    "sourceGridSpacingMetres": 10,
+    "classes": {
+      "park": 208,
+      "forest": 2391
+    },
+    "near600m": 290,
+    "middle1200m": 1040,
+    "far1800m": 1269,
+    "exclusionCounts": {
+      "insideSourceArea": 24026,
+      "roads": 2792,
+      "water": 2109,
+      "parkSpacing": 2231,
+      "buildings": 1124,
+      "pavedActivityAreas": 82,
+      "landmarkClearZone": 23,
+      "roundingBoundary": 1
+    },
+    "note": "树木位置、数量、树高与树种仅为表现性配置；限于真实地图公园/林地轮廓，不代表实测树木清单。",
+    "bytes": 201404,
+    "sha256": "1b86d19b45e7fcf14612900b86d7c466e7b8fd99622fb6ba20776e5873f35a93"
+  },
+  "inputs": [
+    {
+      "file": "overture-landuse-00027.geojson",
+      "sourceType": "land_use",
+      "bytes": 805813,
+      "sha256": "45a2cab28dda6d555c8754636cf0896d4f75c10cd18bd8f7d23346c9fd3f230c"
+    },
+    {
+      "file": "overture-landcover.geojson",
+      "sourceType": "land_cover",
+      "bytes": 74214,
+      "sha256": "45ceca39438718b7644539cdb738f65659128bb806d5562369aab0372acf59dc"
+    }
+  ],
+  "landUseAcquisition": {
+    "release": "2026-10-21.0",
+    "assetId": "00027",
+    "rowGroups": [
+      39,
+      50
+    ],
+    "url": "https://overturemapswestus2.blob.core.windows.net/release/2026-10-21.0/theme=base/type=land_use/part-00027-68450557-5887-5c9a-b07a-6c527441894d-c000.zstd.parquet",
+    "method": "Official STAC asset; bounded HTTP ranges; bbox filter followed by true-geometry clipping",
+    "note": "Selected local source extract, not an exhaustive park directory"
+  },
+  "inputCounts": {
+    "land_use": 828,
+    "land_cover": 30
+  },
+  "rejectedSources": {
+    "noTrueGeometryOverlap": 1,
+    "ineligibleClass": 773,
+    "coarseCartography": 1
+  },
+  "obstacleInputs": {
+    "roadsSha256": "5c2241d19f315856f4bbf4c580a38285566345a94c12b680626d0d023c7c27dd",
+    "waterSha256": "d2afa9fc48fe87d6b453f3225aeb57a0d827496a426b16edcd8e232ab224d6d0",
+    "buildingTilesCombinedSha256": "8cfa2ca86352252d3763ba4f8cd6921a89555fb0cafd20b98da1ac270a986d93"
+  },
+  "license": "ODbL-1.0, with source-specific CC BY 4.0 attribution",
+  "attribution": "© OpenStreetMap contributors, Overture Maps Foundation; © ESA WorldCover project 2021",
+  "limitations": "局部来源范围，非完整公园名录；公园与林地轮廓来自数据源，树木为程序化表现。源数据年份不等于 Overture 发布日期。",
+  "sourceDocumentation": [
+    "https://docs.overturemaps.org/guides/base/",
+    "https://docs.overturemaps.org/attribution/"
+  ],
+  "landCoverAcquisition": {
+    "release": "2026-10-21.0",
+    "bounds": [
+      111.24,
+      30.68,
+      111.32,
+      30.73
+    ],
+    "files": [
+      {
+        "id": "00085",
+        "url": "https://overturemapswestus2.blob.core.windows.net/release/2026-10-21.0/theme=base/type=land_cover/part-00085-ecbe3a62-8534-50d0-aa70-e176514515d6-c000.zstd.parquet",
+        "objectBytes": 626610247,
+        "intersectingRowGroups": [
+          12
+        ],
+        "geometryRowGroups": [
+          12
+        ],
+        "counts": {
+          "12": {
+            "forest": 1
+          }
+        },
+        "forestPolygons": 1,
+        "rangeBytes": 10485760
+      },
+      {
+        "id": "00093",
+        "url": "https://overturemapswestus2.blob.core.windows.net/release/2026-10-21.0/theme=base/type=land_cover/part-00093-72949348-dbe6-59d3-b92f-6cf4cc483dbc-c000.zstd.parquet",
+        "objectBytes": 622674208,
+        "intersectingRowGroups": [
+          3,
+          9
+        ],
+        "geometryRowGroups": [
+          3,
+          9
+        ],
+        "counts": {
+          "3": {
+            "urban": 8,
+            "crop": 26,
+            "barren": 18,
+            "forest": 10,
+            "shrub": 1
+          },
+          "9": {
+            "forest": 19,
+            "crop": 42,
+            "barren": 29,
+            "urban": 5,
+            "shrub": 5
+          }
+        },
+        "forestPolygons": 29,
+        "rangeBytes": 20971520
+      },
+      {
+        "id": "00106",
+        "url": "https://overturemapswestus2.blob.core.windows.net/release/2026-10-21.0/theme=base/type=land_cover/part-00106-2f7e9deb-16b3-5d29-bfa1-6c528faba5d0-c000.zstd.parquet",
+        "objectBytes": 1194937113,
+        "intersectingRowGroups": [
+          30
+        ],
+        "geometryRowGroups": [],
+        "counts": {
+          "30": {
+            "grass": 1
+          }
+        },
+        "forestPolygons": 0,
+        "rangeBytes": 2097152
+      },
+      {
+        "id": "00112",
+        "url": "https://overturemapswestus2.blob.core.windows.net/release/2026-10-21.0/theme=base/type=land_cover/part-00112-5d9b85ab-6396-50a1-b3d6-9c41f13768b5-c000.zstd.parquet",
+        "objectBytes": 1370592263,
+        "intersectingRowGroups": [
+          20
+        ],
+        "geometryRowGroups": [],
+        "counts": {
+          "20": {
+            "barren": 1
+          }
+        },
+        "forestPolygons": 0,
+        "rangeBytes": 3145728
+      }
+    ]
+  }
+}

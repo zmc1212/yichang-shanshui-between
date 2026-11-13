@@ -1,15 +1,21 @@
 # 宜昌 · 江山之间
 
+> 本地源码基线来自原生 Sites 项目 `appgprj_6af0b8d6dbec81919ea6c30c51e88270` 的最新保存版本 V78，源码提交 `bb919a6ade05f03f7f3150aae703b45c48cd5bd4`，读取时间为 2026-11-13 12:29（北京时间）。项目标题以原站实际标题为准。迁移记录、资产范围及原有检查失败项见 [docs/export-handoff.md](docs/export-handoff.md)。
+
 宜昌Online 的独立微缩城市站点。使用 React、Three.js 与 Vite，将宜昌中心城区的真实道路、水域与建筑轮廓，呈现为明亮的立体沙盘；地标采用风格化模型。
 
 ## 本地运行与构建
 
 需要 Node.js（支持 Vite 6 的版本）和 npm，以及支持 WebGL 的浏览器。
 
+模型使用 Git LFS。重新克隆后先运行 `git lfs pull`；本机已验证 Node.js 24.9.0 和 npm 11.6.0。网站需要 HTTP 服务，不能通过双击 HTML 的 `file://` 方式运行。
+
 ```bash
 npm ci
 npm run dev
 ```
+
+默认本地地址为 Vite 输出的地址；也可指定 `npm run dev -- --host 127.0.0.1 --port 4173`，访问 `http://127.0.0.1:4173/`。用户负责最终三维画面验收，项目规则见 [AGENTS.md](AGENTS.md)。
 
 生产构建与本地预览：
 
@@ -63,9 +69,9 @@ node scripts/check-landmark-alignment.mjs
 
 这些检查验证实际 GLTFLoader 解析、原始几何一致性、异步加载/超时/释放与现有地标配准；不替代真实 WebGL 画面或物理手机性能测试。
 
-覆盖范围为 WGS84 `[111.225, 30.645, 111.355, 30.755]`，约 **12.44 × 12.25 公里**。中心为 `[111.29, 30.7]`；局部坐标向东为 x 正方向、向南为 z 正方向，每米对应 0.02 世界单位。
+当前 V78 数据覆盖范围为 WGS84 `[111.225, 30.625, 111.39, 30.755]`，约 **15.80 × 14.47 公里**。中心为 `[111.3075, 30.69]`；局部坐标向东为 x 正方向、向南为 z 正方向，每米对应 0.02 世界单位。
 
-当前数据包含 **13,800 个建筑轮廓部件、2,950 条道路段、47 个水体多边形、100 个绿地多边形、7 个地标**。建筑经过范围裁切与面积优先的远景筛选；这些数量不是宜昌全市的完整资产统计。
+当前数据包含 **16,000 个建筑轮廓部件、3,600 条道路段、64 个水体多边形、100 个绿地多边形、7 个地标**，另有 23 项商务楼宇模型。建筑经过范围裁切与面积优先的远景筛选；这些数量不是宜昌全市的完整资产统计。
 
 真实来源数据用于确定街道、江岸、岛屿和建筑的空间布局。建筑高度包含来源标签、楼层换算、2020 年遥感估算及固定 12 米参考值；渲染可对高度作微缩视觉夸张。地标模型、山体、桥梁细节、树木位置与比例是风格化表现，本项目不属于实景测绘或精确复原成果。当前数据不含 DEM 网格，绿地来源仅覆盖部分城区。
 
@@ -122,7 +128,7 @@ node scripts/check-landmark-alignment.mjs
 38c01bf002511c01294feacd8aa85e54e6342724
 ```
 
-需要取得该提交对应的原项目 checkout；本仓库不重复收录整套原始导出。脚本读取其中的：
+本地迁移已从对应上游 Sites 源码提交恢复与复现有关的原始数据，保存在 `data/gis-source-38c01bf/`；该目录保留原有的 `dist/` 相对路径，但不是完整上游项目 checkout。来源及许可见该目录的说明与 `public/data/sources.txt`。脚本读取其中的：
 
 - `dist/data/gis-yichang/roads.geojson`、`water.geojson` 和 `buildings/*.geojson`
 - `dist/data/riverside-yichang/greenspace.geojson`
@@ -130,7 +136,9 @@ node scripts/check-landmark-alignment.mjs
 
 ```bash
 python -m pip install "shapely>=2,<3"
-python scripts/prepare-city-data.py --source /path/to/original-checkout
+python scripts/prepare-city-data.py --source data/gis-source-38c01bf --output /path/to/review-output
 ```
 
-默认重新写入 `public/data/city.json` 与 `public/data/sources.txt`。也可用 `--output /path/to/review-output` 生成到独立目录进行核对。脚本保留来源、坐标说明、模型表现范围、桥型依据及当前七条游客文案；它不会生成随机建筑位置或随机建筑高度。
+Windows PowerShell 中如果系统默认编码不是 UTF-8，先执行 `$env:PYTHONUTF8 = '1'`。使用 Python 3.10+ 和 Shapely 2.x。
+
+不指定 `--output` 会覆盖 `public/data/city.json` 与 `public/data/sources.txt`，建议先在独立目录生成并对照；后续道路元数据等增量处理可能还需相应脚本，单次生成不保证逐字节复现 V78。脚本保留来源、坐标说明、模型表现范围、桥型依据及当前七条游客文案；它不会生成随机建筑位置或随机建筑高度。

@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "dataset": "3D-GloBFP",
+  "version": "v3",
+  "heightYear": 2020,
+  "heightKind": "remote-sensing prediction; not a measured building height",
+  "sourceRecord": "https://zenodo.org/records/15459025",
+  "sourcePartRecord": "https://doi.org/10.6084/m9.figshare.28906499.v3",
+  "paper": "https://doi.org/10.5194/essd-16-5357-2024",
+  "license": "CC-BY-4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+  "attribution": "Height estimates: Yangzi Che et al., 3D-GloBFP v3 (2020), DOI:10.5281/zenodo.15459025, CC BY 4.0; spatially matched and rounded.",
+  "baseCommit": "fef0ee438c395d890b046dc3826970ab3f776d98",
+  "bounds": [
+    111.2,
+    30.62,
+    111.41,
+    30.78
+  ],
+  "policy": {
+    "minimumIntersectionOverUnion": 0.6,
+    "minimumTargetCoverage": 0.75,
+    "minimumSourceCoverage": 0.75,
+    "minimumEachTargetPartCoverage": 0.75,
+    "rejectSecondCandidateTargetCoverageAtOrAbove": 0.2,
+    "sourceAssignment": "one source feature to at most one updated target",
+    "eligibleTargetHeightSource": "default",
+    "acceptedSourceHeightMetres": [
+      2,
+      1000
+    ],
+    "outputRoundingMetres": 0.1,
+    "metricCrs": "EPSG:32649",
+    "unmatchedPolicy": "Retain the original 12 metre reference height"
+  },
+  "sourceSubsetSha256": "598f4d7f17c55220454e17b2b86abce011c94e0ddea85c280096bee12b5a8853",
+  "sourceFeatureCount": 63650,
+  "sourceDownloads": [
+    {
+      "sourceUrl": "https://ndownloader.figshare.com/files/54106895",
+      "bytes": 27326166,
+      "md5": "0358faa8e3c300c274bc6e3b1c2fb67d",
+      "sourceEpsg": 4326
+    },
+    {
+      "sourceUrl": "https://ndownloader.figshare.com/files/54107237",
+      "bytes": 87424454,
+      "md5": "d102dec4bd26d5e2550faf72b98efcfb",
+      "sourceEpsg": 4326
+    }
+  ],
+  "originalHeightCounts": {
+    "measured": 0,
+    "tag": 346,
+    "levels": 17,
+    "default": 49015
+  },
+  "heightCounts": {
+    "measured": 0,
+    "tag": 346,
+    "levels": 17,
+    "globfp2020": 41855,
+    "default": 7160
+  },
+  "unmatchedReasons": {
+    "ambiguous-overlap": 35,
+    "insufficient-overlap": 5679,
+    "invalid-source-height": 62,
+    "no-intersection": 1384
+  },
+  "retainedFootprintAndOtherPropertySha256": "d05c8649e1bb35cac4d1aef2bd50a7f37568f9fff93d3ba0656d636dd8796acf",
+  "retainedSourceHeightFeatures": 363,
+  "retainedSourceHeightFeaturesSha256": "fb69055ff28b95b3973c7fca020748b60ac3d1fb190b97cf336cdc7c03c4c10c",
+  "assignedHeightQuantilesMetres": {
+    "0": 2.0,
+    "0.25": 6.8,
+    "0.5": 10.2,
+    "0.75": 16.9,
+    "0.9": 24.6,
+    "0.95": 30.0,
+    "0.99": 43.5,
+    "1": 89.7
+  },
+  "sourceAssociations": {
+    "file": "building-height-associations.json.gz",
+    "count": 41855,
+    "sha256": "b6818cfd4e2e824096ddec0f25f1ef1912971f71a762cfe3f82908492c0a2873"
+  },
+  "limits": [
+    "2020 predictions and later footprint releases have different dates.",
+    "Strict polygon overlap reduces incorrect associations but is not height validation.",
+    "Tall-building errors can be larger; no per-building confidence or local accuracy is asserted.",
+    "Flat roof extrusion remains LoD1; no measured roof geometry or current facade is supplied."
+  ]
+}

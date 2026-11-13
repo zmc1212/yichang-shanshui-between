@@ -1,0 +1,149 @@
+{
+  "schemaVersion": 1,
+  "title": "现有樟树透明图的可见根干接地基准",
+  "appearanceOnly": true,
+  "notice": "像素与模型显示接地的修正，不是树木测绘；原图、树木位置、高度、数量及地形数据保持不变。",
+  "runtimeProfile": {
+    "version": 1,
+    "sourceImage": "assets/riverside/camphor-cutout.png",
+    "sourceImageSha256": "a3e6fcc81bd3e7cd4369151fb5d5d697afa38a20c544885dac35470bf8054c38",
+    "sourceImageSize": [
+      1214,
+      1295
+    ],
+    "alphaCutoff": 0.46,
+    "anchorUv": [
+      0.47899505766062606,
+      0.01196911196911199
+    ],
+    "contactUvs": [
+      [
+        0.44522240527182866,
+        0.01196911196911199
+      ],
+      [
+        0.45647995606809444,
+        0.01196911196911199
+      ],
+      [
+        0.4677375068643603,
+        0.01196911196911199
+      ],
+      [
+        0.47899505766062606,
+        0.01196911196911199
+      ],
+      [
+        0.4902526084568918,
+        0.01196911196911199
+      ],
+      [
+        0.5015101592531577,
+        0.01196911196911199
+      ],
+      [
+        0.5127677100494233,
+        0.01196911196911199
+      ]
+    ],
+    "embedMeters": 0.03,
+    "vegetationSha256": "1b86d19b45e7fcf14612900b86d7c466e7b8fd99622fb6ba20776e5873f35a93",
+    "roadsSha256": "5c2241d19f315856f4bbf4c580a38285566345a94c12b680626d0d023c7c27dd",
+    "excludedInstances": [
+      {
+        "position": [
+          111.271938,
+          30.68832,
+          11.75,
+          245847302
+        ],
+        "reason": "与源道路坡面相交",
+        "roadId": "way/881043955"
+      }
+    ]
+  },
+  "source": {
+    "file": "dist/assets/riverside/camphor-cutout.png",
+    "bytes": 2576311,
+    "sha256": "a3e6fcc81bd3e7cd4369151fb5d5d697afa38a20c544885dac35470bf8054c38",
+    "mode": "RGBA",
+    "size": [
+      1214,
+      1295
+    ]
+  },
+  "selection": {
+    "method": "Widest contiguous alpha >= shader cutoff run in the original bottom 2 percent; lowest row wins ties",
+    "lowerImageFraction": 0.02,
+    "lowerBandStartRow": 1269,
+    "selectedRow": 1279,
+    "selectedPixelColumnsInclusive": [
+      540,
+      622
+    ],
+    "selectedRunPixelCount": 83,
+    "textureCoordinates": "Pixel centers; v=1 is image top",
+    "alphaIntegerMinimum": 118,
+    "sourceVisibleBoundingBoxExclusive": [
+      13,
+      10,
+      1203,
+      1284
+    ],
+    "bottommostVisibleRow": 1283,
+    "bottommostRowVisiblePixelCount": 6,
+    "bottommostVisiblePixelCenterV": 0.008880308880308885,
+    "samplesPerPlane": 7,
+    "planesPerTree": 3,
+    "terrainSamplesPerTree": 21
+  },
+  "unchangedVegetation": {
+    "file": "dist/data/riverside-yichang/vegetation.json",
+    "sha256": "1b86d19b45e7fcf14612900b86d7c466e7b8fd99622fb6ba20776e5873f35a93",
+    "count": 2599,
+    "heightRangeMeters": [
+      8.0,
+      12.0
+    ],
+    "maximumPlaneHalfWidthMeters": 5.805460754565304
+  },
+  "unchangedRoads": {
+    "file": "dist/data/gis-yichang/roads.geojson",
+    "sha256": "5c2241d19f315856f4bbf4c580a38285566345a94c12b680626d0d023c7c27dd"
+  },
+  "displaySelection": {
+    "sourceCount": 2599,
+    "excludedSourceIndices": [
+      2300
+    ],
+    "displayCount": 2598,
+    "note": "Source point records are retained. Only exact source tuples with a documented displayed geometry conflict are omitted from the tree batch."
+  },
+  "geometryContract": {
+    "horizontal": "(u - anchorUv[0]) * 2 * halfWidth; all three trunk centers share the original tree point",
+    "vertical": "quadBaseLocalZ = min(local terrain Z at the 21 contact samples) - height * anchorUv[1] - embedMeters",
+    "terrain": "createYichangTerrain.surfaceHeightAt: decoded highest-available provider triangle mesh, including height quantization, queried after the same ENU transform",
+    "maximumHorizontalPlaneShiftMeters": 0.24388673680628511,
+    "maximumRootContactRadiusMeters": 0.3921316160414789
+  },
+  "flatTerrainAudit": {
+    "method": "Pixel-center comparison on a constant-height terrain, before tile quantization or minification",
+    "oldQuadGroundOffsetMeters": 0.1,
+    "oldLowestVisiblePixelGapMeters": [
+      0.17104247104247108,
+      0.20656370656370662
+    ],
+    "newContactStripEmbedMeters": 0.03,
+    "newLowestVisiblePixelGapMeters": [
+      -0.06706563706563726,
+      -0.05471042471042484
+    ]
+  },
+  "limitations": [
+    "Pixel-derived contact is a display correction, not a surveyed root shape.",
+    "The tree card shape, height, image colors, source alpha and all 2599 point records are retained.",
+    "Contact uses the provider triangle reconstruction, not the smoother native bilinear source grid. Coarser visible LOD may differ.",
+    "On steep DSM-derived slopes, the higher ground naturally hides more of the lower trunk.",
+    "The fixed source hash requires a new audit if the cutout image is replaced."
+  ]
+}

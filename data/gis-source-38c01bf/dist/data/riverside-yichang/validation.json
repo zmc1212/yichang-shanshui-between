@@ -1,0 +1,24 @@
+{
+  "status": "passed",
+  "validatedAt": "2026-11-04T09:37:00.035904+00:00",
+  "sourcePolygons": 83,
+  "treePoints": 2599,
+  "duplicates": 0,
+  "invalidGeometry": 0,
+  "outsideExportedSourcePolygons": 0,
+  "outsideOriginalSourcePolygons": 0,
+  "coarseForestRepresentations": 0,
+  "minimumPavilionDistanceMetres": 61.42,
+  "maximumPavilionDistanceMetres": 1799.67,
+  "exclusionViolations": {
+    "roadBuffer": 0,
+    "waterBuffer": 0,
+    "buildingBuffer": 0,
+    "pavedAreas": 0
+  },
+  "verifiedSha256": {
+    "greenspace": "0d88a2b1a1b2dfb6eee652ba99c050ae3f5b065d28dd1c1d9d0d3718cb5f745d",
+    "vegetation": "1b86d19b45e7fcf14612900b86d7c466e7b8fd99622fb6ba20776e5873f35a93"
+  },
+  "note": "Offline geometry validation; illustrative trees are not a surveyed inventory; no browser GPU rendering claim."
+}

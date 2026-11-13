@@ -1,0 +1,105 @@
+{
+  "schemaVersion": 1,
+  "region": "宜昌中心城区",
+  "bounds": [
+    111.2,
+    30.62,
+    111.41,
+    30.78
+  ],
+  "crs": "EPSG:4326",
+  "asOf": "2026-11-04T07:12:03Z",
+  "builtAt": "2026-11-04T07:20:44.184546+00:00",
+  "attribution": "© OpenStreetMap contributors",
+  "attributionUrl": "https://www.openstreetmap.org/copyright",
+  "license": "ODbL-1.0",
+  "licenseUrl": "https://opendatacommons.org/licenses/odbl/1-0/",
+  "source": "OpenStreetMap via the FOSSGIS Overpass API",
+  "sourceUrl": "https://overpass-api.de/api/interpreter",
+  "query": "[out:json][timeout:45][maxsize:33554432];(way[\"highway\"](30.62,111.20,30.78,111.41);way[\"waterway\"~\"^(river|canal|stream|ditch|drain)$\"](30.62,111.20,30.78,111.41);way[\"natural\"=\"water\"](30.62,111.20,30.78,111.41);way[\"waterway\"=\"riverbank\"](30.62,111.20,30.78,111.41);relation[\"natural\"=\"water\"](30.62,111.20,30.78,111.41);relation[\"waterway\"=\"riverbank\"](30.62,111.20,30.78,111.41););out body geom;",
+  "raw": {
+    "bytes": 7261291,
+    "sha256": "e5c5488e75b153f70b002d37c850bba0a34f74040d2cf7850ff222d03dbe6e8b",
+    "elements": 7450
+  },
+  "counts": {
+    "roads": 7210,
+    "roadCountUnit": "OSM way / 道路段，不是独立街道数",
+    "waterFeatures": 179,
+    "waterAreas": 85,
+    "waterways": 94,
+    "roadClasses": {
+      "trunk": 295,
+      "trunk_link": 184,
+      "motorway_link": 143,
+      "motorway": 138,
+      "primary_link": 132,
+      "primary": 490,
+      "secondary": 281,
+      "secondary_link": 65,
+      "tertiary": 458,
+      "tertiary_link": 23,
+      "residential": 897,
+      "unclassified": 26,
+      "living_street": 3,
+      "service": 3028,
+      "steps": 155,
+      "footway": 774,
+      "pedestrian": 42,
+      "track": 18,
+      "path": 14,
+      "cycleway": 44
+    },
+    "bridges": 641,
+    "tunnels": 181,
+    "waterPolygonHoles": 4,
+    "roadVertices": 53700,
+    "waterVertices": 5080
+  },
+  "measurements": {
+    "roadCenterlineKm": 2579.686,
+    "waterAreaKm2": 27.41,
+    "waterwayCenterlineKm": 140.121
+  },
+  "processing": {
+    "roadSimplificationMeters": 1.5,
+    "waterSimplificationMeters": 2.0,
+    "coordinateDecimals": 6,
+    "junctions": "OSM shared road nodes and way endpoints retained",
+    "waterRelations": "outer rings polygonized, inner rings subtracted, then clipped; open/incomplete rings rejected",
+    "widthMeters": "OSM width when valid, otherwise lanes × 3.2 m or road-class display default; not survey data",
+    "omittedHighways": [
+      "construction",
+      "corridor",
+      "proposed",
+      "services"
+    ],
+    "areaHighways": "excluded from centerline layer",
+    "coverage": "Publicly mapped features within the bbox; not an authoritative or complete city inventory"
+  },
+  "quality": {
+    "inputRoadVertices": 71995,
+    "simplifiedRoadVerticesBeforeQuantization": 53726,
+    "preservedJunctions": 10375,
+    "roadsOutsideOrClipSliver": 1,
+    "omittedPlannedOrIndoorRoads": 46,
+    "omittedHighwayAreaPolygons": 14,
+    "relationHolesBeforeClip": 4,
+    "relationHolesAfterClip": 4,
+    "waterRelations": 3,
+    "serializationRepairs": 13,
+    "warnings": [],
+    "allOutputGeometriesValid": true,
+    "allOutputCoordinatesWithinBounds": true
+  },
+  "files": {
+    "roads.geojson": {
+      "bytes": 2587303,
+      "sha256": "5c2241d19f315856f4bbf4c580a38285566345a94c12b680626d0d023c7c27dd"
+    },
+    "water.geojson": {
+      "bytes": 144685,
+      "sha256": "d2afa9fc48fe87d6b453f3225aeb57a0d827496a426b16edcd8e232ab224d6d0"
+    }
+  }
+}

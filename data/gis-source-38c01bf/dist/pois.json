@@ -1,0 +1,173 @@
+[
+  {
+    "id": "zhenjiang-pavilion",
+    "name": "镇江阁",
+    "category": "culture",
+    "district": "老城滨江",
+    "longitude": 111.2708465,
+    "latitude": 30.7034514,
+    "height": 0,
+    "range": 320,
+    "pitch": -28,
+    "heading": 0,
+    "description": "长江岸边的宜昌文化地标，临江楼阁与屈原广场共同构成老城滨江景观。",
+    "coordinateNote": "WGS84 地图参考点，依据 OSM node 11539194579；模型为展示性落位，非测绘成果。",
+    "sourceUrls": [
+      "https://www.openstreetmap.org/node/11539194579",
+      "https://mapcarta.com/N11539194579",
+      "https://ylj.yichang.gov.cn/content-43970-961458-1.html"
+    ],
+    "modelId": "zhenjiang-s29",
+    "thumbnail": "./assets/zhenjiang-s29-native.png"
+  },
+  {
+    "id": "erma-road",
+    "name": "二马路历史文化街区",
+    "category": "culture",
+    "district": "老城滨江",
+    "longitude": 111.28167,
+    "latitude": 30.69532,
+    "height": 0,
+    "range": 1100,
+    "pitch": -35,
+    "heading": 0,
+    "description": "沿江老城中的历史文化街区，保留商埠记忆，连接城市更新与滨江生活。",
+    "coordinateNote": "WGS84 地图参考点；为街区浏览选点，不代表街区边界或某栋建筑精确位置，非测绘成果。",
+    "sourceUrls": [
+      "https://www.yichang.gov.cn/show-64228-1077261-1.html",
+      "https://www.yichang.gov.cn/html/zhengwuyizhantong/zhengwuzixun/xinwenfabuhui/xinwenfabu/2026/0710/1078244.html",
+      "https://www.openstreetmap.org/?mlat=30.69532&mlon=111.28167#map=17/30.69532/111.28167"
+    ]
+  },
+  {
+    "id": "yiling-bridge",
+    "name": "夷陵长江大桥",
+    "category": "engineering",
+    "district": "长江沿线",
+    "longitude": 111.29084,
+    "latitude": 30.68558,
+    "height": 0,
+    "range": 2500,
+    "pitch": -35,
+    "heading": 0,
+    "description": "横跨宜昌中心城区长江河段的斜拉桥，连接两岸城市生活与滨江风景。",
+    "coordinateNote": "WGS84 地图参考点，依据 OSM way 1389764546 的桥梁地图标注；为桥区观景参考，非测绘成果。",
+    "sourceUrls": [
+      "https://www.openstreetmap.org/way/1389764546",
+      "https://mapcarta.com/29129010",
+      "https://en.wikipedia.org/wiki/Yiling_Yangtze_River_Bridge"
+    ]
+  },
+  {
+    "id": "mojishan-park",
+    "name": "磨基山公园",
+    "category": "nature",
+    "district": "江南滨江",
+    "longitude": 111.2833374,
+    "latitude": 30.6820522,
+    "height": 0,
+    "range": 1800,
+    "pitch": -35,
+    "heading": 0,
+    "description": "位于长江南岸的山地公园，可从江南视角感受宜昌山水相依的城市格局。",
+    "coordinateNote": "WGS84 地图参考点，依据 OSM node 9723874264；为公园位置参考，非测绘成果。",
+    "sourceUrls": [
+      "https://www.openstreetmap.org/node/9723874264",
+      "https://mapcarta.com/N9723874264"
+    ]
+  },
+  {
+    "id": "tianran-pagoda",
+    "name": "天然塔",
+    "category": "culture",
+    "district": "伍家岗滨江",
+    "longitude": 111.32162,
+    "latitude": 30.6647,
+    "height": 0,
+    "range": 750,
+    "pitch": -35,
+    "heading": 0,
+    "description": "矗立江畔的古塔，是宜昌沿江风景与城市历史记忆中的重要地标。",
+    "coordinateNote": "WGS84 地图参考点，依据 OSM way 1058306288；为古塔地图位置参考，非测绘成果。",
+    "sourceUrls": [
+      "https://www.openstreetmap.org/way/1058306288",
+      "https://mapcarta.com/W1058306288",
+      "https://mzj.yichang.gov.cn/content-63849-997288-1.html"
+    ]
+  },
+  {
+    "id": "gezhouba-dam",
+    "name": "葛洲坝水利枢纽",
+    "category": "engineering",
+    "district": "长江干流",
+    "longitude": 111.27234,
+    "latitude": 30.73883,
+    "height": 0,
+    "range": 4300,
+    "pitch": -35,
+    "heading": 0,
+    "description": "位于宜昌长江干流的水利枢纽，兼具发电、通航与水利工程观景价值。",
+    "coordinateNote": "WGS84 地图参考点，依据 GeoNames 1810172 的公开地图标注；为枢纽区域参考，非测绘成果。",
+    "sourceUrls": [
+      "https://mapcarta.com/15966022",
+      "https://www.geonames.org/1810172",
+      "https://eps.ctg.com.cn/cms/channel/2ywgg1/240639650.htm"
+    ]
+  },
+  {
+    "id": "xiba-island",
+    "name": "西坝岛",
+    "category": "nature",
+    "district": "长江江心岛",
+    "longitude": 111.2747,
+    "latitude": 30.7289,
+    "height": 0,
+    "range": 2700,
+    "pitch": -35,
+    "heading": 0,
+    "description": "长江中的城市岛屿，毗邻葛洲坝，可俯瞰岛岸、江面与城市的空间关系。",
+    "coordinateNote": "WGS84 地图参考点，依据 OSM way 431946927；为岛屿区域中心，不是龙园或其他建筑落点，非测绘成果。",
+    "sourceUrls": [
+      "https://www.openstreetmap.org/way/431946927",
+      "https://mapcarta.com/W431946927"
+    ]
+  },
+  {
+    "id": "three-gorges-dam",
+    "name": "三峡大坝",
+    "category": "engineering",
+    "district": "三斗坪",
+    "longitude": 111.0045,
+    "latitude": 30.82463,
+    "height": 0,
+    "range": 6500,
+    "pitch": -35,
+    "heading": 0,
+    "description": "三斗坪江段上的大型水利工程，以大坝、船闸与峡江水域展现宜昌水电城市特色。",
+    "coordinateNote": "WGS84 地图参考点，依据 OSM way 894098127；为坝体中心附近参考点，不是景区入口，非测绘成果。",
+    "sourceUrls": [
+      "https://www.openstreetmap.org/way/894098127",
+      "https://mapcarta.com/25055570",
+      "https://eps.ctg.com.cn/cms/channel/1ywgg1/240403262.htm"
+    ]
+  },
+  {
+    "id": "yichang-east",
+    "name": "宜昌东站",
+    "category": "transport",
+    "district": "东站片区",
+    "longitude": 111.36488,
+    "latitude": 30.66041,
+    "height": 0,
+    "range": 2000,
+    "pitch": -35,
+    "heading": 0,
+    "description": "宜昌重要铁路客运枢纽，是城市对外联系与交通门户的代表性节点。",
+    "coordinateNote": "WGS84 地图参考点，依据 OSM node 539460541；为站区地图参考，不是出入口或站房测量点，非测绘成果。",
+    "sourceUrls": [
+      "https://www.openstreetmap.org/node/539460541",
+      "https://mapcarta.com/34716372",
+      "https://en.wikipedia.org/wiki/Yichang_East_railway_station"
+    ]
+  }
+]

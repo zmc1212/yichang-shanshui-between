@@ -1,0 +1,40 @@
+YICHANG BUILDING FOOTPRINTS
+
+© OpenStreetMap contributors; © Overture Maps Foundation. East Asian building footprints: Qian Shi et al., DOI:10.5281/zenodo.8174931, CC BY 4.0.
+Supplemental height estimates: Yangzi Che et al., 3D-GloBFP v3 (2020), DOI:10.5281/zenodo.15459025, CC BY 4.0.
+
+This derived database is available under ODbL 1.0:
+https://opendatacommons.org/licenses/odbl/1-0/
+
+East Asian Buildings source attribution:
+Qian Shi et al. A First High-quality Vector Data of Buildings in East Asian Countries Based on a Comprehensive Large-scale Mapping Framework. Zenodo, 22 July 2023. DOI:10.5281/zenodo.8174931. CC BY 4.0.
+https://creativecommons.org/licenses/by/4.0/
+
+Overture release: 2026-10-21.0. The release date is not an imagery-capture date.
+Original footprint changes: clipped bounds, simplified and rounded coordinates, spatial tiles, explicit display-height properties.
+
+3D-GloBFP height source and licence:
+Yangzi Che et al., 3D-GloBFP v3, 2020 reference year.
+Dataset DOI: https://doi.org/10.5281/zenodo.15459025
+Source part: https://doi.org/10.6084/m9.figshare.28906499.v3
+Research paper: https://doi.org/10.5194/essd-16-5357-2024
+CC BY 4.0: https://creativecommons.org/licenses/by/4.0/
+This height attribution supplements, and does not replace, the original footprint attribution and ODbL distribution terms above.
+
+Current height categories for 49,378 retained footprints:
+- heightSource=tag: 346 source-provided heights, not independently verified.
+- heightSource=levels: 17 source floor counts times an estimated 3 metres.
+- heightSource=globfp2020: 41,855 remote-sensing height predictions from 3D-GloBFP (2020), assigned after strict footprint matching.
+- heightSource=default: 7,160 fixed 12 metre display heights, neither measured nor predicted.
+- heightSource=measured: 0; no independently surveyed heights were introduced.
+
+Before V56, 49,015 buildings used the 12 metre default. The height supplement changes only heightMeters and heightSource of eligible default-height features. Original IDs, footprint geometry, all other properties and the existing tag/levels heights are retained.
+
+Association rules: IoU >= 0.60; target and source coverage >= 0.75; every target MultiPolygon part coverage >= 0.75. Reject a second source with target coverage >= 0.20. One source is assigned to at most one updated target. Accept only finite source heights in [2, 1000] metres, rounded to 0.1 metre for display. Rounding is not a precision or accuracy claim. Ambiguous and unmatched targets retain their original default.
+
+The 138 building tiles total 17,272,449 bytes. Individual-tile gzip estimates total 3,256,654 bytes; the largest tile is 292,649 bytes. Actual transfer size depends on hosting compression.
+
+The 2020 predictions and later footprint release have different reference dates. Spatial overlap does not validate local height accuracy. These are flat-roof LoD1 display volumes, not current surveyed buildings, measured roof geometry or photogrammetry. No random footprints or random heights were generated.
+
+See ../buildings-source.json for bounds, counts, original sources, download URLs and checksums.
+See ../building-height-source.json for height provenance, acceptance/rejection counts and limitations, and ../building-height-associations.json.gz for the per-building association ledger and original prediction values.
