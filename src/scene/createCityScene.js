@@ -42,6 +42,9 @@ const NIGHT = {
 };
 const DAY_LIGHT = { hemisphere: 1.16, sun: 2.12, fill: 0.28, exposure: 1.02 };
 const BUILDING_HEIGHT_EXAGGERATION = 3.8;
+// SRTM is ~30 m resolution; modest vertical exaggeration makes Yichang's
+// mountain-valley relief legible in the miniature without changing source DEM.
+export const TERRAIN_VERTICAL_EXAGGERATION = 2.6;
 
 function randomGenerator(seed = 928371) {
   return () => {
@@ -251,7 +254,7 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     const interpolated = totalWeight > 0
       ? samples.reduce((sum, sample) => sum + sample[0] * sample[1], 0) / totalWeight
       : 0;
-    return THREE.MathUtils.clamp(interpolated, 0, extent * 0.12);
+    return THREE.MathUtils.clamp(interpolated * TERRAIN_VERTICAL_EXAGGERATION, 0, extent * 0.22);
   }
   function surfaceHeight(x, z) {
     if (inWater(x, z)) return 0;
