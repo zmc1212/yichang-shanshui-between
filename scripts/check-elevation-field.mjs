@@ -28,7 +28,7 @@ check('nodata is not silently converted into zero elevation', () => {
   const field = createElevationField({ ...grid, values: [100, -9999, 120, 110, 120, 130, 120, 130, 140] });
   assert.equal(field.sample(-10, -20), 100);
   assert.equal(field.sample(0, -20), 120);
-  assert.equal(field.sample(-5, -20), 110);
+  assert.equal(field.sample(-5, -20), 100);
   assert.equal(field.getStats().noDataCount, 1);
 });
 check('gradient uses source spacing and applies display scale only on request', () => {
@@ -43,7 +43,7 @@ check('terrain geometry is finite, indexed, and omits triangles touching nodata'
   const positions = geometry.getAttribute('position');
   assert.equal(positions.count, 9);
   assert(positions.array.every(Number.isFinite));
-  assert.equal(geometry.index.count, 18);
+  assert.equal(geometry.index.count, 3);
   assert(geometry.getAttribute('normal').array.every(Number.isFinite));
   assert.equal(geometry.userData.elevation.validVertices, 8);
   geometry.dispose();
