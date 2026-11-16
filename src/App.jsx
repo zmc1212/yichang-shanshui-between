@@ -177,7 +177,10 @@ export default function App(){
 
   useEffect(()=>{
     const controller = new AbortController();
-    fetch('/data/city.json',{signal:controller.signal,cache:'no-cache'}).then(r=>{if(!r.ok)throw new Error('城市数据暂未加载成功');return r.json();}).then(setData).catch(e=>{if(e.name!=='AbortError')setError(e.message);});
+    Promise.all([
+      fetch(`${import.meta.env.BASE_URL}data/city.json`,{signal:controller.signal,cache:'no-cache'}).then(r=>{if(!r.ok)throw new Error('城市数据暂未加载成功');return r.json();}),
+      fetch(`${import.meta.env.BASE_URL}data/elevation/terrain-grid.json`,{signal:controller.signal,cache:'no-cache'}).then(r=>r.ok?r.json():null).catch(e=>{if(e.name==='AbortError')throw e;return null;})
+    ]).then(([city,terrain])=>setData(terrain?{...city,terrain}:city)).catch(e=>{if(e.name!=='AbortError')setError(e.message);});
     const motionMedia=window.matchMedia('(prefers-reduced-motion: reduce)');
     const updateMotion=()=>setMotionEnabled(!motionMedia.matches);
     motionMedia.addEventListener('change',updateMotion);
