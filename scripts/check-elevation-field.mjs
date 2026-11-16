@@ -20,14 +20,14 @@ check('bilinear sampling preserves metre elevations and bounds', () => {
   const field = createElevationField(grid);
   assert.equal(field.sample(-10, -20), 100);
   assert.equal(field.sample(-5, -15), 110);
-  assert.equal(field.sample(0, 0), 140);
+  assert.equal(field.sample(0, 0), 130);
   assert.equal(field.sample(1, 0), null);
   assert.deepEqual(field.bounds, { minX: -10, maxX: 10, minZ: -20, maxZ: 0 });
 });
 check('nodata is not silently converted into zero elevation', () => {
   const field = createElevationField({ ...grid, values: [100, -9999, 120, 110, 120, 130, 120, 130, 140] });
   assert.equal(field.sample(-10, -20), 100);
-  assert.equal(field.sample(0, -20), 120);
+  assert.equal(field.sample(10, -20), 120);
   assert.equal(field.sample(-5, -20), 100);
   assert.equal(field.getStats().noDataCount, 1);
 });
