@@ -11,8 +11,8 @@ const shouxin={
   caveat:'位置与朝向依据原导图及地图轮廓配准，未作现场测绘。模型保持原形比，绝对尺寸、精确方位、背面与屋顶仍待复核；字牌保留参考时期外观。',
   sourceBounds:{min:[-20.43000030517578,0,-14.0649995803833],max:[20.43000030517578,97.94000244140625,14.065000534057617]},
   displayHeight:1.6228058571002701,flatShading:true,
-  assets:{light:'${import.meta.env.BASE_URL}models/shouxin-s01/light.glb?v=s01-20261109-1',detail:'${import.meta.env.BASE_URL}models/shouxin-s01/detail.glb?v=s01-20261109-1'},
-  modelNotesUrl:'${import.meta.env.BASE_URL}models/shouxin-s01/README.txt',registrationUrl:'${import.meta.env.BASE_URL}models/shouxin-s01/REGISTRATION.txt',
+  assets:{light:`${import.meta.env.BASE_URL}models/shouxin-s01/light.glb?v=s01-20261109-1`,detail:`${import.meta.env.BASE_URL}models/shouxin-s01/detail.glb?v=s01-20261109-1'},
+  modelNotesUrl:`${import.meta.env.BASE_URL}models/shouxin-s01/README.txt`,registrationUrl:`${import.meta.env.BASE_URL}models/shouxin-s01/REGISTRATION.txt`,
 };
 
 // The source registry remains exactly 23 projects. Only the selected default
