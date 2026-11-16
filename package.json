@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "check:elevation": "node scripts/check-elevation-field.mjs"
+    "check:elevation": "node scripts/check-elevation-field.mjs",
+    "check:dem": "node scripts/check-dem-contract.mjs"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.7",
