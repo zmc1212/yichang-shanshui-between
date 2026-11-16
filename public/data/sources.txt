@@ -296,3 +296,13 @@ OpenStreetMap层级说明：https://wiki.openstreetmap.org/wiki/Key:layer
 背景建筑窗格、层间线及屋顶配色为程序化示意材质，不代表实际立面。地面灰绿色到铺装色的变化基于既有建筑轮廓的邻域遮罩，排除现有水域和公园资料；不是新增土地利用或铺装测绘数据。道路只调整材质色阶，原中心线、宽度与层级判断保持不变。
 万达与国际广场附近新增沿江大道、港沙路、夷陵大道、万达路、江海路两侧的展示性窄铺装、树池与灯具。全部新增地面避让车行域、既有楼体、现有街景、水域及高架/地下或未知层级道路；设施并非实测点位，不构成已核实的公共通行路线。国际广场沿用同期更新中针对当前模型两级 GLB 三角面核验后的新前场衔接，从既有铺装实际外缘接出；没有将旧源模型的内部通道直接套到新模型。
 近景光照收紧同一张太阳阴影贴图的覆盖范围，使楼体阴影更清晰。窗格、地面与设施均随现有日景、日落、夜景和图层控制切换；16项近似落位、模型范围与原数据精度说明继续适用。
+
+
+## R2 城市地形补充（2026-11-16）
+
+- 宜昌核心城区地形采用 AWS Open Data Registry「Terrain Tiles」公开地形数据中的 SRTM 1 arc-second HGT 瓦片 N30E111。
+- 数据入口：https://s3.amazonaws.com/elevation-tiles-prod/skadi/N30/N30E111.hgt.gz
+- 数据注册与许可：https://registry.opendata.aws/terrain-tiles/
+- 署名说明：https://github.com/tilezen/joerd/blob/master/docs/attribution.md
+- 生成流程：scripts/build-yichang-dem.py；构建时下载源瓦片并裁切采样，不把原始 HGT 二进制复制进仓库。
+- 显示高程采用约 40 m 河面参考值并按 0.02 世界单位/米缩放；这是微缩展示基准，不是实测水位或精密高程配准。SRTM 约 30 m 级数据不能替代桥面、道路边坡及建筑基底测绘。
