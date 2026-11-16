@@ -241,11 +241,17 @@ export function createCityScene({ container, data, onSelect, onCameraChange, onR
     const fx = THREE.MathUtils.clamp((x / terrainWidth + 0.5) * (terrain.cols - 1), 0, terrain.cols - 1.001);
     const fz = THREE.MathUtils.clamp((z / terrainDepth + 0.5) * (terrain.rows - 1), 0, terrain.rows - 1.001);
     const ix = Math.floor(fx), iz = Math.floor(fz), tx = fx - ix, tz = fz - iz;
-    const a = Number(terrain.heights[iz * terrain.cols + ix]) || 0;
-    const b = Number(terrain.heights[iz * terrain.cols + ix + 1]) || 0;
-    const c = Number(terrain.heights[(iz + 1) * terrain.cols + ix]) || 0;
-    const d = Number(terrain.heights[(iz + 1) * terrain.cols + ix + 1]) || 0;
-    return THREE.MathUtils.clamp(THREE.MathUtils.lerp(THREE.MathUtils.lerp(a, b, tx), THREE.MathUtils.lerp(c, d, tx), tz), 0, extent * 0.12);
+    const samples = [
+      [terrain.heights[iz * terrain.cols + ix], (1 - tx) * (1 - tz)],
+      [terrain.heights[iz * terrain.cols + ix + 1], tx * (1 - tz)],
+      [terrain.heights[(iz + 1) * terrain.cols + ix], (1 - tx) * tz],
+      [terrain.heights[(iz + 1) * terrain.cols + ix + 1], tx * tz],
+    ].filter(([value, weight]) => Number.isFinite(value) && weight > 0);
+    const totalWeight = samples.reduce((sum, sample) => sum + sample[1], 0);
+    const interpolated = totalWeight > 0
+      ? samples.reduce((sum, sample) => sum + sample[0] * sample[1], 0) / totalWeight
+      : 0;
+    return THREE.MathUtils.clamp(interpolated, 0, extent * 0.12);
   }
   function surfaceHeight(x, z) {
     if (inWater(x, z)) return 0;
