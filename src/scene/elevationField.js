@@ -80,7 +80,12 @@ export function createElevationField(grid, { verticalScale = 1 } = {}) {
     return dx == null || dz == null ? null : { dx: dx * verticalScale, dz: dz * verticalScale };
   };
 
-  const validValues = values.filter(value => value !== noData && finite(value));
+  let validSampleCount = 0, minElevation = Infinity, maxElevation = -Infinity;
+  for (const value of values) if (value !== noData && finite(value)) {
+    validSampleCount++;
+    minElevation = Math.min(minElevation, value);
+    maxElevation = Math.max(maxElevation, value);
+  }
   return Object.freeze({
     source: grid.source || null,
     width, height, origin: [...origin], spacing: [...spacing], verticalScale,
@@ -90,10 +95,10 @@ export function createElevationField(grid, { verticalScale = 1 } = {}) {
     }),
     sample: at, heightAt, gradientAt,
     getStats: () => ({
-      width, height, sampleCount: values.length, validSampleCount: validValues.length,
-      noDataCount: values.length - validValues.length,
-      minElevation: validValues.length ? Math.min(...validValues) : null,
-      maxElevation: validValues.length ? Math.max(...validValues) : null,
+      width, height, sampleCount: values.length, validSampleCount,
+      noDataCount: values.length - validSampleCount,
+      minElevation: validSampleCount ? minElevation : null,
+      maxElevation: validSampleCount ? maxElevation : null,
       verticalScale, source: grid.source || 'unspecified',
     }),
   });
